@@ -1,0 +1,43 @@
+{
+  "name": "openclawd",
+  "version": "1.0.0",
+  "description": "OpenClawd — Financial AI Agent Platform for Solana DeFi",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "dev": "tsx watch src/index.ts",
+    "lint": "oxlint src",
+    "format": "oxfmt src",
+    "check": "pnpm typecheck && pnpm lint"
+  },
+  "keywords": [
+    "solana",
+    "ai-agent",
+    "defi",
+    "trading",
+    "jupiter",
+    "pump.fun"
+  ],
+  "author": "OpenClawd Team",
+  "license": "MIT",
+  "dependencies": {
+    "@jup-ag/api": "^6.0.0",
+    "@openrouter/agent": "^0.1.0",
+    "@solana/web3.js": "^1.95.0",
+    "axios": "^1.7.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.0.0",
+    "oxlint": "^0.12.0",
+    "tsx": "^4.19.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
