@@ -1,44 +1,60 @@
 # Security Policy
 
+OpenClawd is designed to be forked and deployed publicly. Treat repo hygiene as part of the security model.
+
+## Supported Branch
+
+| Branch | Supported |
+| --- | --- |
+| `main` | Yes |
+
 ## Reporting a Vulnerability
 
-If you discover a security issue in OpenClawd, please **do not** open a public
-GitHub issue. Instead, open a private security advisory on this repository:
+If you find a vulnerability, a leaked secret, or a credential that appears live:
 
-> https://github.com/x402agent/OpenClawd-Typescript/security/advisories/new
+1. Do not open a public issue.
+2. Open a private GitHub security advisory for this repository.
+3. Include impact, affected paths, reproduction steps, and any suggested mitigation.
+4. If the issue is a secret leak, rotate the credential immediately before doing anything else.
 
-Please include:
+## What Counts as a Security Issue
 
-- A description of the issue and its potential impact
-- Steps to reproduce, or a proof-of-concept
-- Any suggested mitigation, if you have one
+- committed secrets or deploy credentials
+- wallet or signing-flow bugs
+- auth or session bypasses
+- unsafe remote code execution paths
+- MCP tool exposure without proper controls
+- payment-verification bugs in x402 or gateway flows
 
-We will acknowledge receipt within 72 hours and aim to provide a remediation
-plan within 14 days.
+## Secret Handling Rules
 
-## Handling Secrets
+- Use `.env.example` files as templates only.
+- Never commit `.env`, `.env.local`, private keys, or provider exports.
+- For hosted deployments, store secrets in provider dashboards or secret stores.
+- If a secret lands in git history, rotate it first and then scrub history with `git filter-repo` or BFG before republishing.
+- The repo installs local git hooks via `npm install` or `npm run hooks:install`; pre-commit blocks staged `.env` files, key files, and common live-secret patterns.
 
-OpenClawd integrates with many third-party APIs (Solana RPC providers,
-Anthropic, OpenAI, Twitter, Bags.fm, Polymarket, Cloudflare, Supabase, etc.)
-and can sign Solana / EVM transactions. Treat every value listed in
-[`X/.env.example`](X/.env.example) as sensitive.
+## Public Release Checklist
 
-- **Never commit a populated `.env` file.** The `.gitignore` excludes `.env`
-  and `*.pem` / `*.key` / `wallet.json` / `keypair.json` patterns by default.
-- **Wallet private keys** (`PRIVATE_KEY`, `SOLANA_PRIVATE_KEY`,
-  `BAGS_PRIVATE_KEY`, `POLYMARKET_PRIVATE_KEY`, `ASTER_PRIVATE_KEY`,
-  `BUILDER_PRIVATE_KEY`, `THIRDWEB_VAULT_KEY`,
-  `PRIVY_AUTHORIZATION_PRIVATE_KEY`, `CDP_API_KEY_PRIVATE_KEY`) should
-  ideally come from a hardware wallet, KMS, or signer service — not a flat
-  file. If you must use a flat file in development, keep it on an
-  air-gapped or testnet-only wallet and fund it with the bare minimum.
-- **Rotate all keys** as soon as you suspect exposure. Most providers (Helius,
-  Anthropic, OpenAI, Cloudflare, Supabase, GitHub) let you revoke and reissue
-  in seconds.
-- **Run with the smallest scope possible.** Many of these APIs offer
-  read-only / scoped tokens — prefer those over full-access keys.
+Run these before merging release-facing changes or publishing a fork:
 
-## Supply Chain
+```bash
+npm run hooks:install
+npm run brand:check
+npm run guard:worktree
+npm run doctor
+npm run release:check
+```
 
-Dependencies are pinned through `package.json` and `pnpm-lock.yaml` /
-`package-lock.json`. Run `pnpm audit` (or `npm audit`) before each release.
+`release:check` is intended to catch:
+
+- tracked env files
+- likely committed secrets
+- broken top-level doc references
+- junk files that should not ship in a public repo
+
+## Scope and Expectations
+
+OpenClawd contains multiple subprojects and experimental areas. Not every directory is production-ready, but every public-facing path should remain safe to clone, inspect, and build without exposing real credentials.
+
+If you are unsure whether something is sensitive, assume it is and report it privately.

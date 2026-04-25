@@ -1,0 +1,101 @@
+# OpenClawd · LLM Context File
+
+## What We Just Did
+
+### 1. Enhanced install.sh with More Lobster Theming
+Updated `/install.sh` with extensive lobster theming for the CLI installer:
+- Elaborate ASCII lobster banner with multiple rows of 🦞 emoji
+- "OPENCLAWD" printed in block text with multi-color lobster gradient
+- All functions use 🦞 prefix in output messages
+- New lobster-themed colors: LOBSTER1, LOBSTER2, LOBSTER3, CORAL, SALMON
+- Added lobster dance and wave animation frames for spinners
+- All log messages prefixed with 🦞 emoji
+- Final lobster celebration animation on completion
+
+### 2. Fixed Bash Compatibility
+- Changed emoji-prefixed variables (🦞_TARGET_DIR) to ASCII-safe names (TARGET_DIR) since bash doesn't support emoji in variable names
+- Used proper `declare -a` for bash array definitions
+- Made script executable with chmod +x
+
+### 3. Added Cloudflare Credentials Template
+Added Cloudflare environment variables to the .env template:
+```
+# ── Cloudflare (optional) ───────────────────────────
+CLOUDFLARE_API_KEY=
+CLOUDFLARE_ZONE_ID=86d79e519b18c9d24d276ea2c7c4328e
+CLOUDFLARE_ACCOUNT_ID=2f5db575118d15ec19000e13282201bc
+```
+
+### 4. Updated Cloudflare Worker (install-worker)
+Modified `/workers/install-worker/` to serve a new gateway:
+
+#### wrangler.toml Routes
+```
+routes = [
+  { pattern = "install.solanaclawd.com", custom_domain = true },
+  # Gateway route for browser-based install
+  { pattern = "solanaclawd.com/gateway", zone_name = "solanaclawd.com" },
+  { pattern = "gateway.solanaclawd.com", custom_domain = true },
+  # Legacy install routes
+  { pattern = "solanaclawd.com/install.sh", zone_name = "solanaclawd.com" },
+  { pattern = "solanaclawd.com/install",    zone_name = "solanaclawd.com" },
+]
+```
+
+#### index.ts Routes
+- `GET /gateway` or `GET /gateway/` or `GET /install` → Returns HTML gateway page
+- `GET /install.sh` (default) → Returns raw shell script
+- `GET /healthz` → Returns "ok" for health checks
+
+#### Gateway HTML Features
+- Cyberpunk lobster-themed design with dark background
+- Animated waving lobster emoji
+- Gradient title "OpenClawd"
+- Copy-to-clipboard button for the install command
+- $CLAWD token display (8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump)
+- Feature cards: Realtime Voice, On-Chain Leviathan, 50+ Agent Commands, Three-Laws Gate
+- Footer with hotline, website, and GitHub links
+
+### 5. Synced install.sh to Worker
+Ran `npm run sync` in `workers/install-worker/` to embed the updated install.sh into the worker's install-script.ts
+
+---
+
+## Next Step: Add to Frontend
+
+**Add the gateway to solanaclawd.com's frontend:**
+
+1. **If solanaclawd.com is on Vercel/Netlify:**
+   - Copy the HTML from `/workers/install-worker/src/index.ts` (GATEWAY_HTML constant)
+   - Add a new route at `/gateway` that renders this HTML
+   - Or: Create a new page component at `pages/gateway.tsx` or `app/gateway/page.tsx`
+
+2. **Route Configuration:**
+   - Ensure `/gateway` route exists in the frontend
+   - The Cloudflare worker already handles `solanaclawd.com/gateway` if DNS is proxied
+
+3. **Files to Update:**
+   - `frontend/src/app/gateway/page.tsx` (create if doesn't exist)
+   - `frontend/src/app/layout.tsx` (add gateway to navigation if needed)
+   - `frontend/next.config.js` (add redirect if using Next.js)
+
+---
+
+## Key URLs
+- Install script: `https://solanaclawd.com/install.sh`
+- Gateway page: `https://solanaclawd.com/gateway`
+- Gateway subdomain: `https://gateway.solanaclawd.com`
+- Install subdomain: `https://install.solanaclawd.com`
+- Hotline: 909-413-5567
+- Token: 8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump
+
+---
+
+## Deploy Commands
+```bash
+# Deploy Cloudflare Worker
+cd workers/install-worker && npm install && npx wrangler deploy
+
+# Sync install.sh to worker
+cd workers/install-worker && npm run sync
+```

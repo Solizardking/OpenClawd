@@ -1,43 +1,43 @@
 {
   "name": "openclawd",
-  "version": "1.0.0",
-  "description": "OpenClawd — Financial AI Agent Platform for Solana DeFi",
-  "type": "module",
-  "scripts": {
-    "typecheck": "tsc --noEmit",
-    "build": "tsc",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "dev": "tsx watch src/index.ts",
-    "lint": "oxlint src",
-    "format": "oxfmt src",
-    "check": "pnpm typecheck && pnpm lint"
-  },
-  "keywords": [
-    "solana",
-    "ai-agent",
-    "defi",
-    "trading",
-    "jupiter",
-    "pump.fun"
-  ],
-  "author": "OpenClawd Team",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OpenClawd monorepo for Solana-native AI agents, payments, MCP tools, and developer surfaces.",
   "license": "MIT",
-  "dependencies": {
-    "@jup-ag/api": "^6.0.0",
-    "@openrouter/agent": "^0.1.0",
-    "@solana/web3.js": "^1.95.0",
-    "axios": "^1.7.0",
-    "zod": "^3.23.0"
-  },
-  "devDependencies": {
-    "@types/node": "^22.0.0",
-    "typescript": "^5.6.0",
-    "vitest": "^2.0.0",
-    "oxlint": "^0.12.0",
-    "tsx": "^4.19.0"
-  },
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=20",
+    "npm": ">=10"
+  },
+  "scripts": {
+    "prepare": "node scripts/install-git-hooks.mjs",
+    "install:all": "npm run install:agents && npm run install:router && npm run install:registrar && npm run install:cli && npm run install:hub && npm run install:wallet && npm run install:stack",
+    "install:agents": "cd AGENTS && npm install --no-audit --no-fund",
+    "install:router": "cd clawdrouter && npm install --no-audit --no-fund",
+    "install:registrar": "cd api-registrar && npm install --no-audit --no-fund",
+    "install:cli": "cd clawd-code-cli && npm install --no-audit --no-fund",
+    "install:hub": "cd clawdhub && npm install --no-audit --no-fund",
+    "install:wallet": "cd packages/clawd-wallet && npm install --no-audit --no-fund",
+    "install:stack": "cd openclawd-stack && pnpm install --no-frozen-lockfile",
+    "build:catalog": "cd AGENTS && node build-catalog.cjs",
+    "lint": "npm --prefix clawdrouter run lint --if-present && npm --prefix api-registrar run lint --if-present && npm --prefix clawd-code-cli run lint --if-present",
+    "typecheck": "npm --prefix clawdrouter run typecheck --if-present && npm --prefix api-registrar run typecheck --if-present && npm --prefix clawd-code-cli run typecheck --if-present",
+    "dev:router": "cd clawdrouter && npm run dev",
+    "dev:registrar": "cd api-registrar && npm run dev",
+    "dev:cli": "cd clawd-code-cli && npm run dev",
+    "dev:orchestrator": "cd openclawd-stack && pnpm dev:orchestrator",
+    "hooks:install": "node scripts/install-git-hooks.mjs",
+    "brand:check": "node scripts/brand-check.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "guard:staged": "node scripts/guard-secrets.mjs --staged",
+    "guard:worktree": "node scripts/guard-secrets.mjs --worktree",
+    "release:check": "node scripts/release-check.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/x402agent/openclawd.git"
+  },
+  "homepage": "https://github.com/x402agent/openclawd#readme",
+  "bugs": {
+    "url": "https://github.com/x402agent/openclawd/issues"
   }
 }
