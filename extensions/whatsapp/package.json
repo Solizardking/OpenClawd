@@ -1,0 +1,14 @@
+{
+  "name": "@openclawd/whatsapp",
+  "version": "2026.2.1",
+  "description": "OpenClawd WhatsApp channel plugin",
+  "type": "module",
+  "devDependencies": {
+    "openclawd": "workspace:*"
+  },
+  "openclawd": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+name = "pump-scanner-cron"
+main = "src/worker.ts"
+compatibility_date = "2024-12-01"
+# account_id = "<your-cloudflare-account-id>"
+
+[triggers]
+crons = ["*/30 * * * *"]
+
+[vars]
+CONVEX_SITE_URL = "https://YOUR-DEPLOYMENT.convex.site"
+GECKO_PAGES = "3"
+SOURCE_TAG = "cloudflare-cron"
+HONCHO_WORKSPACE = "pumpfun-trading"
+# Replace with your own RPC endpoint (QuickNode, Helius, Triton, Alchemy, etc.)
+# or keep the public mainnet-beta URLs.
+QUICKNODE_RPC_URL = "https://api.mainnet-beta.solana.com"
+QUICKNODE_WSS_URL = "wss://api.mainnet-beta.solana.com"
+SOLANA_RPC_URL = "https://api.mainnet-beta.solana.com"
+SOLANA_WSS_URL = "wss://api.mainnet-beta.solana.com"
+BIRDEYE_WSS_URL = "wss://public-api.birdeye.so/socket/solana"
+SOLANA_TRACKER_RPC_URL = "https://rpc-mainnet.solanatracker.io"
+SOLANA_TRACKER_WS_URL = "wss://datastream.solanatracker.io"
+
+# Secrets (set via `wrangler secret put`):
+# SOLANA_TRACKER_API_KEY
+# SOLANA_TRACKER_DATA_API_KEY
+# SOLANA_TRACKER_RPC_API_KEY
+# BIRDEYE_API_KEY
+# HONCHO_API_KEY
+# TELEGRAM_BOT_TOKEN
+# TELEGRAM_CHAT_ID
+# OPENROUTER_API_KEY

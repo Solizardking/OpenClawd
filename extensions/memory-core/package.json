@@ -1,0 +1,17 @@
+{
+  "name": "@openclawd/memory-core",
+  "version": "2026.2.1",
+  "description": "OpenClawd core memory search plugin",
+  "type": "module",
+  "devDependencies": {
+    "openclawd": "workspace:*"
+  },
+  "peerDependencies": {
+    "openclawd": ">=2026.1.26"
+  },
+  "openclawd": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}
