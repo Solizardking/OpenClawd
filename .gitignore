@@ -1,0 +1,95 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.output/
+.nitro/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.deploy
+.env.production
+
+# Secrets and keys
+*.pem
+*.key
+*.p8
+*.jwk
+secrets/
+keys/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Concurrency/lock files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lockb
+
+# Build artifacts
+*.tgz
+
+# Debug
+.node_repl_history
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Vercel
+.vercel
+
+# Netlify
+.netlify
+
+# Terraform
+*.tfstate
+*.tfstate.*
+
+# GCP
+credentials.json
+
+# Solana
+*.json!/keypair.json
+
+# MCP caches
+.mcp/
+.mcp-cache/
+
+# E2B sandboxes
+.e2b/
+
+# Honcho memory
+.honcho/
+
+# Session logs
+session-logs/

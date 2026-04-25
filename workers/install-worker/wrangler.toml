@@ -1,0 +1,25 @@
+name = "solanaclawd-install"
+main = "src/index.ts"
+compatibility_date = "2025-11-01"
+
+# Always expose the worker on <name>.<subdomain>.workers.dev so users can curl
+# it even before the apex domain route is wired up.
+workers_dev = true
+
+# Bind this worker to the install.sh route on solanaclawd.com.
+# Requires the zone "solanaclawd.com" to (a) be in the same Cloudflare account
+# AND (b) be proxied through Cloudflare (orange-cloud). If the zone is DNS-only
+# (because solanaclawd.com is currently hosted on Vercel), the workers.dev URL
+# above is the canonical installer URL until DNS moves behind Cloudflare.
+# Workers Custom Domain — bypasses zone-level WAF / Bot Fight Mode / Managed
+# Challenge so `curl -fsSL https://install.solanaclawd.com | bash` works
+# without a browser challenge. CF auto-creates + proxies the DNS record.
+routes = [
+  { pattern = "install.solanaclawd.com", custom_domain = true },
+  # Gateway route for browser-based install
+  { pattern = "solanaclawd.com/gateway", zone_name = "solanaclawd.com" },
+  { pattern = "gateway.solanaclawd.com", custom_domain = true },
+  # Legacy install routes
+  { pattern = "solanaclawd.com/install.sh", zone_name = "solanaclawd.com" },
+  { pattern = "solanaclawd.com/install",    zone_name = "solanaclawd.com" },
+]
