@@ -107,3 +107,9 @@ wallet.json
 
 # Session logs
 session-logs/
+
+# Membrain (Go daemon binary + local SQLite stores)
+packages/membrain/bin/
+packages/membrain/*.db
+packages/membrain/*.db-shm
+packages/membrain/*.db-wal

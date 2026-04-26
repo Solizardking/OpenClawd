@@ -45,6 +45,11 @@ The shared flow is:
 │ hermes-vault (services/) · clawd-vault (skills/)             │
 │ vault-mcp (MCP/) · vault-agent (AGENTS/)                     │
 └──────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│ 🧠 Memory (Membrain)                                          │
+│ packages/membrain/ — Go daemon, gRPC API, TS + Python SDKs   │
+│ episodic · semantic · competence · working · plan_graph      │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -91,6 +96,12 @@ The shared flow is:
 | Registrar | [`api-registrar/`](./api-registrar/) | X-verified API key registration service |
 | Monetization | [`skills/wurk-integration/`](./skills/wurk-integration/) | WURK skill for job monetization |
 | Monetization | [`MCP/wurk-mcp/`](./MCP/wurk-mcp/) | WURK MCP server for x402 payments |
+| Memory | [`packages/membrain/`](./packages/membrain/) | Selective, revisable memory daemon (Go + gRPC) — episodic, semantic, competence, working, plan_graph |
+| Memory | [`packages/membrain/clients/typescript/`](./packages/membrain/clients/typescript/) | `@gustycube/membrane` TypeScript SDK |
+| Memory | [`packages/membrain/clients/python/`](./packages/membrain/clients/python/) | `membrane` Python SDK |
+| Memory | [`packages/membrain/clients/openclawd/`](./packages/membrain/clients/openclawd/) | OpenClaw plugin bridge — auto-context injection + `membrane_search` tool |
+| Memory | [`packages/membrain-types/`](./packages/membrain-types/) | Shared TypeScript types for in-process consumers |
+| Memory | [`packages/memory-host-sdk/`](./packages/memory-host-sdk/) | Host runtime + engine modules that compose Membrain into the OpenClawd stack |
 
 ### Notes
 
@@ -201,6 +212,7 @@ and the consuming service's `.env.example`.
 | 8420 | MawdAxe miner SSE | `chrome-extension/` |
 | 8421 | Wallet API | `chrome-extension/` |
 | 8787 | OpenClawd Orchestrator | `openclawd-stack/orchestrator/` |
+| 9090 | Membrain gRPC daemon (`membraned`) | `packages/membrain/pkg/membrane/config.go` |
 | 18790 | OpenClawd Gateway WS | external (`OpenClawd`) |
 
 The 8080 ↔ 8787 pair is the intended split inside `openclawd-stack`: the Bridge
