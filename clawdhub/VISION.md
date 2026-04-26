@@ -85,8 +85,8 @@ The goal is to stay powerful for real work while making risky paths explicit and
 - Hardening with best practices
 
 Canonical security policy and reporting:
-- [`SECURITY.md`](https://github.com/x402agent/openclawd/blob/main/SECURITY.md)
-- [`clawd-vault-master/`](https://github.com/x402agent/openclawd/tree/main/clawd-vault-master)
+- [`SECURITY.md`](https://github.com/clawdsolana/OpenClawd/blob/main/SECURITY.md)
+- [`clawd-vault-master/`](https://github.com/clawdsolana/OpenClawd/tree/main/clawd-vault-master)
 
 We prioritize secure defaults, but we also expose clear knobs for trusted high-power workflows.
 
@@ -112,7 +112,7 @@ Every skill is a `SKILL.md` file with structured metadata:
 
 ## MCP Support
 
-OpenClawd ships with **@openclawd/solana-clawd-mcp**: 31 MCP tools including:
+OpenClawd ships with **@openclawd/openclawd-mcp**: 31 MCP tools including:
 
 **Solana Market Data:** `solana_price`, `solana_trending`, `solana_token_info`, `solana_wallet_pnl`, `solana_search`, `solana_top_traders`, `solana_wallet_tokens`
 
@@ -126,7 +126,7 @@ OpenClawd ships with **@openclawd/solana-clawd-mcp**: 31 MCP tools including:
 
 **Metaplex:** `metaplex_mint_agent`, `metaplex_register_identity`, `metaplex_read_agent`
 
-MCP bridge in orchestrator: [`openclawd-stack/orchestrator/mcp-bridge.ts`](https://github.com/x402agent/openclawd/tree/main/openclawd-stack/orchestrator/mcp-bridge.ts)
+MCP bridge in orchestrator: [`openclawd-stack/orchestrator/mcp-bridge.ts`](https://github.com/clawdsolana/OpenClawd/tree/main/openclawd-stack/orchestrator/mcp-bridge.ts)
 
 ---
 

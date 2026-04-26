@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "name": "solanaos",
-  "display_name": "Solanaos",
+  "name": "openclawd",
+  "display_name": "OpenClawd",
   "description": "",
   "icon": "icon.svg",
   "distribution": {
     "type": "docker",
-    "command": "solanaos",
+    "command": "openclawd",
     "args": [
       "acp"
     ]

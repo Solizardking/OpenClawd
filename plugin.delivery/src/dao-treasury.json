@@ -1,18 +1,18 @@
 {
-  "author": "solana-clawd",
+  "author": "openclawd",
   "createdAt": "2025-01-01",
-  "homepage": "https://github.com/x402agent/solana-clawd",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "dao-treasury",
   "manifest": "https://plugin.delivery/dao-treasury/manifest.json",
   "meta": {
     "avatar": "🏦",
-    "description": "[solana-clawd] Track DAO treasury balances from DeepDAO — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[openclawd] Track DAO treasury balances from DeepDAO — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "dao",
       "treasury",
       "deepdao",
       "clawd",
-      "solana-clawd"
+      "openclawd"
     ],
     "title": "DAO Treasury",
     "category": "social"

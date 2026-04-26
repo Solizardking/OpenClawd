@@ -1,0 +1,45 @@
+{
+  "name": "@openclaw/honcho-bridge",
+  "version": "0.1.0",
+  "description": "Honcho reasoning-memory adapter for OpenClawd — peer/session persistence with auto-feed into Membrain semantic layer",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./engine": {
+      "types": "./src/engine.ts",
+      "default": "./src/engine.ts"
+    },
+    "./feeder": {
+      "types": "./src/feeder.ts",
+      "default": "./src/feeder.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": [
+    "openclawd",
+    "honcho",
+    "membrain",
+    "memory",
+    "reasoning",
+    "peer",
+    "agent"
+  ],
+  "author": "OpenClawd Team",
+  "license": "MIT",
+  "dependencies": {
+    "@honcho-ai/sdk": "^1.0.0",
+    "@openclaw/membrain-types": "1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  }
+}

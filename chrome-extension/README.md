@@ -21,7 +21,7 @@
 5. [pAGENT — GUI Vision Browser Agent](#pagent--gui-vision-browser-agent)
 6. [Agent Wallet Vault](#agent-wallet-vault)
 7. [MCP Bridge](#mcp-bridge)
-8. [SolanaOS Integration](#solanaos-integration)
+8. [OpenClawd Integration](#openclawd-integration)
 9. [Configuration](#configuration)
 10. [Directory Layout](#directory-layout)
 
@@ -176,9 +176,9 @@ Add to Claude Desktop (`~/.claude.json`):
 
 ---
 
-## SolanaOS Integration
+## OpenClawd Integration
 
-OpenClawd connects to the SolanaOS Go binary for:
+OpenClawd connects to the OpenClawd Go binary for:
 
 | Service | Port | OpenClawd Connection |
 |---------|------|---------------------|
@@ -251,7 +251,7 @@ chrome-extension/
 
 ## Support
 
-- **GitHub Issues** — [github.com/x402agent/openclawd/issues](https://github.com/x402agent/openclawd/issues)
+- **GitHub Issues** — [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
 - **Hub** — [hub.solanaclawd.com](https://hub.solanaclawd.com)
 - **Website** — [solanaclawd.com](https://solanaclawd.com)
 

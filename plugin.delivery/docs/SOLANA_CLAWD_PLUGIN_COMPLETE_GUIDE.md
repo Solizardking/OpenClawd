@@ -1,16 +1,16 @@
-# solana-clawd Plugin & Portfolio Integration Complete Guide
+# openclawd Plugin & Portfolio Integration Complete Guide
 
 > **Version:** 1.0.0  
 > **Last Updated:** December 27, 2025  
-> **Author:** solana-clawd Development Team
+> **Author:** openclawd Development Team
 
-This guide covers the complete setup, development, and deployment of the solana-clawd plugin ecosystem, with a focus on portfolio integration in chat.
+This guide covers the complete setup, development, and deployment of the openclawd plugin ecosystem, with a focus on portfolio integration in chat.
 
 ---
 
 ## Related Documentation
 
-For developing **external plugins** deployed to the solana-clawd Plugin Marketplace (`plugin.delivery`), see the comprehensive guides in the plugins repository:
+For developing **external plugins** deployed to the openclawd Plugin Marketplace (`plugin.delivery`), see the comprehensive guides in the plugins repository:
 
 | Document | Description |
 |----------|-------------|
@@ -22,7 +22,7 @@ For developing **external plugins** deployed to the solana-clawd Plugin Marketpl
 ## Table of Contents
 
 1. [Architecture Overview](#1-architecture-overview)
-2. [solana-clawd Plugin Ecosystem](#2-x402agent-plugin-ecosystem)
+2. [openclawd Plugin Ecosystem](#2-x402agent-plugin-ecosystem)
 3. [Portfolio Integration Methods](#3-portfolio-integration-methods)
 4. [Environment Setup](#4-environment-setup)
 5. [Database Configuration](#5-database-configuration)
@@ -45,7 +45,7 @@ For developing **external plugins** deployed to the solana-clawd Plugin Marketpl
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                            SOLANA-CLAWD                                      │
+│                            OPENCLAWD                                      │
 │                                                                          │
 │  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌────────────┐        │
 │  │   /chat    │  │ /portfolio │  │   /embed   │  │    /api    │        │
@@ -98,44 +98,44 @@ User Message: "Show my portfolio"
 
 ---
 
-## 2. solana-clawd Plugin Ecosystem
+## 2. openclawd Plugin Ecosystem
 
 ### Core Repositories
 
 | Repository | Purpose | NPM Package | Importance |
 |------------|---------|-------------|------------|
-| **[plugin-sdk](https://github.com/x402agent/solana-clawd)** | SDK for building plugins | `@x402agent/plugin-sdk` | 🔴 Critical |
-| **[chat-plugins-gateway](https://github.com/x402agent/solana-clawd)** | Proxy between solana-clawd and plugins | `@x402agent/chat-plugins-gateway` | 🔴 Critical |
-| **[solana-clawd-plugins](https://github.com/x402agent/solana-clawd)** | Plugin marketplace index | - | 🟡 Medium |
-| **[openai-plugins](https://github.com/x402agent/solana-clawd)** | ChatGPT plugin compatibility | - | 🟢 Low |
+| **[plugin-sdk](https://github.com/clawdsolana/OpenClawd)** | SDK for building plugins | `@clawdsolana/OpenClawd` | 🔴 Critical |
+| **[chat-plugins-gateway](https://github.com/clawdsolana/OpenClawd)** | Proxy between openclawd and plugins | `@clawdsolana/OpenClawd` | 🔴 Critical |
+| **[openclawd-plugins](https://github.com/clawdsolana/OpenClawd)** | Plugin marketplace index | - | 🟡 Medium |
+| **[openai-plugins](https://github.com/clawdsolana/OpenClawd)** | ChatGPT plugin compatibility | - | 🟢 Low |
 
 ### Example Plugin Repositories
 
 | Repository | Type | Has Backend | Has Frontend | Deployment |
 |------------|------|-------------|--------------|------------|
-| **[chat-plugin-template](https://github.com/x402agent/solana-clawd)** | Template | ✅ | ✅ | Vercel |
-| **[chat-plugin-web-crawler](https://github.com/x402agent/solana-clawd)** | Default | ✅ | ❌ | Vercel |
-| **[chat-plugin-search-engine](https://github.com/x402agent/solana-clawd)** | Default | ✅ | ❌ | Vercel |
-| **[chat-plugin-clock-time](https://github.com/x402agent/solana-clawd)** | Standalone | ❌ | ✅ | Vercel Static |
-| **[chat-plugin-realtime-weather](https://github.com/x402agent/solana-clawd)** | Default | ✅ | ✅ | Vercel |
-| **[chat-plugin-bilibili](https://github.com/x402agent/solana-clawd)** | Default | ✅ | ❌ | Vercel |
-| **[chat-plugin-steam](https://github.com/x402agent/solana-clawd)** | Default | ✅ | ❌ | Vercel |
-| **[chat-plugin-open-interpreter](https://github.com/x402agent/solana-clawd)** | Standalone | ✅ | ✅ | 🔴 Local Only |
+| **[chat-plugin-template](https://github.com/clawdsolana/OpenClawd)** | Template | ✅ | ✅ | Vercel |
+| **[chat-plugin-web-crawler](https://github.com/clawdsolana/OpenClawd)** | Default | ✅ | ❌ | Vercel |
+| **[chat-plugin-search-engine](https://github.com/clawdsolana/OpenClawd)** | Default | ✅ | ❌ | Vercel |
+| **[chat-plugin-clock-time](https://github.com/clawdsolana/OpenClawd)** | Standalone | ❌ | ✅ | Vercel Static |
+| **[chat-plugin-realtime-weather](https://github.com/clawdsolana/OpenClawd)** | Default | ✅ | ✅ | Vercel |
+| **[chat-plugin-bilibili](https://github.com/clawdsolana/OpenClawd)** | Default | ✅ | ❌ | Vercel |
+| **[chat-plugin-steam](https://github.com/clawdsolana/OpenClawd)** | Default | ✅ | ❌ | Vercel |
+| **[chat-plugin-open-interpreter](https://github.com/clawdsolana/OpenClawd)** | Standalone | ✅ | ✅ | 🔴 Local Only |
 
 ### SDK Installation
 
 ```bash
 # For plugin development
-pnpm add @x402agent/plugin-sdk
+pnpm add @clawdsolana/OpenClawd
 
 # For gateway setup
-pnpm add @x402agent/chat-plugins-gateway
+pnpm add @clawdsolana/OpenClawd
 ```
 
 ### SDK Client API
 
 ```typescript
-import { SolanaClawdOS } from '@x402agent/plugin-sdk/client';
+import { SolanaClawdOS } from '@clawdsolana/OpenClawd/client';
 
 // Get initialization data
 const payload = await SolanaClawdOS.getPluginPayload();
@@ -489,7 +489,7 @@ const CACHE_TTL = {
 
 ## 8. Builtin Plugin Development
 
-Builtin plugins are part of solana-clawd and don't need external deployment.
+Builtin plugins are part of openclawd and don't need external deployment.
 
 ### File Structure
 
@@ -497,7 +497,7 @@ Builtin plugins are part of solana-clawd and don't need external deployment.
 src/tools/
 ├── index.ts                    # Registers all builtin tools
 ├── portals.ts                  # Maps tools to portal components
-├── solana-clawd-portfolio/
+├── openclawd-portfolio/
 │   ├── index.ts               # Main export
 │   └── manifest.ts            # Plugin manifest
 ├── artifacts/
@@ -628,7 +628,7 @@ External plugins run on separate servers and communicate via Gateway.
 
 ```bash
 # Clone template
-git clone https://github.com/x402agent/solana-clawd my-plugin
+git clone https://github.com/clawdsolana/OpenClawd my-plugin
 cd my-plugin
 
 # Install dependencies
@@ -691,7 +691,7 @@ export default async function handler(req, res) {
 ```typescript
 // pages/api/gateway.ts
 
-import { createSolanaClawdPluginGateway } from '@x402agent/chat-plugins-gateway';
+import { createSolanaClawdPluginGateway } from '@clawdsolana/OpenClawd';
 
 export default createSolanaClawdPluginGateway();
 ```
@@ -718,7 +718,7 @@ export default createSolanaClawdPluginGateway();
 Access settings in API:
 
 ```typescript
-import { getPluginSettingsFromRequest } from '@x402agent/chat-plugins-gateway';
+import { getPluginSettingsFromRequest } from '@clawdsolana/OpenClawd';
 
 export default async function handler(req, res) {
   const settings = getPluginSettingsFromRequest(req);
@@ -791,10 +791,10 @@ import { PortfolioAnalyticsPortal } from '@/features/Portal/PortfolioAnalytics';
 
 export const BuiltinToolsPortals: Record<string, BuiltinPortal> = {
   // Format: 'plugin-identifier___functionName'
-  'solana-clawd-portfolio___showPortfolio': PortfolioAnalyticsPortal,
-  'solana-clawd-portfolio___getPortfolioSummary': PortfolioAnalyticsPortal,
-  'solana-clawd-portfolio___searchAssets': PortfolioAnalyticsPortal,
-  'solana-clawd-portfolio___analyzePortfolio': PortfolioAnalyticsPortal,
+  'openclawd-portfolio___showPortfolio': PortfolioAnalyticsPortal,
+  'openclawd-portfolio___getPortfolioSummary': PortfolioAnalyticsPortal,
+  'openclawd-portfolio___searchAssets': PortfolioAnalyticsPortal,
+  'openclawd-portfolio___analyzePortfolio': PortfolioAnalyticsPortal,
 };
 ```
 
@@ -920,7 +920,7 @@ Analyzing user request...
 
 <SolanaClawdArtifact 
   identifier="unique-id" 
-  type="application/solana-clawd.artifacts.react" 
+  type="application/openclawd.artifacts.react" 
   title="Display Title"
 >
 import React from 'react';
@@ -962,7 +962,7 @@ export default function App() {
 ### Local Development
 
 ```bash
-# Start solana-clawd dev server
+# Start openclawd dev server
 bun run dev
 
 # For external plugins, start plugin server
@@ -979,7 +979,7 @@ cd my-plugin && pnpm dev
 ### Testing External Plugins
 
 1. Start plugin server locally
-2. In solana-clawd → Settings → Plugins → Custom Plugins
+2. In openclawd → Settings → Plugins → Custom Plugins
 3. Add manifest URL: `http://localhost:3400/manifest.json`
 4. Enable and test
 
@@ -987,7 +987,7 @@ cd my-plugin && pnpm dev
 
 ```bash
 # Enable debug logging
-DEBUG=solana-clawd:* bun run dev
+DEBUG=openclawd:* bun run dev
 ```
 
 ### Type Checking
@@ -1004,7 +1004,7 @@ bunx vitest run --silent='passed-only' 'src/tools'
 
 ## 14. Deployment
 
-### solana-clawd (Main App)
+### openclawd (Main App)
 
 **Platform:** Vercel
 
@@ -1155,7 +1155,7 @@ src/
 ├── tools/
 │   ├── index.ts                 # Builtin tools registry
 │   ├── portals.ts               # Portal component mapping
-│   └── solana-clawd-portfolio/
+│   └── openclawd-portfolio/
 │       ├── index.ts
 │       └── manifest.ts
 │

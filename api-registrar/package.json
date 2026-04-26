@@ -6,12 +6,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/x402agent/openclawd.git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
     "directory": "api-registrar"
   },
-  "homepage": "https://github.com/x402agent/openclawd/tree/main/api-registrar#readme",
+  "homepage": "https://github.com/clawdsolana/OpenClawd/tree/main/api-registrar#readme",
   "bugs": {
-    "url": "https://github.com/x402agent/openclawd/issues"
+    "url": "https://github.com/clawdsolana/OpenClawd/issues"
   },
   "scripts": {
     "dev": "vite",

@@ -298,7 +298,7 @@ Plug the hub into Clawd Desktop, Cursor, or ClawdOS via Streamable HTTP:
 ```json
 {
   "mcpServers": {
-    "solana-clawd-agents": {
+    "openclawd-agents": {
       "type": "http",
       "url": "https://modelcontextprotocol.name/mcp/defi-agents"
     }
@@ -385,8 +385,8 @@ See [CHANGELOG.md](../CHANGELOG.md) for version history, new agents, and schema 
 
 ## Support
 
-- **Repo**: <https://github.com/x402agent.com/solana-clawd>
-- **Issues**: <https://github.com/x402agent.com/solana-clawd/issues>
+- **Repo**: <https://github.com/clawdsolana/OpenClawd>
+- **Issues**: <https://github.com/clawdsolana/OpenClawd/issues>
 - **Hub**: <https://solanaclawd.com/agents>
 - **Registry**: <https://solanaclawd.com/agents-registry>
 - **Mint**: <https://solanaclawd.com/agents-mint>

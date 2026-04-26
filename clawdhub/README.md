@@ -22,7 +22,7 @@
 | **Website** | [hub.solanaclawd.com](https://hub.solanaclawd.com) |
 | **Cloud OS** | [cloud.hub.solanaclawd.com](https://cloud.hub.solanaclawd.com) |
 | **Vault** | [vault.hub.solanaclawd.com](https://vault.hub.solanaclawd.com) |
-| **SolanaOS** | [solanaos.net](https://solanaos.net) |
+| **OpenClawd** | [openclawd.net](https://openclawd.net) |
 | **Skills Marketplace** | [hub.solanaclawd.com/marketplace](https://hub.solanaclawd.com/marketplace) |
 | **Orchestrator** | [hub.solanaclawd.com/api](https://hub.solanaclawd.com/api) |
 
@@ -72,7 +72,7 @@ curl -fsSL https://hub.solanaclawd.com/install.sh | bash
 ```bash
 # Install skills
 npx clawdhub install pumpfun-trading
-npx clawdhub install solana-clawd
+npx clawdhub install openclawd
 npx clawdhub install clawd-trader
 
 # List installed skills
@@ -122,7 +122,7 @@ curl https://hub.solanaclawd.com/api/marketplace/new | jq '.'
 
 | Category | Description |
 |----------|-------------|
-| **OpenClawd Ecosystem** | ClawdHub, OpenClawd agent skills, solana-clawd, clawd-trader |
+| **OpenClawd Ecosystem** | ClawdHub, OpenClawd agent skills, openclawd, clawd-trader |
 | **Pump.fun Trading** | 26+ skills for token launches, sniper bots, graduation tracking |
 | **Solana/Blockchain** | OODA loop trading, 31 MCP tools, Helius, Jupiter |
 | **AI/Agents** | xAI Grok, Claude, OpenAI, multi-agent orchestration |
@@ -134,7 +134,7 @@ curl https://hub.solanaclawd.com/api/marketplace/new | jq '.'
 
 | Skill | Description | Price |
 |-------|-------------|-------|
-| **solana-clawd** | OODA loop trading + 31 MCP tools on Solana | Free |
+| **openclawd** | OODA loop trading + 31 MCP tools on Solana | Free |
 | **clawd-trader** | Full $CLAWD ecosystem — perps via Hyperliquid/Aster | Free |
 | **pumpfun-launcher** | Launch tokens on Pump.fun with AP2 mandates | $0.10/call |
 | **wurk-social** | Social campaigns via Wurk.fun x402 on Solana/Base | $0.05/call |
@@ -335,4 +335,4 @@ MIT — See [`../LICENSE.md`](../LICENSE.md)
 
 [![Twitter](https://img.shields.io/badge/𝕏-@clawddevs-000000?style=for-the-badge)](https://x.com/clawddevs)
 [![Telegram](https://img.shields.io/badge/Telegram-clawdtoken-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/clawdtoken)
-[![GitHub](https://img.shields.io/badge/GitHub-openclawd-181717?style=for-the-badge&logo=github)](https://github.com/x402agent/openclawd)
+[![GitHub](https://img.shields.io/badge/GitHub-openclawd-181717?style=for-the-badge&logo=github)](https://github.com/clawdsolana/OpenClawd)

@@ -7,7 +7,7 @@
   "icon": "icon.svg",
   "distribution": {
     "type": "command",
-    "command": "solana-clawd",
+    "command": "openclawd",
     "args": ["agent", "run"]
   },
   "services": [
@@ -37,7 +37,7 @@
   "capabilities": {
     "skills": [
       "clawdhub",
-      "solana-clawd"
+      "openclawd"
     ],
     "domains": [
       "ai",

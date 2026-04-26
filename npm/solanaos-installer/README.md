@@ -1,11 +1,11 @@
-# solanaos-cli
+# openclawd-cli
 
-**SolanaOS — The Solana Computer.**
+**OpenClawd — The Solana Computer.**
 
 One command. Full autonomous Solana trading runtime. Connected to your Seeker.
 
 ```bash
-npx solanaos-cli install
+npx openclawd-cli install
 ```
 
 ```
@@ -20,59 +20,59 @@ npx solanaos-cli install
 ## What happens when you run it
 
 1. Animated terminal boot sequence with Unicode matrix frames
-2. Clones the [SolanaOS repo](https://github.com/x402agent/SolanaOS)
+2. Clones the [OpenClawd repo](https://github.com/clawdsolana/OpenClawd)
 3. Builds the <10MB Go binary
-4. Creates `~/.nanosolana/` workspace + wallet
-5. Installs `solanaos` CLI globally
+4. Creates `~/.openclawdsolana/` workspace + wallet
+5. Installs `openclawd` CLI globally
 6. Prints your gateway setup code + QR for Seeker pairing
-7. Ready to connect to [seeker.solanaos.net](https://seeker.solanaos.net)
+7. Ready to connect to [seeker.openclawd.net](https://seeker.openclawd.net)
 
 ## Quick start
 
 ```bash
 # Install everything
-npx solanaos-cli install
+npx openclawd-cli install
 
 # Or with the web console
-npx solanaos-cli install --with-web
+npx openclawd-cli install --with-web
 
 # Start the daemon
-solanaos daemon
+openclawd daemon
 
 # Generate Seeker pairing QR
-solanaos gateway setup-code
+openclawd gateway setup-code
 
 # Check wallet
-solanaos solana wallet
+openclawd solana wallet
 ```
 
 ## Connect your surfaces
 
 ```bash
 # Telegram bot
-solanaos daemon  # auto-registers commands
+openclawd daemon  # auto-registers commands
 
 # Seeker pairing
-solanaos gateway start
-solanaos gateway setup-code
+openclawd gateway start
+openclawd gateway setup-code
 
 # Web console
-solanaos-web --no-browser
+openclawd-web --no-browser
 
 # Paper trading
-solanaos ooda --sim
+openclawd ooda --sim
 ```
 
 ## What you get
 
 | Surface | How |
 | --- | --- |
-| **Terminal** | `solanaos daemon` — OODA loop, wallet, Telegram, gateway |
-| **Seeker** | Scan QR from `gateway setup-code` or pair at [seeker.solanaos.net/dashboard](https://seeker.solanaos.net/dashboard) |
+| **Terminal** | `openclawd daemon` — OODA loop, wallet, Telegram, gateway |
+| **Seeker** | Scan QR from `gateway setup-code` or pair at [seeker.openclawd.net/dashboard](https://seeker.openclawd.net/dashboard) |
 | **Telegram** | Auto-connected — 30+ commands (`/status`, `/trending`, `/ooda`, `/wallet`) |
 | **Chrome** | Load `chrome-extension/` folder — wallet, chat, miner, tools |
-| **Hub** | [seeker.solanaos.net](https://seeker.solanaos.net) — skills, agents, strategy, mining |
-| **Mining** | [seeker.solanaos.net/mining](https://seeker.solanaos.net/mining) — BitAxe fleet dashboard |
+| **Hub** | [seeker.openclawd.net](https://seeker.openclawd.net) — skills, agents, strategy, mining |
+| **Mining** | [seeker.openclawd.net/mining](https://seeker.openclawd.net/mining) — BitAxe fleet dashboard |
 
 ## Requirements
 
@@ -94,20 +94,20 @@ TELEGRAM_ID=your-chat-id
 
 | | |
 | --- | --- |
-| **Launch** | [solanaos.net](https://solanaos.net) |
-| **Hub** | [seeker.solanaos.net](https://seeker.solanaos.net) |
-| **Souls** | [souls.solanaos.net](https://souls.solanaos.net) |
-| **Docs** | [go.solanaos.net](https://go.solanaos.net) |
-| **GitHub** | [x402agent/SolanaOS](https://github.com/x402agent/SolanaOS) |
-| **Strategy** | [seeker.solanaos.net/strategy](https://seeker.solanaos.net/strategy) |
-| **Mining** | [seeker.solanaos.net/mining](https://seeker.solanaos.net/mining) |
-| **Skills** | [seeker.solanaos.net/skills](https://seeker.solanaos.net/skills) |
+| **Launch** | [openclawd.net](https://openclawd.net) |
+| **Hub** | [seeker.openclawd.net](https://seeker.openclawd.net) |
+| **Souls** | [souls.openclawd.net](https://souls.openclawd.net) |
+| **Docs** | [go.openclawd.net](https://go.openclawd.net) |
+| **GitHub** | [clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
+| **Strategy** | [seeker.openclawd.net/strategy](https://seeker.openclawd.net/strategy) |
+| **Mining** | [seeker.openclawd.net/mining](https://seeker.openclawd.net/mining) |
+| **Skills** | [seeker.openclawd.net/skills](https://seeker.openclawd.net/skills) |
 
 ## Also available as
 
 ```bash
-npx solanaos-computer@latest install    # Primary installer
-npx nanosolana-cli install              # Legacy alias
+npx openclawd-computer@latest install    # Primary installer
+npx openclawdsolana-cli install              # Legacy alias
 ```
 
-MIT License · SolanaOS Labs · Built on Solana
+MIT License · OpenClawd Labs · Built on Solana

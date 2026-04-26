@@ -1,6 +1,6 @@
 {
-  "apiBase": "https://seeker.solanaos.net",
-  "authBase": "https://seeker.solanaos.net",
+  "apiBase": "https://seeker.openclawd.net",
+  "authBase": "https://seeker.openclawd.net",
   "minCliVersion": "0.1.0",
-  "registry": "https://seeker.solanaos.net"
+  "registry": "https://seeker.openclawd.net"
 }

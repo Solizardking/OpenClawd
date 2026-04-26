@@ -8,9 +8,9 @@ npm package installers for the OpenClawd ecosystem — solanaclawd.com
 
 Installation scripts for the ClawdBot CLI tool.
 
-### solanaos-installer
+### openclawd-installer
 
-Installation scripts for the SolanaOS CLI tool.
+Installation scripts for the OpenClawd CLI tool.
 
 ## Usage
 
@@ -18,8 +18,8 @@ Installation scripts for the SolanaOS CLI tool.
 # Install ClawdBot (agents + skills CLI)
 npm i -g @clawd/cli
 
-# Install SolanaOS
-npm i -g solanaos-cli
+# Install OpenClawd
+npm i -g openclawd-cli
 
 # Or use npx directly
 npx clawdhub install <skill>
@@ -30,7 +30,7 @@ npx clawdhub install <skill>
 ```bash
 # Install skills
 npx clawdhub install pumpfun-trading
-npx clawdhub install solana-clawd
+npx clawdhub install openclawd
 
 # List installed skills
 npx clawdhub list

@@ -54,11 +54,11 @@ Artifacts enable AI assistants to create and display substantial, self-contained
 
 | Type | MIME Type | Use Case | Rendering |
 |------|-----------|----------|-----------|
-| **Code** | `application/solana-clawd.artifacts.code` | Code snippets (any language) | Syntax highlighter |
+| **Code** | `application/openclawd.artifacts.code` | Code snippets (any language) | Syntax highlighter |
 | **HTML** | `text/html` | Interactive web pages | iframe sandbox |
 | **SVG** | `image/svg+xml` | Vector graphics | Sanitized SVG |
-| **React** | `application/solana-clawd.artifacts.react` | React components | Live preview |
-| **Mermaid** | `application/solana-clawd.artifacts.mermaid` | Diagrams and flowcharts | Mermaid renderer |
+| **React** | `application/openclawd.artifacts.react` | React components | Live preview |
+| **Mermaid** | `application/openclawd.artifacts.mermaid` | Diagrams and flowcharts | Mermaid renderer |
 | **Markdown** | `text/markdown` | Formatted documents | Markdown renderer |
 
 ---
@@ -70,7 +70,7 @@ Artifacts enable AI assistants to create and display substantial, self-contained
 ```xml
 <SolanaClawdArtifact 
   identifier="unique-kebab-case-id"
-  type="application/solana-clawd.artifacts.react"
+  type="application/openclawd.artifacts.react"
   title="Human Readable Title"
   language="typescript">
   [CONTENT]
@@ -95,7 +95,7 @@ AI can include its reasoning process (hidden from user):
 User needs a responsive dashboard with charts. I'll use React with Recharts library for data visualization. Using Tailwind for styling.
 </SolanaClawdThinking>
 
-<SolanaClawdArtifact identifier="dashboard" type="application/solana-clawd.artifacts.react" title="Sales Dashboard">
+<SolanaClawdArtifact identifier="dashboard" type="application/openclawd.artifacts.react" title="Sales Dashboard">
 [React component code]
 </SolanaClawdArtifact>
 ```
@@ -109,7 +109,7 @@ User needs a responsive dashboard with charts. I'll use React with Recharts libr
 Generic code snippets that don't need execution.
 
 ```xml
-<SolanaClawdArtifact identifier="factorial-algo" type="application/solana-clawd.artifacts.code" language="python" title="Factorial Calculator">
+<SolanaClawdArtifact identifier="factorial-algo" type="application/openclawd.artifacts.code" language="python" title="Factorial Calculator">
 def factorial(n):
     """Calculate factorial recursively"""
     if n == 0:
@@ -230,7 +230,7 @@ Interactive React components with full ecosystem support.
 - Use Tailwind for styling
 
 ```xml
-<SolanaClawdArtifact identifier="crypto-dashboard" type="application/solana-clawd.artifacts.react" title="Crypto Portfolio">
+<SolanaClawdArtifact identifier="crypto-dashboard" type="application/openclawd.artifacts.react" title="Crypto Portfolio">
 import React, { useState } from 'react';
 import { TrendingUp, TrendingDown, DollarSign } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
@@ -311,7 +311,7 @@ export default CryptoDashboard;
 Diagrams and flowcharts using Mermaid syntax.
 
 ```xml
-<SolanaClawdArtifact identifier="deployment-flow" type="application/solana-clawd.artifacts.mermaid" title="CI/CD Pipeline">
+<SolanaClawdArtifact identifier="deployment-flow" type="application/openclawd.artifacts.mermaid" title="CI/CD Pipeline">
 graph LR
     A[Code Push] --> B{Tests Pass?}
     B -->|Yes| C[Build]
@@ -415,11 +415,11 @@ DO NOT create artifacts for:
 
 ### Available Types
 
-- application/solana-clawd.artifacts.code (with language attribute)
+- application/openclawd.artifacts.code (with language attribute)
 - text/html
 - image/svg+xml
-- application/solana-clawd.artifacts.react
-- application/solana-clawd.artifacts.mermaid
+- application/openclawd.artifacts.react
+- application/openclawd.artifacts.mermaid
 - text/markdown
 
 ### React Components
@@ -432,7 +432,7 @@ When creating React artifacts:
 - Make responsive with proper breakpoints
 
 Example:
-<SolanaClawdArtifact identifier="example-component" type="application/solana-clawd.artifacts.react" title="Example">
+<SolanaClawdArtifact identifier="example-component" type="application/openclawd.artifacts.react" title="Example">
 import React from 'react';
 
 const Component = () => {
@@ -477,7 +477,7 @@ export default async function handler(req, res) {
   const result = await someDataFetch();
   
   const artifact = `
-<SolanaClawdArtifact identifier="plugin-result" type="application/solana-clawd.artifacts.react" title="Search Results">
+<SolanaClawdArtifact identifier="plugin-result" type="application/openclawd.artifacts.react" title="Search Results">
 import React from 'react';
 
 const Results = () => {

@@ -1,15 +1,15 @@
 {
   "name": "@clawd/computer",
   "version": "2.0.0",
-  "description": "solana-clawd Computer - The Solana-native AI agent runtime. Built with Go, TypeScript, and ClawdRouter API for zero-config deployment.",
+  "description": "openclawd Computer - The Solana-native AI agent runtime. Built with Go, TypeScript, and ClawdRouter API for zero-config deployment.",
   "license": "MIT",
   "type": "module",
   "bin": {
     "clawd": "bin/clawd.mjs",
     "clawd-computer": "bin/clawd.mjs",
-    "solanaos": "bin/clawd.mjs",
-    "solanaos-cli": "bin/clawd.mjs",
-    "nanosolana": "bin/clawd.mjs"
+    "openclawd": "bin/clawd.mjs",
+    "openclawd-cli": "bin/clawd.mjs",
+    "openclawdsolana": "bin/clawd.mjs"
   },
   "files": [
     "bin",
@@ -29,9 +29,9 @@
   "keywords": [
     "solana",
     "clawd",
-    "solana-clawd",
-    "solanaos",
-    "nanosolana",
+    "openclawd",
+    "openclawd",
+    "openclawdsolana",
     "trading",
     "agent",
     "mawdbot",
@@ -43,11 +43,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/x402agent/Solana-Os-Go.git",
-    "directory": "npm/solanaos"
+    "url": "git+https://github.com/clawdsolana/OpenClawd.git",
+    "directory": "npm/openclawd"
   },
   "homepage": "https://solanaclawd.com",
   "bugs": {
-    "url": "https://github.com/x402agent/Solana-Os-Go/issues"
+    "url": "https://github.com/clawdsolana/OpenClawd/issues"
   }
 }

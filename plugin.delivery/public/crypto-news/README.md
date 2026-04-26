@@ -163,9 +163,9 @@ All endpoints return articles in this format:
 
 ## Integration
 
-### In solana-clawd
+### In openclawd
 
-The plugin is automatically available via solana-clawd Intelligence. Just ask:
+The plugin is automatically available via openclawd Intelligence. Just ask:
 
 ```
 "What's the latest crypto news?"
@@ -206,5 +206,5 @@ MIT License - see [LICENSE](../../LICENSE)
 
 ---
 
-Made with 💜 by [solana-clawd](https://solanaos.net)
+Made with 💜 by [openclawd](https://openclawd.net)
 

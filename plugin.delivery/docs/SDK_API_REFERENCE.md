@@ -1,11 +1,11 @@
 # Plugin SDK Documentation
 
-Complete API reference for the Plugin SDK (`@openclawd/plugin-sdk`) from **x402agent/plugin.delivery**.
+Complete API reference for the Plugin SDK (`@openclawd/plugin-sdk`) from **clawdsolana/OpenClawd.delivery**.
 
 ## Table of Contents
 
 - [Installation](#installation)
-- [Client SDK (SolanaClawdOS)](#client-sdk-solana-clawdchat)
+- [Client SDK (SolanaClawdOS)](#client-sdk-openclawdchat)
 - [React Hooks](#react-hooks)
 - [Schema Validation](#schema-validation)
 - [Error Types](#error-types)
@@ -17,7 +17,7 @@ Complete API reference for the Plugin SDK (`@openclawd/plugin-sdk`) from **x402a
 ## Installation
 
 ```bash
-# Install the SDK from x402agent/plugin.delivery
+# Install the SDK from clawdsolana/OpenClawd.delivery
 pnpm add @openclawd/plugin-sdk
 
 # Or with npm/yarn/bun
@@ -30,7 +30,7 @@ bun add @openclawd/plugin-sdk
 
 ## Client SDK (SolanaClawdOS)
 
-The `SolanaClawdOS` object provides methods for plugin-to-host communication from the **x402agent/plugin.delivery** SDK. Import from the client subpath:
+The `SolanaClawdOS` object provides methods for plugin-to-host communication from the **clawdsolana/OpenClawd.delivery** SDK. Import from the client subpath:
 
 ```typescript
 import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
@@ -120,7 +120,7 @@ await SolanaClawdOS.createAssistantMessage('Here is the analysis...');
 
 ### useWatchPluginMessage
 
-This is a React Hook encapsulating the Chat Plugin SDK, used to listen for plugin messages sent from solana-clawd.
+This is a React Hook encapsulating the Chat Plugin SDK, used to listen for plugin messages sent from openclawd.
 
 **Syntax:**
 
@@ -272,7 +272,7 @@ export default Counter;
 - Ensure usage within a React function component.
 - The `key` parameter must be a string used to uniquely identify the plugin state.
 - The `initialValue` parameter is the initial value of the state.
-- State is automatically synchronized with solana-clawd.
+- State is automatically synchronized with openclawd.
 
 ---
 
@@ -329,7 +329,7 @@ export default SettingsPanel;
 
 - Please ensure to use `usePluginSettings` inside a React function component.
 - Initial value `initialValue` can be of any type.
-- When updating plugin settings, the SDK automatically sends update messages to solana-clawd via `postMessage`.
+- When updating plugin settings, the SDK automatically sends update messages to openclawd via `postMessage`.
 
 ---
 
@@ -358,7 +358,7 @@ const PluginDisplay = memo(() => {
   const [data, setData] = useState<ResponseData>();
 
   useEffect(() => {
-    // Get the current message of the plugin from solana-clawd
+    // Get the current message of the plugin from openclawd
     fetchPluginMessage<ResponseData>().then((response) => {
       setData(response);
     });
@@ -582,32 +582,32 @@ import { PluginChannel } from '@openclawd/plugin-sdk';
 
 | Channel | Literal | Description |
 |---------|---------|-------------|
-| `pluginReadyForRender` | `solana-clawd:plugin-ready-for-render` | Plugin is ready for rendering |
-| `initStandalonePlugin` | `solana-clawd:init-standalone-plugin` | Initialize standalone plugin |
+| `pluginReadyForRender` | `openclawd:plugin-ready-for-render` | Plugin is ready for rendering |
+| `initStandalonePlugin` | `openclawd:init-standalone-plugin` | Initialize standalone plugin |
 
 ### Messages
 
 | Channel | Literal | Description |
 |---------|---------|-------------|
-| `fetchPluginMessage` | `solana-clawd:fetch-plugin-message` | Request message content |
-| `renderPlugin` | `solana-clawd:render-plugin` | Render plugin instruction |
-| `fillStandalonePluginContent` | `solana-clawd:fill-plugin-content` | Fill standalone plugin content |
+| `fetchPluginMessage` | `openclawd:fetch-plugin-message` | Request message content |
+| `renderPlugin` | `openclawd:render-plugin` | Render plugin instruction |
+| `fillStandalonePluginContent` | `openclawd:fill-plugin-content` | Fill standalone plugin content |
 
 ### State
 
 | Channel | Literal | Description |
 |---------|---------|-------------|
-| `fetchPluginState` | `solana-clawd:fetch-plugin-state` | Request plugin state |
-| `renderPluginState` | `solana-clawd:render-plugin-state` | Render plugin state |
-| `updatePluginState` | `solana-clawd:update-plugin-state` | Update plugin state |
+| `fetchPluginState` | `openclawd:fetch-plugin-state` | Request plugin state |
+| `renderPluginState` | `openclawd:render-plugin-state` | Render plugin state |
+| `updatePluginState` | `openclawd:update-plugin-state` | Update plugin state |
 
 ### Settings
 
 | Channel | Literal | Description |
 |---------|---------|-------------|
-| `fetchPluginSettings` | `solana-clawd:fetch-plugin-settings` | Request plugin settings |
-| `renderPluginSettings` | `solana-clawd:render-plugin-settings` | Render plugin settings |
-| `updatePluginSettings` | `solana-clawd:update-plugin-settings` | Update plugin settings |
+| `fetchPluginSettings` | `openclawd:fetch-plugin-settings` | Request plugin settings |
+| `renderPluginSettings` | `openclawd:render-plugin-settings` | Render plugin settings |
+| `updatePluginSettings` | `openclawd:update-plugin-settings` | Update plugin settings |
 
 ---
 

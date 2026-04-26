@@ -23,14 +23,14 @@
       }
     }
   ],
-  "author": "solana-clawd",
+  "author": "openclawd",
   "createdAt": "2023-09-03",
   "identifier": "plugin-identifier-markdown",
   "meta": {
     "avatar": "🚀",
     "tags": ["template"],
     "title": "Chat Plugin Template",
-    "description": "This is the plugin template for solana-clawd plugin development"
+    "description": "This is the plugin template for openclawd plugin development"
   },
   "systemRole": "根据用户的心情，给用户推荐适合他穿的衣服，你需要知道他的性别后才进行推荐，否则推荐不准确。",
   "type": "markdown",

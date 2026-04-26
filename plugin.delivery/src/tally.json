@@ -1,18 +1,18 @@
 {
-  "author": "solana-clawd",
+  "author": "openclawd",
   "createdAt": "2025-01-01",
-  "homepage": "https://github.com/x402agent/solana-clawd",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "tally",
   "manifest": "https://plugin.delivery/tally/manifest.json",
   "meta": {
     "avatar": "🗳️",
-    "description": "[solana-clawd] On-chain governance tracking and proposal data — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[openclawd] On-chain governance tracking and proposal data — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "tally",
       "governance",
       "onchain",
       "clawd",
-      "solana-clawd"
+      "openclawd"
     ],
     "title": "Tally",
     "category": "social"

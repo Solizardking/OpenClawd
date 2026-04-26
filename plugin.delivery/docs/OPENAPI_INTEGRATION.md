@@ -5,12 +5,12 @@ Use OpenAPI specifications to define your plugin's API without writing manual de
 ## Table of Contents
 
 - [Overview](#overview)
-- [solana-clawd Plugin Compatibility](#solana-clawd-plugin-compatibility)
+- [openclawd Plugin Compatibility](#openclawd-plugin-compatibility)
 - [OpenAPI Specification](#openapi-specification)
 - [Creating an OpenAPI Spec](#creating-an-openapi-spec)
 - [Manifest Configuration](#manifest-configuration)
 - [OpenAPI Requirements](#openapi-requirements)
-- [Integrating OpenAPI with solana-clawd](#integrating-openapi-with-solana-clawd)
+- [Integrating OpenAPI with openclawd](#integrating-openapi-with-openclawd)
 - [Examples](#examples)
 - [Converting Existing APIs](#converting-existing-apis)
 - [Troubleshooting](#troubleshooting)
@@ -21,7 +21,7 @@ Use OpenAPI specifications to define your plugin's API without writing manual de
 
 OpenAPI (formerly Swagger) is a standard for describing RESTful APIs. The plugin system can read your OpenAPI spec and automatically create Function Call definitions.
 
-solana-clawd's plugin mechanism supports the OpenAPI specification, which is a standard for defining and describing RESTful APIs. By using OpenAPI, developers can create a clear, language-agnostic API description to facilitate the correct implementation and usage of the API.
+openclawd's plugin mechanism supports the OpenAPI specification, which is a standard for defining and describing RESTful APIs. By using OpenAPI, developers can create a clear, language-agnostic API description to facilitate the correct implementation and usage of the API.
 
 ### Benefits
 
@@ -44,13 +44,13 @@ solana-clawd's plugin mechanism supports the OpenAPI specification, which is a s
 
 ---
 
-## solana-clawd Plugin Compatibility
+## openclawd Plugin Compatibility
 
-solana-clawd's plugin system is fully compatible with OpenAPI documents. When you create a solana-clawd plugin, you only need to follow these steps to convert an OpenAPI service into a conversation plugin:
+openclawd's plugin system is fully compatible with OpenAPI documents. When you create a openclawd plugin, you only need to follow these steps to convert an OpenAPI service into a conversation plugin:
 
 ### Step 1: Build the API
 
-Develop your service API, ensuring that it can handle requests from solana-clawd and return appropriate responses.
+Develop your service API, ensuring that it can handle requests from openclawd and return appropriate responses.
 
 **Example API Server:**
 
@@ -136,7 +136,7 @@ paths:
 
 ### Step 3: Create a Plugin Manifest
 
-Create a `manifest.json` plugin manifest file for solana-clawd, which includes the plugin's metadata and, most importantly, fill in the URL of your OpenAPI document in the `openapi` field:
+Create a `manifest.json` plugin manifest file for openclawd, which includes the plugin's metadata and, most importantly, fill in the URL of your OpenAPI document in the `openapi` field:
 
 ```json
 {
@@ -211,7 +211,7 @@ The OpenAPI specification is a standard for describing the structure and behavio
 
 ### OpenAPI Document Example
 
-You can view a complete example of an OpenAPI document here: [CoinGecko OpenAPI Spec](https://github.com/x402agent/solana-clawd/blob/main/public/openai/coingecko/openapi.json)
+You can view a complete example of an OpenAPI document here: [CoinGecko OpenAPI Spec](https://github.com/clawdsolana/OpenClawd/blob/main/public/openai/coingecko/openapi.json)
 
 For a detailed introduction to OpenAPI, refer to the [OpenAPI Specification](https://swagger.io/specification/).
 
@@ -645,22 +645,22 @@ Access-Control-Allow-Headers: Content-Type
 
 ---
 
-## Integrating OpenAPI with solana-clawd
+## Integrating OpenAPI with openclawd
 
-Once your API and plugin manifest file are ready, you can integrate them with solana-clawd.
+Once your API and plugin manifest file are ready, you can integrate them with openclawd.
 
 ### Integration Flow
 
-1. **User Installation**: In the solana-clawd UI, users can install your plugin from the plugin marketplace
-2. **Manifest Loading**: solana-clawd reads your plugin manifest and fetches the OpenAPI document
+1. **User Installation**: In the openclawd UI, users can install your plugin from the plugin marketplace
+2. **Manifest Loading**: openclawd reads your plugin manifest and fetches the OpenAPI document
 3. **Schema Parsing**: The system parses endpoints defined in the OpenAPI document
 4. **Function Registration**: Each operation becomes available as a function call
 5. **User Interaction**: Users interact with your service through the AI assistant
-6. **API Communication**: The OpenAPI document guides solana-clawd on how to communicate with your API
+6. **API Communication**: The OpenAPI document guides openclawd on how to communicate with your API
 
 ### Example: CoinGecko Plugin
 
-The CoinGecko plugin demonstrates OpenAPI integration. Users can query cryptocurrency prices, and solana-clawd uses the OpenAPI spec to correctly format requests and interpret responses.
+The CoinGecko plugin demonstrates OpenAPI integration. Users can query cryptocurrency prices, and openclawd uses the OpenAPI spec to correctly format requests and interpret responses.
 
 ---
 
@@ -702,6 +702,6 @@ Validate your OpenAPI spec using tools like Swagger Editor before deployment.
 - **OpenAPI Generator**: https://openapi-generator.tech/
 - **Plugin Manifest Reference**: See PLUGIN_MANIFEST.md
 
-By following the OpenAPI specification, you ensure accurate API documentation and seamless integration with solana-clawd, providing users with a rich, reliable plugin experience.
+By following the OpenAPI specification, you ensure accurate API documentation and seamless integration with openclawd, providing users with a rich, reliable plugin experience.
 
 

@@ -163,8 +163,8 @@ Job types: xlikes, reposts, comments, xfollowers, xraid, bookmarks, dex, pfcomme
 
 ## Repository Structure
 
-- [`AGENTS/`](https://github.com/x402agent/openclawd/tree/main/AGENTS) — Agent catalog and deploy assets
-- [`openclawd-stack/orchestrator/`](https://github.com/x402agent/openclawd/tree/main/openclawd-stack/orchestrator) — Orchestrator server
-- [`clawd-vault-master/`](https://github.com/x402agent/openclawd/tree/main/clawd-vault-master) — Security scanning
-- [`skills/`](https://github.com/x402agent/openclawd/tree/main/skills) — Bundled SKILL.md library
-- [`MCP/`](https://github.com/x402agent/openclawd/tree/main/MCP) — MCP servers including vault-mcp and wurk-mcp
+- [`AGENTS/`](https://github.com/clawdsolana/OpenClawd/tree/main/AGENTS) — Agent catalog and deploy assets
+- [`openclawd-stack/orchestrator/`](https://github.com/clawdsolana/OpenClawd/tree/main/openclawd-stack/orchestrator) — Orchestrator server
+- [`clawd-vault-master/`](https://github.com/clawdsolana/OpenClawd/tree/main/clawd-vault-master) — Security scanning
+- [`skills/`](https://github.com/clawdsolana/OpenClawd/tree/main/skills) — Bundled SKILL.md library
+- [`MCP/`](https://github.com/clawdsolana/OpenClawd/tree/main/MCP) — MCP servers including vault-mcp and wurk-mcp

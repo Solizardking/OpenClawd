@@ -1,79 +1,79 @@
-# nanosolana-cli
+# openclawdsolana-cli
 
-Legacy compatibility package for installing and running SolanaOS from npm.
+Legacy compatibility package for installing and running OpenClawd from npm.
 
 Prefer the new package:
 
 ```bash
-npx solanaos-cli version
-npm install -g solanaos-cli
+npx openclawd-cli version
+npm install -g openclawd-cli
 ```
 
 ## Install
 
 ```bash
 # Run directly with npx
-npx nanosolana-cli version
+npx openclawdsolana-cli version
 
 # Explicit first-time install or update
-npx nanosolana-cli install
-npx nanosolana-cli install --with-web
+npx openclawdsolana-cli install
+npx openclawdsolana-cli install --with-web
 
 # Global install
-npm install -g nanosolana-cli
-nanosolana version
+npm install -g openclawdsolana-cli
+openclawdsolana version
 ```
 
 ## What it does
 
-1. ✅ Clones the SolanaOS repo
-2. ✅ Builds the `nanosolana` 10MB binary (Go)
-3. ✅ Creates `~/.nanosolana/` workspace + wallet
-4. ✅ Installs a stable CLI at `~/.nanosolana/bin/nanosolana`
-5. ✅ Optionally builds the web console and installs `~/.nanosolana/bin/nanosolana-web`
+1. ✅ Clones the OpenClawd repo
+2. ✅ Builds the `openclawdsolana` 10MB binary (Go)
+3. ✅ Creates `~/.openclawdsolana/` workspace + wallet
+4. ✅ Installs a stable CLI at `~/.openclawdsolana/bin/openclawdsolana`
+5. ✅ Optionally builds the web console and installs `~/.openclawdsolana/bin/openclawdsolana-web`
 
-After the first bootstrap, `nanosolana ...` proxies straight to the Go binary from any working directory.
-If you use `--with-web`, `nanosolana-web ...` does the same for the web console backend.
+After the first bootstrap, `openclawdsolana ...` proxies straight to the Go binary from any working directory.
+If you use `--with-web`, `openclawdsolana-web ...` does the same for the web console backend.
 
 ## After install
 
 ```bash
 # Check mainnet health
-nanosolana solana health
+openclawdsolana solana health
 
 # Register agent on-chain (devnet NFT)
-nanosolana solana register
+openclawdsolana solana register
 
 # Start paper trading
-nanosolana ooda --sim
+openclawdsolana ooda --sim
 
 # Full autonomous daemon
-nanosolana daemon
+openclawdsolana daemon
 
 # Local web console
-nanosolana-web --no-browser
+openclawdsolana-web --no-browser
 ```
 
 ## Links
 
-- **Docs**: [go.solanaos.net](https://go.solanaos.net)
-- **GitHub**: [x402agent/SolanaOS](https://github.com/x402agent/SolanaOS)
+- **Docs**: [go.openclawd.net](https://go.openclawd.net)
+- **GitHub**: [clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd)
 - **Helius**: [helius.dev](https://helius.dev)
 
-## Publish your own skill to SolanaOS Hub (npm)
+## Publish your own skill to OpenClawd Hub (npm)
 
-SolanaOS Hub supports publishing user-created skills via npm CLI.
+OpenClawd Hub supports publishing user-created skills via npm CLI.
 
 ```bash
-# Login to SolanaOS Hub
-npx @nanosolana/nanohub login
+# Login to OpenClawd Hub
+npx @openclawdsolana/clawdhub login
 
 # Publish a local skill folder (must contain SKILL.md)
-npx @nanosolana/nanohub publish ./my-skill \
+npx @openclawdsolana/clawdhub publish ./my-skill \
   --slug my-skill \
   --name "My Skill" \
   --version 1.0.0 \
   --tags latest,solana
 ```
 
-Open your published skills at **https://seeker.solanaos.net**.
+Open your published skills at **https://seeker.openclawd.net**.

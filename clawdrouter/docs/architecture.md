@@ -100,9 +100,9 @@ clawdrouter/
 └── README.md
 ```
 
-## Integration with solana-clawd
+## Integration with openclawd
 
-ClawdRouter integrates with the existing solana-clawd ecosystem:
+ClawdRouter integrates with the existing openclawd ecosystem:
 
 - **Vault**: Can read keypairs from `~/.clawd/vault/vault.json` via the `SolanaVault` class
 - **x402 Service**: Compatible with `src/services/x402/` payment flow

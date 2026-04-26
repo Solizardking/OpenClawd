@@ -1,5 +1,5 @@
 {
-  "name": "solana-clawd-vault-web",
+  "name": "openclawd-vault-web",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack --port 3000",

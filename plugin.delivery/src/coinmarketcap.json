@@ -1,19 +1,19 @@
 {
-  "author": "solana-clawd",
+  "author": "openclawd",
   "createdAt": "2025-01-01",
-  "homepage": "https://github.com/x402agent/solana-clawd",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "coinmarketcap",
   "manifest": "https://plugin.delivery/coinmarketcap/manifest.json",
   "meta": {
     "avatar": "📊",
-    "description": "[solana-clawd] Cryptocurrency rankings, market cap data, and trending coins — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[openclawd] Cryptocurrency rankings, market cap data, and trending coins — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "crypto",
       "prices",
       "rankings",
       "marketcap",
       "clawd",
-      "solana-clawd"
+      "openclawd"
     ],
     "title": "CoinMarketCap",
     "category": "stocks-finance"

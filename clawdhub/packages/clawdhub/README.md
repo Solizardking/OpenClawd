@@ -1,44 +1,44 @@
-# `@nanosolana/nanohub`
+# `@openclawdsolana/clawdhub`
 
-SolanaOS Hub CLI — install, update, search, and publish solana-claude agent skills for the SolanaOS ecosystem (supports the 128-bit Risk Engine & Pump Scanner).
+OpenClawd Hub CLI — install, update, search, and publish solana-claude agent skills for the OpenClawd ecosystem (supports the 128-bit Risk Engine & Pump Scanner).
 
-**Repo**: [github.com/x402agent/SolanaOS](https://github.com/x402agent/SolanaOS)
-**Hub**: [seeker.solanaos.net](https://seeker.solanaos.net)
-**Skill Creator**: [seeker.solanaos.net/create](https://seeker.solanaos.net/create)
+**Repo**: [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd)
+**Hub**: [seeker.openclawd.net](https://seeker.openclawd.net)
+**Skill Creator**: [seeker.openclawd.net/create](https://seeker.openclawd.net/create)
 
 ## Install
 
 ```bash
 # One-off via npx
-npx @nanosolana/nanohub --help
+npx @openclawdsolana/clawdhub --help
 
 # Optional global install
-npm i -g @nanosolana/nanohub
+npm i -g @openclawdsolana/clawdhub
 ```
 
 Command aliases provided by the package:
 
-- `nanohub` (primary)
-- `nanosolana-skill`
+- `clawdhub` (primary)
+- `openclawdsolana-skill`
 - `clawhub` (legacy)
 - `clawdhub` (legacy)
 
 ## Auth (publish)
 
 ```bash
-nanohub login
+clawdhub login
 # or
-nanohub auth login
+clawdhub auth login
 
 # Headless / token paste
-nanohub login --token <token>
+clawdhub login --token <token>
 ```
 
 Notes:
 
-- Browser login opens `${NANOHUB_SITE:-https://seeker.solanaos.net}/cli/auth` and completes via a loopback callback.
+- Browser login opens `${CLAWDHUB_SITE:-https://seeker.openclawd.net}/cli/auth` and completes via a loopback callback.
 - Token stored in `~/Library/Application Support/clawhub/config.json` on macOS.
-- Config path override envs: `NANOHUB_CONFIG_PATH` (preferred), `CLAWHUB_CONFIG_PATH`, `CLAWDHUB_CONFIG_PATH`.
+- Config path override envs: `CLAWDHUB_CONFIG_PATH` (preferred), `CLAWHUB_CONFIG_PATH`, `CLAWDHUB_CONFIG_PATH`.
 
 ## Publish a skill
 
@@ -49,7 +49,7 @@ Skill folder requirements:
 - semver version (for example `1.0.0`)
 
 ```bash
-npx @nanosolana/nanohub publish ./my-skill \
+npx @openclawdsolana/clawdhub publish ./my-skill \
   --slug solana-claude-strategy \
   --name "Solana Claude Strategy" \
   --version 1.0.0 \
@@ -57,28 +57,28 @@ npx @nanosolana/nanohub publish ./my-skill \
   --changelog "Initial framework pipeline"
 ```
 
-Or use the [Skill Creator](https://seeker.solanaos.net/create) to build your SKILL.md in the browser.
+Or use the [Skill Creator](https://seeker.openclawd.net/create) to build your SKILL.md in the browser.
 
 ## Sync (upload local skills)
 
 ```bash
 # Scan + upload from discovered skill roots
-nanohub sync
+clawdhub sync
 
 # Non-interactive upload of all candidates
-nanohub sync --all --bump patch --tags latest
+clawdhub sync --all --bump patch --tags latest
 ```
 
 ## Defaults
 
-- Site: `https://seeker.solanaos.net` (override via `--site`, `NANOHUB_SITE`, `CLAWHUB_SITE`, `CLAWDHUB_SITE`)
-- Registry: discovered from site `/.well-known/*.json`, fallback `https://seeker.solanaos.net` (override via `--registry`, `NANOHUB_REGISTRY`, `CLAWHUB_REGISTRY`, `CLAWDHUB_REGISTRY`)
-- Workdir: current directory (falls back to SolanaOS workspace when configured; override via `--workdir`, `NANOHUB_WORKDIR`, `CLAWHUB_WORKDIR`, `CLAWDHUB_WORKDIR`)
+- Site: `https://seeker.openclawd.net` (override via `--site`, `CLAWDHUB_SITE`, `CLAWHUB_SITE`, `CLAWDHUB_SITE`)
+- Registry: discovered from site `/.well-known/*.json`, fallback `https://seeker.openclawd.net` (override via `--registry`, `CLAWDHUB_REGISTRY`, `CLAWHUB_REGISTRY`, `CLAWDHUB_REGISTRY`)
+- Workdir: current directory (falls back to OpenClawd workspace when configured; override via `--workdir`, `CLAWDHUB_WORKDIR`, `CLAWHUB_WORKDIR`, `CLAWDHUB_WORKDIR`)
 - Install dir: `./skills` under workdir (override via `--dir`)
 
 ## Links
 
-- [SolanaOS Hub](https://seeker.solanaos.net) — browse and install skills
-- [SolanaOS Souls](https://souls.solanaos.net) — SOUL.md library
-- [Launch Page](https://solanaos.net) — platform overview
-- [GitHub](https://github.com/x402agent/SolanaOS) — source code
+- [OpenClawd Hub](https://seeker.openclawd.net) — browse and install skills
+- [OpenClawd Souls](https://souls.openclawd.net) — SOUL.md library
+- [Launch Page](https://openclawd.net) — platform overview
+- [GitHub](https://github.com/clawdsolana/OpenClawd) — source code

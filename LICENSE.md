@@ -30,7 +30,7 @@ Some sub-projects within this monorepo carry their own license terms. Refer to t
 - [`clawd-tui/LICENSE`](clawd-tui/LICENSE) — OpenClawd agent TUI (MIT)
 - [`clawdhub/LICENSE`](clawdhub/LICENSE) — ClawdHub registry (MIT)
 - [`clawdrouter/LICENSE`](clawdrouter/LICENSE) — ClawdRouter (MIT)
-- [`solana-clawd/LICENSE`](solana-clawd/LICENSE) — Solana Clawd framework (MIT)
+- [`openclawd/LICENSE`](openclawd/LICENSE) — Solana Clawd framework (MIT)
 - [`clawd3d/LICENSE`](clawd3d/LICENSE) — Clawd3D 3D agent workspace (MIT, originally upstream `Claw3D` by `iamlukethedev` — attribution preserved)
 
 Vendored third-party projects keep their original LICENSE files intact. Do not strip them:

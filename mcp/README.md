@@ -8,7 +8,7 @@ The Model Context Protocol (MCP) enables AI agents to interact with tools and da
 
 ## Available Servers
 
-### solana-clawd-mcp
+### openclawd-mcp
 
 31+ tools for Solana operations:
 - **Helius RPC** — account_info, balance, transactions, priority_fee
@@ -31,7 +31,7 @@ Add to your MCP client configuration:
 ```json
 {
   "mcpServers": {
-    "solana-clawd": {
+    "openclawd": {
       "type": "http",
       "url": "http://localhost:3000/mcp"
     }

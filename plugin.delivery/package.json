@@ -1,14 +1,14 @@
 {
   "name": "plugin.delivery",
   "version": "1.0.0",
-  "description": "AI Plugin Index - Function call plugins and tools for solana-clawd",
+  "description": "AI Plugin Index - Function call plugins and tools for openclawd",
   "homepage": "https://plugin.delivery",
   "repository": {
     "type": "git",
-    "url": "https://github.com/x402agent/solana-clawd"
+    "url": "https://github.com/clawdsolana/OpenClawd"
   },
   "license": "MIT",
-  "author": "solana-clawd <contact@solanaos.net>",
+  "author": "openclawd <contact@openclawd.net>",
   "type": "module",
   "main": "public/index.json",
   "files": [

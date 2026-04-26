@@ -1,10 +1,10 @@
-# solana-clawd Plugin Ecosystem Reference
+# openclawd Plugin Ecosystem Reference
 
 > **Version:** 2.0.0  
 > **Last Updated:** December 27, 2025  
 > **Domain:** `plugin.delivery`
 
-This document provides a comprehensive reference for the solana-clawd plugin ecosystem, covering architecture, protocols, model compatibility, and operational details.
+This document provides a comprehensive reference for the openclawd plugin ecosystem, covering architecture, protocols, model compatibility, and operational details.
 
 ---
 
@@ -23,9 +23,9 @@ This document provides a comprehensive reference for the solana-clawd plugin eco
 
 ## 1. Ecosystem Overview
 
-### What is the solana-clawd Plugin System?
+### What is the openclawd Plugin System?
 
-The solana-clawd plugin system extends AI assistant capabilities through external tools and services. It enables:
+The openclawd plugin system extends AI assistant capabilities through external tools and services. It enables:
 
 - **Real-time data access** - Live prices, weather, search results
 - **External API integration** - CoinGecko, DeFi protocols, databases
@@ -78,7 +78,7 @@ The solana-clawd plugin system extends AI assistant capabilities through externa
 | **Plugin Manifests** | Individual plugin configurations | `plugin.delivery/openai/{id}/manifest.json` |
 | **Plugin Gateway** | Proxy for plugin requests | `plugin.delivery/api/gateway` |
 | **Plugin SDK** | Development toolkit | `@openclawd/plugin-sdk` |
-| **solana-clawd Client** | Consumer of plugins | solana-clawd web/desktop app |
+| **openclawd Client** | Consumer of plugins | openclawd web/desktop app |
 
 ---
 
@@ -86,7 +86,7 @@ The solana-clawd plugin system extends AI assistant capabilities through externa
 
 ### Domain Structure
 
-The `plugin.delivery` domain hosts all solana-clawd plugin assets:
+The `plugin.delivery` domain hosts all openclawd plugin assets:
 
 ```
 plugin.delivery/
@@ -146,7 +146,7 @@ git push origin main
 
 ## 3. Plugin vs MCP Comparison
 
-solana-clawd supports two plugin systems. Here's a detailed comparison:
+openclawd supports two plugin systems. Here's a detailed comparison:
 
 ### Quick Comparison
 
@@ -191,12 +191,12 @@ User Request → LLM → Tool Call → MCP Client → MCP Server (STDIO/HTTP) �
 
 **Legacy Plugin:**
 ```
-solana-clawd://plugin/install?type=plugin&manifest=https://...
+openclawd://plugin/install?type=plugin&manifest=https://...
 ```
 
 **MCP Plugin:**
 ```
-solana-clawd://plugin/install?type=mcp&id=brave-search&schema=<base64>
+openclawd://plugin/install?type=mcp&id=brave-search&schema=<base64>
 ```
 
 ---
@@ -205,7 +205,7 @@ solana-clawd://plugin/install?type=mcp&id=brave-search&schema=<base64>
 
 ### Overview of Plugin Triggering
 
-The solana-clawd plugin system triggers plugins through the Function Call mechanism, enabling chatbots to interact with external APIs to enhance user experience. This section details how plugins are invoked during conversations.
+The openclawd plugin system triggers plugins through the Function Call mechanism, enabling chatbots to interact with external APIs to enhance user experience. This section details how plugins are invoked during conversations.
 
 ### Basic Principles of Function Call
 
@@ -213,12 +213,12 @@ Function Call is a feature that allows developers to describe functions within L
 
 ### Plugin Trigger Steps
 
-1. **User Input**: The user makes a request to solana-clawd, such as querying cryptocurrency prices or adding data
+1. **User Input**: The user makes a request to openclawd, such as querying cryptocurrency prices or adding data
 2. **Intent Recognition**: The model analyzes the user's input to determine if a plugin needs to be invoked
 3. **Generate Function Call**: If plugin intervention is required, the model generates a Function Call request containing necessary parameters
-4. **Send Request**: solana-clawd sends the Function Call as an API request to the designated plugin server via the gateway
+4. **Send Request**: openclawd sends the Function Call as an API request to the designated plugin server via the gateway
 5. **Process Request**: The plugin server receives the Function Call request, processes it, and prepares response data
-6. **Return Response**: The plugin server returns the processed data to solana-clawd in JSON format
+6. **Return Response**: The plugin server returns the processed data to openclawd in JSON format
 7. **Model Processes Plugin Response**: The model receives the plugin's response data and continues interacting with the user based on this data
 
 ### Example Process: Cryptocurrency Price Plugin
@@ -250,9 +250,9 @@ The model recognizes that the user wants cryptocurrency data and generates a Fun
 }
 ```
 
-**3. solana-clawd Sends API Request**
+**3. openclawd Sends API Request**
 
-solana-clawd converts the Function Call into an API request to the cryptocurrency price plugin:
+openclawd converts the Function Call into an API request to the cryptocurrency price plugin:
 
 ```http
 POST /crypto-price HTTP/1.1
@@ -308,8 +308,8 @@ After receiving the plugin's response, the model interacts with the user:
 ### Function Call Considerations
 
 - **Design Accuracy**: Function Call definitions must accurately reflect user intent and required parameters
-- **Security**: Plugins must securely and efficiently handle requests from solana-clawd
-- **Tool Calls Update**: In the latest OpenAI implementation, Function Call has been updated to `tool_calls`. solana-clawd has completed compatibility adaptation
+- **Security**: Plugins must securely and efficiently handle requests from openclawd
+- **Tool Calls Update**: In the latest OpenAI implementation, Function Call has been updated to `tool_calls`. openclawd has completed compatibility adaptation
 - **Error Handling**: Plugins should return appropriate error types (see Plugin Error Types) for proper user feedback
 
 ---
@@ -402,7 +402,7 @@ Not all LLM models handle tool/function calling equally. This section documents 
 ### What is the Plugin Gateway?
 
 The gateway is a proxy service that:
-1. Routes plugin requests from solana-clawd
+1. Routes plugin requests from openclawd
 2. Handles CORS and authentication
 3. Validates plugin manifests and parameters
 4. Forwards requests to plugin servers
@@ -411,7 +411,7 @@ The gateway is a proxy service that:
 
 ```
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│  solana-clawd   │────▶│   Gateway   │────▶│   Plugin    │
+│  openclawd   │────▶│   Gateway   │────▶│   Plugin    │
 │   Client    │     │  (Proxy)    │     │   Server    │
 └─────────────┘     └─────────────┘     └─────────────┘
        │                   │                   │
@@ -733,5 +733,5 @@ plugins/
 ---
 
 *For development guide, see [PLUGIN_DEVELOPMENT_GUIDE.md](./PLUGIN_DEVELOPMENT_GUIDE.md)*
-*For MCP plugins, see [MCP_VS_PLUGINS.md](../solana-clawd/docs/MCP_VS_PLUGINS.md)*
+*For MCP plugins, see [MCP_VS_PLUGINS.md](../openclawd/docs/MCP_VS_PLUGINS.md)*
 

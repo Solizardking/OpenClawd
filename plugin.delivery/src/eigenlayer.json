@@ -1,18 +1,18 @@
 {
-  "author": "solana-clawd",
+  "author": "openclawd",
   "createdAt": "2025-01-01",
-  "homepage": "https://github.com/x402agent/solana-clawd",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "eigenlayer",
   "manifest": "https://plugin.delivery/eigenlayer/manifest.json",
   "meta": {
     "avatar": "🔄",
-    "description": "[solana-clawd] EigenLayer restaking TVL, operators, and AVS data — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[openclawd] EigenLayer restaking TVL, operators, and AVS data — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "eigenlayer",
       "restaking",
       "avs",
       "clawd",
-      "solana-clawd"
+      "openclawd"
     ],
     "title": "EigenLayer",
     "category": "stocks-finance"

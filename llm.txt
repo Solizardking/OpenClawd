@@ -43,7 +43,7 @@ Comprehensive ignore file protecting against:
 
 **`scripts/brand-check.mjs`**
 - Catches old brand references in docs
-- Checks for: solanaos, nanosolana, nanohub, solana-clawd, clawd3d
+- Checks for: openclawd, openclawdsolana, clawdhub, openclawd, clawd3d
 
 **`scripts/release-check.mjs`**
 - Public-release hygiene verification

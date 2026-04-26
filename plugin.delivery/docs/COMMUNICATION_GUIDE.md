@@ -248,7 +248,7 @@ The gateway sends POST requests to your plugin API:
 ```http
 POST /api/your-endpoint HTTP/1.1
 Content-Type: application/json
-solana-clawd-Plugin-Settings: {"apiKey": "user-configured-key"}
+openclawd-Plugin-Settings: {"apiKey": "user-configured-key"}
 
 {
   "param1": "value1",
@@ -482,32 +482,32 @@ For advanced use cases, here are the raw postMessage channels:
 
 | Channel | Direction | Description |
 |---------|-----------|-------------|
-| `solana-clawd:plugin-ready-for-render` | Plugin → Host | Plugin is ready |
-| `solana-clawd:init-standalone-plugin` | Plugin → Host | Standalone initialized |
-| `solana-clawd:render-plugin` | Host → Plugin | Send render data |
+| `openclawd:plugin-ready-for-render` | Plugin → Host | Plugin is ready |
+| `openclawd:init-standalone-plugin` | Plugin → Host | Standalone initialized |
+| `openclawd:render-plugin` | Host → Plugin | Send render data |
 
 ### Message Channels
 
 | Channel | Direction | Description |
 |---------|-----------|-------------|
-| `solana-clawd:fetch-plugin-message` | Plugin → Host | Request message |
-| `solana-clawd:fill-plugin-content` | Plugin → Host | Update message |
+| `openclawd:fetch-plugin-message` | Plugin → Host | Request message |
+| `openclawd:fill-plugin-content` | Plugin → Host | Update message |
 
 ### State Channels
 
 | Channel | Direction | Description |
 |---------|-----------|-------------|
-| `solana-clawd:fetch-plugin-state` | Plugin → Host | Request state |
-| `solana-clawd:render-plugin-state` | Host → Plugin | Send state |
-| `solana-clawd:update-plugin-state` | Plugin → Host | Update state |
+| `openclawd:fetch-plugin-state` | Plugin → Host | Request state |
+| `openclawd:render-plugin-state` | Host → Plugin | Send state |
+| `openclawd:update-plugin-state` | Plugin → Host | Update state |
 
 ### Settings Channels
 
 | Channel | Direction | Description |
 |---------|-----------|-------------|
-| `solana-clawd:fetch-plugin-settings` | Plugin → Host | Request settings |
-| `solana-clawd:render-plugin-settings` | Host → Plugin | Send settings |
-| `solana-clawd:update-plugin-settings` | Plugin → Host | Update settings |
+| `openclawd:fetch-plugin-settings` | Plugin → Host | Request settings |
+| `openclawd:render-plugin-settings` | Host → Plugin | Send settings |
+| `openclawd:update-plugin-settings` | Plugin → Host | Update settings |
 
 ### Example: Raw postMessage
 
@@ -515,13 +515,13 @@ For advanced use cases, here are the raw postMessage channels:
 // Usually you don't need this - use the SDK instead
 window.parent.postMessage(
   {
-    type: 'solana-clawd:plugin-ready-for-render',
+    type: 'openclawd:plugin-ready-for-render',
   },
   '*'
 );
 
 window.addEventListener('message', (event) => {
-  if (event.data.type === 'solana-clawd:render-plugin') {
+  if (event.data.type === 'openclawd:render-plugin') {
     const pluginData = event.data.payload;
     // Handle the data
   }
@@ -567,9 +567,9 @@ window.addEventListener('message', (event) => {
 
 ### Gateway Processing Flow
 
-The gateway serves as middleware between solana-clawd and plugin servers, ensuring secure and flexible communication.
+The gateway serves as middleware between openclawd and plugin servers, ensuring secure and flexible communication.
 
-**Request Initialization**: solana-clawd sends a request to the Gateway via HTTP POST, carrying a `PluginRequestPayload` containing:
+**Request Initialization**: openclawd sends a request to the Gateway via HTTP POST, carrying a `PluginRequestPayload` containing:
 - Plugin identifier
 - API name
 - Parameters
@@ -581,11 +581,11 @@ The gateway serves as middleware between solana-clawd and plugin servers, ensuri
 3. Retrieve plugin manifest if not provided
 4. Add user settings to request headers
 5. Route request to appropriate plugin server
-6. Return response to solana-clawd
+6. Return response to openclawd
 
 **Parameter Validation**: The Gateway validates parameters based on the API parameter pattern defined in the plugin manifest to ensure validity and security.
 
-**Setting Handling**: The Gateway adds the plugin's requested settings to the `solana-clawd-Plugin-Settings` header, allowing the plugin to retrieve settings like API keys.
+**Setting Handling**: The Gateway adds the plugin's requested settings to the `openclawd-Plugin-Settings` header, allowing the plugin to retrieve settings like API keys.
 
 **OpenAPI Support**: If the plugin manifest specifies an OpenAPI manifest, the Gateway utilizes SwaggerClient to interact with third-party services.
 
@@ -609,13 +609,13 @@ For detailed error types, see the [Plugin Error Types](#plugin-error-types) sect
 
 ### Communication via postMessage API
 
-The frontend communication between solana-clawd and plugins is based on the HTML5 `window.postMessage` API, which allows secure communication between pages from different origins.
+The frontend communication between openclawd and plugins is based on the HTML5 `window.postMessage` API, which allows secure communication between pages from different origins.
 
 ### Frontend Communication Flow
 
 **1. Initialization of Communication**
 
-When the plugin is loaded and ready to interact with solana-clawd, it uses the `SolanaClawdOS.getPluginPayload()` method to obtain initialization data:
+When the plugin is loaded and ready to interact with openclawd, it uses the `SolanaClawdOS.getPluginPayload()` method to obtain initialization data:
 
 ```typescript
 import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
@@ -625,7 +625,7 @@ const payload = await SolanaClawdOS.getPluginPayload();
 console.log('Plugin initialized:', payload);
 ```
 
-Behind the scenes, the plugin listens for the `message` event, waiting for the initialization message from solana-clawd.
+Behind the scenes, the plugin listens for the `message` event, waiting for the initialization message from openclawd.
 
 **2. Receiving Plugin Payload**
 
@@ -681,14 +681,14 @@ await SolanaClawdOS.createAssistantMessage('Custom content');
 
 ### Communication Summary
 
-Communication between solana-clawd and plugins is achieved through asynchronous message exchange using the postMessage API. The plugin can:
+Communication between openclawd and plugins is achieved through asynchronous message exchange using the postMessage API. The plugin can:
 - Request data from the host
 - Receive initialization data
 - Update its own state
 - Trigger AI messages
 - Create new messages
 
-The solana-clawd host is responsible for responding to these requests and providing the required data. This mechanism allows plugins to operate independently while effectively communicating with the host application.
+The openclawd host is responsible for responding to these requests and providing the required data. This mechanism allows plugins to operate independently while effectively communicating with the host application.
 
 The SDK's `SolanaClawdOS` methods abstract communication details, enabling plugins to interact using a concise API.
 
@@ -733,7 +733,7 @@ Add a `settings` field in your `manifest.json`:
 
 ### How Settings Appear to Users
 
-When users enable your plugin, solana-clawd will:
+When users enable your plugin, openclawd will:
 1. Display a settings form based on your schema
 2. Show input fields with appropriate types (text, password, number, etc.)
 3. Validate inputs according to your constraints
@@ -990,7 +990,7 @@ return new Response(data, {
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, solana-clawd-Plugin-Settings',
+    'Access-Control-Allow-Headers': 'Content-Type, openclawd-Plugin-Settings',
   },
 });
 ```
@@ -1008,7 +1008,7 @@ return new Response(data, {
 Check if header exists:
 
 ```typescript
-const settingsHeader = req.headers.get('solana-clawd-Plugin-Settings');
+const settingsHeader = req.headers.get('openclawd-Plugin-Settings');
 console.log('Settings header:', settingsHeader);
 ```
 

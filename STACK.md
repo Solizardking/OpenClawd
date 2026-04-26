@@ -27,7 +27,7 @@ The shared flow is:
                               │ model routing + payment checks
 ┌────────────────────────────▼─────────────────────────────────┐
 │ Runtime                                                      │
-│ src · solana-clawd · agents · MCP · packages                 │
+│ src · openclawd · agents · MCP · packages                 │
 │ openclawd-stack · clawd-cloud-os · CLI                       │
 └────────────────────────────┬─────────────────────────────────┘
                               │ skills, registry, docs
@@ -67,7 +67,7 @@ The shared flow is:
 | Router | [`services/`](./services/) | Backend services and support processes |
 | Router | [`plugin.delivery/`](./plugin.delivery/) | Paid plugin and package delivery flow |
 | Runtime | [`src/`](./src/) | Core TypeScript engine |
-| Runtime | [`solana-clawd/`](./solana-clawd/) | Go plus TypeScript Solana agent framework |
+| Runtime | [`openclawd/`](./openclawd/) | Go plus TypeScript Solana agent framework |
 | Runtime | [`AGENTS/`](./AGENTS/) | Agent catalog and deploy-oriented assets |
 | Runtime | [`MCP/`](./MCP/) | MCP servers |
 | Runtime | [`packages/`](./packages/) | Shared npm packages, including wallet components |
@@ -117,7 +117,7 @@ user request
 ```text
 telegram or chrome-extension
   -> clawdrouter
-  -> agents or solana-clawd runtime
+  -> agents or openclawd runtime
   -> MCP tools + SKILL.md guidance
   -> Jupiter / Helius / Solana RPC
   -> x402 settlement where required
@@ -201,7 +201,7 @@ and the consuming service's `.env.example`.
 | 8420 | MawdAxe miner SSE | `chrome-extension/` |
 | 8421 | Wallet API | `chrome-extension/` |
 | 8787 | OpenClawd Orchestrator | `openclawd-stack/orchestrator/` |
-| 18790 | SolanaOS Gateway WS | external (`SolanaOS`) |
+| 18790 | OpenClawd Gateway WS | external (`OpenClawd`) |
 
 The 8080 ↔ 8787 pair is the intended split inside `openclawd-stack`: the Bridge
 is the WebSocket front door (8080), the Orchestrator is the Honcho/Privy/MCP
@@ -285,7 +285,7 @@ Use the docs in this order:
 1. [README.md](./README.md) for product-level orientation.
 2. This file for layer and directory mapping.
 3. [articles/architecture.md](./articles/architecture.md) for deeper architecture notes.
-4. Component READMEs such as [clawdrouter/README.md](./clawdrouter/README.md), [solana-clawd/README.md](./solana-clawd/README.md), [packages/clawd-wallet/README.md](./packages/clawd-wallet/README.md), and [tailclawd/README.md](./tailclawd/README.md).
+4. Component READMEs such as [clawdrouter/README.md](./clawdrouter/README.md), [openclawd/README.md](./openclawd/README.md), [packages/clawd-wallet/README.md](./packages/clawd-wallet/README.md), and [tailclawd/README.md](./tailclawd/README.md).
 
 ---
 

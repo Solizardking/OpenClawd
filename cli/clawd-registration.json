@@ -79,7 +79,7 @@
   ],
   "lineage": {
     "architecture": "openclawd",
-    "runtime": "solana-clawd",
+    "runtime": "openclawd",
     "router": "clawdrouter",
     "payment": "x402",
     "chain": "solana"

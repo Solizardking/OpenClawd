@@ -3,7 +3,7 @@
     "description": "AI plugin marketplace. SDK, gateway & developer tools for building function-calling plugins. OpenAPI compatible, multi-language support, Vercel edge deployment. Build chat plugins, AI tools & extensions. Primary use in cryptocurrency, DeFI, crypto trading, and blockchain analytics.",
     "version": "1.0.0",
     "publisher": "x402agent",
-    "repository": "https://github.com/x402agent/solana-clawd",
+    "repository": "https://github.com/clawdsolana/OpenClawd",
     "language": "TypeScript",
     "topics": [
         "x402agent",

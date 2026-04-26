@@ -35,12 +35,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/x402agent/openclawd.git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
     "directory": "clawd-code-cli"
   },
-  "homepage": "https://github.com/x402agent/openclawd/tree/main/clawd-code-cli#readme",
+  "homepage": "https://github.com/clawdsolana/OpenClawd/tree/main/clawd-code-cli#readme",
   "bugs": {
-    "url": "https://github.com/x402agent/openclawd/issues"
+    "url": "https://github.com/clawdsolana/OpenClawd/issues"
   },
   "keywords": [
     "cli",

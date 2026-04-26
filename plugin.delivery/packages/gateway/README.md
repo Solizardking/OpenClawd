@@ -5,13 +5,13 @@
 
 <h1>@openclawd/chat-plugins-gateway</h1>
 
-Edge-runtime plugin gateway for the **solana-clawd** ecosystem.
+Edge-runtime plugin gateway for the **openclawd** ecosystem.
 
 Fetches the plugin index from [plugin.delivery](https://plugin.delivery), validates requests against each plugin's manifest + JSON schema, forwards to the plugin runtime, and streams the response back through the CLAWD permission engine.
 
 **English** · [简体中文](./README.zh-CN.md) ·
 
-[🏠 Ecosystem](https://solanaclawd.com/agents) · [💻 Terminal](https://solanaclawd.com/terminal) · [🎨 Studio](https://vibe.solanaclawd.com) · [💱 DEX](https://dex.solanaclawd.com) · [📲 Telegram](https://t.me/clawdtoken) · [📱 Mobile](https://seeker.solanaos.net)
+[🏠 Ecosystem](https://solanaclawd.com/agents) · [💻 Terminal](https://solanaclawd.com/terminal) · [🎨 Studio](https://vibe.solanaclawd.com) · [💱 DEX](https://dex.solanaclawd.com) · [📲 Telegram](https://t.me/clawdtoken) · [📱 Mobile](https://seeker.openclawd.net)
 
 </div>
 
@@ -47,7 +47,7 @@ The gateway is the execution bridge between a CLAWD agent and a plugin listed in
 
 We ship it as a [Vercel Edge Function](https://vercel.com/docs/functions/edge-functions) (`POST /api/v1/runner`) and a `node` variant for local daemons.
 
-To add a plugin to the index, submit a PR to the [solana-clawd repo](https://github.com/x402agent/solana-clawd).
+To add a plugin to the index, submit a PR to the [openclawd repo](https://github.com/clawdsolana/OpenClawd).
 
 <div align="right">
 
@@ -68,7 +68,7 @@ To add a plugin to the index, submit a PR to the [solana-clawd repo](https://git
 
 > **Note**\
 > **POST** `/api/v1/runner`\
-> Interface to communicate with the solana-clawd plugin. This interface describes how to use the solana-clawd plugin gateway API to send requests and get responses
+> Interface to communicate with the openclawd plugin. This interface describes how to use the openclawd plugin gateway API to send requests and get responses
 
 #### Body Request Parameters
 
@@ -166,7 +166,7 @@ If you want to deploy this service by yourself, you can follow the steps below.
 
 Click button below to deploy your private plugins' gateway.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fx402agent%2Fplugin.delivery&project-name=chat-plugins-gateway&repository-name=chat-plugins-gateway)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fclawdsolana%2FOpenClawd&project-name=chat-plugins-gateway&repository-name=chat-plugins-gateway)
 
 If you want to make some customization, you can add environment variable:
 
@@ -180,12 +180,12 @@ If you want to make some customization, you can add environment variable:
 
 ## 📦 Plugin Ecosystem
 
-Plugins provide a means to extend the Function Calling capabilities of solana-clawd. They can be used to introduce new function calls and even new ways to render message results. If you are interested in plugin development, please refer to our [📘 Plugin Development Guide](https://github.com/x402agent/solana-clawd/wiki/Plugin-Development) in the Wiki.
+Plugins provide a means to extend the Function Calling capabilities of openclawd. They can be used to introduce new function calls and even new ways to render message results. If you are interested in plugin development, please refer to our [📘 Plugin Development Guide](https://github.com/clawdsolana/OpenClawd/wiki/Plugin-Development) in the Wiki.
 
-- [solana-clawd-plugins][solana-clawd-plugins]: This is the plugin index for solana-clawd. It accesses index.json from this repository to display a list of available plugins for solana-clawd to the user.
-- [chat-plugin-template][chat-plugin-template]: This is the plugin template for solana-clawd plugin development.
-- [@openclawd/plugin-sdk][chat-plugin-sdk]: The solana-clawd Plugin SDK assists you in creating exceptional chat plugins for solana-clawd.
-- [@openclawd/chat-plugins-gateway][chat-plugins-gateway]: The solana-clawd Plugins Gateway is a backend service that provides a gateway for solana-clawd plugins. We deploy this service using Vercel. The primary API POST /api/v1/runner is deployed as an Edge Function.
+- [openclawd-plugins][openclawd-plugins]: This is the plugin index for openclawd. It accesses index.json from this repository to display a list of available plugins for openclawd to the user.
+- [chat-plugin-template][chat-plugin-template]: This is the plugin template for openclawd plugin development.
+- [@openclawd/plugin-sdk][chat-plugin-sdk]: The openclawd Plugin SDK assists you in creating exceptional chat plugins for openclawd.
+- [@openclawd/chat-plugins-gateway][chat-plugins-gateway]: The openclawd Plugins Gateway is a backend service that provides a gateway for openclawd plugins. We deploy this service using Vercel. The primary API POST /api/v1/runner is deployed as an Edge Function.
 
 <div align="right">
 
@@ -204,7 +204,7 @@ Or clone it for local development:
 [![][bun-shield]][bun-link]
 
 ```bash
-$ git clone https://github.com/x402agent/solana-clawd
+$ git clone https://github.com/clawdsolana/OpenClawd
 $ cd chat-plugins-gateway
 $ bun install
 $ bun dev
@@ -225,8 +225,8 @@ $ bun dev
 
 ## 🔗 Links
 
-- **[🤖 solana-clawd](https://github.com/x402agent/solana-clawd)** - An open-source, extensible (Function Calling), high-performance chatbot framework. It supports one-click free deployment of your private ChatGPT/LLM web application.
-- **[Plugin Delivery](https://github.com/x402agent/solana-clawd)** - This is the plugin index. It accesses index.json from this repository to display a list of available plugins for Function Calling to the user.
+- **[🤖 openclawd](https://github.com/clawdsolana/OpenClawd)** - An open-source, extensible (Function Calling), high-performance chatbot framework. It supports one-click free deployment of your private ChatGPT/LLM web application.
+- **[Plugin Delivery](https://github.com/clawdsolana/OpenClawd)** - This is the plugin index. It accesses index.json from this repository to display a list of available plugins for Function Calling to the user.
 
 <div align="right">
 

@@ -7,14 +7,14 @@ read_when:
 
 # Deploy
 
-NanoHub (ClawHub runtime) is two deployables:
+ClawdHub (ClawHub runtime) is two deployables:
 
 - Web app (TanStack Start) → Netlify or Railway.
 - Convex backend → Convex deployment (serves `/api/...` routes).
 
 ## Fast path (single command)
 
-From repo root (`nanohub/`):
+From repo root (`clawdhub/`):
 
 ```bash
 cp .env.deploy.example .env.deploy

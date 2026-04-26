@@ -1,18 +1,18 @@
 {
-  "author": "solana-clawd",
+  "author": "openclawd",
   "createdAt": "2025-01-01",
-  "homepage": "https://github.com/x402agent/solana-clawd",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "cow-swap",
   "manifest": "https://plugin.delivery/cow-swap/manifest.json",
   "meta": {
     "avatar": "🐮",
-    "description": "[solana-clawd] MEV-protected trades via batch auctions — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[openclawd] MEV-protected trades via batch auctions — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "cow",
       "mev",
       "swap",
       "clawd",
-      "solana-clawd"
+      "openclawd"
     ],
     "title": "CoW Swap",
     "category": "stocks-finance"

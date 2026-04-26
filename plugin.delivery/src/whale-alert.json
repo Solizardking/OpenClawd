@@ -1,18 +1,18 @@
 {
-  "author": "solana-clawd",
+  "author": "openclawd",
   "createdAt": "2025-01-01",
-  "homepage": "https://github.com/x402agent/solana-clawd",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "whale-alert",
   "manifest": "https://plugin.delivery/whale-alert/manifest.json",
   "meta": {
     "avatar": "🐋",
-    "description": "[solana-clawd] Track large cryptocurrency transactions over $1M across blockchains — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[openclawd] Track large cryptocurrency transactions over $1M across blockchains — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "whale",
       "transactions",
       "alerts",
       "clawd",
-      "solana-clawd"
+      "openclawd"
     ],
     "title": "Whale Alert",
     "category": "stocks-finance"

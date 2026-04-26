@@ -346,7 +346,7 @@ ws.on('message', (data) => {
 
 ```bash
 # 1. Clone OpenClawd
-git clone https://github.com/x402agent/openclawd.git
+git clone https://github.com/clawdsolana/OpenClawd.git
 cd openclawd
 
 # 2. Install dependencies

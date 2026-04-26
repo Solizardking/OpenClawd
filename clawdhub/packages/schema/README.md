@@ -1,3 +1,3 @@
-# NanoHub Schema
+# ClawdHub Schema
 
-Shared runtime schemas (ArkType) for NanoHub and SolanaOS Hub.
+Shared runtime schemas (ArkType) for ClawdHub and OpenClawd Hub.

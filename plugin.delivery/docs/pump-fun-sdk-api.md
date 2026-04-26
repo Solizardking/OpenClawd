@@ -1,4 +1,4 @@
-# 🚀 Pump Fun SDK — solana-clawd Plugin API Reference
+# 🚀 Pump Fun SDK — openclawd Plugin API Reference
 
 Interactive demo: [`plugin-demo.html`](../../website/plugin-demo.html) | Live: [`plugin.delivery/api/pump-fun-sdk`](https://plugin.delivery/api/pump-fun-sdk)
 
@@ -304,6 +304,6 @@ vercel --prod  # production deploy
 
 - [Interactive Demo](../../website/plugin-demo.html)
 - [Plugin Manifest](../../packages/plugin.delivery/public/pump-fun-sdk/manifest.json)
-- [solana-clawd / Plugin Delivery](https://plugin.delivery)
-- [Pump Fun SDK](https://github.com/x402agent/solana-clawd)
+- [openclawd / Plugin Delivery](https://plugin.delivery)
+- [Pump Fun SDK](https://github.com/clawdsolana/OpenClawd)
 

@@ -11,7 +11,7 @@
     ],
     "description": "Solana Clawd pAGENT Browser MCP server — AI-powered browser control via the Clawd pAGENT extension",
     "keywords": [
-        "solana-clawd",
+        "openclawd",
         "pagent",
         "mcp",
         "browser-automation",
@@ -23,7 +23,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/x402agent/solana-clawd.git",
+        "url": "https://github.com/clawdsolana/OpenClawd.git",
         "directory": "chrome-extension/mcp"
     },
     "homepage": "https://solanaclawd.com",

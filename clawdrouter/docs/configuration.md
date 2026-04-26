@@ -25,11 +25,11 @@
 For production use, consider a dedicated Solana RPC:
 
 ```bash
-# Helius (recommended for solana-clawd)
+# Helius (recommended for openclawd)
 export CLAWDROUTER_SOLANA_RPC_URL="https://mainnet.helius-rpc.com/?api-key=YOUR_KEY"
 
 # Triton
-export CLAWDROUTER_SOLANA_RPC_URL="https://solana-clawd-mainnet.rpcpool.com"
+export CLAWDROUTER_SOLANA_RPC_URL="https://openclawd-mainnet.rpcpool.com"
 
 # QuickNode
 export CLAWDROUTER_SOLANA_RPC_URL="https://YOUR_ENDPOINT.solana-mainnet.quiknode.pro/YOUR_KEY/"

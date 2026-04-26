@@ -1,8 +1,8 @@
-# solana-clawd Plugin Documentation
+# openclawd Plugin Documentation
 
 > **Live:** [plugin.delivery](https://plugin.delivery) • **SDK:** `@openclawd/plugin-sdk`
 
-Build AI-powered plugins for solana-clawd. Extend chat capabilities with custom APIs, OpenAPI integrations, and interactive UIs.
+Build AI-powered plugins for openclawd. Extend chat capabilities with custom APIs, OpenAPI integrations, and interactive UIs.
 
 ---
 
@@ -64,7 +64,7 @@ User: "What's the price of ETH?"
            │
            ▼
     ┌──────────────┐
-    │   solana-clawd   │ ←── Discovers plugin from index
+    │   openclawd   │ ←── Discovers plugin from index
     │   AI Model   │
     └──────┬───────┘
            │
@@ -98,7 +98,7 @@ User: "What's the price of ETH?"
 
 ```bash
 # 1. Clone template
-git clone https://github.com/x402agent/solana-clawd
+git clone https://github.com/clawdsolana/OpenClawd
 cd plugins
 cp -r templates/default my-plugin
 cd my-plugin
@@ -107,7 +107,7 @@ cd my-plugin
 bun install
 bun dev
 
-# 3. Test in solana-clawd
+# 3. Test in openclawd
 # Add custom plugin: http://localhost:3400/manifest.json
 ```
 
@@ -142,7 +142,7 @@ bun dev
 | Resource | URL |
 |----------|-----|
 | Plugin Index | [plugin.delivery](https://plugin.delivery) |
-| GitHub | [github.com/x402agent/solana-clawd](https://github.com/x402agent/solana-clawd) |
+| GitHub | [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
 | Twitter/X | [@nichxbt](https://x.com/nichxbt) |
 
 ---
@@ -163,7 +163,7 @@ bun dev
 
 ## ❓ Need Help?
 
-- **GitHub Issues:** [github.com/x402agent/solana-clawd/issues](https://github.com/x402agent/solana-clawd/issues)
+- **GitHub Issues:** [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
 - **Twitter/X:** [@nichxbt](https://x.com/nichxbt)
 - **Example Plugin:** [CoinGecko](../src/coingecko.json)
 

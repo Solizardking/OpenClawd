@@ -204,7 +204,7 @@
         "one-shot"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -251,7 +251,7 @@
         "one-shot"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -296,7 +296,7 @@
         "marginfi"
       ],
       "category": "education",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -342,7 +342,7 @@
         "allbridge"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -385,7 +385,7 @@
         "one-shot"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -431,7 +431,7 @@
         "one-shot"
       ],
       "category": "research",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-19",
       "oneShot": true,
       "featured": true,
@@ -470,7 +470,7 @@
         "one-shot"
       ],
       "category": "governance",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -518,7 +518,7 @@
         "one-shot"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -568,7 +568,7 @@
         "one-shot"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -634,7 +634,7 @@
         "one-shot"
       ],
       "category": "education",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -679,7 +679,7 @@
         "one-shot"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -723,7 +723,7 @@
         "clawd"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -776,7 +776,7 @@
         "one-shot"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -823,7 +823,7 @@
         "one-shot"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -870,7 +870,7 @@
         "defi"
       ],
       "category": "education",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -914,7 +914,7 @@
         "analytics"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -961,7 +961,7 @@
         "one-shot"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -1008,7 +1008,7 @@
         "one-shot"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -1058,7 +1058,7 @@
         "one-shot"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -1106,7 +1106,7 @@
         "dev-tools"
       ],
       "category": "dev-tools",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -1151,7 +1151,7 @@
         "spl-governance"
       ],
       "category": "governance",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -1198,7 +1198,7 @@
         "orca"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -1241,7 +1241,7 @@
         "solana"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -1288,7 +1288,7 @@
         "one-shot"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -1338,7 +1338,7 @@
         "analytics"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -1383,7 +1383,7 @@
         "bundles"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -1429,7 +1429,7 @@
         "magic-eden"
       ],
       "category": "nft",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -1479,7 +1479,7 @@
         "one-shot"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -1528,7 +1528,7 @@
         "x402"
       ],
       "category": "dev-tools",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-02-27",
       "oneShot": true,
       "featured": true,
@@ -1573,7 +1573,7 @@
         "clawd"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -1617,7 +1617,7 @@
         "clawd"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -1663,7 +1663,7 @@
         "clawd"
       ],
       "category": "nft",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -1716,7 +1716,7 @@
         "clawd"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -1760,7 +1760,7 @@
         "clawd"
       ],
       "category": "education",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -1808,7 +1808,7 @@
         "susd"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -1855,7 +1855,7 @@
         "education"
       ],
       "category": "education",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -1903,7 +1903,7 @@
         "ledger"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -1949,7 +1949,7 @@
         "das"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -1994,7 +1994,7 @@
         "dev-tools"
       ],
       "category": "dev-tools",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -2039,7 +2039,7 @@
         "analytics"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -2087,7 +2087,7 @@
         "one-shot"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2133,7 +2133,7 @@
         "one-shot"
       ],
       "category": "research",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-19",
       "oneShot": true,
       "featured": true,
@@ -2175,7 +2175,7 @@
         "one-shot"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2225,7 +2225,7 @@
         "one-shot"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2291,7 +2291,7 @@
         "one-shot"
       ],
       "category": "education",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2336,7 +2336,7 @@
         "one-shot"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2380,7 +2380,7 @@
         "clawd"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2433,7 +2433,7 @@
         "one-shot"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2480,7 +2480,7 @@
         "one-shot"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2530,7 +2530,7 @@
         "one-shot"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2580,7 +2580,7 @@
         "one-shot"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2628,7 +2628,7 @@
         "one-shot"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2676,7 +2676,7 @@
         "one-shot"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2725,7 +2725,7 @@
         "x402"
       ],
       "category": "dev-tools",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-02-27",
       "oneShot": true,
       "featured": true,
@@ -2770,7 +2770,7 @@
         "clawd"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2814,7 +2814,7 @@
         "clawd"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2860,7 +2860,7 @@
         "clawd"
       ],
       "category": "nft",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2913,7 +2913,7 @@
         "clawd"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -2957,7 +2957,7 @@
         "clawd"
       ],
       "category": "education",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -3005,7 +3005,7 @@
         "ledger"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -3053,7 +3053,7 @@
         "one-shot"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -3100,7 +3100,7 @@
         "one-shot"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -3145,7 +3145,7 @@
         "marginfi"
       ],
       "category": "education",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -3191,7 +3191,7 @@
         "allbridge"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -3234,7 +3234,7 @@
         "one-shot"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -3280,7 +3280,7 @@
         "one-shot"
       ],
       "category": "research",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-19",
       "oneShot": true,
       "featured": true,
@@ -3319,7 +3319,7 @@
         "one-shot"
       ],
       "category": "governance",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -3367,7 +3367,7 @@
         "one-shot"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -3417,7 +3417,7 @@
         "one-shot"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -3483,7 +3483,7 @@
         "one-shot"
       ],
       "category": "education",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -3528,7 +3528,7 @@
         "one-shot"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -3572,7 +3572,7 @@
         "clawd"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -3625,7 +3625,7 @@
         "one-shot"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -3672,7 +3672,7 @@
         "one-shot"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -3720,7 +3720,7 @@
         "analytics"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-01-03",
       "oneShot": false,
       "featured": false,
@@ -3763,7 +3763,7 @@
         "solana"
       ],
       "category": "education",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": false,
       "featured": false,
@@ -3807,7 +3807,7 @@
         "defi"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": false,
       "featured": false,
@@ -3851,7 +3851,7 @@
         "defi"
       ],
       "category": "education",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -3895,7 +3895,7 @@
         "analytics"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -3942,7 +3942,7 @@
         "one-shot"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -3989,7 +3989,7 @@
         "one-shot"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -4039,7 +4039,7 @@
         "one-shot"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -4087,7 +4087,7 @@
         "dev-tools"
       ],
       "category": "dev-tools",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -4132,7 +4132,7 @@
         "spl-governance"
       ],
       "category": "governance",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -4179,7 +4179,7 @@
         "orca"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -4222,7 +4222,7 @@
         "solana"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -4269,7 +4269,7 @@
         "one-shot"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -4319,7 +4319,7 @@
         "analytics"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -4364,7 +4364,7 @@
         "bundles"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -4409,7 +4409,7 @@
         "analytics"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": false,
       "featured": false,
@@ -4454,7 +4454,7 @@
         "magic-eden"
       ],
       "category": "nft",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -4504,7 +4504,7 @@
         "one-shot"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -4550,7 +4550,7 @@
         "defillama"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": false,
       "featured": false,
@@ -4595,7 +4595,7 @@
         "analytics"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": false,
       "featured": false,
@@ -4643,7 +4643,7 @@
         "x402"
       ],
       "category": "dev-tools",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-02-27",
       "oneShot": true,
       "featured": true,
@@ -4690,7 +4690,7 @@
         "dev-tools"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": false,
       "featured": false,
@@ -4733,7 +4733,7 @@
         "clawd"
       ],
       "category": "trading",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -4777,7 +4777,7 @@
         "clawd"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -4823,7 +4823,7 @@
         "clawd"
       ],
       "category": "nft",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -4876,7 +4876,7 @@
         "clawd"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -4920,7 +4920,7 @@
         "clawd"
       ],
       "category": "education",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -4965,7 +4965,7 @@
         "analytics"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": false,
       "featured": false,
@@ -5011,7 +5011,7 @@
         "susd"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -5058,7 +5058,7 @@
         "education"
       ],
       "category": "education",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -5104,7 +5104,7 @@
         "analytics"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": false,
       "featured": false,
@@ -5148,7 +5148,7 @@
         "sky"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": false,
       "featured": false,
@@ -5194,7 +5194,7 @@
         "governance"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": false,
       "featured": false,
@@ -5242,7 +5242,7 @@
         "ledger"
       ],
       "category": "security",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": true,
@@ -5288,7 +5288,7 @@
         "das"
       ],
       "category": "analytics",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -5333,7 +5333,7 @@
         "dev-tools"
       ],
       "category": "dev-tools",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
@@ -5378,7 +5378,7 @@
         "analytics"
       ],
       "category": "defi",
-      "author": "solana-clawd",
+      "author": "openclawd",
       "createdAt": "2026-04-16",
       "oneShot": true,
       "featured": false,
