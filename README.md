@@ -36,6 +36,23 @@
                            🦀  forged on Solana  🦀
 ```
 
+## 🚀 v0.1.0 — Live on npm (2026-04-25)
+
+> **Release:** [github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0)
+
+Four packages published under **`@openclawdsolana`**:
+
+| Package | One-liner | Install |
+|---|---|---|
+| 🦀 [**clawd-code-cli**](./clawd-code-cli) | Solana lobster TUI (Ink + React) — `/buddy`, `/trending`, `/clawd`, `/scan`, `/agents`, voice, multi-agent panes | `npm i -g @openclawdsolana/clawd-code-cli` |
+| 🦞 [**leviathan**](./openclawd-framework) | Sovereign agent runtime — keypair → mint → reign → beach. Three Laws hashed into every spawn. | `npm i @openclawdsolana/leviathan` |
+| 💸 [**agents-x402**](./packages/agents-x402-solana) | One-line x402 Solana USDC monetization for MCP servers, HTTP handlers, and agent tool calls | `npm i @openclawdsolana/agents-x402` |
+| 🔐 [**agentwallet**](./packages/agentwallet) | Encrypted Solana + EVM keypair vault with E2B sandbox + Cloudflare Workers deployment | `npm i @openclawdsolana/agentwallet` |
+
+**Coming in v0.1.1** — `@openclawdsolana/wallet` (Privy-embedded; pending `@privy-io/node` upgrade), `@openclawdsolana/percolator` (perpetuals CLI; pending TS rewrite), plus the rest of the monorepo SDKs (`clawdrouter`, `vault-mcp`, `wurk-mcp`, `plugin-sdk`, `chat-plugins-gateway`, `membrain-types`).
+
+---
+
 ## 🆕 Latest (2026-04-25)
 
 **🧠 Membrain — selective memory for Solana trading agents — integrated.**
