@@ -1,5 +1,5 @@
 {
-  "name": "@openclawd/wallet",
+  "name": "@openclawdsolana/wallet",
   "version": "0.1.0",
   "description": "Clawd Wallet — Privy-powered embedded Solana wallet for the openclawd agent ecosystem. Swap, sign, send, and agentic trading with Grok 4.20 Beta as the reasoning layer.",
   "type": "module",
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@privy-io/react-auth": "^1.68.0",
-    "@privy-io/node": "^0.25.0",
+    "@privy-io/node": "^0.16.0",
     "@solana/web3.js": "^1.98.0",
     "@solana/kit": "^2.0.0",
     "@jup-ag/api": "^6.0.20",

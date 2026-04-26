@@ -1,7 +1,7 @@
 {
-  "name": "@openclawd/percolator",
+  "name": "@openclawdsolana/percolator",
   "version": "1.0.0",
-  "description": "🧪 Percolator perpetuals CLI for Solana",
+  "description": "🦞 OpenClawd Percolator — agentic perpetuals CLI for Solana. Trade, manage, and monitor perp markets from the lobster's claw.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
