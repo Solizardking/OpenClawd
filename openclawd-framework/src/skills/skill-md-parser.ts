@@ -56,13 +56,18 @@ export function parseSkillMd(filepath: string): SkillFrontmatter | null {
   let requiresEnv: string[] | undefined;
   if (raw.metadata) {
     try {
-      const meta = JSON.parse(raw.metadata.replace(/'/g, '"')) as {
-        openclawd?: {
-          emoji?: string;
-          requires?: { bins?: string[]; env?: string[] };
-        };
+      type SkillMeta = {
+        emoji?: string;
+        requires?: { bins?: string[]; env?: string[] };
       };
-      const so = meta.openclawd;
+      const meta = JSON.parse(raw.metadata.replace(/'/g, '"')) as {
+        openclawd?: SkillMeta;
+        solanaos?: SkillMeta;
+      };
+      // Accept either `openclawd` (canonical) or `solanaos` (legacy upstream
+      // skills vendored from openclawd/solanaos). New skills should use
+      // `openclawd`. Both produce identical behaviour at runtime.
+      const so = meta.openclawd ?? meta.solanaos;
       if (so) {
         emoji = so.emoji;
         requiresBins = so.requires?.bins;

@@ -1,93 +1,134 @@
 # OpenClawd · LLM Context File
 
-## What We Just Did
+## What We Just Did (2026-04-25)
+
+### 1. Public Release Preparation
+
+Prepared the OpenClawd monorepo for public release with the following enhancements:
+
+#### Created `.gitignore`
+Comprehensive ignore file protecting against:
+- Dependencies: `node_modules/`, `.pnpm-store/`
+- Environment files: `.env`, `.env.local`, `.env.*.local`
+- Secrets: `*.pem`, `*.key`, `*.p8`, `*.jwk`, `secrets/`, `keys/`
+- Build outputs: `dist/`, `build/`, `.output/`, `.nitro/`
+- Logs: `*.log`, npm/pnpm/yarn debug logs
+- IDE files: `.vscode/`, `.idea/`
+- OS files: `.DS_Store`, `Thumbs.db`
+- Lock files: `package-lock.json`, `pnpm-lock.yaml`, `yarn.lock`
+- Cloud: `.vercel`, `.netlify`, GCP credentials
+- Crypto-specific: `*.json!/keypair.json`
+- Runtime caches: `.mcp/`, `.e2b/`, `.honcho/`, `session-logs/`
+
+#### Created `scripts/` Directory with 4 Hygiene Scripts
+
+**`scripts/install-git-hooks.mjs`**
+- Installs Git hooks for security
+- pre-commit hook: blocks commits with staged secrets
+- pre-push hook: runs hygiene checks before pushing
+
+**`scripts/doctor.mjs`**
+- Verifies bootstrap requirements
+- Checks: Node.js version (20+), package.json, README.md, LICENSE.md, .gitignore, AGENTS/, skills/, scripts/
+
+**`scripts/guard-secrets.mjs`**
+- Scans codebase for leaked credentials
+- Detects: OpenAI keys, OpenRouter keys, private key blocks, Slack/GitHub/AWS tokens
+- Excludes known-safe patterns:
+  - `11111111111111111111111111111111` (Solana System Program address)
+  - `AKIAIOSFODNN7EXAMPLE` (AWS example key)
+  - `c8a8aaeb7ef3fbcce40bada2196e2bcb` (known example hash)
+  - `0bc83cb571cd1c50ba6f3e8a78ef1346` (Gravatar example MD5)
+- Can run on `--staged` or `--worktree` files
+
+**`scripts/brand-check.mjs`**
+- Catches old brand references in docs
+- Checks for: solanaos, nanosolana, nanohub, solana-clawd, clawd3d
+
+**`scripts/release-check.mjs`**
+- Public-release hygiene verification
+- Checks: package.json metadata, README content, LICENSE, .gitignore, .env protection, catalog files
+
+### 2. Git Hooks Installed
+```
+✅ Installed pre-commit hook
+✅ Installed pre-push hook
+```
+
+### 3. Verification Results
+```
+🏥 Doctor:          ✅ 8/8 checks passed
+🚀 Release Check:   ✅ 9/9 checks passed  
+🔒 Guard Secrets:  ✅ 0 leaks (8,841 files scanned)
+```
+
+---
+
+## Quick Start Commands
+```bash
+# Install dependencies
+npm run install:all
+
+# Build agent catalog
+npm run build:catalog
+
+# Install git hooks
+npm run hooks:install
+
+# Run checks
+npm run doctor
+npm run release:check
+npm run guard:worktree
+npm run brand:check
+```
+
+---
+
+## Project Overview
+
+**OpenClawd** - Solana-native AI agent platform  
+**$CLAWD Token**: `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump`  
+**Site**: https://solanaclawd.com
+
+### Key Directories
+| Path | Purpose |
+|------|---------|
+| `agents/` | Agent catalog (50+ agents) |
+| `skills/` | Skills marketplace (150+ skills) |
+| `packages/` | SDKs: clawd-wallet, agents-x402-solana, percolator |
+| `MCP/` | MCP servers: vault-mcp, wurk-mcp |
+| `clawdhub/` | Skills marketplace & hub CLI |
+| `clawd-code-cli/` | Terminal-native coding surface |
+| `openclawd-framework/` | Agent framework |
+| `solana-attestation-service-master/` | On-chain SAS program |
+
+### Security Features
+- ClawdVault security scanning
+- Solana Attestation Service (SAS) for on-chain verification
+- Hermès Vault Protocol for agent wallet protection
+- x402/AP2 payment rails
+
+---
+
+## Previous Work (from prior session)
 
 ### 1. Enhanced install.sh with More Lobster Theming
-Updated `/install.sh` with extensive lobster theming for the CLI installer:
-- Elaborate ASCII lobster banner with multiple rows of 🦞 emoji
+- Elaborate ASCII lobster banner with 🦞 emoji
 - "OPENCLAWD" printed in block text with multi-color lobster gradient
-- All functions use 🦞 prefix in output messages
-- New lobster-themed colors: LOBSTER1, LOBSTER2, LOBSTER3, CORAL, SALMON
-- Added lobster dance and wave animation frames for spinners
-- All log messages prefixed with 🦞 emoji
-- Final lobster celebration animation on completion
+- Lobster-themed colors: LOBSTER1, LOBSTER2, LOBSTER3, CORAL, SALMON
+- Lobster dance and wave animation frames
 
-### 2. Fixed Bash Compatibility
-- Changed emoji-prefixed variables (🦞_TARGET_DIR) to ASCII-safe names (TARGET_DIR) since bash doesn't support emoji in variable names
-- Used proper `declare -a` for bash array definitions
-- Made script executable with chmod +x
+### 2. Cloudflare Worker Gateway
+- Routes: `install.solanaclawd.com`, `gateway.solanaclawd.com`
+- Cyberpunk lobster-themed HTML gateway
+- Copy-to-clipboard install command
+- Feature cards display
 
-### 3. Added Cloudflare Credentials Template
-Added Cloudflare environment variables to the .env template:
-```
-# ── Cloudflare (optional) ───────────────────────────
-CLOUDFLARE_API_KEY=
-CLOUDFLARE_ZONE_ID=86d79e519b18c9d24d276ea2c7c4328e
-CLOUDFLARE_ACCOUNT_ID=2f5db575118d15ec19000e13282201bc
-```
-
-### 4. Updated Cloudflare Worker (install-worker)
-Modified `/workers/install-worker/` to serve a new gateway:
-
-#### wrangler.toml Routes
-```
-routes = [
-  { pattern = "install.solanaclawd.com", custom_domain = true },
-  # Gateway route for browser-based install
-  { pattern = "solanaclawd.com/gateway", zone_name = "solanaclawd.com" },
-  { pattern = "gateway.solanaclawd.com", custom_domain = true },
-  # Legacy install routes
-  { pattern = "solanaclawd.com/install.sh", zone_name = "solanaclawd.com" },
-  { pattern = "solanaclawd.com/install",    zone_name = "solanaclawd.com" },
-]
-```
-
-#### index.ts Routes
-- `GET /gateway` or `GET /gateway/` or `GET /install` → Returns HTML gateway page
-- `GET /install.sh` (default) → Returns raw shell script
-- `GET /healthz` → Returns "ok" for health checks
-
-#### Gateway HTML Features
-- Cyberpunk lobster-themed design with dark background
-- Animated waving lobster emoji
-- Gradient title "OpenClawd"
-- Copy-to-clipboard button for the install command
-- $CLAWD token display (8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump)
-- Feature cards: Realtime Voice, On-Chain Leviathan, 50+ Agent Commands, Three-Laws Gate
-- Footer with hotline, website, and GitHub links
-
-### 5. Synced install.sh to Worker
-Ran `npm run sync` in `workers/install-worker/` to embed the updated install.sh into the worker's install-script.ts
-
----
-
-## Next Step: Add to Frontend
-
-**Add the gateway to solanaclawd.com's frontend:**
-
-1. **If solanaclawd.com is on Vercel/Netlify:**
-   - Copy the HTML from `/workers/install-worker/src/index.ts` (GATEWAY_HTML constant)
-   - Add a new route at `/gateway` that renders this HTML
-   - Or: Create a new page component at `pages/gateway.tsx` or `app/gateway/page.tsx`
-
-2. **Route Configuration:**
-   - Ensure `/gateway` route exists in the frontend
-   - The Cloudflare worker already handles `solanaclawd.com/gateway` if DNS is proxied
-
-3. **Files to Update:**
-   - `frontend/src/app/gateway/page.tsx` (create if doesn't exist)
-   - `frontend/src/app/layout.tsx` (add gateway to navigation if needed)
-   - `frontend/next.config.js` (add redirect if using Next.js)
-
----
-
-## Key URLs
+### 3. Key URLs
 - Install script: `https://solanaclawd.com/install.sh`
-- Gateway page: `https://solanaclawd.com/gateway`
-- Gateway subdomain: `https://gateway.solanaclawd.com`
-- Install subdomain: `https://install.solanaclawd.com`
+- Gateway: `https://solanaclawd.com/gateway`
+- Token: `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump`
 - Hotline: 909-413-5567
-- Token: 8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump
 
 ---
 

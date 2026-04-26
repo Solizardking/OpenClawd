@@ -1,0 +1,62 @@
+{
+  "framework": "vite",
+  "buildCommand": "bun run build:schema && NITRO_PRESET=vercel bun --bun vite build",
+  "devCommand": "bun run dev",
+  "installCommand": "bun install",
+  "regions": ["iad1"],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    },
+    {
+      "source": "/webhook(/.*)?",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://frugal-caribou-165.convex.cloud/api/:path*"
+    },
+    {
+      "source": "/convex/:path*",
+      "destination": "/convex/:path*"
+    },
+    {
+      "source": "/st/:path*",
+      "destination": "/st/:path*"
+    }
+  ]
+}

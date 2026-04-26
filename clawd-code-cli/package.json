@@ -1,0 +1,55 @@
+{
+  "name": "@openclawdsolana/clawd-code-cli",
+  "version": "0.1.0",
+  "description": "Clawd Code CLI — a lobster-themed AI terminal operator for coding, system ops & Solana.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "clawd-code": "dist/index.js",
+    "clawd": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.18.0",
+    "@solana/web3.js": "^1.98.4",
+    "axios": "^1.12.0",
+    "bs58": "^6.0.0",
+    "cfonts": "^3.3.1",
+    "commander": "^12.1.0",
+    "dotenv": "^16.6.1",
+    "fs-extra": "^11.3.1",
+    "ink": "^4.4.1",
+    "openai": "^5.20.1",
+    "react": "^18.3.1",
+    "ws": "^8.18.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/x402agent/openclawd.git",
+    "directory": "clawd-code-cli"
+  },
+  "homepage": "https://github.com/x402agent/openclawd/tree/main/clawd-code-cli#readme",
+  "bugs": {
+    "url": "https://github.com/x402agent/openclawd/issues"
+  },
+  "keywords": [
+    "cli",
+    "ai",
+    "solana",
+    "openclawd",
+    "terminal",
+    "grok",
+    "openai",
+    "mcp"
+  ]
+}

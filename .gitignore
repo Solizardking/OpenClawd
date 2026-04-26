@@ -7,6 +7,14 @@ dist/
 build/
 .output/
 .nitro/
+.next/
+out/
+.turbo/
+.cache/
+
+# Rust
+target/
+Cargo.lock.bak
 
 # Environment files
 .env
@@ -78,8 +86,14 @@ bun.lockb
 # GCP
 credentials.json
 
-# Solana
-*.json!/keypair.json
+# Solana keypairs (private keys — never commit)
+keypair.json
+*keypair*.json
+id.json
+wallet.json
+*wallet*.json
+.openclawd/
+.clawd/
 
 # MCP caches
 .mcp/
