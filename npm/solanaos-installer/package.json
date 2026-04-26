@@ -1,15 +1,15 @@
 {
   "name": "@clawd/installer",
   "version": "3.0.0",
-  "description": "solana-clawd Installer - One command to install the Solana AI agent runtime with ClawdRouter zero-config deployment",
+  "description": "openclawd Installer - One command to install the Solana AI agent runtime with ClawdRouter zero-config deployment",
   "license": "MIT",
   "type": "module",
   "bin": {
     "clawd-cli": "bin/clawd.mjs",
     "clawd": "bin/clawd.mjs",
-    "solanaos-cli": "bin/clawd.mjs",
-    "solanaos": "bin/clawd.mjs",
-    "nanosolana": "bin/clawd.mjs"
+    "openclawd-cli": "bin/clawd.mjs",
+    "openclawd": "bin/clawd.mjs",
+    "openclawdsolana": "bin/clawd.mjs"
   },
   "files": [
     "bin",
@@ -29,9 +29,9 @@
   "keywords": [
     "solana",
     "clawd",
-    "solana-clawd",
-    "solanaos",
-    "nanosolana",
+    "openclawd",
+    "openclawd",
+    "openclawdsolana",
     "trading",
     "agent",
     "mawdbot",
@@ -44,11 +44,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/x402agent/Solana-Os-Go.git",
-    "directory": "npm/solanaos-installer"
+    "url": "git+https://github.com/clawdsolana/OpenClawd.git",
+    "directory": "npm/openclawd-installer"
   },
   "homepage": "https://solanaclawd.com",
   "bugs": {
-    "url": "https://github.com/x402agent/Solana-Os-Go/issues"
+    "url": "https://github.com/clawdsolana/OpenClawd/issues"
   }
 }

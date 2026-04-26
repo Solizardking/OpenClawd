@@ -1,18 +1,18 @@
 {
-  "author": "solana-clawd",
+  "author": "openclawd",
   "createdAt": "2025-01-01",
-  "homepage": "https://github.com/x402agent/solana-clawd",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "ordinals",
   "manifest": "https://plugin.delivery/ordinals/manifest.json",
   "meta": {
     "avatar": "🔶",
-    "description": "[solana-clawd] Bitcoin ordinals inscriptions and collection data — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[openclawd] Bitcoin ordinals inscriptions and collection data — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "ordinals",
       "bitcoin",
       "inscription",
       "clawd",
-      "solana-clawd"
+      "openclawd"
     ],
     "title": "Ordinals",
     "category": "gaming-entertainment"

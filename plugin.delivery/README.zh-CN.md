@@ -2,9 +2,9 @@
 
 # 🔌 Plugin Delivery
 
-**AI Function Call Plugins & Tools for solana-clawd**
+**AI Function Call Plugins & Tools for openclawd**
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/x402agent/solana-clawd)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/clawdsolana/OpenClawd)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![npm](https://img.shields.io/npm/v/@openclawd/plugin-sdk)](https://www.npmjs.com/package/@openclawd/plugin-sdk)
 
@@ -18,7 +18,7 @@
 
 ## What Is Plugin Delivery?
 
-The **official plugin marketplace and SDK** for solana-clawd — a crypto/DeFi-focused AI assistant platform.
+The **official plugin marketplace and SDK** for openclawd — a crypto/DeFi-focused AI assistant platform.
 
 | Feature | Description |
 |---------|-------------|
@@ -35,7 +35,7 @@ User: "What's the price of ETH?"
          │
          ▼
 ┌─────────────────────────────────────────────────────────┐
-│  solana-clawd discovers plugin from plugin.delivery index   │
+│  openclawd discovers plugin from plugin.delivery index   │
 │  AI generates function call: getPrice(coin: "ethereum") │
 │  Gateway routes request to CoinGecko API                │
 │  Response rendered in chat (JSON, Markdown, or UI)      │
@@ -49,7 +49,7 @@ AI: "ETH is currently trading at $3,450..."
 
 ## Plugin Types
 
-solana-clawd supports **4 distinct plugin types**, each optimized for different use cases:
+openclawd supports **4 distinct plugin types**, each optimized for different use cases:
 
 | Type | Rendering | Best For | Complexity |
 |------|-----------|----------|------------|
@@ -102,7 +102,7 @@ Embeds a full React/HTML application in an iframe within the chat.
 
 **Use when:** You need rich interactivity — charts, forms, dashboards, embedded apps.
 
-> 💡 **Standalone plugins are solana-clawd's superpower** — they enable experiences beyond what ChatGPT plugins can do.
+> 💡 **Standalone plugins are openclawd's superpower** — they enable experiences beyond what ChatGPT plugins can do.
 
 ### OpenAPI Plugins
 
@@ -355,7 +355,7 @@ vercel --prod
 
 ```bash
 # Clone
-git clone https://github.com/x402agent/solana-clawd
+git clone https://github.com/clawdsolana/OpenClawd
 cd plugins
 
 # Install
@@ -404,7 +404,7 @@ plugins/
 
 | Package | Description | npm |
 |---------|-------------|-----|
-| `@openclawd/plugin-sdk` | Plugin SDK for building solana-clawd plugins | [![npm](https://img.shields.io/npm/v/@openclawd/plugin-sdk)](https://www.npmjs.com/package/@openclawd/plugin-sdk) |
+| `@openclawd/plugin-sdk` | Plugin SDK for building openclawd plugins | [![npm](https://img.shields.io/npm/v/@openclawd/plugin-sdk)](https://www.npmjs.com/package/@openclawd/plugin-sdk) |
 | `@openclawd/chat-plugins-gateway` | Gateway service for routing plugin calls | [![npm](https://img.shields.io/npm/v/@openclawd/chat-plugins-gateway)](https://www.npmjs.com/package/@openclawd/chat-plugins-gateway) |
 
 ### SDK Usage
@@ -424,10 +424,10 @@ import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
 
 ## Gateway
 
-The Plugin Gateway securely routes function calls from solana-clawd to plugin APIs:
+The Plugin Gateway securely routes function calls from openclawd to plugin APIs:
 
 ```
-solana-clawd → Gateway → Plugin API
+openclawd → Gateway → Plugin API
               │
               ├── Auth injection
               ├── Rate limiting
@@ -444,7 +444,7 @@ cd packages/gateway
 # Deploy
 vercel --prod
 
-# Set in solana-clawd
+# Set in openclawd
 PLUGINS_GATEWAY_URL=https://your-gateway.vercel.app
 ```
 
@@ -456,13 +456,13 @@ We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ### Submit a Plugin
 
-1. **Option A:** Open a [Plugin Submission](https://github.com/x402agent/solana-clawd/issues/new?template=plugin_submission.md) issue
+1. **Option A:** Open a [Plugin Submission](https://github.com/clawdsolana/OpenClawd/issues/new?template=plugin_submission.md) issue
 2. **Option B:** Submit a PR adding your plugin to `src/`
 
 ### Requirements
 
 - ✅ Valid manifest with working endpoints
-- ✅ Tested in solana-clawd
+- ✅ Tested in openclawd
 - ✅ No API key required (or documented)
 - ✅ en-US locale at minimum
 
@@ -474,14 +474,14 @@ We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md).
 |----------|-----|
 | 🌐 **Plugin Index** | [plugin.delivery](https://plugin.delivery) |
 | 📦 **SDK on npm** | [@openclawd/plugin-sdk](https://www.npmjs.com/package/@openclawd/plugin-sdk) |
-| 🐙 **GitHub** | [github.com/x402agent/solana-clawd](https://github.com/x402agent/solana-clawd) |
+| 🐙 **GitHub** | [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
 | 🐦 **Twitter/X** | [@nichxbt](https://x.com/nichxbt) |
 
 ---
 
 ## License
 
-MIT © [solana-clawd](https://solanaos.net)
+MIT © [openclawd](https://openclawd.net)
 
 ---
 

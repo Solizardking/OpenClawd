@@ -295,7 +295,7 @@ Plugin author name or organization.
 
 ```json
 {
-  "author": "solana-clawd"
+  "author": "openclawd"
 }
 ```
 
@@ -307,7 +307,7 @@ URL to plugin homepage or documentation.
 
 ```json
 {
-  "homepage": "https://github.com/x402agent/solana-clawd"
+  "homepage": "https://github.com/clawdsolana/OpenClawd"
 }
 ```
 

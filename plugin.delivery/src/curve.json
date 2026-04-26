@@ -1,19 +1,19 @@
 {
-  "author": "solana-clawd",
+  "author": "openclawd",
   "createdAt": "2025-01-01",
-  "homepage": "https://github.com/x402agent/solana-clawd",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "curve",
   "manifest": "https://plugin.delivery/curve/manifest.json",
   "meta": {
     "avatar": "🌀",
-    "description": "[solana-clawd] Curve pools, stablecoin APYs, and gauge weights — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[openclawd] Curve pools, stablecoin APYs, and gauge weights — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "curve",
       "stableswap",
       "defi",
       "yields",
       "clawd",
-      "solana-clawd"
+      "openclawd"
     ],
     "title": "Curve Finance",
     "category": "stocks-finance"

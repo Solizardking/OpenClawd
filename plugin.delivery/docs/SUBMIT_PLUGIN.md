@@ -1,6 +1,6 @@
 # Submitting Your Plugin to the Marketplace
 
-This guide explains how to list your plugin in the solana-clawd Plugin Marketplace so it can be discovered and used by the community.
+This guide explains how to list your plugin in the openclawd Plugin Marketplace so it can be discovered and used by the community.
 
 ---
 
@@ -31,9 +31,9 @@ This guide explains how to list your plugin in the solana-clawd Plugin Marketpla
 
 ## Overview
 
-The solana-clawd Plugin Marketplace is a curated registry of plugins available to all solana-clawd users. Submitting your plugin makes it discoverable in the plugin store and allows users to install it with one click.
+The openclawd Plugin Marketplace is a curated registry of plugins available to all openclawd users. Submitting your plugin makes it discoverable in the plugin store and allows users to install it with one click.
 
-**Repository:** [github.com/x402agent/solana-clawd](https://github.com/x402agent/solana-clawd)
+**Repository:** [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd)
 
 ---
 
@@ -45,7 +45,7 @@ Before submitting, ensure:
 2. ✅ Your plugin server is **deployed and accessible** (e.g., on Vercel)
 3. ✅ Your `manifest.json` is **publicly accessible** via HTTPS
 4. ✅ Your plugin has a **unique identifier** (not already in use)
-5. ✅ You have **tested with solana-clawd** by adding as a custom plugin
+5. ✅ You have **tested with openclawd** by adding as a custom plugin
 
 ---
 
@@ -69,7 +69,7 @@ Your plugin entry should be a JSON file in the `src/` directory:
 {
   "author": "YourName",
   "createdAt": "2025-01-01",
-  "homepage": "https://github.com/x402agent/solana-clawd",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "your-plugin-identifier",
   "manifest": "https://your-plugin.vercel.app/manifest.json",
   "meta": {
@@ -171,7 +171,7 @@ locales/
 
 ```bash
 # Fork via GitHub UI, then clone your fork
-git clone https://github.com/x402agent/solana-clawd.git
+git clone https://github.com/clawdsolana/OpenClawd.git
 cd plugin.delivery
 ```
 
@@ -238,7 +238,7 @@ git push origin main
 
 ### Step 7: Open Pull Request
 
-1. Go to [github.com/x402agent/solana-clawd](https://github.com/x402agent/solana-clawd)
+1. Go to [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd)
 2. Click "Compare & pull request"
 3. Fill in the PR template with:
    - Plugin name and description
@@ -310,7 +310,7 @@ Once your plugin is merged:
 
 1. **Build runs automatically** - The CI/CD pipeline builds the index
 2. **Plugin appears in store** - Usually within minutes of deployment
-3. **Users can install** - Via the solana-clawd Plugin Store
+3. **Users can install** - Via the openclawd Plugin Store
 4. **Analytics** - Track usage through your own analytics (if implemented)
 
 ### Updating Your Plugin
@@ -341,7 +341,7 @@ Learn from these official reference implementations:
 ## Getting Help
 
 - **Documentation:** This guide and related docs
-- **GitHub Issues:** [github.com/x402agent/solana-clawd/issues](https://github.com/x402agent/solana-clawd/issues)
+- **GitHub Issues:** [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
 - **Twitter/X:** [@nichxbt](https://x.com/nichxbt)
 
 ---

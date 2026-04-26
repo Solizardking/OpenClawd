@@ -1,17 +1,17 @@
 {
-  "name": "solana-clawd-mcp",
+  "name": "openclawd-mcp",
   "version": "1.0.0",
-  "description": "solana-clawd MCP server — 15 Solana tools for any Clawd/Cursor/VS Code session",
+  "description": "openclawd MCP server — 15 Solana tools for any Clawd/Cursor/VS Code session",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/x402agent/openclawd.git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
     "directory": "MCP"
   },
-  "homepage": "https://github.com/x402agent/openclawd/tree/main/MCP#readme",
+  "homepage": "https://github.com/clawdsolana/OpenClawd/tree/main/MCP#readme",
   "bugs": {
-    "url": "https://github.com/x402agent/openclawd/issues"
+    "url": "https://github.com/clawdsolana/OpenClawd/issues"
   },
   "main": "dist/index.js",
   "scripts": {

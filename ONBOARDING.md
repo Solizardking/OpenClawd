@@ -37,7 +37,7 @@ OpenClawd is an **open-source monorepo** for building, deploying, and monetizing
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/x402agent/openclawd.git
+git clone https://github.com/clawdsolana/OpenClawd.git
 cd openclawd
 ```
 
@@ -128,7 +128,7 @@ clawdrouter doctor    # Run diagnostics
                               │
 ┌────────────────────────────▼─────────────────────────────────┐
 │ Runtime                                                      │
-│ src · solana-clawd · agents · MCP · packages                  │
+│ src · openclawd · agents · MCP · packages                  │
 └────────────────────────────┬─────────────────────────────────┘
                               │
 ┌────────────────────────────▼─────────────────────────────────┐
@@ -161,7 +161,7 @@ clawdrouter doctor    # Run diagnostics
 | `clawdrouter/` | Model routing & payment gateway |
 | `api-registrar/` | API key registration (X verification) |
 | `clawd-code-cli/` | Canonical Clawd Code CLI (others in `legacy/`) |
-| `solana-clawd/` | Go + TypeScript agent framework |
+| `openclawd/` | Go + TypeScript agent framework |
 | `MCP/` | MCP server implementations |
 | `clawdhub/` | Skills marketplace |
 | `src/` | Core TypeScript engine |
@@ -448,8 +448,8 @@ refactor(clawdrouter): simplify model scoring
 
 | Resource | Link |
 |----------|------|
-| Issues | [GitHub Issues](https://github.com/x402agent/openclawd/issues) |
-| Discussions | [GitHub Discussions](https://github.com/x402agent/openclawd/discussions) |
+| Issues | [GitHub Issues](https://github.com/clawdsolana/OpenClawd/issues) |
+| Discussions | [GitHub Discussions](https://github.com/clawdsolana/OpenClawd/discussions) |
 | Twitter | [@clawddevs](https://x.com/clawddevs) |
 | Telegram | [@clawdtoken](https://t.me/clawdtoken) |
 

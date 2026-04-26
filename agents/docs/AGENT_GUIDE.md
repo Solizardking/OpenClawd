@@ -195,8 +195,8 @@ Three ways to publish:
 ### 1. PR into the repo (recommended)
 
 ```bash
-git clone https://github.com/x402agent.com/solana-clawd.git
-cd solana-clawd/defi-agents
+git clone https://github.com/clawdsolana/OpenClawd.git
+cd openclawd/defi-agents
 cp agent-template.json src/your-agent-name.json
 # edit your agent
 bun run format && bun run build
@@ -261,7 +261,7 @@ Expose your agent over our A2A protocol at `POST /api/agents/a2a` (see [API.md](
 
 ## Need Help?
 
-- Open an issue in [x402agent.com/solana-clawd](https://github.com/x402agent.com/solana-clawd/issues) with the `agent-help` label
+- Open an issue in [clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd/issues) with the `agent-help` label
 - Review the [Prompt Engineering Guide](./PROMPTS.md)
 - Check existing agents in [`defi-agents/src/`](../src/) for inspiration
 - Read [DEPLOYMENT.md](./DEPLOYMENT.md) for hosting options

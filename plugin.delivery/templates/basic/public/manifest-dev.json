@@ -23,16 +23,16 @@
       }
     }
   ],
-  "author": "solana-clawd",
+  "author": "openclawd",
   "createdAt": "2023-09-03",
   "gateway": "http://localhost:3400/api/gateway",
-  "homepage": "https://github.com/x402agent/solana-clawd",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "plugin-identifier",
   "meta": {
     "avatar": "🚀",
     "tags": ["template"],
     "title": "Chat Plugin Template",
-    "description": "This is the plugin template for solana-clawd plugin development"
+    "description": "This is the plugin template for openclawd plugin development"
   },
   "ui": {
     "url": "http://localhost:3400",

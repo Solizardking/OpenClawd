@@ -1,4 +1,4 @@
-# solana-clawd Plugin System
+# openclawd Plugin System
 
 > A comprehensive plugin ecosystem enabling AI agents to interact with external services through a unified gateway architecture
 
@@ -8,7 +8,7 @@
 
 ## Overview
 
-solana-clawd Plugin System is a modular architecture that extends AI agent capabilities through standardized plugin interfaces. It provides authentication management, function calling integration, and a gateway API for routing plugin requests. Built on Next.js with TypeScript, it supports both standalone plugins and integrated marketplace deployments.
+openclawd Plugin System is a modular architecture that extends AI agent capabilities through standardized plugin interfaces. It provides authentication management, function calling integration, and a gateway API for routing plugin requests. Built on Next.js with TypeScript, it supports both standalone plugins and integrated marketplace deployments.
 
 ## Quick Start
 
@@ -20,8 +20,8 @@ solana-clawd Plugin System is a modular architecture that extends AI agent capab
 
 ```bash
 # Clone the repository
-git clone https://github.com/x402agent/solana-clawd
-cd solana-clawd
+git clone https://github.com/clawdsolana/OpenClawd
+cd openclawd
 
 # Install dependencies
 pnpm install
@@ -47,7 +47,7 @@ Expected output: The AI agent will automatically detect relevant tools and call 
 - **Multi-Provider Support**: 40+ AI model providers including OpenAI, Anthropic, Google, and custom adapters
 - **Plugin Marketplace**: Discover and install community plugins via the Agents Market
 - **Artifacts System**: Display portfolio data, charts, and interactive components within chat via `<SolanaClawdArtifact>` tags
-- **Internationalization**: Built-in i18n with automatic translation pipeline using solana-clawd-i18n
+- **Internationalization**: Built-in i18n with automatic translation pipeline using openclawd-i18n
 
 ## Architecture
 
@@ -221,7 +221,7 @@ const pluginResult = await chatService.runPluginApi({
 ```typescript
 // AI returns artifact in response
 const artifactResponse = `
-<SolanaClawdArtifact identifier="portfolio-assets" title="My Portfolio" type="application/solana-clawd.artifacts.react">
+<SolanaClawdArtifact identifier="portfolio-assets" title="My Portfolio" type="application/openclawd.artifacts.react">
 import { Card, Statistic, Row, Col } from 'antd';
 
 export default function PortfolioDisplay() {
@@ -262,7 +262,7 @@ export default function PortfolioDisplay() {
 pnpm install
 
 # Start development server with debug mode
-DEBUG=solana-clawd:* bun run dev
+DEBUG=openclawd:* bun run dev
 
 # Run type checking
 bun run type-check
@@ -514,9 +514,9 @@ console.log('Resolved filename:', fileName);
 - [Plugin Development Guide](docs/PLUGIN_DEVELOPMENT_GUIDE.md)
 - [Testing Guide](testing-guide/testing-guide.mdc)
 - [Contributing Guide](CONTRIBUTING.md)
-- [solana-clawd GitHub](https://github.com/x402agent/solana-clawd)
+- [openclawd GitHub](https://github.com/clawdsolana/OpenClawd)
 
 ## License
 
-MIT © solana-clawd
+MIT © openclawd
 

@@ -1,18 +1,18 @@
 {
-  "author": "solana-clawd",
+  "author": "openclawd",
   "createdAt": "2025-01-01",
-  "homepage": "https://github.com/x402agent/solana-clawd",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "magic-eden",
   "manifest": "https://plugin.delivery/magic-eden/manifest.json",
   "meta": {
     "avatar": "🧙",
-    "description": "[solana-clawd] Magic Eden NFT data for Solana and Bitcoin — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[openclawd] Magic Eden NFT data for Solana and Bitcoin — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "magic-eden",
       "solana",
       "nft",
       "clawd",
-      "solana-clawd"
+      "openclawd"
     ],
     "title": "Magic Eden",
     "category": "gaming-entertainment"

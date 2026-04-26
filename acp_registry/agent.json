@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "name": "solanaos-agent",
-  "display_name": "SolanaOS Agent",
-  "description": "Autonomous Solana trading and operator runtime with 8004 agent registry, Metaplex NFT identity, Pinata IPFS metadata, SolanaOS Hub and Convex surfaces, Solana Seeker pairing, persistent Honcho memory, multi-venue strategy, wallet control, and hardware integration",
+  "name": "openclawd-agent",
+  "display_name": "OpenClawd Agent",
+  "description": "Autonomous Solana trading and operator runtime with 8004 agent registry, Metaplex NFT identity, Pinata IPFS metadata, OpenClawd Hub and Convex surfaces, Solana Seeker pairing, persistent Honcho memory, multi-venue strategy, wallet control, and hardware integration",
   "icon": "icon.svg",
   "distribution": {
     "type": "command",
-    "command": "solanaos",
+    "command": "openclawd",
     "args": ["acp"]
   },
   "services": [

@@ -1,21 +1,21 @@
 {
   "name": "@openclawd/plugin-sdk",
   "version": "1.0.0",
-  "description": "solana-clawd Plugin SDK - Build plugins for solana-clawd",
+  "description": "openclawd Plugin SDK - Build plugins for openclawd",
   "keywords": [
-    "solana-clawd",
-    "solana-clawd",
+    "openclawd",
+    "openclawd",
     "sdk",
     "plugin",
     "chat-plugin"
   ],
-  "homepage": "https://github.com/x402agent/solana-clawd",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "repository": {
     "type": "git",
-    "url": "https://github.com/x402agent/solana-clawd"
+    "url": "https://github.com/clawdsolana/OpenClawd"
   },
   "license": "MIT",
-  "author": "solana-clawd <contact@solanaos.net>",
+  "author": "openclawd <contact@openclawd.net>",
   "sideEffects": false,
   "main": "./index.ts",
   "types": "./index.ts",

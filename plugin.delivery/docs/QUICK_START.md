@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Build and deploy your first solana-clawd plugin in under 10 minutes.
+Build and deploy your first openclawd plugin in under 10 minutes.
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@ Build and deploy your first solana-clawd plugin in under 10 minutes.
 
 ```bash
 # Clone the plugins repo
-git clone https://github.com/x402agent/solana-clawd
+git clone https://github.com/clawdsolana/OpenClawd
 cd plugins
 
 # Copy a template
@@ -165,9 +165,9 @@ curl -X POST http://localhost:3400/api/endpoint \
   -d '{"param1": "test"}'
 ```
 
-### Test in solana-clawd
+### Test in openclawd
 
-1. Open solana-clawd
+1. Open openclawd
 2. Go to **Plugin Settings** → **Add Custom Plugin**
 3. Enter: `http://localhost:3400/manifest.json`
 4. Enable the plugin
@@ -207,13 +207,13 @@ After deployment, update `manifest.json` with production URLs:
 
 ### Option A: Submit via GitHub Issue
 
-1. Go to [github.com/x402agent/solana-clawd/issues](https://github.com/x402agent/solana-clawd/issues)
+1. Go to [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
 2. Click "New Issue" → "Plugin Submission"
 3. Fill in your plugin details
 
 ### Option B: Submit via Pull Request
 
-1. Fork [github.com/x402agent/solana-clawd](https://github.com/x402agent/solana-clawd)
+1. Fork [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd)
 
 2. Add your plugin to `src/my-plugin.json`:
 
@@ -349,7 +349,7 @@ export default async function handler(req: Request) {
 
 ## Need Help?
 
-- GitHub Issues: [github.com/x402agent/solana-clawd/issues](https://github.com/x402agent/solana-clawd/issues)
+- GitHub Issues: [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
 - Twitter/X: [@nichxbt](https://x.com/nichxbt)
 
 ---

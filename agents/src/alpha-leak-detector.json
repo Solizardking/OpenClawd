@@ -1,6 +1,6 @@
 {
   "$schema": "https://solanaclawd.com/schemas/clawdAgentSchema.v1.json",
-  "author": "solana-clawd",
+  "author": "openclawd",
   "identifier": "alpha-leak-detector",
   "schemaVersion": 1,
   "createdAt": "2026-04-16",

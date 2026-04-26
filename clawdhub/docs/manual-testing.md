@@ -8,53 +8,53 @@ read_when:
 # Manual testing (CLI)
 
 ## Setup
-- Ensure logged in: `npx @nanosolana/nanohub@latest whoami` (or `npx @nanosolana/nanohub@latest login`).
+- Ensure logged in: `npx @openclawdsolana/clawdhub@latest whoami` (or `npx @openclawdsolana/clawdhub@latest login`).
 - Optional: set env
-  - `CLAWHUB_SITE=https://hub.solanaos.net`
-  - `CLAWHUB_REGISTRY=https://hub.solanaos.net`
+  - `CLAWHUB_SITE=https://hub.openclawd.net`
+  - `CLAWHUB_REGISTRY=https://hub.openclawd.net`
 
 ## Smoke
-- `npx @nanosolana/nanohub@latest --help`
-- `npx @nanosolana/nanohub@latest --cli-version`
-- `npx @nanosolana/nanohub@latest whoami`
+- `npx @openclawdsolana/clawdhub@latest --help`
+- `npx @openclawdsolana/clawdhub@latest --cli-version`
+- `npx @openclawdsolana/clawdhub@latest whoami`
 
 ## Search
-- `npx @nanosolana/nanohub@latest search gif --limit 5`
+- `npx @openclawdsolana/clawdhub@latest search gif --limit 5`
 
 ## Install / list / update
-- `mkdir -p /tmp/nanohub-manual && cd /tmp/nanohub-manual`
-- `bunx @nanosolana/nanohub@latest install gifgrep --force`
-- `bunx @nanosolana/nanohub@latest list`
-- `bunx @nanosolana/nanohub@latest update gifgrep --force`
+- `mkdir -p /tmp/clawdhub-manual && cd /tmp/clawdhub-manual`
+- `bunx @openclawdsolana/clawdhub@latest install gifgrep --force`
+- `bunx @openclawdsolana/clawdhub@latest list`
+- `bunx @openclawdsolana/clawdhub@latest update gifgrep --force`
 
 ## Publish (changelog optional)
-- `mkdir -p /tmp/nanohub-skill-demo/SKILL && cd /tmp/nanohub-skill-demo`
+- `mkdir -p /tmp/clawdhub-skill-demo/SKILL && cd /tmp/clawdhub-skill-demo`
 - Create files:
   - `SKILL.md`
   - `notes.md`
 - Publish:
-  - `npx @nanosolana/nanohub@latest publish . --slug nanohub-manual-<ts> --name "Manual <ts>" --version 1.0.0 --tags latest`
+  - `npx @openclawdsolana/clawdhub@latest publish . --slug clawdhub-manual-<ts> --name "Manual <ts>" --version 1.0.0 --tags latest`
 - Publish update with empty changelog:
-  - `npx @nanosolana/nanohub@latest publish . --slug nanohub-manual-<ts> --name "Manual <ts>" --version 1.0.1 --tags latest`
+  - `npx @openclawdsolana/clawdhub@latest publish . --slug clawdhub-manual-<ts> --name "Manual <ts>" --version 1.0.1 --tags latest`
 
 ## Delete / undelete (owner/admin)
-- `npx @nanosolana/nanohub@latest delete nanohub-manual-<ts> --yes`
+- `npx @openclawdsolana/clawdhub@latest delete clawdhub-manual-<ts> --yes`
 - Verify hidden:
-- `curl -i "https://hub.solanaos.net/api/v1/skills/nanohub-manual-<ts>"`
+- `curl -i "https://hub.openclawd.net/api/v1/skills/clawdhub-manual-<ts>"`
 - Restore:
-  - `npx @nanosolana/nanohub@latest undelete nanohub-manual-<ts> --yes`
+  - `npx @openclawdsolana/clawdhub@latest undelete clawdhub-manual-<ts> --yes`
 - Cleanup:
-  - `npx @nanosolana/nanohub@latest delete nanohub-manual-<ts> --yes`
+  - `npx @openclawdsolana/clawdhub@latest delete clawdhub-manual-<ts> --yes`
 
 ## Sync
-- `npx @nanosolana/nanohub@latest sync --dry-run --all`
+- `npx @openclawdsolana/clawdhub@latest sync --dry-run --all`
 
 ## Playwright (menu smoke)
 
 Run against prod:
 
 ```
-PLAYWRIGHT_BASE_URL=https://hub.solanaos.net bun run test:pw
+PLAYWRIGHT_BASE_URL=https://hub.openclawd.net bun run test:pw
 ```
 
 This smoke gate should fail on visible error UI, page errors, and browser
@@ -73,7 +73,7 @@ Recommended workflow coverage in Playwright:
 Authenticated prod canary:
 
 ```
-PLAYWRIGHT_BASE_URL=https://hub.solanaos.net \
+PLAYWRIGHT_BASE_URL=https://hub.openclawd.net \
 PLAYWRIGHT_AUTH_STORAGE_STATE=/path/to/storage-state.json \
 bunx playwright test e2e/upload-auth-smoke.pw.test.ts
 ```

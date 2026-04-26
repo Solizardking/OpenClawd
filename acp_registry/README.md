@@ -7,7 +7,7 @@
 | Resource | URL |
 |----------|-----|
 | **Website** | [solanaclawd.com](https://solanaclawd.com) |
-| **GitHub** | [github.com/x402agent/openclawd](https://github.com/x402agent/openclawd) |
+| **GitHub** | [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
 | **Twitter/X** | [x.com/clawddevs](https://x.com/clawddevs) |
 | **Telegram** | [t.me/clawdtoken](https://t.me/clawdtoken) |
 
@@ -24,7 +24,7 @@ The $CLAWD token powers the OpenClawd ecosystem with:
 
 | Category | Projects |
 |----------|----------|
-| **Framework** | solana-clawd, src, solana-go-main |
+| **Framework** | openclawd, src, solana-go-main |
 | **AI Agents** | agents (50), skills (97), moltbook-agent |
 | **Payments** | clawdrouter, x402-openrouter-main, plugin.delivery |
 | **Infrastructure** | openclawd-stack, tailclawd, MCP, CLI, workers, clawdhub |
@@ -51,7 +51,7 @@ Multi-protocol agentic payment gateway supporting:
 Browser-based Solana trading terminal via E2B sandboxes.
 
 Components:
-- solana-clawd (OODA loop trading)
+- openclawd (OODA loop trading)
 - nemoClawd (xAI Grok + 31 MCP tools)
 - agentwallet (Privy wallets)
 - Full CLI access
@@ -63,7 +63,7 @@ MIT — See [`../LICENSE.md`](../LICENSE.md)
 ## 🔗 Quick Start
 
 ```bash
-git clone https://github.com/x402agent/openclawd.git
+git clone https://github.com/clawdsolana/OpenClawd.git
 cd openclawd
 cd agents && npm install
-cd ../solana-clawd && make install && clawd daemon
+cd ../openclawd && make install && clawd daemon

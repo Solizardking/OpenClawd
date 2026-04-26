@@ -16,17 +16,41 @@ const OLD_BRANDS = [
   { pattern: /nanosolana/gi, replacement: 'openclawdsolana', reason: 'Use @openclawdsolana' },
   { pattern: /nanohub/gi, replacement: 'clawdhub', reason: 'Use ClawdHub' },
   { pattern: /solana-clawd/gi, replacement: 'openclawd', reason: 'Use OpenClawd' },
-  { pattern: /clawd3d/gi, replacement: 'clawd3d', reason: 'Verify capitalization' },
 ];
 
 // Docs files to check
 const DOC_EXTENSIONS = ['.md', '.json', '.txt'];
 const DOC_DIRECTORIES = ['docs', 'articles'];
 
+// Skip lockfiles (vendor noise) and obvious vendored sub-projects.
+const SKIP_BASENAMES = new Set([
+  'package-lock.json',
+  'pnpm-lock.yaml',
+  'yarn.lock',
+  'bun.lockb',
+  'bun.lock',
+  'Cargo.lock',
+  'go.sum',
+]);
+const SKIP_PATH_FRAGMENTS = [
+  'solana-attestation-service-master/',
+  'clawdhub/lightweight-charts-master',
+  'clawdhub/live_chess-main',
+  'clawdhub/data-api-sdk-main',
+  'clawdhub/chess-web-api-master',
+  'tailclawd/quickstart',
+  'packages/membrain/',
+  'skills/',
+  'workers/agent-wallet/',
+  'workers/pumpfun-mcp-worker/',
+];
+
 function scanFile(filePath) {
   const issues = [];
   const relativePath = relative(rootDir, filePath);
-  
+
+  if (SKIP_PATH_FRAGMENTS.some(frag => relativePath.includes(frag))) return issues;
+
   try {
     const stat = statSync(filePath);
     if (stat.size > 1024 * 1024) return issues;
@@ -58,7 +82,8 @@ function getDocFiles() {
       const entries = readdirSync(dir, { withFileTypes: true });
       for (const entry of entries) {
         if (entry.name === 'node_modules' || entry.name === '.git') continue;
-        
+        if (SKIP_BASENAMES.has(entry.name)) continue;
+
         const fullPath = join(dir, entry.name);
         if (entry.isDirectory()) {
           walk(fullPath);

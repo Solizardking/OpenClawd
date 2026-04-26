@@ -75,7 +75,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/x402agent/solana-claude",
+    "url": "https://github.com/clawdsolana/OpenClawd",
     "directory": "packages/agentwallet"
   },
   "files": [

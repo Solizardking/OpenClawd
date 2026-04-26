@@ -7,12 +7,12 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/x402agent/openclawd.git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
     "directory": "packages/agents-x402-solana"
   },
-  "homepage": "https://github.com/x402agent/openclawd/tree/main/packages/agents-x402-solana#readme",
+  "homepage": "https://github.com/clawdsolana/OpenClawd/tree/main/packages/agents-x402-solana#readme",
   "bugs": {
-    "url": "https://github.com/x402agent/openclawd/issues"
+    "url": "https://github.com/clawdsolana/OpenClawd/issues"
   },
   "main": "./src/index.ts",
   "types": "./src/index.ts",

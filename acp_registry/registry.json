@@ -11,7 +11,7 @@
     "twitter": "@clawddevs"
   },
   "website": "https://solanaclawd.com",
-  "github": "https://github.com/x402agent/solana-clawd",
+  "github": "https://github.com/clawdsolana/OpenClawd",
   "token": {
     "symbol": "$CLAWD",
     "address": "8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump",
@@ -26,14 +26,14 @@
   },
   "projects": [
     {
-      "id": "solana-clawd",
-      "name": "solana-clawd",
+      "id": "openclawd",
+      "name": "openclawd",
       "description": "Open-source Solana AI agent framework powered by xAI Grok — Go + TypeScript with OODA trading engine and 31 MCP tools",
       "category": "framework",
       "language": "go-typescript",
       "license": "MIT",
       "status": "active",
-      "url": "solana-clawd/README.md",
+      "url": "openclawd/README.md",
       "keywords": ["solana", "go", "mcp", "trading", "xai", "grok"],
       "features": ["OODA loop", "31 MCP tools", "Go runtime", "Privy wallets"]
     },
@@ -51,7 +51,7 @@
     },
     {
       "id": "x402-openrouter",
-      "name": "solana-clawd-x402",
+      "name": "openclawd-x402",
       "description": "x402 protocol native implementation for Solana — Ed25519 signatures, SPL Token support, IPFS integration",
       "category": "payments",
       "language": "typescript",
@@ -103,7 +103,7 @@
     },
     {
       "id": "clawdhub",
-      "name": "NanoHub / ClawdHub",
+      "name": "ClawdHub / ClawdHub",
       "description": "Registry and web hub for skills + soul packs — browse, publish, version, search, and install SKILL.md and SOUL.md bundles",
       "category": "registry",
       "language": "typescript",
@@ -115,7 +115,7 @@
     },
     {
       "id": "skills",
-      "name": "SolanaOS Skills",
+      "name": "OpenClawd Skills",
       "description": "97 bundled SKILL.md files for AI agent capabilities — trading, browsing, canvas, pump.fun, and more",
       "category": "ai-agents",
       "language": "markdown",
@@ -231,8 +231,8 @@
     },
     {
       "id": "WatchApp",
-      "name": "SolanaOS Watch",
-      "description": "watchOS app for SolanaOS — wallet state monitoring and companion app",
+      "name": "OpenClawd Watch",
+      "description": "watchOS app for OpenClawd — wallet state monitoring and companion app",
       "category": "application",
       "language": "swift",
       "license": "MIT",
@@ -287,8 +287,8 @@
     },
     {
       "id": "chess",
-      "name": "SolanaOS Chess",
-      "description": "Chess hub for SolanaOS — live play, wallet-signed matches",
+      "name": "OpenClawd Chess",
+      "description": "Chess hub for OpenClawd — live play, wallet-signed matches",
       "category": "application",
       "language": "typescript",
       "license": "MIT",
@@ -385,7 +385,7 @@
     {
       "id": "npm",
       "name": "npm Packages",
-      "description": "npm installers — ClawdBot, SolanaOS CLI",
+      "description": "npm installers — ClawdBot, OpenClawd CLI",
       "category": "tooling",
       "language": "bash",
       "license": "MIT",

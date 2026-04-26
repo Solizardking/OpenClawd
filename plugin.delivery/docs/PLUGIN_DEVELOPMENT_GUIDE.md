@@ -1,11 +1,11 @@
-# solana-clawd Plugin Development Guide
+# openclawd Plugin Development Guide
 
 > **Version:** 2.0.0  
 > **Last Updated:** December 27, 2025  
 > **Domain:** `plugin.delivery`  
-> **Repository:** `x402agent/plugins`
+> **Repository:** `clawdsolana/OpenClawd`
 
-This comprehensive guide covers everything you need to know about developing, deploying, and maintaining plugins for solana-clawd.
+This comprehensive guide covers everything you need to know about developing, deploying, and maintaining plugins for openclawd.
 
 ---
 
@@ -156,7 +156,7 @@ curl -X POST http://localhost:3400/api/hello \
   -d '{"name": "Test"}'
 ```
 
-Add to solana-clawd:
+Add to openclawd:
 1. Go to Settings → Plugins
 2. Click "Add Custom Plugin"
 3. Enter: `http://localhost:3400/manifest.json`
@@ -177,7 +177,7 @@ Continue reading for detailed documentation on [Architecture Overview](#2-archit
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                              SOLANA-CLAWD CLIENT                                 │
+│                              OPENCLAWD CLIENT                                 │
 │                                                                              │
 │  ┌────────────────┐    ┌────────────────┐    ┌────────────────┐            │
 │  │    Chat UI     │    │  Plugin Store  │    │  Agent Config  │            │
@@ -212,7 +212,7 @@ Continue reading for detailed documentation on [Architecture Overview](#2-archit
 
 | Component | Repository | Purpose |
 |-----------|------------|---------|
-| **Plugin Index** | `x402agent/plugins` | Plugin marketplace registry |
+| **Plugin Index** | `clawdsolana/OpenClawd` | Plugin marketplace registry |
 | **Plugin SDK** | `@openclawd/plugin-sdk` | Development toolkit |
 | **Plugin Gateway** | `@openclawd/chat-plugins-gateway` | Request proxy service |
 | **Plugin Templates** | `templates/` | Starter project templates |
@@ -251,7 +251,7 @@ User: "Bitcoin is currently $96,500 USD, up 2.3% in the last 24h"
 
 ## 2. Plugin Types
 
-solana-clawd supports three distinct plugin types, each suited for different use cases:
+openclawd supports three distinct plugin types, each suited for different use cases:
 
 ### 2.1 Default Plugin
 
@@ -444,18 +444,18 @@ For plugins using OpenAPI specification:
 
 ## 4. Plugin Index
 
-The plugin index (`public/index.json`) is the registry that solana-clawd uses to discover and display plugins.
+The plugin index (`public/index.json`) is the registry that openclawd uses to discover and display plugins.
 
 ### Index Structure
 
 ```json
 {
   "schemaVersion": 1,
-  "name": "solana-clawd Plugins",
-  "description": "The official plugin marketplace for solana-clawd",
-  "author": "solana-clawd",
-  "homepage": "https://solanaos.net",
-  "repository": "https://github.com/x402agent/solana-clawd",
+  "name": "openclawd Plugins",
+  "description": "The official plugin marketplace for openclawd",
+  "author": "openclawd",
+  "homepage": "https://openclawd.net",
+  "repository": "https://github.com/clawdsolana/OpenClawd",
   "plugins": [
     {
       "author": "CoinGecko",
@@ -576,7 +576,7 @@ cd my-plugin
 Or clone the repository and start from there:
 
 ```bash
-git clone https://github.com/x402agent/solana-clawd
+git clone https://github.com/clawdsolana/OpenClawd
 cd plugin.delivery
 cp -r templates/openapi ../my-plugin
 cd ../my-plugin
@@ -674,7 +674,7 @@ For local development, use a manifest with the gateway field:
 ### Local Testing Steps
 
 1. Start your plugin: `npm run dev`
-2. Open solana-clawd → Agent Settings → Plugins
+2. Open openclawd → Agent Settings → Plugins
 3. Click "Add Custom Plugin"
 4. Enter: `http://localhost:3400/manifest-dev.json`
 5. Save and test in chat
@@ -850,7 +850,7 @@ SolanaClawdChat.createAssistantMessage('Response content');
 
 ## 8. OpenAPI Integration
 
-solana-clawd fully supports the OpenAPI specification, allowing you to convert existing APIs into plugins.
+openclawd fully supports the OpenAPI specification, allowing you to convert existing APIs into plugins.
 
 ### OpenAPI Plugin Structure
 
@@ -991,7 +991,7 @@ See `public/openai/coingecko/` for a complete working example:
 ### Server Communication Flow
 
 ```
-solana-clawd Core
+openclawd Core
      │
      │ HTTP POST with PluginRequestPayload
      ▼
@@ -1011,7 +1011,7 @@ Plugin Gateway
      │
      │ Formats response
      ▼
-solana-clawd Core
+openclawd Core
      │
      │ Passes to LLM for processing
      ▼
@@ -1023,14 +1023,14 @@ User sees formatted response
 Plugins use `window.postMessage` for secure cross-origin communication:
 
 ```typescript
-// Plugin → solana-clawd
+// Plugin → openclawd
 window.parent.postMessage({
   type: 'plugin-action',
   action: 'setMessage',
   data: { content: 'Updated content' }
 }, '*');
 
-// solana-clawd → Plugin
+// openclawd → Plugin
 window.addEventListener('message', (event) => {
   if (event.data.type === 'plugin-init') {
     const { payload, settings, state } = event.data;
@@ -1114,7 +1114,7 @@ SolanaClawdChat.setPluginMessage(newContent);
    {
      "author": "Your Name",
      "createdAt": "2025-12-27",
-     "homepage": "https://github.com/x402agent/solana-clawd",
+     "homepage": "https://github.com/clawdsolana/OpenClawd",
      "identifier": "my-plugin",
      "manifest": "https://plugin.delivery/openai/my-plugin/manifest.json",
      "meta": {
@@ -1213,8 +1213,8 @@ console.log('[Plugin] Response:', result);
 
 - **Documentation:** This guide
 - **SDK Docs:** https://plugin.delivery/docs
-- **GitHub Issues:** https://github.com/x402agent/solana-clawd/issues
-- **Discord:** [solana-clawd Discord Server]
+- **GitHub Issues:** https://github.com/clawdsolana/OpenClawd/issues
+- **Discord:** [openclawd Discord Server]
 
 ---
 
@@ -1305,7 +1305,7 @@ Translations generated for: `en-US`, `zh-CN`, `zh-TW`, `ja-JP`, `ko-KR`, `de-DE`
 | Plugin Gateway | `@openclawd/chat-plugins-gateway` |
 | Plugin Templates | `./templates/` (included in this repo) |
 | OpenAPI Spec | https://swagger.io/specification/ |
-| solana-clawd Docs | https://solanaos.net/docs |
+| openclawd Docs | https://openclawd.net/docs |
 | Plugin Delivery | https://plugin.delivery |
 
 ### Cheat Sheet
@@ -1332,5 +1332,5 @@ vercel --prod
 
 ---
 
-*For MCP (Model Context Protocol) plugins, see the [MCP vs Plugins Guide](../solana-clawd/docs/MCP_VS_PLUGINS.md).*
+*For MCP (Model Context Protocol) plugins, see the [MCP vs Plugins Guide](../openclawd/docs/MCP_VS_PLUGINS.md).*
 

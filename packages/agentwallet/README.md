@@ -4,9 +4,9 @@
 
 A TypeScript npm package for managing encrypted wallet keypairs, exposing an HTTP API, and deploying to secure sandboxes for remote agent access.
 
-## solana-clawd Integration
+## openclawd Integration
 
-This package is part of the main `solana-clawd` bootstrap path.
+This package is part of the main `openclawd` bootstrap path.
 
 From the repo root:
 
@@ -231,4 +231,4 @@ MIT
 
 ## Repository
 
-[github.com/x402agent/solana-claude](https://github.com/x402agent/solana-claude)
+[github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd)

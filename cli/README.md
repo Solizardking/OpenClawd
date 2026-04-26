@@ -1,6 +1,6 @@
 # openclawd CLI
 
-Command-line tools for the openclawd ecosystem — solanaclawd.com · github.com/x402agent/openclawd
+Command-line tools for the openclawd ecosystem — solanaclawd.com · github.com/clawdsolana/OpenClawd
 
 ## Scripts
 
@@ -79,17 +79,17 @@ clawd-connect.sh payment:verify <id>
 clawd-connect.sh payment:settle <tx>
 ```
 
-### solana-clawd CLI (primary)
+### openclawd CLI (primary)
 
-The main agent CLI is `solana-clawd`, published to npm:
+The main agent CLI is `openclawd`, published to npm:
 
 ```bash
-npm i -g solana-clawd
+npm i -g openclawd
 
-solana-clawd pair <CODE>     # pair this device
-solana-clawd mint            # mint your agent NFT (Metaplex Core)
-solana-clawd status          # show pairing + wallet
-solana-clawd agent           # start OODA loop trading agent
+openclawd pair <CODE>     # pair this device
+openclawd mint            # mint your agent NFT (Metaplex Core)
+openclawd status          # show pairing + wallet
+openclawd agent           # start OODA loop trading agent
 ```
 
 ### @openclawd/wallet (Privy embedded wallet)
@@ -180,7 +180,7 @@ npx clawdhub publish ./skill
 
 # Install npm packages
 npm i -g @clawd/cli
-npm i -g solanaos-cli
+npm i -g openclawd-cli
 ```
 
 ## License

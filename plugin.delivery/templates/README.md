@@ -1,6 +1,6 @@
 # Plugin Templates
 
-Official starter templates for building solana-clawd plugins.
+Official starter templates for building openclawd plugins.
 
 ## Available Templates
 
@@ -58,9 +58,9 @@ pnpm dev
 
 Server runs at http://localhost:3400
 
-### 5. Test in solana-clawd
+### 5. Test in openclawd
 
-1. Open solana-clawd
+1. Open openclawd
 2. Go to Plugin Settings
 3. Add custom plugin: `http://localhost:3400/manifest-dev.json`
 4. Start chatting!

@@ -329,7 +329,7 @@ Research access is gated by $CLAWD holdings:
 | [VIRAL_AGENTS_REVOLUTION.md](../docs/articles/VIRAL_AGENTS_REVOLUTION.md) | Viral article: 49 agents on Solana |
 | [solana-lobster-agents.md](../AGENTS/solana-lobster-agents.md) | Metaplex Lobster Agent reference |
 | [API/README.md](../API/README.md) | Solana blockchain integration |
-| [INTEGRATION_STRATEGY.md](../INTEGRATION_STRATEGY.md) | OpenClawd × SolanaOS |
+| [INTEGRATION_STRATEGY.md](../INTEGRATION_STRATEGY.md) | OpenClawd × OpenClawd |
 | [Percolator CLI](../packages/percolator/README.md) | 🧪 Perpetuals trading CLI |
 
 ---
@@ -343,7 +343,7 @@ Research access is gated by $CLAWD holdings:
 | 📖 Docs | [docs.solanaclawd.com](https://docs.solanaclawd.com) |
 | 🐦 Twitter | [x.com/clawddevs](https://x.com/clawddevs) |
 | 💬 Telegram | [t.me/clawdtoken](https://t.me/clawdtoken) |
-| 📦 GitHub | [github.com/x402agent/openclawd](https://github.com/x402agent/openclawd) |
+| 📦 GitHub | [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
 
 ---
 

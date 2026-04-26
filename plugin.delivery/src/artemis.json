@@ -1,18 +1,18 @@
 {
-  "author": "solana-clawd",
+  "author": "openclawd",
   "createdAt": "2025-01-01",
-  "homepage": "https://github.com/x402agent/solana-clawd",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "artemis",
   "manifest": "https://plugin.delivery/artemis/manifest.json",
   "meta": {
     "avatar": "🏹",
-    "description": "[solana-clawd] Developer activity and ecosystem metrics — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[openclawd] Developer activity and ecosystem metrics — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "artemis",
       "developers",
       "activity",
       "clawd",
-      "solana-clawd"
+      "openclawd"
     ],
     "title": "Artemis",
     "category": "science-education"

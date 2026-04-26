@@ -4,7 +4,7 @@
 
 A discoverable, self-hosting hub for Solana-native AI agents. Every agent in the [`src/`](./src/) directory is automatically indexed into a catalog ([`agents-catalog.json`](./agents-catalog.json)), served via REST and MCP, and surfaced at [solanaclawd.com/agents](https://solanaclawd.com/agents) with install / chat / mint buttons. Works with any MCP-compatible client — Clawd Desktop, Cursor, ClawdOS, Windsurf.
 
-## 🔗 solana-clawd Ecosystem
+## 🔗 openclawd Ecosystem
 
 | Surface              | URL                                                                           | Status             |
 | -------------------- | ----------------------------------------------------------------------------- | ------------------ |
@@ -15,8 +15,8 @@ A discoverable, self-hosting hub for Solana-native AI agents. Every agent in the
 | **Studio (Vibe)**    | [vibe.solanaclawd.com](https://vibe.solanaclawd.com)                          | live for holders   |
 | **DEX**              | [dex.solanaclawd.com](https://dex.solanaclawd.com)                            | live               |
 | **Telegram**         | [t.me/clawdtoken](https://t.me/clawdtoken)                                    | live               |
-| **Solana OS Hub**    | [solanaos.net](https://solanaos.net)                                          | live               |
-| **Mobile (Seeker)**  | [seeker.solanaos.net](https://seeker.solanaos.net)                            | live               |
+| **Solana OS Hub**    | [openclawd.net](https://openclawd.net)                                          | live               |
+| **Mobile (Seeker)**  | [seeker.openclawd.net](https://seeker.openclawd.net)                            | live               |
 
 ---
 
@@ -81,7 +81,7 @@ Result (April 2026 snapshot — regenerate any time with `node build-catalog.cjs
 ```json
 {
   "mcpServers": {
-    "solana-clawd-agents": {
+    "openclawd-agents": {
       "type": "http",
       "url": "https://modelcontextprotocol.name/mcp/defi-agents"
     }
@@ -105,8 +105,8 @@ curl https://solanaclawd.com/api/agents/templates/trading-agent.json
 ### For developers
 
 ```bash
-git clone https://github.com/x402agent/solana-clawd.git
-cd solana-clawd/agents
+git clone https://github.com/clawdsolana/OpenClawd.git
+cd openclawd/agents
 bun install
 bun run format
 bun run build                     # schema validate + i18n
@@ -508,7 +508,7 @@ Regenerate any time with `node build-catalog.cjs`. Current snapshot (April 2026)
 
 ## 🔗 Projects Building with Solana Clawd Agents
 
-- **ClawdOS** — [Application Branch](https://github.com/x402agent/solana-clawd/tree/clawdos)
+- **ClawdOS** — [Application Branch](https://github.com/clawdsolana/OpenClawd/tree/clawdos)
 - **CLAWD Terminal** — the parent repo hosting this hub + server + client
 - **CLAWD Router** — [ClawdRouter-main/](../ClawdRouter-main/) powers agent dispatch with tier/holder-aware routing
 - **CLAWD × Pump.fun** — payment-gated agent rails via `@pump-fun/agent-payments-sdk`

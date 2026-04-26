@@ -1,18 +1,18 @@
 {
-  "author": "solana-clawd",
+  "author": "openclawd",
   "createdAt": "2025-01-01",
-  "homepage": "https://github.com/x402agent/solana-clawd",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "messari",
   "manifest": "https://plugin.delivery/messari/manifest.json",
   "meta": {
     "avatar": "📑",
-    "description": "[solana-clawd] Crypto research, asset profiles, and metrics — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[openclawd] Crypto research, asset profiles, and metrics — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "research",
       "fundamentals",
       "metrics",
       "clawd",
-      "solana-clawd"
+      "openclawd"
     ],
     "title": "Messari",
     "category": "science-education"

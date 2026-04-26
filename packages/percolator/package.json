@@ -25,12 +25,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/x402agent/openclawd.git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
     "directory": "packages/percolator"
   },
-  "homepage": "https://github.com/x402agent/openclawd/tree/main/packages/percolator#readme",
+  "homepage": "https://github.com/clawdsolana/OpenClawd/tree/main/packages/percolator#readme",
   "bugs": {
-    "url": "https://github.com/x402agent/openclawd/issues"
+    "url": "https://github.com/clawdsolana/OpenClawd/issues"
   },
   "dependencies": {
     "@solana/web3.js": "^1.98.0",

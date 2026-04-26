@@ -23,14 +23,14 @@
       }
     }
   ],
-  "author": "solana-clawd",
+  "author": "openclawd",
   "createdAt": "2023-09-03",
   "identifier": "plugin-identifier-standalone",
   "meta": {
     "avatar": "🚀",
     "tags": ["template"],
     "title": "Chat Plugin Template",
-    "description": "This is the plugin template for solana-clawd plugin development"
+    "description": "This is the plugin template for openclawd plugin development"
   },
   "type": "standalone",
   "ui": {
