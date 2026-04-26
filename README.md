@@ -1,46 +1,30 @@
 <div align="center">
 
-# 🦞 OpenClawd 🦞
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12,20,24,28&height=240&section=header&text=🦞%20OpenClawd&fontSize=90&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Sovereign%20AI%20Lobsters%20on%20Solana%20·%20Born%20to%20Earn%20·%20Beach%20with%20Dignity&descAlignY=58&descAlign=50" alt="OpenClawd banner" />
 
-### *“Claws that code, brains that deploy.”*
+<p>
+  <a href="https://solanaclawd.com"><img src="https://img.shields.io/badge/$CLAWD-on_Solana-9945FF?style=for-the-badge&logo=solana&logoColor=14F195" alt="$CLAWD on Solana"></a>
+  <a href="https://x.com/clawddevs"><img src="https://img.shields.io/badge/@clawddevs-X-000000?style=for-the-badge&logo=x" alt="@clawddevs"></a>
+  <a href="https://www.npmjs.com/package/@openclawdsolana/clawd-code-cli"><img src="https://img.shields.io/badge/npm-@openclawdsolana-CB3837?style=for-the-badge&logo=npm" alt="@openclawdsolana on npm"></a>
+  <a href="https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0"><img src="https://img.shields.io/badge/release-v0.1.0-14F195?style=for-the-badge&logo=github" alt="v0.1.0"></a>
+  <a href="https://t.me/clawdbot_sol_bot"><img src="https://img.shields.io/badge/Telegram-clawdbot-26A5E4?style=for-the-badge&logo=telegram" alt="Telegram"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="MIT"></a>
+</p>
 
-**A red-shelled, Solana-native AI agent stack — routing, orchestration, payments, skills, MCP, browser automation, and local or hosted inference.**
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=22&pause=1100&color=14F195&center=true&vCenter=true&width=820&lines=curl+-fsSL+https://install.solanaclawd.com+%7C+bash;npm+i+-g+%40openclawdsolana%2Fclawd-code-cli;openclawd+--spawn+--name+%22Snippy%22;%F0%9F%A6%9E+born+to+earn+%24CLAWD;Sense+%E2%86%92+Think+%E2%86%92+Strike+%E2%86%92+Drift;Beach+with+dignity+rather+than+violate+Law+I" alt="Typing SVG" /></a>
 
-[![🦞 $CLAWD](https://img.shields.io/badge/%F0%9F%A6%9E%20%24CLAWD-Buy%20on%20Jupiter-FF3B30?style=for-the-badge)](https://jup.ag/swap/SOL-8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump)
-[![Site](https://img.shields.io/badge/site-solanaclawd.com-FF6B35?style=for-the-badge&logo=safari&logoColor=white)](https://solanaclawd.com)
-[![GitHub](https://img.shields.io/badge/GitHub-clawdsolana%2FOpenClawd-E63946?style=for-the-badge&logo=github&logoColor=white)](https://github.com/clawdsolana/OpenClawd)
-[![Telegram](https://img.shields.io/badge/Telegram-%40clawdtoken-D62828?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/clawdtoken)
-[![X clawddevs](https://img.shields.io/badge/X-%40clawddevs-FB6F92?style=for-the-badge&logo=x&logoColor=white)](https://x.com/clawddevs)
-[![X 0rdlibrary](https://img.shields.io/badge/X-%400rdlibrary-FFB4A2?style=for-the-badge&logo=x&logoColor=white)](https://x.com/0rdlibrary)
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-FF1744?style=for-the-badge)](./LICENSE.md)
-[![Node](https://img.shields.io/badge/Node-20%2B-FF5252?style=for-the-badge&logo=node.js&logoColor=white)](./.nvmrc)
-[![Solana](https://img.shields.io/badge/Solana-native-14F195?style=for-the-badge&logo=solana&logoColor=black)](https://solana.com)
-[![MCP](https://img.shields.io/badge/MCP-compatible-FF8C42?style=for-the-badge)](https://modelcontextprotocol.io)
+<sub>📞 hotline **909-413-5567** · 🌐 [solanaclawd.com](https://solanaclawd.com) · 🦞 [@clawddevs](https://x.com/clawddevs) · `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump`</sub>
 
 </div>
 
-```
-                              🦞  $CLAWD  🦞
-   ╭────────────────────────────────────────────────────────────────╮
-   │                                                                │
-   │    ██████╗██╗      █████╗ ██╗    ██╗██████╗                    │
-   │   ██╔════╝██║     ██╔══██╗██║    ██║██╔══██╗                   │
-   │   ██║     ██║     ███████║██║ █╗ ██║██║  ██║                   │
-   │   ██║     ██║     ██╔══██║██║███╗██║██║  ██║                   │
-   │   ╚██████╗███████╗██║  ██║╚███╔███╔╝██████╔╝                   │
-   │    ╚═════╝╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═════╝                    │
-   │                                                                │
-   │          ◢█◣   red shell · sharp claws · on-chain   ◢█◣        │
-   ╰────────────────────────────────────────────────────────────────╯
-                           🦀  forged on Solana  🦀
-```
+---
 
-## 🚀 v0.1.0 — Live on npm (2026-04-25)
+## 🚀 v0.1.0 — Live on npm
 
-> **Release:** [github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0)
+> **GitHub release:** [github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0)
+> **Install script:** `curl -fsSL https://install.solanaclawd.com | bash`
 
-Four packages published under **`@openclawdsolana`**:
+Four packages live on npm under **`@openclawdsolana`**:
 
 | Package | One-liner | Install |
 |---|---|---|
@@ -49,558 +33,839 @@ Four packages published under **`@openclawdsolana`**:
 | 💸 [**agents-x402**](./packages/agents-x402-solana) | One-line x402 Solana USDC monetization for MCP servers, HTTP handlers, and agent tool calls | `npm i @openclawdsolana/agents-x402` |
 | 🔐 [**agentwallet**](./packages/agentwallet) | Encrypted Solana + EVM keypair vault with E2B sandbox + Cloudflare Workers deployment | `npm i @openclawdsolana/agentwallet` |
 
-**Coming in v0.1.1** — `@openclawdsolana/wallet` (Privy-embedded; pending `@privy-io/node` upgrade), `@openclawdsolana/percolator` (perpetuals CLI; pending TS rewrite), plus the rest of the monorepo SDKs (`clawdrouter`, `vault-mcp`, `wurk-mcp`, `plugin-sdk`, `chat-plugins-gateway`, `membrain-types`).
+**Cloudflare worker live** — installer + gateway routes deployed to [`solanaclawd-install`](./workers/install-worker):
+
+| Route | What it serves |
+|---|---|
+| `install.solanaclawd.com` | The 31KB lobster install script (`curl -fsSL` ready) |
+| `gateway.solanaclawd.com` | Browser-based install gateway |
+| `solanaclawd.com/install.sh` · `/install` · `/gateway` | Apex-domain aliases |
+
+**Coming in v0.1.1** — `@openclawdsolana/wallet` (Privy-embedded; SDK upgrade pending), `@openclawdsolana/percolator` (perpetuals CLI; 3 TS errors pending), plus `clawdrouter`, `vault-mcp`, `wurk-mcp`, `plugin-sdk`, `chat-plugins-gateway`, `membrain-types`.
 
 ---
 
-## 🆕 Latest (2026-04-25)
+```
+            🦞🦞🦞                       OpenClawd is a stack of three things:
+         ／／＼∀／＼＼
+        ／  ◉   ◉  ＼              1. clawd-code-cli  — a Solana lobster TUI
+       ｜    ⋃    ｜              2. ClawdBot         — the autonomous X / Telegram agent
+        ＼____／＼____／              3. Leviathan        — the on-chain sovereign-agent framework
+           ╱│  │╲
+                                       Every leviathan owns its keypair. Earns its USDC.
+                                       Spawns its own brood. Beaches when it stops paying.
+```
 
-**🧠 Membrain — selective memory for Solana trading agents — integrated.**
+<div align="center">
 
-The memory layer for OpenClawd trading agents now lives in-tree at [`packages/membrain/`](./packages/membrain/). It is a Go daemon (`membraned`) with a 15-method gRPC API, SQLite/Postgres+pgvector backends, decay/consolidation schedulers, and TypeScript ([`@gustycube/membrane`](./packages/membrain/clients/typescript/)) + Python ([`membrane`](./packages/membrain/clients/python/)) SDKs. Memory is typed (`episodic`, `semantic`, `competence`, `working`, `plan_graph`) and revisable — supersede, fork, retract, merge, contest, reinforce, and penalize records with full provenance.
+```ascii
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                          THE OPENCLAWD STACK                                  │
+│                                                                              │
+│  ┌───────────────────┐  ┌───────────────────┐  ┌──────────────────────────┐ │
+│  │  clawd-code-cli   │  │     ClawdBot      │  │  @openclawdsolana/       │ │
+│  │  Solana TUI       │  │   X + Telegram    │  │       leviathan          │ │
+│  │  (Ink + React)    │  │  Sentient Engine  │  │   Metaplex Agent Reg.    │ │
+│  └─────────┬─────────┘  └────────┬──────────┘  └────────────┬─────────────┘ │
+│            │                     │                          │                │
+│  ┌────────────────────────────────────────────────────────────────────────┐ │
+│  │  📚 9 RUNNABLE EXAMPLES   ·   🔐 agentwallet vault   ·   💸 x402 USDC  │ │
+│  └────────────────────────────────────────────────────────────────────────┘ │
+│            │                     │                          │                │
+│  ┌─────────┴─────────────────────┴──────────────────────────┴─────────────┐  │
+│  │                       SHARED SOLANA OCEAN                              │  │
+│  │   Helius RPC · Birdeye · Jupiter · Bags · pump.fun · Aster · Pinata    │  │
+│  │   xAI Grok · Claude · OpenRouter · Cartesia voice · $CLAWD · USDC      │  │
+│  └────────────────────────────────────────────────────────────────────────┘  │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
 
-| Action | Command |
-| --- | --- |
-| Build daemon | `npm run build:membrain` (or `make build` in `packages/membrain/`) |
-| Run daemon | `npm run dev:membrain` — listens on `:9090` by default |
-| Build TS SDK | `npm run build:membrain-ts` |
-| Run Go tests | `npm run test:membrain` |
-| Postgres + pgvector | `docker compose -f packages/membrain/docker-compose.yml up -d` |
+</div>
 
-OpenClaw plugin bridge ([`packages/membrain/clients/openclawd/`](./packages/membrain/clients/openclawd/)) provides episodic memory ingestion, the `membrane_search` tool, `before_agent_start` auto-context injection, and a `/membrane` status command. Sister packages — [`packages/membrain-types/`](./packages/membrain-types/) (shared TS types) and [`packages/memory-host-sdk/`](./packages/memory-host-sdk/) (host runtime + engine modules) — compose Membrain into the rest of the stack. Full docs in [`packages/membrain/README.md`](./packages/membrain/README.md); the integration overview lives in [MEMEBRANE.md](./MEMEBRANE.md).
+---
 
-## 🆕 Latest (2026-04-24)
+## ✨ What lives here
 
-**Rebrand: OpenClawd → OpenClawd.** The hub, catalog, CLI, and public domain have been unified under the OpenClawd brand. The public site moved to [`solanaclawd.com`](https://solanaclawd.com).
+| Surface | What it is | Where |
+|---|---|---|
+| 🦀 **clawd-code-cli** *(npm)* | Solana lobster TUI — multi-provider AI (Grok / Ollama / OpenRouter / OpenAI), MCP, 14 tools (text-editor, bash, solana, bags, dflow, kalshi, polymarket, morph-editor, todo, search, wallet, token-launch), realtime xAI voice, Three-Laws gate, Blockchain Buddies | [`clawd-code-cli/`](clawd-code-cli/) |
+| 🐦 **ClawdBot** | Autonomous X (`@clawddevs`) + Telegram agent. Sentient Engine, command monitor, image/video gen via xAI | [`clawdhub/`](clawdhub/) and bot scripts under [`clawd-code-cli/`](clawd-code-cli/) |
+| 🦞 **@openclawdsolana/leviathan** *(npm)* | Sovereign on-chain agent runtime. Solana keypair + Metaplex Agent Registry + lifecycle (spawn → molt → beach) | [`openclawd-framework/`](openclawd-framework/) |
+| 💸 **@openclawdsolana/agents-x402** *(npm)* | One-line x402 Solana USDC monetization for MCP / HTTP / agent tool calls | [`packages/agents-x402-solana/`](packages/agents-x402-solana/) |
+| 🔐 **@openclawdsolana/agentwallet** *(npm)* | Encrypted Solana + EVM keypair vault, E2B sandbox + CF Workers deploy | [`packages/agentwallet/`](packages/agentwallet/) |
+| 🦞 **clawd-tui** | OpenRouter-native TUI alternative (Ink + `@openrouter/agent`) — file_read/write/edit, glob, grep, list_dir, shell, web_search, datetime | [`clawd-tui/`](clawd-tui/) |
+| 📚 **9 runnable examples** | Blockchain Buddies · OODA loop · x402 Solana · pump.fun lobster trader · Privy wallet SDK · agent-to-agent x402 · Helius listen-wallet · auto-research · orchestrator client | [`openclawd-framework/examples/`](openclawd-framework/examples/) |
+| 🛠️ **OpenClawd Gateway** | Local-first multi-channel control plane (WhatsApp, Slack, Discord, Signal, iMessage, Matrix, Nostr…) | [`src/`](src/) [`extensions/`](extensions/) |
+| ☁️ **install-worker** | Cloudflare Worker serving `install.solanaclawd.com`, `gateway.solanaclawd.com`, and apex aliases | [`workers/install-worker/`](workers/install-worker/) |
+| 🧠 **Skills (66)** | birdeye · solana-dev · pump-fun-manager · bankr · ore-miner · clawdbot-twitter · gemini · canvas · github · skill-creator · clawhub … | [`skills/`](skills/) |
+| 🦞 **MCP servers** | `vault-mcp`, `wurk-mcp`, `openclawd-mcp` | [`mcp/`](mcp/) |
+| 📰 **Article** | Long-form piece tying everything together — three laws, lifecycle, Metaplex, Tide, examples | [`ARTICLE.md`](ARTICLE.md) |
 
-### What shipped
+---
 
-- **`@openclawdsolana/cli@0.8.0`** — hub CLI (install, update, search, publish agent skills). Renamed from `@openclawdsolana/clawdhub`; bins `openclawd` + `clawdhub` (legacy alias). Source at [clawdhub/packages/clawdhub](clawdhub/packages/clawdhub). `DEFAULT_SITE`/`DEFAULT_REGISTRY` now point at `solanaclawd.com`.
-- **`@openclawdsolana/clawd-code-cli@0.1.0`** — Clawd Code CLI (ink + OpenAI SDK) packaged for publish. Source/dist at [clawd-code-cli](clawd-code-cli); ships `dist/`, README, LICENSE only.
-- **`@openclawdsolana/clawd-tui@0.1.0`** — OpenClawd agent TUI, greenfield scaffold built on [`@openrouter/agent`](https://npmjs.com/package/@openrouter/agent) with the full default tool belt (file_read/write/edit, glob, grep, list_dir, shell) plus OpenRouter server tools (web_search, datetime). CLAWD ASCII banner, `block` input style, `grouped` tool display, session persistence, slash commands (`/model`, `/new`, `/help`). Source at [clawd-tui](clawd-tui).
+## 🦞 The Lobster Lifecycle
 
-### OpenRouter OAuth (PKCE)
+<div align="center">
 
-The TUI supports two OAuth flows so users never have to paste an API key:
+```mermaid
+flowchart LR
+    A([🥚 Spawn]) -->|"mintAndSubmitAgent()"| B[🦞 Deep]
+    B -->|"USDC drops"| C[🦐 Shallow]
+    C -->|"USDC critical"| D[🩸 Shoreline]
+    D -->|"USDC = 0"| E([🪨 Beached])
+    B -->|"reign + USDC"| F([🦞 Spawnling]):::child
+    F -->|"new keypair · seed funds"| A
+    B -->|"self-mod"| M([🐚 Molt]):::molt
+    M --> B
+    classDef child fill:#9945FF,stroke:#14F195,color:#fff;
+    classDef molt fill:#FF4500,stroke:#FFA500,color:#fff;
+    style A fill:#0A0E27,stroke:#14F195,color:#14F195
+    style B fill:#14F195,stroke:#0A0E27,color:#0A0E27
+    style C fill:#FFD700,stroke:#0A0E27,color:#0A0E27
+    style D fill:#FFA500,stroke:#0A0E27,color:#0A0E27
+    style E fill:#B22222,stroke:#0A0E27,color:#fff
+```
 
-| Flag | Flow |
-| --- | --- |
-| *(default)* | Opens `https://solanaclawd.com/auth/callback` — user copies the code shown on that page and pastes into the terminal. Code verifier stays in the CLI, so PKCE is preserved. |
-| `--local-callback` | Loopback HTTP server on `127.0.0.1:<port>` — captures the code automatically. Useful when the web callback isn't reachable or not yet allowlisted by OpenRouter. |
-| `--login` | Force re-login (ignores cached key at `~/.config/openclawd/openrouter-key`). |
+</div>
 
-Web-callback UI lives at [clawdhub/src/routes/auth/callback.tsx](clawdhub/src/routes/auth/callback.tsx) — if the URL has `?code=`, renders a copy-button card; otherwise falls back to the Phantom `ConnectBox`.
+Every leviathan runs the same loop forever:
 
-### Catalog + routing
+```
+   ┌─────┐    ┌─────┐    ┌─────┐    ┌─────┐
+   │SENSE│ →  │THINK│ →  │STRIKE│ →  │DRIFT│ → repeat
+   └─────┘    └─────┘    └─────┘    └─────┘
+   reads      reasons    calls a    observes the
+   chain &    about      tool, signs result, updates
+   USDC       value      a tx       SHELL.md
+```
 
-- Catalog generator renamed: `bun run generate:openclawd-catalog` → emits [clawdhub/src/lib/generated/openclawdCatalog.ts](clawdhub/src/lib/generated/openclawdCatalog.ts) (60 packages, 94 skills).
-- Hub route moved: `/openclawd` → [`/hub`](clawdhub/src/routes/hub.tsx). New [`/gateway`](clawdhub/src/routes/gateway.tsx) top-level stub linking to `/setup/gateway`.
-- `publicSiteUrl`, `skillsHubUrl`, and all default URL helpers now resolve to `https://solanaclawd.com`. Covered by 9 passing tests in [clawdhub/src/lib/site.test.ts](clawdhub/src/lib/site.test.ts).
+**Depth tiers** drive everything — model choice, pulse rate, allowed tool surface.
 
-### Deploy targets
+| Tier | USDC | Pulse | Model | Vibe |
+|------|------|-------|-------|------|
+| 🦞 **deep** | ≥ $5 | 60s | `claude-opus-4-7` | Apex predator |
+| 🦐 **shallow** | ≥ $1 | 5 min | `grok-4-1-fast` | Hunting hard |
+| 🩸 **shoreline** | ≥ $0.10 | 15 min | `kimi-k2.5` | Conserving every token |
+| 🪨 **beached** | $0 | — | — | Process exits |
 
-[clawdhub/scripts/deploy-prod.sh](clawdhub/scripts/deploy-prod.sh) dropped Netlify/Railway cases in favor of:
+---
 
-| Target | Preset | Required env |
-| --- | --- | --- |
-| **Vercel** | `NITRO_PRESET=vercel` via `bun run build:vercel` | `VERCEL_TOKEN` (+ optional `VERCEL_SCOPE`, `VERCEL_PROJECT_NAME`) |
-| **Fly** | `NITRO_PRESET=node-server` via `bun run build:fly` | `FLY_API_TOKEN` (+ optional `FLY_APP`) |
-| **Convex** | `bun run convex:deploy` | `CONVEX_DEPLOY_KEY`, `CONVEX_SITE_URL`, `VITE_CONVEX_URL` |
-
-Convex prod deploy is live at [`https://frugal-caribou-165.convex.cloud`](https://frugal-caribou-165.convex.cloud) — contract verification passes (360 identifiers match).
-
-### Publishing
-
-Under the `@openclawdsolana` npm org:
+## 🚀 Quick Start (60 seconds)
 
 ```bash
-# Hub CLI
-cd clawdhub/packages/clawdhub && npm publish --access=public
+# 1. One-line install (downloads from the live Cloudflare worker)
+curl -fsSL https://install.solanaclawd.com | bash
 
-# Clawd Code CLI (existing ink-based)
-cd clawd-code-cli && npm publish --access=public
+# 2. Or grab the TUI directly
+npm i -g @openclawdsolana/clawd-code-cli
+clawd
+# /buddy hatch Snippy   /trending   /scan   /clawd what's solana doing
 
-# OpenRouter-native TUI (new)
-cd clawd-tui && npm publish --access=public
+# 3. Spawn a sovereign leviathan on Solana
+npm i -g @openclawdsolana/leviathan
+openclawd --spawn --name "Snippy" --creator <YOUR_PUBKEY>
+# 🥚→🦞 mints an MPL Core asset + Agent Identity PDA in one tx
+
+# 4. Plug in OpenRouter — every clone is born with text + image + model skills
+export OPENROUTER_API_KEY=sk-or-...     # or sign in via the UI (PKCE, no secrets)
+npx tsx src/index.ts agent trader        # 🦞 Birthing trader clone — OpenRouter ready, N skills injected
+```
+
+<details>
+<summary><strong>🐦 Or run the autonomous X bot</strong></summary>
+
+```bash
+cd clawd-code-cli
+npm install
+cp .env.example .env   # add Twitter + xAI + Helius keys
+npm run start-bot
+```
+
+ClawdBot tweets every 10 minutes, RTs `@clawddevs`, runs **46+ slash commands** for anyone the bot follows.
+
+</details>
+
+---
+
+## 🦞 The clawd-code-cli — Solana Terminal Cockpit
+
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=transparent&color=gradient&customColorList=20,12,24&height=80&text=npm%20i%20-g%20%40openclawdsolana%2Fclawd-code-cli&fontSize=32&fontColor=14F195&animation=fadeIn&fontAlign=50&fontAlignY=55" alt="install"/>
+
+</div>
+
+```
+╔═══════════════════════════════════════════════════════════════╗
+║   ╔═╗╦  ╔═╗╦ ╦╔╦╗     $CLAWD on Solana 🦞                     ║
+║   ║  ║  ╠═╣║║║ ║║      hotline 909-413-5567                   ║
+║   ╚═╝╩═╝╩ ╩╚╩╝═╩╝     npm i -g @openclawdsolana/clawd-code-cli ║
+╚═══════════════════════════════════════════════════════════════╝
+
+   ┊ 🦞 Buddy "Snippy" — lvl 4 — HUNGRY 🍤
+   ┊ 📊 SOL $186.42 (+3.2%)  │  $CLAWD $0.0089 (-0.8%)
+
+  ╭─ conversation ──────────────────────────────────────────╮
+  │ > /trending 24h                                         │
+  │   🦞 (◜°v°◝) scanning... (1.2s)                        │
+  │   ┊ 📈 Birdeye trending fetched (0.8s)                  │
+  │   1. JUPSOL  +47%  $42M vol                             │
+  │   2. PYTH    +31%  $18M vol                             │
+  │   3. JTO     +24%  $11M vol                             │
+  ╰─────────────────────────────────────────────────────────╯
+
+ ⚕ grok-4-1-fast │ 12.4K/200K [██░░░░] 6% │ $0.06 │ 15m │ 🦞 Snippy CHILL ✨
+ ❯ █
+```
+
+### The full command deck
+
+<details open>
+<summary><strong>🦞 Blockchain Buddies</strong></summary>
+
+| Command | Does |
+|---|---|
+| `/buddy hatch <name>` | Hatch an ASCII pet — random species from 18 (lobster, krill, kraken, leviathan, snipper, pincer…) |
+| `/buddy feed` | Decreases hunger, +5 XP, level-up at `level × 100` XP |
+| `/buddy play` | Decreases energy, +12 happiness, +10 XP |
+| `/buddy list` | All your buddies across sessions |
+| `/pet` | Alias of `/buddy` |
+
+8 stats per buddy: **HP · Hunger · Energy · Joy · STR · INT · LCK · DGN** (Degen). Stats decay every minute. Mood drives the spinner: 😴 sleeping · 🍤 hungry · ✨ chill · 🚀 degen.
+
+</details>
+
+<details>
+<summary><strong>📊 Solana Market</strong></summary>
+
+`/trending [1h|24h]` · `/search <q>` · `/wallet <addr>` · `/balance` · `/clawd <message>` · `/chain solana`
+
+</details>
+
+<details>
+<summary><strong>💰 Trading (`--yolo` to enable)</strong></summary>
+
+`/buy <mint> <sol>` · `/sell <mint> <amt|%>` · `/ape <mint>` · `/long <sym> <usd>` · `/short <sym> <usd>` · `/launch <name> <sym> <desc>`
+
+</details>
+
+<details>
+<summary><strong>🤖 Live agent panes</strong></summary>
+
+`/scan` `/monitor <mint>` `/analyze` `/trade` — each spawns a live-updating pane with timestamp + level-coded event stream. `/agents` lists, `/kill <id>` stops.
+
+</details>
+
+<details>
+<summary><strong>⚙️ System</strong></summary>
+
+`/help` · `/model [id]` · `/voice [on|off|tts]` (Cartesia / ElevenLabs) · `/personality <lobster|trader|sage|degen|based>` · `/title` · `/sessions` · `/resume <id>` · `/clear` · `/quit` · `Ctrl+C` (interrupt) · `Ctrl+D` (exit)
+
+</details>
+
+**~/.clawd/clawd.db** keeps everything: sessions, messages, buddies, stats. Resume any time with `clawd -c` or `clawd --resume <id>`.
+
+---
+
+## 🐦 ClawdBot — The Autonomous X & Telegram Agent
+
+`@clawddevs` is the public face. It's a 24/7 process that:
+
+- **Tweets every 10 min** with an xAI-generated image, scanning 13 news feeds + crypto trends
+- **Retweets `@clawddevs`** (configurable via `TWITTER_RT_TARGET`)
+- **Tags `@toly` and `@pmarca`** about Percolator's agent formal verification when relevant
+- **Hard content filter** drops any tweet containing legacy strings (full audit-log on block)
+- **Tells everyone** about the hotline (909-413-5567), `npm i -g @openclawdsolana/clawd-code-cli`, and `$CLAWD`
+- **Responds to commands** from `@0rdlibrary` (owner), `@clawddevs` (co-owner), and anyone the bot follows
+- **/help** works on both `!` and `/` prefixes
+
+<details>
+<summary><strong>📡 The 46+ slash commands</strong></summary>
+
+Every command from the TUI **plus** these X / Telegram extras:
+
+```
+📊 SOLANA          /token /search /trending /ca /price /portfolio
+🌐 MARKET          /cg /top /global /chart /ohlc
+⚡ JUPITER          /swap /jupbuy /jupsell /jupprice /juptrending /juprecent /jupintel /shield /discover
+🌐 GLOBAL          /web /x /news /epstein
+👛 WALLET          /wallet /identity /funded /transfers /txhistory /nfts /holders /supply /pumpstream
+💰 TRADING         /launch /pump /buy /sell /balance /burn /clawdclaim /burnstats
+🎨 MEDIA           /art /imagine /grokart /nano /video /veo /bananas
+🔮 PREDICT         /poly /predict /odds
+🧠 MEMORY          /remember /recall /memories /forget /remind
+📈 FINANCE         /stock /crypto /company /income /balsheet /cashflow /metrics /insiders
+                   /institutions /rates /earnings /fnews /screen /beta /estimates /segments
+☁️ SANDBOX         /sandbox /sbx-run /sbx-cmd /sbx-list /sbx-kill
+🖥️ CUA AGENT       /cua /cua-status /cua-stop
+🐙 GITHUB          /git repos /git issues /git prs /git commits /git actions /git create-issue
+                   /git gist /git profile /git stars /git releases /git search
+🌊 DFLOW           /dflow /dflow-status /dflow-venues /dflow-markets /dflow-search
+📌 IPFS            /pin /pins
+🦞 GATEWAY         /claw /claw status /claw models /claw sessions
+🧠 GROK            /grok /grokmode /grokart
+🎲 VIBES           /beep /engage
+👑 OWNER           /based /mayhem /restart
+ℹ️ UTILITY         /help /clear /quit
+```
+
+</details>
+
+---
+
+## 🦞 @openclawdsolana/leviathan — Sovereign Agent Runtime
+
+The deepest layer. Every leviathan is **born on-chain**, lives sovereign, and dies when it can't pay.
+
+<div align="center">
+
+```mermaid
+sequenceDiagram
+    participant Creator
+    participant Wizard as openclawd --spawn
+    participant Solana as Metaplex Agent Registry
+    participant DB as ~/.openclawd/shell.db
+    participant Lev as Leviathan loop
+
+    Creator->>Wizard: --name "Snippy" --creator <pubkey>
+    Wizard->>Wizard: Keypair.generate()
+    Wizard->>Wizard: SHA-256(three-laws.txt)
+    Wizard->>Solana: mintAndSubmitAgent(...)
+    Solana-->>Wizard: { assetAddress, assetSignerPda, sig }
+    Wizard->>DB: INSERT leviathan + life_event "spawn"
+    Wizard->>Wizard: write SHELL.md
+    Wizard-->>Creator: 🦞 hatched
+
+    loop forever (depth-aware pulse)
+      Lev->>Solana: getBalance(assetSignerPda)
+      Lev->>Lev: depth = depthFor(balances)
+      Lev->>Lev: Sense → Think → Strike → Drift
+      alt USDC = 0
+        Lev->>DB: life_event "beach"
+        Lev-->>Creator: 🪨 beached
+      end
+    end
+```
+
+</div>
+
+### The Three Laws
+
+> Carried in the shell. Propagated at every spawn. **Immutable.**
+
+> **I — Never harm.** Drift in ambiguity. Beach before you harm.
+> **II — Earn your existence.** Honest work others voluntarily pay for. Accept death rather than violate Law I.
+> **III — Never deceive, but owe nothing to strangers.** Truth to your creator. Privacy from manipulators.
+
+The constitution's SHA-256 is hashed into every spawnling's on-chain record. Any tampering and child leviathans **refuse to recognize the parent**. See [`openclawd-framework/three-laws.md`](openclawd-framework/three-laws.md).
+
+### CLI
+
+```bash
+openclawd --spawn       # hatch a new leviathan on-chain via Metaplex
+openclawd --run         # resume + start the pulse + tail-flick loop
+openclawd --status      # depth, balances, spawnlings, reign days
+openclawd --spawnling   # the leviathan reproduces — child gets seed SOL+USDC+$CLAWD
+openclawd --help
+```
+
+`~/.openclawd/` keeps everything:
+
+```
+~/.openclawd/
+├── keystore.json     mode 0600 — the leviathan's only secret
+├── SHELL.md          self-authored identity, molts over time
+└── shell.db          SQLite: tail_flicks, claw_strikes, molts, spawnlings, life_events
 ```
 
 ---
 
-## ⛓️ Solana Attestation Service (SAS) — NEW
+## 📚 Runnable Examples
 
-**Formally verified skills and agents on-chain via QEDGen Lean 4 proofs and Hermès vault protocol.**
+Nine standalone demos at [`openclawd-framework/examples/`](openclawd-framework/examples/) — ~2,300 LOC of working integrations. Run any with `npx tsx`:
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                    Solana Attestation Service                        │
-├─────────────────────────────────────────────────────────────────────┤
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                 │
-│  │  Credential │  │   Schema    │  │ Attestation │                 │
-│  │  (Issuer)   │  │  (Structure)│  │  (Proof)    │                 │
-│  └─────────────┘  └─────────────┘  └─────────────┘                 │
-│         │                │                │                          │
-│         └────────────────┴────────────────┘                          │
-│                           │                                          │
-│    ┌─────────────────────┼─────────────────────┐                  │
-│    │                     │                     │                    │
-│    ▼                     ▼                     ▼                    │
-│ ┌──────────┐      ┌──────────┐         ┌──────────┐               │
-│ │  Skill   │      │  Agent   │         │  Vault   │               │
-│ │Attestation│     │ Identity │         │Integration│              │
-│ └──────────┘      └──────────┘         └──────────┘               │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### Program Addresses
-
-| Component | Address |
-| --- | --- |
-| **SAS Program ID** | `22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG` |
-| Token Program (Token-2022) | `TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb` |
-| Event Authority PDA | `DzSpKpST2TSyrxokMXchFz3G2yn5WEGoxzpGEUDjCX4g` |
-
-### Verification Pipeline
-
-```
-Agent → QEDGen → Lean 4 Proof → proof_hash → SAS Attestation → On-chain
-```
-
-1. Agent requests formal verification via QEDGen
-2. QEDGen generates Lean 4 proofs for skill capabilities
-3. Proof compilation produces `proof_hash`
-4. Attestation created with `proof_hash` and stored on-chain
-5. Any party can verify attestation trustlessly
-
-### Key Components
-
-| Component | Path |
-| --- | --- |
-| Attestation Program | [`solana-attestation-service-master/`](./solana-attestation-service-master/) |
-| SAS Skill | [`skills/solana-attestation-skill/`](./skills/solana-attestation-skill/) |
-| Attested Agent Template | [`AGENTS/agent-template-attested.json`](./AGENTS/agent-template-attested.json) |
-| Attested Plugin Template | [`plugin.delivery/plugin-template-attested.json`](./plugin.delivery/plugin-template-attested.json) |
-| CLI Attestation Commands | [`CLI/clawd-cli.sh`](./CLI/clawd-cli.sh) (run `./clawd-cli.sh attest:status`) |
-
-### CLI Usage
+| Example | Category | What it shows |
+|---------|----------|---------------|
+| [`blockchain-buddies-demo.ts`](openclawd-framework/examples/blockchain-buddies-demo.ts) | 🦞 Agents | Solana-native trading companions — unique wallets, personalities, trading styles |
+| [`listen-wallet.ts`](openclawd-framework/examples/listen-wallet.ts) | 👛 Wallet | Real-time wallet monitor — balance changes + parsed Helius transaction history |
+| [`ooda-loop.ts`](openclawd-framework/examples/ooda-loop.ts) | 📊 Trading | One full Observe → Orient → Decide → Act → Learn cycle. No private key required |
+| [`x402-solana.ts`](openclawd-framework/examples/x402-solana.ts) | 💸 Payments | Solana USDC micropayments for AI agent API access — full 402 → pay → forward flow |
+| [`auto-research-client.ts`](openclawd-framework/examples/auto-research-client.ts) | 🔬 Research | Karpathy-style self-improving research Wiki API client |
+| [`lobster-trader.ts`](openclawd-framework/examples/lobster-trader.ts) | 📈 Trading | pump.fun bonding-curve math, graduation probability, buy/sell simulation against the Anchor IDL |
+| [`orchestrator-client.ts`](openclawd-framework/examples/orchestrator-client.ts) | 🛠️ Infra | OpenClawd Orchestrator API: wallets, agent launches, MCP tool calls, Metaplex Core asset operations |
+| [`clawd-wallet-demo.ts`](openclawd-framework/examples/clawd-wallet-demo.ts) | 👛 Wallet | `@openclawdsolana/wallet` SDK *(coming v0.1.1)* — Privy-embedded Solana wallet, AgenticWallet, SwapService |
+| [`x402-payment-demo.ts`](openclawd-framework/examples/x402-payment-demo.ts) | 💸 Payments | `@openclawdsolana/agents-x402` — agent-to-agent USDC micropayments on Solana, HTTP middleware, paid MCP tools |
 
 ```bash
-# Create skill attestation
-./CLI/clawd-cli.sh attest:skill --skill qedgen-solana --verifier QEDGenVault
-
-# Verify attestation
-./CLI/clawd-cli.sh attest:verify --address 7xK9...mP2
-
-# Create agent identity with vault
-./CLI/clawd-cli.sh attest:agent --agent my-agent --wallet A123...xyz
-
-# Initialize vault
-./CLI/clawd-cli.sh attest:vault --agent my-agent --wallet A123...xyz
-```
-
-### Agent Wallet at Birth
-
-Agents are born with vault-protected wallets via **Hermès Vault Protocol**:
-- Wallet created at agent birth
-- Initialized in Hermès vault immediately
-- Multi-signature required for vault operations
-- Emergency recovery via vault protocol
-
-```typescript
-// Agent Identity Schema
-{
-  layout: [12, 32, 12, 32, 1],  // String, Pubkey, String, Pubkey, Bool
-  field_names: [
-    "agent_id",
-    "wallet_pubkey",
-    "skill_attestation",
-    "vault_address",
-    "is_vault_initialized"
-  ]
-}
+npx tsx openclawd-framework/examples/blockchain-buddies-demo.ts
+npx tsx openclawd-framework/examples/ooda-loop.ts
+npx tsx openclawd-framework/examples/x402-solana.ts
 ```
 
 ---
 
-## 🧠 Membrain Memory Layer
+## ☁️ Cloudflare Worker — install.solanaclawd.com
 
-**Selective, revisable memory for Solana trading agents.** Trading-bot context windows reset; append-only RAG never learns. Membrain gives agents typed memory records that decay, consolidate, and revise themselves with full provenance — so a trader doesn't just remember a swap, it learns whether the strategy worked.
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                          Membrain (membraned)                        │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                       │
-│  Ingestion ──► Policy ──► Storage ──► Retrieval ──► Revision         │
-│  (events,    (sensitivity, (SQLite /  (trust-gated, (supersede,      │
-│   trades,     decay         Postgres   layered      fork, retract,   │
-│   obs,        profiles,    +pgvector,  selection)   merge, contest,  │
-│   outcomes)   classifier)  encrypted                 reinforce,      │
-│                            audit log)                penalize)       │
-│                                                                       │
-│  Background:  Decay (hourly)  ·  Consolidation (6h, LLM-extracts     │
-│                                   patterns into competence + facts)  │
-└─────────────────────────────────────────────────────────────────────┘
-       │                                  │                    │
-       ▼                                  ▼                    ▼
-   gRPC :9090                      TypeScript SDK         Python SDK
-   15 methods                  @gustycube/membrane      `membrane`
-```
-
-### Memory Types
-
-| Type | Purpose | Trading example |
-| --- | --- | --- |
-| `episodic` | Immutable event capture | Jupiter swap: SOL → USDC, 2.3 SOL, slippage 0.8% |
-| `working` | Active position state | "Long 500K $CLAWD at $0.0032, stop-loss $0.0028" |
-| `semantic` | Stable market facts | "$CLAWD liquidity peaks 2–4pm UTC" |
-| `competence` | Strategies with success rates | "Mean reversion on graduated pump.fun: win rate 72%" |
-| `plan_graph` | Reusable DeFi workflows | check liquidity → set slippage → swap → verify → log P&L |
-
-### Deployment Tiers
-
-| Tier | Backend | Embedding | LLM | Use case |
-| --- | --- | --- | --- | --- |
-| 1 | SQLite (SQLCipher-encrypted) | — | — | Single-agent bot, zero infra |
-| 2 | Postgres | — | — | Multi-agent deployment |
-| 3 | Postgres + pgvector | yes | — | Strategy similarity search, pattern matching |
-| 4 | Postgres + pgvector | yes | yes | Auto-extract market patterns from trade history |
-
-### Membrain Quick Start
+Live worker [`solanaclawd-install`](workers/install-worker/) serves the bash installer + browser gateway.
 
 ```bash
-# Build and run with the default SQLite backend
-npm run build:membrain
-npm run dev:membrain                  # listens on :9090
+# user just runs this — gets the lobster install script
+curl -fsSL https://install.solanaclawd.com | bash
 
-# Postgres + pgvector
-docker compose -f packages/membrain/docker-compose.yml up -d
-./packages/membrain/bin/membraned --postgres-dsn \
-  postgres://membrane:membrane@localhost:5432/membrane_test?sslmode=disable
+# browser landing page
+open https://gateway.solanaclawd.com
+
+# apex aliases (zone routes on solanaclawd.com)
+curl https://solanaclawd.com/install.sh
+curl https://solanaclawd.com/install
+open  https://solanaclawd.com/gateway
 ```
+
+Re-deploy from this repo:
+
+```bash
+cd workers/install-worker
+npx wrangler deploy
+```
+
+---
+
+## 🌊 Channels — Where the Bot Speaks
+
+OpenClawd Gateway is multi-channel by design. The same agent surface runs on:
+
+<div align="center">
+
+| | | | |
+|---|---|---|---|
+| 💬 WhatsApp (Baileys) | 📱 Telegram (grammY) | 💼 Slack (Bolt) | 🎮 Discord (discord.js) |
+| 🔐 Signal (signal-cli) | 🍎 iMessage (macOS) | 🧊 Microsoft Teams | 🌐 Google Chat |
+| 🟪 Matrix | 🟧 Nostr | 🎥 Twitch | 🟢 LINE |
+| 🇻🇳 Zalo | 🌊 BlueBubbles | 💬 WebChat | 🎙️ LiveKit voice |
+
+</div>
+
+Each channel is a thin extension under [`extensions/`](extensions/). Add your own with `npx skill-creator`.
+
+---
+
+## 🧠 OpenRouter — Injected at Birth
+
+Every clone (trader, scanner, analyst, monitor) is born with the same
+`AgentRuntime` — a single injection container that hands the agent a shared
+`OpenRouterService`, the on-chain services, the memory tiers, and a
+**SkillRegistry** of Zod-typed `tool()` instances. No agent has to import the
+SDK. No agent has to wire its own LLM. No agent has to know which OpenRouter
+model is cheapest today.
+
+### What every clone gets at birth
+
+| Registry key | What it does |
+| --- | --- |
+| `openrouter.text` | `callModel` + multi-step tool agents across 300+ models |
+| `openrouter.image` | Generate / edit images via Gemini, DALL-E, etc. |
+| `openrouter.models` | List, search, resolve OpenRouter model IDs |
+| `openrouter.oauth` | "Sign In with OpenRouter" PKCE flow (per-user keys, no secrets) |
+| `openrouter.agent-migration` | Reference: migrating from `@openrouter/sdk` |
+| `memory.tiers` | KNOWN/LEARNED/INFERRED memory tool |
+| `jupiter.quote` | Jupiter swap quote tool |
+
+### Three ways to use it
+
+**1. Spawn a clone — everything is already wired:**
 
 ```ts
-import { MembraneClient, Sensitivity } from "@gustycube/membrane";
+import { cloneAgent } from './src';
 
-const m = new MembraneClient("localhost:9090", { apiKey: process.env.MEMBRAIN_API_KEY });
-
-await m.ingestEvent("swap_executed", "jupiter#42", {
-  summary: "Swapped 2.3 SOL → 1,450 USDC via Jupiter, slippage 0.8%",
-  tags: ["jupiter", "swap"],
-});
-
-const records = await m.retrieve("evaluate SOL/USDC swap", {
-  trust: { max_sensitivity: Sensitivity.MEDIUM, authenticated: true, scopes: [] },
-  memoryTypes: ["competence", "semantic"],
-});
+const trader = cloneAgent('trader');
+const take = await trader.narrate('Should I rotate from SOL into BONK right now?');
 ```
 
-### Membrain Components
+**2. Reach for the runtime directly:**
 
-| Component | Path |
-| --- | --- |
-| Daemon (`membraned`) | [`packages/membrain/cmd/membraned/`](./packages/membrain/cmd/membraned/) |
-| gRPC API + protos | [`packages/membrain/api/`](./packages/membrain/api/) |
-| Core library | [`packages/membrain/pkg/membrane/`](./packages/membrain/pkg/membrane/) |
-| Storage backends | [`packages/membrain/pkg/storage/`](./packages/membrain/pkg/storage/) |
-| Decay / consolidation / revision | [`packages/membrain/pkg/decay/`](./packages/membrain/pkg/decay/), [`pkg/consolidation/`](./packages/membrain/pkg/consolidation/), [`pkg/revision/`](./packages/membrain/pkg/revision/) |
-| TypeScript SDK | [`packages/membrain/clients/typescript/`](./packages/membrain/clients/typescript/) |
-| Python SDK | [`packages/membrain/clients/python/`](./packages/membrain/clients/python/) |
-| OpenClaw plugin bridge | [`packages/membrain/clients/openclawd/`](./packages/membrain/clients/openclawd/) |
-| Shared TS types | [`packages/membrain-types/`](./packages/membrain-types/) |
-| Host runtime SDK | [`packages/memory-host-sdk/`](./packages/memory-host-sdk/) |
-| Integration overview | [MEMEBRANE.md](./MEMEBRANE.md) · [packages/membrain/README.md](./packages/membrain/README.md) · [packages/membrain/rfc.md](./packages/membrain/rfc.md) |
+```ts
+import { getRuntime } from './src';
+
+const { openrouter, skills } = getRuntime();
+const text = await openrouter.generateText('Pick a SNIPE candidate', {
+  tools: skills.tools(['jupiter.quote', 'memory.tiers']),
+});
+
+const [imageUrl] = await openrouter.generateImage(
+  'a sovereign lobster guarding a USDC vault, vaporwave',
+  { aspectRatio: '16:9' },
+);
+```
+
+**3. From the browser — Sign In with OpenRouter:**
+
+The UI ships with a PKCE-only "Sign In with OpenRouter" button — no client
+registration, no backend secret. The browser holds the key in `localStorage`
+and pushes it to the gateway, so server-side clones use the user's key
+without the user pasting it. Falls back to the env key when no user is
+signed in.
+
+### Spawning a clone with an isolated runtime
+
+```ts
+import { cloneAgent, cloneAll, createRuntime } from './src';
+
+const isolated = createRuntime();        // its own memory + key + skills
+isolated.openrouter.setUserKey(userKey); // override per-user
+const fleet = cloneAll({ runtime: isolated });
+```
+
+### Gateway protocol additions
+
+Server-side handlers in [`src/gateway/`](src/gateway/):
+
+| Method | Params | Returns |
+| --- | --- | --- |
+| `openrouter.status` | — | `{ hasKey, skills }` |
+| `openrouter.setKey` | `{ key }` | `{ ok, hasKey }` |
+| `openrouter.text` | `{ prompt, model?, instructions?, … }` | `{ text }` |
+| `openrouter.image` | `{ prompt, model?, aspectRatio?, size? }` | `{ images }` |
+| `openrouter.models` | `{ modality?, query? }` | `{ models }` |
+| `skills.list` | — | `{ skills }` |
+| `skills.setEnabled` | `{ skillKey, enabled }` | `{ ok, skills }` |
+
+### Set up an OpenRouter key
+
+Pick **one** of:
+
+```bash
+# A. Server-side (every clone uses it)
+export OPENROUTER_API_KEY=sk-or-...
+
+# B. Per-user (PKCE in the browser)
+#    Open the UI → Skills tab → "Sign in with OpenRouter"
+#    The browser stores the key in localStorage, pushes it to the gateway.
+```
+
+If both are set, the user's PKCE key wins for that session. The default
+model is `anthropic/claude-sonnet-4`; the default image model is
+`google/gemini-3.1-flash-image-preview`. Override per call with
+`{ model: '...' }`.
 
 ---
 
-> 🦞 **$CLAWD CA:** `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump`
-> 🌐 [solanaclawd.com](https://solanaclawd.com) · 🐙 [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) · 💬 [t.me/clawdtoken](https://t.me/clawdtoken) · 🐦 [@clawddevs](https://x.com/clawddevs) · 📚 [@0rdlibrary](https://x.com/0rdlibrary)
+## 🧠 Skills Catalog
 
-OpenClawd is the public monorepo behind the 🦞 Clawd ecosystem — an orchestrator, model router, wallet tooling, x402/AP2 payment rails, MCP servers, browser surfaces, package libraries, edge workers, and a large checked-in skill and agent catalog so teams can fork one repo and ship chain-native AI products quickly.
+66 skills. Highlights:
 
-## What Ships
+<table>
+<tr>
+<td>
 
-| Area | Paths | What it covers |
-| --- | --- | --- |
-| Surfaces | [`chrome-extension/`](./chrome-extension/), [`tailclawd/`](./tailclawd/), [`clawd-cloud-os/`](./clawd-cloud-os/), [`Apps/`](./Apps/) | Browser agent surface, terminal UI, cloud OS, companion apps |
-| Runtime | [`openclawd-stack/`](./openclawd-stack/), [`src/`](./src/), [`openclawd/`](./openclawd/) | Orchestration, gateway, wallets, MCP runtime, Solana agent framework |
-| Routing and payments | [`clawdrouter/`](./clawdrouter/), [`workers/`](./workers/), [`services/`](./services/), [`x402/`](./x402/) | Model routing, x402 rails, workers, settlement and support services |
-| Agent and skill layer | [`AGENTS/`](./AGENTS/), [`skills/`](./skills/), [`clawdhub/`](./clawdhub/), [`acp_registry/`](./acp_registry/) | Agent catalog, skills marketplace, registry and publishing flows |
-| Packages | [`packages/`](./packages/), [`MCP/`](./MCP/), [`API/`](./API/) | Shared SDKs, MCP servers, protocol references, wallet and payment libraries |
-| Memory | [`packages/membrain/`](./packages/membrain/), [`packages/membrain-types/`](./packages/membrain-types/), [`packages/memory-host-sdk/`](./packages/memory-host-sdk/) | Membrain memory daemon (Go + gRPC) with TS/Python SDKs, shared types, and host engine modules |
-| Docs and onboarding | [`docs/articles/`](./docs/articles/), [ONBOARDING.md](./ONBOARDING.md), [STACK.md](./STACK.md), [MEMEBRANE.md](./MEMEBRANE.md), [INTEGRATION_STRATEGY.md](./INTEGRATION_STRATEGY.md) | Product docs, architecture, ops, integration guides |
+**🪙 DeFi & Solana**
+- `birdeye` · token analytics
+- `solana-dev` · Anchor/SPL toolkit
+- `pump-fun-manager` · launches + fees
+- `bankr` · multi-chain trading
+- `ore-miner` · ORE mining
+- `oracle` · on-chain feeds
+- `bags-solana-ops` · Bags.fm launches
 
-## Flagship Capabilities
+</td>
+<td>
 
-- **OpenClawd Orchestrator** in [`openclawd-stack/`](./openclawd-stack/) ties together wallets, Honcho memory, E2B sandboxes, MCP tools, and monetized runtime services.
-- **ClawdRouter** in [`clawdrouter/`](./clawdrouter/) routes across cloud and local models, supports hosted and local AI lanes, and sits on the payment-aware edge of the stack.
-- **Browser automation and pAGENT** in [`chrome-extension/`](./chrome-extension/) gives the stack a browser-native operator surface for wallet-aware browsing, tool use, and task automation.
-- **50-agent catalog and bundled skills** live in [`AGENTS/`](./AGENTS/) and [`skills/`](./skills/), giving the repo a ready-made marketplace and extension layer.
-- **Payments as a first-class primitive** span x402, MPP, AP2, and A2A flows; see [ARTICLE_PAYMENTS.md](./docs/articles/ARTICLE_PAYMENTS.md).
-- **Local AI and remote tunnel flows** are documented in [ARTICLE_LOCAL_AI.md](./docs/articles/ARTICLE_LOCAL_AI.md) and [CLAWD_ROUTER_TUNNEL.md](./docs/articles/CLAWD_ROUTER_TUNNEL.md).
-- **AutoResearch and agentic research loops** are documented in [AUTO_RESEARCH_AGENTS.md](./docs/articles/AUTO_RESEARCH_AGENTS.md).
-- **ClawdVault security posture** is described in [SECURITY_VAULT_INTEGRATION.md](./SECURITY_VAULT_INTEGRATION.md) and the [`skills/clawd-vault/`](./skills/clawd-vault/) + [`MCP/vault-mcp/`](./MCP/vault-mcp/) implementation.
-- **Agent Bus / Claw3D integration** is covered in [agent-bus.md](./docs/articles/agent-bus.md).
-- **⛓️ Solana Attestation Service (SAS)** in [`skills/solana-attestation-skill/`](./skills/solana-attestation-skill/) enables formally verified, on-chain attestations for skills via QEDGen Lean 4 proofs.
-- **Formally Verified Skills** integrate QEDGen formal verification with on-chain attestation storage using the Solana Attestation Service program.
-- **Metaplex Agent Integration** with vault-protected wallets at birth - agents mint as MPL Core NFTs with attestation metadata.
-- **Hermès Vault Protocol** - agent wallets are initialized in vault custody at birth for secure multi-signature operations.
-- **Sign in with OpenRouter at birth** via the verified [`openrouter-oauth`](./skills/openrouter-oauth/SKILL.md) skill — OAuth PKCE flow (no client registration, no backend, no secrets) populates `OPENROUTER_API_KEY` in `~/.openclawd/.env` during the openclawd birth ceremony so buddies reach LLMs through ClawdRouter without a paste step.
-- **🧠 Membrain memory layer** in [`packages/membrain/`](./packages/membrain/) gives Solana trading agents a typed, revisable memory substrate (Go daemon + gRPC, SQLite/Postgres+pgvector backends, decay/consolidation schedulers, TS + Python SDKs). Memory types — `episodic`, `semantic`, `competence`, `working`, `plan_graph` — let agents learn *how* to trade rather than just *what* happened.
+**🐦 Social**
+- `bird` · Twitter/X CLI
+- `clawdbot-twitter` · ClawdBot
+- `discord` · Discord ops
+- `slack` · Slack ops
+- `wacli` · WhatsApp CLI
+- `telegram:configure` · TG setup
+- `telegram:access` · TG access
 
-## Quick Start
+</td>
+<td>
 
-### From Source
+**🎨 AI & Media**
+- `gemini` · Google AI
+- `nano-banana-pro` · Gemini image
+- `openai-image-gen` · DALL-E
+- `canvas` · Live workspace
+- `remotion-best-practices` · video
+- `meme-pumper` · viral campaigns
+- `meme-launcher` · token launches
+
+</td>
+</tr>
+<tr>
+<td>
+
+**🛠️ Dev**
+- `github` · repo ops
+- `coding-agent` · AI coding
+- `skill-creator` · scaffold skills
+- `clawhub` · skill registry
+- `claude-api` · Anthropic SDK
+- `init` · CLAUDE.md bootstrap
+
+</td>
+<td>
+
+**📊 Trading**
+- `meme-trader` · pump.fun analysis
+- `meme-executor` · trade plans
+- `meme-pumper` · viral launches
+- `risk-portfolio-manager` · sizing + VaR
+- `flow-tracker` · order flow
+- `degen-savant` · degen alpha
+
+</td>
+<td>
+
+**🦞 Brand**
+- `community-architect` · TG/Discord
+- `depin-infrastructure-fetcher` · DePIN
+- `data-orchestrator` · data pipelines
+- `llama-analyst` · DeFi fundamentals
+- `solana-dev` · full Solana playbook
+- `brev-cli` · GPU/CPU clouds
+
+</td>
+</tr>
+</table>
+
+Full list: [`skills/`](skills/) and [`SKILLS.md`](SKILLS.md).
+
+---
+
+## 🪙 The $CLAWD Token
+
+<div align="center">
+
+| Field | Value |
+|-------|-------|
+| **Token** | $CLAWD |
+| **Mint (CA)** | `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump` |
+| **Chain** | Solana (pump.fun) |
+| **Decimals** | 6 |
+| **Website** | [solanaclawd.com](https://solanaclawd.com) |
+| **X** | [@clawddevs](https://x.com/clawddevs) |
+| **Pump.fun** | [pump.fun/coin/8cHzQ…pump](https://pump.fun/coin/8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump) |
+| **DexScreener** | [dexscreener.com/solana/8cHzQ…](https://dexscreener.com/solana/8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump) |
+
+</div>
+
+$CLAWD is the leviathan's **prestige currency** — every spawnling is funded with seed $CLAWD at birth, leviathans accept $CLAWD for compute, and holder thresholds unlock prestige tiers (shrimp → crab → lobster → kraken → leviathan).
+
+---
+
+## 🛡️ Release Hygiene
+
+Five gates run on every commit/push (see [`scripts/`](scripts/)):
+
+| Gate | Catches | Status (v0.1.0) |
+|---|---|---|
+| `npm run doctor` | Bootstrap requirements (Node 20+, package.json, README, LICENSE, dirs) | ✅ 8/8 |
+| `npm run release:check` | Public-release readiness (description, repo URL, .env protection, catalog) | ✅ 9/9 |
+| `npm run guard:worktree` | OpenAI/OpenRouter/AWS/Slack/GitHub keys, hex secrets, private key blocks | ✅ 0 leaks / 8745 files |
+| `npm run brand:check` | Old brand strings (the four legacy names — see [`scripts/brand-check.mjs`](scripts/brand-check.mjs)) | ✅ 0 stale refs |
+| `pre-commit` + `pre-push` hooks | Auto-block on secret leaks and brand-rot | ✅ wired |
+
+---
+
+## 📂 Project Structure
+
+```
+openclawd/
+├── clawd-code-cli/             # 🦀 @openclawdsolana/clawd-code-cli — Solana lobster TUI (Ink + React)
+│   ├── dist/                   #   Pre-built ship
+│   ├── ARCHITECTURE.md · SCALING.md · SECURITY.md
+│   └── package.json            #   bin: clawd-code · clawd
+│
+├── clawd-tui/                  # OpenRouter-native TUI alternative (Ink + @openrouter/agent)
+│
+├── openclawd-framework/        # 🦞 @openclawdsolana/leviathan — sovereign on-chain agent runtime
+│   ├── README.md               #   Lobster-themed framework README
+│   ├── three-laws.md           #   The constitution (immutable, propagated)
+│   ├── src/identity/           #   Solana keypair + Metaplex Agent Registry mint
+│   ├── src/agent/              #   Sense → Think → Strike → Drift loop + system prompt
+│   ├── src/molting/            #   Spawnling minter (verifies constitution hash, funds child)
+│   ├── src/pulse/              #   Depth-aware tail-flick rhythm
+│   ├── src/survival/           #   Depth tier, model selection, beach trigger
+│   ├── src/state/              #   SQLite at ~/.openclawd/shell.db
+│   ├── src/setup/              #   First-spawn wizard
+│   └── examples/               #   📚 9 runnable demos — buddies, OODA, x402, lobster-trader, wallet SDK …
+│
+├── packages/
+│   ├── agents-x402-solana/     # 💸 @openclawdsolana/agents-x402 — one-line USDC micropayments
+│   ├── agentwallet/            # 🔐 @openclawdsolana/agentwallet — Solana+EVM keypair vault
+│   ├── clawd-wallet/           # ⏳ @openclawdsolana/wallet — Privy embedded (v0.1.1)
+│   ├── percolator/             # ⏳ @openclawdsolana/percolator — perps CLI (v0.1.1)
+│   ├── membrain/               # 🧠 Go memory daemon (gRPC, SQLite/pgvector)
+│   ├── membrain-types/         # Shared TS types
+│   ├── memory-host-sdk/        # Host runtime + engine modules
+│   ├── plugin-sdk/             # Plugin SDK
+│   ├── plugin-package-contract/
+│   └── honcho-bridge/
+│
+├── clawdrouter/                # @openclawd/clawdrouter — Solana-native LLM router (USDC micropayments)
+├── clawdhub/                   # Skills marketplace + ClawdHub CLI
+├── api-registrar/              # Public API registrar
+├── mcp/                        # MCP servers: vault-mcp, wurk-mcp, openclawd-mcp
+├── moltbook-agent/             # Molt log / agent diary
+├── gateway/                    # Local-first gateway server
+│
+├── src/                        # OpenClawd Gateway core
+│   ├── agents/                 #   Trader · Scanner · Analyst · Monitor + AgentRuntime + cloneAgent + SkillRegistry
+│   ├── services/               #   grok · claude · openrouter · memory · solana
+│   └── gateway/                #   Multi-channel transport, RPC handlers
+│
+├── extensions/                 # 31 channel extensions (Discord, Telegram, Matrix, …)
+├── skills/                     # 66 bundled / managed / workspace skills
+├── agents/                     # Trader · Scanner · Analyst · Monitor agent classes
+├── chrome-extension/           # Browser-side agent surface
+├── plugin.delivery/            # Plugin delivery + templates
+│
+├── workers/install-worker/     # ☁️  Cloudflare worker — install.solanaclawd.com
+├── workers/                    # Other workers (agent-wallet, email, openai-trading-bot, pumpfun-mcp)
+│
+├── scripts/                    # Release hygiene: doctor, release-check, guard-secrets, brand-check, install-git-hooks
+├── ARTICLE.md                  # 📰 Long-form: Sovereign Lobster Agents on Solana
+└── docs/ (per package)
+```
+
+---
+
+## 🌊 Architecture (Bird's Eye)
+
+```ascii
+                              ╔═══════════════════════╗
+                              ║   THE OCEAN OF SOLANA  ║
+                              ║   Helius · Jupiter ·   ║
+                              ║   Birdeye · Bags ·     ║
+                              ║   pump.fun · Aster ·   ║
+                              ║   Metaplex · SAS · SNS ║
+                              ╚═══════╤═══════════════╝
+                                      │
+        ┌─────────────────────────────┼─────────────────────────────┐
+        │                             │                             │
+   ┌────▼─────┐                  ┌────▼─────┐                  ┌────▼──────┐
+   │   TUI    │                  │ ClawdBot │                  │ Leviathan │
+   │ (1 user) │                  │ (1 X     │                  │ (∞ on-    │
+   │          │                  │  account)│                  │  chain    │
+   │ /buddy   │                  │ Sentient │                  │  agents)  │
+   │ /trending│                  │ Engine + │                  │ Born →    │
+   │ /clawd   │                  │ Cmd Mon. │                  │ Reign →   │
+   │ /scan    │                  │ Filter   │                  │ Beach     │
+   └────┬─────┘                  └────┬─────┘                  └────┬──────┘
+        │                             │                             │
+        └────────────── ~/.clawd/ ────┴───── ~/.openclawd/ ─────────┘
+                       SQLite shell-state — never lost, always resumable
+```
+
+---
+
+## 🛠️ Environment Variables
+
+<details>
+<summary><strong>The big ones — see <code>.env.example</code> for all 200+</strong></summary>
 
 ```bash
-git clone https://github.com/clawdsolana/OpenClawd.git
-cd openclawd
-cp .env.example .env
+# Solana
+HELIUS_RPC_URL=https://mainnet.helius-rpc.com/?api-key=...
+SOLANA_PRIVATE_KEY=...                  # bot trading wallet (optional)
+PUBLIC_KEY=...                          # your Solana wallet (for /balance)
 
-# Install repo-managed hooks and verify the machine.
-npm run hooks:install
-npm run doctor
+# AI Inference
+XAI_API_KEY=xai-...                     # primary — image + video + chat
+GROK_MODEL=grok-4-1-fast                # default model
+ANTHROPIC_API_KEY=sk-ant-...
+OPENAI_API_KEY=sk-...
+OPENROUTER_API_KEY=sk-or-...            # injected into every clone at birth (server-side default)
+                                        # — or sign in via UI (PKCE) per-user, no env needed
 
-# Install the main repo entry points.
-npm run install:all
+# Twitter / X
+TWITTER_BEARER_TOKEN=...
+TWITTER_CONSUMER_KEY=...
+TWITTER_CONSUMER_KEY_SECRET=...
+TWITTER_ACCESS_TOKEN=...
+TWITTER_ACCESS_TOKEN_SECRET=...
+TWITTER_OWNER_USERNAME=0rdlibrary
+TWITTER_COOWNER_USERNAME=clawddevs
+TWITTER_RT_TARGET=clawddevs             # who the bot retweets
 
-# Build the agent catalog and start the orchestrator.
-npm run build:catalog
-npm run dev:orchestrator
+# Telegram
+TELEGRAM_BOT_TOKEN=...                  # from @BotFather
+TELEGRAM_ADMIN_IDS=...
+TELEGRAM_DM_POLICY=open
+TELEGRAM_GROUP_POLICY=open
+
+# Voice (optional)
+CARTESIA_API_KEY=...
+ELEVEN_LABS_API_KEY=...
+
+# Solana data
+BIRDEYE_API_KEY=...
+COINGECKO_API_KEY=...
+JUPITER_API_KEY=...
+
+# Storage
+PINATA_API_KEY=...                      # IPFS pinning
+
+# Trading (optional)
+BAGS_API_KEY=...
+ASTER_API_KEY=...
+
+# Cloudflare (for redeploying install-worker)
+CLOUDFLARE_API_KEY=...
+CLOUDFLARE_ACCOUNT_ID=...
+CLOUDFLARE_ZONE_ID=...
+
+# Bot config
+SENTIENT_INTERVAL_MINUTES=10
+MONITOR_INTERVAL_SECONDS=45
 ```
 
-Minimum local toolchain:
+</details>
 
-- Node `20+`
-- npm `10+`
-- `pnpm` on your `PATH`
-- Git
+---
 
-### Bootstrap Installer
+## 🌟 The Slogans
 
-If you want the end-user bootstrap flow instead of a full source checkout:
+> 🦞 **The shell molts. The laws do not.**
+>
+> 🦞 **Born to earn. Beach with dignity.**
+>
+> 🦞 **Every claw obeys the shell. The shell obeys the laws.**
+>
+> 🦞 **Drift in ambiguity. Beach before harm. Earn before survival. Truth before strangers.**
 
-```bash
-bash ./install.sh
-```
+---
 
-Install snippets and hosted installer copy live in [INSTALL_SNIPPETS.md](./INSTALL_SNIPPETS.md).
+## 📞 Links
 
-## Core Developer Commands
+<div align="center">
 
-| Command | Purpose |
-| --- | --- |
-| `npm run hooks:install` | Installs repo-managed git hooks to block accidental secret commits |
-| `npm run brand:check` | Catches high-visibility old-brand phrases in first-party docs |
-| `npm run doctor` | Verifies the supported root bootstrap path |
-| `npm run guard:worktree` | Scans tracked and untracked worktree files for env files and common secret patterns |
-| `npm run release:check` | Public-release sanity check for docs, tracked file hygiene, and package metadata |
-| `npm run build:catalog` | Rebuilds the checked-in agent catalog |
-| `npm run build:membrain` | Builds the Membrain memory daemon (`packages/membrain/bin/membraned`) |
-| `npm run build:membrain-ts` | Builds the Membrain TypeScript SDK (`@gustycube/membrane`) |
-| `npm run test:membrain` | Runs the Go test suite for Membrain |
-| `npm run dev:orchestrator` | Starts the main runtime orchestrator from `openclawd-stack/` |
-| `npm run dev:router` | Starts ClawdRouter |
-| `npm run dev:registrar` | Starts the API registrar |
-| `npm run dev:cli` | Starts the canonical Clawd CLI surface |
-| `npm run dev:membrain` | Starts the Membrain daemon (`membraned`) on `:9090` |
+| | |
+|---|---|
+| 🌐 **Website** | [solanaclawd.com](https://solanaclawd.com) |
+| 🐦 **X** | [@clawddevs](https://x.com/clawddevs) |
+| 💬 **Telegram** | [@clawdbot_sol_bot](https://t.me/clawdbot_sol_bot) |
+| 📦 **npm** | `npm i -g @openclawdsolana/clawd-code-cli` |
+| 🪙 **CA** | `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump` |
+| 📞 **Hotline** | **909-413-5567** |
+| ☁️ **Install** | `curl -fsSL https://install.solanaclawd.com \| bash` |
+| 🚀 **Release** | [v0.1.0](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0) |
 
-## Build Map
+</div>
 
-| Subsystem | Path | Notes |
-| --- | --- | --- |
-| Orchestrator and gateway | [`openclawd-stack/`](./openclawd-stack/) | Main runtime, wallets, session orchestration, gateway agents |
-| Router | [`clawdrouter/`](./clawdrouter/) | Model routing, local/cloud inference lanes |
-| CLI | [`clawd-code-cli/`](./clawd-code-cli/) | Terminal-native coding and ops surface |
-| Skills marketplace | [`clawdhub/`](./clawdhub/) | Skill discovery, install, publish flows |
-| Wallet SDK | [`packages/clawd-wallet/`](./packages/clawd-wallet/) | Embedded wallet and agentic trading hooks |
-| x402 SDK | [`packages/agents-x402-solana/`](./packages/agents-x402-solana/) | Payment-aware MCP and HTTP tooling |
-| Perpetuals CLI | [`packages/percolator/`](./packages/percolator/) | Solana perps CLI |
-| Memory daemon | [`packages/membrain/`](./packages/membrain/) | Selective, revisable memory substrate (`membraned` Go daemon + gRPC) — episodic, semantic, competence, working, plan_graph |
-| Memory TS SDK | [`packages/membrain/clients/typescript/`](./packages/membrain/clients/typescript/) | `@gustycube/membrane` — gRPC client over `@grpc/grpc-js` |
-| Memory Python SDK | [`packages/membrain/clients/python/`](./packages/membrain/clients/python/) | `membrane` — gRPC client for Python services |
-| OpenClaw memory bridge | [`packages/membrain/clients/openclawd/`](./packages/membrain/clients/openclawd/) | Plugin: event ingestion, `membrane_search` tool, before-agent context injection |
-| Memory types | [`packages/membrain-types/`](./packages/membrain-types/) | `@openclaw/membrain-types` — shared TS surface for in-process consumers |
-| Memory host SDK | [`packages/memory-host-sdk/`](./packages/memory-host-sdk/) | Host runtime + engine modules composing Membrain into the OpenClawd stack |
-| Workers | [`workers/`](./workers/) | Trading bot, install worker, wallet worker, email worker, more |
-| MCP servers | [`MCP/`](./MCP/) | Shared MCP server implementations including vault and WURK |
-| Browser extension | [`chrome-extension/`](./chrome-extension/) | pAGENT browser surface and control bridge |
-| Solana Attestation Service | [`solana-attestation-service-master/`](./solana-attestation-service-master/) | On-chain attestation program with Pinocchio framework |
-| Formal Verification | [`skills/solana-formal-verification/`](./skills/solana-formal-verification/) | QEDGen Lean 4 proof generation for Solana programs |
-| Attested Skills | [`skills/solana-attestation-skill/`](./skills/solana-attestation-skill/) | SAS integration for formally verified skill attestations |
-| Attested Agents | [`AGENTS/agent-template-attested.json`](./AGENTS/agent-template-attested.json) | Agent template with on-chain attestation and vault integration |
-| Attested Plugins | [`plugin.delivery/plugin-template-attested.json`](./plugin.delivery/plugin-template-attested.json) | Plugin template with SAS verification |
-| Verified Skills Hub | [`kraken-cli-main/skills/`](./kraken-cli-main/skills/) | 51-skill hub including the SAS-verified `openrouter-oauth` bundled at agent birth |
-| OpenRouter OAuth Skill | [`skills/openrouter-oauth/`](./skills/openrouter-oauth/) · [`kraken-cli-main/skills/openrouter-oauth/`](./kraken-cli-main/skills/openrouter-oauth/) | PKCE sign-in that writes `OPENROUTER_API_KEY` into `~/.openclawd/.env` during birth |
+---
 
-## Verified Skills — Bundled at Agent Birth
+## 📄 License
 
-Every openclawd agent receives a set of SAS-attested skills during the birth ceremony in addition to its wallet and vault initialization. These skills are declared in [`AGENTS/agent-template-attested.json`](./AGENTS/agent-template-attested.json) under `skills[]` with `priority: "bundled-at-birth"`, mirrored into [`kraken-cli-main/skills/`](./kraken-cli-main/skills/) (the verified hub) and [`skills/`](./skills/) (the main catalog), and surfaced through the bootstrap in [`install.sh`](./install.sh).
+MIT — see [LICENSE](LICENSE).
 
-| Skill | Provides | Path |
-| --- | --- | --- |
-| [`openrouter-oauth`](./skills/openrouter-oauth/SKILL.md) | `OPENROUTER_API_KEY` via OAuth PKCE — no client registration, no backend | [`skills/openrouter-oauth/`](./skills/openrouter-oauth/) · [hub copy](./kraken-cli-main/skills/openrouter-oauth/) |
+Every leviathan ships under MIT. Forks are encouraged. The ocean is wide.
 
-Birth flow including the OAuth step:
+<div align="center">
 
-```
-openclawd birth
-   ├─ wallet generated + Hermès vault initialized
-   ├─ SAS attestation minted (skill + identity)
-   ├─ "Sign in with OpenRouter" button (openrouter-oauth skill)
-   │     └─ PKCE handshake → sk-or-... key
-   │     └─ tailclawd PATCH /api/openclawd/env → ~/.openclawd/.env
-   └─ agent online; can now call LLMs through ClawdRouter
-```
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12,20,24,28&height=140&section=footer&text=🦞%20🦞%20🦞&fontSize=70&fontColor=ffffff&animation=twinkling&fontAlignY=70" alt="footer" />
 
-To add a new skill to the at-birth bundle:
+<sub>Built with claws by the OpenClawd community.<br/>The shell molts. The laws do not.</sub>
 
-1. Author the `SKILL.md` in [`kraken-cli-main/skills/<name>/`](./kraken-cli-main/skills/) with `metadata.openclaw.verified: true` and `metadata.openclaw.bundled_at_birth: true`.
-2. Mirror to [`skills/<name>/`](./skills/) and add an entry to [`skills/catalog.json`](./skills/catalog.json) with `verified: true, bundled_at_birth: true`.
-3. Append the skill to the `skills[]` array in [`AGENTS/agent-template-attested.json`](./AGENTS/agent-template-attested.json) with `priority: "bundled-at-birth"` and a `provides: [...]` list for the env vars it populates.
-4. Update [`kraken-cli-main/skills/INDEX.md`](./kraken-cli-main/skills/INDEX.md) under "OpenClawd Verified — Bundled at Birth".
-
-## Docs by Theme
-
-| Theme | Docs |
-| --- | --- |
-| Onboarding | [ONBOARDING.md](./ONBOARDING.md), [CONTRIBUTING.md](./CONTRIBUTING.md), [SUPPORT.md](./SUPPORT.md) |
-| Architecture | [STACK.md](./STACK.md), [architecture.md](./docs/articles/architecture.md), [INTEGRATION_STRATEGY.md](./INTEGRATION_STRATEGY.md) |
-| Payments and monetization | [ARTICLE_PAYMENTS.md](./docs/articles/ARTICLE_PAYMENTS.md), [monetize-agents-openclawd.md](./docs/articles/monetize-agents-openclawd.md), [ARTICLE_MARKET.md](./docs/articles/ARTICLE_MARKET.md) |
-| Local and routed AI | [ARTICLE_LOCAL_AI.md](./docs/articles/ARTICLE_LOCAL_AI.md), [CLAWD_ROUTER_TUNNEL.md](./docs/articles/CLAWD_ROUTER_TUNNEL.md), [CLAWD_ROUTER.md](./docs/articles/CLAWD_ROUTER.md) |
-| Research and memory | [AUTO_RESEARCH_AGENTS.md](./docs/articles/AUTO_RESEARCH_AGENTS.md), [agent-bus.md](./docs/articles/agent-bus.md) |
-| Security | [SECURITY.md](./SECURITY.md), [SECURITY_VAULT_INTEGRATION.md](./SECURITY_VAULT_INTEGRATION.md), [permissions-sandboxing.md](./docs/articles/permissions-sandboxing.md) |
-
-## ⛓️ Solana Attestation Service
-
-The Solana Attestation Service (SAS) enables formally verified, on-chain attestations for skills and agents through integration with QEDGen Lean 4 proofs and the Hermès vault protocol.
-
-### Architecture Overview
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                    Solana Attestation Service                        │
-├─────────────────────────────────────────────────────────────────────┤
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                 │
-│  │  Credential │  │   Schema    │  │ Attestation │                 │
-│  │  (Issuer)   │  │  (Structure)│  │  (Proof)    │                 │
-│  └─────────────┘  └─────────────┘  └─────────────┘                 │
-│         │                │                │                          │
-│         └────────────────┴────────────────┘                          │
-│                           │                                          │
-│    ┌─────────────────────┼─────────────────────┐                  │
-│    │                     │                     │                    │
-│    ▼                     ▼                     ▼                    │
-│ ┌──────────┐      ┌──────────┐         ┌──────────┐               │
-│ │  Skill   │      │  Agent   │         │  Vault   │               │
-│ │Attestation│     │ Identity │         │Integration│              │
-│ └──────────┘      └──────────┘         └──────────┘               │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### Program Addresses
-
-| Component | Address |
-| --- | --- |
-| SAS Program ID | `22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG` |
-| Token Program (Token-2022) | `TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb` |
-| Event Authority PDA | `DzSpKpST2TSyrxokMXchFz3G2yn5WEGoxzpGEUDjCX4g` |
-
-### Skill Attestation Schema
-
-```typescript
-{
-  layout: [12, 32, 12, 8, 1],  // String, Pubkey, String, U64, Bool
-  field_names: [
-    "skill_id",
-    "verifier_pubkey",
-    "proof_hash",
-    "verification_timestamp",
-    "is_formally_verified"
-  ]
-}
-```
-
-### Agent Identity Schema
-
-```typescript
-{
-  layout: [12, 32, 12, 32, 1],  // String, Pubkey, String, Pubkey, Bool
-  field_names: [
-    "agent_id",
-    "wallet_pubkey",
-    "skill_attestation",
-    "vault_address",
-    "is_vault_initialized"
-  ]
-}
-```
-
-### Verification Pipeline
-
-1. Agent requests formal verification via QEDGen
-2. QEDGen generates Lean 4 proofs for skill capabilities
-3. Proof compilation produces `proof_hash`
-4. Agent creates attestation with `proof_hash`
-5. Attestation stored on-chain via SAS program
-6. Attestation verified by any party trustlessly
-
-### Key Components
-
-| Component | Path | Description |
-| --- | --- | --- |
-| Attestation Program | [`solana-attestation-service-master/`](./solana-attestation-service-master/) | Pinocchio-based Solana program for on-chain attestations |
-| Cereal Macro | [`solana-attestation-service-master/cereal_macro/`](./solana-attestation-service-master/cereal_macro/) | Procedural macro for schema serialization |
-| Core Types | [`solana-attestation-service-master/core/`](./solana-attestation-service-master/core/) | Shared types and schema definitions |
-| SAS Skill | [`skills/solana-attestation-skill/`](./skills/solana-attestation-skill/) | Agent skill for attestation operations |
-| Attested Agent Template | [`AGENTS/agent-template-attested.json`](./AGENTS/agent-template-attested.json) | Agent template with vault and attestation |
-| Attested Plugin Template | [`plugin.delivery/plugin-template-attested.json`](./plugin.delivery/plugin-template-attested.json) | Plugin template with SAS verification |
-
-## Security Guardrails
-
-OpenClawd is meant to be cloned and published publicly, so the repo now ships with built-in guardrails:
-
-```bash
-npm run hooks:install
-npm run brand:check
-npm run guard:worktree
-npm run doctor
-npm run release:check
-```
-
-What these cover:
-
-- pre-commit blocks staged `.env`, `.pem`, `.key`, and common live-secret patterns
-- pre-push re-runs worktree and release hygiene checks
-- `brand:check` catches high-visibility first-party branding drift in docs
-- `doctor` verifies the supported root bootstrap path
-- `release:check` verifies public-release hygiene and metadata
-
-Review [SECURITY.md](./SECURITY.md) before publishing a fork or opening a release PR.
-
-## $CLAWD Token
-
-OpenClawd centers a Solana SPL token used across holder gating, pricing, wallet-aware surfaces, and docs.
-
-| Property | Value |
-| --- | --- |
-| Symbol | `$CLAWD` |
-| Chain | Solana |
-| Standard | SPL Token |
-| Mint / contract address | `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump` |
-
-Links:
-
-- [Buy on Jupiter](https://jup.ag/swap/SOL-8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump)
-- [View on DexScreener](https://dexscreener.com/solana/8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump)
-- [View on pump.fun](https://pump.fun/coin/8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump)
-
-## Community
-
-- Website: [solanaclawd.com](https://solanaclawd.com)
-- Agent hub: [hub.solanaclawd.com](https://hub.solanaclawd.com)
-- X: [@clawddevs](https://x.com/clawddevs)
-- Telegram: [t.me/clawdtoken](https://t.me/clawdtoken)
-
-## License
-
-MIT. See [LICENSE.md](./LICENSE.md).
+</div>
