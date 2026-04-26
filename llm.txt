@@ -1,6 +1,20 @@
 # OpenClawd · LLM Context File
 
-## What We Just Did (2026-04-25)
+## What We Just Did (2026-04-25, later)
+
+### Membrain memory layer wired into the monorepo
+
+- [`packages/membrain/`](./packages/membrain/) — Go daemon (`membraned`) + 15-method gRPC API on `:9090`. Memory types: `episodic`, `semantic`, `competence`, `working`, `plan_graph`. SQLite (SQLCipher) or Postgres + pgvector backends. Background decay + consolidation jobs. Builds clean against `go1.24.0` (toolchain pin), tested locally on `go1.26.1 darwin/arm64`.
+- TypeScript SDK at [`packages/membrain/clients/typescript/`](./packages/membrain/clients/typescript/) — published as `@gustycube/membrane`.
+- Python SDK at [`packages/membrain/clients/python/`](./packages/membrain/clients/python/) — package name `membrane`.
+- OpenClaw plugin bridge at [`packages/membrain/clients/openclawd/`](./packages/membrain/clients/openclawd/) — `@vainplex/openclaw-membrane`. Provides `membrane_search`, `before_agent_start` auto-context injection, `/membrane` status command.
+- Sister packages stayed in place: [`packages/membrain-types/`](./packages/membrain-types/), [`packages/memory-host-sdk/`](./packages/memory-host-sdk/).
+- Root `package.json` gained: `install:membrain-ts`, `build:membrain`, `build:membrain-ts`, `test:membrain`, `dev:membrain`. `install:all` now runs `install:membrain-ts`.
+- `.gitignore` excludes `packages/membrain/bin/` and local `*.db*` files so the SQLite store and built daemon don't get committed.
+- Docs updated: root `README.md` (Latest, What Ships, Flagship Capabilities, Build Map, plus a full "Membrain Memory Layer" section), `STACK.md` (Memory layer block + table rows + port 9090), `packages/README.md` (table + section), `MEMEBRANE.md` (rewritten to point at `packages/membrain`).
+- Sanity: `go build -o bin/membraned ./cmd/membraned` and `go vet ./...` both pass from `packages/membrain/`.
+
+## What We Did Earlier (2026-04-25)
 
 ### 1. Public Release Preparation
 
@@ -95,7 +109,8 @@ npm run brand:check
 |------|---------|
 | `agents/` | Agent catalog (50+ agents) |
 | `skills/` | Skills marketplace (150+ skills) |
-| `packages/` | SDKs: clawd-wallet, agents-x402-solana, percolator |
+| `packages/` | SDKs: clawd-wallet, agents-x402-solana, percolator, membrain (memory daemon) |
+| `packages/membrain/` | Membrain memory daemon (Go + gRPC) — episodic, semantic, competence, working, plan_graph |
 | `MCP/` | MCP servers: vault-mcp, wurk-mcp |
 | `clawdhub/` | Skills marketplace & hub CLI |
 | `clawd-code-cli/` | Terminal-native coding surface |

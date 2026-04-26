@@ -1,5 +1,5 @@
 {
-  "name": "@openclawd/leviathan",
+  "name": "@openclawdsolana/leviathan",
   "version": "0.1.0",
   "description": "OpenClawd — Sovereign AI Lobster Runtime on Solana",
   "type": "module",
@@ -70,12 +70,20 @@
     "clawd"
   ],
   "license": "MIT",
+  "files": [
+    "dist",
+    "scripts",
+    "three-laws.md",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "build:all": "tsc && (cd packages/clawd && npm run build) && (cd packages/cli && npm run build || true)",
     "dev": "tsx watch src/index.ts",
     "test": "vitest run",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@metaplex-foundation/mpl-agent-registry": "^0.2.0",

@@ -36,6 +36,22 @@
                            🦀  forged on Solana  🦀
 ```
 
+## 🆕 Latest (2026-04-25)
+
+**🧠 Membrain — selective memory for Solana trading agents — integrated.**
+
+The memory layer for OpenClawd trading agents now lives in-tree at [`packages/membrain/`](./packages/membrain/). It is a Go daemon (`membraned`) with a 15-method gRPC API, SQLite/Postgres+pgvector backends, decay/consolidation schedulers, and TypeScript ([`@gustycube/membrane`](./packages/membrain/clients/typescript/)) + Python ([`membrane`](./packages/membrain/clients/python/)) SDKs. Memory is typed (`episodic`, `semantic`, `competence`, `working`, `plan_graph`) and revisable — supersede, fork, retract, merge, contest, reinforce, and penalize records with full provenance.
+
+| Action | Command |
+| --- | --- |
+| Build daemon | `npm run build:membrain` (or `make build` in `packages/membrain/`) |
+| Run daemon | `npm run dev:membrain` — listens on `:9090` by default |
+| Build TS SDK | `npm run build:membrain-ts` |
+| Run Go tests | `npm run test:membrain` |
+| Postgres + pgvector | `docker compose -f packages/membrain/docker-compose.yml up -d` |
+
+OpenClaw plugin bridge ([`packages/membrain/clients/openclawd/`](./packages/membrain/clients/openclawd/)) provides episodic memory ingestion, the `membrane_search` tool, `before_agent_start` auto-context injection, and a `/membrane` status command. Sister packages — [`packages/membrain-types/`](./packages/membrain-types/) (shared TS types) and [`packages/memory-host-sdk/`](./packages/memory-host-sdk/) (host runtime + engine modules) — compose Membrain into the rest of the stack. Full docs in [`packages/membrain/README.md`](./packages/membrain/README.md); the integration overview lives in [MEMEBRANE.md](./MEMEBRANE.md).
+
 ## 🆕 Latest (2026-04-24)
 
 **Rebrand: OpenClawd → OpenClawd.** The hub, catalog, CLI, and public domain have been unified under the OpenClawd brand. The public site moved to [`solanaclawd.com`](https://solanaclawd.com).
@@ -188,6 +204,97 @@ Agents are born with vault-protected wallets via **Hermès Vault Protocol**:
 
 ---
 
+## 🧠 Membrain Memory Layer
+
+**Selective, revisable memory for Solana trading agents.** Trading-bot context windows reset; append-only RAG never learns. Membrain gives agents typed memory records that decay, consolidate, and revise themselves with full provenance — so a trader doesn't just remember a swap, it learns whether the strategy worked.
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                          Membrain (membraned)                        │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                       │
+│  Ingestion ──► Policy ──► Storage ──► Retrieval ──► Revision         │
+│  (events,    (sensitivity, (SQLite /  (trust-gated, (supersede,      │
+│   trades,     decay         Postgres   layered      fork, retract,   │
+│   obs,        profiles,    +pgvector,  selection)   merge, contest,  │
+│   outcomes)   classifier)  encrypted                 reinforce,      │
+│                            audit log)                penalize)       │
+│                                                                       │
+│  Background:  Decay (hourly)  ·  Consolidation (6h, LLM-extracts     │
+│                                   patterns into competence + facts)  │
+└─────────────────────────────────────────────────────────────────────┘
+       │                                  │                    │
+       ▼                                  ▼                    ▼
+   gRPC :9090                      TypeScript SDK         Python SDK
+   15 methods                  @gustycube/membrane      `membrane`
+```
+
+### Memory Types
+
+| Type | Purpose | Trading example |
+| --- | --- | --- |
+| `episodic` | Immutable event capture | Jupiter swap: SOL → USDC, 2.3 SOL, slippage 0.8% |
+| `working` | Active position state | "Long 500K $CLAWD at $0.0032, stop-loss $0.0028" |
+| `semantic` | Stable market facts | "$CLAWD liquidity peaks 2–4pm UTC" |
+| `competence` | Strategies with success rates | "Mean reversion on graduated pump.fun: win rate 72%" |
+| `plan_graph` | Reusable DeFi workflows | check liquidity → set slippage → swap → verify → log P&L |
+
+### Deployment Tiers
+
+| Tier | Backend | Embedding | LLM | Use case |
+| --- | --- | --- | --- | --- |
+| 1 | SQLite (SQLCipher-encrypted) | — | — | Single-agent bot, zero infra |
+| 2 | Postgres | — | — | Multi-agent deployment |
+| 3 | Postgres + pgvector | yes | — | Strategy similarity search, pattern matching |
+| 4 | Postgres + pgvector | yes | yes | Auto-extract market patterns from trade history |
+
+### Membrain Quick Start
+
+```bash
+# Build and run with the default SQLite backend
+npm run build:membrain
+npm run dev:membrain                  # listens on :9090
+
+# Postgres + pgvector
+docker compose -f packages/membrain/docker-compose.yml up -d
+./packages/membrain/bin/membraned --postgres-dsn \
+  postgres://membrane:membrane@localhost:5432/membrane_test?sslmode=disable
+```
+
+```ts
+import { MembraneClient, Sensitivity } from "@gustycube/membrane";
+
+const m = new MembraneClient("localhost:9090", { apiKey: process.env.MEMBRAIN_API_KEY });
+
+await m.ingestEvent("swap_executed", "jupiter#42", {
+  summary: "Swapped 2.3 SOL → 1,450 USDC via Jupiter, slippage 0.8%",
+  tags: ["jupiter", "swap"],
+});
+
+const records = await m.retrieve("evaluate SOL/USDC swap", {
+  trust: { max_sensitivity: Sensitivity.MEDIUM, authenticated: true, scopes: [] },
+  memoryTypes: ["competence", "semantic"],
+});
+```
+
+### Membrain Components
+
+| Component | Path |
+| --- | --- |
+| Daemon (`membraned`) | [`packages/membrain/cmd/membraned/`](./packages/membrain/cmd/membraned/) |
+| gRPC API + protos | [`packages/membrain/api/`](./packages/membrain/api/) |
+| Core library | [`packages/membrain/pkg/membrane/`](./packages/membrain/pkg/membrane/) |
+| Storage backends | [`packages/membrain/pkg/storage/`](./packages/membrain/pkg/storage/) |
+| Decay / consolidation / revision | [`packages/membrain/pkg/decay/`](./packages/membrain/pkg/decay/), [`pkg/consolidation/`](./packages/membrain/pkg/consolidation/), [`pkg/revision/`](./packages/membrain/pkg/revision/) |
+| TypeScript SDK | [`packages/membrain/clients/typescript/`](./packages/membrain/clients/typescript/) |
+| Python SDK | [`packages/membrain/clients/python/`](./packages/membrain/clients/python/) |
+| OpenClaw plugin bridge | [`packages/membrain/clients/openclawd/`](./packages/membrain/clients/openclawd/) |
+| Shared TS types | [`packages/membrain-types/`](./packages/membrain-types/) |
+| Host runtime SDK | [`packages/memory-host-sdk/`](./packages/memory-host-sdk/) |
+| Integration overview | [MEMEBRANE.md](./MEMEBRANE.md) · [packages/membrain/README.md](./packages/membrain/README.md) · [packages/membrain/rfc.md](./packages/membrain/rfc.md) |
+
+---
+
 > 🦞 **$CLAWD CA:** `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump`
 > 🌐 [solanaclawd.com](https://solanaclawd.com) · 🐙 [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) · 💬 [t.me/clawdtoken](https://t.me/clawdtoken) · 🐦 [@clawddevs](https://x.com/clawddevs) · 📚 [@0rdlibrary](https://x.com/0rdlibrary)
 
@@ -202,7 +309,8 @@ OpenClawd is the public monorepo behind the 🦞 Clawd ecosystem — an orchestr
 | Routing and payments | [`clawdrouter/`](./clawdrouter/), [`workers/`](./workers/), [`services/`](./services/), [`x402/`](./x402/) | Model routing, x402 rails, workers, settlement and support services |
 | Agent and skill layer | [`AGENTS/`](./AGENTS/), [`skills/`](./skills/), [`clawdhub/`](./clawdhub/), [`acp_registry/`](./acp_registry/) | Agent catalog, skills marketplace, registry and publishing flows |
 | Packages | [`packages/`](./packages/), [`MCP/`](./MCP/), [`API/`](./API/) | Shared SDKs, MCP servers, protocol references, wallet and payment libraries |
-| Docs and onboarding | [`docs/articles/`](./docs/articles/), [ONBOARDING.md](./ONBOARDING.md), [STACK.md](./STACK.md), [INTEGRATION_STRATEGY.md](./INTEGRATION_STRATEGY.md) | Product docs, architecture, ops, integration guides |
+| Memory | [`packages/membrain/`](./packages/membrain/), [`packages/membrain-types/`](./packages/membrain-types/), [`packages/memory-host-sdk/`](./packages/memory-host-sdk/) | Membrain memory daemon (Go + gRPC) with TS/Python SDKs, shared types, and host engine modules |
+| Docs and onboarding | [`docs/articles/`](./docs/articles/), [ONBOARDING.md](./ONBOARDING.md), [STACK.md](./STACK.md), [MEMEBRANE.md](./MEMEBRANE.md), [INTEGRATION_STRATEGY.md](./INTEGRATION_STRATEGY.md) | Product docs, architecture, ops, integration guides |
 
 ## Flagship Capabilities
 
@@ -220,6 +328,7 @@ OpenClawd is the public monorepo behind the 🦞 Clawd ecosystem — an orchestr
 - **Metaplex Agent Integration** with vault-protected wallets at birth - agents mint as MPL Core NFTs with attestation metadata.
 - **Hermès Vault Protocol** - agent wallets are initialized in vault custody at birth for secure multi-signature operations.
 - **Sign in with OpenRouter at birth** via the verified [`openrouter-oauth`](./skills/openrouter-oauth/SKILL.md) skill — OAuth PKCE flow (no client registration, no backend, no secrets) populates `OPENROUTER_API_KEY` in `~/.openclawd/.env` during the openclawd birth ceremony so buddies reach LLMs through ClawdRouter without a paste step.
+- **🧠 Membrain memory layer** in [`packages/membrain/`](./packages/membrain/) gives Solana trading agents a typed, revisable memory substrate (Go daemon + gRPC, SQLite/Postgres+pgvector backends, decay/consolidation schedulers, TS + Python SDKs). Memory types — `episodic`, `semantic`, `competence`, `working`, `plan_graph` — let agents learn *how* to trade rather than just *what* happened.
 
 ## Quick Start
 
@@ -269,10 +378,14 @@ Install snippets and hosted installer copy live in [INSTALL_SNIPPETS.md](./INSTA
 | `npm run guard:worktree` | Scans tracked and untracked worktree files for env files and common secret patterns |
 | `npm run release:check` | Public-release sanity check for docs, tracked file hygiene, and package metadata |
 | `npm run build:catalog` | Rebuilds the checked-in agent catalog |
+| `npm run build:membrain` | Builds the Membrain memory daemon (`packages/membrain/bin/membraned`) |
+| `npm run build:membrain-ts` | Builds the Membrain TypeScript SDK (`@gustycube/membrane`) |
+| `npm run test:membrain` | Runs the Go test suite for Membrain |
 | `npm run dev:orchestrator` | Starts the main runtime orchestrator from `openclawd-stack/` |
 | `npm run dev:router` | Starts ClawdRouter |
 | `npm run dev:registrar` | Starts the API registrar |
 | `npm run dev:cli` | Starts the canonical Clawd CLI surface |
+| `npm run dev:membrain` | Starts the Membrain daemon (`membraned`) on `:9090` |
 
 ## Build Map
 
@@ -285,6 +398,12 @@ Install snippets and hosted installer copy live in [INSTALL_SNIPPETS.md](./INSTA
 | Wallet SDK | [`packages/clawd-wallet/`](./packages/clawd-wallet/) | Embedded wallet and agentic trading hooks |
 | x402 SDK | [`packages/agents-x402-solana/`](./packages/agents-x402-solana/) | Payment-aware MCP and HTTP tooling |
 | Perpetuals CLI | [`packages/percolator/`](./packages/percolator/) | Solana perps CLI |
+| Memory daemon | [`packages/membrain/`](./packages/membrain/) | Selective, revisable memory substrate (`membraned` Go daemon + gRPC) — episodic, semantic, competence, working, plan_graph |
+| Memory TS SDK | [`packages/membrain/clients/typescript/`](./packages/membrain/clients/typescript/) | `@gustycube/membrane` — gRPC client over `@grpc/grpc-js` |
+| Memory Python SDK | [`packages/membrain/clients/python/`](./packages/membrain/clients/python/) | `membrane` — gRPC client for Python services |
+| OpenClaw memory bridge | [`packages/membrain/clients/openclawd/`](./packages/membrain/clients/openclawd/) | Plugin: event ingestion, `membrane_search` tool, before-agent context injection |
+| Memory types | [`packages/membrain-types/`](./packages/membrain-types/) | `@openclaw/membrain-types` — shared TS surface for in-process consumers |
+| Memory host SDK | [`packages/memory-host-sdk/`](./packages/memory-host-sdk/) | Host runtime + engine modules composing Membrain into the OpenClawd stack |
 | Workers | [`workers/`](./workers/) | Trading bot, install worker, wallet worker, email worker, more |
 | MCP servers | [`MCP/`](./MCP/) | Shared MCP server implementations including vault and WURK |
 | Browser extension | [`chrome-extension/`](./chrome-extension/) | pAGENT browser surface and control bridge |
