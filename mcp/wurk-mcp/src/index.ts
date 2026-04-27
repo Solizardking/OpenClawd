@@ -351,7 +351,7 @@ server.tool(
 
     // Handle 402 response
     if (response.status === 402) {
-      const data = await response.json();
+      const data = (await response.json()) as Record<string, unknown>;
       return {
         content: [
           {
@@ -394,7 +394,7 @@ server.tool(
     );
 
     if (response.status === 402) {
-      const data = await response.json();
+      const data = (await response.json()) as Record<string, unknown>;
       return {
         content: [
           {

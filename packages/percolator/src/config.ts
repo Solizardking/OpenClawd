@@ -27,7 +27,7 @@ export interface GlobalFlags {
   rpc?: string;
   program?: string;
   wallet?: string;
-  commitment?: Commitment;
+  commitment?: Commitment | string;
   json?: boolean;
   simulate?: boolean;
 }

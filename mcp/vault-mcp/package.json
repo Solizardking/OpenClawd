@@ -1,13 +1,22 @@
 {
-  "name": "@openclawd/vault-mcp",
+  "name": "@openclawdsolana/vault-mcp",
   "version": "1.0.0",
   "description": "ClawdVault MCP server for security scanning and vault operations",
   "main": "dist/index.js",
   "type": "module",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",

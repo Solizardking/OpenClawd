@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/membrain-types",
+  "name": "@openclawdsolana/membrain-types",
   "version": "1.0.0",
   "description": "TypeScript types and client for Membrain memory layer",
   "type": "module",
@@ -11,9 +11,17 @@
       "default": "./src/index.ts"
     }
   },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
     "openclawd",
