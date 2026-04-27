@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "lido",
   "manifest": "https://plugin.delivery/lido/manifest.json",
   "meta": {
     "avatar": "🏝️",
-    "description": "[openclawd] Lido stETH staking rates and protocol statistics — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Lido stETH staking rates and protocol statistics — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "lido",
       "staking",

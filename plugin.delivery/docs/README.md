@@ -1,8 +1,8 @@
-# openclawd Plugin Documentation
+# OpenClawd Plugin Documentation
 
-> **Live:** [plugin.delivery](https://plugin.delivery) • **SDK:** `@openclawd/plugin-sdk`
+> **Live:** [plugin.delivery](https://plugin.delivery) • **SDK:** `@openclawdsolana/plugin-sdk`
 
-Build AI-powered plugins for openclawd. Extend chat capabilities with custom APIs, OpenAPI integrations, and interactive UIs.
+Build AI-powered plugins for OpenClawd. Extend chat capabilities with custom APIs, OpenAPI integrations, and interactive UIs.
 
 ---
 
@@ -64,7 +64,7 @@ User: "What's the price of ETH?"
            │
            ▼
     ┌──────────────┐
-    │   openclawd   │ ←── Discovers plugin from index
+    │   OpenClawd   │ ←── Discovers plugin from index
     │   AI Model   │
     └──────┬───────┘
            │
@@ -107,7 +107,7 @@ cd my-plugin
 bun install
 bun dev
 
-# 3. Test in openclawd
+# 3. Test in OpenClawd
 # Add custom plugin: http://localhost:3400/manifest.json
 ```
 
@@ -134,8 +134,8 @@ bun dev
 
 | Package | npm |
 |---------|-----|
-| `@openclawd/plugin-sdk` | [![npm](https://img.shields.io/npm/v/@openclawd/plugin-sdk)](https://www.npmjs.com/package/@openclawd/plugin-sdk) |
-| `@openclawd/chat-plugins-gateway` | [![npm](https://img.shields.io/npm/v/@openclawd/chat-plugins-gateway)](https://www.npmjs.com/package/@openclawd/chat-plugins-gateway) |
+| `@openclawdsolana/plugin-sdk` | [![npm](https://img.shields.io/npm/v/@openclawdsolana/plugin-sdk)](https://www.npmjs.com/package/@openclawdsolana/plugin-sdk) |
+| `@openclawdsolana/chat-plugins-gateway` | [![npm](https://img.shields.io/npm/v/@openclawdsolana/chat-plugins-gateway)](https://www.npmjs.com/package/@openclawdsolana/chat-plugins-gateway) |
 
 ### Links
 
@@ -143,7 +143,7 @@ bun dev
 |----------|-----|
 | Plugin Index | [plugin.delivery](https://plugin.delivery) |
 | GitHub | [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
-| Twitter/X | [@nichxbt](https://x.com/nichxbt) |
+| Twitter/X | [@clawddevs](https://x.com/clawddevs) |
 
 ---
 
@@ -164,6 +164,6 @@ bun dev
 ## ❓ Need Help?
 
 - **GitHub Issues:** [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
-- **Twitter/X:** [@nichxbt](https://x.com/nichxbt)
+- **Twitter/X:** [@clawddevs](https://x.com/clawddevs)
 - **Example Plugin:** [CoinGecko](../src/coingecko.json)
 

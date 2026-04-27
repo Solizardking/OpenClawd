@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "oneinch",
   "manifest": "https://plugin.delivery/oneinch/manifest.json",
   "meta": {
     "avatar": "🦄",
-    "description": "[openclawd] 1inch DEX aggregator — swap quotes, optimal routing, and gas estimation across chains — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] 1inch DEX aggregator — swap quotes, optimal routing, and gas estimation across chains — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "1inch",
       "dex",

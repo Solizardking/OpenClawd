@@ -1,11 +1,11 @@
-# openclawd Plugin Development Guide
+# OpenClawd Plugin Development Guide
 
 > **Version:** 2.0.0  
 > **Last Updated:** December 27, 2025  
 > **Domain:** `plugin.delivery`  
 > **Repository:** `clawdsolana/OpenClawd`
 
-This comprehensive guide covers everything you need to know about developing, deploying, and maintaining plugins for openclawd.
+This comprehensive guide covers everything you need to know about developing, deploying, and maintaining plugins for OpenClawd.
 
 ---
 
@@ -63,7 +63,7 @@ Initialize your project:
 ```bash
 mkdir my-plugin && cd my-plugin
 pnpm init
-pnpm add @openclawd/plugin-sdk @openclawd/chat-plugins-gateway
+pnpm add @openclawdsolana/plugin-sdk @openclawdsolana/chat-plugins-gateway
 pnpm add -D typescript @types/node
 ```
 
@@ -71,7 +71,7 @@ Create `public/manifest.json`:
 
 ```json
 {
-  "$schema": "https://unpkg.com/@openclawd/plugin-sdk/schema.json",
+  "$schema": "https://unpkg.com/@openclawdsolana/plugin-sdk/schema.json",
   "identifier": "my-plugin",
   "api": [
     {
@@ -102,7 +102,7 @@ Create `public/manifest.json`:
 Create `api/hello.ts`:
 
 ```typescript
-import { PluginErrorType, createErrorResponse } from '@openclawd/plugin-sdk';
+import { PluginErrorType, createErrorResponse } from '@openclawdsolana/plugin-sdk';
 
 export const config = { runtime: 'edge' };
 
@@ -133,7 +133,7 @@ export default async (req: Request) => {
 Create `api/gateway.ts`:
 
 ```typescript
-import { createSolanaClawdChatPluginGateway } from '@openclawd/chat-plugins-gateway';
+import { createSolanaClawdChatPluginGateway } from '@openclawdsolana/chat-plugins-gateway';
 
 export const config = { runtime: 'edge' };
 
@@ -156,7 +156,7 @@ curl -X POST http://localhost:3400/api/hello \
   -d '{"name": "Test"}'
 ```
 
-Add to openclawd:
+Add to OpenClawd:
 1. Go to Settings → Plugins
 2. Click "Add Custom Plugin"
 3. Enter: `http://localhost:3400/manifest.json`
@@ -213,8 +213,8 @@ Continue reading for detailed documentation on [Architecture Overview](#2-archit
 | Component | Repository | Purpose |
 |-----------|------------|---------|
 | **Plugin Index** | `clawdsolana/OpenClawd` | Plugin marketplace registry |
-| **Plugin SDK** | `@openclawd/plugin-sdk` | Development toolkit |
-| **Plugin Gateway** | `@openclawd/chat-plugins-gateway` | Request proxy service |
+| **Plugin SDK** | `@openclawdsolana/plugin-sdk` | Development toolkit |
+| **Plugin Gateway** | `@openclawdsolana/chat-plugins-gateway` | Request proxy service |
 | **Plugin Templates** | `templates/` | Starter project templates |
 
 ### Data Flow: Function Call Mechanism
@@ -251,7 +251,7 @@ User: "Bitcoin is currently $96,500 USD, up 2.3% in the last 24h"
 
 ## 2. Plugin Types
 
-openclawd supports three distinct plugin types, each suited for different use cases:
+OpenClawd supports three distinct plugin types, each suited for different use cases:
 
 ### 2.1 Default Plugin
 
@@ -444,7 +444,7 @@ For plugins using OpenAPI specification:
 
 ## 4. Plugin Index
 
-The plugin index (`public/index.json`) is the registry that openclawd uses to discover and display plugins.
+The plugin index (`public/index.json`) is the registry that OpenClawd uses to discover and display plugins.
 
 ### Index Structure
 
@@ -452,8 +452,8 @@ The plugin index (`public/index.json`) is the registry that openclawd uses to di
 {
   "schemaVersion": 1,
   "name": "openclawd Plugins",
-  "description": "The official plugin marketplace for openclawd",
-  "author": "openclawd",
+  "description": "The official plugin marketplace for OpenClawd",
+  "author": "OpenClawd",
   "homepage": "https://openclawd.net",
   "repository": "https://github.com/clawdsolana/OpenClawd",
   "plugins": [
@@ -674,7 +674,7 @@ For local development, use a manifest with the gateway field:
 ### Local Testing Steps
 
 1. Start your plugin: `npm run dev`
-2. Open openclawd → Agent Settings → Plugins
+2. Open OpenClawd → Agent Settings → Plugins
 3. Click "Add Custom Plugin"
 4. Enter: `http://localhost:3400/manifest-dev.json`
 5. Save and test in chat
@@ -687,7 +687,7 @@ For local development, use a manifest with the gateway field:
 
 ```typescript
 // src/pages/api/your-endpoint.ts
-import { PluginErrorType, createErrorResponse } from '@openclawd/plugin-sdk';
+import { PluginErrorType, createErrorResponse } from '@openclawdsolana/plugin-sdk';
 
 export const config = {
   runtime: 'edge',
@@ -734,7 +734,7 @@ async function fetchExternalData(query: string) {
 
 ```typescript
 // src/pages/api/gateway.ts
-import { createSolanaClawdChatPluginGateway } from '@openclawd/chat-plugins-gateway';
+import { createSolanaClawdChatPluginGateway } from '@openclawdsolana/chat-plugins-gateway';
 
 export const config = {
   runtime: 'edge',
@@ -746,7 +746,7 @@ export default createSolanaClawdChatPluginGateway();
 ### Accessing Plugin Settings
 
 ```typescript
-import { getPluginSettingsFromRequest } from '@openclawd/plugin-sdk';
+import { getPluginSettingsFromRequest } from '@openclawdsolana/plugin-sdk';
 
 export default async (req: Request) => {
   // Get user-configured settings
@@ -782,7 +782,7 @@ export default async (req: Request) => {
 
 ```tsx
 // src/pages/index.tsx
-import { fetchPluginMessage } from '@openclawd/plugin-sdk';
+import { fetchPluginMessage } from '@openclawdsolana/plugin-sdk';
 import { memo, useEffect, useState } from 'react';
 
 interface PluginData {
@@ -820,7 +820,7 @@ export default PluginUI;
 ### SDK Communication Methods
 
 ```typescript
-import { SolanaClawdChat } from '@openclawd/plugin-sdk';
+import { SolanaClawdChat } from '@openclawdsolana/plugin-sdk';
 
 // Get plugin payload (initialization data)
 const payload = await SolanaClawdChat.getPluginPayload();
@@ -850,7 +850,7 @@ SolanaClawdChat.createAssistantMessage('Response content');
 
 ## 8. OpenAPI Integration
 
-openclawd fully supports the OpenAPI specification, allowing you to convert existing APIs into plugins.
+OpenClawd fully supports the OpenAPI specification, allowing you to convert existing APIs into plugins.
 
 ### OpenAPI Plugin Structure
 
@@ -991,7 +991,7 @@ See `public/openai/coingecko/` for a complete working example:
 ### Server Communication Flow
 
 ```
-openclawd Core
+OpenClawd Core
      │
      │ HTTP POST with PluginRequestPayload
      ▼
@@ -1011,7 +1011,7 @@ Plugin Gateway
      │
      │ Formats response
      ▼
-openclawd Core
+OpenClawd Core
      │
      │ Passes to LLM for processing
      ▼
@@ -1023,14 +1023,14 @@ User sees formatted response
 Plugins use `window.postMessage` for secure cross-origin communication:
 
 ```typescript
-// Plugin → openclawd
+// Plugin → OpenClawd
 window.parent.postMessage({
   type: 'plugin-action',
   action: 'setMessage',
   data: { content: 'Updated content' }
 }, '*');
 
-// openclawd → Plugin
+// OpenClawd → Plugin
 window.addEventListener('message', (event) => {
   if (event.data.type === 'plugin-init') {
     const { payload, settings, state } = event.data;
@@ -1042,7 +1042,7 @@ window.addEventListener('message', (event) => {
 The SDK abstracts this complexity:
 
 ```typescript
-import { SolanaClawdChat } from '@openclawd/plugin-sdk';
+import { SolanaClawdChat } from '@openclawdsolana/plugin-sdk';
 
 // Simplified API
 const payload = await SolanaClawdChat.getPluginPayload();
@@ -1301,11 +1301,11 @@ Translations generated for: `en-US`, `zh-CN`, `zh-TW`, `ja-JP`, `ko-KR`, `de-DE`
 
 | Resource | URL |
 |----------|-----|
-| Plugin SDK | `@openclawd/plugin-sdk` |
-| Plugin Gateway | `@openclawd/chat-plugins-gateway` |
+| Plugin SDK | `@openclawdsolana/plugin-sdk` |
+| Plugin Gateway | `@openclawdsolana/chat-plugins-gateway` |
 | Plugin Templates | `./templates/` (included in this repo) |
 | OpenAPI Spec | https://swagger.io/specification/ |
-| openclawd Docs | https://openclawd.net/docs |
+| OpenClawd Docs | https://openclawd.net/docs |
 | Plugin Delivery | https://plugin.delivery |
 
 ### Cheat Sheet
@@ -1315,10 +1315,10 @@ Translations generated for: `en-US`, `zh-CN`, `zh-TW`, `ja-JP`, `ko-KR`, `de-DE`
 cp -r templates/openapi my-plugin
 
 # Install SDK
-npm install @openclawd/plugin-sdk
+npm install @openclawdsolana/plugin-sdk
 
 # Install Gateway (for local dev)
-npm install @openclawd/chat-plugins-gateway
+npm install @openclawdsolana/chat-plugins-gateway
 
 # Run locally
 npm run dev

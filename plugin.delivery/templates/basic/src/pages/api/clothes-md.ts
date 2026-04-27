@@ -1,4 +1,4 @@
-import { PluginErrorType, createErrorResponse } from '@openclawd/plugin-sdk';
+import { PluginErrorType, createErrorResponse } from '@openclawdsolana/plugin-sdk';
 
 import { manClothes, womanClothes } from '@/data';
 import { RequestData, ResponseData } from '@/type';

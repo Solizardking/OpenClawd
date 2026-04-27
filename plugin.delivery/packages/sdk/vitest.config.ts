@@ -5,9 +5,9 @@ export default defineConfig({
   test: {
     alias: {
       '@': path.join(__dirname, './src'),
-      '@openclawd/plugin-sdk': path.join(__dirname, './src'),
-      '@openclawd/plugin-sdk/client': path.join(__dirname, './src/client'),
-      '@openclawd/plugin-sdk/openapi': path.join(__dirname, './src/openapi'),
+      '@openclawdsolana/plugin-sdk': path.join(__dirname, './src'),
+      '@openclawdsolana/plugin-sdk/client': path.join(__dirname, './src/client'),
+      '@openclawdsolana/plugin-sdk/openapi': path.join(__dirname, './src/openapi'),
     },
     coverage: {
       include: ['src'],

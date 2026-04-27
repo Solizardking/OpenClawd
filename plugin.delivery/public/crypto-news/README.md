@@ -163,9 +163,9 @@ All endpoints return articles in this format:
 
 ## Integration
 
-### In openclawd
+### In OpenClawd
 
-The plugin is automatically available via openclawd Intelligence. Just ask:
+The plugin is automatically available via OpenClawd Intelligence. Just ask:
 
 ```
 "What's the latest crypto news?"
@@ -206,5 +206,5 @@ MIT License - see [LICENSE](../../LICENSE)
 
 ---
 
-Made with 💜 by [openclawd](https://openclawd.net)
+Made with 💜 by [OpenClawd](https://openclawd.net)
 

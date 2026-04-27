@@ -1,7 +1,7 @@
 import {
   Sensitivity,
   type MembraneClient,
-} from "@openclaw/membrain-types";
+} from "@openclawdsolana/membrain-types";
 import { HonchoBridge, type Conclusion } from "./bridge.js";
 
 export interface FeederConfig {

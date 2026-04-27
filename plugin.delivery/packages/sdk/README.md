@@ -8,7 +8,7 @@
 
 <h1>Chat Plugin SDK</h1>
 
-SDK for openclawd funciton calling plugins
+SDK for OpenClawd funciton calling plugins
 
 [![][🤯-🧩-openclawd-shield]][🤯-🧩-openclawd-link]
 [![][npm-release-shield]][npm-release-link]
@@ -46,7 +46,7 @@ SDK for openclawd funciton calling plugins
 
 ## 🤯 Usage
 
-The openclawd Plugin SDK assists you in creating exceptional chat plugins for openclawd.
+The OpenClawd Plugin SDK assists you in creating exceptional chat plugins for OpenClawd.
 
 > \[!Important]
 > [📘 SDK Document](https://plugin-sdk.openclawd.com) - <https://plugin-sdk.openclawd.com>
@@ -59,12 +59,12 @@ The openclawd Plugin SDK assists you in creating exceptional chat plugins for op
 
 ## 📦 Plugin Ecosystem
 
-Plugins provide a means to extend the Function Calling capabilities of openclawd. They can be used to introduce new function calls and even new ways to render message results. If you are interested in plugin development, please refer to our [📘 Plugin Development Guide][plugin-development-docs] in the Docs.
+Plugins provide a means to extend the Function Calling capabilities of OpenClawd. They can be used to introduce new function calls and even new ways to render message results. If you are interested in plugin development, please refer to our [📘 Plugin Development Guide][plugin-development-docs] in the Docs.
 
-- [openclawd-os-plugins][openclawd-os-plugins]: This is the plugin index for openclawd. It accesses index.json from this repository to display a list of available plugins for openclawd to the user.
-- [chat-plugin-template][chat-plugin-template]: This is the plugin template for openclawd plugin development.
-- [@openclawd/plugin-sdk][plugin-sdk]: The openclawd Plugin SDK assists you in creating exceptional chat plugins for openclawd.
-- [@openclawd/chat-plugins-gateway][chat-plugins-gateway]: The openclawd Plugins Gateway is a backend service that provides a gateway for openclawd plugins. We deploy this service using Vercel. The primary API POST /api/v1/runner is deployed as an Edge Function.
+- [openclawd-os-plugins][openclawd-os-plugins]: This is the plugin index for OpenClawd. It accesses index.json from this repository to display a list of available plugins for OpenClawd to the user.
+- [chat-plugin-template][chat-plugin-template]: This is the plugin template for OpenClawd plugin development.
+- [@openclawdsolana/plugin-sdk][plugin-sdk]: The OpenClawd Plugin SDK assists you in creating exceptional chat plugins for OpenClawd.
+- [@openclawdsolana/chat-plugins-gateway][chat-plugins-gateway]: The OpenClawd Plugins Gateway is a backend service that provides a gateway for OpenClawd plugins. We deploy this service using Vercel. The primary API POST /api/v1/runner is deployed as an Edge Function.
 
 <div align="right">
 
@@ -112,7 +112,7 @@ Contributions of all types are more than welcome, if you are interested in contr
 ## 🔗 Links
 
 - **[🤖 openclawd](https://github.com/clawdsolana/OpenClawd)** - An open-source, extensible (Function Calling), high-performance chatbot framework. It supports one-click free deployment of your private ChatGPT/LLM web application.
-- **[🧩 / 🏪 Plugin Index](https://github.com/clawdsolana/OpenClawd)** - This is the plugin index for openclawd. It accesses index.json from this repository to display a list of available plugins for Function Calling to the user.
+- **[🧩 / 🏪 Plugin Index](https://github.com/clawdsolana/OpenClawd)** - This is the plugin index for OpenClawd. It accesses index.json from this repository to display a list of available plugins for Function Calling to the user.
 
 <div align="right">
 
@@ -124,7 +124,7 @@ Contributions of all types are more than welcome, if you are interested in contr
 
 #### 📝 License
 
-Copyright © 2023 [openclawd][profile-link]. <br />
+Copyright © 2023 [OpenClawd][profile-link]. <br />
 This project is [MIT](./LICENSE) licensed.
 
 <!-- LINK GROUP -->
@@ -159,8 +159,8 @@ This project is [MIT](./LICENSE) licensed.
 [github-stars-link]: https://github.com/clawdsolana/OpenClawd
 [github-stars-shield]: https://img.shields.io/github/stars/openclawd/plugin-sdk?color=ffcb47&labelColor=black&style=flat-square
 [openclawd-os-plugins]: https://github.com/clawdsolana/OpenClawd
-[npm-release-link]: https://www.npmjs.com/package/@openclawd/plugin-sdk
-[npm-release-shield]: https://img.shields.io/npm/v/@openclawd/plugin-sdk?color=369eff&labelColor=black&logo=npm&logoColor=white&style=flat-square
+[npm-release-link]: https://www.npmjs.com/package/@openclawdsolana/plugin-sdk
+[npm-release-shield]: https://img.shields.io/npm/v/@openclawdsolana/plugin-sdk?color=369eff&labelColor=black&logo=npm&logoColor=white&style=flat-square
 [pr-welcome-link]: https://github.com/clawdsolana/OpenClawd
 [pr-welcome-shield]: https://img.shields.io/badge/%F0%9F%A4%AF%20PR%20WELCOME-%E2%86%92-ffcb47?labelColor=black&style=for-the-badge
 [profile-link]: https://github.com/clawdsolana/OpenClawd

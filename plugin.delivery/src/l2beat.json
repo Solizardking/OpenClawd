@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "l2beat",
   "manifest": "https://plugin.delivery/l2beat/manifest.json",
   "meta": {
     "avatar": "📊",
-    "description": "[openclawd] Layer 2 TVL rankings and risk analysis — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Layer 2 TVL rankings and risk analysis — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "l-2",
       "tvl",

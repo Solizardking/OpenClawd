@@ -1,16 +1,16 @@
-# openclawd Plugin & Portfolio Integration Complete Guide
+# OpenClawd Plugin & Portfolio Integration Complete Guide
 
 > **Version:** 1.0.0  
 > **Last Updated:** December 27, 2025  
-> **Author:** openclawd Development Team
+> **Author:** OpenClawd Development Team
 
-This guide covers the complete setup, development, and deployment of the openclawd plugin ecosystem, with a focus on portfolio integration in chat.
+This guide covers the complete setup, development, and deployment of the OpenClawd plugin ecosystem, with a focus on portfolio integration in chat.
 
 ---
 
 ## Related Documentation
 
-For developing **external plugins** deployed to the openclawd Plugin Marketplace (`plugin.delivery`), see the comprehensive guides in the plugins repository:
+For developing **external plugins** deployed to the OpenClawd Plugin Marketplace (`plugin.delivery`), see the comprehensive guides in the plugins repository:
 
 | Document | Description |
 |----------|-------------|
@@ -98,14 +98,14 @@ User Message: "Show my portfolio"
 
 ---
 
-## 2. openclawd Plugin Ecosystem
+## 2. OpenClawd Plugin Ecosystem
 
 ### Core Repositories
 
 | Repository | Purpose | NPM Package | Importance |
 |------------|---------|-------------|------------|
 | **[plugin-sdk](https://github.com/clawdsolana/OpenClawd)** | SDK for building plugins | `@clawdsolana/OpenClawd` | 🔴 Critical |
-| **[chat-plugins-gateway](https://github.com/clawdsolana/OpenClawd)** | Proxy between openclawd and plugins | `@clawdsolana/OpenClawd` | 🔴 Critical |
+| **[chat-plugins-gateway](https://github.com/clawdsolana/OpenClawd)** | Proxy between OpenClawd and plugins | `@clawdsolana/OpenClawd` | 🔴 Critical |
 | **[openclawd-plugins](https://github.com/clawdsolana/OpenClawd)** | Plugin marketplace index | - | 🟡 Medium |
 | **[openai-plugins](https://github.com/clawdsolana/OpenClawd)** | ChatGPT plugin compatibility | - | 🟢 Low |
 
@@ -489,7 +489,7 @@ const CACHE_TTL = {
 
 ## 8. Builtin Plugin Development
 
-Builtin plugins are part of openclawd and don't need external deployment.
+Builtin plugins are part of OpenClawd and don't need external deployment.
 
 ### File Structure
 
@@ -962,7 +962,7 @@ export default function App() {
 ### Local Development
 
 ```bash
-# Start openclawd dev server
+# Start OpenClawd dev server
 bun run dev
 
 # For external plugins, start plugin server
@@ -979,7 +979,7 @@ cd my-plugin && pnpm dev
 ### Testing External Plugins
 
 1. Start plugin server locally
-2. In openclawd → Settings → Plugins → Custom Plugins
+2. In OpenClawd → Settings → Plugins → Custom Plugins
 3. Add manifest URL: `http://localhost:3400/manifest.json`
 4. Enable and test
 
@@ -1004,7 +1004,7 @@ bunx vitest run --silent='passed-only' 'src/tools'
 
 ## 14. Deployment
 
-### openclawd (Main App)
+### OpenClawd (Main App)
 
 **Platform:** Vercel
 

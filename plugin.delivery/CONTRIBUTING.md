@@ -1,6 +1,6 @@
 # Contributing to Plugin Delivery
 
-Thank you for your interest in contributing to the openclawd Plugin Delivery ecosystem! This guide will help you get started.
+Thank you for your interest in contributing to the OpenClawd Plugin Delivery ecosystem! This guide will help you get started.
 
 ---
 
@@ -62,8 +62,8 @@ bun install
 ```
 plugins/
 ├── packages/
-│   ├── sdk/          # @openclawd/plugin-sdk
-│   └── gateway/      # @openclawd/chat-plugins-gateway
+│   ├── sdk/          # @openclawdsolana/plugin-sdk
+│   └── gateway/      # @openclawdsolana/chat-plugins-gateway
 ├── templates/        # Plugin starter templates
 ├── docs/             # Documentation
 ├── public/           # Plugin index files
@@ -132,7 +132,7 @@ This starts a local Vercel dev server at `http://localhost:3000`.
 
 - ✅ Valid JSON manifest
 - ✅ Working API endpoints
-- ✅ Tested in openclawd
+- ✅ Tested in OpenClawd
 - ✅ Clear documentation
 - ✅ No malicious code
 
@@ -194,7 +194,7 @@ plugin: add dexscreener integration
 ## Questions?
 
 - GitHub Issues: [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
-- Twitter/X: [@nichxbt](https://x.com/nichxbt)
+- Twitter/X: [@clawddevs](https://x.com/clawddevs)
 
 ---
 

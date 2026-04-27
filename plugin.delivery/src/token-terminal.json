@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "token-terminal",
   "manifest": "https://plugin.delivery/token-terminal/manifest.json",
   "meta": {
     "avatar": "📊",
-    "description": "[openclawd] Protocol fundamentals, revenue, and financial metrics — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Protocol fundamentals, revenue, and financial metrics — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "fundamentals",
       "revenue",

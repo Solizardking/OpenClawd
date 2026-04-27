@@ -568,8 +568,8 @@ await server.connect(transport);
 - **Servers**: [github.com/modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers)
 
 ### Traditional Plugin Resources
-- **SDK**: [@openclawd/plugin-sdk](https://www.npmjs.com/package/@openclawd/plugin-sdk)
-- **Gateway**: [@openclawd/chat-plugins-gateway](https://www.npmjs.com/package/@openclawd/chat-plugins-gateway)
+- **SDK**: [@openclawdsolana/plugin-sdk](https://www.npmjs.com/package/@openclawdsolana/plugin-sdk)
+- **Gateway**: [@openclawdsolana/chat-plugins-gateway](https://www.npmjs.com/package/@openclawdsolana/chat-plugins-gateway)
 - **Templates**: [plugin.delivery/templates](https://plugin.delivery)
 
 ### Community

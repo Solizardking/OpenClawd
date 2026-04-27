@@ -21,7 +21,7 @@ Use OpenAPI specifications to define your plugin's API without writing manual de
 
 OpenAPI (formerly Swagger) is a standard for describing RESTful APIs. The plugin system can read your OpenAPI spec and automatically create Function Call definitions.
 
-openclawd's plugin mechanism supports the OpenAPI specification, which is a standard for defining and describing RESTful APIs. By using OpenAPI, developers can create a clear, language-agnostic API description to facilitate the correct implementation and usage of the API.
+OpenClawd's plugin mechanism supports the OpenAPI specification, which is a standard for defining and describing RESTful APIs. By using OpenAPI, developers can create a clear, language-agnostic API description to facilitate the correct implementation and usage of the API.
 
 ### Benefits
 
@@ -44,13 +44,13 @@ openclawd's plugin mechanism supports the OpenAPI specification, which is a stan
 
 ---
 
-## openclawd Plugin Compatibility
+## OpenClawd Plugin Compatibility
 
-openclawd's plugin system is fully compatible with OpenAPI documents. When you create a openclawd plugin, you only need to follow these steps to convert an OpenAPI service into a conversation plugin:
+OpenClawd's plugin system is fully compatible with OpenAPI documents. When you create a OpenClawd plugin, you only need to follow these steps to convert an OpenAPI service into a conversation plugin:
 
 ### Step 1: Build the API
 
-Develop your service API, ensuring that it can handle requests from openclawd and return appropriate responses.
+Develop your service API, ensuring that it can handle requests from OpenClawd and return appropriate responses.
 
 **Example API Server:**
 
@@ -136,7 +136,7 @@ paths:
 
 ### Step 3: Create a Plugin Manifest
 
-Create a `manifest.json` plugin manifest file for openclawd, which includes the plugin's metadata and, most importantly, fill in the URL of your OpenAPI document in the `openapi` field:
+Create a `manifest.json` plugin manifest file for OpenClawd, which includes the plugin's metadata and, most importantly, fill in the URL of your OpenAPI document in the `openapi` field:
 
 ```json
 {
@@ -645,22 +645,22 @@ Access-Control-Allow-Headers: Content-Type
 
 ---
 
-## Integrating OpenAPI with openclawd
+## Integrating OpenAPI with OpenClawd
 
 Once your API and plugin manifest file are ready, you can integrate them with openclawd.
 
 ### Integration Flow
 
-1. **User Installation**: In the openclawd UI, users can install your plugin from the plugin marketplace
-2. **Manifest Loading**: openclawd reads your plugin manifest and fetches the OpenAPI document
+1. **User Installation**: In the OpenClawd UI, users can install your plugin from the plugin marketplace
+2. **Manifest Loading**: OpenClawd reads your plugin manifest and fetches the OpenAPI document
 3. **Schema Parsing**: The system parses endpoints defined in the OpenAPI document
 4. **Function Registration**: Each operation becomes available as a function call
 5. **User Interaction**: Users interact with your service through the AI assistant
-6. **API Communication**: The OpenAPI document guides openclawd on how to communicate with your API
+6. **API Communication**: The OpenAPI document guides OpenClawd on how to communicate with your API
 
 ### Example: CoinGecko Plugin
 
-The CoinGecko plugin demonstrates OpenAPI integration. Users can query cryptocurrency prices, and openclawd uses the OpenAPI spec to correctly format requests and interpret responses.
+The CoinGecko plugin demonstrates OpenAPI integration. Users can query cryptocurrency prices, and OpenClawd uses the OpenAPI spec to correctly format requests and interpret responses.
 
 ---
 

@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "base-ecosystem",
   "manifest": "https://plugin.delivery/base-ecosystem/manifest.json",
   "meta": {
     "avatar": "🔵",
-    "description": "[openclawd] Base chain statistics and top dApps — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Base chain statistics and top dApps — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "base",
       "coinbase",

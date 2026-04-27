@@ -1,6 +1,6 @@
 # Submitting Your Plugin to the Marketplace
 
-This guide explains how to list your plugin in the openclawd Plugin Marketplace so it can be discovered and used by the community.
+This guide explains how to list your plugin in the OpenClawd Plugin Marketplace so it can be discovered and used by the community.
 
 ---
 
@@ -31,7 +31,7 @@ This guide explains how to list your plugin in the openclawd Plugin Marketplace 
 
 ## Overview
 
-The openclawd Plugin Marketplace is a curated registry of plugins available to all openclawd users. Submitting your plugin makes it discoverable in the plugin store and allows users to install it with one click.
+The OpenClawd Plugin Marketplace is a curated registry of plugins available to all OpenClawd users. Submitting your plugin makes it discoverable in the plugin store and allows users to install it with one click.
 
 **Repository:** [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd)
 
@@ -310,7 +310,7 @@ Once your plugin is merged:
 
 1. **Build runs automatically** - The CI/CD pipeline builds the index
 2. **Plugin appears in store** - Usually within minutes of deployment
-3. **Users can install** - Via the openclawd Plugin Store
+3. **Users can install** - Via the OpenClawd Plugin Store
 4. **Analytics** - Track usage through your own analytics (if implemented)
 
 ### Updating Your Plugin
@@ -342,7 +342,7 @@ Learn from these official reference implementations:
 
 - **Documentation:** This guide and related docs
 - **GitHub Issues:** [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
-- **Twitter/X:** [@nichxbt](https://x.com/nichxbt)
+- **Twitter/X:** [@clawddevs](https://x.com/clawddevs)
 
 ---
 

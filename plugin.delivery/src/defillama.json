@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "defillama",
   "manifest": "https://plugin.delivery/defillama/manifest.json",
   "meta": {
     "avatar": "🦙",
-    "description": "[openclawd] DeFi analytics with TVL, yields, stablecoins across 3000+ protocols — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] DeFi analytics with TVL, yields, stablecoins across 3000+ protocols — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "defi",
       "tvl",

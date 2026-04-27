@@ -1,4 +1,4 @@
-# openclawd Plugin System
+# OpenClawd Plugin System
 
 > A comprehensive plugin ecosystem enabling AI agents to interact with external services through a unified gateway architecture
 
@@ -8,7 +8,7 @@
 
 ## Overview
 
-openclawd Plugin System is a modular architecture that extends AI agent capabilities through standardized plugin interfaces. It provides authentication management, function calling integration, and a gateway API for routing plugin requests. Built on Next.js with TypeScript, it supports both standalone plugins and integrated marketplace deployments.
+OpenClawd Plugin System is a modular architecture that extends AI agent capabilities through standardized plugin interfaces. It provides authentication management, function calling integration, and a gateway API for routing plugin requests. Built on Next.js with TypeScript, it supports both standalone plugins and integrated marketplace deployments.
 
 ## Quick Start
 
@@ -21,7 +21,7 @@ openclawd Plugin System is a modular architecture that extends AI agent capabili
 ```bash
 # Clone the repository
 git clone https://github.com/clawdsolana/OpenClawd
-cd openclawd
+cd OpenClawd
 
 # Install dependencies
 pnpm install
@@ -518,5 +518,5 @@ console.log('Resolved filename:', fileName);
 
 ## License
 
-MIT © openclawd
+MIT © OpenClawd
 

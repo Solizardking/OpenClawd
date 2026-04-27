@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "odos",
   "manifest": "https://plugin.delivery/odos/manifest.json",
   "meta": {
     "avatar": "🛤️",
-    "description": "[openclawd] Multi-path swap router for optimal trades — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Multi-path swap router for optimal trades — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "odos",
       "swap",

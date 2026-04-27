@@ -1,13 +1,13 @@
 {
-  "name": "@clawd/cli",
-  "version": "3.0.0",
-  "description": "openclawd CLI bootstrapper - The Solana AI Agent Runtime with ClawdRouter API support",
+  "name": "@openclawdsolana/cli",
+  "version": "0.1.0",
+  "description": "OpenClawd CLI bootstrapper — installs and runs the Solana-native AI agent runtime with ClawdRouter, Helius, and Jupiter integration.",
   "license": "MIT",
   "type": "module",
   "bin": {
     "clawd": "bin/clawd.mjs",
-    "openclawdsolana": "bin/clawd.mjs",
-    "openclawd": "bin/clawd.mjs"
+    "openclawd": "bin/clawd.mjs",
+    "openclawdsolana": "bin/clawd.mjs"
   },
   "files": [
     "bin",
@@ -25,20 +25,24 @@
   },
   "keywords": [
     "solana",
-    "clawd",
     "openclawd",
-    "trading",
+    "openclawdsolana",
+    "clawd",
     "agent",
-    "mawdbot",
+    "trading",
     "ooda",
     "privy",
     "jupiter",
-    "helius"
+    "helius",
+    "clawdrouter"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/clawdsolana/OpenClawd.git",
-    "directory": "npm/clawdbot-installer"
+    "directory": "npm/openclawd-cli"
   },
-  "homepage": "https://solanaclawd.com"
+  "homepage": "https://solanaclawd.com",
+  "bugs": {
+    "url": "https://github.com/clawdsolana/OpenClawd/issues"
+  }
 }

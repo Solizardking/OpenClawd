@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "gmx",
   "manifest": "https://plugin.delivery/gmx/manifest.json",
   "meta": {
     "avatar": "📊",
-    "description": "[openclawd] GMX perpetual stats, GLP/GM data, and funding rates — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] GMX perpetual stats, GLP/GM data, and funding rates — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "gmx",
       "perpetuals",

@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/honcho-bridge",
+  "name": "@openclawdsolana/honcho-bridge",
   "version": "0.1.0",
   "description": "Honcho reasoning-memory adapter for OpenClawd — peer/session persistence with auto-feed into Membrain semantic layer",
   "type": "module",
@@ -36,7 +36,7 @@
   "license": "MIT",
   "dependencies": {
     "@honcho-ai/sdk": "^1.0.0",
-    "@openclaw/membrain-types": "1.0.0"
+    "@openclawdsolana/membrain-types": "1.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "delegate-tracker",
   "manifest": "https://plugin.delivery/delegate-tracker/manifest.json",
   "meta": {
     "avatar": "👥",
-    "description": "[openclawd] Track DAO delegates and voting power via Karma — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Track DAO delegates and voting power via Karma — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "delegates",
       "voting",

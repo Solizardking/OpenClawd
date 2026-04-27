@@ -5,7 +5,7 @@ import {
   createHeadersWithPluginSettings,
 } from '@openclawd/chat-plugin-sdk';
 import { SOLANA-CLAWD_PLUGIN_SETTINGS } from '@openclawd/chat-plugin-sdk/lib/request';
-import { createGatewayOnEdgeRuntime } from '@openclawd/chat-plugins-gateway';
+import { createGatewayOnEdgeRuntime } from '@openclawdsolana/chat-plugins-gateway';
 // @ts-ignore
 import SwaggerClient from 'swagger-client';
 import { Mock, beforeEach, describe, expect, it, vi } from 'vitest';

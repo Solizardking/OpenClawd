@@ -2,7 +2,7 @@ import {
   PluginErrorType,
   createErrorResponse,
   getPluginSettingsFromRequest,
-} from '@openclawd/plugin-sdk';
+} from '@openclawdsolana/plugin-sdk';
 
 export const config = {
   runtime: 'edge',

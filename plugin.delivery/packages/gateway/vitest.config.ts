@@ -4,7 +4,7 @@ export default defineConfig({
   test: {
     alias: {
       '@': 'src',
-      '@openclawd/chat-plugins-gateway': 'src',
+      '@openclawdsolana/chat-plugins-gateway': 'src',
     },
     coverage: {
       provider: 'v8',

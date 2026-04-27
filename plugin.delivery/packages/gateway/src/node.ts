@@ -3,7 +3,7 @@ import {
   PluginRequestPayload,
   getPluginErrorStatus,
   getPluginSettingsFromHeaders,
-} from '@openclawd/plugin-sdk';
+} from '@openclawdsolana/plugin-sdk';
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import Ajv from 'ajv';
 

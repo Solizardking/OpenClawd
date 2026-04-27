@@ -1,6 +1,6 @@
 # Plugin SDK Documentation
 
-Complete API reference for the Plugin SDK (`@openclawd/plugin-sdk`) from **clawdsolana/OpenClawd.delivery**.
+Complete API reference for the Plugin SDK (`@openclawdsolana/plugin-sdk`) from **clawdsolana/OpenClawd.delivery**.
 
 ## Table of Contents
 
@@ -18,12 +18,12 @@ Complete API reference for the Plugin SDK (`@openclawd/plugin-sdk`) from **clawd
 
 ```bash
 # Install the SDK from clawdsolana/OpenClawd.delivery
-pnpm add @openclawd/plugin-sdk
+pnpm add @openclawdsolana/plugin-sdk
 
 # Or with npm/yarn/bun
-npm install @openclawd/plugin-sdk
-yarn add @openclawd/plugin-sdk
-bun add @openclawd/plugin-sdk
+npm install @openclawdsolana/plugin-sdk
+yarn add @openclawdsolana/plugin-sdk
+bun add @openclawdsolana/plugin-sdk
 ```
 
 ---
@@ -33,7 +33,7 @@ bun add @openclawd/plugin-sdk
 The `SolanaClawdOS` object provides methods for plugin-to-host communication from the **clawdsolana/OpenClawd.delivery** SDK. Import from the client subpath:
 
 ```typescript
-import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
+import { SolanaClawdOS } from '@openclawdsolana/plugin-sdk/client';
 ```
 
 ### getPluginPayload
@@ -120,7 +120,7 @@ await SolanaClawdOS.createAssistantMessage('Here is the analysis...');
 
 ### useWatchPluginMessage
 
-This is a React Hook encapsulating the Chat Plugin SDK, used to listen for plugin messages sent from openclawd.
+This is a React Hook encapsulating the Chat Plugin SDK, used to listen for plugin messages sent from OpenClawd.
 
 **Syntax:**
 
@@ -138,7 +138,7 @@ const { data, loading } = useWatchPluginMessage<T>();
 **Example:**
 
 ```tsx
-import { useWatchPluginMessage } from '@openclawd/plugin-sdk/client';
+import { useWatchPluginMessage } from '@openclawdsolana/plugin-sdk/client';
 
 const MyPlugin = () => {
   const { data, loading } = useWatchPluginMessage<MyDataType>();
@@ -196,7 +196,7 @@ interface PluginPayload<T = any> {
 **Example:**
 
 ```tsx
-import { useOnStandalonePluginInit } from '@openclawd/plugin-sdk/client';
+import { useOnStandalonePluginInit } from '@openclawdsolana/plugin-sdk/client';
 
 const StandalonePlugin = () => {
   useOnStandalonePluginInit((payload) => {
@@ -247,7 +247,7 @@ const [value, updateValue] = usePluginState<T>(key: string, initialValue: T);
 **Example:**
 
 ```tsx
-import { usePluginState } from '@openclawd/plugin-sdk/client';
+import { usePluginState } from '@openclawdsolana/plugin-sdk/client';
 
 const Counter = () => {
   const [count, setCount] = usePluginState('count', 0);
@@ -299,7 +299,7 @@ Returns an array containing two elements: the current plugin settings value and 
 **Example:**
 
 ```tsx
-import { usePluginSettings } from '@openclawd/plugin-sdk/client';
+import { usePluginSettings } from '@openclawdsolana/plugin-sdk/client';
 
 const SettingsPanel = () => {
   const [settings, updateSettings] = usePluginSettings({ 
@@ -329,7 +329,7 @@ export default SettingsPanel;
 
 - Please ensure to use `usePluginSettings` inside a React function component.
 - Initial value `initialValue` can be of any type.
-- When updating plugin settings, the SDK automatically sends update messages to openclawd via `postMessage`.
+- When updating plugin settings, the SDK automatically sends update messages to OpenClawd via `postMessage`.
 
 ---
 
@@ -346,7 +346,7 @@ const data = await fetchPluginMessage<T>();
 **Example:**
 
 ```tsx
-import { fetchPluginMessage } from '@openclawd/plugin-sdk/client';
+import { fetchPluginMessage } from '@openclawdsolana/plugin-sdk/client';
 import { memo, useEffect, useState } from 'react';
 
 interface ResponseData {
@@ -358,7 +358,7 @@ const PluginDisplay = memo(() => {
   const [data, setData] = useState<ResponseData>();
 
   useEffect(() => {
-    // Get the current message of the plugin from openclawd
+    // Get the current message of the plugin from OpenClawd
     fetchPluginMessage<ResponseData>().then((response) => {
       setData(response);
     });
@@ -397,7 +397,7 @@ The SDK provides Zod schemas for validating plugin configurations.
 Validate plugin manifest files.
 
 ```typescript
-import { pluginManifestSchema } from '@openclawd/plugin-sdk';
+import { pluginManifestSchema } from '@openclawdsolana/plugin-sdk';
 
 const manifest = {
   identifier: 'my-plugin',
@@ -427,7 +427,7 @@ const result = pluginManifestSchema.parse(manifest);
 Validate plugin metadata for the index.
 
 ```typescript
-import { pluginMetaSchema } from '@openclawd/plugin-sdk';
+import { pluginMetaSchema } from '@openclawdsolana/plugin-sdk';
 
 const meta = {
   author: 'MyCompany',
@@ -451,7 +451,7 @@ const result = pluginMetaSchema.parse(meta);
 Validate individual API definitions.
 
 ```typescript
-import { pluginApiSchema } from '@openclawd/plugin-sdk';
+import { pluginApiSchema } from '@openclawdsolana/plugin-sdk';
 
 const api = {
   url: 'https://api.example.com/search',
@@ -475,7 +475,7 @@ const result = pluginApiSchema.parse(api);
 Use `PluginErrorType` for standardized error responses.
 
 ```typescript
-import { PluginErrorType, createErrorResponse } from '@openclawd/plugin-sdk';
+import { PluginErrorType, createErrorResponse } from '@openclawdsolana/plugin-sdk';
 
 export default async (req: Request) => {
   // Method validation
@@ -539,7 +539,7 @@ export default async (req: Request) => {
 Extract plugin settings from the request headers.
 
 ```typescript
-import { getPluginSettingsFromRequest } from '@openclawd/plugin-sdk';
+import { getPluginSettingsFromRequest } from '@openclawdsolana/plugin-sdk';
 
 interface MySettings {
   apiKey: string;
@@ -562,7 +562,7 @@ export default async (req: Request) => {
 Create headers with plugin settings (useful for testing).
 
 ```typescript
-import { createHeadersWithPluginSettings } from '@openclawd/plugin-sdk';
+import { createHeadersWithPluginSettings } from '@openclawdsolana/plugin-sdk';
 
 const headers = createHeadersWithPluginSettings({ apiKey: 'test-key' });
 const req = new Request('https://api.example.com', { headers });
@@ -575,7 +575,7 @@ const req = new Request('https://api.example.com', { headers });
 For advanced use cases, you can use the low-level `PluginChannel` constants.
 
 ```typescript
-import { PluginChannel } from '@openclawd/plugin-sdk';
+import { PluginChannel } from '@openclawdsolana/plugin-sdk';
 ```
 
 ### Initialization
@@ -622,7 +622,7 @@ import type {
   PluginApi,
   PluginPayload,
   PluginErrorType,
-} from '@openclawd/plugin-sdk';
+} from '@openclawdsolana/plugin-sdk';
 ```
 
 ---

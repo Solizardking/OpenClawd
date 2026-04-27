@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "morpho",
   "manifest": "https://plugin.delivery/morpho/manifest.json",
   "meta": {
     "avatar": "🦋",
-    "description": "[openclawd] Morpho optimized lending rates and vault data — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Morpho optimized lending rates and vault data — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "morpho",
       "lending",

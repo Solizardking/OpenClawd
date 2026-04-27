@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "ordinals",
   "manifest": "https://plugin.delivery/ordinals/manifest.json",
   "meta": {
     "avatar": "🔶",
-    "description": "[openclawd] Bitcoin ordinals inscriptions and collection data — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Bitcoin ordinals inscriptions and collection data — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "ordinals",
       "bitcoin",

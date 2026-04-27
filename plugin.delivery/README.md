@@ -2,7 +2,7 @@
   
 # 🔌 Plugin Delivery
 
-**AI Function Call Plugins & Tools for openclawd**
+**AI Function Call Plugins & Tools for OpenClawd**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -16,7 +16,7 @@
 
 ## What Is Plugin Delivery? 
 
-The **official plugin marketplace and SDK** for openclawd — a crypto/DeFi-focused AI assistant platform.
+The **official plugin marketplace and SDK** for OpenClawd — a crypto/DeFi-focused AI assistant platform.
 
 | Feature | Description |
 |---------|-------------|
@@ -33,7 +33,7 @@ User: "What's the price of ETH?"
          │
          ▼
 ┌─────────────────────────────────────────────────────────┐
-│  openclawd discovers plugin from plugin.delivery index   │
+│  OpenClawd discovers plugin from plugin.delivery index   │
 │  AI generates function call: getPrice(coin: "ethereum") │
 │  Gateway routes request to CoinGecko API                │
 │  Response rendered in chat (JSON, Markdown, or UI)      │
@@ -47,7 +47,7 @@ AI: "ETH is currently trading at $3,450..."
 
 ## Plugin Types
 
-openclawd supports **4 distinct plugin types**, each optimized for different use cases:
+OpenClawd supports **4 distinct plugin types**, each optimized for different use cases:
 
 | Type | Rendering | Best For | Complexity |
 |------|-----------|----------|------------|
@@ -100,7 +100,7 @@ Embeds a full React/HTML application in an iframe within the chat.
 
 **Use when:** You need rich interactivity — charts, forms, dashboards, embedded apps.
 
-> 💡 **Standalone plugins are openclawd's superpower** — they enable experiences beyond what ChatGPT plugins can do.
+> 💡 **Standalone plugins are OpenClawd's superpower** — they enable experiences beyond what ChatGPT plugins can do.
 
 ### OpenAPI Plugins
 
@@ -113,6 +113,94 @@ Auto-generated from an OpenAPI 3.x specification. No custom code needed.
 ```
 
 **Use when:** You already have an OpenAPI spec for your API.
+
+---
+
+## ⛓️ Plugin Attestation (Solana Attestation Service)
+
+OpenClawd plugins can carry an on-chain attestation block proving their identity, formal-verification status, and registry membership. The attestation is validated by the build pipeline AND can be verified at runtime by the `/api/attestation/verify` endpoint.
+
+### Attestation block
+
+Add an `attestation`, `capabilities`, and `registry` block alongside your plugin definition in `src/<plugin>.json`:
+
+```json
+{
+  "identifier": "my-attested-plugin",
+  "attestation": {
+    "enabled": true,
+    "service": "solana-attestation-service",
+    "program_id": "22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG",
+    "verification_levels": ["formal_verified", "audit_verified", "community_verified"],
+    "credential_authority": "OpenClawd Plugin Authority",
+    "proof_hash": "<sha256 of QEDGen Lean 4 proof>",
+    "attestation_pda": "<SAS-program-owned account>"
+  },
+  "capabilities": {
+    "attestation": { "verify_attestation": true },
+    "formalVerification": { "qedgen_integration": true, "proof_hash_verification": true },
+    "vault": { "hermes_integration": true, "wallet_custody_at_birth": false }
+  },
+  "registry": {
+    "protocol": "8004",
+    "program_id": "Ag8004rWo8ao8AUKhLk78iv2nLQpZMyBPXiAh5QLbFiE",
+    "verified": true
+  }
+}
+```
+
+A starter sits at [`plugin-template-attested.json`](./plugin-template-attested.json), and a real registered example at [`src/clawd-attestation.json`](./src/clawd-attestation.json).
+
+### Build-time validation
+
+`bun run build` invokes `scripts/check.ts`, which:
+
+1. Validates the standard `pluginMetaSchema` for every entry in `src/`
+2. **If** the entry has any of `attestation` / `capabilities` / `registry`, additionally validates against `attestedPluginExtensionSchema` from `@openclawdsolana/plugin-sdk` — wrong `program_id` length, missing `verification_levels`, or unknown verification level fails the build.
+
+### Runtime verification
+
+```bash
+curl -X POST https://plugin.delivery/api/attestation/verify \
+  -H 'Content-Type: application/json' \
+  -d '{"identifier":"clawd-attestation"}'
+```
+
+Returns:
+
+```json
+{
+  "status": "verify-ok",
+  "plugin": { "identifier": "clawd-attestation" },
+  "attestation": { "enabled": true, "program_id": "22zo...", ... },
+  "capabilities": { ... },
+  "registry": { "protocol": "8004", ... },
+  "onchain": { "exists": true, "owner": "22zo..." }
+}
+```
+
+The endpoint also works programmatically from the SDK:
+
+```ts
+import { verifyAttestationOffchain } from '@openclawdsolana/plugin-sdk';
+
+const result = verifyAttestationOffchain(plugin);
+if (result.status === 'verify-ok') {
+  console.log(result.attestation.program_id);
+}
+```
+
+`verifyAttestationOffchain` is pure schema validation. The HTTP endpoint additionally checks Solana mainnet for the `attestation_pda` and confirms it's owned by the SAS program.
+
+### Verification levels
+
+| Level | Meaning |
+|---|---|
+| `formal_verified` | A QEDGen Lean 4 proof has been compiled and the `proof_hash` is recorded on-chain |
+| `audit_verified` | The plugin code has been audited by an OpenClawd-recognized auditor |
+| `community_verified` | The plugin has accumulated positive reputation via the ERC-8004 registry |
+
+The Solana Attestation Service program ID is `22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG`. The ERC-8004 registry program ID is `Ag8004rWo8ao8AUKhLk78iv2nLQpZMyBPXiAh5QLbFiE`. Both are documented in [`solana-attestation-service-master/`](../solana-attestation-service-master/) (the vendored Rust source).
 
 ---
 
@@ -180,7 +268,7 @@ Embed external content:
 Standalone plugins can trigger additional function calls:
 
 ```typescript
-import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
+import { SolanaClawdOS } from '@openclawdsolana/plugin-sdk/client';
 
 // Trigger a new function call from your UI
 SolanaClawdOS.triggerFunctionCall({
@@ -240,9 +328,9 @@ templates/standalone/
 ### 1. Install the SDK
 
 ```bash
-bun add @openclawd/plugin-sdk
+bun add @openclawdsolana/plugin-sdk
 # or
-npm install @openclawd/plugin-sdk
+npm install @openclawdsolana/plugin-sdk
 ```
 
 ### 2. Create manifest.json
@@ -491,8 +579,8 @@ git push
 ```
 plugins/
 ├── packages/
-│   ├── sdk/              # @openclawd/plugin-sdk
-│   └── gateway/          # @openclawd/chat-plugins-gateway
+│   ├── sdk/              # @openclawdsolana/plugin-sdk
+│   └── gateway/          # @openclawdsolana/chat-plugins-gateway
 ├── templates/            # Starter templates
 │   ├── basic/
 │   ├── default/
@@ -515,8 +603,8 @@ plugins/
 
 | Package | Description | npm |
 |---------|-------------|-----|
-| `@openclawd/plugin-sdk` | Plugin SDK for building openclawd plugins | [![npm](https://img.shields.io/npm/v/@openclawd/plugin-sdk)](https://www.npmjs.com/package/@openclawd/plugin-sdk) |
-| `@openclawd/chat-plugins-gateway` | Gateway service for routing plugin calls | [![npm](https://img.shields.io/npm/v/@openclawd/chat-plugins-gateway)](https://www.npmjs.com/package/@openclawd/chat-plugins-gateway) |
+| `@openclawdsolana/plugin-sdk` | Plugin SDK for building OpenClawd plugins | [![npm](https://img.shields.io/npm/v/@openclawdsolana/plugin-sdk)](https://www.npmjs.com/package/@openclawdsolana/plugin-sdk) |
+| `@openclawdsolana/chat-plugins-gateway` | Gateway service for routing plugin calls | [![npm](https://img.shields.io/npm/v/@openclawdsolana/chat-plugins-gateway)](https://www.npmjs.com/package/@openclawdsolana/chat-plugins-gateway) |
 
 ### SDK Usage
 
@@ -525,20 +613,20 @@ import {
   pluginManifestSchema,
   createPluginResponse,
   PluginError 
-} from '@openclawd/plugin-sdk';
+} from '@openclawdsolana/plugin-sdk';
 
 // Client-side (in standalone UI)
-import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
+import { SolanaClawdOS } from '@openclawdsolana/plugin-sdk/client';
 ```
 
 ---
 
 ## Gateway
 
-The Plugin Gateway securely routes function calls from openclawd to plugin APIs:
+The Plugin Gateway securely routes function calls from OpenClawd to plugin APIs:
 
 ```
-openclawd → Gateway → Plugin API
+OpenClawd → Gateway → Plugin API
               │
               ├── Auth injection
               ├── Rate limiting
@@ -555,7 +643,7 @@ cd packages/gateway
 # Deploy
 vercel --prod
 
-# Set in openclawd
+# Set in OpenClawd
 PLUGINS_GATEWAY_URL=https://your-gateway.vercel.app
 ```
 
@@ -573,7 +661,7 @@ We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md).
 ### Requirements
 
 - ✅ Valid manifest with working endpoints
-- ✅ Tested in openclawd
+- ✅ Tested in OpenClawd
 - ✅ No API key required (or documented)
 - ✅ en-US locale at minimum
 
@@ -584,9 +672,9 @@ We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md).
 | Resource | URL |
 |----------|-----|
 | 🌐 **Plugin Index** | [plugin.delivery](https://plugin.delivery) |
-| 📦 **SDK on npm** | [@openclawd/plugin-sdk](https://www.npmjs.com/package/@openclawd/plugin-sdk) |
+| 📦 **SDK on npm** | [@openclawdsolana/plugin-sdk](https://www.npmjs.com/package/@openclawdsolana/plugin-sdk) |
 | 🐙 **GitHub** | [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
-| 🐦 **Twitter/X** | [@nichxbt](https://x.com/nichxbt) |
+| 🐦 **Twitter/X** | [@clawddevs](https://x.com/clawddevs) |
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/clawdsolana/OpenClawd)
 
@@ -594,7 +682,7 @@ We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## License
 
-MIT © [openclawd](https://openclawd.net)
+MIT © [OpenClawd](https://openclawd.net)
 
 ---
 
@@ -602,7 +690,7 @@ MIT © [openclawd](https://openclawd.net)
 
 **[🔌 plugin.delivery](https://plugin.delivery)** — AI Function Calls for the Crypto Era
 
-Built with ❤️ by [nich](https://x.com/nichxbt)
+Built with ❤️ by [nich](https://x.com/clawddevs)
 
 </div>
 
@@ -895,7 +983,7 @@ curl -X POST https://modelcontextprotocol.name/mcp/plugin-delivery \
 
 ### Also Available On
 
-- **[openclawd](https://openclawd.vercel.app)** — Browse and install from the [MCP marketplace](https://openclawd.vercel.app/community/mcp)
+- **[OpenClawd](https://openclawd.vercel.app)** — Browse and install from the [MCP marketplace](https://openclawd.vercel.app/community/mcp)
 - **All 27 MCP servers** — See the full catalog at [modelcontextprotocol.name](https://modelcontextprotocol.name)
 
 > Powered by [modelcontextprotocol.name](https://modelcontextprotocol.name) — the open MCP HTTP gateway

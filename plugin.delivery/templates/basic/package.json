@@ -2,7 +2,7 @@
   "name": "plugin-identifier",
   "version": "1.5.1",
   "private": true,
-  "description": "This is the plugin template for openclawd plugin development",
+  "description": "This is the plugin template for OpenClawd plugin development",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "repository": "https://github.com/clawdsolana/OpenClawd",
   "workspaces": [
@@ -51,9 +51,8 @@
     "not ie <= 10"
   ],
   "dependencies": {
-    "@openclawd/plugin-sdk": "workspace:*",
-    "@openclawd/chat-plugins-gateway": "workspace:*",
-    "@openclawd/ui": "latest",
+    "@openclawdsolana/plugin-sdk": "^1.0.0",
+    "@openclawdsolana/chat-plugins-gateway": "^1.9.0",
     "antd": "^5",
     "antd-style": "^3",
     "dayjs": "^1",

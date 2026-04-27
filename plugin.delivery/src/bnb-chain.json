@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "bnb-chain",
   "manifest": "https://plugin.delivery/bnb-chain/manifest.json",
   "meta": {
     "avatar": "💛",
-    "description": "[openclawd] BNB Smart Chain statistics and validators — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] BNB Smart Chain statistics and validators — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "bnb",
       "bsc",

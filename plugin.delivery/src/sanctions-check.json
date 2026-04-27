@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "sanctions-check",
   "manifest": "https://plugin.delivery/sanctions-check/manifest.json",
   "meta": {
     "avatar": "🛡️",
-    "description": "[openclawd] Screen wallet addresses against OFAC SDN and EU sanctions lists for compliance — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Screen wallet addresses against OFAC SDN and EU sanctions lists for compliance — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "sanctions",
       "compliance",

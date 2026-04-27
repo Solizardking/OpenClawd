@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "gas-estimator",
   "manifest": "https://plugin.delivery/gas-estimator/manifest.json",
   "meta": {
     "avatar": "⛽",
-    "description": "[openclawd] Transaction gas estimation using Tenderly simulation — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Transaction gas estimation using Tenderly simulation — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "gas",
       "estimation",

@@ -1,8 +1,10 @@
-# clawd-tui
+# OpenClawd TUI
 
-Open Clawd — a lobster-themed agent TUI built on `@openrouter/agent`.
+> 🦞 Claws that code, brains that deploy.
 
-```
+A lobster-themed agent terminal built on [`@openrouter/agent`](https://www.npmjs.com/package/@openrouter/agent). Adaptive input block, streaming tool calls, session persistence, slash commands, and approval gates for destructive actions — all with one-line OAuth onboarding to OpenRouter.
+
+```text
  ██████╗██╗      █████╗ ██╗    ██╗██████╗
 ██╔════╝██║     ██╔══██╗██║    ██║██╔══██╗
 ██║     ██║     ███████║██║ █╗ ██║██║  ██║
@@ -11,19 +13,25 @@ Open Clawd — a lobster-themed agent TUI built on `@openrouter/agent`.
  ╚═════╝╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═════╝
 ```
 
-A minimal, customizable agent terminal. Adaptive input block, streaming tool calls, session persistence, slash commands, approval gates for destructive actions.
-
 ## Install
 
-```bash
-npm install
-cp .env.example .env
-# set OPENROUTER_API_KEY in .env
+Global install (recommended):
 
-npm start
+```bash
+npm install -g @openclawdsolana/clawd-tui
+clawd
 ```
 
-Get an OpenRouter API key at [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys).
+On first run, `clawd` opens an OpenRouter OAuth (PKCE) login in your browser and caches the resulting key at `~/.config/openclawd/openrouter-key` (mode `0600`). Re-auth any time with `clawd --login`. If the web-callback flow is blocked, fall back to the local-loopback flow with `clawd --login --local-callback`.
+
+You can also pre-set a key:
+
+```bash
+export OPENROUTER_API_KEY=sk-or-v1-...
+clawd
+```
+
+Get a key at [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys).
 
 ## Tools
 
@@ -31,16 +39,19 @@ Get an OpenRouter API key at [openrouter.ai/settings/keys](https://openrouter.ai
 
 **Server-side (OpenRouter):** `web_search`, `datetime`
 
+Destructive tools (`shell`, `file_write`, `file_edit`) prompt for approval before each call.
+
 ## Slash commands
 
-- `/model <id>` — switch the model
+- `/model <id>` — switch the active OpenRouter model
 - `/new` — start a fresh conversation
 - `/session` — show session metadata + token usage
 - `/help` — list commands
+- `exit` / `quit` — leave Clawd
 
 ## Configuration
 
-Edit `agent.config.json` (optional) or use env vars:
+Drop an `agent.config.json` next to your working directory, or use env vars:
 
 ```json
 {
@@ -56,4 +67,18 @@ Edit `agent.config.json` (optional) or use env vars:
 }
 ```
 
-Built from the [create-agent-tui](https://github.com/openrouter-agent) skill.
+Env overrides: `OPENROUTER_API_KEY`, `AGENT_MODEL`, `AGENT_MAX_STEPS`, `AGENT_MAX_COST`.
+
+## Develop
+
+```bash
+git clone https://github.com/clawdsolana/OpenClawd.git
+cd OpenClawd/clawd-tui
+npm install
+cp .env.example .env   # optional — sets OPENROUTER_API_KEY for dev
+npm start
+```
+
+## License
+
+MIT — © OpenClawd contributors

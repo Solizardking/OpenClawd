@@ -1,0 +1,53 @@
+{
+  "author": "OpenClawd",
+  "createdAt": "2026-04-27",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
+  "identifier": "clawd-attestation",
+  "manifest": "https://plugin.delivery/clawd-attestation/manifest.json",
+  "meta": {
+    "avatar": "⛓️",
+    "description": "[OpenClawd] Verify a plugin's on-chain attestation via the Solana Attestation Service. Returns the SAS PDA owner check, formal-verification proof hash status, and registry membership for any registered OpenClawd plugin.",
+    "tags": [
+      "attestation",
+      "formal-verification",
+      "solana",
+      "vault",
+      "metaplex",
+      "openclawd"
+    ],
+    "title": "Clawd Attestation",
+    "category": "tools"
+  },
+  "schemaVersion": 1,
+  "attestation": {
+    "enabled": true,
+    "service": "solana-attestation-service",
+    "program_id": "22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG",
+    "verification_levels": [
+      "formal_verified",
+      "audit_verified",
+      "community_verified"
+    ],
+    "credential_authority": "OpenClawd Plugin Authority"
+  },
+  "capabilities": {
+    "attestation": {
+      "create_attestation": false,
+      "verify_attestation": true,
+      "tokenize_attestation": false
+    },
+    "formalVerification": {
+      "qedgen_integration": true,
+      "proof_hash_verification": true
+    },
+    "vault": {
+      "hermes_integration": true,
+      "wallet_custody_at_birth": false
+    }
+  },
+  "registry": {
+    "protocol": "8004",
+    "program_id": "Ag8004rWo8ao8AUKhLk78iv2nLQpZMyBPXiAh5QLbFiE",
+    "verified": true
+  }
+}

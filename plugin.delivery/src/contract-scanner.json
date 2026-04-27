@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "contract-scanner",
   "manifest": "https://plugin.delivery/contract-scanner/manifest.json",
   "meta": {
     "avatar": "🔒",
-    "description": "[openclawd] Aggregates GoPlus, De.Fi, and custom security checks — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Aggregates GoPlus, De.Fi, and custom security checks — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "security",
       "scanner",

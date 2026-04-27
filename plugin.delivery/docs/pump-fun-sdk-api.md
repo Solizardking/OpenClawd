@@ -1,4 +1,4 @@
-# 🚀 Pump Fun SDK — openclawd Plugin API Reference
+# 🚀 Pump Fun SDK — OpenClawd Plugin API Reference
 
 Interactive demo: [`plugin-demo.html`](../../website/plugin-demo.html) | Live: [`plugin.delivery/api/pump-fun-sdk`](https://plugin.delivery/api/pump-fun-sdk)
 

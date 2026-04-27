@@ -1,6 +1,6 @@
 /* TEAM */
-Creator: x402agent
-GitHub: https://github.com/x402agent
+Creator: OpenClawd
+GitHub: https://github.com/clawdsolana/OpenClawd
 From: Earth
 
 /* SITE */

@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "ico-calendar",
   "manifest": "https://plugin.delivery/ico-calendar/manifest.json",
   "meta": {
     "avatar": "📅",
-    "description": "[openclawd] Upcoming token sales from ICODrops — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Upcoming token sales from ICODrops — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "ico",
       "ido",

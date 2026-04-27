@@ -1,4 +1,7 @@
-import { pluginMetaSchema } from '@openclawd/plugin-sdk';
+import {
+  attestedPluginExtensionSchema,
+  pluginMetaSchema,
+} from '@openclawdsolana/plugin-sdk';
 import { consola } from 'consola';
 import dayjs from 'dayjs';
 
@@ -16,6 +19,18 @@ export const formatAndCheckSchema = (plugin) => {
     consola.error(`schema check fail`);
     throw new Error(result.error);
   }
+
+  if (plugin.attestation || plugin.capabilities || plugin.registry) {
+    const attResult = attestedPluginExtensionSchema.safeParse(plugin);
+    if (attResult.success) {
+      const enabled = plugin.attestation?.enabled ? 'ENABLED' : 'declared';
+      consola.success(`attestation check pass (${enabled})`);
+    } else {
+      consola.error(`attestation check fail`);
+      throw new Error(attResult.error);
+    }
+  }
+
   return plugin;
 };
 

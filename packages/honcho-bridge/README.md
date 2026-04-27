@@ -1,4 +1,4 @@
-# @openclaw/honcho-bridge
+# @openclawdsolana/honcho-bridge
 
 Honcho reasoning-memory adapter for OpenClawd. Adds peer/session persistence to Clawd's brain and auto-feeds Honcho's background conclusions into Membrain's semantic layer.
 
@@ -21,7 +21,7 @@ ClawdBot (X / Telegram / Discord / Slack)
 ## Install
 
 ```bash
-npm install @openclaw/honcho-bridge
+npm install @openclawdsolana/honcho-bridge
 ```
 
 Set `HONCHO_API_KEY` (get one at <https://app.honcho.dev>). Optional `HONCHO_WORKSPACE_ID` (default `openclawd`).
@@ -29,8 +29,8 @@ Set `HONCHO_API_KEY` (get one at <https://app.honcho.dev>). Optional `HONCHO_WOR
 ## Quickstart
 
 ```ts
-import { HonchoBridge, HonchoFeeder } from "@openclaw/honcho-bridge";
-import { MembraneClient, Sensitivity } from "@openclaw/membrain-types";
+import { HonchoBridge, HonchoFeeder } from "@openclawdsolana/honcho-bridge";
+import { MembraneClient, Sensitivity } from "@openclawdsolana/membrain-types";
 
 const bridge = new HonchoBridge({ apiKey: process.env.HONCHO_API_KEY! });
 const membrain = new MembraneClient("localhost:9090", { apiKey: process.env.MEMBRAIN_API_KEY! });
@@ -69,7 +69,7 @@ feeder.start();
 ## Engine helper (for memory-host-sdk)
 
 ```ts
-import { createHonchoEngine } from "@openclaw/honcho-bridge/engine";
+import { createHonchoEngine } from "@openclawdsolana/honcho-bridge/engine";
 
 const engine = createHonchoEngine();          // reads HONCHO_API_KEY
 await engine.remember({ /* ... */ });

@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Build and deploy your first openclawd plugin in under 10 minutes.
+Build and deploy your first OpenClawd plugin in under 10 minutes.
 
 ## Prerequisites
 
@@ -43,7 +43,7 @@ bun install
 ```bash
 mkdir my-plugin && cd my-plugin
 bun init -y
-bun add @openclawd/plugin-sdk
+bun add @openclawdsolana/plugin-sdk
 ```
 
 ---
@@ -165,9 +165,9 @@ curl -X POST http://localhost:3400/api/endpoint \
   -d '{"param1": "test"}'
 ```
 
-### Test in openclawd
+### Test in OpenClawd
 
-1. Open openclawd
+1. Open OpenClawd
 2. Go to **Plugin Settings** → **Add Custom Plugin**
 3. Enter: `http://localhost:3400/manifest.json`
 4. Enable the plugin
@@ -350,7 +350,7 @@ export default async function handler(req: Request) {
 ## Need Help?
 
 - GitHub Issues: [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
-- Twitter/X: [@nichxbt](https://x.com/nichxbt)
+- Twitter/X: [@clawddevs](https://x.com/clawddevs)
 
 ---
 

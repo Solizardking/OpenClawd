@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Clawd Attestation",
+    "description": "Verify a plugin's on-chain attestation via the Solana Attestation Service (SAS PDA owner check, formal-verification proof hash status, and ERC-8004 registry membership)."
+  }
+}

@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "blur-analytics",
   "manifest": "https://plugin.delivery/blur-analytics/manifest.json",
   "meta": {
     "avatar": "🟣",
-    "description": "[openclawd] Blur NFT marketplace stats and bids — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Blur NFT marketplace stats and bids — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "blur",
       "nft",

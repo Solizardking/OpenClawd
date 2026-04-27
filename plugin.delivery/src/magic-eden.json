@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "magic-eden",
   "manifest": "https://plugin.delivery/magic-eden/manifest.json",
   "meta": {
     "avatar": "🧙",
-    "description": "[openclawd] Magic Eden NFT data for Solana and Bitcoin — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Magic Eden NFT data for Solana and Bitcoin — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "magic-eden",
       "solana",

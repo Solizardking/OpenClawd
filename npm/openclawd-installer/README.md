@@ -1,40 +1,41 @@
-# openclawd-cli
+# @openclawdsolana/installer
 
 **OpenClawd — The Solana Computer.**
 
 One command. Full autonomous Solana trading runtime. Connected to your Seeker.
 
 ```bash
-npx openclawd-cli install
+npx @openclawdsolana/installer install
 ```
 
 ```
-   _____       __                        ____  _____
-  / ___/____  / /___ _____  ____ _     / __ \/ ___/
-  \__ \/ __ \/ / __ `/ __ \/ __ `/    / / / /\__ \
- ___/ / /_/ / / /_/ / / / / /_/ /    / /_/ /___/ /
-/____/\____/_/\__,_/_/ /_/\__,_/     \____//____/
-                S O L A N A O S
+    ____                     ________                   __
+   / __ \____  ___  ____    / ____/ /___ __      ______/ /
+  / / / / __ \/ _ \/ __ \  / /   / / __ `/ | /| / / __  /
+ / /_/ / /_/ /  __/ / / / / /___/ / /_/ /| |/ |/ / /_/ /
+ \____/ .___/\___/_/ /_/  \____/_/\__,_/ |__/|__/\__,_/
+     /_/                                                
+                O P E N C L A W D
 ```
 
 ## What happens when you run it
 
-1. Animated terminal boot sequence with Unicode matrix frames
-2. Clones the [OpenClawd repo](https://github.com/clawdsolana/OpenClawd)
-3. Builds the <10MB Go binary
-4. Creates `~/.openclawdsolana/` workspace + wallet
-5. Installs `openclawd` CLI globally
-6. Prints your gateway setup code + QR for Seeker pairing
-7. Ready to connect to [seeker.openclawd.net](https://seeker.openclawd.net)
+1. Animated terminal boot sequence with Unicode matrix frames.
+2. Clones the [OpenClawd repo](https://github.com/clawdsolana/OpenClawd).
+3. Builds the Go binary.
+4. Creates `~/.openclawdsolana/` workspace + wallet.
+5. Installs `openclawd` into `~/.openclawdsolana/bin/` (with `openclawdsolana` + `clawd` aliases).
+6. Prints your gateway setup code + QR for Seeker pairing.
+7. Ready to connect to [seeker.openclawd.net](https://seeker.openclawd.net).
 
 ## Quick start
 
 ```bash
 # Install everything
-npx openclawd-cli install
+npx @openclawdsolana/installer install
 
 # Or with the web console
-npx openclawd-cli install --with-web
+npx @openclawdsolana/installer install --with-web
 
 # Start the daemon
 openclawd daemon
@@ -49,8 +50,8 @@ openclawd solana wallet
 ## Connect your surfaces
 
 ```bash
-# Telegram bot
-openclawd daemon  # auto-registers commands
+# Telegram bot — auto-registers commands when daemon starts
+openclawd daemon
 
 # Seeker pairing
 openclawd gateway start
@@ -90,6 +91,17 @@ TELEGRAM_BOT_TOKEN=your-token
 TELEGRAM_ID=your-chat-id
 ```
 
+## Sibling packages
+
+| Package | Purpose |
+| --- | --- |
+| [`@openclawdsolana/cli`](https://www.npmjs.com/package/@openclawdsolana/cli) | Lightweight bootstrapper. |
+| [`@openclawdsolana/computer`](https://www.npmjs.com/package/@openclawdsolana/computer) | Canonical runtime entrypoint. |
+| [`@openclawdsolana/installer`](https://www.npmjs.com/package/@openclawdsolana/installer) | This package — installer with the boot animation. |
+| [`@openclawdsolana/agentwallet`](https://www.npmjs.com/package/@openclawdsolana/agentwallet) | Encrypted Solana + EVM keypair vault. |
+| [`@openclawdsolana/wallet`](https://www.npmjs.com/package/@openclawdsolana/wallet) | Privy-powered embedded Solana wallet. |
+| [`@openclawdsolana/percolator`](https://www.npmjs.com/package/@openclawdsolana/percolator) | Agentic perpetuals CLI. |
+
 ## Links
 
 | | |
@@ -102,12 +114,5 @@ TELEGRAM_ID=your-chat-id
 | **Strategy** | [seeker.openclawd.net/strategy](https://seeker.openclawd.net/strategy) |
 | **Mining** | [seeker.openclawd.net/mining](https://seeker.openclawd.net/mining) |
 | **Skills** | [seeker.openclawd.net/skills](https://seeker.openclawd.net/skills) |
-
-## Also available as
-
-```bash
-npx openclawd-computer@latest install    # Primary installer
-npx openclawdsolana-cli install              # Legacy alias
-```
 
 MIT License · OpenClawd Labs · Built on Solana

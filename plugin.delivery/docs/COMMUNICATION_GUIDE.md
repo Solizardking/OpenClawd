@@ -263,7 +263,7 @@ import {
   PluginErrorType, 
   createErrorResponse,
   getPluginSettingsFromRequest 
-} from '@openclawd/plugin-sdk';
+} from '@openclawdsolana/plugin-sdk';
 
 interface MySettings {
   apiKey: string;
@@ -335,7 +335,7 @@ Frontend communication uses the `postMessage` API, abstracted by the SDK.
 When your plugin UI loads, retrieve the message data:
 
 ```tsx
-import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
+import { SolanaClawdOS } from '@openclawdsolana/plugin-sdk/client';
 import { useEffect, useState } from 'react';
 
 function PluginUI() {
@@ -359,7 +359,7 @@ function PluginUI() {
 The SDK provides hooks for easier state management:
 
 ```tsx
-import { useWatchPluginMessage } from '@openclawd/plugin-sdk/client';
+import { useWatchPluginMessage } from '@openclawdsolana/plugin-sdk/client';
 
 function PluginUI() {
   const { data, loading } = useWatchPluginMessage<MyDataType>();
@@ -375,7 +375,7 @@ function PluginUI() {
 Access the original Function Call arguments:
 
 ```tsx
-import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
+import { SolanaClawdOS } from '@openclawdsolana/plugin-sdk/client';
 
 async function init() {
   const payload = await SolanaClawdOS.getPluginPayload();
@@ -396,7 +396,7 @@ Standalone plugins have full control over the communication flow.
 ### Initialization
 
 ```tsx
-import { useOnStandalonePluginInit } from '@openclawd/plugin-sdk/client';
+import { useOnStandalonePluginInit } from '@openclawdsolana/plugin-sdk/client';
 
 function StandalonePlugin() {
   useOnStandalonePluginInit((payload) => {
@@ -413,7 +413,7 @@ function StandalonePlugin() {
 State persists across re-renders:
 
 ```tsx
-import { usePluginState } from '@openclawd/plugin-sdk/client';
+import { usePluginState } from '@openclawdsolana/plugin-sdk/client';
 
 function Counter() {
   const [count, setCount] = usePluginState('count', 0);
@@ -432,7 +432,7 @@ function Counter() {
 Send data back to be stored in the message:
 
 ```tsx
-import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
+import { SolanaClawdOS } from '@openclawdsolana/plugin-sdk/client';
 
 async function saveResult(data) {
   await SolanaClawdOS.setPluginMessage(data);
@@ -444,7 +444,7 @@ async function saveResult(data) {
 Make the AI respond based on plugin output:
 
 ```tsx
-import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
+import { SolanaClawdOS } from '@openclawdsolana/plugin-sdk/client';
 
 async function askAI() {
   // First update the message content
@@ -463,7 +463,7 @@ async function askAI() {
 Directly create an assistant response:
 
 ```tsx
-import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
+import { SolanaClawdOS } from '@openclawdsolana/plugin-sdk/client';
 
 async function sendMessage() {
   await SolanaClawdOS.createAssistantMessage(
@@ -567,9 +567,9 @@ window.addEventListener('message', (event) => {
 
 ### Gateway Processing Flow
 
-The gateway serves as middleware between openclawd and plugin servers, ensuring secure and flexible communication.
+The gateway serves as middleware between OpenClawd and plugin servers, ensuring secure and flexible communication.
 
-**Request Initialization**: openclawd sends a request to the Gateway via HTTP POST, carrying a `PluginRequestPayload` containing:
+**Request Initialization**: OpenClawd sends a request to the Gateway via HTTP POST, carrying a `PluginRequestPayload` containing:
 - Plugin identifier
 - API name
 - Parameters
@@ -581,7 +581,7 @@ The gateway serves as middleware between openclawd and plugin servers, ensuring 
 3. Retrieve plugin manifest if not provided
 4. Add user settings to request headers
 5. Route request to appropriate plugin server
-6. Return response to openclawd
+6. Return response to OpenClawd
 
 **Parameter Validation**: The Gateway validates parameters based on the API parameter pattern defined in the plugin manifest to ensure validity and security.
 
@@ -609,7 +609,7 @@ For detailed error types, see the [Plugin Error Types](#plugin-error-types) sect
 
 ### Communication via postMessage API
 
-The frontend communication between openclawd and plugins is based on the HTML5 `window.postMessage` API, which allows secure communication between pages from different origins.
+The frontend communication between OpenClawd and plugins is based on the HTML5 `window.postMessage` API, which allows secure communication between pages from different origins.
 
 ### Frontend Communication Flow
 
@@ -618,14 +618,14 @@ The frontend communication between openclawd and plugins is based on the HTML5 `
 When the plugin is loaded and ready to interact with openclawd, it uses the `SolanaClawdOS.getPluginPayload()` method to obtain initialization data:
 
 ```typescript
-import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
+import { SolanaClawdOS } from '@openclawdsolana/plugin-sdk/client';
 
 // Plugin waits for initialization
 const payload = await SolanaClawdOS.getPluginPayload();
 console.log('Plugin initialized:', payload);
 ```
 
-Behind the scenes, the plugin listens for the `message` event, waiting for the initialization message from openclawd.
+Behind the scenes, the plugin listens for the `message` event, waiting for the initialization message from OpenClawd.
 
 **2. Receiving Plugin Payload**
 
@@ -681,14 +681,14 @@ await SolanaClawdOS.createAssistantMessage('Custom content');
 
 ### Communication Summary
 
-Communication between openclawd and plugins is achieved through asynchronous message exchange using the postMessage API. The plugin can:
+Communication between OpenClawd and plugins is achieved through asynchronous message exchange using the postMessage API. The plugin can:
 - Request data from the host
 - Receive initialization data
 - Update its own state
 - Trigger AI messages
 - Create new messages
 
-The openclawd host is responsible for responding to these requests and providing the required data. This mechanism allows plugins to operate independently while effectively communicating with the host application.
+The OpenClawd host is responsible for responding to these requests and providing the required data. This mechanism allows plugins to operate independently while effectively communicating with the host application.
 
 The SDK's `SolanaClawdOS` methods abstract communication details, enabling plugins to interact using a concise API.
 
@@ -733,7 +733,7 @@ Add a `settings` field in your `manifest.json`:
 
 ### How Settings Appear to Users
 
-When users enable your plugin, openclawd will:
+When users enable your plugin, OpenClawd will:
 1. Display a settings form based on your schema
 2. Show input fields with appropriate types (text, password, number, etc.)
 3. Validate inputs according to your constraints
@@ -748,7 +748,7 @@ import {
   getPluginSettingsFromRequest,
   createErrorResponse,
   PluginErrorType
-} from '@openclawd/plugin-sdk';
+} from '@openclawdsolana/plugin-sdk';
 
 interface MySettings {
   apiKey: string;
@@ -777,7 +777,7 @@ export default async (req: Request) => {
 **Client-Side (Standalone Plugin UI):**
 
 ```typescript
-import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
+import { SolanaClawdOS } from '@openclawdsolana/plugin-sdk/client';
 
 // Get settings
 const settings = await SolanaClawdOS.getPluginSettings<MySettings>();
@@ -920,7 +920,7 @@ For local development, specify a gateway in your manifest:
 Install the gateway package:
 
 ```bash
-pnpm add @openclawd/chat-plugins-gateway
+pnpm add @openclawdsolana/chat-plugins-gateway
 ```
 
 #### Next.js (Edge Runtime)
@@ -928,7 +928,7 @@ pnpm add @openclawd/chat-plugins-gateway
 Create `pages/api/gateway.ts`:
 
 ```typescript
-import { createSolanaClawdChatPluginGateway } from '@openclawd/chat-plugins-gateway';
+import { createSolanaClawdChatPluginGateway } from '@openclawdsolana/chat-plugins-gateway';
 
 export const config = {
   runtime: 'edge',
@@ -942,7 +942,7 @@ export default createSolanaClawdChatPluginGateway();
 Create `app/api/gateway/route.ts`:
 
 ```typescript
-import { createSolanaClawdChatPluginGateway } from '@openclawd/chat-plugins-gateway';
+import { createSolanaClawdChatPluginGateway } from '@openclawdsolana/chat-plugins-gateway';
 
 export const runtime = 'edge';
 
@@ -956,7 +956,7 @@ export { handler as GET, handler as POST };
 Create `api/gateway.ts`:
 
 ```typescript
-import { createGatewayOnNodeRuntime } from '@openclawd/chat-plugins-gateway';
+import { createGatewayOnNodeRuntime } from '@openclawdsolana/chat-plugins-gateway';
 
 export default createGatewayOnNodeRuntime();
 ```
