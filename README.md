@@ -30,7 +30,7 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 
 | Package | One-liner | Install |
 |---|---|---|
-| 🦀 [**clawd-code-cli**](./clawd-code-cli) | Solana lobster TUI (Ink + React) — `/buddy`, `/trending`, `/clawd`, `/scan`, `/agents`, voice, multi-agent panes | `npm i -g @openclawdsolana/clawd-code-cli` |
+| 🦀 [**clawd-code-cli**](./clawd-code-cli) | Solana lobster TUI (Ink + React) — `/buddy`, `/trending`, `/clawd`, `/scan`, `/agents`, Grok-powered `/voice` (xAI TTS + STT), `/search` & `/x` Live Search, multi-agent panes | `npm i -g @openclawdsolana/clawd-code-cli` |
 | 🦞 [**leviathan**](./openclawd-framework) | Sovereign agent runtime — keypair → mint → reign → beach. Three Laws hashed into every spawn. | `npm i @openclawdsolana/leviathan` |
 | 💸 [**agents-x402**](./packages/agents-x402-solana) | One-line x402 Solana USDC monetization for MCP servers, HTTP handlers, and agent tool calls | `npm i @openclawdsolana/agents-x402` |
 | 🔐 [**agentwallet**](./packages/agentwallet) | Encrypted Solana + EVM keypair vault with E2B sandbox + Cloudflare Workers deployment | `npm i @openclawdsolana/agentwallet` |
@@ -105,7 +105,7 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 
 | Surface | What it is | Where |
 |---|---|---|
-| 🦀 **clawd-code-cli** *(npm)* | Solana lobster TUI — multi-provider AI (Grok / Ollama / OpenRouter / OpenAI), MCP, 14 tools (text-editor, bash, solana, bags, dflow, kalshi, polymarket, morph-editor, todo, search, wallet, token-launch), realtime xAI voice, Three-Laws gate, Blockchain Buddies | [`clawd-code-cli/`](clawd-code-cli/) |
+| 🦀 **clawd-code-cli** *(npm)* | Solana lobster TUI — multi-provider AI (Grok / Ollama / OpenRouter / OpenAI), MCP, 14 tools (text-editor, bash, solana, bags, dflow, kalshi, polymarket, morph-editor, todo, search, wallet, token-launch), Grok-powered voice (xAI TTS + STT) and Live Search (`/search`, `/x`), Three-Laws gate, Blockchain Buddies | [`clawd-code-cli/`](clawd-code-cli/) |
 | 🐦 **ClawdBot** | Autonomous X (`@clawddevs`) + Telegram agent. Sentient Engine, command monitor, image/video gen via xAI | [`clawdhub/`](clawdhub/) and bot scripts under [`clawd-code-cli/`](clawd-code-cli/) |
 | 🦞 **@openclawdsolana/leviathan** *(npm)* | Sovereign on-chain agent runtime. Solana keypair + Metaplex Agent Registry + lifecycle (spawn → molt → beach) | [`openclawd-framework/`](openclawd-framework/) |
 | 💸 **@openclawdsolana/agents-x402** *(npm)* | One-line x402 Solana USDC monetization for MCP / HTTP / agent tool calls | [`packages/agents-x402-solana/`](packages/agents-x402-solana/) |
@@ -283,6 +283,38 @@ ClawdBot tweets every 10 minutes, RTs `@clawddevs`, runs **46+ slash commands** 
 <summary><strong>⚙️ System</strong></summary>
 
 `/help` · `/model [id]` · `/voice [on|off|tts]` (Cartesia / ElevenLabs) · `/personality <lobster|trader|sage|degen|based>` · `/title` · `/sessions` · `/resume <id>` · `/clear` · `/quit` · `Ctrl+C` (interrupt) · `Ctrl+D` (exit)
+
+</details>
+
+<details>
+<summary><strong>🔎 Live Search (xAI / Grok)</strong></summary>
+
+Both commands hit Grok's Live Search via the xAI chat completions endpoint and return the model's answer plus up to 10 citations.
+
+| Command | Does |
+| --- | --- |
+| `/search <query>` | Grok web search with citations |
+| `/x <query>` | Grok X / Twitter search with citations |
+
+Needs `XAI_API_KEY` (env var) or `/config grok key <xai-...>`.
+
+</details>
+
+<details>
+<summary><strong>🎙️ Voice I/O (clawd-code-cli, powered by Grok)</strong></summary>
+
+Two-way speech inside the terminal — TTS via xAI's `/v1/tts` (Grok voices), STT via xAI's `/v1/stt`.
+
+| Command | Does |
+| --- | --- |
+| `/voice` | Show voice status / usage |
+| `/voice say <text>` | Speak text now via xAI TTS |
+| `/voice last` | Speak the last assistant message |
+| `/voice on` / `/voice off` | Toggle auto-speak of assistant responses |
+| `/voice voice <name>` | Pick a voice: `eve`, `ara`, `rex`, `sal`, `leo` |
+| `/voice listen [n]` | Record `n` sec from mic (default 5), transcribe via xAI STT, submit as your next message |
+
+Requirements: `XAI_API_KEY` (env var) or `/config grok key <xai-...>`. For TTS playback you need `afplay` (macOS, built-in) or `ffplay`/`mpg123`/`aplay` on Linux. For `/voice listen` you also need `ffmpeg` on `PATH` (`brew install ffmpeg`) and mic permission for your terminal app on first run. Falls back to macOS `say` for TTS only when no xAI key is configured.
 
 </details>
 
@@ -725,15 +757,60 @@ $CLAWD is the leviathan's **prestige currency** — every spawnling is funded wi
 
 ## 🛡️ Release Hygiene
 
-Five gates run on every commit/push (see [`scripts/`](scripts/)):
+Eight gates run from `npm run …` at the repo root (see [`scripts/`](scripts/)):
 
-| Gate | Catches | Status (v0.1.1) |
+| Gate | Catches | Status |
 |---|---|---|
 | `npm run doctor` | Bootstrap requirements (Node 20+, package.json, README, LICENSE, dirs) | ✅ 8/8 |
 | `npm run release:check` | Public-release readiness (description, repo URL, .env protection, catalog) | ✅ 9/9 |
-| `npm run guard:worktree` | OpenAI/OpenRouter/AWS/Slack/GitHub keys, hex secrets, private key blocks | ✅ 0 leaks / 8745 files |
+| `npm run release:wire` | Scope drift, bin name collisions, broken cross-pkg deps across all 30 workspaces | ✅ 0 errors |
+| `npm run release:pack` | Dry-pack every public workspace and reports tarball size & file count | ✅ 24/24 packed |
+| `npm run release:manifest` | Emits `release.manifest.json` — every package, app, MCP, service, skill, extension, API endpoint | ✅ schema v2 |
+| `npm run guard:worktree` | OpenAI/OpenRouter/AWS/Slack/GitHub keys, hex secrets, private key blocks | ✅ 0 leaks |
 | `npm run brand:check` | Old brand strings (the four legacy names — see [`scripts/brand-check.mjs`](scripts/brand-check.mjs)) | ✅ 0 stale refs |
 | `pre-commit` + `pre-push` hooks | Auto-block on secret leaks and brand-rot | ✅ wired |
+
+---
+
+## 🔌 How everything talks (post-install)
+
+After a user runs `npx @openclawdsolana/installer install`, every CLI surface
+— bash, the Go runtime, the Hono API registrar, MCP servers, services — reads
+the **same** endpoint set from one canonical config:
+
+```
+                  ~/.openclawdsolana/config.json
+                  ───────────────┬──────────────
+                                 │
+       ┌─────────────────────────┼─────────────────────────┐
+       │                         │                         │
+       ▼                         ▼                         ▼
+  cli/*.sh                 Go runtime                 Node services
+  (clawd-cli.sh,           (`openclawd                (gateway, api-registrar,
+   clawd-connect.sh,        daemon`,                   mcp/*, moltbook,
+   sourcing                 `openclawd                 services/*)
+   clawd-config.sh)         gateway`)                 read OPENCLAWD_*
+       │                         │                         │
+       └────────── env override: OPENCLAWD_API_BASE,         │
+                  OPENCLAWD_GATEWAY_BASE, OPENCLAWD_MCP_BASE,│
+                  OPENCLAWD_REGISTRAR_BASE,                  │
+                  OPENCLAWD_MARKETPLACE,                     │
+                  OPENCLAWD_SOLANA_RPC                       │
+                                                             ▼
+                                              GET /manifest from registrar
+                                              (or local release.manifest.json)
+                                              → discover every other surface
+```
+
+Highlights from the latest integration pass:
+
+- **One scope** — every public package is `@openclawdsolana/*`. No more `@openclaw/*` or `@openclawd/*` (3-way scope drift fixed).
+- **One config** — [`install.sh`](install.sh) writes `~/.openclawdsolana/config.json` once. [`cli/clawd-config.sh`](cli/clawd-config.sh) loads it; both bash CLIs and the api-registrar source it.
+- **One manifest** — [`scripts/release-manifest.mjs`](scripts/release-manifest.mjs) walks the entire repo and emits [`release.manifest.json`](release.manifest.json) covering 30 npm workspaces, 6 apps, 5 MCP servers, 4 long-running services, 98 skills, 31 extensions, and 9 chrome-extension parts.
+- **One discovery hop** — `api-registrar` exposes `GET /manifest`; `clawd-cli.sh manifest` fetches it (falls back to bundled local copy when offline).
+- **No bin collisions** — Go runtime owns `openclawd` / `openclawdsolana` / `clawd`; framework owns `leviathan`, `clawd-code`, `clawd-standalone`; new entries got their own names (`clawd-code-cli`, `clawd-tui`, `clawdrouter`, `openclawd-mcp`).
+
+See [`RELEASE.md`](RELEASE.md) for the full diagram + runbook.
 
 ---
 
@@ -772,12 +849,12 @@ openclawd/
 │   ├── plugin-package-contract/
 │   └── honcho-bridge/
 │
-├── clawdrouter/                # @openclawd/clawdrouter — Solana-native LLM router (USDC micropayments)
-├── clawdhub/                   # Skills marketplace + ClawdHub CLI
-├── api-registrar/              # Public API registrar
-├── mcp/                        # MCP servers: vault-mcp, wurk-mcp, openclawd-mcp
-├── moltbook-agent/             # Molt log / agent diary
-├── gateway/                    # Local-first gateway server
+├── clawdrouter/                # @openclawdsolana/clawdrouter — Solana-native LLM router (USDC micropayments)
+├── clawdhub/                   # Skills marketplace + ClawdHub CLI (sub-monorepo)
+├── api-registrar/              # @openclawdsolana/api-registrar — issues API keys, serves /manifest
+├── mcp/                        # @openclawdsolana/mcp + vault-mcp + wurk-mcp
+├── moltbook-agent/             # @openclawdsolana/moltbook-agent — molt log / diary
+├── gateway/                    # @openclawdsolana/gateway — Telegram + Helius + Birdeye control plane
 │
 ├── src/                        # OpenClawd Gateway core
 │   ├── agents/                 #   Trader · Scanner · Analyst · Monitor + AgentRuntime + cloneAgent + SkillRegistry

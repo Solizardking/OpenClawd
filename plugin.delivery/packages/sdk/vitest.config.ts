@@ -4,10 +4,10 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
     alias: {
-      '@': path.join(__dirname, './src'),
-      '@openclawdsolana/plugin-sdk': path.join(__dirname, './src'),
-      '@openclawdsolana/plugin-sdk/client': path.join(__dirname, './src/client'),
-      '@openclawdsolana/plugin-sdk/openapi': path.join(__dirname, './src/openapi'),
+      '@': path.join(__dirname, '.'),
+      '@openclawdsolana/plugin-sdk': path.join(__dirname, '.'),
+      '@openclawdsolana/plugin-sdk/client': path.join(__dirname, './client'),
+      '@openclawdsolana/plugin-sdk/openapi': path.join(__dirname, './openapi'),
     },
     coverage: {
       include: ['src'],
