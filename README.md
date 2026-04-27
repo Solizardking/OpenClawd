@@ -19,12 +19,12 @@
 
 ---
 
-## 🚀 v0.1.1 — 10 packages live on npm
+## 🚀 v0.1.1 — 11 packages live on npm
 
 > **GitHub release:** [v0.1.1](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.1) · [v0.1.0](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0)
 > **Install script:** `curl -fsSL https://install.solanaclawd.com | bash`
 
-All ten packages are public on npm under **`@openclawdsolana`**:
+All eleven packages are public on npm under **`@openclawdsolana`**:
 
 ### v0.1.0 — the four flagships
 
@@ -35,10 +35,11 @@ All ten packages are public on npm under **`@openclawdsolana`**:
 | 💸 [**agents-x402**](./packages/agents-x402-solana) | One-line x402 Solana USDC monetization for MCP servers, HTTP handlers, and agent tool calls | `npm i @openclawdsolana/agents-x402` |
 | 🔐 [**agentwallet**](./packages/agentwallet) | Encrypted Solana + EVM keypair vault with E2B sandbox + Cloudflare Workers deployment | `npm i @openclawdsolana/agentwallet` |
 
-### v0.1.1 — six new packages
+### v0.1.1 — seven new packages
 
 | Package | One-liner | Install |
 |---|---|---|
+| 🦞 [**clawd-tui**](./clawd-tui) | OpenRouter-native lobster TUI (Ink + `@openrouter/agent`) — block input, streaming tools, PKCE OAuth, file/glob/grep/shell, web_search + datetime | `npm i -g @openclawdsolana/clawd-tui` |
 | 🌊 [**clawdrouter**](./clawdrouter) | LLM router built for autonomous Solana agents — wallet-signed, USDC micropayments, multi-upstream | `npm i -g @openclawdsolana/clawdrouter` |
 | 🔒 [**vault-mcp**](./mcp/vault-mcp) | ClawdVault MCP server — security pattern scanning, secret detection, vault ops over MCP | `npm i @openclawdsolana/vault-mcp` |
 | 💼 [**wurk-mcp**](./mcp/wurk-mcp) | WURK API MCP server — agent job creation with x402 payment flow on Solana + Base | `npm i @openclawdsolana/wurk-mcp` |
@@ -109,7 +110,7 @@ All ten packages are public on npm under **`@openclawdsolana`**:
 | 🦞 **@openclawdsolana/leviathan** *(npm)* | Sovereign on-chain agent runtime. Solana keypair + Metaplex Agent Registry + lifecycle (spawn → molt → beach) | [`openclawd-framework/`](openclawd-framework/) |
 | 💸 **@openclawdsolana/agents-x402** *(npm)* | One-line x402 Solana USDC monetization for MCP / HTTP / agent tool calls | [`packages/agents-x402-solana/`](packages/agents-x402-solana/) |
 | 🔐 **@openclawdsolana/agentwallet** *(npm)* | Encrypted Solana + EVM keypair vault, E2B sandbox + CF Workers deploy | [`packages/agentwallet/`](packages/agentwallet/) |
-| 🦞 **clawd-tui** | OpenRouter-native TUI alternative (Ink + `@openrouter/agent`) — file_read/write/edit, glob, grep, list_dir, shell, web_search, datetime | [`clawd-tui/`](clawd-tui/) |
+| 🦞 **@openclawdsolana/clawd-tui** *(npm)* | OpenRouter-native lobster TUI (Ink + `@openrouter/agent`) — file_read/write/edit, glob, grep, list_dir, shell, web_search, datetime, PKCE OAuth, approval gates on destructive tools | [`clawd-tui/`](clawd-tui/) |
 | 📚 **9 runnable examples** | Blockchain Buddies · OODA loop · x402 Solana · pump.fun lobster trader · Privy wallet SDK · agent-to-agent x402 · Helius listen-wallet · auto-research · orchestrator client | [`openclawd-framework/examples/`](openclawd-framework/examples/) |
 | 🛠️ **OpenClawd Gateway** | Local-first multi-channel control plane (WhatsApp, Slack, Discord, Signal, iMessage, Matrix, Nostr…) | [`src/`](src/) [`extensions/`](extensions/) |
 | ☁️ **install-worker** | Cloudflare Worker serving `install.solanaclawd.com`, `gateway.solanaclawd.com`, and apex aliases | [`workers/install-worker/`](workers/install-worker/) |

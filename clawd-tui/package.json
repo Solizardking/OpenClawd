@@ -39,7 +39,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/clawdsolana/OpenClawd.git",
+    "url": "git+https://github.com/clawdsolana/OpenClawd.git",
     "directory": "clawd-tui"
   },
   "homepage": "https://github.com/clawdsolana/OpenClawd/tree/main/clawd-tui#readme",
