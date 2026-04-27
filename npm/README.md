@@ -16,13 +16,24 @@ All three install the same Go runtime under `~/.openclawdsolana/bin/` and expose
 
 ## Companion packages (in [`/packages`](../packages/))
 
-| Folder | Package |
-| --- | --- |
-| [`packages/agentwallet`](../packages/agentwallet) | `@openclawdsolana/agentwallet` |
-| [`packages/clawd-wallet`](../packages/clawd-wallet) | `@openclawdsolana/wallet` |
-| [`packages/percolator`](../packages/percolator) | `@openclawdsolana/percolator` |
-| [`packages/membrain-types`](../packages/membrain-types) | `@openclawdsolana/membrain-types` |
-| [`packages/agents-x402-solana`](../packages/agents-x402-solana) | `@openclawdsolana/agents-x402-solana` |
+| Folder | Package | Bin |
+| --- | --- | --- |
+| [`packages/agentwallet`](../packages/agentwallet) | `@openclawdsolana/agentwallet` | `agentwallet` |
+| [`packages/clawd-wallet`](../packages/clawd-wallet) | `@openclawdsolana/wallet` | `clawd-wallet` |
+| [`packages/percolator`](../packages/percolator) | `@openclawdsolana/percolator` | `percolator` |
+| [`packages/membrain-types`](../packages/membrain-types) | `@openclawdsolana/membrain-types` | — |
+| [`packages/agents-x402-solana`](../packages/agents-x402-solana) | `@openclawdsolana/agents-x402` | — |
+| [`packages/honcho-bridge`](../packages/honcho-bridge) | `@openclawdsolana/honcho-bridge` | — |
+
+## Framework packages (in [`/openclawd-framework`](../openclawd-framework/))
+
+| Folder | Package | Bin |
+| --- | --- | --- |
+| [`openclawd-framework`](../openclawd-framework) | `@openclawdsolana/leviathan` | `leviathan` |
+| [`openclawd-framework/packages/clawd`](../openclawd-framework/packages/clawd) | `@openclawdsolana/clawd-code` | `clawd-code` |
+| [`openclawd-framework/packages/cli-standalone`](../openclawd-framework/packages/cli-standalone) | `@openclawdsolana/clawd-standalone` | `clawd-standalone` |
+
+The Go runtime owns the `openclawd` / `openclawdsolana` / `clawd` commands. The TypeScript framework exposes itself under separate names (`leviathan`, `clawd-code`, `clawd-standalone`) so all three can be installed globally without collision.
 
 ## Install (end users)
 
@@ -109,7 +120,20 @@ The [`../CLI/`](../CLI/) directory contains shell helpers:
 
 ## Publish (maintainers)
 
-Each subdirectory has matching `pack:dry` and `publish:public` scripts:
+From the repo root:
+
+```bash
+# 1. Audit the wiring (scopes, bin collisions, broken deps).
+npm run release:wire
+
+# 2. Build everything that needs a dist/ before packing.
+npm run build:release
+
+# 3. Dry-pack every public workspace and report sizes.
+npm run release:pack
+```
+
+Once green, publish the runtime trio:
 
 ```bash
 cd npm/openclawd-cli       && npm run pack:dry && npm run publish:public

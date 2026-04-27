@@ -8,6 +8,23 @@
     "node": ">=20",
     "npm": ">=10"
   },
+  "workspaces": [
+    "npm/openclawd-cli",
+    "npm/openclawd-computer",
+    "npm/openclawd-installer",
+    "packages/agents-x402-solana",
+    "packages/agentwallet",
+    "packages/clawd-wallet",
+    "packages/honcho-bridge",
+    "packages/membrain-types",
+    "packages/memory-host-sdk",
+    "packages/percolator",
+    "packages/plugin-package-contract",
+    "packages/plugin-sdk",
+    "openclawd-framework",
+    "openclawd-framework/packages/clawd",
+    "openclawd-framework/packages/cli-standalone"
+  ],
   "scripts": {
     "prepare": "node scripts/install-git-hooks.mjs",
     "install:all": "npm run install:agents && npm run install:router && npm run install:registrar && npm run install:cli && npm run install:hub && npm run install:wallet && npm run install:framework && npm run install:membrain-ts",
@@ -22,6 +39,14 @@
     "build:catalog": "cd agents && node build-catalog.cjs",
     "build:membrain": "cd packages/membrain && make build",
     "build:membrain-ts": "cd packages/membrain/clients/typescript && npm run build",
+    "build:framework": "npm --prefix openclawd-framework run build",
+    "build:clawd-code": "npm --prefix openclawd-framework/packages/clawd run build",
+    "build:percolator": "npm --prefix packages/percolator run build",
+    "build:agentwallet": "npm --prefix packages/agentwallet run build",
+    "build:clawd-wallet": "npm --prefix packages/clawd-wallet run build",
+    "build:honcho-bridge": "npm --prefix packages/honcho-bridge run build",
+    "build:membrain-types": "npm --prefix packages/membrain-types run build",
+    "build:release": "npm run build:membrain-types && npm run build:honcho-bridge && npm run build:framework && npm run build:clawd-code && npm run build:agentwallet && npm run build:clawd-wallet && npm run build:percolator",
     "test:membrain": "cd packages/membrain && make test",
     "lint": "npm --prefix clawdrouter run lint --if-present && npm --prefix api-registrar run lint --if-present && npm --prefix clawd-code-cli run lint --if-present",
     "typecheck": "npm --prefix clawdrouter run typecheck --if-present && npm --prefix api-registrar run typecheck --if-present && npm --prefix clawd-code-cli run typecheck --if-present",
@@ -35,7 +60,9 @@
     "doctor": "node scripts/doctor.mjs",
     "guard:staged": "node scripts/guard-secrets.mjs --staged",
     "guard:worktree": "node scripts/guard-secrets.mjs --worktree",
-    "release:check": "node scripts/release-check.mjs"
+    "release:check": "node scripts/release-check.mjs",
+    "release:pack": "node scripts/release-pack.mjs",
+    "release:wire": "node scripts/release-wire.mjs"
   },
   "repository": {
     "type": "git",

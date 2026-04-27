@@ -1,8 +1,15 @@
 # OpenClawd TUI
 
+[![npm version](https://img.shields.io/npm/v/@openclawdsolana/clawd-tui.svg?color=ff6b35&style=for-the-badge)](https://www.npmjs.com/package/@openclawdsolana/clawd-tui)
+[![npm downloads](https://img.shields.io/npm/dm/@openclawdsolana/clawd-tui.svg?style=for-the-badge)](https://www.npmjs.com/package/@openclawdsolana/clawd-tui)
+[![node](https://img.shields.io/node/v/@openclawdsolana/clawd-tui.svg?style=for-the-badge)](https://nodejs.org/)
+[![license](https://img.shields.io/npm/l/@openclawdsolana/clawd-tui.svg?style=for-the-badge)](./LICENSE)
+
 > 🦞 Claws that code, brains that deploy.
 
 A lobster-themed agent terminal built on [`@openrouter/agent`](https://www.npmjs.com/package/@openrouter/agent). Adaptive input block, streaming tool calls, session persistence, slash commands, and approval gates for destructive actions — all with one-line OAuth onboarding to OpenRouter.
+
+📦 **Published:** [`@openclawdsolana/clawd-tui` on npm](https://www.npmjs.com/package/@openclawdsolana/clawd-tui)
 
 ```text
  ██████╗██╗      █████╗ ██╗    ██╗██████╗
@@ -15,12 +22,20 @@ A lobster-themed agent terminal built on [`@openrouter/agent`](https://www.npmjs
 
 ## Install
 
+One-shot run (no install):
+
+```bash
+npx -y @openclawdsolana/clawd-tui
+```
+
 Global install (recommended):
 
 ```bash
 npm install -g @openclawdsolana/clawd-tui
 clawd
 ```
+
+Both `clawd` and `clawd-tui` are exposed as binaries.
 
 On first run, `clawd` opens an OpenRouter OAuth (PKCE) login in your browser and caches the resulting key at `~/.config/openclawd/openrouter-key` (mode `0600`). Re-auth any time with `clawd --login`. If the web-callback flow is blocked, fall back to the local-loopback flow with `clawd --login --local-callback`.
 
