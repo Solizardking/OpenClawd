@@ -1,6 +1,6 @@
 {
   "schema": "openclawd-release-manifest/2",
-  "generatedAt": "2026-04-27T19:11:09.893Z",
+  "generatedAt": "2026-04-27T19:15:56.217Z",
   "version": "0.1.0",
   "scope": "@openclawdsolana",
   "repository": {
@@ -198,7 +198,7 @@
       "version": "0.1.0",
       "private": false,
       "bin": {
-        "clawd-code": "dist/index.js"
+        "clawd-code-cli": "dist/index.js"
       },
       "description": "Clawd Code CLI — a lobster-themed AI terminal operator for coding, system ops & Solana."
     },
@@ -312,7 +312,7 @@
       "version": "0.1.0",
       "private": false,
       "bin": {
-        "clawd-code": "dist/index.js"
+        "clawd-code-cli": "dist/index.js"
       },
       "description": "Clawd Code CLI — a lobster-themed AI terminal operator for coding, system ops & Solana."
     },
