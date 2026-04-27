@@ -18,7 +18,7 @@ export interface PluginPayload<T = any> {
   state?: any;
 }
 
-class solana-clawd {
+class SolanaClawdOSClass {
   getPluginPayload = <T = any>() =>
     new Promise<PluginPayload<T>>((resolve) => {
       if (typeof window === 'undefined') {
@@ -142,5 +142,5 @@ class solana-clawd {
   };
 }
 
-export const SolanaClawdOS = new solana-clawd();
+export const SolanaClawdOS = new SolanaClawdOSClass();
 

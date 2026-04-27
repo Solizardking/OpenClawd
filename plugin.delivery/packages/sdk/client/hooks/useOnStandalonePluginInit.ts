@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { PluginPayload, SolanaClawdOS } from '@/client';
+import { PluginPayload, SolanaClawdOS } from '@/client/SolanaClawdOS';
 
 export const useOnStandalonePluginInit = <T = any>(
   callback: (payload: PluginPayload<T>) => void,
