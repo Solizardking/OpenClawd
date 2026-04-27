@@ -6,7 +6,7 @@
   <a href="https://solanaclawd.com"><img src="https://img.shields.io/badge/$CLAWD-on_Solana-9945FF?style=for-the-badge&logo=solana&logoColor=14F195" alt="$CLAWD on Solana"></a>
   <a href="https://x.com/clawddevs"><img src="https://img.shields.io/badge/@clawddevs-X-000000?style=for-the-badge&logo=x" alt="@clawddevs"></a>
   <a href="https://www.npmjs.com/package/@openclawdsolana/clawd-code-cli"><img src="https://img.shields.io/badge/npm-@openclawdsolana-CB3837?style=for-the-badge&logo=npm" alt="@openclawdsolana on npm"></a>
-  <a href="https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0"><img src="https://img.shields.io/badge/release-v0.1.0-14F195?style=for-the-badge&logo=github" alt="v0.1.0"></a>
+  <a href="https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.1"><img src="https://img.shields.io/badge/release-v0.1.1-14F195?style=for-the-badge&logo=github" alt="v0.1.1"></a>
   <a href="https://t.me/clawdbot_sol_bot"><img src="https://img.shields.io/badge/Telegram-clawdbot-26A5E4?style=for-the-badge&logo=telegram" alt="Telegram"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="MIT"></a>
 </p>
@@ -19,12 +19,14 @@
 
 ---
 
-## 🚀 v0.1.0 — Live on npm
+## 🚀 v0.1.1 — 10 packages live on npm
 
-> **GitHub release:** [github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0)
+> **GitHub release:** [v0.1.1](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.1) · [v0.1.0](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0)
 > **Install script:** `curl -fsSL https://install.solanaclawd.com | bash`
 
-Four packages live on npm under **`@openclawdsolana`**:
+All ten packages are public on npm under **`@openclawdsolana`**:
+
+### v0.1.0 — the four flagships
 
 | Package | One-liner | Install |
 |---|---|---|
@@ -32,6 +34,17 @@ Four packages live on npm under **`@openclawdsolana`**:
 | 🦞 [**leviathan**](./openclawd-framework) | Sovereign agent runtime — keypair → mint → reign → beach. Three Laws hashed into every spawn. | `npm i @openclawdsolana/leviathan` |
 | 💸 [**agents-x402**](./packages/agents-x402-solana) | One-line x402 Solana USDC monetization for MCP servers, HTTP handlers, and agent tool calls | `npm i @openclawdsolana/agents-x402` |
 | 🔐 [**agentwallet**](./packages/agentwallet) | Encrypted Solana + EVM keypair vault with E2B sandbox + Cloudflare Workers deployment | `npm i @openclawdsolana/agentwallet` |
+
+### v0.1.1 — six new packages
+
+| Package | One-liner | Install |
+|---|---|---|
+| 🌊 [**clawdrouter**](./clawdrouter) | LLM router built for autonomous Solana agents — wallet-signed, USDC micropayments, multi-upstream | `npm i -g @openclawdsolana/clawdrouter` |
+| 🔒 [**vault-mcp**](./mcp/vault-mcp) | ClawdVault MCP server — security pattern scanning, secret detection, vault ops over MCP | `npm i @openclawdsolana/vault-mcp` |
+| 💼 [**wurk-mcp**](./mcp/wurk-mcp) | WURK API MCP server — agent job creation with x402 payment flow on Solana + Base | `npm i @openclawdsolana/wurk-mcp` |
+| 🧠 [**membrain-types**](./packages/membrain-types) | TypeScript types + gRPC-web client for the Membrain selective-memory layer | `npm i @openclawdsolana/membrain-types` |
+| 🔌 [**plugin-sdk**](./plugin.delivery/packages/sdk) | Build OpenClawd plugins — OpenAPI parsing, Zod schemas, plugin manifest validation | `npm i @openclawdsolana/plugin-sdk` |
+| 🚪 [**chat-plugins-gateway**](./plugin.delivery/packages/gateway) | Edge-runtime plugin gateway — validates agent requests, applies deny-first permissions | `npm i @openclawdsolana/chat-plugins-gateway` |
 
 **Cloudflare worker live** — installer + gateway routes deployed to [`solanaclawd-install`](./workers/install-worker):
 
@@ -41,7 +54,10 @@ Four packages live on npm under **`@openclawdsolana`**:
 | `gateway.solanaclawd.com` | Browser-based install gateway |
 | `solanaclawd.com/install.sh` · `/install` · `/gateway` | Apex-domain aliases |
 
-**Coming in v0.1.1** — `@openclawdsolana/wallet` (Privy-embedded; SDK upgrade pending), `@openclawdsolana/percolator` (perpetuals CLI; 3 TS errors pending), plus `clawdrouter`, `vault-mcp`, `wurk-mcp`, `plugin-sdk`, `chat-plugins-gateway`, `membrain-types`.
+**Still cooking for v0.1.2:**
+
+- `@openclawdsolana/wallet` — Privy-embedded Solana wallet. Blocked by duplicate type/value declarations of `ClawdWallet`, missing `@ai-sdk/xai`/`ai` deps, and Privy SDK API drift (`useWallets`/`useConnectWallet`/`useDisconnect` no longer exported). Needs an SDK upgrade pass.
+- `@openclawdsolana/percolator` — perpetuals CLI. 3 TS source bugs already fixed (commitment type, registerInitLp casing, missing slab field) but `encodeInitMarket` and other ABI encoders are imported but never exported from `instructions.ts`. Source incomplete.
 
 ---
 
@@ -98,7 +114,13 @@ Four packages live on npm under **`@openclawdsolana`**:
 | 🛠️ **OpenClawd Gateway** | Local-first multi-channel control plane (WhatsApp, Slack, Discord, Signal, iMessage, Matrix, Nostr…) | [`src/`](src/) [`extensions/`](extensions/) |
 | ☁️ **install-worker** | Cloudflare Worker serving `install.solanaclawd.com`, `gateway.solanaclawd.com`, and apex aliases | [`workers/install-worker/`](workers/install-worker/) |
 | 🧠 **Skills (66)** | birdeye · solana-dev · pump-fun-manager · bankr · ore-miner · clawdbot-twitter · gemini · canvas · github · skill-creator · clawhub … | [`skills/`](skills/) |
-| 🦞 **MCP servers** | `vault-mcp`, `wurk-mcp`, `openclawd-mcp` | [`mcp/`](mcp/) |
+| 🌊 **@openclawdsolana/clawdrouter** *(npm)* | LLM router for autonomous Solana agents — wallet-signed, USDC micropayments | [`clawdrouter/`](clawdrouter/) |
+| 🔒 **@openclawdsolana/vault-mcp** *(npm)* | Security-pattern scanning + vault ops over MCP | [`mcp/vault-mcp/`](mcp/vault-mcp/) |
+| 💼 **@openclawdsolana/wurk-mcp** *(npm)* | WURK API MCP server — agent jobs with x402 payments | [`mcp/wurk-mcp/`](mcp/wurk-mcp/) |
+| 🧠 **@openclawdsolana/membrain-types** *(npm)* | TypeScript types + gRPC-web client for Membrain memory layer | [`packages/membrain-types/`](packages/membrain-types/) |
+| 🔌 **@openclawdsolana/plugin-sdk** *(npm)* | Build OpenClawd plugins (OpenAPI + Zod) | [`plugin.delivery/packages/sdk/`](plugin.delivery/packages/sdk/) |
+| 🚪 **@openclawdsolana/chat-plugins-gateway** *(npm)* | Edge-runtime plugin gateway with deny-first permissions | [`plugin.delivery/packages/gateway/`](plugin.delivery/packages/gateway/) |
+| 🦞 **Other MCP servers** | `openclawd-mcp` and friends in the same dir | [`mcp/`](mcp/) |
 | 📰 **Article** | Long-form piece tying everything together — three laws, lifecycle, Metaplex, Tide, examples | [`ARTICLE.md`](ARTICLE.md) |
 
 ---
@@ -658,7 +680,7 @@ $CLAWD is the leviathan's **prestige currency** — every spawnling is funded wi
 
 Five gates run on every commit/push (see [`scripts/`](scripts/)):
 
-| Gate | Catches | Status (v0.1.0) |
+| Gate | Catches | Status (v0.1.1) |
 |---|---|---|
 | `npm run doctor` | Bootstrap requirements (Node 20+, package.json, README, LICENSE, dirs) | ✅ 8/8 |
 | `npm run release:check` | Public-release readiness (description, repo URL, .env protection, catalog) | ✅ 9/9 |
@@ -850,7 +872,7 @@ MONITOR_INTERVAL_SECONDS=45
 | 🪙 **CA** | `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump` |
 | 📞 **Hotline** | **909-413-5567** |
 | ☁️ **Install** | `curl -fsSL https://install.solanaclawd.com \| bash` |
-| 🚀 **Release** | [v0.1.0](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0) |
+| 🚀 **Release** | [v0.1.1](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.1) |
 
 </div>
 
