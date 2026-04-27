@@ -1,4 +1,4 @@
-import { OpenAPIConvertor } from '@openclawd/chat-plugin-sdk/openapi';
+import { OpenAPIConvertor } from '@/openapi';
 import { describe, expect, it } from 'vitest';
 
 import ChatWithPDF from './fixtures/ChatWithPDF.json';

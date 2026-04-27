@@ -3,7 +3,7 @@ import {
   createHeadersWithPluginSettings,
   getPluginSettingsFromHeaders,
   getPluginSettingsFromRequest,
-} from '@openclawd/chat-plugin-sdk';
+} from '@/index';
 import { describe, expect, it } from 'vitest';
 
 describe('getPluginSettingsFromRequest', () => {

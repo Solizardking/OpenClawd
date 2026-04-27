@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { SolanaClawdOS } from '@/client';
+import { SolanaClawdOS } from '@/client/SolanaClawdOS';
 
 export const usePluginSettings = <T>(initialValue: T) => {
   const [value, setValue] = useState(initialValue);
