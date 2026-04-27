@@ -6,9 +6,9 @@
 <img height="120" src="https://gw.alipayobjects.com/zos/kitchen/qJ3l3EPsdW/split.svg">
 <img height="120" src="https://registry.npmmirror.com/@openclawd/assets-emoji-anim/1.0.0/files/assets/rocket.webp">
 
-<h1>Plugin Template<br/><sup>openclawd Plugin</sup></h1>
+<h1>Plugin Template<br/><sup>OpenClawd Plugin</sup></h1>
 
-This is the plugin template for openclawd plugin development
+This is the plugin template for OpenClawd plugin development
 
 [![][🤯-🧩-openclawd-shield]][🤯-🧩-openclawd-link]
 [![][github-release-shield]][github-release-link]
@@ -61,11 +61,11 @@ This is the plugin template for openclawd plugin development
 > See detail on [📘 Template usage](https://chat-plugin-sdk.openclawd.com/guides/template)
 
 > [!Note]\
-> Plugins provide a means to extend the [Function Calling][fc-link] capabilities of openclawd. They can be used to introduce new function calls, and even new ways to render message results. If you are interested in plugin development, please refer to our [📘 Plugin Development Guide](https://github.com/clawdsolana/OpenClawd/wiki/Plugin-Development) in the Wiki.
+> Plugins provide a means to extend the [Function Calling][fc-link] capabilities of OpenClawd. They can be used to introduce new function calls, and even new ways to render message results. If you are interested in plugin development, please refer to our [📘 Plugin Development Guide](https://github.com/clawdsolana/OpenClawd/wiki/Plugin-Development) in the Wiki.
 >
-> - [@openclawd/openclawd-plugins][openclawd-plugins]: This is the plugin index for openclawd. It accesses index.json from this repository to display a list of available plugins for openclawd to the user.
-> - [@openclawd/plugin-sdk][chat-plugin-sdk]: The openclawd Plugin SDK assists you in creating exceptional chat plugins for openclawd.
-> - [@openclawd/chat-plugins-gateway][chat-plugins-gateway]: The openclawd Plugins Gateway is a backend service that serves as a gateway for openclawd plugins. We deploy this service using Vercel. The primary API POST /api/v1/runner is deployed as an Edge Function.
+> - [@openclawd/openclawd-plugins][openclawd-plugins]: This is the plugin index for OpenClawd. It accesses index.json from this repository to display a list of available plugins for OpenClawd to the user.
+> - [@openclawdsolana/plugin-sdk][chat-plugin-sdk]: The OpenClawd Plugin SDK assists you in creating exceptional chat plugins for OpenClawd.
+> - [@openclawdsolana/chat-plugins-gateway][chat-plugins-gateway]: The OpenClawd Plugins Gateway is a backend service that serves as a gateway for OpenClawd plugins. We deploy this service using Vercel. The primary API POST /api/v1/runner is deployed as an Edge Function.
 
 | Official Plugin                                 | Description                                                                                                                                       |
 | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -119,7 +119,7 @@ Contributions of all types are more than welcome, if you are interested in contr
 ## 🔗 Links
 
 - **[🤖 openclawd](https://github.com/clawdsolana/OpenClawd)** - An open-source, extensible (Function Calling), high-performance chatbot framework. It supports one-click free deployment of your private ChatGPT/LLM web application.
-- **[🧩 / 🏪 Plugin Index](https://github.com/clawdsolana/OpenClawd)** - This is the plugin index for openclawd. It accesses index.json from this repository to display a list of available plugins for Function Calling to the user.
+- **[🧩 / 🏪 Plugin Index](https://github.com/clawdsolana/OpenClawd)** - This is the plugin index for OpenClawd. It accesses index.json from this repository to display a list of available plugins for Function Calling to the user.
 
 <div align="right">
 
@@ -131,7 +131,7 @@ Contributions of all types are more than welcome, if you are interested in contr
 
 #### 📝 License
 
-Copyright © 2023 [openclawd][profile-url]. <br />
+Copyright © 2023 [OpenClawd][profile-url]. <br />
 This project is [MIT](./LICENSE) licensed.
 
 <!-- LINK GROUP -->

@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "token-sniffer",
   "manifest": "https://plugin.delivery/token-sniffer/manifest.json",
   "meta": {
     "avatar": "🐕",
-    "description": "[openclawd] Token security scoring and scam detection — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Token security scoring and scam detection — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "security",
       "score",

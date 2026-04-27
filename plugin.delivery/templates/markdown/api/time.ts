@@ -1,4 +1,4 @@
-import { PluginErrorType, createErrorResponse } from '@openclawd/plugin-sdk';
+import { PluginErrorType, createErrorResponse } from '@openclawdsolana/plugin-sdk';
 
 export const config = {
   runtime: 'edge',

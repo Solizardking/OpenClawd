@@ -9,7 +9,7 @@
 
 ## Reporting a Vulnerability
 
-We take security seriously. If you discover a security vulnerability in Plugin Delivery or any openclawd component:
+We take security seriously. If you discover a security vulnerability in Plugin Delivery or any OpenClawd component:
 
 ### Do NOT
 
@@ -37,10 +37,10 @@ We take security seriously. If you discover a security vulnerability in Plugin D
 
 This policy covers:
 
-- `@openclawd/plugin-sdk`
-- `@openclawd/chat-plugins-gateway`
+- `@openclawdsolana/plugin-sdk`
+- `@openclawdsolana/chat-plugins-gateway`
 - plugin.delivery website
-- Official openclawd plugins
+- Official OpenClawd plugins
 
 ### Out of Scope
 
@@ -78,7 +78,7 @@ This policy covers:
 
 ---
 
-Thank you for helping keep openclawd secure! 🛡️
+Thank you for helping keep OpenClawd secure! 🛡️
 
 ## Reporting a Vulnerability
 

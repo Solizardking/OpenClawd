@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const INSTALL_URL = 'https://raw.githubusercontent.com/x402agent/SolanaOS/main/install.sh';
+const INSTALL_URL = 'https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/install.sh';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const GREEN = '\x1b[38;2;20;241;149m';
 const DIM = '\x1b[38;2;85;102;128m';
@@ -40,15 +40,15 @@ function withToolchainPath(env = process.env) {
 
 function getLocalInstallerPath() {
   const cwdInstall = resolve(process.cwd(), 'install.sh');
-  return existsSync(cwdInstall) ? cwdInstall : resolve(__dirname, '..', '..', 'install.sh');
+  return existsSync(cwdInstall) ? cwdInstall : resolve(__dirname, '..', '..', '..', 'install.sh');
 }
 
-export async function installNanoSolana(args = []) {
+export async function installOpenClawd(args = []) {
   const localInstall = getLocalInstallerPath();
   const childEnv = withToolchainPath();
   const goBin = resolveBinary(['/opt/homebrew/bin/go', '/usr/local/go/bin/go'], 'go');
 
-  console.log(`\n${GREEN}  🖥️ SolanaOS Installer${RESET}`);
+  console.log(`\n${GREEN}  🦞 OpenClawd Installer${RESET}`);
   console.log(`${DIM}  The Solana Computer · Pure Go · One Binary${RESET}\n`);
 
   try {
@@ -74,7 +74,7 @@ export async function installNanoSolana(args = []) {
 
     try {
       if (!useLocalInstall) {
-        scriptPath = join(mkdtempSync(join(tmpdir(), 'nanosolana-')), 'install.sh');
+        scriptPath = join(mkdtempSync(join(tmpdir(), 'openclawd-')), 'install.sh');
         execSync(`curl -fsSL "${INSTALL_URL}" -o "${scriptPath}"`, { stdio: 'inherit' });
         execSync(`chmod +x "${scriptPath}"`, { stdio: 'ignore' });
       }
@@ -112,7 +112,7 @@ export async function installNanoSolana(args = []) {
 const isDirectRun = process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1]);
 
 if (isDirectRun) {
-  installNanoSolana(process.argv.slice(2)).catch((err) => {
+  installOpenClawd(process.argv.slice(2)).catch((err) => {
     console.error(`  ✖ ${err.message}`);
     process.exit(1);
   });

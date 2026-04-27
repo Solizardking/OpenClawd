@@ -1,6 +1,6 @@
 'use client';
 
-import { fetchPluginMessage } from '@openclawd/plugin-sdk';
+import { fetchPluginMessage } from '@openclawdsolana/plugin-sdk';
 import { Card, List, Tag, Typography } from 'antd';
 import { memo, useEffect, useState } from 'react';
 

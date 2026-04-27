@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "grants-finder",
   "manifest": "https://plugin.delivery/grants-finder/manifest.json",
   "meta": {
     "avatar": "💰",
-    "description": "[openclawd] Web3 grants and funding opportunities — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Web3 grants and funding opportunities — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "grants",
       "funding",

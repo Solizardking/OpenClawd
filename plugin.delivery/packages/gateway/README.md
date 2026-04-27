@@ -3,7 +3,7 @@
 <div align="center">
 
 
-<h1>@openclawd/chat-plugins-gateway</h1>
+<h1>@openclawdsolana/chat-plugins-gateway</h1>
 
 Edge-runtime plugin gateway for the **openclawd** ecosystem.
 
@@ -68,7 +68,7 @@ To add a plugin to the index, submit a PR to the [openclawd repo](https://github
 
 > **Note**\
 > **POST** `/api/v1/runner`\
-> Interface to communicate with the openclawd plugin. This interface describes how to use the openclawd plugin gateway API to send requests and get responses
+> Interface to communicate with the OpenClawd plugin. This interface describes how to use the OpenClawd plugin gateway API to send requests and get responses
 
 #### Body Request Parameters
 
@@ -180,12 +180,12 @@ If you want to make some customization, you can add environment variable:
 
 ## 📦 Plugin Ecosystem
 
-Plugins provide a means to extend the Function Calling capabilities of openclawd. They can be used to introduce new function calls and even new ways to render message results. If you are interested in plugin development, please refer to our [📘 Plugin Development Guide](https://github.com/clawdsolana/OpenClawd/wiki/Plugin-Development) in the Wiki.
+Plugins provide a means to extend the Function Calling capabilities of OpenClawd. They can be used to introduce new function calls and even new ways to render message results. If you are interested in plugin development, please refer to our [📘 Plugin Development Guide](https://github.com/clawdsolana/OpenClawd/wiki/Plugin-Development) in the Wiki.
 
-- [openclawd-plugins][openclawd-plugins]: This is the plugin index for openclawd. It accesses index.json from this repository to display a list of available plugins for openclawd to the user.
-- [chat-plugin-template][chat-plugin-template]: This is the plugin template for openclawd plugin development.
-- [@openclawd/plugin-sdk][chat-plugin-sdk]: The openclawd Plugin SDK assists you in creating exceptional chat plugins for openclawd.
-- [@openclawd/chat-plugins-gateway][chat-plugins-gateway]: The openclawd Plugins Gateway is a backend service that provides a gateway for openclawd plugins. We deploy this service using Vercel. The primary API POST /api/v1/runner is deployed as an Edge Function.
+- [openclawd-plugins][openclawd-plugins]: This is the plugin index for OpenClawd. It accesses index.json from this repository to display a list of available plugins for OpenClawd to the user.
+- [chat-plugin-template][chat-plugin-template]: This is the plugin template for OpenClawd plugin development.
+- [@openclawdsolana/plugin-sdk][chat-plugin-sdk]: The OpenClawd Plugin SDK assists you in creating exceptional chat plugins for OpenClawd.
+- [@openclawdsolana/chat-plugins-gateway][chat-plugins-gateway]: The OpenClawd Plugins Gateway is a backend service that provides a gateway for OpenClawd plugins. We deploy this service using Vercel. The primary API POST /api/v1/runner is deployed as an Edge Function.
 
 <div align="right">
 

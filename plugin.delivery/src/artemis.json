@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "artemis",
   "manifest": "https://plugin.delivery/artemis/manifest.json",
   "meta": {
     "avatar": "🏹",
-    "description": "[openclawd] Developer activity and ecosystem metrics — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Developer activity and ecosystem metrics — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "artemis",
       "developers",

@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "messari",
   "manifest": "https://plugin.delivery/messari/manifest.json",
   "meta": {
     "avatar": "📑",
-    "description": "[openclawd] Crypto research, asset profiles, and metrics — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Crypto research, asset profiles, and metrics — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "research",
       "fundamentals",

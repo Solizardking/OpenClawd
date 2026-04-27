@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "fear-greed-index",
   "manifest": "https://plugin.delivery/fear-greed-index/manifest.json",
   "meta": {
     "avatar": "😱",
-    "description": "[openclawd] Crypto market sentiment indicator from 0 (Extreme Fear) to 100 (Extreme Greed) — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Crypto market sentiment indicator from 0 (Extreme Fear) to 100 (Extreme Greed) — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "sentiment",
       "market",

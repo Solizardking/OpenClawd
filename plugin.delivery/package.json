@@ -1,14 +1,14 @@
 {
   "name": "plugin.delivery",
   "version": "1.0.0",
-  "description": "AI Plugin Index - Function call plugins and tools for openclawd",
+  "description": "AI Plugin Index - Function call plugins and tools for OpenClawd",
   "homepage": "https://plugin.delivery",
   "repository": {
     "type": "git",
     "url": "https://github.com/clawdsolana/OpenClawd"
   },
   "license": "MIT",
-  "author": "openclawd <contact@openclawd.net>",
+  "author": "OpenClawd <contact@openclawd.net>",
   "type": "module",
   "main": "public/index.json",
   "files": [
@@ -28,8 +28,8 @@
     "deploy": "vercel --prod"
   },
   "dependencies": {
-    "@openclawd/chat-plugins-gateway": "workspace:*",
-    "@openclawd/plugin-sdk": "workspace:*"
+    "@openclawdsolana/chat-plugins-gateway": "workspace:*",
+    "@openclawdsolana/plugin-sdk": "workspace:*"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",

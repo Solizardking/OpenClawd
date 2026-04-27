@@ -1,48 +1,70 @@
 # npm Packages
 
-npm package installers for the OpenClawd ecosystem — solanaclawd.com
+npm package installers for the OpenClawd ecosystem — [solanaclawd.com](https://solanaclawd.com).
 
-## Packages
+All packages are published under the **`@openclawdsolana`** scope.
 
-### clawdbot-installer
+## Packages in this directory
 
-Installation scripts for the ClawdBot CLI tool.
+| Folder | Package | Purpose |
+| --- | --- | --- |
+| [`openclawd-cli/`](openclawd-cli/) | `@openclawdsolana/cli` | Lightweight bootstrapper. `npx @openclawdsolana/cli install`. |
+| [`openclawd-computer/`](openclawd-computer/) | `@openclawdsolana/computer` | Canonical runtime entrypoint with the boot animation. |
+| [`openclawd-installer/`](openclawd-installer/) | `@openclawdsolana/installer` | Installer-focused entrypoint, same animation, multiple aliases. |
 
-### openclawd-installer
+All three install the same Go runtime under `~/.openclawdsolana/bin/` and expose the `openclawd`, `openclawdsolana`, and `clawd` commands.
 
-Installation scripts for the OpenClawd CLI tool.
+## Companion packages (in [`/packages`](../packages/))
 
-## Usage
+| Folder | Package |
+| --- | --- |
+| [`packages/agentwallet`](../packages/agentwallet) | `@openclawdsolana/agentwallet` |
+| [`packages/clawd-wallet`](../packages/clawd-wallet) | `@openclawdsolana/wallet` |
+| [`packages/percolator`](../packages/percolator) | `@openclawdsolana/percolator` |
+| [`packages/membrain-types`](../packages/membrain-types) | `@openclawdsolana/membrain-types` |
+| [`packages/agents-x402-solana`](../packages/agents-x402-solana) | `@openclawdsolana/agents-x402-solana` |
+
+## Install (end users)
 
 ```bash
-# Install ClawdBot (agents + skills CLI)
-npm i -g @clawd/cli
+# Bootstrap the OpenClawd runtime
+npx @openclawdsolana/installer install
+npx @openclawdsolana/installer install --with-web
 
-# Install OpenClawd
-npm i -g openclawd-cli
+# Or the lighter CLI bootstrapper
+npx @openclawdsolana/cli install
 
-# Or use npx directly
-npx clawdhub install <skill>
+# Global install
+npm install -g @openclawdsolana/computer
+openclawd version
 ```
 
-## ClawdHub CLI
+After install, all three command names are available:
+
+```bash
+openclawd daemon
+openclawdsolana daemon
+clawd daemon
+```
+
+## ClawdHub CLI (skills marketplace)
 
 ```bash
 # Install skills
-npx clawdhub install pumpfun-trading
-npx clawdhub install openclawd
+npx @openclawdsolana/clawdhub install pumpfun-trading
+npx @openclawdsolana/clawdhub install openclawd
 
 # List installed skills
-npx clawdhub list
+npx @openclawdsolana/clawdhub list
 
 # Search skills
-npx clawdhub search solana
+npx @openclawdsolana/clawdhub search solana
 
 # Publish a skill
-npx clawdhub publish ./my-skill --slug my-skill
+npx @openclawdsolana/clawdhub publish ./my-skill --slug my-skill
 
 # Update a skill
-npx clawdhub update <skill-slug>
+npx @openclawdsolana/clawdhub update <skill-slug>
 ```
 
 ## Curl Commands
@@ -72,7 +94,7 @@ curl -s "https://solanaclawd.com/api/skills/pumpfun-trading/download" -o SKILL.m
 
 ## CLI Scripts
 
-The [`../CLI/`](CLI/) directory contains shell scripts:
+The [`../CLI/`](../CLI/) directory contains shell helpers:
 
 ```bash
 # Main CLI
@@ -84,6 +106,18 @@ The [`../CLI/`](CLI/) directory contains shell scripts:
 ./CLI/clawd-connect.sh skills:search solana
 ./CLI/clawd-connect.sh payment:supported
 ```
+
+## Publish (maintainers)
+
+Each subdirectory has matching `pack:dry` and `publish:public` scripts:
+
+```bash
+cd npm/openclawd-cli       && npm run pack:dry && npm run publish:public
+cd npm/openclawd-computer  && npm run pack:dry && npm run publish:public
+cd npm/openclawd-installer && npm run pack:dry && npm run publish:public
+```
+
+The shared underlying installer lives at [`../install.sh`](../install.sh) and is what each package's `install.mjs` shells out to (locally when available, otherwise via `curl https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/install.sh`).
 
 ## License
 

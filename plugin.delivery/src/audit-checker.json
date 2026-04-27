@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "audit-checker",
   "manifest": "https://plugin.delivery/audit-checker/manifest.json",
   "meta": {
     "avatar": "📋",
-    "description": "[openclawd] Aggregates audit reports from multiple databases — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Aggregates audit reports from multiple databases — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "audit",
       "security",

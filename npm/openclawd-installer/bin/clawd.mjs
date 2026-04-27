@@ -6,9 +6,15 @@ import { homedir, platform } from 'node:os';
 import { join } from 'node:path';
 import { spawn } from 'node:child_process';
 
-import { installNanoSolana } from './install.mjs';
+import { installOpenClawd } from './install.mjs';
 
-const STABLE_BINARY = join(homedir(), '.nanosolana', 'bin', platform() === 'win32' ? 'nanosolana.exe' : 'nanosolana');
+const homeBinDir = join(homedir(), '.openclawdsolana', 'bin');
+const isWin = platform() === 'win32';
+const STABLE_BINARIES = [
+  join(homeBinDir, isWin ? 'openclawd.exe' : 'openclawd'),
+  join(homeBinDir, isWin ? 'openclawdsolana.exe' : 'openclawdsolana'),
+  join(homeBinDir, isWin ? 'clawd.exe' : 'clawd'),
+];
 
 function splitArgs(argv) {
   if (argv.length === 0) {
@@ -33,23 +39,27 @@ async function fileExists(pathname) {
 }
 
 async function ensureBinary() {
-  if (platform() === 'win32') {
-    console.error('SolanaOS does not currently ship a Windows CLI bootstrap. Use WSL, macOS, or Linux.');
+  if (isWin) {
+    console.error('OpenClawd does not currently ship a Windows CLI bootstrap. Use WSL, macOS, or Linux.');
     process.exit(1);
   }
 
-  if (await fileExists(STABLE_BINARY)) {
-    return STABLE_BINARY;
+  for (const candidate of STABLE_BINARIES) {
+    if (await fileExists(candidate)) {
+      return candidate;
+    }
   }
 
-  console.log('SolanaOS is not installed yet. Bootstrapping now...\n');
-  await installNanoSolana([]);
+  console.log('OpenClawd is not installed yet. Bootstrapping now...\n');
+  await installOpenClawd([]);
 
-  if (await fileExists(STABLE_BINARY)) {
-    return STABLE_BINARY;
+  for (const candidate of STABLE_BINARIES) {
+    if (await fileExists(candidate)) {
+      return candidate;
+    }
   }
 
-  console.error(`Expected SolanaOS binary at ${STABLE_BINARY}, but installation did not produce it.`);
+  console.error(`Expected OpenClawd binary at ${STABLE_BINARIES[0]}, but installation did not produce it.`);
   process.exit(1);
 }
 
@@ -68,7 +78,7 @@ function execBinary(binaryPath, args) {
   });
 
   child.on('error', (err) => {
-    console.error(`Failed to start SolanaOS: ${err.message}`);
+    console.error(`Failed to start OpenClawd: ${err.message}`);
     process.exit(1);
   });
 }
@@ -77,7 +87,7 @@ async function main() {
   const { mode, forwarded } = splitArgs(process.argv.slice(2));
 
   if (mode === 'install') {
-    await installNanoSolana(forwarded);
+    await installOpenClawd(forwarded);
     return;
   }
 

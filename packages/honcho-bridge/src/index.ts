@@ -1,5 +1,5 @@
 /**
- * @openclaw/honcho-bridge
+ * @openclawdsolana/honcho-bridge
  *
  * Honcho is the conversational/peer reasoning layer for OpenClawd.
  * Membrain is the typed-record / trading-knowledge layer.

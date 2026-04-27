@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "arbitrum-stats",
   "manifest": "https://plugin.delivery/arbitrum-stats/manifest.json",
   "meta": {
     "avatar": "🔷",
-    "description": "[openclawd] Arbitrum network metrics and activity — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Arbitrum network metrics and activity — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "arbitrum",
       "l-2",

@@ -1,7 +1,7 @@
 {
   "name": "@openclawdsolana/plugin-sdk",
-  "version": "1.0.0",
-  "description": "openclawd Plugin SDK - Build plugins for openclawd",
+  "version": "1.1.0",
+  "description": "OpenClawd Plugin SDK — build plugins with on-chain attestation, OpenAPI parsing, and Zod schemas. Includes Solana Attestation Service helpers.",
   "keywords": [
     "openclawd",
     "openclawd",
@@ -15,7 +15,7 @@
     "url": "https://github.com/clawdsolana/OpenClawd"
   },
   "license": "MIT",
-  "author": "openclawd <contact@openclawd.net>",
+  "author": "OpenClawd <contact@openclawd.net>",
   "sideEffects": false,
   "main": "./index.ts",
   "types": "./index.ts",
@@ -70,4 +70,3 @@
     "vitest": "^3.2.4"
   }
 }
-

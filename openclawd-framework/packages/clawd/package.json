@@ -1,19 +1,19 @@
 {
-  "name": "openclawd-cli",
+  "name": "@openclawdsolana/clawd-code",
   "version": "1.3.0",
-  "description": "🦞 Clawd Code CLI — the operator interface for the OpenClawd Leviathan framework. Lobster-themed terminal agent: streaming chat, realtime voice (Grok), Solana, MCP, Bags/pump.fun launches, DFlow/Kalshi/Polymarket, on-chain Leviathan integration. CLAWD: 8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump",
+  "description": "🦞 Clawd Code CLI — operator interface for the OpenClawd Leviathan framework. Lobster-themed terminal agent: streaming chat, realtime voice (Grok), Solana, MCP, Bags/pump.fun launches, DFlow/Kalshi/Polymarket, on-chain Leviathan integration. CLAWD: 8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump",
   "type": "module",
   "main": "dist/index.js",
   "exports": {
     ".": {
       "import": "./dist/index.js"
-    },
-    "./standalone": {
-      "import": "../cli-standalone/index.js"
     }
   },
   "bin": {
-    "clawd": "dist/index.js"
+    "clawd-code": "dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsc",
@@ -57,7 +57,7 @@
   "homepage": "https://solanaclawd.com",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.0",
-    "@openclawd/leviathan": "file:../..",
+    "@openclawdsolana/leviathan": "file:../..",
     "@solana/web3.js": "^1.98.0",
     "axios": "^1.7.0",
     "better-sqlite3": "^11.5.0",

@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "address-labels",
   "manifest": "https://plugin.delivery/address-labels/manifest.json",
   "meta": {
     "avatar": "🏷️",
-    "description": "[openclawd] Identify wallet owners using Arkham and other sources — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Identify wallet owners using Arkham and other sources — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "labels",
       "identity",

@@ -1,4 +1,4 @@
-import { createSolanaClawdPluginGateway } from '@openclawd/chat-plugins-gateway';
+import { createSolanaClawdPluginGateway } from '@openclawdsolana/chat-plugins-gateway';
 
 export const config = {
   runtime: 'edge',

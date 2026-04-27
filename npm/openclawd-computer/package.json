@@ -1,14 +1,14 @@
 {
-  "name": "@clawd/installer",
-  "version": "3.0.0",
-  "description": "openclawd Installer - One command to install the Solana AI agent runtime with ClawdRouter zero-config deployment",
+  "name": "@openclawdsolana/computer",
+  "version": "0.1.0",
+  "description": "OpenClawd Computer — the Solana-native AI agent runtime. Pure-Go binary, ClawdRouter API, OODA loop, and zero-config bootstrap.",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "clawd-cli": "bin/clawd.mjs",
     "clawd": "bin/clawd.mjs",
-    "openclawd-cli": "bin/clawd.mjs",
+    "clawd-computer": "bin/clawd.mjs",
     "openclawd": "bin/clawd.mjs",
+    "openclawd-cli": "bin/clawd.mjs",
     "openclawdsolana": "bin/clawd.mjs"
   },
   "files": [
@@ -28,24 +28,22 @@
   },
   "keywords": [
     "solana",
-    "clawd",
-    "openclawd",
     "openclawd",
     "openclawdsolana",
-    "trading",
+    "clawd",
+    "computer",
     "agent",
-    "mawdbot",
+    "trading",
     "ooda",
     "privy",
     "helius",
     "jupiter",
-    "openclawd",
     "clawdrouter"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/clawdsolana/OpenClawd.git",
-    "directory": "npm/openclawd-installer"
+    "directory": "npm/openclawd-computer"
   },
   "homepage": "https://solanaclawd.com",
   "bugs": {

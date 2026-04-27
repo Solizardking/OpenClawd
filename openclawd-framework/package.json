@@ -52,8 +52,7 @@
     }
   },
   "bin": {
-    "leviathan": "dist/index.js",
-    "openclawd": "dist/index.js"
+    "leviathan": "dist/index.js"
   },
   "repository": {
     "type": "git",

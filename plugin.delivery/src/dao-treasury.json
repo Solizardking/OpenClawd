@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "dao-treasury",
   "manifest": "https://plugin.delivery/dao-treasury/manifest.json",
   "meta": {
     "avatar": "🏦",
-    "description": "[openclawd] Track DAO treasury balances from DeepDAO — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Track DAO treasury balances from DeepDAO — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "dao",
       "treasury",

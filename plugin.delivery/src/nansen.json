@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "nansen",
   "manifest": "https://plugin.delivery/nansen/manifest.json",
   "meta": {
     "avatar": "🔬",
-    "description": "[openclawd] Smart money analytics and wallet labels — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Smart money analytics and wallet labels — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "nansen",
       "smart-money",

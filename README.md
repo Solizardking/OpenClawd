@@ -43,7 +43,7 @@ All ten packages are public on npm under **`@openclawdsolana`**:
 | 🔒 [**vault-mcp**](./mcp/vault-mcp) | ClawdVault MCP server — security pattern scanning, secret detection, vault ops over MCP | `npm i @openclawdsolana/vault-mcp` |
 | 💼 [**wurk-mcp**](./mcp/wurk-mcp) | WURK API MCP server — agent job creation with x402 payment flow on Solana + Base | `npm i @openclawdsolana/wurk-mcp` |
 | 🧠 [**membrain-types**](./packages/membrain-types) | TypeScript types + gRPC-web client for the Membrain selective-memory layer | `npm i @openclawdsolana/membrain-types` |
-| 🔌 [**plugin-sdk**](./plugin.delivery/packages/sdk) | Build OpenClawd plugins — OpenAPI parsing, Zod schemas, plugin manifest validation | `npm i @openclawdsolana/plugin-sdk` |
+| 🔌 [**plugin-sdk**](./plugin.delivery/packages/sdk) | Build OpenClawd plugins — OpenAPI parsing, Zod schemas, manifest validation, **on-chain attestation** (`v1.1.0`) | `npm i @openclawdsolana/plugin-sdk` |
 | 🚪 [**chat-plugins-gateway**](./plugin.delivery/packages/gateway) | Edge-runtime plugin gateway — validates agent requests, applies deny-first permissions | `npm i @openclawdsolana/chat-plugins-gateway` |
 
 **Cloudflare worker live** — installer + gateway routes deployed to [`solanaclawd-install`](./workers/install-worker):
@@ -423,6 +423,52 @@ npx tsx openclawd-framework/examples/blockchain-buddies-demo.ts
 npx tsx openclawd-framework/examples/ooda-loop.ts
 npx tsx openclawd-framework/examples/x402-solana.ts
 ```
+
+---
+
+## 🔌 Plugin Delivery — On-Chain Attested Plugins
+
+[`plugin.delivery`](./plugin.delivery/) is the OpenClawd plugin marketplace and SDK. Plugins live in [`plugin.delivery/src/`](./plugin.delivery/src/) and serve API handlers from [`plugin.delivery/api/`](./plugin.delivery/api/) (edge runtime). Two npm packages back it:
+
+- `@openclawdsolana/plugin-sdk@1.1.0` — Zod-typed manifest + **attestation** schemas
+- `@openclawdsolana/chat-plugins-gateway@1.9.0` — edge plugin-call gateway with deny-first permissions
+
+### What landed in this branch
+
+- **Bulk OpenClawd rebrand** across `plugin.delivery/` — 158 lowercase `openclawd` / `nichxbt` / `x402agent` author refs flipped to canonical `OpenClawd` / `clawddevs`.
+- **Workspace deps unblocked** — `@openclawdsolana/plugin-sdk: workspace:*` replaced with the published `^1.0.0` (now `^1.1.0`) so templates install cleanly outside a pnpm workspace. Orphan `@openclawd/ui` template dep removed.
+- **Real attestation pipeline** — the `attestation` block on `plugin-template-attested.json` was previously declarative-only. Now it is wired end-to-end:
+
+  | Layer | Where | What |
+  |---|---|---|
+  | **SDK schema** | [`packages/sdk/schema/attestation.ts`](./plugin.delivery/packages/sdk/schema/attestation.ts) | `attestedPluginExtensionSchema`, `attestationSchema`, `verifyAttestationOffchain()` |
+  | **Build-time gate** | [`scripts/check.ts`](./plugin.delivery/scripts/check.ts) | If a plugin declares `attestation`/`capabilities`/`registry`, the build validates it against the extended schema (wrong `program_id` length, unknown `verification_levels`, etc. fail the build) |
+  | **Runtime verify** | [`api/attestation/verify.ts`](./plugin.delivery/api/attestation/verify.ts) (edge) | `POST {identifier}` → loads from public index, schema-validates, then hits Solana RPC to confirm the `attestation_pda` is owned by the SAS program `22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG` |
+  | **First registered attested plugin** | [`src/clawd-attestation.json`](./plugin.delivery/src/clawd-attestation.json) + [`public/clawd-attestation/manifest.json`](./plugin.delivery/public/clawd-attestation/manifest.json) | The `clawd-attestation` plugin itself exposes `verifyAttestation({identifier})` — agents can verify any other plugin's attestation through it |
+
+Verify any registered attested plugin:
+
+```bash
+curl -X POST https://plugin.delivery/api/attestation/verify \
+  -H 'Content-Type: application/json' \
+  -d '{"identifier":"clawd-attestation"}'
+```
+
+Or programmatically:
+
+```ts
+import { verifyAttestationOffchain } from '@openclawdsolana/plugin-sdk';
+
+const result = verifyAttestationOffchain(plugin);
+if (result.status === 'verify-ok') {
+  console.log(result.attestation.verification_levels);
+  // ['formal_verified', 'audit_verified', 'community_verified']
+}
+```
+
+Verification levels are: `formal_verified` (QEDGen Lean 4 proof on-chain), `audit_verified` (OpenClawd auditor signed), `community_verified` (positive ERC-8004 reputation). The ERC-8004 registry program lives at `Ag8004rWo8ao8AUKhLk78iv2nLQpZMyBPXiAh5QLbFiE`. Both program sources are vendored at [`solana-attestation-service-master/`](./solana-attestation-service-master/).
+
+Full guide: [`plugin.delivery/README.md`](./plugin.delivery/README.md#-plugin-attestation-solana-attestation-service).
 
 ---
 

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://plugin.delivery/schema.json",
+  "identifier": "clawd-attestation",
+  "api": [
+    {
+      "url": "https://plugin.delivery/api/attestation/verify",
+      "name": "verifyAttestation",
+      "description": "Verify a registered OpenClawd plugin's on-chain attestation via the Solana Attestation Service. Returns SAS PDA owner check, formal-verification proof_hash status, ERC-8004 registry membership, and the offchain attestation block.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "description": "Plugin identifier as it appears in the public plugin.delivery index (e.g. \"clawd-attestation\", \"coingecko\")."
+          }
+        },
+        "required": ["identifier"]
+      }
+    }
+  ],
+  "meta": {
+    "avatar": "⛓️",
+    "title": "Clawd Attestation",
+    "description": "Verify on-chain attestations for OpenClawd plugins"
+  },
+  "version": "1"
+}

@@ -12,8 +12,8 @@ import {
   pluginManifestSchema,
   pluginMetaSchema,
   pluginRequestPayloadSchema,
-} from '@openclawd/plugin-sdk';
-import { OPENAPI_REQUEST_BODY_KEY } from '@openclawd/plugin-sdk/openapi';
+} from '@openclawdsolana/plugin-sdk';
+import { OPENAPI_REQUEST_BODY_KEY } from '@openclawdsolana/plugin-sdk/openapi';
 // @ts-ignore
 import SwaggerClient from 'swagger-client';
 

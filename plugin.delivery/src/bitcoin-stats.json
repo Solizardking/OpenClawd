@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "bitcoin-stats",
   "manifest": "https://plugin.delivery/bitcoin-stats/manifest.json",
   "meta": {
     "avatar": "₿",
-    "description": "[openclawd] Bitcoin network stats, mempool, and fee estimates — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Bitcoin network stats, mempool, and fee estimates — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "bitcoin",
       "mempool",

@@ -2,11 +2,11 @@
 
 # 🔌 Plugin Delivery
 
-**AI Function Call Plugins & Tools for openclawd**
+**AI Function Call Plugins & Tools for OpenClawd**
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/clawdsolana/OpenClawd)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![npm](https://img.shields.io/npm/v/@openclawd/plugin-sdk)](https://www.npmjs.com/package/@openclawd/plugin-sdk)
+[![npm](https://img.shields.io/npm/v/@openclawdsolana/plugin-sdk)](https://www.npmjs.com/package/@openclawdsolana/plugin-sdk)
 
 **Live:** [`plugin.delivery`](https://plugin.delivery)
 
@@ -18,7 +18,7 @@
 
 ## What Is Plugin Delivery?
 
-The **official plugin marketplace and SDK** for openclawd — a crypto/DeFi-focused AI assistant platform.
+The **official plugin marketplace and SDK** for OpenClawd — a crypto/DeFi-focused AI assistant platform.
 
 | Feature | Description |
 |---------|-------------|
@@ -35,7 +35,7 @@ User: "What's the price of ETH?"
          │
          ▼
 ┌─────────────────────────────────────────────────────────┐
-│  openclawd discovers plugin from plugin.delivery index   │
+│  OpenClawd discovers plugin from plugin.delivery index   │
 │  AI generates function call: getPrice(coin: "ethereum") │
 │  Gateway routes request to CoinGecko API                │
 │  Response rendered in chat (JSON, Markdown, or UI)      │
@@ -49,7 +49,7 @@ AI: "ETH is currently trading at $3,450..."
 
 ## Plugin Types
 
-openclawd supports **4 distinct plugin types**, each optimized for different use cases:
+OpenClawd supports **4 distinct plugin types**, each optimized for different use cases:
 
 | Type | Rendering | Best For | Complexity |
 |------|-----------|----------|------------|
@@ -102,7 +102,7 @@ Embeds a full React/HTML application in an iframe within the chat.
 
 **Use when:** You need rich interactivity — charts, forms, dashboards, embedded apps.
 
-> 💡 **Standalone plugins are openclawd's superpower** — they enable experiences beyond what ChatGPT plugins can do.
+> 💡 **Standalone plugins are OpenClawd's superpower** — they enable experiences beyond what ChatGPT plugins can do.
 
 ### OpenAPI Plugins
 
@@ -182,7 +182,7 @@ Embed external content:
 Standalone plugins can trigger additional function calls:
 
 ```typescript
-import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
+import { SolanaClawdOS } from '@openclawdsolana/plugin-sdk/client';
 
 // Trigger a new function call from your UI
 SolanaClawdOS.triggerFunctionCall({
@@ -242,9 +242,9 @@ templates/standalone/
 ### 1. Install the SDK
 
 ```bash
-bun add @openclawd/plugin-sdk
+bun add @openclawdsolana/plugin-sdk
 # or
-npm install @openclawd/plugin-sdk
+npm install @openclawdsolana/plugin-sdk
 ```
 
 ### 2. Create manifest.json
@@ -380,8 +380,8 @@ bun dev
 ```
 plugins/
 ├── packages/
-│   ├── sdk/              # @openclawd/plugin-sdk
-│   └── gateway/          # @openclawd/chat-plugins-gateway
+│   ├── sdk/              # @openclawdsolana/plugin-sdk
+│   └── gateway/          # @openclawdsolana/chat-plugins-gateway
 ├── templates/            # Starter templates
 │   ├── basic/
 │   ├── default/
@@ -404,8 +404,8 @@ plugins/
 
 | Package | Description | npm |
 |---------|-------------|-----|
-| `@openclawd/plugin-sdk` | Plugin SDK for building openclawd plugins | [![npm](https://img.shields.io/npm/v/@openclawd/plugin-sdk)](https://www.npmjs.com/package/@openclawd/plugin-sdk) |
-| `@openclawd/chat-plugins-gateway` | Gateway service for routing plugin calls | [![npm](https://img.shields.io/npm/v/@openclawd/chat-plugins-gateway)](https://www.npmjs.com/package/@openclawd/chat-plugins-gateway) |
+| `@openclawdsolana/plugin-sdk` | Plugin SDK for building OpenClawd plugins | [![npm](https://img.shields.io/npm/v/@openclawdsolana/plugin-sdk)](https://www.npmjs.com/package/@openclawdsolana/plugin-sdk) |
+| `@openclawdsolana/chat-plugins-gateway` | Gateway service for routing plugin calls | [![npm](https://img.shields.io/npm/v/@openclawdsolana/chat-plugins-gateway)](https://www.npmjs.com/package/@openclawdsolana/chat-plugins-gateway) |
 
 ### SDK Usage
 
@@ -414,20 +414,20 @@ import {
   pluginManifestSchema,
   createPluginResponse,
   PluginError 
-} from '@openclawd/plugin-sdk';
+} from '@openclawdsolana/plugin-sdk';
 
 // Client-side (in standalone UI)
-import { SolanaClawdOS } from '@openclawd/plugin-sdk/client';
+import { SolanaClawdOS } from '@openclawdsolana/plugin-sdk/client';
 ```
 
 ---
 
 ## Gateway
 
-The Plugin Gateway securely routes function calls from openclawd to plugin APIs:
+The Plugin Gateway securely routes function calls from OpenClawd to plugin APIs:
 
 ```
-openclawd → Gateway → Plugin API
+OpenClawd → Gateway → Plugin API
               │
               ├── Auth injection
               ├── Rate limiting
@@ -444,7 +444,7 @@ cd packages/gateway
 # Deploy
 vercel --prod
 
-# Set in openclawd
+# Set in OpenClawd
 PLUGINS_GATEWAY_URL=https://your-gateway.vercel.app
 ```
 
@@ -462,7 +462,7 @@ We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md).
 ### Requirements
 
 - ✅ Valid manifest with working endpoints
-- ✅ Tested in openclawd
+- ✅ Tested in OpenClawd
 - ✅ No API key required (or documented)
 - ✅ en-US locale at minimum
 
@@ -473,15 +473,15 @@ We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md).
 | Resource | URL |
 |----------|-----|
 | 🌐 **Plugin Index** | [plugin.delivery](https://plugin.delivery) |
-| 📦 **SDK on npm** | [@openclawd/plugin-sdk](https://www.npmjs.com/package/@openclawd/plugin-sdk) |
+| 📦 **SDK on npm** | [@openclawdsolana/plugin-sdk](https://www.npmjs.com/package/@openclawdsolana/plugin-sdk) |
 | 🐙 **GitHub** | [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
-| 🐦 **Twitter/X** | [@nichxbt](https://x.com/nichxbt) |
+| 🐦 **Twitter/X** | [@clawddevs](https://x.com/clawddevs) |
 
 ---
 
 ## License
 
-MIT © [openclawd](https://openclawd.net)
+MIT © [OpenClawd](https://openclawd.net)
 
 ---
 
@@ -489,7 +489,7 @@ MIT © [openclawd](https://openclawd.net)
 
 **[🔌 plugin.delivery](https://plugin.delivery)** — AI Function Calls for the Crypto Era
 
-Built with ❤️ by [nich](https://x.com/nichxbt)
+Built with ❤️ by [nich](https://x.com/clawddevs)
 
 </div>
 

@@ -1,14 +1,14 @@
 {
-  "name": "@clawd/computer",
-  "version": "2.0.0",
-  "description": "openclawd Computer - The Solana-native AI agent runtime. Built with Go, TypeScript, and ClawdRouter API for zero-config deployment.",
+  "name": "@openclawdsolana/installer",
+  "version": "0.1.0",
+  "description": "OpenClawd Installer — one command to install the Solana-native AI agent runtime, with ClawdRouter zero-config deployment.",
   "license": "MIT",
   "type": "module",
   "bin": {
+    "clawd-cli": "bin/clawd.mjs",
     "clawd": "bin/clawd.mjs",
-    "clawd-computer": "bin/clawd.mjs",
-    "openclawd": "bin/clawd.mjs",
     "openclawd-cli": "bin/clawd.mjs",
+    "openclawd": "bin/clawd.mjs",
     "openclawdsolana": "bin/clawd.mjs"
   },
   "files": [
@@ -28,23 +28,22 @@
   },
   "keywords": [
     "solana",
-    "clawd",
-    "openclawd",
     "openclawd",
     "openclawdsolana",
-    "trading",
+    "clawd",
+    "installer",
     "agent",
-    "mawdbot",
+    "trading",
     "ooda",
     "privy",
     "helius",
     "jupiter",
-    "openclawd"
+    "clawdrouter"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/clawdsolana/OpenClawd.git",
-    "directory": "npm/openclawd"
+    "directory": "npm/openclawd-installer"
   },
   "homepage": "https://solanaclawd.com",
   "bugs": {

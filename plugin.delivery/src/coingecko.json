@@ -1,12 +1,12 @@
 {
-  "author": "openclawd",
+  "author": "OpenClawd",
   "createdAt": "2025-01-01",
   "homepage": "https://github.com/clawdsolana/OpenClawd",
   "identifier": "coingecko",
   "manifest": "https://plugin.delivery/coingecko/manifest.json",
   "meta": {
     "avatar": "🦎",
-    "description": "[openclawd] Real-time crypto prices, market data, trending tokens for 1M+ cryptocurrencies — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
+    "description": "[OpenClawd] Real-time crypto prices, market data, trending tokens for 1M+ cryptocurrencies — consumed by CLAWD agents (Scanner/OODA/Analyst) and gated by the CLAWD permission engine.",
     "tags": [
       "crypto",
       "prices",

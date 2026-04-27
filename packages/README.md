@@ -9,9 +9,9 @@ Shared npm packages for the OpenClawd ecosystem.
 | [`clawd-wallet/`](./clawd-wallet/) | Privy-powered embedded Solana wallet — Jupiter swaps, Grok AI screening | `@openclawd/wallet` |
 | [`agentwallet-vault/`](./agentwallet/) | Self-managed encrypted keypair vault with E2B + Cloudflare deployment | `agentwallet-vault` |
 | [`membrain/`](./membrain/) | Selective, revisable memory daemon (Go + gRPC) for trading agents | `@gustycube/membrane` |
-| [`membrain-types/`](./membrain-types/) | TypeScript types and client for Membrain | `@openclaw/membrain-types` |
-| [`honcho-bridge/`](./honcho-bridge/) | Honcho reasoning-memory adapter — peer/session persistence + auto-feed into Membrain | `@openclaw/honcho-bridge` |
-| [`memory-host-sdk/`](./memory-host-sdk/) | Local memory engines (SQLite/embeddings/Honcho) for the host runtime | `@openclaw/memory-host-sdk` |
+| [`membrain-types/`](./membrain-types/) | TypeScript types and client for Membrain | `@openclawdsolana/membrain-types` |
+| [`honcho-bridge/`](./honcho-bridge/) | Honcho reasoning-memory adapter — peer/session persistence + auto-feed into Membrain | `@openclawdsolana/honcho-bridge` |
+| [`memory-host-sdk/`](./memory-host-sdk/) | Local memory engines (SQLite/embeddings/Honcho) for the host runtime | `@openclawdsolana/memory-host-sdk` |
 
 ## membrain
 

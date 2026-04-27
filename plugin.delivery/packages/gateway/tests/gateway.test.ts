@@ -1,5 +1,5 @@
 import { PluginRequestPayload } from '@openclawd/chat-plugin-sdk';
-import { Gateway } from '@openclawd/chat-plugins-gateway';
+import { Gateway } from '@openclawdsolana/chat-plugins-gateway';
 import Ajv from 'ajv';
 // @ts-ignore
 import SwaggerClient from 'swagger-client';
