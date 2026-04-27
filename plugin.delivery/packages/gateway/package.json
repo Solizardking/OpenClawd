@@ -1,5 +1,5 @@
 {
-  "name": "@openclawd/chat-plugins-gateway",
+  "name": "@openclawdsolana/chat-plugins-gateway",
   "version": "1.9.0",
   "description": "Edge-runtime plugin gateway for the openclawd ecosystem — validates agent requests, applies deny-first permissions, and forwards to plugin.delivery manifests.",
   "repository": "https://github.com/clawdsolana/OpenClawd",
@@ -37,7 +37,6 @@
     "lint": "eslint \"{src,api,docs}/**/*.{js,jsx,ts,tsx}\" --fix",
     "lint:md": "remark . --quiet --frail --output",
     "prepare": "",
-    "prepublishOnly": "npm run build",
     "prettier": "prettier -c --write \"**/**\"",
     "release": "semantic-release",
     "start": "vercel dev",
@@ -71,7 +70,7 @@
   "dependencies": {
     "@babel/runtime": "^7",
     "@cfworker/json-schema": "^1",
-    "@openclawd/plugin-sdk": "workspace:*",
+    "@openclawdsolana/plugin-sdk": "^1.0.0",
     "ajv": "^8",
     "swagger-client": "^3",
     "zod": "^3"

@@ -1,5 +1,5 @@
 {
-  "name": "@openclawd/plugin-sdk",
+  "name": "@openclawdsolana/plugin-sdk",
   "version": "1.0.0",
   "description": "openclawd Plugin SDK - Build plugins for openclawd",
   "keywords": [
@@ -38,9 +38,20 @@
       "types": "./openapi/index.ts"
     }
   },
+  "files": [
+    "index.ts",
+    "client",
+    "schema",
+    "openapi",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "type-check": "tsc --noEmit"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "@apidevtools/swagger-parser": "^10.1.0",

@@ -40,7 +40,7 @@
     "sync:proto": "node ./scripts/sync-proto.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.14.1",

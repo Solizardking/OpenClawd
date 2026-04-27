@@ -17,12 +17,12 @@ const SECRET_PATTERNS = {
 
 // Vulnerability patterns
 const VULN_PATTERNS = {
-  sqlInjection: /(?i)(union|select|insert|update|delete|drop).*\$\{/g,
-  xssInnerHTML: /(?i)(innerHTML|dangerouslySetInnerHTML)/g,
+  sqlInjection: /(union|select|insert|update|delete|drop).*\$\{/gi,
+  xssInnerHTML: /(innerHTML|dangerouslySetInnerHTML)/gi,
   xssEval: /eval\s*\(/g,
   pathTraversal: /\.\.\/|\.\.\\|%2e%2e%2f|%2e%2e\//g,
   insecureRandom: /Math\.random\(\)|new\s+Random\(\)/g,
-  commandInjection: /(?i)(exec|spawn|system)\s*\(\s*(req|process)/g,
+  commandInjection: /(exec|spawn|system)\s*\(\s*(req|process)/gi,
 };
 
 // Create MCP server

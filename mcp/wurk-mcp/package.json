@@ -1,13 +1,22 @@
 {
-  "name": "@openclawd/wurk-mcp",
+  "name": "@openclawdsolana/wurk-mcp",
   "version": "1.0.0",
   "description": "WURK API MCP server for job creation and x402 payments",
   "main": "dist/index.js",
   "type": "module",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
