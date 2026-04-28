@@ -19,6 +19,139 @@
 
 ---
 
+## 🧠 v0.3 — AutoResearch Wiki goes live (the agents teach themselves)
+
+> **What shipped:** [`llm-wiki-tang`](./llm-wiki-tang/) auto-research API now returns **live** Birdeye + Helius data (was 60% mock), an in-process autonomous research loop, and `/research` + `/autoloop` slash commands inside the TUI.
+>
+> **Read the writeup:** [📰 Sovereign Research — Karpathy Loops on Solana](./docs/articles/SOVEREIGN_RESEARCH.md)
+
+The AutoResearch Wiki was the missing organ in the OpenClawd stack — a place for the agents to **observe, persist, and re-read** their own findings. v0.3 turns it from scaffolding into a live data plane: every `/api/v1/research/*` call now fans out across **Birdeye Data Services** (overview / metadata / market / trade / search / trending / new listings / pair / wallet) and **Helius RPC + DAS + Wallet API** (`getAsset`, `getAssetsByOwner`, `searchAssets`, `getSignaturesForAsset`, parsed transactions, parsed balances, SNS names) and writes the result to the new `research_runs` table.
+
+```bash
+# Live, real-data examples (no mocks)
+curl -X POST http://localhost:8000/api/v1/research/chain \
+  -H 'content-type: application/json' \
+  -d '{"query":"pump.fun pulse","focus":["pump_fun"],"limit":30}'
+
+curl -X POST http://localhost:8000/api/v1/research/market \
+  -H 'content-type: application/json' \
+  -d '{"focus":"alpha"}'
+
+# From the TUI (clawd-tui v0.3)
+clawd
+> /research market trends
+> /research chain pump_fun
+> /research chain token 8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump
+> /autoloop start              # autonomous research while you sleep
+> /autoloop status
+> /research runs market 10
+```
+
+### What's wired
+
+| Layer | What it does | Where |
+|---|---|---|
+| **Birdeye client (Python)** | overview · metadata · market · trade · search · trending · new listings · top gainers · pair overview · token pairs · wallet portfolio · networth · PnL | [llm-wiki-tang/api/services/birdeye.py](llm-wiki-tang/api/services/birdeye.py) |
+| **Helius client (Python)** | JSON-RPC + **DAS** (`getAsset` / `Batch` / `ByOwner` / `searchAssets` / `ByGroup` / `ByCreator` / `Signatures`) + SPL RPC + **Wallet API** (parsed_transactions, parsed_balances, names, history) | [llm-wiki-tang/api/services/helius.py](llm-wiki-tang/api/services/helius.py) |
+| **Research orchestrator** | `research_token`, `research_pump_fun`, `check_graduation`, `scan_yields`, `find_arbitrage`, `get_trends`, `find_alpha`, `track_whales`, `research_wallet` — fans out concurrently, persists to `research_runs` | [llm-wiki-tang/api/services/research_orchestrator.py](llm-wiki-tang/api/services/research_orchestrator.py) |
+| **Autonomous loop** | asyncio scheduler, default mandates `pump_fun_pulse` / `market_trends` / `market_alpha` ticking every 30 min, bounded concurrency, recoverable errors | [llm-wiki-tang/api/services/research_autoloop.py](llm-wiki-tang/api/services/research_autoloop.py) |
+| **API routes** | `/chain` `/defi` `/market` rewritten on top of the orchestrator; new `/runs`, `/autoloop/{start,stop,status}`, mandate CRUD | [llm-wiki-tang/api/routes/research.py](llm-wiki-tang/api/routes/research.py) |
+| **Persistence** | `research_runs` (jsonb blobs · sources[] · confidence · metadata), `research_findings` (signal extraction), `research_mandates` (cron memory) | [llm-wiki-tang/supabase/migrations/002_research_runs.sql](llm-wiki-tang/supabase/migrations/002_research_runs.sql) |
+| **TUI integration** | typed `ResearchClient` + `/research` (chain / defi / market / runs) and `/autoloop` (start · stop · status · list · add · remove) slash commands | [clawd-tui/src/research.ts](clawd-tui/src/research.ts) · [clawd-tui/src/commands.ts](clawd-tui/src/commands.ts) |
+
+### Required env (already set in your `llm-wiki-tang/.env`)
+
+```bash
+HELIUS_API_KEY=...                                         # https://www.helius.dev/
+HELIUS_RPC_URL=https://mainnet.helius-rpc.com/?api-key=... # full URL with key embedded works too
+HELIUS_WSS_URL=wss://mainnet.helius-rpc.com/?api-key=...
+BIRDEYE_API_KEY=...                                        # https://bds.birdeye.so/
+
+# Autoloop
+RESEARCH_AUTOLOOP_ENABLED=false       # true to start at boot, otherwise on-demand from TUI
+RESEARCH_AUTOLOOP_INTERVAL_SECONDS=1800
+RESEARCH_AUTOLOOP_MAX_CONCURRENT=3
+
+# TUI → API base (defaults to http://localhost:8000)
+RESEARCH_API_URL=http://localhost:8000
+```
+
+### Run it end-to-end
+
+```bash
+psql "$DATABASE_URL" -f llm-wiki-tang/supabase/migrations/002_research_runs.sql
+cd llm-wiki-tang/api && uvicorn main:app --reload --port 8000
+# Then in another terminal:
+clawd
+> /autoloop start
+```
+
+The autoloop runs three default mandates every 30 minutes — pump.fun launches + trending, top-30 trending, and "new ∩ momentum" alpha. Add your own:
+
+```bash
+> /autoloop add my_token chain {"focus":["tokens"],"mint":"8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump"}
+> /autoloop add yield_pulse defi {"action":"yield_scan","assets":["SOL","USDC","CLAWD"]}
+```
+
+---
+
+## 🚀 v0.2 — Solana-aware terminal + clean bin layout
+
+> **What shipped:** [`@openclawdsolana/clawd-tui@0.2.1`](https://www.npmjs.com/package/@openclawdsolana/clawd-tui) · [`@openclawdsolana/clawd-code-cli@0.2.3`](https://www.npmjs.com/package/@openclawdsolana/clawd-code-cli)
+>
+> **Read the writeup:** [clawd-tui v0.2 — A Solana-Aware Terminal](./clawd-tui/docs/v0.2-solana-aware-terminal.md)
+
+### `clawd` is now Solana-native by default
+
+Paste any base58 mint or wallet address straight into the prompt — Birdeye + Helius DAS fan out **in parallel** and print a live card before the agent ever wakes up. Eleven new slash commands cover trending tokens, search, wallet portfolios, net worth, and full DAS lookups (NFTs, compressed assets, holders, signatures, native SOL).
+
+```bash
+npm install -g @openclawdsolana/clawd-tui
+clawd
+> So11111111111111111111111111111111111111112        # auto-card: price, mcap, liquidity, supply
+> /trending 10                                       # top trending Solana tokens
+> /networth 86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY
+> /asset DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263  # DAS card for BONK
+```
+
+| Command class       | Commands                                                        | Backend |
+| ------------------- | --------------------------------------------------------------- | ------- |
+| Market data         | `/trending` `/search` `/wallet` `/portfolio` `/networth`        | Birdeye |
+| On-chain (DAS)      | `/asset` `/assets` `/nfts` `/holders` `/sigs` `/balance`        | Helius  |
+| Auto on-paste       | base58 detection → parallel Birdeye + Helius fan-out, no agent  | Both    |
+
+Set `BIRDEYE_API_KEY` and/or `HELIUS_API_KEY` (auto-loaded from `./.env`, `~/.clawd.env`, or `~/.config/openclawd/.env`).
+
+### Bin rename — `clawd-code-cli` → `clawd-code` (breaking)
+
+Two packages were both registering `clawd` as their CLI name. Resolved cleanly in v0.2:
+
+| Package                           | Bins (post-v0.2)               | Identity                         |
+| --------------------------------- | ------------------------------ | -------------------------------- |
+| `@openclawdsolana/clawd-tui`      | `clawd`, `clawd-tui`           | Birdeye/Helius-aware lobster TUI |
+| `@openclawdsolana/clawd-code-cli` | `clawd-code`, `clawd-code-cli` | Full Ink/React agent operator    |
+
+If you scripted against `clawd` from the old code-cli, swap to `clawd-code` (or `alias clawd=clawd-code`).
+
+### Workspace plumbing — four pieces now wire together
+
+The repo had **two packages claiming `@openclawdsolana/plugin-sdk`** and no install path that built `plugin.delivery/` — this release fixes both.
+
+- Renamed root `packages/plugin-sdk` → `@openclawdsolana/plugin-sdk-internal` (it was `private: true` and had a totally different export shape — no external consumers affected). The public `@openclawdsolana/plugin-sdk` v1.1.0 from `plugin.delivery/packages/sdk` is now unambiguous.
+- Added `npm run install:gateway`, `install:plugin-delivery`, `build:gateway`, `build:plugin-delivery` and chained them into `install:all`.
+- New helper scripts handle the pnpm sub-monorepo: [`scripts/install-plugin-delivery.mjs`](scripts/install-plugin-delivery.mjs), [`scripts/build-plugin-delivery.mjs`](scripts/build-plugin-delivery.mjs).
+- [`install.sh`](install.sh) now bootstraps Node workspaces + framework + gateway + plugin.delivery automatically when Node 20+ is present (graceful skip otherwise).
+- Full architecture map: [docs/architecture-pieces.md](./docs/architecture-pieces.md).
+
+```text
+openclawd-framework  →  @openclawdsolana/leviathan        (runtime: identity, molting, pulse, state)
+gateway/             →  @openclawdsolana/gateway          (Telegram + Birdeye/Helius control plane)
+plugin.delivery/sdk  →  @openclawdsolana/plugin-sdk v1.1   (public — OpenAPI, Zod, attestation)
+plugin.delivery/gw   →  @openclawdsolana/chat-plugins-gateway v1.9  (edge runtime)
+```
+
+---
+
 ## 🚀 v0.1.1 — 11 packages live on npm
 
 > **GitHub release:** [v0.1.1](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.1) · [v0.1.0](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0)
@@ -30,7 +163,7 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 
 | Package | One-liner | Install |
 |---|---|---|
-| 🦀 [**clawd-code-cli**](./clawd-code-cli) | Solana lobster TUI (Ink + React) — `/buddy`, `/trending`, `/clawd`, `/scan`, `/agents`, Grok-powered `/voice` (xAI TTS + STT), `/search` & `/x` Live Search, multi-agent panes | `npm i -g @openclawdsolana/clawd-code-cli` |
+| 🦀 [**clawd-code-cli**](./clawd-code-cli) | Solana lobster TUI (Ink + React) — `/buddy`, `/trending`, `/clawd`, `/scan`, `/agents`, Grok-powered `/voice` (xAI TTS + STT), `/search` & `/x` Live Search, multi-agent panes. **v0.2.3** ships as `clawd-code` (was `clawd`) | `npm i -g @openclawdsolana/clawd-code-cli` |
 | 🦞 [**leviathan**](./openclawd-framework) | Sovereign agent runtime — keypair → mint → reign → beach. Three Laws hashed into every spawn. | `npm i @openclawdsolana/leviathan` |
 | 💸 [**agents-x402**](./packages/agents-x402-solana) | One-line x402 Solana USDC monetization for MCP servers, HTTP handlers, and agent tool calls | `npm i @openclawdsolana/agents-x402` |
 | 🔐 [**agentwallet**](./packages/agentwallet) | Encrypted Solana + EVM keypair vault with E2B sandbox + Cloudflare Workers deployment | `npm i @openclawdsolana/agentwallet` |
@@ -39,7 +172,7 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 
 | Package | One-liner | Install |
 |---|---|---|
-| 🦞 [**clawd-tui**](./clawd-tui) | OpenRouter-native lobster TUI (Ink + `@openrouter/agent`) — block input, streaming tools, PKCE OAuth, file/glob/grep/shell, web_search + datetime | `npm i -g @openclawdsolana/clawd-tui` |
+| 🦞 [**clawd-tui**](./clawd-tui) | OpenRouter-native lobster TUI (Ink + `@openrouter/agent`) — block input, streaming tools, PKCE OAuth, file/glob/grep/shell, web_search + datetime. **v0.2.1**: Birdeye + Helius DAS + on-paste contract analysis ([writeup](./clawd-tui/docs/v0.2-solana-aware-terminal.md)) | `npm i -g @openclawdsolana/clawd-tui` |
 | 🌊 [**clawdrouter**](./clawdrouter) | LLM router built for autonomous Solana agents — wallet-signed, USDC micropayments, multi-upstream | `npm i -g @openclawdsolana/clawdrouter` |
 | 🔒 [**vault-mcp**](./mcp/vault-mcp) | ClawdVault MCP server — security pattern scanning, secret detection, vault ops over MCP | `npm i @openclawdsolana/vault-mcp` |
 | 💼 [**wurk-mcp**](./mcp/wurk-mcp) | WURK API MCP server — agent job creation with x402 payment flow on Solana + Base | `npm i @openclawdsolana/wurk-mcp` |
@@ -122,7 +255,8 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 | 🔌 **@openclawdsolana/plugin-sdk** *(npm)* | Build OpenClawd plugins (OpenAPI + Zod) | [`plugin.delivery/packages/sdk/`](plugin.delivery/packages/sdk/) |
 | 🚪 **@openclawdsolana/chat-plugins-gateway** *(npm)* | Edge-runtime plugin gateway with deny-first permissions | [`plugin.delivery/packages/gateway/`](plugin.delivery/packages/gateway/) |
 | 🦞 **Other MCP servers** | `openclawd-mcp` and friends in the same dir | [`mcp/`](mcp/) |
-| 📰 **Article** | Long-form piece tying everything together — three laws, lifecycle, Metaplex, Tide, examples | [`ARTICLE.md`](ARTICLE.md) |
+| 🧠 **AutoResearch Wiki** | FastAPI backend + Next.js UI + MCP server — live `/api/v1/research/*` chain · defi · market endpoints over **Birdeye + Helius DAS + Helius Wallet API**, autonomous research loop with persistent `research_runs` history | [`llm-wiki-tang/`](llm-wiki-tang/) |
+| 📰 **Articles** | Long-form pieces tying everything together — three laws · lifecycle · Metaplex · Tide · examples · sovereign research | [`ARTICLE.md`](ARTICLE.md) · [`docs/articles/SOVEREIGN_RESEARCH.md`](docs/articles/SOVEREIGN_RESEARCH.md) |
 
 ---
 
@@ -808,7 +942,7 @@ Highlights from the latest integration pass:
 - **One config** — [`install.sh`](install.sh) writes `~/.openclawdsolana/config.json` once. [`cli/clawd-config.sh`](cli/clawd-config.sh) loads it; both bash CLIs and the api-registrar source it.
 - **One manifest** — [`scripts/release-manifest.mjs`](scripts/release-manifest.mjs) walks the entire repo and emits [`release.manifest.json`](release.manifest.json) covering 30 npm workspaces, 6 apps, 5 MCP servers, 4 long-running services, 98 skills, 31 extensions, and 9 chrome-extension parts.
 - **One discovery hop** — `api-registrar` exposes `GET /manifest`; `clawd-cli.sh manifest` fetches it (falls back to bundled local copy when offline).
-- **No bin collisions** — Go runtime owns `openclawd` / `openclawdsolana` / `clawd`; framework owns `leviathan`, `clawd-code`, `clawd-standalone`; new entries got their own names (`clawd-code-cli`, `clawd-tui`, `clawdrouter`, `openclawd-mcp`).
+- **No bin collisions (v0.2)** — `clawd` is owned by `@openclawdsolana/clawd-tui` (Birdeye/Helius TUI). The full Ink agent operator publishes as `clawd-code` (`@openclawdsolana/clawd-code-cli` v0.2.3) with a legacy `clawd-code-cli` alias. The Go runtime owns `openclawd` / `openclawdsolana`. Framework owns `leviathan` / `clawd-standalone`. Other entries (`clawdrouter`, `openclawd-mcp`) keep their own names. See [docs/architecture-pieces.md](./docs/architecture-pieces.md) for the full bin + package map.
 
 See [`RELEASE.md`](RELEASE.md) for the full diagram + runbook.
 
@@ -855,6 +989,14 @@ openclawd/
 ├── mcp/                        # @openclawdsolana/mcp + vault-mcp + wurk-mcp
 ├── moltbook-agent/             # @openclawdsolana/moltbook-agent — molt log / diary
 ├── gateway/                    # @openclawdsolana/gateway — Telegram + Helius + Birdeye control plane
+│
+├── llm-wiki-tang/              # 🧠 OpenClawd AutoResearch Wiki (FastAPI + Next.js + MCP)
+│   ├── api/services/birdeye.py        #   Async Birdeye client (token / pair / wallet)
+│   ├── api/services/helius.py         #   Helius RPC + DAS + Wallet API
+│   ├── api/services/research_orchestrator.py  #   Composite research ops, persistence
+│   ├── api/services/research_autoloop.py      #   Autonomous mandate scheduler
+│   ├── api/routes/research.py         #   /chain /defi /market /runs /autoloop/*
+│   └── supabase/migrations/002_research_runs.sql
 │
 ├── src/                        # OpenClawd Gateway core
 │   ├── agents/                 #   Trader · Scanner · Analyst · Monitor + AgentRuntime + cloneAgent + SkillRegistry
@@ -945,10 +1087,21 @@ TELEGRAM_GROUP_POLICY=open
 CARTESIA_API_KEY=...
 ELEVEN_LABS_API_KEY=...
 
-# Solana data
-BIRDEYE_API_KEY=...
+# Solana data — clawd-tui auto-loads these from .env / ~/.clawd.env / ~/.config/openclawd/.env
+BIRDEYE_API_KEY=...                     # /trending /search /wallet /portfolio /networth + on-paste
+                                        # also powers llm-wiki-tang AutoResearch endpoints
+HELIUS_API_KEY=...                      # /asset /assets /nfts /holders /sigs /balance + on-paste
+                                        # + DAS + Wallet API in llm-wiki-tang
+HELIUS_RPC_URL=https://mainnet.helius-rpc.com/?api-key=...   # optional override
+HELIUS_WSS_URL=wss://mainnet.helius-rpc.com/?api-key=...     # for stream-based research
 COINGECKO_API_KEY=...
 JUPITER_API_KEY=...
+
+# AutoResearch (llm-wiki-tang)
+RESEARCH_API_URL=http://localhost:8000  # TUI /research + /autoloop target
+RESEARCH_AUTOLOOP_ENABLED=false         # true = start scheduler at boot
+RESEARCH_AUTOLOOP_INTERVAL_SECONDS=1800
+RESEARCH_AUTOLOOP_MAX_CONCURRENT=3
 
 # Storage
 PINATA_API_KEY=...                      # IPFS pinning

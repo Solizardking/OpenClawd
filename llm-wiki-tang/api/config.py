@@ -35,5 +35,17 @@ class Settings(BaseSettings):
 
     SENTRY_DSN: str = ""
 
+    # Solana data services — power /api/v1/research/* live data
+    HELIUS_API_KEY: str = ""
+    HELIUS_RPC_URL: str = ""  # full URL including ?api-key=… ; falls back to mainnet+key
+    HELIUS_WSS_URL: str = ""
+    BIRDEYE_API_KEY: str = ""
+    SOLANA_TRACKER_API_KEY: str = ""
+
+    # Research autoloop scheduler
+    RESEARCH_AUTOLOOP_ENABLED: bool = False
+    RESEARCH_AUTOLOOP_INTERVAL_SECONDS: int = 1800  # 30 min, mirrors pump-scanner-cron
+    RESEARCH_AUTOLOOP_MAX_CONCURRENT: int = 3
+
 
 settings = Settings()

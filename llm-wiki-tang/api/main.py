@@ -62,14 +62,35 @@ async def lifespan(app: FastAPI):
     app.state.s3_service = s3_service
     app.state.ocr_service = ocr_service
 
+    # Boot the research orchestrator so chain/defi/market endpoints share one
+    # set of HTTP clients (Birdeye + Helius).
+    from services.research_orchestrator import ResearchOrchestrator
+    research_orch = ResearchOrchestrator.from_settings(pool=pool)
+    app.state.research_orch = research_orch
+    if settings.BIRDEYE_API_KEY or settings.HELIUS_API_KEY:
+        logger.info(
+            "research orchestrator ready (birdeye=%s, helius=%s)",
+            bool(settings.BIRDEYE_API_KEY), bool(settings.HELIUS_API_KEY),
+        )
+
     cleanup_task = asyncio.create_task(cleanup_stale_uploads())
 
     if ocr_service:
         await _recover_stuck_documents(pool, ocr_service)
 
+    autoloop_started = False
+    if settings.RESEARCH_AUTOLOOP_ENABLED:
+        from services.research_autoloop import ensure_autoloop_running
+        autoloop_started = await ensure_autoloop_running(app)
+        logger.info("research autoloop auto-start: %s", autoloop_started)
+
     yield
 
     cleanup_task.cancel()
+    if autoloop_started:
+        from services.research_autoloop import stop_autoloop
+        await stop_autoloop(app)
+    await research_orch.aclose()
     await pool.close()
 
 

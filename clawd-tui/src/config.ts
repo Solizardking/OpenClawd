@@ -1,5 +1,45 @@
 import { readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
+import { homedir } from 'os';
+
+// Tiny .env loader. Looks for KEY=VALUE lines, ignores comments + blanks,
+// and never overwrites an env var that's already set in the shell.
+// Search order (first match wins for a given key, shell still wins overall):
+//   1. ./.env in cwd
+//   2. ~/.clawd.env
+//   3. ~/.config/openclawd/.env
+function loadDotenvFiles(): void {
+  const candidates = [
+    resolve(process.cwd(), '.env'),
+    resolve(homedir(), '.clawd.env'),
+    resolve(homedir(), '.config', 'openclawd', '.env'),
+  ];
+  for (const path of candidates) {
+    if (!existsSync(path)) continue;
+    let content: string;
+    try {
+      content = readFileSync(path, 'utf-8');
+    } catch {
+      continue;
+    }
+    for (const line of content.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const eq = trimmed.indexOf('=');
+      if (eq < 1) continue;
+      const key = trimmed.slice(0, eq).trim();
+      if (process.env[key]) continue;
+      let value = trimmed.slice(eq + 1).trim();
+      if (
+        (value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))
+      ) {
+        value = value.slice(1, -1);
+      }
+      process.env[key] = value;
+    }
+  }
+}
 
 export interface DisplayConfig {
   toolDisplay: 'emoji' | 'grouped' | 'minimal' | 'hidden';
@@ -19,6 +59,10 @@ export interface AgentConfig {
   slashCommands: boolean;
   requireApproval: string[];
   loaderText: string;
+  birdeyeApiKey: string;
+  heliusApiKey: string;
+  heliusRpcUrl: string;
+  researchApiUrl: string;
 }
 
 const DEFAULTS: AgentConfig = {
@@ -46,9 +90,14 @@ const DEFAULTS: AgentConfig = {
   slashCommands: true,
   requireApproval: ['shell', 'file_write', 'file_edit'],
   loaderText: 'Clawing',
+  birdeyeApiKey: '',
+  heliusApiKey: '',
+  heliusRpcUrl: '',
+  researchApiUrl: '',
 };
 
 export function loadConfig(overrides: Partial<AgentConfig> = {}): AgentConfig {
+  loadDotenvFiles();
   let config = { ...DEFAULTS };
 
   const configPath = resolve('agent.config.json');
@@ -64,6 +113,11 @@ export function loadConfig(overrides: Partial<AgentConfig> = {}): AgentConfig {
   if (process.env.AGENT_MODEL) config.model = process.env.AGENT_MODEL;
   if (process.env.AGENT_MAX_STEPS) config.maxSteps = Number(process.env.AGENT_MAX_STEPS);
   if (process.env.AGENT_MAX_COST) config.maxCost = Number(process.env.AGENT_MAX_COST);
+  if (process.env.BIRDEYE_API_KEY) config.birdeyeApiKey = process.env.BIRDEYE_API_KEY;
+  if (process.env.HELIUS_API_KEY) config.heliusApiKey = process.env.HELIUS_API_KEY;
+  if (process.env.HELIUS_RPC_URL) config.heliusRpcUrl = process.env.HELIUS_RPC_URL;
+  if (process.env.RESEARCH_API_URL) config.researchApiUrl = process.env.RESEARCH_API_URL;
+  if (process.env.OPENCLAWD_RESEARCH_URL) config.researchApiUrl = process.env.OPENCLAWD_RESEARCH_URL;
 
   if (overrides.display) {
     config.display = { ...config.display, ...overrides.display };
