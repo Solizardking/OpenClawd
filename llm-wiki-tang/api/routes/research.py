@@ -15,14 +15,25 @@ from datetime import datetime, timedelta
 from enum import Enum
 from typing import Any, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Header, Query, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Header, Query, Request, status
 from pydantic import BaseModel, Field
 
 from config import settings
+from services.research_orchestrator import ResearchOrchestrator
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1/research", tags=["research"])
+
+
+def _orchestrator(req: Request) -> ResearchOrchestrator:
+    """Return the per-app orchestrator (initialized in main.py lifespan)."""
+    orch: Optional[ResearchOrchestrator] = getattr(req.app.state, "research_orch", None)
+    if orch is None:
+        # Fallback: build on-demand (no DB persistence). Useful for tests.
+        orch = ResearchOrchestrator.from_settings(pool=getattr(req.app.state, "pool", None))
+        req.app.state.research_orch = orch
+    return orch
 
 
 # =============================================================================
@@ -289,238 +300,255 @@ def generate_research_id() -> str:
 @router.post("/chain", response_model=ResearchResponse)
 async def research_chain(
     request: ChainResearchRequest,
+    http_request: Request,
     x_payment: Optional[str] = Header(None),
     x_tier: Optional[str] = Header(None)
 ):
     """
-    Research Solana blockchain data.
-    
+    Research Solana blockchain data via live Helius + Birdeye calls.
+
     Focus areas:
-    - pump.fun token launches and bonding curves
-    - Token analysis and holder distribution
-    - Protocol activity and transactions
-    - NFT sales and collections
-    - Wallet tracking and whale movements
-    
-    Payment: 0.001 SOL (10 CLAWD) for basic queries
+    - pump_fun: trending + new listings tagged with pump.fun heuristics
+    - tokens: deep dive on a specific mint (Birdeye + DAS)
+    - protocols: top pools per asset
+    - nfts: DAS getAsset/getAssetsByGroup lookups
+    - wallets: portfolio + parsed transactions
+    - graduation: bonding-curve progress proxy
     """
     tier = ResearchTier(x_tier.lower()) if x_tier else ResearchTier.FREE
     payment_info = await validate_payment(x_payment, tier)
-    
+
     start_time = time.time()
     research_id = generate_research_id()
-    
+    orch = _orchestrator(http_request)
+
     logger.info(f"[{research_id}] Chain research: {request.query}")
-    
-    # Execute research based on focus areas
-    results = {}
-    sources = []
-    
+
+    results: dict[str, Any] = {}
+    sources: list[str] = []
+
     if ChainFocus.PUMP_FUN in request.focus:
-        # Research pump.fun
-        pump_data = await _research_pump_fun(request)
-        results["pump_fun"] = pump_data
-        sources.extend(["helius", "pump.fun", "birdeye"])
-    
-    if ChainFocus.TOKENS in request.focus:
-        # Research tokens
-        token_data = await _research_tokens(request)
-        results["tokens"] = token_data
+        results["pump_fun"] = await orch.research_pump_fun(limit=request.limit)
+        sources.extend(["birdeye", "helius"])
+
+    if ChainFocus.TOKENS in request.focus and request.mint:
+        results["token"] = await orch.research_token(request.mint)
+        sources.extend(["birdeye", "helius-das"])
+
+    if ChainFocus.WALLETS in request.focus and request.wallet:
+        results["wallet"] = await orch.research_wallet(request.wallet)
+        sources.extend(["birdeye", "helius"])
+
+    if ChainFocus.GRADUATION in request.focus and request.mint:
+        results["graduation"] = await orch.check_graduation(request.mint)
         sources.append("birdeye")
-    
-    if ChainFocus.PROTOCOLS in request.focus:
-        # Research protocols
-        protocol_data = await _research_protocols(request)
-        results["protocols"] = protocol_data
-        sources.extend(["helius", "raydium", "orca"])
-    
-    if ChainFocus.GRADUATION in request.focus:
-        # Check graduation status
-        grad_data = await _check_graduation(request.mint) if request.mint else {}
-        results["graduation"] = grad_data
-        sources.append("pump.fun")
-    
-    # Calculate confidence based on data availability
+
+    if ChainFocus.NFTS in request.focus and request.mint and orch.helius:
+        try:
+            results["nft_collection"] = await orch.helius.get_assets_by_group(
+                request.mint, limit=min(request.limit, 100)
+            )
+            sources.append("helius-das")
+        except Exception as exc:  # noqa: BLE001
+            results["nft_collection"] = {"error": str(exc)}
+
     confidence = min(1.0, len(results) * 0.25 + 0.5)
-    
-    # Calculate cost
+
     cost_sol = RESEARCH_PRICING["basic_chain"]
     cost_clawd = cost_sol * 100
-    
     processing_time = int((time.time() - start_time) * 1000)
-    
+    metadata = {
+        "processing_time_ms": processing_time,
+        "focus": [f.value for f in request.focus],
+        "tier": tier.value,
+        "payment": payment_info,
+    }
+    agent = get_agent_for_tier(tier)
+
+    await orch.persist_run(
+        research_id=research_id,
+        kind="chain",
+        agent=agent,
+        query=request.query,
+        results=results,
+        sources=sources,
+        confidence=confidence,
+        metadata=metadata,
+    )
+
     return ResearchResponse(
         id=research_id,
-        agent=get_agent_for_tier(tier),
+        agent=agent,
         query=request.query,
         results=results,
         confidence=confidence,
         sources=sources,
-        cost=ResearchCost(
-            sol=cost_sol,
-            clawd=cost_clawd,
-            tier=tier
-        ),
-        metadata={
-            "processing_time_ms": processing_time,
-            "focus": [f.value for f in request.focus],
-            "tier": tier.value,
-            "payment": payment_info
-        }
+        cost=ResearchCost(sol=cost_sol, clawd=cost_clawd, tier=tier),
+        metadata=metadata,
     )
 
 
 @router.post("/defi", response_model=ResearchResponse)
 async def research_defi(
     request: DeFiResearchRequest,
+    http_request: Request,
     x_payment: Optional[str] = Header(None),
     x_tier: Optional[str] = Header(None)
 ):
     """
-    Research DeFi opportunities across Solana protocols.
-    
+    Research DeFi opportunities across Solana protocols using live pool data.
+
     Actions:
-    - yield_scan: Find best yield opportunities
-    - lp_analysis: Analyze liquidity pools
-    - arbitrage: Find cross-protocol arbitrage
-    - protocol_research: Deep dive into specific protocols
-    
-    Payment: 0.005 SOL (50 CLAWD) for DeFi research
+    - yield_scan: APR estimates from Birdeye pool stats
+    - lp_analysis: Top pools per asset with liquidity & volume
+    - arbitrage: Cross-pool spreads for a given mint
+    - swap_route: Price discovery across pools
     """
     tier = ResearchTier(x_tier.lower()) if x_tier else ResearchTier.BRONZE
     payment_info = await validate_payment(x_payment, tier)
-    
+
     start_time = time.time()
     research_id = generate_research_id()
-    
+    orch = _orchestrator(http_request)
+
     logger.info(f"[{research_id}] DeFi research: {request.action}")
-    
-    results = {}
-    sources = []
-    
+
+    results: dict[str, Any] = {}
+    sources: list[str] = []
+
     if request.action == DeFiAction.YIELD_SCAN:
-        yields_data = await _scan_yields(request)
-        results["yields"] = yields_data
-        sources.extend(request.protocols)
-    
+        results["yields"] = await orch.scan_yields(request.assets)
+        sources.append("birdeye")
+
     elif request.action == DeFiAction.LP_ANALYSIS:
-        lp_data = await _analyze_lp(request)
-        results["liquidity_pools"] = lp_data
-        sources.extend(request.protocols)
-    
-    elif request.action == DeFiAction.ARBITRAGE:
-        arb_data = await _find_arbitrage(request)
-        results["arbitrage"] = arb_data
-        sources.extend(["jupiter", "raydium", "orca", "pumpswap"])
-    
+        # Same data plumbing as yield_scan but presented as pool list
+        scan = await orch.scan_yields(request.assets)
+        results["liquidity_pools"] = scan
+        sources.append("birdeye")
+
+    elif request.action in (DeFiAction.ARBITRAGE, DeFiAction.SWAP_ROUTE):
+        # Use first asset/mint — caller must pass an actual mint or supported symbol
+        mint_target = request.assets[0] if request.assets else "SOL"
+        from services.research_orchestrator import SOL_MINT, USDC_MINT, CLAWD_MINT
+        mint = {"SOL": SOL_MINT, "USDC": USDC_MINT, "CLAWD": CLAWD_MINT}.get(mint_target, mint_target)
+        results["arbitrage"] = await orch.find_arbitrage(mint)
+        sources.append("birdeye")
+
     elif request.action == DeFiAction.PROTOCOL_RESEARCH:
-        proto_data = await _research_defi_protocols(request)
-        results["protocols"] = proto_data
-        sources.extend(request.protocols)
-    
+        # Aggregate yields by protocol for the asset list
+        scan = await orch.scan_yields(request.assets)
+        by_proto: dict[str, list[dict]] = {}
+        for y in (scan.get("yields") or []):
+            by_proto.setdefault(y.get("dex") or "unknown", []).append(y)
+        results["protocols"] = {p: items for p, items in by_proto.items() if p in request.protocols or not request.protocols}
+        sources.append("birdeye")
+
     confidence = min(1.0, len(results) * 0.3 + 0.4)
-    
+
     cost_sol = RESEARCH_PRICING["token_analysis"]
     cost_clawd = cost_sol * 100
-    
     processing_time = int((time.time() - start_time) * 1000)
-    
+    metadata = {
+        "processing_time_ms": processing_time,
+        "action": request.action.value,
+        "protocols": request.protocols,
+        "tier": tier.value,
+    }
+    agent = get_agent_for_tier(tier)
+    query = f"DeFi {request.action.value} for {', '.join(request.assets)}"
+
+    await orch.persist_run(
+        research_id=research_id, kind="defi", agent=agent, query=query,
+        results=results, sources=sources, confidence=confidence, metadata=metadata,
+    )
+
     return ResearchResponse(
         id=research_id,
-        agent=get_agent_for_tier(tier),
-        query=f"DeFi {request.action.value} for {', '.join(request.assets)}",
+        agent=agent,
+        query=query,
         results=results,
         confidence=confidence,
         sources=sources,
-        cost=ResearchCost(
-            sol=cost_sol,
-            clawd=cost_clawd,
-            tier=tier
-        ),
-        metadata={
-            "processing_time_ms": processing_time,
-            "action": request.action.value,
-            "protocols": request.protocols,
-            "tier": tier.value
-        }
+        cost=ResearchCost(sol=cost_sol, clawd=cost_clawd, tier=tier),
+        metadata=metadata,
     )
 
 
 @router.post("/market", response_model=ResearchResponse)
 async def research_market(
     request: MarketResearchRequest,
+    http_request: Request,
     x_payment: Optional[str] = Header(None),
     x_tier: Optional[str] = Header(None)
 ):
     """
-    Research market sentiment and trends.
-    
+    Research market trends, alpha, whales using live Birdeye + Helius data.
+
     Focus areas:
-    - sentiment: Social media and community sentiment
-    - trends: Trending tokens and narratives
-    - alpha: Potential alpha opportunities
-    - narratives: Emerging market narratives
-    - whale_moves: Large wallet movements
-    
-    Payment: 0.001 SOL (10 CLAWD) for sentiment research
+    - trends: Birdeye trending tokens
+    - alpha: New listings ∩ trending
+    - whale_moves: largest holders for a target mint (default SOL)
+    - sentiment / narratives: combined trends + new-listing signals
     """
     tier = ResearchTier(x_tier.lower()) if x_tier else ResearchTier.BRONZE
     payment_info = await validate_payment(x_payment, tier)
-    
+
     start_time = time.time()
     research_id = generate_research_id()
-    
+    orch = _orchestrator(http_request)
+
     logger.info(f"[{research_id}] Market research: {request.focus}")
-    
-    results = {}
-    sources = request.sources
-    
-    if request.focus == MarketFocus.SENTIMENT:
-        sentiment_data = await _analyze_sentiment(request)
-        results["sentiment"] = sentiment_data
-    
-    elif request.focus == MarketFocus.TRENDS:
-        trends_data = await _get_trends(request)
-        results["trends"] = trends_data
-    
+
+    results: dict[str, Any] = {}
+    sources: list[str] = list(request.sources or [])
+
+    if request.focus == MarketFocus.TRENDS:
+        results["trends"] = await orch.get_trends(limit=30)
+        sources.append("birdeye")
+
     elif request.focus == MarketFocus.ALPHA:
-        alpha_data = await _find_alpha(request)
-        results["alpha"] = alpha_data
-    
-    elif request.focus == MarketFocus.NARRATIVES:
-        narratives_data = await _track_narratives(request)
-        results["narratives"] = narratives_data
-    
+        results["alpha"] = await orch.find_alpha()
+        sources.extend(["birdeye-trending", "birdeye-new-listings"])
+
     elif request.focus == MarketFocus.WHALE_MOVES:
-        whale_data = await _track_whales(request)
-        results["whale_moves"] = whale_data
-        sources.append("solana")
-    
-    confidence = min(1.0, 0.6 + (len(sources) * 0.1))
-    
+        target = request.tokens[0] if request.tokens else None
+        results["whale_moves"] = await orch.track_whales(target)
+        sources.append("helius")
+
+    elif request.focus in (MarketFocus.SENTIMENT, MarketFocus.NARRATIVES):
+        # Composite: trends + new-listing momentum as a sentiment proxy
+        trends, alpha = await asyncio.gather(orch.get_trends(limit=20), orch.find_alpha())
+        results["composite"] = {"trends": trends, "alpha": alpha}
+        sources.extend(["birdeye-trending", "birdeye-new-listings"])
+
+    confidence = min(1.0, 0.6 + (len(results) * 0.15))
+
     cost_sol = RESEARCH_PRICING["basic_chain"]
     cost_clawd = cost_sol * 100
-    
     processing_time = int((time.time() - start_time) * 1000)
-    
+    metadata = {
+        "processing_time_ms": processing_time,
+        "focus": request.focus.value,
+        "timeframe": request.timeframe,
+        "tier": tier.value,
+    }
+    agent = get_agent_for_tier(tier)
+    query = f"Market {request.focus.value} analysis"
+
+    await orch.persist_run(
+        research_id=research_id, kind="market", agent=agent, query=query,
+        results=results, sources=sources, confidence=confidence, metadata=metadata,
+    )
+
     return ResearchResponse(
         id=research_id,
-        agent=get_agent_for_tier(tier),
-        query=f"Market {request.focus.value} analysis",
+        agent=agent,
+        query=query,
         results=results,
         confidence=confidence,
         sources=sources,
-        cost=ResearchCost(
-            sol=cost_sol,
-            clawd=cost_clawd,
-            tier=tier
-        ),
-        metadata={
-            "processing_time_ms": processing_time,
-            "focus": request.focus.value,
-            "timeframe": request.timeframe,
-            "tier": tier.value
-        }
+        cost=ResearchCost(sol=cost_sol, clawd=cost_clawd, tier=tier),
+        metadata=metadata,
     )
 
 
@@ -599,245 +627,143 @@ async def research_agent(
 
 
 # =============================================================================
-# INTERNAL RESEARCH HELPERS
+# AGENT SELF-IMPROVEMENT (lightweight, no external data dependencies)
 # =============================================================================
 
-async def _research_pump_fun(request: ChainResearchRequest) -> dict:
-    """Research pump.fun tokens."""
-    # Simulated pump.fun research
-    return {
-        "recent_launches": [
-            {
-                "mint": "Demo123...",
-                "name": "Demo Token",
-                "symbol": "DEMO",
-                "created_at": datetime.utcnow().isoformat(),
-                "market_cap": 25000,
-                "bonding_curve_progress": 45.5,
-                "graduation_threshold": 69000
-            }
-        ],
-        "trending": [
-            {"symbol": "POPCAT", "change_24h": 125.5, "volume": 1500000},
-            {"symbol": "FWOG", "change_24h": 89.2, "volume": 890000}
-        ]
-    }
-
-
-async def _research_tokens(request: ChainResearchRequest) -> dict:
-    """Research specific tokens."""
-    tokens = []
-    
-    if request.mint:
-        tokens.append({
-            "mint": request.mint,
-            "name": "Researched Token",
-            "symbol": "RESEARCH",
-            "price": 0.00123,
-            "change_24h": 5.67,
-            "volume_24h": 1234567,
-            "market_cap": 12345678,
-            "holders": 1234
-        })
-    
-    return {"tokens": tokens}
-
-
-async def _research_protocols(request: ChainResearchRequest) -> dict:
-    """Research Solana protocols."""
-    return {
-        "raydium": {"tvl": 150000000, "volume_24h": 50000000},
-        "orca": {"tvl": 45000000, "volume_24h": 15000000},
-        "jupiter": {"volume_24h": 200000000, "users_24h": 50000}
-    }
-
-
-async def _check_graduation(mint: Optional[str]) -> dict:
-    """Check pump.fun graduation status."""
-    if not mint:
-        return {"status": "not_checked", "reason": "no_mint_provided"}
-    
-    return {
-        "mint": mint,
-        "status": "graduating",
-        "progress": 68.5,
-        "threshold": 69000,
-        "sol_reserve": 47265,
-        "estimated_time": "2-4 hours"
-    }
-
-
-async def _scan_yields(request: DeFiResearchRequest) -> dict:
-    """Scan for yield opportunities."""
-    yields = []
-    
-    for protocol in request.protocols:
-        for asset in request.assets:
-            yields.append({
-                "protocol": protocol,
-                "asset": asset,
-                "apr": 12.5 + (hash(protocol + asset) % 20),
-                "tvl": 1000000 + (hash(protocol) % 5000000),
-                "risk_level": "medium" if request.risk_tolerance == "medium" else "low"
-            })
-    
-    # Sort by APR
-    yields.sort(key=lambda x: x["apr"], reverse=True)
-    
-    return {"yields": yields[:10]}
-
-
-async def _analyze_lp(request: DeFiResearchRequest) -> dict:
-    """Analyze liquidity pools."""
-    pools = []
-    
-    for protocol in request.protocols:
-        pools.append({
-            "protocol": protocol,
-            "pool": f"{request.assets[0]}/{request.assets[1] if len(request.assets) > 1 else 'SOL'}",
-            "liquidity": 500000,
-            "volume_24h": 100000,
-            "fee_24h": 250,
-            "apr": 25.5
-        })
-    
-    return {"pools": pools}
-
-
-async def _find_arbitrage(request: DeFiResearchRequest) -> dict:
-    """Find arbitrage opportunities."""
-    return {
-        "opportunities": [
-            {
-                "token": request.assets[0],
-                "buy_exchange": "raydium",
-                "sell_exchange": "orca",
-                "spread_pct": 0.15,
-                "estimated_profit_sol": 0.02,
-                "risk": "low"
-            }
-        ]
-    }
-
-
-async def _research_defi_protocols(request: DeFiResearchRequest) -> dict:
-    """Research DeFi protocols."""
-    protocols = {}
-    
-    for protocol in request.protocols:
-        protocols[protocol] = {
-            "name": protocol.capitalize(),
-            "tvl": 50000000,
-            "volume_24h": 10000000,
-            "fees_24h": 25000,
-            "users": 15000,
-            "contracts": ["main", "incentives", "governance"]
-        }
-    
-    return {"protocols": protocols}
-
-
-async def _analyze_sentiment(request: MarketResearchRequest) -> dict:
-    """Analyze market sentiment."""
-    return {
-        "overall_sentiment": "bullish",
-        "score": 72,
-        "social_volume": 15000,
-        "dominant_narrative": "meme_coins",
-        "top_mentioned": ["POPCAT", "FWOG", "MOTHER"],
-        "trend": "increasing"
-    }
-
-
-async def _get_trends(request: MarketResearchRequest) -> dict:
-    """Get trending tokens."""
-    return {
-        "trending": [
-            {"symbol": "POPCAT", "mentions_24h": 5000, "change": 125},
-            {"symbol": "FWOG", "mentions_24h": 3500, "change": 89},
-            {"symbol": "MOTHER", "mentions_24h": 2800, "change": 45}
-        ]
-    }
-
-
-async def _find_alpha(request: MarketResearchRequest) -> dict:
-    """Find alpha opportunities."""
-    return {
-        "alpha": [
-            {
-                "type": "new_listing",
-                "token": "NEW_TOKEN_MINT",
-                "potential": "high",
-                "entry_point": 0.00001,
-                "target": 0.0001
-            }
-        ]
-    }
-
-
-async def _track_narratives(request: MarketResearchRequest) -> dict:
-    """Track market narratives."""
-    return {
-        "narratives": [
-            {"name": "AI agents", "strength": 85, "tokens": 12},
-            {"name": "gaming", "strength": 72, "tokens": 8},
-            {"name": "meme_coins", "strength": 95, "tokens": 50}
-        ]
-    }
-
-
-async def _track_whales(request: MarketResearchRequest) -> dict:
-    """Track whale movements."""
-    return {
-        "whale_alerts": [
-            {
-                "wallet": "Whale123...",
-                "action": "buy",
-                "token": request.tokens[0] if request.tokens else "SOL",
-                "amount_sol": 500,
-                "time": datetime.utcnow().isoformat()
-            }
-        ]
-    }
-
-
 async def _agent_learn(request: AgentResearchRequest) -> dict:
-    """Agent learning from outcomes."""
     return {
-        "patterns_learned": 5,
-        "accuracy_improvement": 0.05,
-        "knowledge_updated": True
+        "agent_id": request.agent_id,
+        "patterns_logged": len((request.data or {}).keys()),
+        "accuracy_improvement": 0.0,  # Honcho integration tracked elsewhere
+        "knowledge_updated": True,
     }
 
 
 async def _agent_share(request: AgentResearchRequest) -> dict:
-    """Agent sharing knowledge."""
     return {
-        "knowledge_shared": True,
-        "agents_reached": 12,
-        "insights_distributed": 3
+        "agent_id": request.agent_id,
+        "shared_to": request.target_agent,
+        "delivered": bool(request.target_agent),
     }
 
 
 async def _agent_collaborate(request: AgentResearchRequest) -> dict:
-    """Agent collaboration."""
     if not request.target_agent:
         return {"status": "no_target", "message": "Specify target_agent for collaboration"}
-    
     return {
         "collaboration_id": generate_research_id(),
         "agents": [request.agent_id, request.target_agent],
         "task": request.task or "general research",
-        "status": "initiated"
+        "status": "initiated",
     }
 
 
 async def _agent_calibrate(request: AgentResearchRequest) -> dict:
-    """Calibrate agent based on feedback."""
     return {
-        "calibration_complete": True,
-        "accuracy_score": 0.85,
-        "adjustments_made": ["threshold_tuning", "pattern_weights"]
+        "agent_id": request.agent_id,
+        "calibrated": True,
+        "snapshot": request.data or {},
+    }
+
+
+# =============================================================================
+# AUTOLOOP — long-running autonomous research mandates
+# =============================================================================
+
+
+class AutoloopMandate(BaseModel):
+    """A reusable research mandate that the autoloop scheduler will run on
+    every tick (default 30 min). Multiple mandates can run concurrently."""
+    name: str = Field(..., description="Human-readable mandate name")
+    kind: str = Field(..., description="chain | defi | market")
+    payload: dict = Field(..., description="Request body matching the kind's endpoint")
+    enabled: bool = True
+    interval_seconds: Optional[int] = None
+
+
+@router.post("/autoloop/start")
+async def autoloop_start(http_request: Request):
+    """Start the background research scheduler if it isn't already running."""
+    from services.research_autoloop import ensure_autoloop_running
+    started = await ensure_autoloop_running(http_request.app)
+    return {
+        "running": True,
+        "newly_started": started,
+        "interval_seconds": settings.RESEARCH_AUTOLOOP_INTERVAL_SECONDS,
+    }
+
+
+@router.post("/autoloop/stop")
+async def autoloop_stop(http_request: Request):
+    from services.research_autoloop import stop_autoloop
+    await stop_autoloop(http_request.app)
+    return {"running": False}
+
+
+@router.get("/autoloop/status")
+async def autoloop_status(http_request: Request):
+    from services.research_autoloop import autoloop_status as status_fn
+    return status_fn(http_request.app)
+
+
+@router.post("/autoloop/mandates")
+async def autoloop_add_mandate(mandate: AutoloopMandate, http_request: Request):
+    from services.research_autoloop import add_mandate
+    return add_mandate(http_request.app, mandate.dict())
+
+
+@router.get("/autoloop/mandates")
+async def autoloop_list_mandates(http_request: Request):
+    from services.research_autoloop import list_mandates
+    return {"mandates": list_mandates(http_request.app)}
+
+
+@router.delete("/autoloop/mandates/{name}")
+async def autoloop_remove_mandate(name: str, http_request: Request):
+    from services.research_autoloop import remove_mandate
+    removed = remove_mandate(http_request.app, name)
+    return {"removed": removed}
+
+
+@router.get("/runs")
+async def list_research_runs(
+    http_request: Request,
+    kind: Optional[str] = Query(None),
+    limit: int = Query(20, ge=1, le=200),
+):
+    """List recent research runs persisted to research_runs."""
+    pool = getattr(http_request.app.state, "pool", None)
+    if pool is None:
+        return {"runs": [], "note": "no database pool"}
+    where = "WHERE kind = $1" if kind else ""
+    args: list = [kind] if kind else []
+    args.append(limit)
+    sql = f"""
+        SELECT id, kind, agent, query, sources, confidence, metadata, created_at
+        FROM research_runs
+        {where}
+        ORDER BY created_at DESC
+        LIMIT ${len(args)}
+    """
+    try:
+        async with pool.acquire() as con:
+            rows = await con.fetch(sql, *args)
+    except Exception as exc:  # noqa: BLE001
+        return {"runs": [], "error": str(exc)}
+    return {
+        "runs": [
+            {
+                "id": r["id"],
+                "kind": r["kind"],
+                "agent": r["agent"],
+                "query": r["query"],
+                "sources": r["sources"],
+                "confidence": float(r["confidence"]) if r["confidence"] is not None else None,
+                "metadata": r["metadata"],
+                "created_at": r["created_at"].isoformat() if r["created_at"] else None,
+            }
+            for r in rows
+        ]
     }
 
 
