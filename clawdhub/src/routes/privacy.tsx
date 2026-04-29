@@ -6,9 +6,9 @@ import { getNanoHubSiteUrl } from '../lib/site'
 export const Route = createFileRoute('/privacy')({
   head: () => {
     const url = `${getNanoHubSiteUrl()}/privacy`
-    const title = 'Privacy Policy | SolanaOS'
+    const title = 'Privacy Policy | OpenClawd'
     const description =
-      'SolanaOS privacy policy. Local-first design, operator-controlled data, and transparent data practices.'
+      'OpenClawd privacy policy. Local-first design, operator-controlled data, and transparent data practices.'
 
     return {
       links: [{ rel: 'canonical', href: url }],
@@ -44,7 +44,7 @@ function PrivacyRoute() {
               <span className="solana-legal-hero-accent">Local-first by design.</span>
             </h1>
             <p className="hero-subtitle">
-              SolanaOS is built to keep sensitive runtime data, device state, and wallet-adjacent
+              OpenClawd is built to keep sensitive runtime data, device state, and wallet-adjacent
               workflows under the operator's control.
             </p>
             <div className="solana-legal-meta-strip">
@@ -66,9 +66,9 @@ function PrivacyRoute() {
           <article className="card solana-legal-card">
             <div className="solana-legal-section">
               <span className="tag solana-legal-tag">Overview</span>
-              <h2>SolanaOS Privacy Policy</h2>
+              <h2>OpenClawd Privacy Policy</h2>
               <p>
-                SolanaOS is designed as a local-first product. The Android app and related control
+                OpenClawd is designed as a local-first product. The Android app and related control
                 surfaces are built to keep sensitive runtime data, device state, and wallet-adjacent
                 workflows under the operator's control.
               </p>
@@ -78,7 +78,7 @@ function PrivacyRoute() {
               <span className="tag solana-legal-tag">Collection</span>
               <h2>What We Collect</h2>
               <p>
-                SolanaOS may process account identifiers, device pairing metadata, runtime logs,
+                OpenClawd may process account identifiers, device pairing metadata, runtime logs,
                 configuration details, and app telemetry that is necessary to operate the product.
                 Data processed through your own connected providers, wallets, RPC endpoints, or
                 agent infrastructure remains governed by those services as well.
@@ -92,7 +92,7 @@ function PrivacyRoute() {
                 <div className="solana-legal-list-item">
                   <span className="solana-legal-bullet">&#x25C6;</span>
                   <span>
-                    To pair the mobile app with your SolanaOS runtime or gateway.
+                    To pair the mobile app with your OpenClawd runtime or gateway.
                   </span>
                 </div>
                 <div className="solana-legal-list-item">
@@ -114,7 +114,7 @@ function PrivacyRoute() {
               <span className="tag solana-legal-tag">Sharing</span>
               <h2>Data Sharing</h2>
               <p>
-                SolanaOS does not sell your personal information. Data may be shared only with
+                OpenClawd does not sell your personal information. Data may be shared only with
                 infrastructure and API providers that you explicitly configure or that are required
                 to deliver the feature you use.
               </p>

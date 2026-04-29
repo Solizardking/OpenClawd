@@ -10,8 +10,8 @@ export function Footer() {
         <div className="site-footer-row">
           <div className="site-footer-copy">
             {siteName} · A{' '}
-            <a href="https://solanaos.net" target="_blank" rel="noreferrer">
-              SolanaOS
+            <a href="https://openclawd.net" target="_blank" rel="noreferrer">
+              OpenClawd
             </a>{' '}
             project · Powered by{' '}
             <a href="https://www.convex.dev" target="_blank" rel="noreferrer">
@@ -19,7 +19,7 @@ export function Footer() {
             </a>{' '}
             ·{' '}
             <a
-              href="https://github.com/x402agent/SolanaOS"
+              href="https://github.com/x402agent/OpenClawd"
               target="_blank"
               rel="noreferrer"
             >

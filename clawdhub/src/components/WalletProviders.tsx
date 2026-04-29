@@ -4,7 +4,7 @@ import { MobileWalletAdapterProvider } from './MobileWalletAdapterProvider'
 
 const PHANTOM_APP_ID = import.meta.env.VITE_PHANTOM_APP_ID || ''
 const SITE_ORIGIN =
-  typeof window !== 'undefined' ? window.location.origin : 'https://seeker.solanaos.net'
+  typeof window !== 'undefined' ? window.location.origin : 'https://seeker.openclawd.net'
 
 /** Reads usePhantom() and pushes state into our safe context */
 function PhantomStateBridge({ children }: { children: React.ReactNode }) {
@@ -35,7 +35,7 @@ export default function WalletProviders({ children }: { children: React.ReactNod
         },
       }}
       theme={darkTheme}
-      appName="SolanaOS Hub"
+      appName="OpenClawd Hub"
     >
       <PhantomStateBridge>{content}</PhantomStateBridge>
     </PhantomProvider>

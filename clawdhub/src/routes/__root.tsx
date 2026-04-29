@@ -13,6 +13,7 @@ import { SolanaAgentLauncher } from '../components/SolanaAgentLauncher'
 import { getSiteDescription, getSiteMode, getSiteName, getSiteUrlForMode } from '../lib/site'
 
 import appCss from '../styles.css?url'
+import openClawdTheme from '../styles/openclawd-theme.css?url'
 
 export const Route = createRootRoute({
   head: () => {
@@ -95,6 +96,10 @@ export const Route = createRootRoute({
         {
           rel: 'stylesheet',
           href: appCss,
+        },
+        {
+          rel: 'stylesheet',
+          href: openClawdTheme,
         },
       ],
     }

@@ -130,7 +130,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
 		return (
 			<div className="app-shell">
 				<div style={{ maxWidth: 820, margin: "4rem auto", padding: "2rem" }}>
-					<h1>SolanaOS Hub setup required</h1>
+					<h1>OpenClawd Hub setup required</h1>
 					<p>
 						<code>VITE_CONVEX_URL</code> is not configured, so the Convex client
 						cannot start.

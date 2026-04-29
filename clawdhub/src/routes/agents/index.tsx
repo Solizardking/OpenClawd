@@ -26,7 +26,7 @@ function AgentsIndexPage() {
       <section className="agent-shell">
         <div className="gallery-hero">
           <div className="gallery-copy">
-            <p className="gallery-eyebrow">SolanaOS Agent Directory</p>
+            <p className="gallery-eyebrow">OpenClawd Agent Directory</p>
             <h1 className="section-title" style={{ margin: 0 }}>
               Registered 8004 + Metaplex agents
             </h1>

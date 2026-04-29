@@ -144,9 +144,9 @@ function encodeCompactSignatures(sigs: UmiTxSig[]): number[] {
 // ---------------------------------------------------------------------------
 
 const MAINNET_RPC = 'https://api.mainnet-beta.solana.com'
-const METADATA_BASE = 'https://solanaos.net/api/skills/nft-metadata'
+const METADATA_BASE = 'https://openclawd.net/api/skills/nft-metadata'
 const REGISTER_8004_URL = '/api/skills/register-8004'
-const COLLECTION_STORAGE_KEY = 'solanaos-skills-collection-address'
+const COLLECTION_STORAGE_KEY = 'openclawd-skills-collection-address'
 const EXPLORER_BASE = 'https://explorer.solana.com'
 
 // ---------------------------------------------------------------------------

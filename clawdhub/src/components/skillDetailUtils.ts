@@ -1,4 +1,4 @@
-import type { SkillInstallSpec } from 'solanaos-hub-schema'
+import type { SkillInstallSpec } from 'openclawd-hub-schema'
 import type { Id } from '../../convex/_generated/dataModel'
 
 export function buildSkillHref(ownerHandle: string | null, ownerId: Id<'users'> | null, slug: string) {

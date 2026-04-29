@@ -3,7 +3,7 @@ import {
   PLATFORM_SKILL_LICENSE,
   PLATFORM_SKILL_LICENSE_NAME,
   PLATFORM_SKILL_LICENSE_SUMMARY,
-} from 'solanaos-hub-schema'
+} from 'openclawd-hub-schema'
 import { useAction, useMutation, useQuery } from 'convex/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import semver from 'semver'
@@ -403,7 +403,7 @@ export function Upload() {
       {!isSoulMode ? (
         <div className="card upload-panel">
           <h2 className="upload-panel-title">Prefer npm CLI?</h2>
-          <div className="stat">Use SolanaOS CLI to publish from terminal:</div>
+          <div className="stat">Use OpenClawd CLI to publish from terminal:</div>
           <div className="stat">
             <code>npx @nanosolana/nanohub login</code>
           </div>
@@ -559,7 +559,7 @@ export function Upload() {
                   {PLATFORM_SKILL_LICENSE} · {PLATFORM_SKILL_LICENSE_NAME}
                 </div>
                 <p className="upload-license-copy">
-                  All skills published on SolanaOS Hub are licensed under {PLATFORM_SKILL_LICENSE}.{' '}
+                  All skills published on OpenClawd Hub are licensed under {PLATFORM_SKILL_LICENSE}.{' '}
                   {PLATFORM_SKILL_LICENSE_SUMMARY}
                 </p>
                 <label className="upload-license-check">

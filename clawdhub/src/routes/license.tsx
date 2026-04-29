@@ -6,9 +6,9 @@ import { getNanoHubSiteUrl } from '../lib/site'
 export const Route = createFileRoute('/license')({
   head: () => {
     const url = `${getNanoHubSiteUrl()}/license`
-    const title = 'License | SolanaOS'
+    const title = 'License | OpenClawd'
     const description =
-      'SolanaOS is distributed under the MIT License. View the full license terms.'
+      'OpenClawd is distributed under the MIT License. View the full license terms.'
 
     return {
       links: [{ rel: 'canonical', href: url }],
@@ -44,7 +44,7 @@ function LicenseRoute() {
               <span className="solana-legal-hero-accent">Free and open source.</span>
             </h1>
             <p className="hero-subtitle">
-              The SolanaOS repository is distributed under the MIT License. Use, modify, and
+              The OpenClawd repository is distributed under the MIT License. Use, modify, and
               distribute freely.
             </p>
             <div className="solana-legal-meta-strip">
@@ -87,7 +87,7 @@ function LicenseRoute() {
               <div className="solana-legal-license-block">
                 <pre>{`MIT License
 
-Copyright (c) 2026 SolanaOS contributors
+Copyright (c) 2026 OpenClawd contributors
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

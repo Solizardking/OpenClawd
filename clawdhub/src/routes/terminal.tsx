@@ -14,7 +14,7 @@ import { useAuthStatus } from '../lib/useAuthStatus'
 export const Route = createFileRoute('/terminal')({
   head: () => {
     const url = `${getNanoHubSiteUrl()}/terminal`
-    const title = 'Terminal | SolanaOS'
+    const title = 'Terminal | OpenClawd'
     const description =
       'Real-time AI terminal powered by Together AI. Multi-model chat with Qwen, Kimi, and more.'
     return {
@@ -44,7 +44,7 @@ const MODELS = [
 ]
 
 const SYSTEM_PROMPT =
-  'You are SolanaOS Terminal, an AI assistant for Solana traders and operators. Be concise, technical, and helpful. When discussing crypto, include relevant data points. Format code blocks with ```.'
+  'You are OpenClawd Terminal, an AI assistant for Solana traders and operators. Be concise, technical, and helpful. When discussing crypto, include relevant data points. Format code blocks with ```.'
 
 function TerminalRoute() {
   const { walletAddress } = useAuthStatus()
@@ -157,7 +157,7 @@ function TerminalRoute() {
         <div className="solana-terminal-gate">
           <span className="hero-badge">Terminal</span>
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: '#fff', margin: '16px 0 8px' }}>
-            SolanaOS Terminal
+            OpenClawd Terminal
           </h1>
           <p style={{ color: 'rgba(255,255,255,0.6)', marginBottom: 24 }}>
             Connect your Solana wallet to access the AI terminal.
@@ -192,7 +192,7 @@ function TerminalRoute() {
         {messages.length === 0 && (
           <div className="solana-terminal-empty">
             <div className="solana-terminal-empty-icon">{'>'}_</div>
-            <h2>SolanaOS Terminal</h2>
+            <h2>OpenClawd Terminal</h2>
             <p>
               Powered by <strong style={{ color: activeModel.accent }}>{activeModel.label}</strong> via
               Together AI
@@ -233,7 +233,7 @@ function TerminalRoute() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={streaming ? 'Generating...' : 'Message SolanaOS Terminal...'}
+          placeholder={streaming ? 'Generating...' : 'Message OpenClawd Terminal...'}
           disabled={streaming}
           rows={1}
         />

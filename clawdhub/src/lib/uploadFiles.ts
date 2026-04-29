@@ -1,4 +1,4 @@
-import { TEXT_FILE_EXTENSION_SET } from 'solanaos-hub-schema'
+import { TEXT_FILE_EXTENSION_SET } from 'openclawd-hub-schema'
 import { gunzipSync, unzipSync } from 'fflate'
 
 const TEXT_TYPES = new Map([

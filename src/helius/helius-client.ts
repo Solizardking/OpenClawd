@@ -203,16 +203,17 @@ export class HeliusClient {
   // ── Digital Asset Standard (DAS) ─────────────────────────────────────────
 
   async getAsset(mint: string): Promise<DASAsset> {
-    const result = await this.rpc<DASAsset>("getAsset", [{ id: mint }]);
+    // DAS takes a plain object — NOT array-wrapped — for getAsset.
+    const result = await this.rpc<DASAsset>("getAsset", { id: mint });
     return result;
   }
 
   async getAssetsByOwner(wallet: string, opts: { limit?: number } = {}): Promise<{ items: DASAsset[]; total: number }> {
-    const result = await this.rpc<{ items: DASAsset[]; total: number }>("getAssetsByOwner", [{
+    const result = await this.rpc<{ items: DASAsset[]; total: number }>("getAssetsByOwner", {
       ownerAddress: wallet,
       page: 1,
       limit: opts.limit ?? 50,
-    }]);
+    });
     return result;
   }
 

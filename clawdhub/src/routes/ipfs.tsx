@@ -23,7 +23,7 @@ import { useAuthStatus } from '../lib/useAuthStatus'
 export const Route = createFileRoute('/ipfs')({
   head: () => {
     const url = `${getNanoHubSiteUrl()}/ipfs`
-    const title = 'IPFS Hub | SolanaOS Private File Storage'
+    const title = 'IPFS Hub | OpenClawd Private File Storage'
     const description =
       'Private IPFS file storage scoped per Solana wallet and GitHub account. Upload, serve, and recall files across web, Seeker mobile, Android, and Tailscale mesh nodes.'
 
@@ -68,7 +68,7 @@ function IPFSHubPage() {
         {/* Hero */}
         <div className="gallery-hero">
           <div className="gallery-copy">
-            <p className="gallery-eyebrow">SolanaOS IPFS Hub</p>
+            <p className="gallery-eyebrow">OpenClawd IPFS Hub</p>
             <h1 className="section-title" style={{ margin: 0 }}>
               Private IPFS File Storage
             </h1>

@@ -1,8 +1,8 @@
 export type SiteMode = 'skills' | 'souls'
 
 const DEFAULT_NANOHUB_SITE_URL = 'https://solanaclawd.com'
-const DEFAULT_ONLYCRABS_SITE_URL = 'https://souls.solanaos.net'
-const DEFAULT_ONLYCRABS_HOST = 'souls.solanaos.net'
+const DEFAULT_ONLYCRABS_SITE_URL = 'https://souls.openclawd.net'
+const DEFAULT_ONLYCRABS_HOST = 'souls.openclawd.net'
 const LEGACY_NANOHUB_HOSTS = new Set([
   'clawhub.com',
   'www.clawhub.com',
@@ -102,13 +102,13 @@ export function getSiteMode(): SiteMode {
 }
 
 export function getSiteName(mode: SiteMode = getSiteMode()) {
-  return mode === 'souls' ? 'SolanaOS Souls' : 'SolanaOS Hub'
+  return mode === 'souls' ? 'OpenClawd Souls' : 'OpenClawd Hub'
 }
 
 export function getSiteDescription(mode: SiteMode = getSiteMode()) {
   return mode === 'souls'
-    ? 'SolanaOS Souls — the home for SOUL.md bundles and personal system lore.'
-    : 'SolanaOS Hub — the skill registry for SolanaOS agents, with vector search.'
+    ? 'OpenClawd Souls — the home for SOUL.md bundles and personal system lore.'
+    : 'OpenClawd Hub — the skill registry for OpenClawd agents, with vector search.'
 }
 
 export function getSiteUrlForMode(mode: SiteMode = getSiteMode()) {
@@ -134,5 +134,5 @@ export function getLiveChessUrl() {
     // ignore invalid URL and use production fallback
   }
 
-  return 'https://chess.solanaos.net'
+  return 'https://chess.openclawd.net'
 }

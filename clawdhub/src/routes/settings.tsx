@@ -86,12 +86,12 @@ function Settings() {
 
   function saveAgentPreferences() {
     saveSolanaAgentPreferences(me._id, agentPreferences)
-    setAgentStatus('SolanaOS Agent settings saved locally for this browser.')
+    setAgentStatus('OpenClawd Agent settings saved locally for this browser.')
   }
 
   function clearAgentConversation() {
     clearSolanaAgentConversation(me._id)
-    setAgentStatus('Saved SolanaOS Agent conversation cleared for this browser.')
+    setAgentStatus('Saved OpenClawd Agent conversation cleared for this browser.')
   }
 
   return (
@@ -140,10 +140,10 @@ function Settings() {
 
       <div id="agent" className="card settings-card">
         <h2 className="section-title" style={{ marginTop: 0 }}>
-          SolanaOS Agent
+          OpenClawd Agent
         </h2>
         <p className="section-subtitle">
-          Control the hosted popup assistant that appears across SolanaOS Hub after you sign in.
+          Control the hosted popup assistant that appears across OpenClawd Hub after you sign in.
         </p>
 
         <div className="settings-agent-grid">
@@ -199,7 +199,7 @@ function Settings() {
           />
           <div>
             <strong>Keep conversation on this device</strong>
-            <div className="section-subtitle">Stores your recent SolanaOS Agent thread locally in this browser only.</div>
+            <div className="section-subtitle">Stores your recent OpenClawd Agent thread locally in this browser only.</div>
           </div>
         </label>
 

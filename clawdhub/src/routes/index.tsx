@@ -19,7 +19,7 @@ export const Route = createFileRoute('/')({
 function isRootDomain() {
   if (typeof window === 'undefined') return false
   const host = window.location.hostname.toLowerCase()
-  return host === 'solanaos.net' || host === 'www.solanaos.net'
+  return host === 'openclawd.net' || host === 'www.openclawd.net'
 }
 
 function Home() {
@@ -65,11 +65,11 @@ function SkillsHome() {
       <section className="hero">
         <div className="hero-inner">
           <div className="hero-copy fade-up" data-delay="1">
-            <span className="hero-badge">SolanaOS. Agent-ready.</span>
-            <h1 className="hero-title">SolanaOS Hub, the skill dock for SolanaOS agents.</h1>
+            <span className="hero-badge">OpenClawd. Agent-ready.</span>
+            <h1 className="hero-title">OpenClawd Hub, the skill dock for OpenClawd agents.</h1>
             <p className="hero-subtitle">
               Upload AgentSkills bundles, version them like npm, and host them in a searchable
-              SolanaOS registry. No gatekeeping, just signal.
+              OpenClawd registry. No gatekeeping, just signal.
             </p>
             <div style={{ display: 'flex', gap: 12, marginTop: 20 }}>
               <Link to="/upload" search={{ updateSlug: undefined }} className="btn btn-primary">
@@ -111,24 +111,24 @@ function SkillsHome() {
       </section>
 
       <section className="section">
-        <div className="card solanaos-home-cta">
+        <div className="card openclawd-home-cta">
           <div>
             <h2 className="section-title" style={{ marginBottom: 8 }}>
-              SolanaOS runtime catalog
+              OpenClawd runtime catalog
             </h2>
             <p className="section-subtitle" style={{ marginBottom: 0 }}>
               Explore the full <code>pkg/</code> runtime surface, browse packaged skills, and use
-              the backend gateway layout that should power the public solanaos.net control plane.
+              the backend gateway layout that should power the public openclawd.net control plane.
             </p>
           </div>
-          <div className="solanaos-home-cta-actions">
+          <div className="openclawd-home-cta-actions">
             <a href={solanaOsUrl} className="btn btn-primary">
-              Open SolanaOS
+              Open OpenClawd
             </a>
             <a href={solanaOsMobileUrl} className="btn">
               See mobile dapp
             </a>
-            <a href={`${solanaOsUrl}#solanaos-skills`} className="btn">
+            <a href={`${solanaOsUrl}#openclawd-skills`} className="btn">
               Download skills
             </a>
           </div>
@@ -136,7 +136,7 @@ function SkillsHome() {
       </section>
 
       <section className="section">
-        <div className="card solanaos-home-cta" style={{ borderLeft: '3px solid #14f195' }}>
+        <div className="card openclawd-home-cta" style={{ borderLeft: '3px solid #14f195' }}>
           <div>
             <h2 className="section-title" style={{ marginBottom: 8 }}>
               solana-claude Agent Engine
@@ -144,10 +144,10 @@ function SkillsHome() {
             <p className="section-subtitle" style={{ marginBottom: 0 }}>
               7 built-in agents, 31 MCP tools, OODA trading loops, 18 blockchain buddy species,
               3-tier epistemological memory, 128-bit risk engine, and AgentWallet vault — all
-              integrated into the SolanaOS runtime.
+              integrated into the OpenClawd runtime.
             </p>
           </div>
-          <div className="solanaos-home-cta-actions">
+          <div className="openclawd-home-cta-actions">
             <Link to="/agents/engine" className="btn btn-primary">
               Open Agent Engine
             </Link>
@@ -159,7 +159,7 @@ function SkillsHome() {
       </section>
 
       <section className="section">
-        <div className="card solanaos-home-cta" style={{ borderLeft: '3px solid #7c3aed' }}>
+        <div className="card openclawd-home-cta" style={{ borderLeft: '3px solid #7c3aed' }}>
           <div>
             <h2 className="section-title" style={{ marginBottom: 8 }}>
               Formal Verification for Solana
@@ -170,7 +170,7 @@ function SkillsHome() {
               conservation, state machines, arithmetic safety, and CPI correctness.
             </p>
           </div>
-          <div className="solanaos-home-cta-actions">
+          <div className="openclawd-home-cta-actions">
             <a href={`${solanaOsUrl}#skill-solana-formal-verification`} className="btn btn-primary">
               Get the skill
             </a>
@@ -284,10 +284,10 @@ function OnlyCrabsHome() {
         <div className="hero-inner">
           <div className="hero-copy fade-up" data-delay="1">
             <span className="hero-badge">SOUL.md, shared.</span>
-            <h1 className="hero-title">SolanaOS Hub Souls, where system lore lives.</h1>
+            <h1 className="hero-title">OpenClawd Hub Souls, where system lore lives.</h1>
             <p className="hero-subtitle">
               Share SOUL.md bundles, version them like docs, and keep personal system lore in one
-              public SolanaOS Hub space.
+              public OpenClawd Hub space.
             </p>
             <div style={{ display: 'flex', gap: 12, marginTop: 20 }}>
               <Link to="/upload" search={{ updateSlug: undefined }} className="btn btn-primary">

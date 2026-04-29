@@ -7,6 +7,8 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "http": "tsx watch src/http.ts",
+    "http:once": "tsx src/http.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },

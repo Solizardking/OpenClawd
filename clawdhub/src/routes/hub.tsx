@@ -30,11 +30,11 @@ function HubRoute() {
       <section className="hero">
         <div className="hero-inner">
           <div className="hero-copy fade-up" data-delay="1">
-            <span className="hero-badge">{openClawdCatalog.siteUrl} / SolanaOS</span>
-            <h1 className="hero-title">The SolanaOS computer system catalog for Seeker, gateway, agent, and on-chain runtime modules.</h1>
+            <span className="hero-badge">{openClawdCatalog.siteUrl} / OpenClawd</span>
+            <h1 className="hero-title">The OpenClawd computer system catalog for Seeker, gateway, agent, and on-chain runtime modules.</h1>
             <p className="hero-subtitle">
               Browse the full Go runtime surface from <code>pkg/</code>, inspect the public
-              Seeker-linked computer modules that power SolanaOS, install downloadable skills built
+              Seeker-linked computer modules that power OpenClawd, install downloadable skills built
               from this repo, and use the web backend as the public control plane instead of
               exposing local internals directly.
             </p>
@@ -42,10 +42,10 @@ function HubRoute() {
               <a href="/mobile" className="btn btn-primary">
                 See mobile dapp
               </a>
-              <a href="#solanaos-skills" className="btn btn-primary">
+              <a href="#openclawd-skills" className="btn btn-primary">
                 Download skills
               </a>
-              <a href="#solanaos-packages" className="btn">
+              <a href="#openclawd-packages" className="btn">
                 Explore packages
               </a>
               <a href={openClawdCatalog.troubleshootingUrl} className="btn">
@@ -69,7 +69,7 @@ function HubRoute() {
               </div>
             </div>
             <div className="hero-install" style={{ marginTop: 18 }}>
-              <div className="stat">Install SolanaOS skills from the hub CLI:</div>
+              <div className="stat">Install OpenClawd skills from the hub CLI:</div>
               <InstallSwitcher exampleSlug="seeker-daemon-ops" />
             </div>
           </div>
@@ -79,7 +79,7 @@ function HubRoute() {
       <section className="section">
         <header className="skills-header-top">
           <h2 className="section-title" style={{ marginBottom: 8 }}>
-            SolanaOS catalog search
+            OpenClawd catalog search
           </h2>
           <p className="section-subtitle" style={{ marginBottom: 0 }}>
             Filter runtime packages and skills by name or path.
@@ -102,7 +102,7 @@ function HubRoute() {
       </section>
 
       <section className="section">
-        <div className="card solanaos-home-cta">
+        <div className="card openclawd-home-cta">
           <div>
             <h2 className="section-title" style={{ marginBottom: 8 }}>
               Seeker mobile dapp preview
@@ -112,7 +112,7 @@ function HubRoute() {
               Grok, chat, ORE, canvas, and settings framed around the Seeker build we just shipped.
             </p>
           </div>
-          <div className="solanaos-home-cta-actions">
+          <div className="openclawd-home-cta-actions">
             <a href="/mobile" className="btn btn-primary">
               Open mobile route
             </a>
@@ -124,7 +124,7 @@ function HubRoute() {
       </section>
 
       <section className="section">
-        <div className="card solanaos-home-cta" style={{ borderLeft: '3px solid var(--color-accent, #7c3aed)' }}>
+        <div className="card openclawd-home-cta" style={{ borderLeft: '3px solid var(--color-accent, #7c3aed)' }}>
           <div>
             <h2 className="section-title" style={{ marginBottom: 8 }}>
               Formal Verification for Solana Programs
@@ -142,7 +142,7 @@ function HubRoute() {
               <span className="tag tag-accent">CPI Correctness</span>
             </div>
           </div>
-          <div className="solanaos-home-cta-actions">
+          <div className="openclawd-home-cta-actions">
             <a href="#skill-solana-formal-verification" className="btn btn-primary">
               Install skill
             </a>
@@ -156,12 +156,12 @@ function HubRoute() {
       <section className="section">
         <h2 className="section-title">Bundled mobile starter pack</h2>
         <p className="section-subtitle">
-          The Android Seeker build now ships with a curated SolanaOS mobile skill pack and always
+          The Android Seeker build now ships with a curated OpenClawd mobile skill pack and always
           points back to <code>{openClawdCatalog.skillsHubUrl}</code> for the full catalog.
         </p>
         <div className="grid">
           {openClawdCatalog.bundledMobileSkills.map((entry) => (
-            <article key={entry.slug} className="card solanaos-feature-card">
+            <article key={entry.slug} className="card openclawd-feature-card">
               <div className="catalog-card-top">
                 <h3 className="skill-card-title">{entry.title}</h3>
                 <span className="tag tag-accent">{entry.slug}</span>
@@ -180,15 +180,15 @@ function HubRoute() {
       <section className="section">
         <header className="skills-header-top">
           <h2 className="section-title" style={{ marginBottom: 8 }}>
-            SolanaOS computer system modules
+            OpenClawd computer system modules
           </h2>
           <p className="section-subtitle" style={{ marginBottom: 0 }}>
-            Featured runtime groups from the Seeker-connected SolanaOS computer stack.
+            Featured runtime groups from the Seeker-connected OpenClawd computer stack.
           </p>
         </header>
         <div className="grid">
           {openClawdCatalog.featuredSections.map((section) => (
-            <article key={section.title} className="card solanaos-feature-card">
+            <article key={section.title} className="card openclawd-feature-card">
               <div className="catalog-card-top">
                 <h3 className="skill-card-title">{section.title}</h3>
                 <span className="tag tag-accent">{section.packages.length} modules</span>
@@ -196,9 +196,9 @@ function HubRoute() {
               <p className="stat" style={{ margin: 0 }}>
                 {section.summary}
               </p>
-              <div className="solanaos-chip-row">
+              <div className="openclawd-chip-row">
                 {section.packages.map((name) => (
-                  <a key={name} href={`#pkg-${name}`} className="tag solanaos-package-chip">
+                  <a key={name} href={`#pkg-${name}`} className="tag openclawd-package-chip">
                     {name}
                   </a>
                 ))}
@@ -208,11 +208,11 @@ function HubRoute() {
         </div>
       </section>
 
-      <section className="section" id="solanaos-packages">
+      <section className="section" id="openclawd-packages">
         <h2 className="section-title">Go runtime packages</h2>
         <p className="section-subtitle">
           Every top-level module under <code>pkg/</code>, grouped and described as part of the
-          SolanaOS computer system.
+          OpenClawd computer system.
         </p>
         <div className="grid">
           {filteredPackages.map((entry) => (
@@ -226,14 +226,14 @@ function HubRoute() {
               </p>
               <code className="catalog-path">{entry.path}</code>
               <code className="catalog-command">{entry.importPath}</code>
-              <div className="solanaos-package-meta">
+              <div className="openclawd-package-meta">
                 <span className="tag">{entry.fileCount} files</span>
                 <span className="tag">{formatBytes(entry.sizeBytes)} of source</span>
               </div>
               {entry.keyFiles.length > 0 ? (
-                <div className="solanaos-keyfiles">
+                <div className="openclawd-keyfiles">
                   <div className="stat">Key files</div>
-                  <div className="solanaos-chip-row">
+                  <div className="openclawd-chip-row">
                     {entry.keyFiles.slice(0, 8).map((file) => (
                       <span key={file} className="tag">
                         {file}
@@ -252,7 +252,7 @@ function HubRoute() {
         </div>
       </section>
 
-      <section className="section" id="solanaos-skills">
+      <section className="section" id="openclawd-skills">
         <h2 className="section-title">Downloadable skills</h2>
         <p className="section-subtitle">
           Skill folders from <code>skills/</code>, exported as static zip downloads during the
@@ -284,7 +284,7 @@ function HubRoute() {
 
       {/* ── Solana-Claude Agent Engine ─────────────────────────────── */}
       <section className="section">
-        <div className="card solanaos-home-cta" style={{ borderLeft: '3px solid #14f195' }}>
+        <div className="card openclawd-home-cta" style={{ borderLeft: '3px solid #14f195' }}>
           <div>
             <h2 className="section-title" style={{ marginBottom: 8 }}>
               solana-claude Agent Engine
@@ -304,7 +304,7 @@ function HubRoute() {
               <span className="tag tag-accent">x402 Payments</span>
             </div>
           </div>
-          <div className="solanaos-home-cta-actions">
+          <div className="openclawd-home-cta-actions">
             <Link to="/agents/engine" className="btn btn-primary">
               Open Agent Engine
             </Link>
@@ -324,7 +324,7 @@ function HubRoute() {
           Core subsystems bundled from <code>solana-claude/</code> — gateway, wallet vault, examples, and data integrations.
         </p>
         <div className="grid">
-          <article className="card solanaos-feature-card">
+          <article className="card openclawd-feature-card">
             <div className="catalog-card-top">
               <h3 className="skill-card-title">CLAWD Gateway</h3>
               <span className="tag tag-accent">gateway/</span>
@@ -334,7 +334,7 @@ function HubRoute() {
               wallet commands, price tracking, and whale watching.
             </p>
           </article>
-          <article className="card solanaos-feature-card">
+          <article className="card openclawd-feature-card">
             <div className="catalog-card-top">
               <h3 className="skill-card-title">AgentWallet Vault</h3>
               <span className="tag tag-accent">packages/agentwallet/</span>
@@ -344,7 +344,7 @@ function HubRoute() {
               REST API for wallet CRUD, import/export, E2B and Cloudflare deployment.
             </p>
           </article>
-          <article className="card solanaos-feature-card">
+          <article className="card openclawd-feature-card">
             <div className="catalog-card-top">
               <h3 className="skill-card-title">TailClaude</h3>
               <span className="tag tag-accent">tailclawd/</span>
@@ -354,7 +354,7 @@ function HubRoute() {
               Real-time cost tracking, session history, QR code pairing.
             </p>
           </article>
-          <article className="card solanaos-feature-card">
+          <article className="card openclawd-feature-card">
             <div className="catalog-card-top">
               <h3 className="skill-card-title">Solana Tracker</h3>
               <span className="tag tag-accent">solana-tracker/</span>
@@ -364,7 +364,7 @@ function HubRoute() {
               funding source detection, batch identity, and DAS assets.
             </p>
           </article>
-          <article className="card solanaos-feature-card">
+          <article className="card openclawd-feature-card">
             <div className="catalog-card-top">
               <h3 className="skill-card-title">TradingView Charts</h3>
               <span className="tag tag-accent">solana-tradingview/</span>
@@ -374,7 +374,7 @@ function HubRoute() {
               OHLCV candles, live trades, wallet tracking, holder overlays.
             </p>
           </article>
-          <article className="card solanaos-feature-card">
+          <article className="card openclawd-feature-card">
             <div className="catalog-card-top">
               <h3 className="skill-card-title">Risk Engine Spec</h3>
               <span className="tag tag-accent">docs/risk-engine-spec.md</span>
@@ -391,7 +391,7 @@ function HubRoute() {
         <h2 className="section-title">Backend recommendation</h2>
         <p className="section-subtitle">
           Yes, this should connect to <code>web/backend</code>. That service is the right public
-          edge for SolanaOS runtime actions, setup bundles, gateway access, and authenticated API
+          edge for OpenClawd runtime actions, setup bundles, gateway access, and authenticated API
           calls.
         </p>
         <div className="card" style={{ gap: 16 }}>

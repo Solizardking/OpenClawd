@@ -468,14 +468,14 @@ code {
   margin-top: 18px;
 }
 
-.solanaos-home-cta {
+.openclawd-home-cta {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
 }
 
-.solanaos-home-cta-actions {
+.openclawd-home-cta-actions {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
@@ -1007,7 +1007,7 @@ code {
 
   .solana-mobile-phone-header,
   .solana-mobile-hero-card-top,
-  .solanaos-home-cta {
+  .openclawd-home-cta {
     flex-direction: column;
   }
 
@@ -1926,7 +1926,7 @@ code {
   gap: 12px;
 }
 
-.solanaos-feature-card {
+.openclawd-feature-card {
   gap: 14px;
   background:
     radial-gradient(circle at top right, rgba(20, 241, 149, 0.12), transparent 34%),
@@ -1979,29 +1979,29 @@ code {
   text-decoration-color: rgba(20, 241, 149, 0.6);
 }
 
-.solanaos-chip-row {
+.openclawd-chip-row {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.solanaos-package-chip {
+.openclawd-package-chip {
   text-decoration: none;
 }
 
-.solanaos-package-chip:hover,
-.solanaos-package-chip:focus-visible {
+.openclawd-package-chip:hover,
+.openclawd-package-chip:focus-visible {
   border-color: rgba(20, 241, 149, 0.45);
   color: var(--ink);
 }
 
-.solanaos-package-meta {
+.openclawd-package-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.solanaos-keyfiles {
+.openclawd-keyfiles {
   display: grid;
   gap: 8px;
 }

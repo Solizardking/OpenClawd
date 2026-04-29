@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenClawd Console — Live Gateway</title>
+  <meta name="theme-color" content="#0a0e1a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="ocean"></div>
+
+  <nav class="top">
+    <div class="container row">
+      <div class="brand"><span class="lobster" id="brand-lobster">🦞</span><span>OpenClawd Console</span></div>
+      <div class="health">
+        <span class="dot" id="dot-gw" title="gateway"></span> gw
+        <span class="dot" id="dot-bird" title="birdeye"></span> bird
+        <span class="dot" id="dot-hel" title="helius"></span> hel
+        <span class="dot" id="dot-rt" title="src runtime"></span> rt
+      </div>
+      <input id="gw-base" class="gw-input mono" value="http://127.0.0.1:8788" spellcheck="false" />
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="badge"><span>●</span> connected to <code id="hero-base">…</code></div>
+      <div class="hero-row">
+        <div>
+          <h1>The lobster<br/>is <span class="accent">awake.</span></h1>
+          <p class="sub">Live operational dashboard for the OpenClawd gateway. Every card is real data — Birdeye, Helius DAS, the agent runtime, and the skill registry — fetched from <code>http://127.0.0.1:8788</code>.</p>
+        </div>
+        <div class="anim-stack">
+          <pre class="anim" id="anim-pulse"></pre>
+          <pre class="anim small" id="anim-claw"></pre>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Lookup -->
+    <section class="card">
+      <div class="card-head"><h2>Token / Address Lookup</h2><span class="pill orange">/api/helius/asset</span></div>
+      <p class="hint">Paste any Solana mint or wallet address. Hits the gateway → /src HeliusClient → DAS getAsset.</p>
+      <div class="row">
+        <input id="lookup-input" class="mono" placeholder="So11111111111111111111111111111111111111112" spellcheck="false" />
+        <button class="btn primary" id="lookup-btn">Look up</button>
+        <button class="btn ghost" id="lookup-bonk">BONK</button>
+        <button class="btn ghost" id="lookup-sol">SOL</button>
+      </div>
+      <div id="lookup-result" class="result"></div>
+    </section>
+
+    <!-- Wallet portfolio -->
+    <section class="card">
+      <div class="card-head"><h2>Wallet Portfolio</h2><span class="pill green">/api/wallet/portfolio</span></div>
+      <p class="hint">Birdeye → Helius DAS fallback. Shows native SOL + token holdings ranked by USD value.</p>
+      <div class="row">
+        <input id="wallet-input" class="mono" placeholder="86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY" spellcheck="false" />
+        <button class="btn primary" id="wallet-btn">Fetch</button>
+      </div>
+      <div id="wallet-result" class="result"></div>
+    </section>
+
+    <!-- Agent runtime -->
+    <section class="card">
+      <div class="card-head"><h2>Agent Runtime</h2><span class="pill purple">/api/agent/*</span></div>
+      <p class="hint">Live skill registry from <code>src/agents/runtime.ts</code>. Toggle which skills are enabled; route a prompt through OpenRouter.</p>
+      <div class="row">
+        <button class="btn ghost" id="rt-refresh">Refresh runtime</button>
+        <button class="btn ghost" id="rt-clone">Clone agent…</button>
+      </div>
+      <div id="rt-skills" class="skills"></div>
+      <details class="agent-text">
+        <summary>Run a prompt through OpenRouter</summary>
+        <textarea id="text-prompt" placeholder="Brief one-liner: what's the lobster doing right now?"></textarea>
+        <div class="row">
+          <input id="text-model" class="mono short" placeholder="anthropic/claude-sonnet-4" />
+          <button class="btn primary" id="text-btn">Generate</button>
+        </div>
+        <pre id="text-result" class="result mono"></pre>
+      </details>
+    </section>
+
+    <!-- Health -->
+    <section class="card">
+      <div class="card-head"><h2>Gateway Health</h2><span class="pill">/health</span></div>
+      <pre id="health-pre" class="result mono"></pre>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div>🦞 OpenClawd · live gateway dashboard · the shell molts, the laws do not</div>
+      <div><a href="https://github.com/clawdsolana/OpenClawd">GitHub</a> · <a href="https://solanaclawd.com">solanaclawd.com</a></div>
+    </div>
+  </footer>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

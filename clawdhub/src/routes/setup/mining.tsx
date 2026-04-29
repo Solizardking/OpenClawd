@@ -45,7 +45,7 @@ function MiningSetup() {
       content: (
         <div className="setup-body">
           <p className="gallery-copy-text">
-            The SolanaOS quickstart discovers the miner, configures your pool with your own BTC payout address, writes local Bitaxe env vars, and generates the Seeker setup bundle.
+            The OpenClawd quickstart discovers the miner, configures your pool with your own BTC payout address, writes local Bitaxe env vars, and generates the Seeker setup bundle.
           </p>
           <CopyBlock
             code={`bash scripts/bitaxe-quickstart.sh --wallet bc1qYOUR_BTC_ADDRESS`}
@@ -70,12 +70,12 @@ function MiningSetup() {
       ),
     },
     {
-      title: 'Start SolanaOS',
+      title: 'Start OpenClawd',
       icon: <Cpu className="gallery-panel-icon" aria-hidden="true" />,
       content: (
         <div className="setup-body">
           <p className="gallery-copy-text">
-            Run SolanaOS locally, then start the Seeker gateway in LAN mode so the app pairs to your machine instead of directly to the miner.
+            Run OpenClawd locally, then start the Seeker gateway in LAN mode so the app pairs to your machine instead of directly to the miner.
           </p>
           <CopyBlock
             code={`solanaos daemon
@@ -118,11 +118,11 @@ BITAXE_PET_NAME=MawdPet`}
       content: (
         <div className="setup-body">
           <p className="gallery-copy-text">
-            Pair the Seeker or Android app using the generated setup code. This keeps the miner behind SolanaOS instead of exposing it directly.
+            Pair the Seeker or Android app using the generated setup code. This keeps the miner behind OpenClawd instead of exposing it directly.
           </p>
           <CopyBlock
             code={`cat ~/.nanosolana/connect/setup-code.txt
-cat ~/.nanosolana/connect/solanaos-connect.json`}
+cat ~/.nanosolana/connect/openclawd-connect.json`}
             label="Copy setup bundle commands"
           />
           <p className="gallery-copy-text">
@@ -190,9 +190,9 @@ go run ./cmd/mawdaxe`}
             <Cpu className="h-4 w-4" aria-hidden="true" />
             BitAxe Mining
           </span>
-          <h1 className="section-title">Set Up Bitaxe With SolanaOS</h1>
+          <h1 className="section-title">Set Up Bitaxe With OpenClawd</h1>
           <p className="hero-subtitle">
-            Safe local-first onboarding for your own Bitaxe miner, paired to SolanaOS and Seeker through the SolanaOS gateway instead of exposing the miner directly.
+            Safe local-first onboarding for your own Bitaxe miner, paired to OpenClawd and Seeker through the OpenClawd gateway instead of exposing the miner directly.
           </p>
         </div>
       </div>

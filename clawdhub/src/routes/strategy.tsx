@@ -52,12 +52,12 @@ const VENUE_INFO: Record<Venue, { label: string; description: string }> = {
 }
 
 const DEFAULT_META: StrategyMeta = {
-  title: 'SolanaOS Strategy',
+  title: 'OpenClawd Strategy',
   lastUpdated: '2026-03-21',
   version: 'v2.0',
   scope: 'Solana meme spot, Hyperliquid perps, Aster perps',
   objective:
-    'SolanaOS trades three distinct venues with one shared risk engine. The system changes filters, stops, size, and exit behavior based on liquidity profile, leverage profile, and microstructure.',
+    'OpenClawd trades three distinct venues with one shared risk engine. The system changes filters, stops, size, and exit behavior based on liquidity profile, leverage profile, and microstructure.',
   corePrinciples: [
     'Trade momentum only when liquidity, structure, and execution quality agree.',
     'Prefer no trade over low-quality trade.',
@@ -87,7 +87,7 @@ const DEFAULT_META: StrategyMeta = {
     'Aster is the Solana-native execution layer when treasury and wallet alignment matter.',
   ].join('\n'),
   changeLog: [
-    'Reframed the strategy from a single MawdBot meme setup into a SolanaOS venue-aware system.',
+    'Reframed the strategy from a single MawdBot meme setup into a OpenClawd venue-aware system.',
     'Added separate parameter profiles for Solana spot, Hyperliquid perps, and Aster perps.',
     'Added Pump.fun pre-graduation sizing and exit rules.',
     'Added unified confidence scoring and a drawdown cascade.',
@@ -542,7 +542,7 @@ function StrategyBuilder() {
       '',
       '---',
       '',
-      '*Generated with the SolanaOS Strategy Builder — [solanaclawd.com/strategy](https://solanaclawd.com/strategy)*',
+      '*Generated with the OpenClawd Strategy Builder — [solanaclawd.com/strategy](https://solanaclawd.com/strategy)*',
     ]
 
     return lines.join('\n')
@@ -578,9 +578,9 @@ function StrategyBuilder() {
             <TrendingUp className="h-4 w-4" aria-hidden="true" />
             Strategy Builder
           </span>
-          <h1 className="section-title">Build your own SolanaOS strategy.md</h1>
+          <h1 className="section-title">Build your own OpenClawd strategy.md</h1>
           <p className="hero-subtitle">
-            Start from the SolanaOS multi-venue template, tune the risk engine, and export a
+            Start from the OpenClawd multi-venue template, tune the risk engine, and export a
             professional <code>strategy.md</code> for your runtime, team, or public trading playbook.
           </p>
         </div>

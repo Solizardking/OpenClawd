@@ -3,7 +3,7 @@ import {
   type SkillMetadata,
   PLATFORM_SKILL_LICENSE,
   PLATFORM_SKILL_LICENSE_SUMMARY,
-} from 'solanaos-hub-schema'
+} from 'openclawd-hub-schema'
 import { Package } from 'lucide-react'
 import type { Doc, Id } from '../../convex/_generated/dataModel'
 import { getSkillBadges } from '../lib/badges'

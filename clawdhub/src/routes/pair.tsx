@@ -16,7 +16,7 @@ function PairRoute() {
     url.searchParams.set('token', pairingToken)
     return url.toString()
   }, [pairingToken])
-  const [status, setStatus] = useState(pairingToken ? 'Opening SolanaOS on your Seeker...' : '')
+  const [status, setStatus] = useState(pairingToken ? 'Opening OpenClawd on your Seeker...' : '')
 
   useEffect(() => {
     trackHubEvent('pair_route_view', {
@@ -52,7 +52,7 @@ function PairRoute() {
       <section className="wallet-pairing card pair-launch-card">
         <div className="gallery-panel-header">
           <div>
-            <h1>Open SolanaOS On Seeker</h1>
+            <h1>Open OpenClawd On Seeker</h1>
             <p>Launching the app and completing wallet pairing on-device.</p>
           </div>
           <Smartphone className="gallery-panel-icon" aria-hidden="true" />
@@ -74,7 +74,7 @@ function PairRoute() {
                 }
               >
                 <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                Open SolanaOS
+                Open OpenClawd
               </a>
               <p className="gallery-locked">
                 Deep link: <code>{deepLinkUrl}</code>
@@ -108,7 +108,7 @@ function PairLanding() {
           Pair Your Seeker
         </h1>
         <p style={{ color: 'var(--ink-soft)', maxWidth: 480, marginInline: 'auto', lineHeight: 1.6, marginBottom: 0 }}>
-          Connect your Solana Seeker device to your SolanaOS daemon for real-time wallet control, trading, and agent management.
+          Connect your Solana Seeker device to your OpenClawd daemon for real-time wallet control, trading, and agent management.
         </p>
       </section>
 

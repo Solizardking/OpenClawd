@@ -17,21 +17,21 @@ function ExtensionSetup() {
       content: (
         <div className="setup-body">
           <p className="gallery-copy-text">
-            The SolanaOS Chrome Extension gives you wallet, chat, tools, Seeker pairing, and miner control from your browser toolbar.
+            The OpenClawd Chrome Extension gives you wallet, chat, tools, Seeker pairing, and miner control from your browser toolbar.
           </p>
           <ol className="setup-steps-list">
             <li>Open <code>chrome://extensions</code> in Chrome</li>
             <li>Enable <strong>Developer mode</strong> (toggle in top right)</li>
             <li>Click <strong>Load unpacked</strong></li>
-            <li>Select the <code>chrome-extension/</code> folder from the SolanaOS repo</li>
-            <li>Click the SolanaOS icon in your toolbar</li>
+            <li>Select the <code>chrome-extension/</code> folder from the OpenClawd repo</li>
+            <li>Click the OpenClawd icon in your toolbar</li>
           </ol>
           <CopyBlock
             code={`# Clone the repo if you haven't already
-git clone https://github.com/x402agent/SolanaOS.git
+git clone https://github.com/x402agent/OpenClawd.git
 
 # The extension is at:
-# SolanaOS/chrome-extension/`}
+# OpenClawd/chrome-extension/`}
             label="Copy clone command"
           />
           <div className="setup-callout">
@@ -46,7 +46,7 @@ git clone https://github.com/x402agent/SolanaOS.git
       content: (
         <div className="setup-body">
           <p className="gallery-copy-text">
-            The extension auto-connects to your local SolanaOS daemon. Click the gear icon to configure.
+            The extension auto-connects to your local OpenClawd daemon. Click the gear icon to configure.
           </p>
           <h3 className="setup-subtitle">Default Connection</h3>
           <p className="gallery-copy-text">
@@ -93,7 +93,7 @@ git clone https://github.com/x402agent/SolanaOS.git
               ['Wallet', 'Agent runtime status, SOL balance, wallet address, OODA mode, daemon health'],
               ['Seeker', 'Pair your Solana Seeker device via QR code or setup code'],
               ['Miner', 'BitAxe fleet status — hashrate, temperature, shares, pet state'],
-              ['Chat', 'Send messages to your SolanaOS agent, view responses'],
+              ['Chat', 'Send messages to your OpenClawd agent, view responses'],
               ['Tools', 'Quick actions — restart daemon, toggle OODA, open web UI'],
             ].map(([tab, desc]) => (
               <div key={tab} className="setup-command-item">
@@ -129,7 +129,7 @@ git clone https://github.com/x402agent/SolanaOS.git
       content: (
         <div className="setup-body">
           <p className="gallery-copy-text">
-            Make sure the SolanaOS daemon is running, then click the extension icon. The status dot should turn <strong style={{ color: '#00ff40' }}>green</strong>.
+            Make sure the OpenClawd daemon is running, then click the extension icon. The status dot should turn <strong style={{ color: '#00ff40' }}>green</strong>.
           </p>
           <CopyBlock code={`# Start the daemon first
 ./build/solanaos daemon
@@ -184,9 +184,9 @@ git clone https://github.com/x402agent/SolanaOS.git
             <Chrome className="h-4 w-4" aria-hidden="true" />
             Chrome Extension
           </span>
-          <h1 className="section-title">Install the SolanaOS Extension</h1>
+          <h1 className="section-title">Install the OpenClawd Extension</h1>
           <p className="hero-subtitle">
-            Wallet, chat, tools, Seeker pairing, and BitAxe miner control from your browser toolbar. Connects to your local SolanaOS daemon.
+            Wallet, chat, tools, Seeker pairing, and BitAxe miner control from your browser toolbar. Connects to your local OpenClawd daemon.
           </p>
         </div>
       </div>

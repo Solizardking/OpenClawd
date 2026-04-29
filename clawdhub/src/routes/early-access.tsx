@@ -6,8 +6,8 @@ import { getNanoHubSiteUrl } from '../lib/site'
 export const Route = createFileRoute('/early-access')({
   head: () => {
     const url = `${getNanoHubSiteUrl()}/early-access`
-    const title = 'Early Access | SolanaOS'
-    const description = 'Sign up for early access to SolanaOS — the Solana computer for traders, operators, and builders.'
+    const title = 'Early Access | OpenClawd'
+    const description = 'Sign up for early access to OpenClawd — the Solana computer for traders, operators, and builders.'
     return {
       links: [{ rel: 'canonical', href: url }],
       meta: [
@@ -66,7 +66,7 @@ function EarlyAccessRoute() {
           <div className="ea-success-icon">&#x2714;</div>
           <h1>You're on the list.</h1>
           <p>We'll reach out when early access opens. Keep building.</p>
-          <a href="/" className="ea-back-link">Back to SolanaOS</a>
+          <a href="/" className="ea-back-link">Back to OpenClawd</a>
         </div>
       </main>
     )
@@ -94,10 +94,10 @@ function EarlyAccessRoute() {
             <h1 className="hero-title">
               Get early access.
               <br />
-              <span className="solana-legal-hero-accent">Build with SolanaOS.</span>
+              <span className="solana-legal-hero-accent">Build with OpenClawd.</span>
             </h1>
             <p className="hero-subtitle">
-              SolanaOS is the autonomous Solana computer for traders, operators, and builders.
+              OpenClawd is the autonomous Solana computer for traders, operators, and builders.
               Sign up to get early access to the runtime, mobile dApp, and Hub.
             </p>
           </div>

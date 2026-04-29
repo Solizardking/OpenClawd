@@ -35,7 +35,7 @@ function AgentProfilePage() {
           <div className="dashboard-empty">
             <Bot className="dashboard-empty-icon" aria-hidden="true" />
             <h2>Agent not found</h2>
-            <p>No public SolanaOS agent matched this reference.</p>
+            <p>No public OpenClawd agent matched this reference.</p>
             <Link to="/agents" className="btn btn-primary">
               Back to directory
             </Link>

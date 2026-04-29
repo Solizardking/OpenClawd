@@ -6,9 +6,9 @@ import { getNanoHubSiteUrl } from '../lib/site'
 export const Route = createFileRoute('/mobile')({
   head: () => {
     const url = `${getNanoHubSiteUrl()}/mobile`
-    const title = 'SolanaOS Mobile dApp | Seeker Runtime Preview'
+    const title = 'OpenClawd Mobile dApp | Seeker Runtime Preview'
     const description =
-      'Experience the SolanaOS Seeker mobile dapp: pairing, DEX trading, Grok research, operator chat, voice agent, ORE mining, arcade, canvas remoting, and runtime settings.'
+      'Experience the OpenClawd Seeker mobile dapp: pairing, DEX trading, Grok research, operator chat, voice agent, ORE mining, arcade, canvas remoting, and runtime settings.'
 
     return {
       links: [{ rel: 'canonical', href: url }],
@@ -110,7 +110,7 @@ const MOBILE_TABS: MobileTab[] = [
     eyebrow: 'Signal Breaks',
     headline: 'Device-native game arcade',
     blurb:
-      'Chess with wallet identity, Snake with speed ramp, and a platformer — all in the SolanaOS visual language.',
+      'Chess with wallet identity, Snake with speed ramp, and a platformer — all in the OpenClawd visual language.',
   },
   {
     id: 'voice',
@@ -233,7 +233,7 @@ function SolanaOsMobileRoute() {
               Seeker dApp / build 2026.3.12 / protocol v3
             </span>
             <h1 className="hero-title">
-              SolanaOS on Seeker.
+              OpenClawd on Seeker.
               <br />
               <span className="solana-mobile-hero-accent">The operator cockpit, visualized.</span>
             </h1>
@@ -250,7 +250,7 @@ function SolanaOsMobileRoute() {
                 Runtime Catalog
               </Link>
               <a
-                href="https://github.com/x402agent/SolanaOS"
+                href="https://github.com/x402agent/OpenClawd"
                 className="btn"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -376,7 +376,7 @@ function SolanaOsMobileRoute() {
               From handheld pairing to on-chain execution.
             </h2>
             <p className="section-subtitle" style={{ marginBottom: 0 }}>
-              The mobile dApp sits in the middle of the full SolanaOS stack.
+              The mobile dApp sits in the middle of the full OpenClawd stack.
             </p>
           </div>
           <div className="solana-mobile-flow-steps">
@@ -511,7 +511,7 @@ function TabDetail({
             items={[
               { label: 'Games', value: '3' },
               { label: 'Input', value: 'touch-first' },
-              { label: 'Theme', value: 'SolanaOS' },
+              { label: 'Theme', value: 'OpenClawd' },
             ]}
           />
           <DetailCard title="Game modes">
@@ -670,7 +670,7 @@ function MobilePhone({
 
         <div className="solana-mobile-phone-header">
           <div>
-            <div className="stat">SolanaOS / {activeTab.eyebrow}</div>
+            <div className="stat">OpenClawd / {activeTab.eyebrow}</div>
             <h3>{activeTab.label}</h3>
           </div>
           <span className="tag solana-mobile-phase-pill">{phase}</span>
@@ -767,7 +767,7 @@ function ConnectScreen({ tick }: { tick: number }) {
         <strong className="sm-text-sm">Agent Registry</strong>
         <div className="sm-registry-item">
           <div className="sm-row-between">
-            <span className="sm-text-xs">SolanaOS Agent</span>
+            <span className="sm-text-xs">OpenClawd Agent</span>
             <span className="sm-chip sm-chip-green sm-chip-xs">live</span>
           </div>
           <div className="sm-mono sm-text-xs sm-muted">8004 / ACP registered</div>
@@ -966,7 +966,7 @@ function ChatScreen() {
             Model switched to <strong>8bit/DeepSolana</strong> via local Ollama.
             Reasoning mode: medium.
           </div>
-          <span className="sm-text-xs sm-muted">SolanaOS</span>
+          <span className="sm-text-xs sm-muted">OpenClawd</span>
         </div>
 
         <div className="sm-chat-msg sm-chat-user">
@@ -986,13 +986,13 @@ function ChatScreen() {
               JUP: OBSERVE &middot; BONK: DECIDE &middot; WIF: ACT
             </div>
           </div>
-          <span className="sm-text-xs sm-muted">SolanaOS</span>
+          <span className="sm-text-xs sm-muted">OpenClawd</span>
         </div>
       </div>
 
       <div className="sm-chat-input">
         <div className="sm-chat-input-box">
-          <span className="sm-muted sm-text-xs">Message SolanaOS...</span>
+          <span className="sm-muted sm-text-xs">Message OpenClawd...</span>
         </div>
       </div>
     </>

@@ -3,7 +3,7 @@ import {
   PLATFORM_SKILL_LICENSE,
   PLATFORM_SKILL_LICENSE_SUMMARY,
   PLATFORM_SKILL_LICENSE_URL,
-} from 'solanaos-hub-schema'
+} from 'openclawd-hub-schema'
 import { formatInstallCommand, formatInstallLabel } from './skillDetailUtils'
 
 type SkillInstallCardProps = {

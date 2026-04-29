@@ -1,4 +1,4 @@
-import { isTextContentType, TEXT_FILE_EXTENSION_SET } from 'solanaos-hub-schema'
+import { isTextContentType, TEXT_FILE_EXTENSION_SET } from 'openclawd-hub-schema'
 import { getUserFacingConvexError } from '../../lib/convexError'
 
 export async function uploadFile(uploadUrl: string, file: File) {

@@ -17,18 +17,18 @@ function GatewaySetup() {
       content: (
         <div className="setup-body">
           <p className="gallery-copy-text">
-            Install the SolanaOS gateway binary on your machine. One command, under 10 MB.
+            Install the OpenClawd gateway binary on your machine. One command, under 10 MB.
           </p>
 
           <h3 className="setup-subtitle">Quick Install (recommended)</h3>
           <CopyBlock
-            code={`curl -fsSL https://raw.githubusercontent.com/x402agent/SolanaOS/main/install.sh | sh`}
+            code={`curl -fsSL https://raw.githubusercontent.com/x402agent/OpenClawd/main/install.sh | sh`}
             label="Copy install command"
           />
 
           <h3 className="setup-subtitle">Build From Source</h3>
           <CopyBlock
-            code={`git clone https://github.com/x402agent/SolanaOS.git
+            code={`git clone https://github.com/x402agent/OpenClawd.git
 cd solanaos
 mkdir -p build
 go build -o build/solanaos .`}
@@ -93,7 +93,7 @@ HELIUS_RPC_URL=https://mainnet.helius-rpc.com/?api-key=your_helius_key`}
             label="Copy .env template"
           />
           <div className="setup-callout">
-            Never commit your <code>.env</code> file to git. The installer will create one from <code>.env.example</code> if it does not exist, and the SolanaOS CLI reads it automatically on startup.
+            Never commit your <code>.env</code> file to git. The installer will create one from <code>.env.example</code> if it does not exist, and the OpenClawd CLI reads it automatically on startup.
           </div>
         </div>
       ),
@@ -159,7 +159,7 @@ cat ~/.nanosolana/connect/setup-code.txt`}
 
           <p className="gallery-copy-text">You should see output like:</p>
           <pre className="setup-terminal">
-            <code>{`SolanaOS native gateway listening on 100.88.46.29:18790
+            <code>{`OpenClawd native gateway listening on 100.88.46.29:18790
 Setup code saved to ~/.nanosolana/connect/setup-code.txt
 Bridge URL: http://100.88.46.29:18790
 Use: solanaos gateway setup-code`}</code>
@@ -208,9 +208,9 @@ Use: solanaos gateway setup-code`}</code>
             <Server className="h-4 w-4" aria-hidden="true" />
             Terminal Gateway
           </span>
-          <h1 className="section-title">Install SolanaOS Gateway</h1>
+          <h1 className="section-title">Install OpenClawd Gateway</h1>
           <p className="hero-subtitle">
-            Run the SolanaOS gateway on your terminal to connect your Seeker, hardware peripherals, and Telegram bot.
+            Run the OpenClawd gateway on your terminal to connect your Seeker, hardware peripherals, and Telegram bot.
           </p>
         </div>
       </div>

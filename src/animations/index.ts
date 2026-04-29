@@ -29,3 +29,14 @@ export {
   birthCeremony,
   birthQuiet,
 } from './birth-ceremony.js'
+
+// Web-safe spinner data (no Node deps — consumable by browser code)
+export {
+  solanaPulseWeb,
+  clawdSpinWeb,
+  walletHeartbeatWeb,
+  lobsterClawWeb,
+  ALL_WEB_SPINNERS,
+  type WebSpinner,
+  type WebSpinnerName,
+} from './web-frames.js'

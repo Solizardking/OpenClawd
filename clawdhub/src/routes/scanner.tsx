@@ -8,7 +8,7 @@ const SCANNER_API = 'https://pumpfun-mcp-server.x402.workers.dev'
 export const Route = createFileRoute('/scanner')({
   head: () => {
     const url = `${getNanoHubSiteUrl()}/scanner`
-    const title = 'Pump Scanner | SolanaOS'
+    const title = 'Pump Scanner | OpenClawd'
     const description =
       'Live pump.fun token scanner. Top 100 trending Solana tokens, risk scores, market data, and tier classification.'
     return {

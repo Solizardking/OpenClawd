@@ -6,9 +6,9 @@ import { getNanoHubSiteUrl } from '../lib/site'
 export const Route = createFileRoute('/copyright')({
   head: () => {
     const url = `${getNanoHubSiteUrl()}/copyright`
-    const title = 'Copyright Notice | SolanaOS'
+    const title = 'Copyright Notice | OpenClawd'
     const description =
-      'SolanaOS copyright notice. Ownership, third-party software, and brand asset usage.'
+      'OpenClawd copyright notice. Ownership, third-party software, and brand asset usage.'
 
     return {
       links: [{ rel: 'canonical', href: url }],
@@ -44,7 +44,7 @@ function CopyrightRoute() {
               <span className="solana-legal-hero-accent">Open source, clear ownership.</span>
             </h1>
             <p className="hero-subtitle">
-              SolanaOS source code, app packaging, brand presentation, documentation, and related
+              OpenClawd source code, app packaging, brand presentation, documentation, and related
               media are owned by their respective authors and contributors.
             </p>
             <div className="solana-legal-meta-strip">
@@ -68,7 +68,7 @@ function CopyrightRoute() {
               <span className="tag solana-legal-tag">Notice</span>
               <h2>Copyright Notice</h2>
               <p>
-                SolanaOS source code, app packaging, brand presentation, documentation, and
+                OpenClawd source code, app packaging, brand presentation, documentation, and
                 related media are owned by their respective authors and contributors. Third-party
                 components remain subject to their own licenses and notices.
               </p>
@@ -80,12 +80,12 @@ function CopyrightRoute() {
               <p>
                 The public project source is maintained in the{' '}
                 <a
-                  href="https://github.com/x402agent/SolanaOS"
+                  href="https://github.com/x402agent/OpenClawd"
                   className="solana-legal-link"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  SolanaOS repository
+                  OpenClawd repository
                 </a>{' '}
                 and distributed under the MIT License where applicable. Brand assets and store
                 media should not be redistributed in a misleading way or used to imply an official
@@ -97,7 +97,7 @@ function CopyrightRoute() {
               <span className="tag solana-legal-tag">Dependencies</span>
               <h2>Third-Party Software</h2>
               <p>
-                SolanaOS includes open-source dependencies. Applicable notices and third-party
+                OpenClawd includes open-source dependencies. Applicable notices and third-party
                 license files remain in the repository and app distribution where required.
               </p>
             </div>

@@ -101,9 +101,9 @@ await registerIdentityV1(umi, {
   "description": "What your agent does and how it works.",
   "image": "https://arweave.net/your-avatar-hash",
   "services": [
-    { "name": "web", "endpoint": "https://seeker.solanaos.net/agents/<AGENT_ID>" },
+    { "name": "web", "endpoint": "https://seeker.openclawd.net/agents/<AGENT_ID>" },
     { "name": "A2A", "endpoint": "https://<your-convex-site>.convex.site/nanosolana/agents/agent-card?id=<AGENT_ID>", "version": "0.3.0" },
-    { "name": "MCP", "endpoint": "https://seeker.solanaos.net/mcp/<AGENT_ID>", "version": "2025-06-18" }
+    { "name": "MCP", "endpoint": "https://seeker.openclawd.net/mcp/<AGENT_ID>", "version": "2025-06-18" }
   ],
   "active": true,
   "registrations": [
