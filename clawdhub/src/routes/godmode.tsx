@@ -13,7 +13,7 @@ import { getNanoHubSiteUrl } from '../lib/site'
 export const Route = createFileRoute('/godmode')({
   head: () => {
     const url = `${getNanoHubSiteUrl()}/godmode`
-    const title = 'GODMODE | SolanaOS'
+    const title = 'GODMODE | OpenClawd'
     const description =
       'Multi-model AI racing engine. GODMODE single-model + ULTRAPLINIAN parallel racing. Powered by OpenRouter.'
     return {
@@ -197,7 +197,7 @@ function GodmodeRoute() {
       <div className="gm-header">
         <div className="gm-header-left">
           <span className="gm-logo">G0DM0D3</span>
-          <span className="gm-logo-sub">x SolanaOS</span>
+          <span className="gm-logo-sub">x OpenClawd</span>
         </div>
         <div className="gm-header-controls">
           {/* Mode toggle */}

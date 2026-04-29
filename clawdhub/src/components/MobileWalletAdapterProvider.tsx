@@ -10,7 +10,7 @@ import { createContext, useContext, useEffect, useMemo, useRef, useState, type R
 const STANDARD_CONNECT = 'standard:connect'
 const STANDARD_DISCONNECT = 'standard:disconnect'
 const STANDARD_EVENTS = 'standard:events'
-const DEFAULT_SITE_ORIGIN = 'https://seeker.solanaos.net'
+const DEFAULT_SITE_ORIGIN = 'https://seeker.openclawd.net'
 
 type WalletAccount = {
   readonly address: string
@@ -157,7 +157,7 @@ function ensureMwaRegistered() {
   didRegisterMwa = true
   registerMwa({
     appIdentity: {
-      name: 'SolanaOS Hub',
+      name: 'OpenClawd Hub',
       uri: getSiteOrigin(),
       icon: 'favicon.ico',
     },

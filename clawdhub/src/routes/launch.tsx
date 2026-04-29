@@ -6,9 +6,9 @@ import { getNanoHubSiteUrl } from '../lib/site'
 export const Route = createFileRoute('/launch')({
   head: () => {
     const url = `${getNanoHubSiteUrl()}/launch`
-    const title = 'SolanaOS Launch | The Solana Computer'
+    const title = 'OpenClawd Launch | The Solana Computer'
     const description =
-      'See the live SolanaOS launch surface: Seeker mobile dapp, gateway runtime, skills, trading, voice, ORE, and operator tooling.'
+      'See the live OpenClawd launch surface: Seeker mobile dapp, gateway runtime, skills, trading, voice, ORE, and operator tooling.'
 
     return {
       links: [
@@ -33,7 +33,7 @@ export const Route = createFileRoute('/launch')({
 })
 
 const BOOT_LINES = [
-  { text: 'SolanaOS v3.0.0 — The Solana Computer', delay: 0, color: '#14f195' },
+  { text: 'OpenClawd v3.0.0 — The Solana Computer', delay: 0, color: '#14f195' },
   { text: 'Initializing runtime...', delay: 400, color: '#888' },
   { text: '├─ Go binary loaded (9.2 MB)', delay: 800, color: '#00d4ff' },
   { text: '├─ Wallet: connected', delay: 1100, color: '#14f195' },
@@ -94,7 +94,7 @@ function LaunchPage() {
   // Glitch effect on title
   useEffect(() => {
     if (!bootDone) return
-    const chars = 'SOLANAOS'
+    const chars = 'OPENCLAWD'
     const glitchChars = '█▓░▒╗╔╚╝━┃'
     let frame = 0
     const interval = setInterval(() => {
@@ -163,7 +163,7 @@ function LaunchPage() {
       {/* Hero text */}
       <div className={`launch-hero ${bootDone ? 'visible' : ''}`}>
         <h1 className="launch-title">
-          {glitchText || 'SOLANAOS'}
+          {glitchText || 'OPENCLAWD'}
         </h1>
         <p className="launch-tagline">The Solana Computer</p>
         <p className="launch-subtitle">
@@ -189,7 +189,7 @@ function LaunchPage() {
             Open Operator Dashboard
           </Link>
           <a
-            href="https://github.com/x402agent/SolanaOS"
+            href="https://github.com/x402agent/OpenClawd"
             target="_blank"
             rel="noreferrer"
             className="btn launch-btn"
@@ -260,9 +260,9 @@ function LaunchPage() {
       </div>
 
       <footer className="launch-footer">
-        <p>SolanaOS · Built by SolanaOS Labs · Powered by Go · Built on Solana</p>
+        <p>OpenClawd · Built by OpenClawd Labs · Powered by Go · Built on Solana</p>
         <p>
-          <a href="https://solanaclawd.com">Hub</a> · <a href="https://souls.solanaos.net">Souls</a> · <a href="https://github.com/x402agent/SolanaOS">GitHub</a>
+          <a href="https://solanaclawd.com">Hub</a> · <a href="https://souls.openclawd.net">Souls</a> · <a href="https://github.com/x402agent/OpenClawd">GitHub</a>
         </p>
       </footer>
     </div>

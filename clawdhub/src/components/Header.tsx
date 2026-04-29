@@ -31,8 +31,9 @@ export default function Header() {
   const siteName = useMemo(() => getSiteName(siteMode), [siteMode])
   const isSoulMode = siteMode === 'souls'
   const skillsHubUrl = getNanoHubSiteUrl()
-  const solanaOsUrl = `${skillsHubUrl}/solanaos`
-  const solanaOsMobileUrl = `${skillsHubUrl}/mobile`
+  // 🦞 OpenClawd home + mobile entry — formerly /solanaos and /mobile
+  const openClawdHomeUrl = `${skillsHubUrl}/`
+  const openClawdMobileUrl = `${skillsHubUrl}/mobile`
   const pathname = useRouterState({ select: (state) => state.location.pathname })
   const publicPath = isPublicPath(pathname)
 
@@ -73,13 +74,13 @@ export default function Header() {
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/agents/engine">Agents</Link>
           <Link to="/dex">DEX</Link>
-          <a href={solanaOsMobileUrl}>Mobile</a>
+          <a href={openClawdMobileUrl}>Mobile</a>
           <Link to="/chess">Chess</Link>
           <Link to="/mining">Mining</Link>
           <Link to="/strategy">Strategy</Link>
           <Link to="/wallet">Wallet</Link>
-          {isSoulMode ? <a href={skillsHubUrl}>SolanaOS Skills</a> : null}
-          <a href={solanaOsUrl}>SolanaOS</a>
+          {isSoulMode ? <a href={skillsHubUrl}>OpenClawd Skills</a> : null}
+          <a href={openClawdHomeUrl}>OpenClawd</a>
           {isSoulMode ? (
             <Link
               to="/souls"
@@ -147,7 +148,7 @@ export default function Header() {
                 <span className="nav-dropdown-icon">🖥</span>
                 <div>
                   <div className="nav-dropdown-title">Gateway</div>
-                  <div className="nav-dropdown-desc">Install SolanaOS on your terminal</div>
+                  <div className="nav-dropdown-desc">Install OpenClawd on your terminal</div>
                 </div>
               </Link>
               <Link to="/setup/telegram" className="nav-dropdown-item">
@@ -234,18 +235,18 @@ export default function Header() {
                   <Link to="/agents/engine">Agents</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <a href={solanaOsMobileUrl}>Mobile</a>
+                  <a href={openClawdMobileUrl}>Mobile</a>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/chess">Chess</Link>
                 </DropdownMenuItem>
                 {isSoulMode ? (
                   <DropdownMenuItem asChild>
-                    <a href={skillsHubUrl}>SolanaOS Skills</a>
+                    <a href={skillsHubUrl}>OpenClawd Skills</a>
                   </DropdownMenuItem>
                 ) : null}
                 <DropdownMenuItem asChild>
-                  <a href={solanaOsUrl}>SolanaOS</a>
+                  <a href={openClawdHomeUrl}>OpenClawd</a>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   {isSoulMode ? (

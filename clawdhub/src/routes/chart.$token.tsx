@@ -7,7 +7,7 @@ const LightweightChart = lazy(() => import('../components/tracker/LightweightCha
 
 export const Route = createFileRoute('/chart/$token')({
   head: ({ params }) => ({
-    meta: [{ title: `Chart ${params.token.slice(0, 8)}... — SolanaOS Hub` }],
+    meta: [{ title: `Chart ${params.token.slice(0, 8)}... — OpenClawd Hub` }],
   }),
   component: ChartRoute,
 })

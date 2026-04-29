@@ -1,0 +1,170 @@
+/* 🦞 OpenClawd theme overlay
+ *
+ * Maps clawdhub's existing CSS variables to the v0.2 OpenClawd palette
+ * (Solana green / purple, lobster orange, deep ocean black). Imported
+ * once after the base styles.css so it cascades over every route.
+ *
+ * Palette source of truth: site/index.html and frontend/ui/src/ui/solana-panel.ts
+ */
+
+:root {
+  /* Base */
+  --bg: #0a0e1a;
+  --bg-soft: #0f1424;
+  --bg-glow-1: #1a1f3a;
+  --bg-glow-2: #251a3d;
+  --surface: #131a2e;
+  --surface-muted: #1a2238;
+  --nav-bg: rgba(10, 14, 26, 0.84);
+
+  /* Type */
+  --ink: #e6edf7;
+  --ink-soft: #93a0bd;
+
+  /* Accents — Solana green is the primary, lobster orange is the warm,
+     Solana purple is the secondary. */
+  --accent: #14f195;          /* Solana green */
+  --accent-deep: #9945ff;     /* Solana purple */
+  --seafoam: #14f195;
+  --gold: #ff9e44;            /* Lobster orange */
+
+  /* Borders */
+  --line: rgba(20, 241, 149, 0.18);
+  --border-ui: rgba(20, 241, 149, 0.28);
+  --border-ui-hover: rgba(20, 241, 149, 0.5);
+  --border-ui-active: rgba(153, 69, 255, 0.6);
+
+  /* Shadows */
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(20, 241, 149, 0.04);
+
+  /* OpenClawd-specific (new variables, additive — won't break existing rules) */
+  --clawd-orange: #ff9e44;
+  --clawd-red: #ff5d6c;
+  --clawd-yellow: #ffd166;
+  --clawd-mute: #5a6685;
+  --clawd-gradient: linear-gradient(135deg, #14f195 0%, #9945ff 100%);
+  --clawd-gradient-warm: linear-gradient(135deg, #ff9e44 0%, #9945ff 100%);
+}
+
+/* Background — radial Solana ocean over the existing bg color */
+body {
+  background:
+    radial-gradient(1200px 700px at 80% -10%, rgba(153, 69, 255, 0.18), transparent 60%),
+    radial-gradient(900px 500px at 10% 30%, rgba(20, 241, 149, 0.12), transparent 60%),
+    radial-gradient(700px 400px at 50% 110%, rgba(255, 158, 68, 0.08), transparent 70%),
+    var(--bg) !important;
+}
+
+/* Selection */
+::selection {
+  background: rgba(20, 241, 149, 0.35);
+  color: #fff;
+}
+
+/* Heading accents — gradient-text helper */
+.openclawd-grad {
+  background: var(--clawd-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Buttons get OpenClawd flavor on .btn-primary */
+.btn-primary {
+  background: var(--clawd-gradient) !important;
+  color: #0a0e1a !important;
+  font-weight: 700 !important;
+  border: none !important;
+  letter-spacing: 0.01em;
+  transition: transform 0.1s, box-shadow 0.15s;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(20, 241, 149, 0.25);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Hero badges get a glow */
+.hero-badge {
+  background: rgba(20, 241, 149, 0.08) !important;
+  border: 1px solid rgba(20, 241, 149, 0.3) !important;
+  color: var(--accent) !important;
+  font-weight: 600 !important;
+  padding: 5px 14px !important;
+  border-radius: 999px !important;
+  font-size: 13px !important;
+  letter-spacing: 0.02em;
+}
+
+/* Cards — slightly more dramatic on hover */
+.card {
+  background: var(--surface) !important;
+  border: 1px solid var(--border-ui) !important;
+  border-radius: 14px !important;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.card:hover {
+  border-color: var(--border-ui-hover) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(20, 241, 149, 0.08);
+}
+
+/* Hero title — only when an explicit class is added; doesn't override every h1 */
+.hero-title {
+  font-weight: 800 !important;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+
+/* Inline code chips — lobster orange for emphasis */
+.hero-subtitle code,
+.hint code,
+.cn-hint code,
+.mp-card-actions code {
+  background: rgba(255, 158, 68, 0.10) !important;
+  color: var(--clawd-orange) !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  font-family: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace !important;
+  font-size: 0.92em;
+}
+
+/* Tab pills (in marketplace) — gradient when active */
+.mp-tab-active {
+  background: var(--clawd-gradient) !important;
+  color: #0a0e1a !important;
+  border-color: transparent !important;
+}
+
+/* Animated lobster glow — for any element with .clawd-pulse */
+@keyframes clawd-pulse {
+  0%, 100% {
+    text-shadow: 0 0 8px rgba(20, 241, 149, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 18px rgba(20, 241, 149, 0.7), 0 0 32px rgba(153, 69, 255, 0.3);
+  }
+}
+.clawd-pulse {
+  animation: clawd-pulse 2.4s ease-in-out infinite;
+}
+
+/* Lobster bounce — for the brand mark */
+@keyframes clawd-bob {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%      { transform: translateY(-3px) rotate(3deg); }
+}
+.clawd-bob {
+  display: inline-block;
+  animation: clawd-bob 3.2s ease-in-out infinite;
+}
+
+/* Header / nav OpenClawd accent — only if the existing header uses .header */
+.header {
+  border-bottom: 1px solid var(--border-ui) !important;
+}
+
+/* Loading dots */
+.cn-dot-ok { box-shadow: 0 0 8px rgba(20, 241, 149, 0.5) !important; }

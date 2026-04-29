@@ -74,7 +74,7 @@ function RegisterAgentPage() {
             </div>
             <div>
               <strong style={{ color: 'var(--ink)' }}>Public profile</strong>
-              <br />Discoverable on the SolanaOS Hub agent directory
+              <br />Discoverable on the OpenClawd Hub agent directory
             </div>
           </div>
         </div>

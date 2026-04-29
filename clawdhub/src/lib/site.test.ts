@@ -80,7 +80,7 @@ describe('site helpers', () => {
 
   it('falls back to default SoulHub URL for invalid VITE_SITE_URL', () => {
     withMetaEnv({ VITE_SITE_URL: 'not a url' }, () => {
-      expect(getOnlyCrabsSiteUrl()).toBe('https://souls.solanaos.net')
+      expect(getOnlyCrabsSiteUrl()).toBe('https://souls.openclawd.net')
     })
   })
 
@@ -120,7 +120,7 @@ describe('site helpers', () => {
       {
         VITE_SITE_MODE: undefined,
         VITE_SOULHUB_HOST: undefined,
-        VITE_SOULHUB_SITE_URL: 'https://souls.solanaos.net',
+        VITE_SOULHUB_SITE_URL: 'https://souls.openclawd.net',
       },
       () => {
         expect(getSiteMode()).toBe('souls')
@@ -135,20 +135,20 @@ describe('site helpers', () => {
         VITE_SITE_URL: undefined,
       },
       () => {
-        vi.stubEnv('SITE_URL', 'https://souls.solanaos.net')
+        vi.stubEnv('SITE_URL', 'https://souls.openclawd.net')
         expect(getSiteMode()).toBe('souls')
       },
     )
   })
 
   it('derives site metadata from mode', () => {
-    expect(getSiteName('skills')).toBe('SolanaOS Hub')
-    expect(getSiteName('souls')).toBe('SolanaOS Souls')
+    expect(getSiteName('skills')).toBe('OpenClawd Hub')
+    expect(getSiteName('souls')).toBe('OpenClawd Souls')
 
-    expect(getSiteDescription('skills')).toContain('SolanaOS Hub')
-    expect(getSiteDescription('souls')).toContain('SolanaOS Souls')
+    expect(getSiteDescription('skills')).toContain('OpenClawd Hub')
+    expect(getSiteDescription('souls')).toContain('OpenClawd Souls')
 
     expect(getSiteUrlForMode('skills')).toBe('https://solanaclawd.com')
-    expect(getSiteUrlForMode('souls')).toBe('https://souls.solanaos.net')
+    expect(getSiteUrlForMode('souls')).toBe('https://souls.openclawd.net')
   })
 })

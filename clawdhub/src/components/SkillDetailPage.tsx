@@ -1,5 +1,5 @@
 import { useNavigate } from '@tanstack/react-router'
-import type { SkillMetadata } from 'solanaos-hub-schema'
+import type { SkillMetadata } from 'openclawd-hub-schema'
 import { useAction, useMutation, useQuery } from 'convex/react'
 import { useEffect, useMemo, useState } from 'react'
 import { api } from '../../convex/_generated/api'

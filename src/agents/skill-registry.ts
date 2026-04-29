@@ -8,7 +8,7 @@
  */
 
 import { z } from 'zod';
-import { tool } from '@openrouter/agent/tool';
+import { tool } from './tool.js';
 import type { OpenRouterService } from '../services/openrouter.js';
 import type { JupiterService } from '../services/jupiter.js';
 import type { MemoryService } from '../services/memory.js';

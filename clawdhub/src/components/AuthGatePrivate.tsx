@@ -111,7 +111,7 @@ export default function AuthGatePrivate({ children }: { children: React.ReactNod
               <p style={{ fontSize: '0.78rem', color: 'var(--ink-soft)' }}>
                 New here?{' '}
                 <Link to="/launch" style={{ color: 'var(--accent)' }}>
-                  See what SolanaOS is about
+                  See what OpenClawd is about
                 </Link>
               </p>
             </div>

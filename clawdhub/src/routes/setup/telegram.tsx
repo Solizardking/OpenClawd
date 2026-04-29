@@ -26,7 +26,7 @@ function TelegramSetup() {
           <ol className="setup-steps-list">
             <li>Open Telegram and search for <strong>@BotFather</strong></li>
             <li>Send <code>/newbot</code></li>
-            <li>Choose a display name (e.g. <strong>SolanaOS Agent</strong>)</li>
+            <li>Choose a display name (e.g. <strong>OpenClawd Agent</strong>)</li>
             <li>Choose a username ending in <code>bot</code> (e.g. <strong>my_solanaos_bot</strong>)</li>
             <li>BotFather will reply with your <strong>bot token</strong> — save it</li>
           </ol>
@@ -76,7 +76,7 @@ TELEGRAM_ALLOWED_USERS=user_id_1,user_id_2`}
             label="Copy .env block"
           />
           <p className="gallery-copy-text">
-            The bot auto-starts with the SolanaOS gateway. No separate process needed.
+            The bot auto-starts with the OpenClawd gateway. No separate process needed.
           </p>
           <div className="setup-info-grid">
             <div className="setup-info-card">
@@ -152,7 +152,7 @@ TELEGRAM_ALLOWED_USERS=user_id_1,user_id_2`}
           </span>
           <h1 className="section-title">Set Up Your Telegram Bot</h1>
           <p className="hero-subtitle">
-            Connect SolanaOS to Telegram for remote monitoring, trading commands, and AI companion access from any device.
+            Connect OpenClawd to Telegram for remote monitoring, trading commands, and AI companion access from any device.
           </p>
         </div>
       </div>

@@ -16,9 +16,9 @@ import {
 export const Route = createFileRoute('/chess')({
   head: () => {
     const url = `${getNanoHubSiteUrl()}/chess`
-    const title = 'Chess | SolanaOS'
+    const title = 'Chess | OpenClawd'
     const description =
-      'Play live SolanaOS chess in-browser and browse the wallet-signed on-chain match archive.'
+      'Play live OpenClawd chess in-browser and browse the wallet-signed on-chain match archive.'
     return {
       links: [{ rel: 'canonical', href: url }],
       meta: [
@@ -385,13 +385,13 @@ function ChessRoute() {
           <div className="hero-copy fade-up" data-delay="1">
             <span className="hero-badge">Arcade / Chess</span>
             <h1 className="hero-title">
-              SolanaOS Chess.
+              OpenClawd Chess.
               <br />
               <span className="solana-legal-hero-accent">Play live. Archive signed matches.</span>
             </h1>
             <p className="hero-subtitle">
-              The live Phoenix board is hosted inside SolanaOS Hub, while the public archive below
-              keeps the Seeker wallet-signed match feed searchable from `solanaos.net/chess`.
+              The live Phoenix board is hosted inside OpenClawd Hub, while the public archive below
+              keeps the Seeker wallet-signed match feed searchable from `openclawd.net/chess`.
             </p>
             <div className="solana-legal-meta-strip">
               <div className="solana-legal-meta-chip">
@@ -424,10 +424,10 @@ function ChessRoute() {
         <div className="solana-chess-live-shell">
           <div className="solana-chess-live-header">
             <div>
-              <p className="section-kicker">Hosted in SolanaOS</p>
+              <p className="section-kicker">Hosted in OpenClawd</p>
               <h2>Live play</h2>
               <p>
-                This is the SolanaOS-branded Phoenix app embedded directly in the Hub surface.
+                This is the OpenClawd-branded Phoenix app embedded directly in the Hub surface.
               </p>
             </div>
             <a href={liveChessUrl} target="_blank" rel="noreferrer" className="btn">
@@ -442,7 +442,7 @@ function ChessRoute() {
               </div>
             ) : null}
             <iframe
-              title="SolanaOS Live Chess"
+              title="OpenClawd Live Chess"
               src={liveChessUrl}
               className="solana-chess-live-frame"
               allow="clipboard-write"

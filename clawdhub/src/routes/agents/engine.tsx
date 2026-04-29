@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 export const Route = createFileRoute('/agents/engine')({
   head: () => ({
-    meta: [{ title: 'Agent Engine — SolanaOS Hub' }],
+    meta: [{ title: 'Agent Engine — OpenClawd Hub' }],
   }),
   component: AgentEngineRoute,
 })
@@ -245,7 +245,7 @@ function OverviewTab() {
             { title: 'Data Sources', text: 'Helius RPC/DAS/WebSocket/Webhooks, Pump.fun Scanner, Jupiter/Raydium, SolanaTracker, Birdeye alerts, CoinGecko, and wallet PnL APIs.' },
             { title: 'Deployment', text: 'CLI (local), Telegram Gateway, MCP Server (stdio), TailClaude (web UI), React dashboard. No private key required to start.' },
           ].map((item) => (
-            <article key={item.title} className="card solanaos-feature-card">
+            <article key={item.title} className="card openclawd-feature-card">
               <h3 className="skill-card-title">{item.title}</h3>
               <p className="stat" style={{ margin: 0 }}>{item.text}</p>
             </article>
@@ -253,16 +253,16 @@ function OverviewTab() {
         </div>
       </section>
       <section className="section">
-        <div className="card solanaos-home-cta" style={{ borderLeft: '3px solid #14f195' }}>
+        <div className="card openclawd-home-cta" style={{ borderLeft: '3px solid #14f195' }}>
           <div>
-            <h2 className="section-title" style={{ marginBottom: 8 }}>Integrated into SolanaOS</h2>
+            <h2 className="section-title" style={{ marginBottom: 8 }}>Integrated into OpenClawd</h2>
             <p className="section-subtitle" style={{ marginBottom: 0 }}>
-              The solana-claude engine is bundled as <code>solana-claude/</code> in the SolanaOS monorepo.
+              The solana-claude engine is bundled as <code>solana-claude/</code> in the OpenClawd monorepo.
               Gateway, AgentWallet vault, TailClaude, 95 skills, and 4 runnable examples all available.
             </p>
           </div>
-          <div className="solanaos-home-cta-actions">
-            <Link to="/hub" className="btn btn-primary">SolanaOS Catalog</Link>
+          <div className="openclawd-home-cta-actions">
+            <Link to="/hub" className="btn btn-primary">OpenClawd Catalog</Link>
             <Link to="/tracker" className="btn">Live Charts</Link>
           </div>
         </div>
@@ -290,9 +290,9 @@ function AgentFleetTab() {
               <span className="tag">Memory: {agent.memory}</span>
               <span className="tag">Permission: {agent.permission}</span>
             </div>
-            <div className="solanaos-chip-row" style={{ marginTop: 8 }}>
+            <div className="openclawd-chip-row" style={{ marginTop: 8 }}>
               {agent.tools.map((tool) => (
-                <span key={tool} className="tag solanaos-package-chip">{tool}</span>
+                <span key={tool} className="tag openclawd-package-chip">{tool}</span>
               ))}
             </div>
           </article>
@@ -314,7 +314,7 @@ function MCPToolsTab() {
               <h3 className="skill-card-title">{category}</h3>
               <span className="tag tag-accent">{tools.length} tools</span>
             </div>
-            <div className="solanaos-chip-row" style={{ marginTop: 8 }}>
+            <div className="openclawd-chip-row" style={{ marginTop: 8 }}>
               {tools.map((tool) => <code key={tool} className="tag">{tool}</code>)}
             </div>
           </article>
@@ -331,13 +331,13 @@ function BuddiesTab() {
       <p className="section-subtitle">18 Solana-native trading companions with unique wallets, personalities, and stats.</p>
       <div className="card" style={{ marginBottom: 24 }}>
         <h3 className="skill-card-title" style={{ marginBottom: 12 }}>Species ({BUDDY_SPECIES.length})</h3>
-        <div className="solanaos-chip-row">
+        <div className="openclawd-chip-row">
           {BUDDY_SPECIES.map((s) => <span key={s} className="tag tag-accent">{s}</span>)}
         </div>
       </div>
       <div className="card" style={{ marginBottom: 24 }}>
         <h3 className="skill-card-title" style={{ marginBottom: 12 }}>Trading Personalities</h3>
-        <div className="solanaos-chip-row">
+        <div className="openclawd-chip-row">
           {PERSONALITIES.map((p) => <span key={p} className="tag">{p.replace('_', ' ')}</span>)}
         </div>
       </div>
@@ -348,7 +348,7 @@ function BuddiesTab() {
           { title: 'Birth Ceremony', text: 'Animated sequence: heartbeat, wallet generation, stat reveal, ASCII sprite with eyes and hats. 9 custom unicode spinners.' },
           { title: 'Trade Simulation', text: 'Position sizing from stats, PnL by token, leaderboard ranking, win rate, collection management.' },
         ].map((item) => (
-          <article key={item.title} className="card solanaos-feature-card">
+          <article key={item.title} className="card openclawd-feature-card">
             <h3 className="skill-card-title">{item.title}</h3>
             <p className="stat" style={{ margin: 0 }}>{item.text}</p>
           </article>
@@ -408,16 +408,16 @@ function GatewayTab() {
       <h2 className="section-title">CLAWD Gateway</h2>
       <p className="section-subtitle">Telegram bot + HTTP API with Solana/Helius/Birdeye integration.</p>
       <div className="grid" style={{ marginBottom: 24 }}>
-        <article className="card solanaos-feature-card">
+        <article className="card openclawd-feature-card">
           <h3 className="skill-card-title">HTTP API</h3>
           <p className="stat" style={{ margin: 0 }}>Express server with balance, tokens, transactions, assets (Helius DAS), price (Birdeye), and token search.</p>
-          <div className="solanaos-chip-row" style={{ marginTop: 8 }}>
+          <div className="openclawd-chip-row" style={{ marginTop: 8 }}>
             {['/api/balance', '/api/tokens', '/api/transactions', '/api/assets', '/api/price', '/api/search'].map(
               (ep) => <code key={ep} className="tag">{ep}</code>,
             )}
           </div>
         </article>
-        <article className="card solanaos-feature-card">
+        <article className="card openclawd-feature-card">
           <h3 className="skill-card-title">Birdeye WebSocket</h3>
           <p className="stat" style={{ margin: 0 }}>Real-time price, transactions, new listings, new pairs, large trades, and wallet activity with auto-reconnect.</p>
         </article>
@@ -435,7 +435,7 @@ function GatewayTab() {
       </div>
       <div className="card" style={{ marginTop: 24 }}>
         <h3 className="skill-card-title" style={{ marginBottom: 8 }}>Required Environment</h3>
-        <div className="solanaos-chip-row">
+        <div className="openclawd-chip-row">
           {['HELIUS_RPC_URL', 'HELIUS_API_KEY', 'BIRDEYE_API_KEY', 'TELEGRAM_BOT_TOKEN', 'SOLANA_PRIVATE_KEY'].map(
             (env) => <code key={env} className="tag">{env}</code>,
           )}
@@ -466,7 +466,7 @@ function RiskEngineTab() {
           { title: 'Funding Model', text: 'Live premium-based rates. Conservative floor semantics. Oracle timing normatively specified.' },
           { title: 'ADL', text: 'Lazy A/K side indices. Off-chain shortlist keeper, on-chain crank revalidation.' },
         ].map((item) => (
-          <article key={item.title} className="card solanaos-feature-card">
+          <article key={item.title} className="card openclawd-feature-card">
             <h3 className="skill-card-title">{item.title}</h3>
             <p className="stat" style={{ margin: 0 }}>{item.text}</p>
           </article>
@@ -494,11 +494,11 @@ function WalletVaultTab() {
           },
           { title: 'Deployment', text: 'Deploy to E2B sandboxes or Cloudflare Workers. Export/import encrypted vault for backup.' },
         ].map((item) => (
-          <article key={item.title} className="card solanaos-feature-card">
+          <article key={item.title} className="card openclawd-feature-card">
             <h3 className="skill-card-title">{item.title}</h3>
             <p className="stat" style={{ margin: 0 }}>{item.text}</p>
             {'endpoints' in item && item.endpoints ? (
-              <div className="solanaos-chip-row" style={{ marginTop: 8 }}>
+              <div className="openclawd-chip-row" style={{ marginTop: 8 }}>
                 {item.endpoints.map((ep) => <code key={ep} className="tag">{ep}</code>)}
               </div>
             ) : null}

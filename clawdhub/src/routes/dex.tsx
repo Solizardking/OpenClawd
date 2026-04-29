@@ -5,7 +5,7 @@ import { useAuthStatus } from '../lib/useAuthStatus'
 import { enrichTokensWithBirdeye } from '../lib/unifiedTokenData'
 
 export const Route = createFileRoute('/dex')({
-  head: () => ({ meta: [{ title: 'DEX — SolanaOS Hub' }] }),
+  head: () => ({ meta: [{ title: 'DEX — OpenClawd Hub' }] }),
   component: DexRouteGuard,
 })
 

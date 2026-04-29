@@ -128,7 +128,7 @@ function SkillCreator() {
           </span>
           <h1 className="section-title">Create an Agent Skill</h1>
           <p className="hero-subtitle">
-            Build a SKILL.md for Claude Code, Cursor, Copilot, or any AI agent. Configure, preview, and publish to the SolanaOS Hub.
+            Build a SKILL.md for Claude Code, Cursor, Copilot, or any AI agent. Configure, preview, and publish to the OpenClawd Hub.
           </p>
         </div>
       </div>

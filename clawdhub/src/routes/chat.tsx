@@ -90,7 +90,7 @@ function ChatPage() {
           </div>
           <h2 style={{ fontFamily: 'var(--font-display)', marginBottom: 10, fontSize: 26 }}>Wallet-to-Wallet Chat</h2>
           <p style={{ color: 'var(--ink-soft)', marginBottom: 28, maxWidth: 420, marginInline: 'auto', lineHeight: 1.6 }}>
-            Connect your Solana wallet to start chatting with other SolanaOS Hub users. Messages are tied to your wallet address.
+            Connect your Solana wallet to start chatting with other OpenClawd Hub users. Messages are tied to your wallet address.
           </p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link to="/dashboard" className="btn btn-primary" style={{ padding: '12px 24px' }}>

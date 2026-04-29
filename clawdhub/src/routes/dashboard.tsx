@@ -517,7 +517,7 @@ function UserProfileSection({
           </div>
           <div className="dashboard-quick-link-text">
             <h3>Install Gateway</h3>
-            <p>Run SolanaOS on your terminal</p>
+            <p>Run OpenClawd on your terminal</p>
           </div>
         </Link>
         <Link to="/setup/telegram" className="dashboard-quick-link-card">
@@ -553,7 +553,7 @@ function UserProfileSection({
           </div>
           <div className="dashboard-quick-link-text">
             <h3>Build a Strategy</h3>
-            <p>Generate your own strategy.md for SolanaOS</p>
+            <p>Generate your own strategy.md for OpenClawd</p>
           </div>
         </Link>
       </div>

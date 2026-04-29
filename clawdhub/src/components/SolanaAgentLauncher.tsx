@@ -18,7 +18,7 @@ import {
 } from '../lib/solanaAgent'
 
 const initialAssistantMessage =
-  'SolanaOS Agent is online via solana-claude. Ask about the 128-bit Risk Engine, Pump.fun Sniper, OODA trading loops, or Helius events.'
+  'OpenClawd Agent is online via solana-claude. Ask about the 128-bit Risk Engine, Pump.fun Sniper, OODA trading loops, or Helius events.'
 
 const quickPrompts = [
   'Start the Pump.fun solana-claude sniper bot',
@@ -318,19 +318,19 @@ export function SolanaAgentLauncher() {
                 <Bot size={15} />
               </span>
               <div>
-                <strong>SolanaOS Agent</strong>
+                <strong>OpenClawd Agent</strong>
                 <div>{identityLabel}</div>
               </div>
             </div>
 
             <div className="solana-agent-panel-actions">
-              <Link to="/settings" hash="agent" className="solana-agent-header-link" aria-label="Open SolanaOS agent settings">
+              <Link to="/settings" hash="agent" className="solana-agent-header-link" aria-label="Open OpenClawd agent settings">
                 <Settings2 size={15} />
               </Link>
               <button
                 type="button"
                 className="solana-agent-close"
-                aria-label="Close SolanaOS Agent"
+                aria-label="Close OpenClawd Agent"
                 onClick={closePanel}
               >
                 <X size={16} />
@@ -352,7 +352,7 @@ export function SolanaAgentLauncher() {
                 {message.content}
               </div>
             ))}
-            {busy ? <div className="solana-agent-typing">SolanaOS Agent is streaming a response…</div> : null}
+            {busy ? <div className="solana-agent-typing">OpenClawd Agent is streaming a response…</div> : null}
           </div>
 
           {showQuickPrompts ? (
@@ -393,7 +393,7 @@ export function SolanaAgentLauncher() {
                   void sendMessage()
                 }
               }}
-              placeholder="Ask SolanaOS Agent"
+              placeholder="Ask OpenClawd Agent"
             />
             <button type="button" className="solana-agent-send" disabled={busy || !draft.trim()} onClick={() => void sendMessage()}>
               <Send size={15} />
@@ -405,7 +405,7 @@ export function SolanaAgentLauncher() {
       <button
         type="button"
         className={`solana-agent-bubble${busy ? ' is-busy' : ''}`}
-        aria-label="Open SolanaOS Agent"
+        aria-label="Open OpenClawd Agent"
         onClick={() => {
           if (open) {
             closePanel()

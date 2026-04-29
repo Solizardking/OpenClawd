@@ -72,7 +72,7 @@ describe('search route', () => {
   })
 
   it('redirects souls host with query to home search', () => {
-    expect(runBeforeLoad({ q: 'crab', highlighted: true }, 'souls.solanaos.net')).toEqual({
+    expect(runBeforeLoad({ q: 'crab', highlighted: true }, 'souls.openclawd.net')).toEqual({
       redirect: {
         to: '/',
         search: {
@@ -86,7 +86,7 @@ describe('search route', () => {
   })
 
   it('redirects souls host without query to home with search mode', () => {
-    expect(runBeforeLoad({}, 'souls.solanaos.net')).toEqual({
+    expect(runBeforeLoad({}, 'souls.openclawd.net')).toEqual({
       redirect: {
         to: '/',
         search: {

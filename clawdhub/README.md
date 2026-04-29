@@ -54,14 +54,43 @@ Solana — Helius RPC · Jupiter · SPL USDC · $CLAWD
 - **Install** skills via CLI (`npx clawdhub`) or curl
 - **Monetize** skills with x402 payments, AP2 mandates, and $CLAWD discounts
 - **Verify** skills via ClawdVault security scanning before publishing
+- **Connect to a live OpenClawd gateway** at [`/console`](https://hub.solanaclawd.com/console) — token cards, wallet portfolios, agent runtime, and the lobster animations all wired to your local or remote gateway
+
+---
+
+## 🦞 Live Gateway Console
+
+ClawdHub ships with `/console` — a real-time dashboard wired to the OpenClawd HTTP gateway. Boot the gateway locally and the page fills with live Birdeye + Helius data, the agent skill registry, and on-paste contract analysis.
+
+```bash
+# Terminal 1 — start the gateway
+cd gateway && npm run http
+# 🦞 OpenClawd Gateway HTTP listening on http://127.0.0.1:8788
+
+# Terminal 2 — start the hub
+cd clawdhub && bun run dev
+# Open http://localhost:3000/console
+```
+
+The gateway URL is configurable per-user via the input in the console hero — point it at `https://gateway.solanaclawd.com` for the shared remote gateway, or your own deployment.
 
 ---
 
 ## 🔧 One-Shot Install
 
+The canonical bootstrap script lives at `install.solanaclawd.com` (Cloudflare Worker, see [`workers/install-worker/`](../workers/install-worker)). It builds the Go runtime + bootstraps the JS workspaces:
+
+```bash
+curl -fsSL https://install.solanaclawd.com | bash
+```
+
+ClawdHub also serves a hub-flavored installer at [`/install.sh`](https://hub.solanaclawd.com/install.sh) that wraps the upstream bootstrap and follows up with the `npx clawdhub` CLI shim:
+
 ```bash
 curl -fsSL https://hub.solanaclawd.com/install.sh | bash
 ```
+
+> **Note:** the hub installer is shipped via this repo at [`public/install.sh`](public/install.sh) — it only goes live after the next `vercel --prod` from `clawdhub/`. If you get a 404, fall back to the canonical `install.solanaclawd.com` URL above.
 
 ---
 
@@ -299,6 +328,35 @@ bunx convex run --no-push devSeed:seedNixSkills
 - `PRIVY_APP_ID` / `PRIVY_APP_SECRET` — Embedded wallet auth
 - `HONCHO_API_KEY` — Brain/memory for agents
 - `WURK_API_KEY` — x402 social campaigns (optional)
+
+---
+
+## ☁️ Deploy as the production hub
+
+Full runbook with required env vars, smoke tests, and rollback steps: [`docs/deploy-hub.md`](docs/deploy-hub.md).
+
+Quick reference:
+
+```bash
+# One-time Convex prod deploy
+bunx convex deploy --prod
+
+# Verify the live console works locally first
+cd ../gateway && npm run http   # gateway on :8788
+cd ../clawdhub && bun run dev    # hub on :3000
+# Open http://localhost:3000/gateway → click 🦞 Open Live Console — all four health pills should be green
+
+# Push to Vercel (DNS already wired to hub.solanaclawd.com)
+vercel --prod
+```
+
+Skill-catalog updates are picked up on every push:
+
+```bash
+bun run generate:openclawd-catalog
+git add src/lib/generated/openclawdCatalog.ts && git commit -m "skills: refresh"
+git push
+```
 
 ---
 

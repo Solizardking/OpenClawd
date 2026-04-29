@@ -12,19 +12,19 @@ function TroubleshootingRoute() {
       <section className="hero">
         <div className="hero-inner">
           <div className="hero-copy fade-up" data-delay="1">
-            <span className="hero-badge">SolanaOS / Troubleshooting</span>
+            <span className="hero-badge">OpenClawd / Troubleshooting</span>
             <h1 className="hero-title">Operational fixes for Seeker, gateway, bridge, skills, and mobile runtime failures.</h1>
             <p className="hero-subtitle">
-              This page adapts the mobile diagnostics playbook into a SolanaOS runbook. Keep the
-              public hub at <code>https://seeker.solanaos.net</code> and the skills catalog at{' '}
-              <code>https://seeker.solanaos.net/solanaos</code> as the canonical recovery
+              This page adapts the mobile diagnostics playbook into a OpenClawd runbook. Keep the
+              public hub at <code>https://seeker.openclawd.net</code> and the skills catalog at{' '}
+              <code>https://seeker.openclawd.net/solanaos</code> as the canonical recovery
               surfaces.
             </p>
             <div style={{ display: 'flex', gap: 12, marginTop: 20, flexWrap: 'wrap' }}>
-              <a href="https://seeker.solanaos.net" className="btn btn-primary">
+              <a href="https://seeker.openclawd.net" className="btn btn-primary">
                 Open hub
               </a>
-              <a href="https://seeker.solanaos.net/solanaos" className="btn">
+              <a href="https://seeker.openclawd.net/solanaos" className="btn">
                 Open skills
               </a>
               <Link to="/setup/gateway" className="btn">
@@ -37,7 +37,7 @@ function TroubleshootingRoute() {
 
       <section className="section">
         <div className="grid">
-          <article className="card solanaos-feature-card">
+          <article className="card openclawd-feature-card">
             <div className="catalog-card-top">
               <h3 className="skill-card-title">Gateway and bridge</h3>
               <Radio className="gallery-panel-icon" aria-hidden="true" />
@@ -49,7 +49,7 @@ function TroubleshootingRoute() {
             <CopyBlock code={`solanaos gateway start`} label="Copy gateway command" />
             <CopyBlock code={`curl -sS http://127.0.0.1:8765/ping`} label="Copy bridge ping" />
           </article>
-          <article className="card solanaos-feature-card">
+          <article className="card openclawd-feature-card">
             <div className="catalog-card-top">
               <h3 className="skill-card-title">LLM and transport</h3>
               <Bot className="gallery-panel-icon" aria-hidden="true" />
@@ -60,7 +60,7 @@ function TroubleshootingRoute() {
             </p>
             <CopyBlock code={`rg -n "ETIMEDOUT|ECONNRESET|socket hang up|too many tokens|context" node_debug.log | tail -20`} label="Copy transport check" />
           </article>
-          <article className="card solanaos-feature-card">
+          <article className="card openclawd-feature-card">
             <div className="catalog-card-top">
               <h3 className="skill-card-title">Permissions and tools</h3>
               <ShieldAlert className="gallery-panel-icon" aria-hidden="true" />
@@ -82,8 +82,8 @@ function TroubleshootingRoute() {
         </p>
         <div className="card" style={{ gap: 16 }}>
           <p className="stat" style={{ margin: 0 }}>
-            If the bridge is down, reopen the SolanaOS app and keep it in the foreground long
-            enough for the runtime to reattach. The Android build now exposes a loopback SolanaOS
+            If the bridge is down, reopen the OpenClawd app and keep it in the foreground long
+            enough for the runtime to reattach. The Android build now exposes a loopback OpenClawd
             compatibility bridge on <code>127.0.0.1:8765</code>.
           </p>
           <CopyBlock code={`curl -sS http://127.0.0.1:8765/ping`} label="Copy bridge health check" />
@@ -130,7 +130,7 @@ function TroubleshootingRoute() {
           {[
             ['SMS', 'Grant SEND_SMS and keep telephony available.'],
             ['Camera', 'Grant CAMERA and keep the app foregrounded for capture.'],
-            ['Location', 'Grant coarse or fine location and keep SolanaOS open.'],
+            ['Location', 'Grant coarse or fine location and keep OpenClawd open.'],
             ['Notifications', 'Grant POST_NOTIFICATIONS and notification-listener access where required.'],
           ].map(([title, summary]) => (
             <article key={title} className="card catalog-card">
@@ -157,8 +157,8 @@ function TroubleshootingRoute() {
             Large tool outputs should be narrowed before retrying. If storage is tight, clear old
             logs or media and reinstall missing skills from the hub.
           </p>
-          <a href="https://seeker.solanaos.net/solanaos" className="btn btn-primary">
-            Reinstall skills from SolanaOS Hub
+          <a href="https://seeker.openclawd.net/solanaos" className="btn btn-primary">
+            Reinstall skills from OpenClawd Hub
           </a>
         </div>
       </section>

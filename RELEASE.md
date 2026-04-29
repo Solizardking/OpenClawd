@@ -121,13 +121,18 @@ done
 # Status (2026-04-29):
 #   ✅ @openclawdsolana/pagent-page-controller@1.6.3   (live · 268 KB)
 #   ✅ @openclawdsolana/pagent-llms@1.6.3              (live ·  19 KB)
-#   ✅ @openclawdsolana/pagent-core@1.6.3              (live · 765 KB)
+#   ✅ @openclawdsolana/pagent-core@1.6.4              (live · 765 KB)  ← bumped from 1.6.3 silent-reject
 #   ⏳ @openclawdsolana/pagent-ui@1.6.3                (next — depends on pagent-core)
 #   ⏳ @openclawdsolana/pagent@1.6.3                   (kitchen sink — depends on all four)
 #   ⏳ @openclawdsolana/browser-mcp@2.0.0              (independent)
 #
-# Tip: if `npm install` 404s on a sibling you JUST published, npm cached the
-# previous "not found" — re-run with `--prefer-online` to force a fresh fetch.
+# Two npm-side gotchas hit during this rollout:
+#   1. Negative-cache: `npm install` 404s on a sibling you JUST published
+#      because npm cached the earlier "not found". Re-run with --prefer-online.
+#   2. Silent publish reject: npm 11 can print `+ pkg@1.6.3` from a publish
+#      that the registry actually rejected. Always confirm with `npm view <pkg>
+#      version` after every publish; if 404, bump patch and re-publish with
+#      `--loglevel verbose` so the HTTP failure is visible.
 
 # Attestation Agent service
 cd services/attestation-agent       && npm publish --access public   # @openclawdsolana/attestation-agent

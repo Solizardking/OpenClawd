@@ -309,7 +309,7 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 | 🧠 **AutoResearch Wiki** | FastAPI backend + Next.js UI + MCP server — live `/api/v1/research/*` chain · defi · market endpoints over **Birdeye + Helius DAS + Helius Wallet API**, autonomous research loop with persistent `research_runs` history | [`llm-wiki-tang/`](llm-wiki-tang/) |
 | ⛓️ **Attestation Agent** | Solana Attestation Service notary — credential, schemas, agent-birth ceremony with MPL Core mint, skill attestations. Receipts on `attest.solana.com`, assets on `core.metaplex.com` | [`services/attestation-agent/`](services/attestation-agent/) |
 | 🤖 **Automaton** *(npm)* | `@openclawdsolana/automaton` — sovereign self-replicating AI agent runtime. Heartbeat daemon + Sense→Think→Strike→Drift loop, self-versioned `shell.md`, on-chain SAS identity, skill replication. Plus `@openclawdsolana/automaton-cli` for creator-side status / logs / fund / send | [`automaton-main/`](automaton-main/) |
-| 🌐 **pAGENT** *(npm × 6)* | Browser-side GUI vision agent family — `@openclawdsolana/pagent` (top-level), [`pagent-core@1.6.3`](https://www.npmjs.com/package/@openclawdsolana/pagent-core) (vision agent · **live · 765 KB**), [`pagent-llms@1.6.3`](https://www.npmjs.com/package/@openclawdsolana/pagent-llms) (OpenAI/OpenRouter adapters · **live**), [`pagent-page-controller@1.6.3`](https://www.npmjs.com/package/@openclawdsolana/pagent-page-controller) (DOM ops · **live · 268 KB**), `pagent-ui` (overlays), and `browser-mcp` (MCP server bridging Claude/Cursor → live browser). Drives the Chrome extension bundle in [`chrome-extension/clawd-agent`](chrome-extension/clawd-agent/) | [`chrome-extension/`](chrome-extension/) |
+| 🌐 **pAGENT** *(npm × 6)* | Browser-side GUI vision agent family — `@openclawdsolana/pagent` (top-level), [`pagent-core@1.6.4`](https://www.npmjs.com/package/@openclawdsolana/pagent-core) (vision agent · **live · 765 KB**), [`pagent-llms@1.6.3`](https://www.npmjs.com/package/@openclawdsolana/pagent-llms) (OpenAI/OpenRouter adapters · **live**), [`pagent-page-controller@1.6.3`](https://www.npmjs.com/package/@openclawdsolana/pagent-page-controller) (DOM ops · **live · 268 KB**), `pagent-ui` (overlays), and `browser-mcp` (MCP server bridging Claude/Cursor → live browser). Drives the Chrome extension bundle in [`chrome-extension/clawd-agent`](chrome-extension/clawd-agent/) | [`chrome-extension/`](chrome-extension/) |
 | 📰 **Articles** | Long-form pieces tying everything together — three laws · lifecycle · Metaplex · Tide · examples · sovereign research | [`ARTICLE.md`](ARTICLE.md) · [`docs/articles/SOVEREIGN_RESEARCH.md`](docs/articles/SOVEREIGN_RESEARCH.md) |
 
 ---
@@ -749,6 +749,80 @@ chrome.runtime.sendMessage({ kind: 'wallet', op: 'signSolanaMessage', args: [msg
 ```
 
 Right-click any selected base58 string anywhere in Chrome → **🦞 Look up "..." in OpenClawd** → desktop notification with `$SYM · price · mcap`. Full architecture, security model, and sign-and-submit flow: [chrome-extension/openclawd-chrome-extension/README.md](chrome-extension/openclawd-chrome-extension/README.md).
+
+---
+
+## 🦞 Solana Console — Live Gateway Dashboard
+
+The Lit + R3F control UI in [frontend/ui](frontend/ui) ships with a **Solana** tab (under *Agent*) that wires straight into the OpenClawd HTTP gateway. Live token cards, wallet portfolios, the agent skill registry, and the lobster animations from `src/animations/web-frames.ts` all rendered against real backend data.
+
+```bash
+# Two terminals — gateway + UI
+cd gateway && npm run http               # → http://127.0.0.1:8788  (Birdeye + Helius + /src bridge)
+cd frontend/ui && npm install && npm run dev   # → http://localhost:5173
+```
+
+Open `http://localhost:5173/index.html` → click **Solana** in the sidebar. Watch the four health pills (`gw / bird / hel / rt`) go green as your keys land in `gateway/.env`. Paste any base58 mint or wallet for an instant card.
+
+Three entry points share one Vite build:
+
+| Entry         | What                                                                                       |
+| ------------- | ------------------------------------------------------------------------------------------ |
+| `index.html`  | Full control panel — chat, channels, sessions, cron, skills, nodes, **Solana**, config     |
+| `solana.html` | Standalone Solana dashboard (the same panel without the surrounding chrome)                |
+| `ocean.html`  | 3D ocean scene — leviathan visualizer                                                      |
+
+Setup, troubleshooting, and the full file map: [frontend/ui/README.md](frontend/ui/README.md).
+
+The control panel surfaces a **🦞 New: Solana gateway** onboarding card on the Overview tab the first time users land — four-step setup right next to the rest of the dashboard's status, no separate wizard required.
+
+```text
+sidebar layout:
+  ┌ Chat
+  │   chat
+  ┌ Control
+  │   overview · channels · instances · sessions · cron
+  ┌ Agent
+  │   skills · nodes · solana ←
+  └ Settings
+      config · debug · logs
+```
+
+---
+
+## 🏪 ClawdHub — The Skills Marketplace
+
+[`clawdhub/`](clawdhub) is the public skills marketplace + agent registry deployed at [`hub.solanaclawd.com`](https://hub.solanaclawd.com). TanStack Start + Convex + Vercel — 40+ routes covering the marketplace, agent registry, tracker, wallet, x402 payment surface, and the new **`/console`** page wired to the OpenClawd HTTP gateway.
+
+```bash
+# Run locally
+cd clawdhub
+bun install
+cp .env.local.example .env.local
+
+# Terminal A — Convex
+bunx convex dev
+
+# Terminal B — App
+bun run dev
+# → http://localhost:3000
+
+# In a third terminal, run the gateway so /console fills with live data
+cd ../gateway && npm run http
+# Then open http://localhost:3000/console
+```
+
+**The `/console` page is new in v0.2** — it's the same Solana panel from `frontend/ui` reimplemented as a TanStack route, mounted directly inside the production hub:
+
+| Route          | What                                                                                                    |
+| -------------- | ------------------------------------------------------------------------------------------------------- |
+| `/marketplace` | Browse + search 90+ published skills (vector + keyword)                                                 |
+| `/agents`      | The 49-agent Metaplex Core catalog                                                                      |
+| `/console`     | 🦞 Live OpenClawd gateway dashboard (token cards · wallet portfolios · agent runtime · health pills)    |
+| `/gateway`     | Marketing page for the gateway with links to install + console                                          |
+| `/api/skills`  | JSON API for the catalog (used by `npx clawdhub install`)                                               |
+
+Full deploy runbook: [clawdhub/docs/deploy-hub.md](clawdhub/docs/deploy-hub.md). Required env vars, Vercel + Convex wire-up, custom domain steps, smoke tests, rollback. To ship: `vercel --prod` from the `clawdhub/` directory once env vars are set.
 
 ---
 
