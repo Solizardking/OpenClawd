@@ -63,6 +63,89 @@ export const AUTHORITY_KIND = {
   CLOSE: 0,
 } as const;
 
+// InitMarket — bootstrap a new perpetuals market (tag 0)
+export interface InitMarketArgs {
+  admin: PublicKey | string;
+  collateralMint: PublicKey | string;
+  indexFeedId: string;            // 64 hex chars (32 bytes)
+  maxStalenessSecs: number;
+  confFilterBps: number;
+  invert: 0 | 1;
+  unitScale: number;
+  initialMarkPriceE6: bigint | string;
+  maintenanceFeePerSlot: bigint | string;
+  minOraclePriceCapE2bps: bigint | string;
+  hMin: bigint | string;
+  maintenanceMarginBps: number;
+  initialMarginBps: number;
+  tradingFeeBps: number;
+  maxAccounts: number;
+  newAccountFee: bigint | string;
+  hMax: bigint | string;
+  maxCrankStalenessSlots: bigint | string;
+  liquidationFeeBps: number;
+  liquidationFeeCap: bigint | string;
+  resolvePriceDeviationBps: number;
+  minLiquidationAbs: bigint | string;
+  minNonzeroMmReq: bigint | string;
+  minNonzeroImReq: bigint | string;
+  insuranceWithdrawMaxBps: number;
+  insuranceWithdrawCooldownSlots: bigint | string;
+  permissionlessResolveStaleSlots: bigint | string;
+  fundingHorizonSlots: bigint | string;
+  fundingKBps: number;
+  fundingMaxPremiumBps: number;
+  fundingMaxE9PerSlot: bigint | string;
+  markMinFee: bigint | string;
+  forceCloseDelaySlots: bigint | string;
+}
+
+function feedIdToBuf(hex: string): Buffer {
+  const clean = hex.startsWith('0x') ? hex.slice(2) : hex;
+  if (clean.length !== 64) throw new Error(`indexFeedId must be 32 bytes (64 hex chars), got ${clean.length}`);
+  if (!/^[0-9a-fA-F]+$/.test(clean)) throw new Error('indexFeedId must be hex');
+  return Buffer.from(clean, 'hex');
+}
+
+export function encodeInitMarket(args: InitMarketArgs): Buffer {
+  return Buffer.concat([
+    encU8(IX_TAG.InitMarket),
+    encPubkey(args.admin),
+    encPubkey(args.collateralMint),
+    feedIdToBuf(args.indexFeedId),
+    encU32(args.maxStalenessSecs),
+    encU16(args.confFilterBps),
+    encU8(args.invert),
+    encU8(args.unitScale),
+    encU64(args.initialMarkPriceE6),
+    encU64(args.maintenanceFeePerSlot),
+    encU64(args.minOraclePriceCapE2bps),
+    encU64(args.hMin),
+    encU16(args.maintenanceMarginBps),
+    encU16(args.initialMarginBps),
+    encU16(args.tradingFeeBps),
+    encU32(args.maxAccounts),
+    encU64(args.newAccountFee),
+    encU64(args.hMax),
+    encU64(args.maxCrankStalenessSlots),
+    encU16(args.liquidationFeeBps),
+    encU64(args.liquidationFeeCap),
+    encU16(args.resolvePriceDeviationBps),
+    encU64(args.minLiquidationAbs),
+    encU64(args.minNonzeroMmReq),
+    encU64(args.minNonzeroImReq),
+    encU16(args.insuranceWithdrawMaxBps),
+    encU64(args.insuranceWithdrawCooldownSlots),
+    encU64(args.permissionlessResolveStaleSlots),
+    encU64(args.fundingHorizonSlots),
+    encU16(args.fundingKBps),
+    encU16(args.fundingMaxPremiumBps),
+    encU64(args.fundingMaxE9PerSlot),
+    encU64(args.markMinFee),
+    encU64(args.forceCloseDelaySlots),
+  ]);
+}
+
 // InitUser
 export interface InitUserArgs { feePayment: bigint | string; }
 export function encodeInitUser(args: InitUserArgs): Buffer {

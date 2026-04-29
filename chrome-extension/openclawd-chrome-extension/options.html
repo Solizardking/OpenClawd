@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OpenClawd Browser Bridge</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0a0e1a;
+        --bg-elev: #131a2e;
+        --bg-card: #131a2e;
+        --border: #1f2942;
+        --border-bright: #2c3a60;
+        --text: #e6edf7;
+        --muted: #93a0bd;
+        --accent: #14F195;     /* Solana green */
+        --accent-2: #9945FF;   /* Solana purple */
+        --orange: #ff9e44;     /* Lobster */
+        --red: #ff5d6c;
+        --gradient: linear-gradient(135deg, #14F195 0%, #9945FF 100%);
+        font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.5;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(900px 500px at 90% 0%, rgba(153, 69, 255, 0.18), transparent 60%),
+          radial-gradient(800px 450px at 5% 20%, rgba(20, 241, 149, 0.10), transparent 60%),
+          var(--bg);
+        color: var(--text);
+      }
+      .wrap { max-width: 880px; margin: 36px auto; padding: 0 24px 64px; }
+      header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+      .logo {
+        width: 56px; height: 56px; border-radius: 16px;
+        background: rgba(255, 158, 68, 0.10);
+        border: 1px solid rgba(255, 158, 68, 0.4);
+        display: grid; place-items: center; font-size: 32px;
+      }
+      h1 { font-size: 22px; margin: 0; letter-spacing: -0.01em; font-weight: 800; }
+      .subtitle { margin: 4px 0 0 0; color: var(--muted); font-size: 13.5px; }
+      .grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+      .card {
+        background: var(--bg-card); border: 1px solid var(--border);
+        border-radius: 16px; padding: 20px;
+      }
+      .card h2 {
+        margin: 0 0 8px; font-size: 14px; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.06em; color: var(--text);
+      }
+      .card .badge {
+        display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px;
+        margin-left: 8px; font-weight: 600;
+      }
+      .badge.relay { background: rgba(255, 158, 68, 0.15); color: var(--orange); }
+      .badge.gw    { background: rgba(20, 241, 149, 0.15); color: var(--accent); }
+      .badge.wallet{ background: rgba(153, 69, 255, 0.15); color: var(--accent-2); }
+      .card p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+      .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+      label { display: block; font-size: 12px; color: var(--muted); margin: 12px 0 6px; font-weight: 500; }
+      input {
+        width: 100%; padding: 10px 12px; border-radius: 10px;
+        border: 1px solid var(--border-bright); background: var(--bg);
+        color: var(--text); outline: none; font-size: 14px;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+      }
+      input.short { width: 160px; }
+      input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(20, 241, 149, 0.15);
+      }
+      button {
+        padding: 9px 14px; border-radius: 10px; border: none;
+        background: var(--gradient); color: #0a0e1a;
+        font-weight: 700; font-size: 13px; cursor: pointer; letter-spacing: 0.01em;
+      }
+      button.ghost {
+        background: transparent; border: 1px solid var(--border-bright);
+        color: var(--text);
+      }
+      button.danger {
+        background: transparent; border: 1px solid var(--red); color: var(--red);
+      }
+      button:active { transform: translateY(1px); }
+      button:disabled { opacity: 0.5; cursor: not-allowed; }
+      .hint { margin-top: 10px; font-size: 12px; color: var(--muted); }
+      code {
+        font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px;
+        background: rgba(20, 241, 149, 0.08); color: var(--accent);
+        padding: 2px 6px; border-radius: 4px;
+      }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { opacity: 0.8; }
+      .status { margin-top: 12px; font-size: 12.5px; color: var(--muted); min-height: 16px; }
+      .status[data-kind='ok']    { color: var(--accent); }
+      .status[data-kind='error'] { color: var(--red); }
+      .pubkey {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 12.5px; word-break: break-all;
+        background: var(--bg); border: 1px solid var(--border);
+        padding: 10px 12px; border-radius: 8px; margin-top: 8px;
+      }
+      .secret-box {
+        background: rgba(255, 93, 108, 0.06); border: 1px solid rgba(255, 93, 108, 0.3);
+        border-radius: 8px; padding: 12px; margin-top: 8px;
+        color: var(--red); font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+        word-break: break-all;
+      }
+      details { margin-top: 12px; }
+      summary { cursor: pointer; font-size: 13px; color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="logo" aria-hidden="true">🦞</div>
+        <div>
+          <h1>OpenClawd Browser Bridge</h1>
+          <p class="subtitle">CDP relay · Gateway client · Solana agent wallet — all in one extension.</p>
+        </div>
+      </header>
+
+      <div class="grid">
+        <!-- ── Relay ── -->
+        <div class="card">
+          <h2>1. CDP Relay <span class="badge relay">automation</span></h2>
+          <p>
+            Click the toolbar button on any tab to attach Chrome's debugger and bridge it to a local
+            OpenClawd CDP relay. If the badge shows a red <code>!</code>, start the relay first.
+          </p>
+          <label for="port">Relay port</label>
+          <div class="row">
+            <input id="port" class="short" inputmode="numeric" pattern="[0-9]*" />
+            <button id="save-port" type="button">Save</button>
+          </div>
+          <div class="hint">
+            Default <code>18792</code>. Connects to <code id="relay-url">http://127.0.0.1:&lt;port&gt;/</code>.
+          </div>
+          <div class="status" id="status-relay"></div>
+        </div>
+
+        <!-- ── Gateway ── -->
+        <div class="card">
+          <h2>2. OpenClawd Gateway <span class="badge gw">market data</span></h2>
+          <p>
+            Where the extension fetches token cards (Birdeye + Helius DAS) when you right-click a Solana
+            address. Defaults to a local dev gateway on <code>http://127.0.0.1:8788</code>.
+          </p>
+          <label for="gateway">Gateway base URL</label>
+          <div class="row">
+            <input id="gateway" placeholder="http://127.0.0.1:8788" />
+            <button id="save-gw" type="button">Save</button>
+            <button id="test-gw" class="ghost" type="button">Test</button>
+          </div>
+          <div class="hint">
+            For prod use <code>https://gateway.solanaclawd.com</code>.
+          </div>
+          <div class="status" id="status-gw"></div>
+        </div>
+
+        <!-- ── Wallet ── -->
+        <div class="card">
+          <h2>3. Solana Agent Wallet <span class="badge wallet">on-chain</span></h2>
+          <p>
+            A Solana keypair that lives encrypted (AES-GCM) inside <code>chrome.storage.local</code>.
+            Auto-locks after 15 min of inactivity. The private key never leaves this extension.
+          </p>
+
+          <div id="wallet-empty" hidden>
+            <label for="new-pass">Passphrase (8+ chars)</label>
+            <input id="new-pass" type="password" placeholder="something only you can remember" />
+            <div class="row">
+              <button id="create-btn" type="button">Create new wallet</button>
+              <button id="import-btn" class="ghost" type="button">Import from secret</button>
+            </div>
+
+            <details>
+              <summary>Import an existing keypair</summary>
+              <label for="import-secret">Base58-encoded 64-byte secret key</label>
+              <input id="import-secret" type="password" placeholder="paste secret key here" />
+              <div class="row" style="margin-top: 8px;">
+                <button id="do-import-btn" class="ghost" type="button">Import wallet</button>
+              </div>
+              <div class="hint">
+                Pasted secret stays in memory only long enough to encrypt; cleared right after.
+              </div>
+            </details>
+          </div>
+
+          <div id="wallet-locked" hidden>
+            <div class="hint" style="margin-top: 0;">Wallet exists, currently <strong style="color: var(--orange);">locked</strong>.</div>
+            <div class="pubkey" id="locked-pubkey"></div>
+            <label for="unlock-pass">Passphrase</label>
+            <input id="unlock-pass" type="password" />
+            <div class="row">
+              <button id="unlock-btn" type="button">Unlock</button>
+              <button id="forget-btn" class="danger" type="button">Erase wallet</button>
+            </div>
+          </div>
+
+          <div id="wallet-unlocked" hidden>
+            <div class="hint" style="margin-top: 0;">Wallet <strong style="color: var(--accent);">unlocked</strong> · auto-locks in 15 min</div>
+            <div class="pubkey" id="open-pubkey"></div>
+            <div class="row">
+              <button id="lock-btn" class="ghost" type="button">Lock now</button>
+              <button id="reveal-btn" class="ghost" type="button">Reveal secret</button>
+              <button id="balance-btn" class="ghost" type="button">Check balance</button>
+              <button id="erase-btn" class="danger" type="button">Erase wallet</button>
+            </div>
+            <div class="status" id="status-wallet"></div>
+            <div class="secret-box" id="secret-out" hidden></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>How they fit together</h2>
+          <p>
+            🦞 Click toolbar → CDP relay attaches the active tab.<br/>
+            🦞 Right-click any Solana address on a page → "Look up in OpenClawd" calls the Gateway and shows a notification.<br/>
+            🦞 The wallet signs Solana transactions the Gateway hands back (e.g. Jupiter swaps you initiated from the page).
+          </p>
+          <p>
+            Architecture: <a href="https://github.com/clawdsolana/OpenClawd/blob/main/docs/architecture-pieces.md">docs/architecture-pieces.md</a> ·
+            Source: <a href="https://github.com/clawdsolana/OpenClawd/tree/main/chrome-extension/openclawd-chrome-extension">github.com/clawdsolana/OpenClawd</a>
+          </p>
+        </div>
+      </div>
+
+      <script type="module" src="options.js"></script>
+    </div>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 /**
- * @page-agent/llms — LLM abstraction layer for page-agent.
+ * @openclawdsolana/pagent-llms — LLM abstraction layer for page-agent.
  *
  * Uses OpenAI-compatible API format. Works with xAI Grok via
  * baseURL: "https://api.x.ai/v1".

@@ -8,8 +8,8 @@
         "baseUrl": ".",
         "outDir": "dist",
         "paths": {
-            "@page-agent/llms": ["../llms/src/index.ts"],
-            "@page-agent/page-controller": ["../page-controller/src/PageController.ts"]
+            "@openclawdsolana/pagent-llms": ["../llms/src/index.ts"],
+            "@openclawdsolana/pagent-page-controller": ["../page-controller/src/PageController.ts"]
         }
     },
     "include": ["**/*.ts"],

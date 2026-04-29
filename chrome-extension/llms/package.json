@@ -1,7 +1,7 @@
 {
-  "name": "@page-agent/llms",
-  "private": true,
-  "version": "1.6.2",
+  "name": "@openclawdsolana/pagent-llms",
+  "private": false,
+  "version": "1.6.3",
   "type": "module",
   "main": "./dist/lib/page-agent-llms.js",
   "types": "./dist/lib/index.d.ts",
@@ -12,6 +12,30 @@
       "default": "./dist/lib/page-agent-llms.js"
     }
   },
+  "files": [
+    "dist/"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "OpenClawd pAGENT LLM router — OpenAI / OpenRouter / Anthropic adapters used by @openclawdsolana/pagent-core.",
+  "keywords": [
+    "openclawd",
+    "openclawdsolana",
+    "pagent",
+    "llm",
+    "openai",
+    "openrouter",
+    "browser-automation"
+  ],
+  "author": "Solana Clawd",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
+    "directory": "chrome-extension/llms"
+  },
+  "homepage": "https://solanaclawd.com",
   "scripts": {
     "build": "vite build"
   },
@@ -22,6 +46,11 @@
     "zod": "^3.25.0 || ^4.0.0"
   },
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.47.0",
+    "@types/node": "^25.5.0",
+    "typescript": "^6.0.2",
+    "unplugin-dts": "^1.0.0-beta.6",
+    "vite": "^8.0.3",
     "zod": "^4.3.5"
   }
 }

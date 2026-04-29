@@ -1,5 +1,5 @@
 {
-  "name": "@openclawd/discord",
+  "name": "@openclawdsolana/discord",
   "version": "2026.2.1",
   "description": "OpenClawd Discord channel plugin",
   "type": "module",

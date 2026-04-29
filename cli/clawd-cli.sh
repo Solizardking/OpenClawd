@@ -12,9 +12,14 @@ BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
-# Configuration
-API_BASE="https://solanaclawd.com/api"
-SAS_PROGRAM_ID="22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG"
+# Load shared OpenClawd endpoint config (env > ~/.openclawdsolana/config.json > defaults)
+__here="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+# shellcheck disable=SC1091
+. "$__here/clawd-config.sh"
+
+# Back-compat aliases for older code paths inside this script.
+API_BASE="$OPENCLAWD_API_BASE"
+SAS_PROGRAM_ID="$OPENCLAWD_SAS_PROGRAM_ID"
 
 # Print banner
 print_banner() {
@@ -76,10 +81,52 @@ show_help() {
     echo "  clawd-cli.sh payment:verify       - Verify payment"
     echo "  clawd-cli.sh payment:settle       - Settle payment"
     echo ""
+    echo "Discovery:"
+    echo "  clawd-cli.sh manifest             - Dump release manifest (every package, service, skill, extension)"
+    echo "  clawd-cli.sh config               - Show resolved endpoints from ~/.openclawdsolana/config.json"
+    echo ""
     echo "Examples:"
     echo "  clawd-cli.sh attest:skill --skill qedgen-solana --verifier QEDGenVault"
     echo "  clawd-cli.sh attest:verify --address 7xK9...mP2"
     echo "  clawd-cli.sh attest:agent --agent my-agent --wallet A123...xyz"
+    echo "  OPENCLAWD_API_BASE=http://localhost:8787 clawd-cli.sh skills"
+}
+
+# ============================================================================
+# Discovery Commands
+# ============================================================================
+
+cmd_config() {
+    echo -e "${CYAN}OpenClawd resolved endpoints:${NC}"
+    echo "  Workspace:   $OPENCLAWD_HOME"
+    echo "  API:         $OPENCLAWD_API_BASE"
+    echo "  Gateway:     $OPENCLAWD_GATEWAY_BASE"
+    echo "  Marketplace: $OPENCLAWD_MARKETPLACE"
+    echo "  MCP:         $OPENCLAWD_MCP_BASE"
+    echo "  Registrar:   $OPENCLAWD_REGISTRAR_BASE"
+    echo "  Solana RPC:  $OPENCLAWD_SOLANA_RPC"
+    echo "  SAS Program: $OPENCLAWD_SAS_PROGRAM_ID"
+    echo ""
+    echo "Override any of these via the matching OPENCLAWD_* env var,"
+    echo "or edit $OPENCLAWD_HOME/config.json directly."
+}
+
+cmd_manifest() {
+    # Try the live registrar first, fall back to bundled local manifest.
+    local remote
+    remote="$(curl -fsS "$OPENCLAWD_API_BASE/manifest" 2>/dev/null || true)"
+    if [ -n "$remote" ]; then
+        echo "$remote" | jq '.'
+        return
+    fi
+    local local_manifest="$__here/../release.manifest.json"
+    if [ -f "$local_manifest" ]; then
+        echo -e "${YELLOW}(Live registrar unavailable — showing bundled manifest)${NC}" >&2
+        jq '.' "$local_manifest"
+    else
+        echo -e "${RED}No manifest available. Run \`npm run release:manifest\` from the repo, or check $OPENCLAWD_API_BASE/manifest.${NC}" >&2
+        return 1
+    fi
 }
 
 # ============================================================================
@@ -376,6 +423,10 @@ case "$COMMAND" in
     node:status)        echo "Node status" ;;
     node:peers)         echo "Node peers" ;;
     
+    # Discovery
+    config)             cmd_config ;;
+    manifest)           cmd_manifest ;;
+
     # Help
     -h|--help|help)     print_banner; show_help ;;
     

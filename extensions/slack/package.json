@@ -1,5 +1,5 @@
 {
-  "name": "@openclawd/slack",
+  "name": "@openclawdsolana/slack",
   "version": "2026.2.1",
   "description": "OpenClawd Slack channel plugin",
   "type": "module",

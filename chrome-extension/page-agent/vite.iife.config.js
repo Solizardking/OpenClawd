@@ -26,10 +26,10 @@ export default defineConfig(() => ({
 	},
 	resolve: {
 		alias: {
-			'@page-agent/page-controller': resolve(__dirname, '../page-controller/src/PageController.ts'),
-			'@page-agent/llms': resolve(__dirname, '../llms/src/index.ts'),
-			'@page-agent/core': resolve(__dirname, '../core/src/PageAgentCore.ts'),
-			'@page-agent/ui': resolve(__dirname, '../ui/src/index.ts'),
+			'@openclawdsolana/pagent-page-controller': resolve(__dirname, '../page-controller/src/PageController.ts'),
+			'@openclawdsolana/pagent-llms': resolve(__dirname, '../llms/src/index.ts'),
+			'@openclawdsolana/pagent-core': resolve(__dirname, '../core/src/PageAgentCore.ts'),
+			'@openclawdsolana/pagent-ui': resolve(__dirname, '../ui/src/index.ts'),
 		},
 	},
 	build: {

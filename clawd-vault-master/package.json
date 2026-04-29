@@ -1,0 +1,39 @@
+{
+  "name": "@openclawdsolana/clawd-vault",
+  "version": "0.0.0-dev",
+  "private": true,
+  "description": "ClawdVault CLI — Obsidian-style vault for the OpenClawd memory graph. Adds canvas templates, dashboards, and project boards on top of the JSON Canvas spec. See AGENT-TASK.md for the implementation plan.",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "echo \"clawd-vault: source not yet scaffolded — see AGENT-TASK.md for the canvas-template work-plan\"",
+    "spec": "cat AGENT-TASK.md"
+  },
+  "files": [
+    "src",
+    "AGENT-TASK.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
+    "directory": "clawd-vault-master"
+  },
+  "homepage": "https://solanaclawd.com",
+  "bugs": {
+    "url": "https://github.com/clawdsolana/OpenClawd/issues"
+  },
+  "keywords": [
+    "openclawd",
+    "vault",
+    "obsidian",
+    "json-canvas",
+    "memory",
+    "dashboard"
+  ],
+  "license": "MIT"
+}

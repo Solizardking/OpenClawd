@@ -1,5 +1,5 @@
 {
-  "name": "@openclawdsolana/plugin-sdk",
+  "name": "@openclawdsolana/plugin-sdk-internal",
   "version": "0.0.0-private",
   "private": true,
   "type": "module",

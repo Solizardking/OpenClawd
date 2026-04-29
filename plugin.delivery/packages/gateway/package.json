@@ -1,6 +1,6 @@
 {
   "name": "@openclawdsolana/chat-plugins-gateway",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "Edge-runtime plugin gateway for the OpenClawd ecosystem — validates agent requests, applies deny-first permissions, and forwards to plugin.delivery manifests.",
   "repository": "https://github.com/clawdsolana/OpenClawd",
   "author": "OpenClawd <contact@openclawd.net>",
@@ -70,7 +70,7 @@
   "dependencies": {
     "@babel/runtime": "^7",
     "@cfworker/json-schema": "^1",
-    "@openclawdsolana/plugin-sdk": "^1.0.0",
+    "@openclawdsolana/plugin-sdk": "^1.1.1",
     "ajv": "^8",
     "swagger-client": "^3",
     "zod": "^3"
@@ -99,4 +99,3 @@
     "registry": "https://registry.npmjs.org"
   }
 }
-

@@ -1,7 +1,8 @@
 {
-  "name": "@openclawdsolana/clawd-code",
+  "name": "@openclawdsolana/clawd-leviathan",
   "version": "1.3.0",
-  "description": "🦞 Clawd Code CLI — operator interface for the OpenClawd Leviathan framework. Lobster-themed terminal agent: streaming chat, realtime voice (Grok), Solana, MCP, Bags/pump.fun launches, DFlow/Kalshi/Polymarket, on-chain Leviathan integration. CLAWD: 8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump",
+  "description": "🦞 Clawd Leviathan operator — TUI bound to the @openclawdsolana/leviathan runtime. Lobster-themed terminal agent: streaming chat, realtime voice (Grok), Solana, MCP, Bags/pump.fun launches, DFlow/Kalshi/Polymarket, on-chain Leviathan integration. CLAWD: 8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump",
+  "private": true,
   "type": "module",
   "main": "dist/index.js",
   "exports": {
@@ -10,10 +11,7 @@
     }
   },
   "bin": {
-    "clawd-code": "dist/index.js"
-  },
-  "publishConfig": {
-    "access": "public"
+    "clawd-leviathan": "dist/index.js"
   },
   "scripts": {
     "build": "tsc",

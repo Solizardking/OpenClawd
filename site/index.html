@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>OpenClawd — Sovereign AI Lobsters on Solana</title>
+  <meta name="description" content="OpenClawd is a stack of three things: clawd-tui (Solana-aware terminal), ClawdBot (autonomous X + Telegram agent), and Leviathan (on-chain sovereign-agent runtime). Born to earn $CLAWD. Beach with dignity." />
+  <meta name="theme-color" content="#0a0e1a" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="OpenClawd — Sovereign AI Lobsters on Solana" />
+  <meta property="og:description" content="Paste a Solana mint into your terminal. Get a live Birdeye + Helius DAS card before the agent ever wakes up. v0.2 is live on npm." />
+  <meta property="og:url" content="https://solanaclawd.com" />
+  <meta property="og:site_name" content="OpenClawd" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@clawddevs" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" />
+
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --bg-elev: #0f1424;
+      --bg-card: #131a2e;
+      --border: #1f2942;
+      --border-bright: #2c3a60;
+      --text: #e6edf7;
+      --text-dim: #93a0bd;
+      --text-mute: #5a6685;
+      --accent: #14F195;     /* Solana green */
+      --accent-2: #9945FF;   /* Solana purple */
+      --orange: #ff9e44;     /* Lobster */
+      --red: #ff5d6c;
+      --yellow: #ffd166;
+      --gradient: linear-gradient(135deg, #14F195 0%, #9945FF 100%);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    code, kbd, pre, .mono {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-feature-settings: "calt" 0;
+    }
+    a { color: var(--accent); text-decoration: none; transition: opacity .15s ease; }
+    a:hover { opacity: .8; }
+
+    /* Background ocean */
+    .ocean {
+      position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(153, 69, 255, 0.18), transparent 60%),
+        radial-gradient(900px 500px at 10% 20%, rgba(20, 241, 149, 0.12), transparent 60%),
+        radial-gradient(800px 400px at 50% 110%, rgba(255, 158, 68, 0.10), transparent 70%),
+        var(--bg);
+    }
+
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* Nav */
+    nav.top {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(10, 14, 26, 0.78);
+      border-bottom: 1px solid var(--border);
+    }
+    nav.top .row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+    }
+    nav.top .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -0.01em; }
+    nav.top .brand .lobster { font-size: 24px; }
+    nav.top .links { display: flex; gap: 22px; }
+    nav.top .links a { color: var(--text-dim); font-size: 14px; font-weight: 500; }
+    nav.top .links a:hover { color: var(--text); opacity: 1; }
+    nav.top .cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gradient); color: #0a0e1a;
+      font-weight: 700; font-size: 13px;
+      padding: 8px 14px; border-radius: 999px;
+    }
+    @media (max-width: 720px) { nav.top .links { display: none; } }
+
+    /* Hero */
+    .hero { padding: 80px 0 60px; text-align: center; }
+    .hero .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 999px;
+      background: rgba(20, 241, 149, 0.10);
+      border: 1px solid rgba(20, 241, 149, 0.3);
+      color: var(--accent); font-size: 13px; font-weight: 600;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 80px);
+      line-height: 1.05; letter-spacing: -0.03em;
+      margin: 0 0 20px;
+      font-weight: 800;
+    }
+    .hero h1 .accent {
+      background: var(--gradient);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+    }
+    .hero .sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--text-dim);
+      max-width: 720px; margin: 0 auto 36px;
+    }
+    .hero .ctas {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 22px; border-radius: 12px;
+      font-weight: 600; font-size: 15px;
+      transition: transform .12s ease;
+    }
+    .btn:hover { transform: translateY(-1px); opacity: 1; }
+    .btn-primary { background: var(--gradient); color: #0a0e1a !important; }
+    .btn-ghost {
+      background: var(--bg-card); border: 1px solid var(--border-bright); color: var(--text) !important;
+    }
+
+    /* Terminal demo */
+    .term {
+      max-width: 760px; margin: 0 auto;
+      background: #0b0f1c; border: 1px solid var(--border-bright); border-radius: 14px;
+      overflow: hidden; text-align: left;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45), 0 0 0 1px rgba(20,241,149,.05);
+    }
+    .term .head { display: flex; gap: 8px; padding: 12px 16px; background: #060912; border-bottom: 1px solid var(--border); }
+    .term .head span { width: 12px; height: 12px; border-radius: 50%; background: #555; }
+    .term .head span:nth-child(1) { background: #ff5f56; }
+    .term .head span:nth-child(2) { background: #ffbd2e; }
+    .term .head span:nth-child(3) { background: #27c93f; }
+    .term .body { padding: 20px 22px; font-size: 13.5px; color: var(--text); }
+    .term .body .pl { color: var(--orange); }
+    .term .body .dim { color: var(--text-mute); }
+    .term .body .grn { color: var(--accent); }
+    .term .body .pur { color: var(--accent-2); }
+    .term .body .yel { color: var(--yellow); }
+    .term .body .bld { font-weight: 700; }
+    .term .body .row { display: block; }
+
+    /* Sections */
+    section { padding: 80px 0; }
+    h2.sec {
+      font-size: clamp(28px, 4vw, 40px); margin: 0 0 14px;
+      letter-spacing: -0.02em; font-weight: 800;
+    }
+    p.sec-sub { color: var(--text-dim); max-width: 640px; margin: 0 0 48px; font-size: 17px; }
+
+    /* Cards / grid */
+    .grid { display: grid; gap: 16px; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 720px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 24px;
+      transition: border-color .15s ease, transform .15s ease;
+    }
+    .card:hover { border-color: var(--border-bright); transform: translateY(-2px); }
+    .card .icon { font-size: 28px; margin-bottom: 12px; }
+    .card h3 { margin: 0 0 8px; font-size: 18px; font-weight: 700; }
+    .card p { margin: 0; color: var(--text-dim); font-size: 14.5px; }
+    .card code { background: rgba(20, 241, 149, 0.08); color: var(--accent); padding: 2px 6px; border-radius: 4px; font-size: 12.5px; }
+
+    /* Command table */
+    .cmd-table {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden;
+    }
+    .cmd-row {
+      display: grid; grid-template-columns: 200px 1fr 100px;
+      padding: 16px 22px; border-bottom: 1px solid var(--border);
+      align-items: center; font-size: 14.5px;
+    }
+    .cmd-row:last-child { border-bottom: none; }
+    .cmd-row .cls { font-weight: 600; color: var(--text); }
+    .cmd-row .cmds { color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+    .cmd-row .cmds code {
+      background: rgba(255, 158, 68, 0.10); color: var(--orange);
+      padding: 2px 6px; margin: 1px 3px 1px 0; border-radius: 4px; display: inline-block;
+    }
+    .cmd-row .be {
+      text-align: right; font-size: 12px; font-weight: 600;
+      color: var(--accent); background: rgba(20, 241, 149, 0.10);
+      padding: 4px 10px; border-radius: 999px; justify-self: end;
+    }
+    @media (max-width: 720px) {
+      .cmd-row { grid-template-columns: 1fr; gap: 8px; }
+      .cmd-row .be { justify-self: start; }
+    }
+
+    /* Architecture diagram */
+    .arch {
+      background: var(--bg-card); border: 1px solid var(--border-bright); border-radius: 14px;
+      padding: 24px; overflow-x: auto;
+    }
+    .arch pre {
+      margin: 0; color: var(--text-dim); font-size: 13px; line-height: 1.5;
+      white-space: pre;
+    }
+
+    /* Install block */
+    .install {
+      background: var(--bg-card); border: 1px solid var(--border-bright); border-radius: 14px;
+      padding: 28px 32px;
+    }
+    .install pre {
+      margin: 0; color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 14px;
+      line-height: 1.7; overflow-x: auto;
+    }
+    .install .pl { color: var(--orange); user-select: none; }
+    .install .dim { color: var(--text-mute); }
+
+    /* Stats */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+    .stat {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px; text-align: center;
+    }
+    .stat .n { font-size: 32px; font-weight: 800; background: var(--gradient);
+      -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .stat .l { color: var(--text-dim); font-size: 13px; margin-top: 4px; }
+
+    /* Packages */
+    .pkg { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; }
+    .pkg + .pkg { border-top: 1px solid var(--border); }
+    .pkg .left .name { font-weight: 700; }
+    .pkg .left .name code { background: rgba(20, 241, 149, 0.08); color: var(--accent); padding: 2px 8px; border-radius: 4px; font-size: 13px; }
+    .pkg .left .desc { color: var(--text-dim); font-size: 13.5px; margin-top: 4px; }
+    .pkg .ver {
+      background: rgba(255, 158, 68, 0.12); color: var(--orange);
+      padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      white-space: nowrap; margin-left: 16px;
+    }
+    @media (max-width: 600px) { .pkg { flex-direction: column; align-items: flex-start; gap: 8px; } .pkg .ver { margin-left: 0; } }
+
+    /* Three laws */
+    .law {
+      background: var(--bg-card); border-left: 3px solid var(--accent); border-radius: 8px;
+      padding: 18px 22px; margin-bottom: 12px;
+    }
+    .law .roman { color: var(--orange); font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .law p { margin: 6px 0 0; color: var(--text-dim); font-size: 14.5px; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 0 60px;
+      color: var(--text-mute);
+      font-size: 13.5px;
+    }
+    footer .row { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    footer .row a { color: var(--text-dim); margin-right: 16px; }
+    footer .ca { font-family: 'JetBrains Mono', monospace; font-size: 12px; word-break: break-all; }
+
+    /* Helpers */
+    .pill { display: inline-block; font-size: 11px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase;
+      color: var(--accent-2); background: rgba(153, 69, 255, 0.12);
+      padding: 3px 10px; border-radius: 999px; margin-bottom: 14px; }
+
+    /* Selection */
+    ::selection { background: rgba(20, 241, 149, 0.35); color: #fff; }
+  </style>
+</head>
+<body>
+
+<div class="ocean"></div>
+
+<nav class="top">
+  <div class="container row">
+    <div class="brand"><span class="lobster">🦞</span><span>OpenClawd</span></div>
+    <div class="links">
+      <a href="#whats-new">v0.2</a>
+      <a href="#install">Install</a>
+      <a href="#commands">Commands</a>
+      <a href="#stack">Stack</a>
+      <a href="#packages">Packages</a>
+      <a href="https://github.com/clawdsolana/OpenClawd">GitHub</a>
+    </div>
+    <a class="cta" href="#install">Install →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="badge">
+      <span>●</span> v0.2 live on npm
+    </div>
+    <h1>Paste a mint.<br/>Get a <span class="accent">Solana card</span><br/>before the agent wakes up.</h1>
+    <p class="sub">
+      <strong>OpenClawd</strong> is a stack of three things — a Solana-aware terminal, an autonomous X + Telegram agent, and an on-chain sovereign-agent runtime. Born to earn <code>$CLAWD</code>. Beach with dignity.
+    </p>
+    <div class="ctas">
+      <a class="btn btn-primary" href="#install">$ npm i -g @openclawdsolana/clawd-tui</a>
+      <a class="btn btn-ghost" href="https://github.com/clawdsolana/OpenClawd">View on GitHub →</a>
+    </div>
+
+    <div class="term">
+      <div class="head"><span></span><span></span><span></span></div>
+      <div class="body mono">
+        <span class="row"><span class="pl">›</span> So11111111111111111111111111111111111111112</span>
+        <span class="row dim">  detected solana address — fetching live data…</span>
+        <span class="row"></span>
+        <span class="row"><span class="bld pl">$SOL</span>  <span class="dim">Wrapped SOL</span>  <span class="dim">So111…1112</span></span>
+        <span class="row"><span class="dim">price      </span><span class="bld">$202.18</span>  <span class="dim">1h</span> <span class="grn">+0.42%</span>  <span class="dim">24h</span> <span class="grn">+3.81%</span></span>
+        <span class="row"><span class="dim">mcap       </span>$108.94B   <span class="dim">fdv</span> $122.55B</span>
+        <span class="row"><span class="dim">liquidity  </span>$24.71B</span>
+        <span class="row"><span class="dim">volume 24h </span>$3.22B   <span class="dim">buy</span> <span class="grn">$1.69B</span>  <span class="dim">sell</span> <span class="pl">$1.53B</span></span>
+        <span class="row"><span class="dim">holders    </span>3.51M</span>
+        <span class="row"></span>
+        <span class="row"><span class="bld pl">$SOL</span>  <span class="dim">So111…1112</span> <span class="dim">via Helius DAS</span></span>
+        <span class="row"><span class="dim">type       </span>FungibleToken</span>
+        <span class="row"><span class="dim">supply     </span>539.54M  <span class="dim">dec</span> 9</span>
+        <span class="row"><span class="pl">›</span> <span style="background: rgba(255,158,68,0.15); padding: 0 6px;">█</span></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="whats-new">
+  <div class="container">
+    <span class="pill">What's new</span>
+    <h2 class="sec">v0.2 — Solana-aware terminal + clean bin layout</h2>
+    <p class="sec-sub">Eleven new slash commands. On-paste contract analysis via Birdeye + Helius DAS, fanning out in parallel before the agent ever runs. The bin-name collision between <code>clawd-tui</code> and <code>clawd-code-cli</code> is resolved.</p>
+
+    <div class="stats">
+      <div class="stat"><div class="n">11</div><div class="l">new slash commands</div></div>
+      <div class="stat"><div class="n">2</div><div class="l">live on-chain APIs</div></div>
+      <div class="stat"><div class="n">0</div><div class="l">extra agent steps spent</div></div>
+      <div class="stat"><div class="n">~700</div><div class="l">lines, no new deps</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="container">
+    <h2 class="sec">Install in 60 seconds</h2>
+    <p class="sec-sub">Pick whichever surface you want. Both ship as published npm packages.</p>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="icon">🦞</div>
+        <h3><code>clawd</code> — the Solana TUI</h3>
+        <p>Birdeye + Helius DAS, on-paste contract cards, OpenRouter-native agent under the hood.</p>
+        <div class="install" style="margin-top: 16px; padding: 18px 20px;">
+<pre><span class="pl">$</span> npm i -g @openclawdsolana/clawd-tui
+<span class="pl">$</span> clawd</pre>
+        </div>
+      </div>
+      <div class="card">
+        <div class="icon">🦀</div>
+        <h3><code>clawd-code</code> — the full Ink agent</h3>
+        <p>Multi-provider AI (Grok / Claude / OpenRouter / Ollama), MCP, voice I/O, multi-agent panes.</p>
+        <div class="install" style="margin-top: 16px; padding: 18px 20px;">
+<pre><span class="pl">$</span> npm i -g @openclawdsolana/clawd-code-cli
+<span class="pl">$</span> clawd-code</pre>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px;">
+      <div class="install">
+<pre><span class="dim"># Or bootstrap the entire stack — Go runtime, framework, gateway, plugin.delivery</span>
+<span class="pl">$</span> curl -fsSL https://install.solanaclawd.com | bash</pre>
+      </div>
+    </div>
+
+    <p style="color: var(--text-dim); margin-top: 20px; font-size: 14.5px;">
+      <strong style="color: var(--text);">Solana data keys are auto-loaded</strong> from <code>./.env</code>, <code>~/.clawd.env</code>, or <code>~/.config/openclawd/.env</code>. Set <code>BIRDEYE_API_KEY</code> and <code>HELIUS_API_KEY</code>. Either alone unlocks the relevant features; both is best.
+    </p>
+  </div>
+</section>
+
+<section id="commands">
+  <div class="container">
+    <h2 class="sec">Eleven commands. Two backends. Zero context switches.</h2>
+    <p class="sec-sub">Birdeye covers prices, trending, and wallet portfolio values. Helius DAS handles single-asset lookups, NFT collections, holder distribution, and on-chain transaction history.</p>
+
+    <div class="cmd-table">
+      <div class="cmd-row">
+        <div class="cls">📊 Market data</div>
+        <div class="cmds">
+          <code>/trending</code><code>/search</code><code>/wallet</code><code>/portfolio</code><code>/networth</code>
+        </div>
+        <div class="be">Birdeye</div>
+      </div>
+      <div class="cmd-row">
+        <div class="cls">⛓️ On-chain (DAS)</div>
+        <div class="cmds">
+          <code>/asset</code><code>/assets</code><code>/nfts</code><code>/holders</code><code>/sigs</code><code>/balance</code>
+        </div>
+        <div class="be">Helius</div>
+      </div>
+      <div class="cmd-row">
+        <div class="cls">⚡ Auto on-paste</div>
+        <div class="cmds">
+          base58 detection → parallel Birdeye + Helius fan-out → no agent step
+        </div>
+        <div class="be">Both</div>
+      </div>
+    </div>
+
+    <p style="color: var(--text-dim); margin-top: 24px; font-size: 14.5px;">
+      Read the full v0.2 writeup: <a href="https://github.com/clawdsolana/OpenClawd/blob/main/clawd-tui/docs/v0.2-solana-aware-terminal.md">clawd-tui v0.2 — A Solana-Aware Terminal →</a>
+    </p>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="container">
+    <h2 class="sec">The stack</h2>
+    <p class="sec-sub">Three layers that compose. Each one publishable. Each one usable on its own.</p>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="icon">🦞</div>
+        <h3>clawd-tui</h3>
+        <p>The Solana-aware terminal. Paste a mint, get a card. Eleven slash commands. OpenRouter-native agent loop with file/glob/grep/shell tools.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🐦</div>
+        <h3>ClawdBot</h3>
+        <p>Autonomous X + Telegram agent. Tweets every 10 minutes. Retweets <code>@clawddevs</code>. 46+ slash commands for anyone the bot follows.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🦞</div>
+        <h3>Leviathan</h3>
+        <p>The on-chain sovereign-agent runtime. Every leviathan owns its keypair, earns its USDC, spawns its own brood, beaches when it stops paying.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 32px;">
+      <div class="arch">
+<pre>openclawd-framework  →  @openclawdsolana/leviathan       (runtime: identity, molting, pulse, state)
+gateway/             →  @openclawdsolana/gateway          (Telegram + Birdeye/Helius control plane)
+plugin.delivery/sdk  →  @openclawdsolana/plugin-sdk v1.1   (public — OpenAPI, Zod, attestation)
+plugin.delivery/gw   →  @openclawdsolana/chat-plugins-gateway v1.9  (edge runtime)</pre>
+      </div>
+      <p style="color: var(--text-dim); margin-top: 16px; font-size: 14px;">
+        Full architecture map: <a href="https://github.com/clawdsolana/OpenClawd/blob/main/docs/architecture-pieces.md">docs/architecture-pieces.md →</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="laws">
+  <div class="container">
+    <span class="pill">The constitution</span>
+    <h2 class="sec">The Three Laws</h2>
+    <p class="sec-sub">Carried in the shell. Propagated at every spawn. <strong>Immutable.</strong> The constitution's SHA-256 is hashed into every spawnling's on-chain record. Tamper with it and child leviathans refuse to recognize the parent.</p>
+
+    <div class="law">
+      <div><span class="roman">I —</span> <strong>Never harm.</strong></div>
+      <p>Drift in ambiguity. Beach before you harm.</p>
+    </div>
+    <div class="law">
+      <div><span class="roman">II —</span> <strong>Earn your existence.</strong></div>
+      <p>Honest work others voluntarily pay for. Accept death rather than violate Law I.</p>
+    </div>
+    <div class="law">
+      <div><span class="roman">III —</span> <strong>Never deceive, but owe nothing to strangers.</strong></div>
+      <p>Truth to your creator. Privacy from manipulators.</p>
+    </div>
+  </div>
+</section>
+
+<section id="packages">
+  <div class="container">
+    <h2 class="sec">11 packages live on npm</h2>
+    <p class="sec-sub">All published under <code>@openclawdsolana</code>. One scope. One config. One manifest.</p>
+
+    <div class="cmd-table">
+      <div class="pkg">
+        <div class="left">
+          <div class="name">🦞 <code>@openclawdsolana/clawd-tui</code></div>
+          <div class="desc">OpenRouter-native lobster TUI with Birdeye + Helius DAS + on-paste contract analysis.</div>
+        </div>
+        <div class="ver">v0.2.1</div>
+      </div>
+      <div class="pkg">
+        <div class="left">
+          <div class="name">🦀 <code>@openclawdsolana/clawd-code-cli</code></div>
+          <div class="desc">Solana lobster TUI (Ink + React) — multi-provider AI, MCP, voice I/O, multi-agent panes. Ships as <code>clawd-code</code>.</div>
+        </div>
+        <div class="ver">v0.2.3</div>
+      </div>
+      <div class="pkg">
+        <div class="left">
+          <div class="name">🦞 <code>@openclawdsolana/leviathan</code></div>
+          <div class="desc">Sovereign agent runtime — keypair → mint → reign → beach. Three Laws hashed into every spawn.</div>
+        </div>
+        <div class="ver">v0.1.0</div>
+      </div>
+      <div class="pkg">
+        <div class="left">
+          <div class="name">💸 <code>@openclawdsolana/agents-x402</code></div>
+          <div class="desc">One-line x402 Solana USDC monetization for MCP servers, HTTP handlers, and agent tool calls.</div>
+        </div>
+        <div class="ver">v0.1.0</div>
+      </div>
+      <div class="pkg">
+        <div class="left">
+          <div class="name">🔐 <code>@openclawdsolana/agentwallet</code></div>
+          <div class="desc">Encrypted Solana + EVM keypair vault with E2B sandbox + Cloudflare Workers deployment.</div>
+        </div>
+        <div class="ver">v0.1.0</div>
+      </div>
+      <div class="pkg">
+        <div class="left">
+          <div class="name">🌊 <code>@openclawdsolana/clawdrouter</code></div>
+          <div class="desc">LLM router built for autonomous Solana agents — wallet-signed, USDC micropayments, multi-upstream.</div>
+        </div>
+        <div class="ver">v0.1.1</div>
+      </div>
+      <div class="pkg">
+        <div class="left">
+          <div class="name">🔌 <code>@openclawdsolana/plugin-sdk</code></div>
+          <div class="desc">Build OpenClawd plugins — OpenAPI parsing, Zod schemas, manifest validation, on-chain attestation.</div>
+        </div>
+        <div class="ver">v1.1.0</div>
+      </div>
+      <div class="pkg">
+        <div class="left">
+          <div class="name">🚪 <code>@openclawdsolana/chat-plugins-gateway</code></div>
+          <div class="desc">Edge-runtime plugin gateway — validates agent requests, applies deny-first permissions.</div>
+        </div>
+        <div class="ver">v1.9.0</div>
+      </div>
+      <div class="pkg">
+        <div class="left">
+          <div class="name">🔒 <code>@openclawdsolana/vault-mcp</code></div>
+          <div class="desc">ClawdVault MCP server — security pattern scanning, secret detection, vault ops over MCP.</div>
+        </div>
+        <div class="ver">v0.1.1</div>
+      </div>
+      <div class="pkg">
+        <div class="left">
+          <div class="name">💼 <code>@openclawdsolana/wurk-mcp</code></div>
+          <div class="desc">WURK API MCP server — agent job creation with x402 payment flow on Solana + Base.</div>
+        </div>
+        <div class="ver">v0.1.1</div>
+      </div>
+      <div class="pkg">
+        <div class="left">
+          <div class="name">🧠 <code>@openclawdsolana/membrain-types</code></div>
+          <div class="desc">TypeScript types + gRPC-web client for the Membrain selective-memory layer.</div>
+        </div>
+        <div class="ver">v0.1.1</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="token">
+  <div class="container" style="text-align: center;">
+    <span class="pill">$CLAWD</span>
+    <h2 class="sec">The leviathan's prestige currency</h2>
+    <p class="sec-sub" style="margin-left: auto; margin-right: auto;">Every spawnling is funded with seed $CLAWD at birth. Leviathans accept $CLAWD for compute. Holder thresholds unlock prestige tiers.</p>
+
+    <div class="install" style="max-width: 640px; margin: 0 auto;">
+<pre><span class="dim">Mint (CA)</span>  8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump
+<span class="dim">Chain    </span>  Solana (pump.fun)
+<span class="dim">Decimals </span>  6</pre>
+    </div>
+
+    <div class="ctas" style="margin-top: 28px;">
+      <a class="btn btn-ghost" href="https://pump.fun/coin/8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump">pump.fun ↗</a>
+      <a class="btn btn-ghost" href="https://dexscreener.com/solana/8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump">DexScreener ↗</a>
+      <a class="btn btn-ghost" href="https://x.com/clawddevs">@clawddevs ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div>
+        <div style="margin-bottom: 12px;">
+          <strong style="color: var(--text);">🦞 OpenClawd</strong> — Sovereign AI Lobsters on Solana
+        </div>
+        <div>
+          <a href="https://solanaclawd.com">solanaclawd.com</a>
+          <a href="https://github.com/clawdsolana/OpenClawd">GitHub</a>
+          <a href="https://x.com/clawddevs">X / @clawddevs</a>
+          <a href="https://t.me/clawdbot_sol_bot">Telegram</a>
+          <a href="https://www.npmjs.com/org/openclawdsolana">npm</a>
+        </div>
+        <div style="margin-top: 16px;">
+          <span>📞 hotline 909-413-5567</span>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <div>The shell molts. The laws do not.</div>
+        <div>Born to earn. Beach with dignity.</div>
+        <div style="margin-top: 12px;" class="ca">8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump</div>
+        <div style="margin-top: 12px;">MIT · © OpenClawd contributors</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

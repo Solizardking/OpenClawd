@@ -1,4 +1,4 @@
-import { InvokeError, InvokeErrorType } from '@page-agent/llms'
+import { InvokeError, InvokeErrorType } from '@openclawdsolana/pagent-llms'
 import chalk from 'chalk'
 import * as z from 'zod/v4'
 

@@ -1,56 +1,71 @@
 {
-    "name": "@page-agent/core",
-    "private": false,
-    "version": "1.6.2",
-    "type": "module",
-    "main": "./dist/esm/page-agent-core.js",
-    "module": "./dist/esm/page-agent-core.js",
-    "types": "./dist/esm/PageAgentCore.d.ts",
-    "exports": {
-        ".": {
-            "types": "./dist/esm/PageAgentCore.d.ts",
-            "import": "./dist/esm/page-agent-core.js",
-            "default": "./dist/esm/page-agent-core.js"
-        }
-    },
-    "files": [
-        "dist/"
-    ],
-    "description": "Solana Clawd pAGENT core — GUI vision agent for web applications (forked from @page-agent/core)",
-    "keywords": [
-        "ai",
-        "automation",
-        "ui-agent",
-        "GUI-agent",
-        "browser-automation",
-        "web-agent",
-        "llm",
-        "dom-interaction",
-        "web-automation",
-        "GUI-simulation"
-    ],
-    "author": "Simon<gaomeng1900>",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/alibaba/page-agent.git"
-    },
-    "homepage": "https://alibaba.github.io/page-agent/",
-    "scripts": {
-        "build": "vite build",
-        "dev:iife": "concurrently \"vite build --config vite.iife.config.js --watch\" \"npx serve dist/iife -p 5174\"",
-        "prepublishOnly": "node -e \"const fs=require('fs');['README.md','LICENSE'].forEach(f=>fs.copyFileSync('../../'+f,f))\"",
-        "postpublish": "node -e \"['README.md','LICENSE'].forEach(f=>{try{require('fs').unlinkSync(f)}catch{}})\""
-    },
-    "dependencies": {
-        "chalk": "^5.6.2",
-        "@page-agent/llms": "1.6.2",
-        "@page-agent/page-controller": "1.6.2"
-    },
-    "peerDependencies": {
-        "zod": "^3.25.0 || ^4.0.0"
-    },
-    "devDependencies": {
-        "zod": "^4.3.5"
+  "name": "@openclawdsolana/pagent-core",
+  "private": false,
+  "version": "1.6.4",
+  "type": "module",
+  "main": "./dist/esm/page-agent-core.js",
+  "module": "./dist/esm/page-agent-core.js",
+  "types": "./dist/esm/PageAgentCore.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/PageAgentCore.d.ts",
+      "import": "./dist/esm/page-agent-core.js",
+      "default": "./dist/esm/page-agent-core.js"
     }
+  },
+  "files": [
+    "dist/"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "OpenClawd pAGENT core — GUI vision agent for web applications. Powers the Clawd browser extension and any embedding host. (forked from @page-agent/core)",
+  "keywords": [
+    "openclawd",
+    "openclawdsolana",
+    "pagent",
+    "ai",
+    "automation",
+    "ui-agent",
+    "GUI-agent",
+    "browser-automation",
+    "web-agent",
+    "llm",
+    "dom-interaction",
+    "web-automation",
+    "GUI-simulation"
+  ],
+  "author": "Solana Clawd",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
+    "directory": "chrome-extension/core"
+  },
+  "homepage": "https://solanaclawd.com",
+  "bugs": {
+    "url": "https://github.com/clawdsolana/OpenClawd/issues"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev:iife": "concurrently \"vite build --config vite.iife.config.js --watch\" \"npx serve dist/iife -p 5174\""
+  },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "@openclawdsolana/pagent-llms": "*",
+    "@openclawdsolana/pagent-page-controller": "*"
+  },
+  "peerDependencies": {
+    "zod": "^3.25.0 || ^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "concurrently": "^9.0.0",
+    "typescript": "^6.0.2",
+    "@microsoft/api-extractor": "^7.47.0",
+    "unplugin-dts": "^1.0.0-beta.6",
+    "vite": "^8.0.3",
+    "vite-plugin-css-injected-by-js": "^4.0.1",
+    "zod": "^4.3.5"
+  }
 }

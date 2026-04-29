@@ -1,0 +1,48 @@
+{
+  "name": "@openclawdsolana/attestation-agent",
+  "version": "0.1.0",
+  "description": "OpenClawd Solana Attestation Agent — credential, schema, agent-birth (MPL Core) and skill attestation flows on top of the Solana Attestation Service.",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "openclawd-attest": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/cli.js",
+    "dev": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "@metaplex-foundation/mpl-core": "^1.4.0",
+    "@metaplex-foundation/umi": "^1.0.0",
+    "@metaplex-foundation/umi-bundle-defaults": "^1.0.0",
+    "@solana/kit": "^2.1.1",
+    "@solana/signers": "^2.1.1",
+    "bs58": "^6.0.0",
+    "sas-lib": "file:../../solana-attestation-service-master/clients/typescript"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "solana",
+    "attestation",
+    "sas",
+    "metaplex",
+    "mpl-core",
+    "openclawd",
+    "formal-verification"
+  ]
+}
