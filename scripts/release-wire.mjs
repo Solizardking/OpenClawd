@@ -16,7 +16,7 @@
  */
 
 import { existsSync, readFileSync } from 'node:fs';
-import { join, dirname, resolve } from 'node:path';
+import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(fileURLToPath(new URL('.', import.meta.url)), '..');
@@ -89,7 +89,15 @@ for (const [cmd, owners] of binToPkgs) {
     const isRuntimeAlias =
       [...intentional].every((n) => n.startsWith('@openclawdsolana/') &&
         ['cli', 'computer', 'installer'].includes(n.split('/')[1]));
-    if (!isRuntimeAlias) {
+    // The TUI surface also publishes a `clawd` bin per v0.2 (the OpenRouter-
+    // native lobster terminal). Users can install either the Go bootstrapper
+    // OR clawd-tui — npm picks the last-wins, that's the documented contract.
+    const isTuiClawd = cmd === 'clawd' &&
+      [...intentional].every((n) =>
+        n === '@openclawdsolana/clawd-tui' ||
+        (n.startsWith('@openclawdsolana/') &&
+          ['cli', 'computer', 'installer'].includes(n.split('/')[1])));
+    if (!isRuntimeAlias && !isTuiClawd) {
       errors.push(`bin command "${cmd}" claimed by multiple packages: ${owners.map((o) => `${o.pkg} (${o.rel})`).join(', ')}`);
     }
   }
@@ -98,10 +106,17 @@ for (const [cmd, owners] of binToPkgs) {
 // 3. Cross-package deps must resolve to workspaces or external.
 function depResolves(name, range) {
   if (!byName.has(name)) return true;
-  // Internal dep — accept file: links, workspace: protocol, or matching version.
-  if (typeof range === 'string' && (range.startsWith('file:') || range.startsWith('workspace:'))) return true;
+  if (typeof range !== 'string') return false;
+  // Internal dep — accept file: links, workspace: protocol, or any range
+  // whose stripped version matches the workspace publish version.
+  if (range.startsWith('file:') || range.startsWith('workspace:')) return true;
   const peer = byName.get(name).pkg;
-  return range === peer.version || range === '*' || range === 'latest';
+  if (range === '*' || range === 'latest' || range === peer.version) return true;
+  // Strip leading ^/~/>=/= and compare on the bare version. npm-level
+  // resolution will handle the actual range satisfaction; we just want
+  // to know it's pointing at the same publish.
+  const stripped = range.replace(/^[~^>=<\s]+/, '').trim();
+  return stripped === peer.version;
 }
 for (const ws of workspaces) {
   const deps = { ...(ws.pkg.dependencies || {}), ...(ws.pkg.devDependencies || {}) };
@@ -125,10 +140,11 @@ for (const ws of workspaces) {
     const abs = join(ws.dir, target);
     if (!existsSync(abs)) {
       // dist/ files only exist after build — flag as a build prerequisite.
+      const cmdLabel = cmd ? `${cmd}→` : '';
       if (target.includes('dist/')) {
-        warnings.push(`${ws.rel}: bin target ${cmd ? cmd + '→' : ''}${target} not present (run \`npm run build:release\` first)`);
+        warnings.push(`${ws.rel}: bin target ${cmdLabel}${target} not present (run \`npm run build:release\` first)`);
       } else {
-        errors.push(`${ws.rel}: bin target ${cmd ? cmd + '→' : ''}${target} does not exist`);
+        errors.push(`${ws.rel}: bin target ${cmdLabel}${target} does not exist`);
       }
     }
   }

@@ -3,8 +3,8 @@ import {
   PluginErrorType,
   PluginRequestPayload,
   createHeadersWithPluginSettings,
-} from '@openclawd/chat-plugin-sdk';
-import { SOLANA-CLAWD_PLUGIN_SETTINGS } from '@openclawd/chat-plugin-sdk/lib/request';
+  SOLANA_CLAWD_PLUGIN_SETTINGS,
+} from '@openclawdsolana/plugin-sdk';
 import { createGatewayOnEdgeRuntime } from '@openclawdsolana/chat-plugins-gateway';
 // @ts-ignore
 import SwaggerClient from 'swagger-client';
@@ -68,7 +68,7 @@ beforeEach(() => {
 
 describe('createGatewayOnEdgeRuntime', () => {
   it('should execute successfully when provided with correct payload and settings', async () => {
-    (fetch as Mock).mockImplementation(async (url) => {
+    (fetch as unknown as Mock).mockImplementation(async (url) => {
       if (url === 'https://test-market-index-url.com')
         return {
           json: async () => mockMarketIndex,
@@ -110,7 +110,7 @@ describe('createGatewayOnEdgeRuntime', () => {
 
   describe('with defaultPluginSettings', () => {
     it('should execute successfully when provided with defaultPluginSettings payload', async () => {
-      (fetch as Mock).mockImplementation(async (url, { headers }) => {
+      (fetch as unknown as Mock).mockImplementation(async (url, { headers }) => {
         if (url === 'https://test-market-index-url.com')
           return {
             json: async () => mockMarketIndex,
@@ -133,7 +133,7 @@ describe('createGatewayOnEdgeRuntime', () => {
       const data = await response.json();
       expect(response.status).toBe(200);
       expect(data).toEqual({
-        headers: { [SOLANA-CLAWD_PLUGIN_SETTINGS]: JSON.stringify(config) },
+        headers: { [SOLANA_CLAWD_PLUGIN_SETTINGS]: JSON.stringify(config) },
       });
     });
   });
@@ -159,7 +159,7 @@ describe('createGatewayOnEdgeRuntime', () => {
     });
 
     it('should return PluginMarketIndexNotFound error when market index is unreachable', async () => {
-      (fetch as Mock).mockRejectedValue(new Error('Network error'));
+      (fetch as unknown as Mock).mockRejectedValue(new Error('Network error'));
       const mockRequest: Request = new Request('https://test-url.com', {
         body: JSON.stringify({
           ...mockPluginRequestPayload,
@@ -174,7 +174,7 @@ describe('createGatewayOnEdgeRuntime', () => {
     });
 
     it('should return PluginMarketIndexInvalid error when market index is invalid', async () => {
-      (fetch as Mock).mockResolvedValueOnce({
+      (fetch as unknown as Mock).mockResolvedValueOnce({
         json: async () => ({ invalid: 'index' }),
         ok: true, // Invalid market index
       });
@@ -188,7 +188,7 @@ describe('createGatewayOnEdgeRuntime', () => {
     });
 
     it('should return PluginMetaNotFound error when plugin meta does not exist', async () => {
-      (fetch as Mock).mockResolvedValueOnce({
+      (fetch as unknown as Mock).mockResolvedValueOnce({
         json: async () => mockMarketIndex,
         ok: true,
       });
@@ -209,14 +209,14 @@ describe('createGatewayOnEdgeRuntime', () => {
         body: {
           identifier: 'unknown-plugin',
           message:
-            "[gateway] plugin 'unknown-plugin' is not found，please check the plugin list in https://test-market-index-url.com, or create an issue to [solana-clawd-os-plugins](https://github.com/x402agent/solana-clawd)",
+            "[gateway] plugin 'unknown-plugin' is not found，please check the plugin list in https://test-market-index-url.com, or create an issue to [solana-clawd-plugins](https://github.com/x402agent/solana-clawd/issues)",
         },
         errorType: 'PluginMetaNotFound',
       });
     });
 
     it('should return PluginMetaInvalid error when plugin meta is invalid', async () => {
-      (fetch as Mock).mockResolvedValueOnce({
+      (fetch as unknown as Mock).mockResolvedValueOnce({
         json: async () => ({
           ...mockMarketIndex,
           plugins: [{ identifier: 'test-plugin', invalidMeta: true }],
@@ -233,7 +233,7 @@ describe('createGatewayOnEdgeRuntime', () => {
     });
 
     it('should return PluginManifestNotFound error when plugin manifest is unreachable', async () => {
-      (fetch as Mock).mockImplementation(async (url) => {
+      (fetch as unknown as Mock).mockImplementation(async (url) => {
         if (url === mockPluginRequestPayload.indexUrl)
           return {
             json: async () => ({
@@ -279,7 +279,7 @@ describe('createGatewayOnEdgeRuntime', () => {
     });
 
     it('should return PluginManifestInvalid error when plugin manifest is invalid', async () => {
-      (fetch as Mock).mockImplementation(async (url) => {
+      (fetch as unknown as Mock).mockImplementation(async (url) => {
         if (url === mockPluginRequestPayload.indexUrl)
           return {
             json: async () => ({
@@ -417,7 +417,7 @@ describe('createGatewayOnEdgeRuntime', () => {
     });
 
     it('should return correct response when API request is successful', async () => {
-      (fetch as Mock).mockResolvedValueOnce(
+      (fetch as unknown as Mock).mockResolvedValueOnce(
         new Response(JSON.stringify({ success: true }), { status: 200 }),
       );
 
@@ -433,7 +433,7 @@ describe('createGatewayOnEdgeRuntime', () => {
     });
 
     it('should return error response when API request fails', async () => {
-      (fetch as Mock).mockResolvedValueOnce(new Response('Internal Server Error', { status: 500 }));
+      (fetch as unknown as Mock).mockResolvedValueOnce(new Response('Internal Server Error', { status: 500 }));
 
       const mockRequest: Request = new Request('https://test-url.com', {
         body: JSON.stringify(mockPluginRequestPayload),

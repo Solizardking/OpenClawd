@@ -19,6 +19,52 @@
 
 ---
 
+## ⛓️ v0.3.1 — Solana Attestation Agent (formal birth on chain)
+
+> **What shipped:** [`@openclawdsolana/attestation-agent`](./services/attestation-agent/) — credential / schema / attestation / MPL Core birth flows on top of the **Solana Attestation Service**, plus a matching agent template.
+
+Every newborn lobster now gets a **birth ceremony** recorded on Solana:
+
+1. **Credential** — `OpenClawd Skill Authority` is registered under your authority keypair via SAS `CreateCredential` (idempotent).
+2. **Schemas** — both OpenClawd schemas (`OpenClawdSkillAttestation` `[12,32,12,8,1]` and `OpenClawdAgentIdentity` `[12,32,12,32,1]`) are registered via `CreateSchema`. Layouts ported directly from [`solana-attestation-service-master/core/src/lib.rs`](solana-attestation-service-master/core/src/lib.rs).
+3. **Identity attestation** — `CreateAttestation` binds the new agent's `agent_id`, wallet pubkey, vault PDA, and vault-init flag.
+4. **MPL Core mint** — Metaplex Core asset minted under the agent's wallet, with the SAS attestation PDA embedded in its `Attributes` plugin and metadata `external_url`. Visible at [core.metaplex.com](https://core.metaplex.com).
+5. **Public verifier link** — every receipt prints the [attest.solana.com](https://attest.solana.com) URL for human click-through.
+
+```bash
+# One-line birth ceremony — credential & schemas reused if already present
+openclawd-attest birth-agent \
+  --payer-keypair @~/.config/solana/id.json \
+  --authority-keypair @~/.config/solana/id.json \
+  --name "OpenClawd Skill Authority" \
+  --agent-id snippy-001 \
+  --agent-name "Snippy"
+
+# → returns JSON with credential / schemas / attestation PDA / MPL Core asset / explorer URL
+```
+
+| Layer | What it does | File |
+| --- | --- | --- |
+| **Schemas + serializer** | OpenClawd type tags (`PUBKEY=32`, `STRING=12`, `U64=8`, `BOOL=1`) and a hand-rolled encoder/decoder | [services/attestation-agent/src/schemas.ts](services/attestation-agent/src/schemas.ts) |
+| **SAS wrapper** | Async `setupCredential` / `setupSchema` / `issueAttestation` over the auto-generated `sas-lib` — idempotent | [services/attestation-agent/src/sas.ts](services/attestation-agent/src/sas.ts) |
+| **MPL Core birth mint** | One asset per newborn, attestation PDA in `Attributes` plugin and metadata | [services/attestation-agent/src/birth.ts](services/attestation-agent/src/birth.ts) |
+| **`birthAgent()` orchestration** | Single async call: credential → schemas → attestation → MPL Core mint | [services/attestation-agent/src/index.ts](services/attestation-agent/src/index.ts) |
+| **`openclawd-attest` CLI** | `setup-credential` / `setup-schemas` / `birth-agent` / `attest-skill` / `verify` / `explorer` | [services/attestation-agent/src/cli.ts](services/attestation-agent/src/cli.ts) |
+| **Agent template** | Drop-in template registering this service alongside the other 4 templates | [agents/templates/solana-attestation-agent.template.json](agents/templates/solana-attestation-agent.template.json) |
+
+**Canonical addresses** wired into the service:
+
+```text
+SAS program        22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG
+Token-2022         TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb
+Public verifier    https://attest.solana.com
+Visible asset UI   https://core.metaplex.com
+```
+
+Full docs: [services/attestation-agent/README.md](services/attestation-agent/README.md).
+
+---
+
 ## 🧠 v0.3 — AutoResearch Wiki goes live (the agents teach themselves)
 
 > **What shipped:** [`llm-wiki-tang`](./llm-wiki-tang/) auto-research API now returns **live** Birdeye + Helius data (was 60% mock), an in-process autonomous research loop, and `/research` + `/autoloop` slash commands inside the TUI.
@@ -97,9 +143,9 @@ The autoloop runs three default mandates every 30 minutes — pump.fun launches 
 
 ## 🚀 v0.2 — Solana-aware terminal + clean bin layout
 
-> **What shipped:** [`@openclawdsolana/clawd-tui@0.2.1`](https://www.npmjs.com/package/@openclawdsolana/clawd-tui) · [`@openclawdsolana/clawd-code-cli@0.2.3`](https://www.npmjs.com/package/@openclawdsolana/clawd-code-cli)
+> **What shipped:** [`@openclawdsolana/clawd-tui@0.2.1`](https://www.npmjs.com/package/@openclawdsolana/clawd-tui) · [`@openclawdsolana/clawd-code-cli@0.2.3`](https://www.npmjs.com/package/@openclawdsolana/clawd-code-cli) · [`@openclawdsolana/percolator@1.0.1`](https://www.npmjs.com/package/@openclawdsolana/percolator) (perps CLI) · [`@openclawdsolana/plugin-sdk@1.1.1`](https://www.npmjs.com/package/@openclawdsolana/plugin-sdk) · [`@openclawdsolana/chat-plugins-gateway@1.9.1`](https://www.npmjs.com/package/@openclawdsolana/chat-plugins-gateway) · 🦞 [Browser Bridge v0.2.0](./chrome-extension/openclawd-chrome-extension) (Chrome MV3)
 >
-> **Read the writeup:** [clawd-tui v0.2 — A Solana-Aware Terminal](./clawd-tui/docs/v0.2-solana-aware-terminal.md)
+> **Read the writeup:** [clawd-tui v0.2 — A Solana-Aware Terminal](./clawd-tui/docs/v0.2-solana-aware-terminal.md) · **Debut site:** [`site/index.html`](./site)
 
 ### `clawd` is now Solana-native by default
 
@@ -152,7 +198,7 @@ plugin.delivery/gw   →  @openclawdsolana/chat-plugins-gateway v1.9  (edge runt
 
 ---
 
-## 🚀 v0.1.1 — 11 packages live on npm
+## 🚀 v0.1.1 — 12 packages live on npm
 
 > **GitHub release:** [v0.1.1](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.1) · [v0.1.0](https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.0)
 > **Install script:** `curl -fsSL https://install.solanaclawd.com | bash`
@@ -188,10 +234,15 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 | `gateway.solanaclawd.com` | Browser-based install gateway |
 | `solanaclawd.com/install.sh` · `/install` · `/gateway` | Apex-domain aliases |
 
-**Still cooking for v0.1.2:**
+**v0.2 perpetuals — now shipping** ⚓
+
+| Package | One-liner | Install |
+| --- | --- | --- |
+| 🧪 [**percolator**](./packages/percolator) | Agentic perpetuals CLI for Solana — 31 subcommands across markets, accounts, trading, oracles, slab inspection, insurance, and admin. Full ABI encoder for the Percolator program (`PERC8m2tk…q39h7mSS5M`) | `npm i -g @openclawdsolana/percolator` |
+
+**Still cooking:**
 
 - `@openclawdsolana/wallet` — Privy-embedded Solana wallet. Blocked by duplicate type/value declarations of `ClawdWallet`, missing `@ai-sdk/xai`/`ai` deps, and Privy SDK API drift (`useWallets`/`useConnectWallet`/`useDisconnect` no longer exported). Needs an SDK upgrade pass.
-- `@openclawdsolana/percolator` — perpetuals CLI. 3 TS source bugs already fixed (commitment type, registerInitLp casing, missing slab field) but `encodeInitMarket` and other ABI encoders are imported but never exported from `instructions.ts`. Source incomplete.
 
 ---
 
@@ -256,6 +307,9 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 | 🚪 **@openclawdsolana/chat-plugins-gateway** *(npm)* | Edge-runtime plugin gateway with deny-first permissions | [`plugin.delivery/packages/gateway/`](plugin.delivery/packages/gateway/) |
 | 🦞 **Other MCP servers** | `openclawd-mcp` and friends in the same dir | [`mcp/`](mcp/) |
 | 🧠 **AutoResearch Wiki** | FastAPI backend + Next.js UI + MCP server — live `/api/v1/research/*` chain · defi · market endpoints over **Birdeye + Helius DAS + Helius Wallet API**, autonomous research loop with persistent `research_runs` history | [`llm-wiki-tang/`](llm-wiki-tang/) |
+| ⛓️ **Attestation Agent** | Solana Attestation Service notary — credential, schemas, agent-birth ceremony with MPL Core mint, skill attestations. Receipts on `attest.solana.com`, assets on `core.metaplex.com` | [`services/attestation-agent/`](services/attestation-agent/) |
+| 🤖 **Automaton** *(npm)* | `@openclawdsolana/automaton` — sovereign self-replicating AI agent runtime. Heartbeat daemon + Sense→Think→Strike→Drift loop, self-versioned `shell.md`, on-chain SAS identity, skill replication. Plus `@openclawdsolana/automaton-cli` for creator-side status / logs / fund / send | [`automaton-main/`](automaton-main/) |
+| 🌐 **pAGENT** *(npm × 6)* | Browser-side GUI vision agent family — `@openclawdsolana/pagent` (top-level), [`pagent-core@1.6.3`](https://www.npmjs.com/package/@openclawdsolana/pagent-core) (vision agent · **live · 765 KB**), [`pagent-llms@1.6.3`](https://www.npmjs.com/package/@openclawdsolana/pagent-llms) (OpenAI/OpenRouter adapters · **live**), [`pagent-page-controller@1.6.3`](https://www.npmjs.com/package/@openclawdsolana/pagent-page-controller) (DOM ops · **live · 268 KB**), `pagent-ui` (overlays), and `browser-mcp` (MCP server bridging Claude/Cursor → live browser). Drives the Chrome extension bundle in [`chrome-extension/clawd-agent`](chrome-extension/clawd-agent/) | [`chrome-extension/`](chrome-extension/) |
 | 📰 **Articles** | Long-form pieces tying everything together — three laws · lifecycle · Metaplex · Tide · examples · sovereign research | [`ARTICLE.md`](ARTICLE.md) · [`docs/articles/SOVEREIGN_RESEARCH.md`](docs/articles/SOVEREIGN_RESEARCH.md) |
 
 ---
@@ -665,6 +719,39 @@ npx wrangler deploy
 
 ---
 
+## 🦞 Browser Bridge — OpenClawd inside Chrome
+
+Chrome MV3 extension at [`chrome-extension/openclawd-chrome-extension/`](chrome-extension/openclawd-chrome-extension/) — three subsystems in one service worker:
+
+| Subsystem        | What it does                                                              | Backend                                                        |
+| ---------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **CDP Relay**    | Attach `chrome.debugger` to the active tab, bridge to OpenClawd over WS   | `ws://127.0.0.1:18792/extension`                               |
+| **Gateway**      | Right-click any Solana address → live token card via Birdeye + Helius DAS | `http://127.0.0.1:8788` (or `https://gateway.solanaclawd.com`) |
+| **Agent Wallet** | Ed25519 keypair, AES-GCM at rest, PBKDF2 310k, auto-locks after 15 min    | `chrome.storage.local` + WebCrypto Ed25519                     |
+
+The **agent wallet** is the headline feature — a real Solana keypair living encrypted inside the extension, never leaves it. Sign-and-submit pattern: gateway builds the tx → extension signs the bytes via `crypto.subtle` → gateway forwards to Helius RPC. Means the extension stays small (no `@solana/web3.js` bundle) and the secret stays sandboxed.
+
+```bash
+# Load unpacked
+open chrome://extensions
+# → Developer mode → Load unpacked → select chrome-extension/openclawd-chrome-extension/
+```
+
+Programmatic interface (works from any extension code or sibling extension via `chrome.runtime.sendMessage`):
+
+```javascript
+// Gateway lookups
+chrome.runtime.sendMessage({ kind: 'gateway', op: 'tokenOverview', args: ['<mint>'] }, console.log);
+
+// Wallet ops — status, create, import, unlock, lock, clear, export, signSolanaMessage
+chrome.runtime.sendMessage({ kind: 'wallet', op: 'status' }, console.log);
+chrome.runtime.sendMessage({ kind: 'wallet', op: 'signSolanaMessage', args: [msgBase58] }, console.log);
+```
+
+Right-click any selected base58 string anywhere in Chrome → **🦞 Look up "..." in OpenClawd** → desktop notification with `$SYM · price · mcap`. Full architecture, security model, and sign-and-submit flow: [chrome-extension/openclawd-chrome-extension/README.md](chrome-extension/openclawd-chrome-extension/README.md).
+
+---
+
 ## 🌊 Channels — Where the Bot Speaks
 
 OpenClawd Gateway is multi-channel by design. The same agent surface runs on:
@@ -975,7 +1062,7 @@ openclawd/
 │   ├── agents-x402-solana/     # 💸 @openclawdsolana/agents-x402 — one-line USDC micropayments
 │   ├── agentwallet/            # 🔐 @openclawdsolana/agentwallet — Solana+EVM keypair vault
 │   ├── clawd-wallet/           # ⏳ @openclawdsolana/wallet — Privy embedded (v0.1.1)
-│   ├── percolator/             # ⏳ @openclawdsolana/percolator — perps CLI (v0.1.1)
+│   ├── percolator/             # 🧪 @openclawdsolana/percolator — perps CLI (v1.0.1, 31 subcommands)
 │   ├── membrain/               # 🧠 Go memory daemon (gRPC, SQLite/pgvector)
 │   ├── membrain-types/         # Shared TS types
 │   ├── memory-host-sdk/        # Host runtime + engine modules

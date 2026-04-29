@@ -9,6 +9,10 @@
   },
   "keywords": ["clawd", "lobster", "cli", "grok", "solana", "agent", "openclawd"],
   "license": "MIT",
+  "scripts": {
+    "build": "echo \"clawd-standalone ships pre-built (index.js, no compile step)\"",
+    "start": "node index.js"
+  },
   "dependencies": {
     "ink": "^4.4.1",
     "react": "^18.3.1",

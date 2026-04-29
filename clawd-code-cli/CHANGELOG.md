@@ -7,7 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Security
+## [0.2.0] - 2026-04-27
+
+### Bin rename (breaking)
+
+- Renamed primary CLI binary from `clawd` to `clawd-code` to avoid
+  collision with `@openclawdsolana/clawd-tui`, which now owns the short `clawd`
+  command. The legacy `clawd-code-cli` binary alias is still installed.
+- Migration: replace `clawd` with `clawd-code` in shell scripts, aliases, and
+  docs. If you want the old behavior, install `clawd-tui` for a faster TUI
+  experience or alias it back: `alias clawd=clawd-code`.
+
+### Security (Unreleased)
+
 - **CRITICAL**: Removed exposed API key from `user-settings.json` (deleted file)
 - Added comprehensive `.gitignore` rules for sensitive files
 - Added input validation for all Solana addresses

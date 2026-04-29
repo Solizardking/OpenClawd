@@ -1,4 +1,4 @@
-import { PluginRequestPayload } from '@openclawd/chat-plugin-sdk';
+import { PluginRequestPayload } from '@openclawdsolana/plugin-sdk';
 import { Gateway } from '@openclawdsolana/chat-plugins-gateway';
 import Ajv from 'ajv';
 // @ts-ignore

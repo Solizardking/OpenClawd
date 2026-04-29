@@ -1,7 +1,7 @@
 {
-  "name": "@page-agent/ui",
-  "private": true,
-  "version": "1.6.2",
+  "name": "@openclawdsolana/pagent-ui",
+  "private": false,
+  "version": "1.6.3",
   "type": "module",
   "main": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
@@ -12,10 +12,35 @@
       "default": "./dist/esm/index.js"
     }
   },
+  "files": [
+    "dist/"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "OpenClawd pAGENT UI helpers — viewport overlays, screenshot adapters, and rendering utilities used by @openclawdsolana/pagent-core.",
+  "keywords": [
+    "openclawd",
+    "openclawdsolana",
+    "pagent",
+    "browser-automation",
+    "ui"
+  ],
+  "author": "Solana Clawd",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
+    "directory": "chrome-extension/ui"
+  },
+  "homepage": "https://solanaclawd.com",
   "scripts": {
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@page-agent/core": "1.6.2"
+    "@openclawdsolana/pagent-core": "*"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.2"
   }
 }

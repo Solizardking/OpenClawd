@@ -146,7 +146,44 @@ clawd
 | `/clear` | Clear chat history |
 | `/help` | Show full help |
 | `/commit-and-push` | AI-generated git commit + push |
+| `/search <query>` | Grok Live Search of the web with citations (xAI) |
+| `/x <query>` | Grok Live Search of X/Twitter with citations (xAI) |
+| `/voice` | Show voice status / usage |
+| `/voice say <text>` | Speak text aloud via xAI TTS (Grok voices) |
+| `/voice last` | Speak the last assistant message |
+| `/voice on` / `/voice off` | Toggle auto-speak of assistant responses |
+| `/voice voice <name>` | Pick a voice: `eve`, `ara`, `rex`, `sal`, `leo` |
+| `/voice listen [n]` | Record `n` sec from mic (default 5), transcribe via xAI STT, submit |
 | `/exit` | Exit |
+
+### Live Search — `/search` and `/x`
+
+Both commands hit Grok's Live Search via the xAI chat completions endpoint and stream the model's answer plus citations back into the chat.
+
+- `/search <query>` — search the open web
+- `/x <query>` — search X / Twitter
+
+Requirements: an xAI API key (`XAI_API_KEY` env var or `/config grok key <xai-...>`). Up to 10 citations are appended to each result.
+
+### Voice I/O — powered by Grok
+
+`/voice` is two-way speech, fully on xAI:
+
+- **TTS:** xAI's `/v1/tts` endpoint with the five Grok voices (`eve`, `ara`, `rex`, `sal`, `leo`). Audio plays via `afplay` on macOS or `ffplay`/`mpg123`/`aplay` on Linux. Falls back to macOS `say` only if no `XAI_API_KEY` is set.
+- **STT:** records from the default mic via `ffmpeg` (avfoundation on macOS, ALSA on Linux), then transcribes through xAI's `/v1/stt` endpoint.
+
+Requirements for `/voice say` and auto-speak:
+
+- An xAI API key — `XAI_API_KEY` env var or `/config grok key <xai-...>`
+- An audio player on `PATH` (macOS has `afplay` built-in; Linux: `brew install ffmpeg` or `apt install mpg123`)
+
+Requirements for `/voice listen`:
+
+- `ffmpeg` on `PATH` (macOS: `brew install ffmpeg`)
+- An xAI API key (same as TTS)
+- On macOS, grant mic permission to your terminal app the first time you run it
+
+The transcribed text is fed straight into the agent as if you'd typed it.
 
 **Shortcuts**: `↑/↓` navigate history, `Tab` complete suggestions, `Shift+Tab` toggle auto-edit, `Esc` abort.
 

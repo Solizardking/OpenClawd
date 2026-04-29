@@ -1,5 +1,5 @@
 {
-  "name": "@openclawd/memory-core",
+  "name": "@openclawdsolana/memory-core",
   "version": "2026.2.1",
   "description": "OpenClawd core memory search plugin",
   "type": "module",

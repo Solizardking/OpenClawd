@@ -314,7 +314,7 @@ export class Gateway {
       authorizations.oauth2 = {
         clientId: settings[clientIdKey],
         clientSecret: settings[clientSecretKey],
-        ...(accessTokenKey && { accessToken: settings[accessTokenKey] }),
+        accessToken: accessTokenKey ? settings[accessTokenKey] : '',
       };
     }
 

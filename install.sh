@@ -90,6 +90,29 @@ else
   ok "Installed $BIN_DIR/openclawd (aliases: openclawdsolana, clawd)"
 fi
 
+# --- Node workspace install + builds ----------------------------------------
+# Bring up the four pieces the JS/TS side of OpenClawd needs:
+#   - openclawd-framework   (the @openclawdsolana/leviathan runtime)
+#   - gateway               (the Telegram + Birdeye/Helius control plane)
+#   - plugin.delivery sdk   (@openclawdsolana/plugin-sdk, public v1.x)
+#   - plugin.delivery gateway (@openclawdsolana/chat-plugins-gateway, edge runtime)
+# Skipped if Node isn't installed — Go users can still operate the binary.
+if command -v node >/dev/null 2>&1 && command -v npm >/dev/null 2>&1 && [ -f "$SRC_DIR/package.json" ]; then
+  info "Installing Node workspaces (framework, gateway, plugin.delivery)..."
+  ( cd "$SRC_DIR" && npm install --no-audit --no-fund ) || warn "root npm install had warnings"
+  ( cd "$SRC_DIR" && npm run install:framework --if-present ) || warn "framework install skipped"
+  ( cd "$SRC_DIR" && npm run install:gateway --if-present ) || warn "gateway install skipped"
+  ( cd "$SRC_DIR" && npm run install:plugin-delivery --if-present ) || warn "plugin.delivery install skipped"
+
+  info "Building TypeScript surfaces..."
+  ( cd "$SRC_DIR" && npm run build:framework --if-present ) || warn "framework build failed"
+  ( cd "$SRC_DIR" && npm run build:gateway --if-present ) || warn "gateway build failed"
+  ( cd "$SRC_DIR" && npm run build:plugin-delivery --if-present ) || warn "plugin.delivery build failed"
+  ok "Node surfaces ready"
+else
+  warn "Node/npm not found — skipping JS workspace install. Install Node 20+ and re-run for full coverage."
+fi
+
 # --- Optional web console ----------------------------------------------------
 if [ "$WITH_WEB" = "1" ]; then
   WEB_PKG=""
@@ -109,12 +132,42 @@ if [ "$WITH_WEB" = "1" ]; then
   fi
 fi
 
+# --- Canonical endpoint config -----------------------------------------------
+# Written once on install. Every CLI surface (cli/clawd-cli.sh,
+# cli/clawd-connect.sh, the Go runtime, services/*) reads this file so a single
+# OPENCLAWD_API_BASE override (or pointing at a local registrar) flips the
+# entire stack. Existing files are left alone — re-run with `--reset-config`
+# to overwrite.
+CFG_PATH="$WORKSPACE/config.json"
+if [ ! -f "$CFG_PATH" ]; then
+  cat > "$CFG_PATH" <<'CFGEOF'
+{
+  "version": "0.1.0",
+  "apiBase":         "https://solanaclawd.com/api",
+  "gatewayBase":     "https://solanaclawd.com/x402",
+  "marketplaceBase": "https://solanaclawd.com/marketplace",
+  "mcpBase":         "https://solanaclawd.com/mcp",
+  "registrarBase":   "https://solanaclawd.com/registrar",
+  "solanaRpc":       "https://api.mainnet-beta.solana.com",
+  "sasProgramId":    "22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG",
+  "scope":           "@openclawdsolana",
+  "skillsCatalog":   "https://solanaclawd.com/api/skills",
+  "extensionsDir":   "extensions",
+  "skillsDir":       "skills"
+}
+CFGEOF
+  ok "Wrote $CFG_PATH"
+else
+  info "Keeping existing $CFG_PATH (delete to regenerate)"
+fi
+
 cat <<EOF
 
 ${GREEN}🦞 OpenClawd installed${RESET}
 
   Workspace: $WORKSPACE
   Binaries : $BIN_DIR
+  Config   : $CFG_PATH
 
   Add to PATH (zsh/bash):
     export PATH="$BIN_DIR:\$PATH"

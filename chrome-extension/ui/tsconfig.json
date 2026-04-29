@@ -1,19 +1,21 @@
 {
-    "extends": "../../tsconfig.base.json",
-    "compilerOptions": {
-        "composite": true,
-        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
-        "noEmit": false,
-        "allowImportingTsExtensions": false,
-        "baseUrl": ".",
-        "outDir": "dist",
-        "paths": {
-            "@page-agent/core": ["../core/src/PageAgentCore.ts"]
-        }
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "./dist/esm",
+    "rootDir": "./src",
+    "paths": {
+      "@openclawdsolana/pagent-core": ["../core/src/PageAgentCore.ts"]
     },
-    "include": ["**/*.ts"],
-    "exclude": ["dist", "node_modules"],
-    "references": [
-        { "path": "../core" }
-    ]
+    "types": [],
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": false,
+    "isolatedModules": true,
+    "moduleResolution": "bundler",
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": false
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["dist", "node_modules", "**/*.test.ts"]
 }

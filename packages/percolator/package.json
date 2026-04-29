@@ -1,12 +1,12 @@
 {
   "name": "@openclawdsolana/percolator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "🦞 OpenClawd Percolator — agentic perpetuals CLI for Solana. Trade, manage, and monitor perp markets from the lobster's claw.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "percolator": "./dist/index.js"
+    "percolator": "dist/index.js"
   },
   "scripts": {
     "build": "tsc",
@@ -33,8 +33,10 @@
     "url": "https://github.com/clawdsolana/OpenClawd/issues"
   },
   "dependencies": {
+    "@solana/spl-token": "^0.4.9",
     "@solana/web3.js": "^1.98.0",
-    "commander": "^11.1.0"
+    "commander": "^11.1.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",

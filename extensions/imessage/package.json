@@ -1,5 +1,5 @@
 {
-  "name": "@openclawd/imessage",
+  "name": "@openclawdsolana/imessage",
   "version": "2026.2.1",
   "description": "OpenClawd iMessage channel plugin",
   "type": "module",

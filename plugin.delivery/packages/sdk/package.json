@@ -1,6 +1,6 @@
 {
   "name": "@openclawdsolana/plugin-sdk",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "OpenClawd Plugin SDK — build plugins with on-chain attestation, OpenAPI parsing, and Zod schemas. Includes Solana Attestation Service helpers.",
   "keywords": [
     "openclawd",
@@ -40,9 +40,14 @@
   },
   "files": [
     "index.ts",
+    "error.ts",
+    "request.ts",
+    "openapi.ts",
     "client",
+    "client.ts",
     "schema",
     "openapi",
+    "types",
     "README.md",
     "LICENSE"
   ],

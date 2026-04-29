@@ -3,7 +3,7 @@
  * The full Panel UI is in the Chrome extension; this provides the type interface.
  */
 
-import type { PageAgentCore } from '@page-agent/core'
+import type { PageAgentCore } from '@openclawdsolana/pagent-core'
 
 export interface PanelConfig {
   language?: string

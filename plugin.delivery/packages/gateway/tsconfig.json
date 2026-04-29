@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "CommonJS",
-    "target": "ES5",
+    "target": "ES2017",
     "lib": ["dom", "esnext"],
     "declaration": true,
     "sourceMap": true,
@@ -16,7 +16,11 @@
     "skipLibCheck": true,
     "strict": true,
     "paths": {
-      "@openclawdsolana/chat-plugins-gateway": ["src"]
+      "@openclawdsolana/chat-plugins-gateway": ["src"],
+      "@openclawdsolana/plugin-sdk": ["../sdk"],
+      "@openclawdsolana/plugin-sdk/openapi": ["../sdk/openapi"],
+      "@openclawdsolana/plugin-sdk/client": ["../sdk/client"],
+      "@openclawdsolana/plugin-sdk/schema": ["../sdk/schema"]
     }
   },
   "include": ["types", "api", "src", "*.ts", "tests"]

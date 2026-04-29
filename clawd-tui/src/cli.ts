@@ -8,7 +8,7 @@ import { Loader } from './loader.js';
 import { printBanner } from './banner.js';
 import { detectBg } from './terminal-bg.js';
 import { getInput, printCwdHint } from './input.js';
-import { handleCommand } from './commands.js';
+import { handleCommand, maybeAnalyzeAddress } from './commands.js';
 import { resolveApiKey } from './oauth.js';
 
 const RESET = '\x1b[0m';
@@ -87,6 +87,10 @@ async function main() {
     if (config.slashCommands && trimmed.startsWith('/')) {
       const result = await handleCommand(trimmed, { config, session, newSession });
       if (result.handled) continue;
+    }
+
+    if (await maybeAnalyzeAddress(trimmed, { config, session, newSession })) {
+      continue;
     }
 
     session.addUser(trimmed);

@@ -1,0 +1,41 @@
+{
+  "name": "@openclawdsolana/automaton-cli",
+  "version": "0.1.0",
+  "description": "OpenClawd Automaton — Creator CLI. Status, logs, funding, and direct messaging for sovereign automatons.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "automaton-cli": "dist/index.js",
+    "openclawd-automaton-cli": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
+    "directory": "automaton-main/packages/cli"
+  },
+  "homepage": "https://solanaclawd.com",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@openclawdsolana/automaton": "*",
+    "chalk": "^5.3.0",
+    "viem": "^2.44.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0"
+  }
+}

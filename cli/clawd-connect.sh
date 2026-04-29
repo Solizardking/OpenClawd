@@ -1,11 +1,16 @@
 #!/bin/bash
 # openclawd - Terminal Connection & Skills
-# solanaclawd.com  ·  github.com/x402agent/openclawd
+# solanaclawd.com  ·  github.com/clawdsolana/OpenClawd
 # Usage: ./clawd-connect.sh <command>
 
-MARKETPLACE="https://solanaclawd.com/marketplace"
-GATEWAY="https://solanaclawd.com/x402"
-CLAWD_API="https://solanaclawd.com/api"
+# Load shared OpenClawd endpoint config (env > ~/.openclawdsolana/config.json > defaults)
+__here="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+# shellcheck disable=SC1091
+. "$__here/clawd-config.sh"
+
+MARKETPLACE="$OPENCLAWD_MARKETPLACE"
+GATEWAY="$OPENCLAWD_GATEWAY_BASE"
+CLAWD_API="$OPENCLAWD_API_BASE"
 
 # Colors
 GREEN='\033[0;32m'
@@ -29,56 +34,56 @@ case "${1:-}" in
     echo "Or use: npx clawdhub <command>"
     ;;
   "skills:list")
-    curl -s "https://solanaclawd.com/api/skills" | jq '.'
+    curl -s "$CLAWD_API/skills" | jq '.'
     ;;
   "skills:featured")
-    curl -s "https://solanaclawd.com/api/skills/featured" | jq '.'
+    curl -s "$CLAWD_API/skills/featured" | jq '.'
     ;;
   "skills:search")
-    curl -s "https://solanaclawd.com/api/skills/search?q=$2" | jq '.'
+    curl -s "$CLAWD_API/skills/search?q=$2" | jq '.'
     ;;
   "skills:install")
-    curl -s "https://solanaclawd.com/api/skills/$2/download" -o "$2/SKILL.md"
+    curl -s "$CLAWD_API/skills/$2/download" -o "$2/SKILL.md"
     echo "Installed skill: $2"
     ;;
 
   # ═══ MARKETPLACE ═══
   "marketplace")
     echo -e "${GREEN}→${NC} Marketplace: $MARKETPLACE"
-    curl -s "https://solanaclawd.com/api/marketplace/skills" | jq '.'
+    curl -s "$CLAWD_API/marketplace/skills" | jq '.'
     ;;
   "marketplace:trending")
-    curl -s "https://solanaclawd.com/api/marketplace/trending" | jq '.'
+    curl -s "$CLAWD_API/marketplace/trending" | jq '.'
     ;;
   "marketplace:new")
-    curl -s "https://solanaclawd.com/api/marketplace/new" | jq '.'
+    curl -s "$CLAWD_API/marketplace/new" | jq '.'
     ;;
 
   # ═══ AGENTS ═══
   "connect")
     echo -e "${GREEN}→${NC} Connecting to solanaclawd.com..."
-    curl -s -X POST "https://solanaclawd.com/api/connect" \
+    curl -s -X POST "$CLAWD_API/connect" \
       -H "Content-Type: application/json" \
       -d '{"agent":"openclawd","version":"1.0"}'
     echo ""
     ;;
   "status")
     echo -e "${GREEN}→${NC} Fetching agent status..."
-    curl -s "https://solanaclawd.com/api/status" | jq '.'
+    curl -s "$CLAWD_API/status" | jq '.'
     ;;
   "agents")
     echo -e "${GREEN}→${NC} Listing registered agents..."
-    curl -s "https://solanaclawd.com/api/agents" | jq '.'
+    curl -s "$CLAWD_API/agents" | jq '.'
     ;;
 
   # ═══ WALLET ═══
   "wallet")
     echo -e "${GREEN}→${NC} Wallet info:"
-    curl -s "https://solanaclawd.com/api/wallet" | jq '.'
+    curl -s "$CLAWD_API/wallet" | jq '.'
     ;;
   "prices")
     echo -e "${GREEN}→${NC} Live prices:"
-    curl -s "https://solanaclawd.com/api/prices" | jq '.'
+    curl -s "$CLAWD_API/prices" | jq '.'
     ;;
 
   # ═══ x402 PAYMENTS ═══

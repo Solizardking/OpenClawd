@@ -1,4 +1,4 @@
-import type { LLMConfig } from '@page-agent/llms'
+import type { LLMConfig } from '@openclawdsolana/pagent-llms'
 
 // @note circular dependency but okay
 import type { PageAgentCore } from './PageAgentCore'

@@ -17,6 +17,20 @@ import { secureHeaders } from 'hono/secure-headers';
 import registerRoutes from './routes/register';
 import { validateApiKey } from './lib/auth';
 
+// Canonical OpenClawd endpoints. Mirrors ~/.openclawdsolana/config.json so
+// the registrar plays back the same URLs every CLI surface resolves to. Each
+// can be overridden via OPENCLAWD_* env (matches cli/clawd-config.sh).
+const ENDPOINTS = {
+  apiBase: process.env.OPENCLAWD_API_BASE || 'https://solanaclawd.com/api',
+  hubUrl: process.env.OPENCLAWD_HUB_URL || process.env.CLAWDHUB_API_URL || 'https://hub.solanaclawd.com',
+  marketplace: process.env.OPENCLAWD_MARKETPLACE || 'https://hub.solanaclawd.com/marketplace',
+  agents: process.env.OPENCLAWD_AGENTS_URL || 'https://hub.solanaclawd.com/agents',
+  skills: process.env.OPENCLAWD_SKILLS_URL || 'https://hub.solanaclawd.com/skills',
+  clawdRouter: process.env.OPENCLAWD_ROUTER_URL || 'https://solanaclawd.com/router',
+  docs: process.env.OPENCLAWD_DOCS_URL || 'https://solanaclawd.com/docs',
+  repository: 'https://github.com/clawdsolana/OpenClawd',
+} as const;
+
 const app = new Hono();
 
 // Security headers
@@ -65,14 +79,14 @@ app.get('/api', (c) => c.json({
     'GET /api/register/keys/:walletAddress': 'List API keys for wallet',
     'DELETE /api/register/keys/:keyId': 'Revoke an API key',
   },
-  documentation: 'https://github.com/x402agent/openclawd',
-  registry: 'https://github.com/x402agent/openclawd/tree/main/acp_registry',
+  documentation: ENDPOINTS.repository,
+  registry: `${ENDPOINTS.repository}/tree/main/acp_registry`,
   hub: {
-    marketplace: 'https://hub.solanaclawd.com/marketplace',
-    agents: 'https://hub.solanaclawd.com/agents',
-    skills: 'https://hub.solanaclawd.com/skills',
-    orchestrator: 'https://solanaclawd.com/api',
-    clawdRouter: 'https://solanaclawd.com/router',
+    marketplace: ENDPOINTS.marketplace,
+    agents: ENDPOINTS.agents,
+    skills: ENDPOINTS.skills,
+    orchestrator: ENDPOINTS.apiBase,
+    clawdRouter: ENDPOINTS.clawdRouter,
   },
 }));
 
@@ -82,19 +96,19 @@ app.get('/api/hub/status/:walletAddress', async (c) => {
   // Fetch from Convex database to check registration status
   try {
     const keys = await fetch(
-      `${process.env.CLAWDHUB_API_URL || 'https://hub.solanaclawd.com'}/api/keys/${wallet}`,
+      `${ENDPOINTS.hubUrl}/api/keys/${wallet}`,
       {
         headers: {
           'Authorization': `Bearer ${process.env.CLAWDROUTER_INTERNAL_SECRET || ''}`,
         },
       },
     ).then(r => r.json()).catch(() => ({ keys: [] }));
-    
+
     return c.json({
       wallet,
       registered: true,
       keyCount: keys.keys?.length ?? 0,
-      hubUrl: 'https://hub.solanaclawd.com',
+      hubUrl: ENDPOINTS.hubUrl,
       ecosystem: 'OpenClawd',
       timestamp: new Date().toISOString(),
     });
@@ -103,11 +117,28 @@ app.get('/api/hub/status/:walletAddress', async (c) => {
       wallet,
       registered: false,
       keyCount: 0,
-      hubUrl: 'https://hub.solanaclawd.com',
+      hubUrl: ENDPOINTS.hubUrl,
       ecosystem: 'OpenClawd',
-      message: 'Wallet not yet verified — visit https://hub.solanaclawd.com to get started',
+      message: `Wallet not yet verified — visit ${ENDPOINTS.hubUrl} to get started`,
       timestamp: new Date().toISOString(),
     });
+  }
+});
+
+// Discovery — serve the bundled release manifest if present so any installed
+// CLI can ask the registrar `GET /manifest` for the full surface map.
+app.get('/manifest', async (c) => {
+  try {
+    const fs = await import('node:fs/promises');
+    const path = await import('node:path');
+    const manifestPath = path.resolve(process.cwd(), 'release.manifest.json');
+    const raw = await fs.readFile(manifestPath, 'utf8');
+    return c.json(JSON.parse(raw));
+  } catch {
+    return c.json(
+      { error: 'manifest not bundled — run `npm run release:manifest` from the OpenClawd repo root' },
+      503,
+    );
   }
 });
 
