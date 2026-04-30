@@ -3,12 +3,12 @@ import { expect, test } from '@playwright/test'
 test.describe('NanoHub public routes', () => {
   test('landing page renders', async ({ page }) => {
     await page.goto('/')
-    await expect(page).toHaveTitle(/SolanaOS/)
+    await expect(page).toHaveTitle(/OpenClawd/)
   })
 
   test('launch page has boot sequence', async ({ page }) => {
     await page.goto('/launch')
-    await expect(page.locator('text=SolanaOS')).toBeVisible()
+    await expect(page.locator('text=OpenClawd')).toBeVisible()
   })
 
   test('skills page loads skill cards', async ({ page }) => {
@@ -47,6 +47,6 @@ test.describe('NanoHub public routes', () => {
 
   test('pair page renders', async ({ page }) => {
     await page.goto('/pair')
-    await expect(page).toHaveTitle(/SolanaOS/)
+    await expect(page).toHaveTitle(/OpenClawd/)
   })
 })

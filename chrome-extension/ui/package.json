@@ -1,7 +1,7 @@
 {
   "name": "@openclawdsolana/pagent-ui",
   "private": false,
-  "version": "1.6.3",
+  "version": "1.6.4",
   "type": "module",
   "main": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
@@ -38,7 +38,7 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@openclawdsolana/pagent-core": "*"
+    "@openclawdsolana/pagent-core": "^1.6.4"
   },
   "devDependencies": {
     "typescript": "^6.0.2"

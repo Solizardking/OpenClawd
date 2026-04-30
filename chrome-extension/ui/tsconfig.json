@@ -4,9 +4,6 @@
     "noEmit": false,
     "outDir": "./dist/esm",
     "rootDir": "./src",
-    "paths": {
-      "@openclawdsolana/pagent-core": ["../core/src/PageAgentCore.ts"]
-    },
     "types": [],
     "skipLibCheck": true,
     "allowImportingTsExtensions": false,
