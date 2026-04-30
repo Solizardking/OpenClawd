@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
       case '/start':
       case '/help': {
         await sendTelegramMessage(chatId, [
-          '<b>🔍 SolanaOS Tracker Bot</b>',
+          '<b>🔍 OpenClawd Tracker Bot</b>',
           '',
           '/token &lt;address&gt; — Token info & risk score',
           '/search &lt;query&gt; — Search tokens',

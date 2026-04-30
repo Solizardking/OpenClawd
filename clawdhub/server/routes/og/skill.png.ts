@@ -78,7 +78,7 @@ export default withSentryEventHandler('og/skill.png', async (event) => {
   const title = titleFromQuery || meta?.displayName || slug
   const description = descriptionFromQuery || meta?.summary || ''
 
-  const ownerLabel = owner ? `@${owner}` : 'SolanaOS Hub'
+  const ownerLabel = owner ? `@${owner}` : 'OpenClawd Hub'
   const versionLabel = version ? `v${version}` : 'latest'
   const footer = owner
     ? `hub.solanaos.net/${owner}/${slug}`

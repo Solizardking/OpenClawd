@@ -5,7 +5,7 @@ import {
   CliSkillDeleteRequestSchema,
   CliTelemetrySyncRequestSchema,
   parseArk,
-} from 'solanaos-hub-schema'
+} from 'openclawd-hub-schema'
 import { api, internal } from './_generated/api'
 import type { Id } from './_generated/dataModel'
 import type { ActionCtx } from './_generated/server'

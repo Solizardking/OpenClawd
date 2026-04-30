@@ -68,8 +68,8 @@ export default defineEventHandler(async (event) => {
 
     // Build 8004 registration metadata
     const metadata = buildRegistrationFileJson({
-      name: `SolanaOS: ${skillName}`,
-      description: `AI agent skill "${skillName}" from the SolanaOS ecosystem.`,
+      name: `OpenClawd: ${skillName}`,
+      description: `AI agent skill "${skillName}" from the OpenClawd ecosystem.`,
       image: 'https://solanaos.net/og.png',
       services: [
         { type: ServiceType.MCP, value: `https://solanaos.net/solanaos#skill-${skillName}` },

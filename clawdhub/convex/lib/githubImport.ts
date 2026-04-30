@@ -1,4 +1,4 @@
-import { TEXT_FILE_EXTENSION_SET } from 'solanaos-hub-schema'
+import { TEXT_FILE_EXTENSION_SET } from 'openclawd-hub-schema'
 import { zipSync } from 'fflate'
 import semver from 'semver'
 import { parseFrontmatter } from './skills'

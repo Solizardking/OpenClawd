@@ -1,4 +1,4 @@
-import { ApiRoutes, LegacyApiRoutes } from 'solanaos-hub-schema'
+import { ApiRoutes, LegacyApiRoutes } from 'openclawd-hub-schema'
 import { httpRouter } from 'convex/server'
 import { auth } from './auth'
 import { downloadZip } from './downloads'
