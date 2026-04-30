@@ -3,7 +3,7 @@ import { defineEventHandler, createError } from 'h3'
 /**
  * GET /api/pageagent/ws
  *
- * Returns the Page Agent extension config for connecting to the SolanaOS Hub.
+ * Returns the Page Agent extension config for connecting to the OpenClawd Hub.
  * The actual WS bridge runs client-side — the extension injects into the browser
  * and the Hub page communicates via window.PAGE_AGENT_EXT.
  *

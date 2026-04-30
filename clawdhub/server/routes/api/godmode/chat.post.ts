@@ -78,7 +78,7 @@ export default defineEventHandler(async (event) => {
             'Authorization': `Bearer ${apiKey}`,
             'Content-Type': 'application/json',
             'HTTP-Referer': 'https://seeker.solanaos.net',
-            'X-Title': 'SolanaOS GODMODE',
+            'X-Title': 'OpenClawd GODMODE',
           },
           body: JSON.stringify({
             model: m.id,
@@ -140,7 +140,7 @@ async function callModel(apiKey: string, model: string, messages: any[], stream:
       'Authorization': `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
       'HTTP-Referer': 'https://seeker.solanaos.net',
-      'X-Title': 'SolanaOS GODMODE',
+      'X-Title': 'OpenClawd GODMODE',
     },
     body: JSON.stringify({
       model,

@@ -56,7 +56,7 @@ function buildWalletAuthMessage(args: {
   nonce: string
 }) {
   return [
-    'SolanaOS Convex Auth',
+    'OpenClawd Convex Auth',
     `wallet=${args.walletAddress.trim()}`,
     `display_name=${normalizeDisplayName(args.displayName)}`,
     `app_version=${args.appVersion.trim()}`,

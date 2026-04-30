@@ -86,7 +86,7 @@ export default withSentryEventHandler('og/soul.png', async (event) => {
   const title = titleFromQuery || meta?.displayName || slug
   const description = descriptionFromQuery || meta?.summary || ''
 
-  const ownerLabel = owner ? `@${owner}` : 'SolanaOS Souls'
+  const ownerLabel = owner ? `@${owner}` : 'OpenClawd Souls'
   const versionLabel = version ? `v${version}` : 'latest'
   const footer = buildFooter(slug, owner || null)
 

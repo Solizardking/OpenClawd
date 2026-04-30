@@ -8,7 +8,7 @@ import { defineEventHandler, readBody, createError } from 'h3'
  *
  * Body: { task: string, config?: { model?, baseURL?, apiKey? } }
  *
- * The SolanaOS daemon calls this endpoint when a user sends /pageagent <task>
+ * The OpenClawd daemon calls this endpoint when a user sends /pageagent <task>
  * from Telegram. The Hub page with the extension installed picks it up and executes.
  */
 

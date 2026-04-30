@@ -207,7 +207,7 @@ function agentCardForAgent(
     name: agent.name,
     description: agent.description,
     provider: {
-      organization: 'SolanaOS',
+      organization: 'OpenClawd',
       website: 'https://seeker.solanaos.net',
     },
     url: agent.services.find((service) => service.type.toLowerCase() === 'web')?.value || null,
@@ -934,7 +934,7 @@ async function callOpenRouterText(systemPrompt: string, userPrompt: string) {
     headers: {
       Authorization: `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
-      'X-OpenRouter-Title': 'SolanaOS Seeker',
+      'X-OpenRouter-Title': 'OpenClawd Seeker',
     },
     body: JSON.stringify({
       model,

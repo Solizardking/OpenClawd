@@ -116,7 +116,7 @@ function wrapText(value: string, maxWidth: number, fontSize: number, maxLines: n
 }
 
 export function buildSkillOgSvg(params: SkillOgSvgParams) {
-  const rawTitle = params.title.trim() || 'SolanaOS Skill'
+  const rawTitle = params.title.trim() || 'OpenClawd Skill'
   const rawDescription = params.description.trim() || 'Agentic Framework Powered by Solana & Claude.'
 
   const cardX = 72
