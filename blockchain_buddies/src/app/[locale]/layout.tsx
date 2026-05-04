@@ -4,7 +4,11 @@ import { notFound } from "next/navigation";
 
 import { Analytics } from "@vercel/analytics/next";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from "next-intl/server";
 
 import { AnnouncementQueue } from "@/components/announcement-queue";
 import { FeedbackWidget } from "@/components/feedback-widget";

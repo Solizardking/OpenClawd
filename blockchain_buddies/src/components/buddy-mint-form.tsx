@@ -62,8 +62,10 @@ export function BuddyMintForm() {
         }),
       });
       const json = (await response.json()) as MintResponse;
-      if (!response.ok || !("ok" in json)) {
-        setError(json.message || "Mint failed.");
+      if (!response.ok || "error" in json) {
+        setError(
+          "message" in json && json.message ? json.message : "Mint failed.",
+        );
         return;
       }
       setMinted(json.buddy);
@@ -128,8 +130,8 @@ export function BuddyMintForm() {
             required
           />
           <span className="text-xs font-normal text-muted-3">
-            Public JSON metadata for the MPL Core asset. Use Arweave, Irys, IPFS,
-            or another durable public host before minting.
+            Public JSON metadata for the MPL Core asset. Use Arweave, Irys,
+            IPFS, or another durable public host before minting.
           </span>
         </label>
         <label className="grid gap-2 text-sm font-medium text-foreground">

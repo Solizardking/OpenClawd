@@ -84,10 +84,10 @@ export default function BirthPage() {
               Born as a Core asset
             </h2>
             <p className="mt-3 text-sm leading-6 text-muted-2">
-              The server calls <code>mintAndSubmitAgent</code> from the
-              Metaplex Agent Registry SDK. The Metaplex API stores agent
-              metadata, returns an unsigned transaction, and the OpenClawd mint
-              authority signs it through Umi.
+              The server calls <code>mintAndSubmitAgent</code> from the Metaplex
+              Agent Registry SDK. The Metaplex API stores agent metadata,
+              returns an unsigned transaction, and the OpenClawd mint authority
+              signs it through Umi.
             </p>
           </article>
 
@@ -119,8 +119,8 @@ export default function BirthPage() {
                 Use this page when an OpenClawd operator or agent has a funded
                 Solana authority and a public metadata URI ready. The flow
                 records the mint in the app database so the hub can track the
-                buddy, owner, asset address, transaction signature, RPC provider,
-                and Metaplex network.
+                buddy, owner, asset address, transaction signature, RPC
+                provider, and Metaplex network.
               </p>
             </div>
             <ul className="grid gap-3 text-sm leading-6 text-muted-2">

@@ -1,4 +1,4 @@
-import { defaultLocale, localizePath, type Locale } from "@/i18n/config";
+import { defaultLocale, type Locale, localizePath } from "@/i18n/config";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??

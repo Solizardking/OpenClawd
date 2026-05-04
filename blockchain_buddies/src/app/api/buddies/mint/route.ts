@@ -3,10 +3,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 
 import { db, schema } from "@/lib/db/client";
-import {
-  getMintErrorMessage,
-  mintBlockchainBuddy,
-} from "@/lib/metaplex-agent";
+import { getMintErrorMessage, mintBlockchainBuddy } from "@/lib/metaplex-agent";
 import { requireSameOrigin } from "@/lib/same-origin";
 
 export const runtime = "nodejs";
@@ -78,8 +75,7 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json(
       {
         error: "invalid_metadata_uri",
-        message:
-          "Metadata URI must be a publicly reachable http(s) JSON URL.",
+        message: "Metadata URI must be a publicly reachable http(s) JSON URL.",
       },
       { status: 400 },
     );

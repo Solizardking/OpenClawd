@@ -141,11 +141,6 @@ export function PetActionMenu({ pet, variant = "card" }: Props) {
       // the wrapper's z-index keeps the menu above everything below.
       style={open ? { zIndex: 60 } : undefined}
       className={variant === "card" ? "relative" : "relative inline-flex"}
-      onClick={(e) => e.stopPropagation()}
-      onKeyDown={(e) => {
-        // Stop card-level navigation when this lives inside an <a> wrapper.
-        if (e.key === "Enter" || e.key === " ") e.stopPropagation();
-      }}
     >
       <button
         type="button"
@@ -183,6 +178,7 @@ export function PetActionMenu({ pet, variant = "card" }: Props) {
               aria-label={t("closeMenu")}
               onClick={(e) => {
                 e.preventDefault();
+                e.stopPropagation();
                 setOpen(false);
               }}
               className="grid size-6 place-items-center rounded-full text-muted-4 transition hover:bg-surface-muted hover:text-foreground"
@@ -200,7 +196,9 @@ export function PetActionMenu({ pet, variant = "card" }: Props) {
                   <Terminal className="size-4" />
                 )
               }
-              label={copied === "install" ? t("copiedInstall") : t("copyInstall")}
+              label={
+                copied === "install" ? t("copiedInstall") : t("copyInstall")
+              }
               hint={installCmd}
               onClick={() => copyText(installCmd, "install")}
             />
@@ -240,7 +238,10 @@ export function PetActionMenu({ pet, variant = "card" }: Props) {
                   download
                   target="_blank"
                   rel="noreferrer"
-                  onClick={onZipClick}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onZipClick();
+                  }}
                   className="flex items-center gap-2.5 border-t border-black/[0.06] px-3 py-2.5 text-sm text-muted-2 transition hover:bg-[#f4f6ff] hover:text-foreground dark:border-white/[0.06]"
                 >
                   <Download className="size-4" />
@@ -270,6 +271,7 @@ function MenuItem({ icon, label, hint, onClick }: MenuItemProps) {
         role="menuitem"
         onClick={(e) => {
           e.preventDefault();
+          e.stopPropagation();
           onClick();
         }}
         className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-sm text-muted-2 transition hover:bg-[#f4f6ff] hover:text-foreground"
