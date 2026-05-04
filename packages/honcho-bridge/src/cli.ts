@@ -11,12 +11,75 @@
  *                                       record one message (role: owner | agent)
  *
  * All commands honor HONCHO_API_KEY / HONCHO_WORKSPACE_ID / HONCHO_URL etc.
+ *
+ * The CLI auto-loads .env files in this priority order (first match wins per
+ * key; existing process.env always wins):
+ *   1.  $HONCHO_DOTENV  (explicit override path)
+ *   2.  $PWD/.env       (where you ran the CLI from)
+ *   3.  $PWD/.env.local
+ *   4.  <repo-root>/.env
+ *   5.  <repo-root>/packages/honcho-bridge/.env
  */
 
+import { existsSync, readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 import { HonchoBridge } from "./bridge.js";
+import { assertHonchoUsable, loadHonchoConfig } from "./config.js";
 import { createHonchoEngine } from "./engine.js";
-import { loadHonchoConfig, assertHonchoUsable } from "./config.js";
+
+function parseDotenv(text: string): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line || line.startsWith("#")) continue;
+    const eq = line.indexOf("=");
+    if (eq < 1) continue;
+    const key = line.slice(0, eq).trim();
+    let val = line.slice(eq + 1).trim();
+    if (
+      (val.startsWith('"') && val.endsWith('"')) ||
+      (val.startsWith("'") && val.endsWith("'"))
+    ) {
+      val = val.slice(1, -1);
+    }
+    out[key] = val;
+  }
+  return out;
+}
+
+function loadDotenvCandidates() {
+  const here = dirname(fileURLToPath(import.meta.url));
+  // packages/honcho-bridge/src → repo root is 3 levels up
+  const repoRoot = resolve(here, "../../..");
+  const cwd = process.cwd();
+  const explicit = process.env.HONCHO_DOTENV;
+  const candidates = [
+    explicit,
+    resolve(cwd, ".env"),
+    resolve(cwd, ".env.local"),
+    resolve(repoRoot, ".env"),
+    resolve(repoRoot, "packages/honcho-bridge/.env"),
+  ].filter((p): p is string => !!p);
+
+  const loaded: string[] = [];
+  for (const p of candidates) {
+    if (!existsSync(p)) continue;
+    try {
+      const env = parseDotenv(readFileSync(p, "utf8"));
+      for (const [k, v] of Object.entries(env)) {
+        if (process.env[k] === undefined) process.env[k] = v;
+      }
+      loaded.push(p);
+    } catch {
+      /* ignore unreadable files */
+    }
+  }
+  return loaded;
+}
+
+const loadedEnvFiles = loadDotenvCandidates();
 
 function redact(secret: string): string {
   if (!secret) return "(unset)";
@@ -75,6 +138,7 @@ async function main() {
         workspace: w.workspace,
         secret: redact(w.secret),
       })),
+      dotenvFiles: loadedEnvFiles,
     };
     process.stdout.write(`${JSON.stringify(safe, null, 2)}\n`);
     return;

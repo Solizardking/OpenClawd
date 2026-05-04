@@ -1,11 +1,11 @@
 {
   "common": {
     "brand": "Blockchain Buddies",
-    "openclawdCli": "OpenClawd",
+    "codexCli": "OpenClawd",
     "submitPet": "Submit a buddy",
     "browseGallery": "Browse gallery",
     "github": "GitHub",
-    "blockchain-buddiesHome": "Blockchain Buddies home"
+    "petdexHome": "Blockchain Buddies home"
   },
   "metadata": {
     "root": {
@@ -15,15 +15,15 @@
       "ogTitle": "Blockchain Buddies — Animated companions for OpenClawd",
       "twitterTitle": "Blockchain Buddies — Animated companions for OpenClawd",
       "keywords": {
-        "openclawdPet": "OpenClawd pet",
-        "openclawdCliPet": "OpenClawd pet",
-        "openaiOpenClawdBuddies": "OpenAI OpenClawd buddies",
+        "codexPet": "OpenClawd buddy",
+        "codexCliPet": "OpenClawd CLI buddy",
+        "openaiCodexPets": "OpenClawd Solana buddies",
         "pixelPet": "pixel pet",
         "animatedPet": "animated pet",
         "developerMascot": "developer mascot",
         "terminalPet": "terminal pet",
-        "openclawdCompanion": "OpenClawd companion",
-        "blockchain-buddies": "blockchain-buddies"
+        "codexCompanion": "OpenClawd companion",
+        "petdex": "blockchain buddies"
       }
     }
   },
@@ -78,7 +78,7 @@
       "spriteAlt": "{name} surprise pet"
     },
     "jsonLdDescription": "Public gallery of animated companions for OpenClawd. Install one with a single command.",
-    "jsonLdFeaturedBuddies": "Featured OpenClawd buddies"
+    "jsonLdFeaturedPets": "Featured OpenClawd buddies"
   },
   "feedback": {
     "trigger": "Feedback",
@@ -361,7 +361,7 @@
         "middle": "and click",
         "select": "Select",
         "afterSelect": "on your new buddy under",
-        "customBuddies": "Custom buddies",
+        "customPets": "Custom buddies",
         "tipBefore": "Use",
         "tipAfter": "afterwards to wake or tuck it away."
       },
@@ -489,7 +489,7 @@
       }
     }
   },
-  "myBuddies": {
+  "myPets": {
     "metadata": {
       "title": "My submissions",
       "description": "Track the status of every buddy you've sent to Blockchain Buddies, customize your profile, and edit live entries."
@@ -560,7 +560,7 @@
     "body": "The page you tried to reach isn't in the index. Could be a typo, a withdrawn submission, or a buddy that hasn't been approved yet. Try one of these instead.",
     "lostPetAnimated": "{name} cycling through states",
     "caughtWandering": "Caught wandering: {name}",
-    "browseBuddies": "Browse {count}+ buddies",
+    "browsePets": "Browse {count}+ buddies",
     "browseGallery": "Browse the gallery",
     "about": "About Blockchain Buddies",
     "submit": "Submit a buddy",
@@ -579,12 +579,12 @@
     "subtitle": "The artists shipping the most buddies, getting the most love, and landing the most installs. Updated live.",
     "categoryAria": "Leaderboard category",
     "secondaryStats": {
-      "buddies": "buddies",
+      "pets": "buddies",
       "likes": "likes",
       "installs": "installs"
     },
     "tabs": {
-      "buddies": {
+      "pets": {
         "label": "Most buddies",
         "unit": "approved",
         "blurb": "Creators ranked by approved buddies in the catalog.",
@@ -628,8 +628,8 @@
       "cli": "CLI"
     },
     "steps": {
-      "openOpenClawd": "Open OpenClawd,",
-      "insideOpenClawd": "inside OpenClawd to wake or tuck it away.",
+      "openCodex": "Open OpenClawd,",
+      "insideCodex": "inside OpenClawd to wake or tuck it away.",
       "andClick": "and click",
       "use": "Use",
       "findPet": "Find <strong>{displayName}</strong> under"

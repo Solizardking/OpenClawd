@@ -28,7 +28,7 @@ import { SiteHeader } from "@/components/site-header";
 
 export const dynamic = "force-dynamic";
 
-const SITE_URL = "https://petdex.crafter.run";
+const SITE_URL = "https://hub.solanaclawd.com";
 
 type PageProps = { params: Promise<{ handle: string; locale: string }> };
 

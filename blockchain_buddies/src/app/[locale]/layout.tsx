@@ -28,7 +28,8 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-const SITE_URL = "https://petdex.crafter.run";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hub.solanaclawd.com";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -63,9 +64,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: t("ogTitle"),
       description: t("description"),
       url: SITE_URL,
-      siteName: "Petdex",
+      siteName: "Blockchain Buddies",
       type: "website",
-      images: [{ url: "/og.png", width: 1200, height: 630, alt: "Petdex" }],
+      images: [
+        { url: "/og.png", width: 1200, height: 630, alt: "Blockchain Buddies" },
+      ],
     },
     twitter: {
       card: "summary_large_image",

@@ -349,7 +349,7 @@ export const blockchainBuddies = pgTable(
     species: text("species"),
     assetAddress: text("asset_address").notNull(),
     mintSignature: text("mint_signature").notNull(),
-    cluster: text("cluster").notNull().default("mainnet-beta"),
+    cluster: text("cluster").notNull().default("solana-mainnet"),
     rpcProvider: text("rpc_provider").notNull().default("helius"),
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()

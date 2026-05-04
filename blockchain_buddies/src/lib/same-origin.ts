@@ -13,7 +13,8 @@
 // the running deployment, and localhost for local dev.
 
 const SITE_HOSTS = new Set<string>([
-  "petdex.crafter.run",
+  "hub.solanaclawd.com",
+  "blockchain-buddies.crafter.run",
   "localhost:3000",
   "localhost",
 ]);

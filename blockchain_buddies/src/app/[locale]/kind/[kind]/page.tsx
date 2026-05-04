@@ -8,7 +8,7 @@ import { PET_KINDS, type PetKind } from "@/lib/types";
 import { FacetPage } from "@/components/facet-page";
 import { JsonLd } from "@/components/json-ld";
 
-const SITE_URL = "https://petdex.crafter.run";
+const SITE_URL = "https://hub.solanaclawd.com";
 
 type Props = { params: Promise<{ kind: string; locale: string }> };
 

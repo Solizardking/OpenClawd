@@ -17,7 +17,7 @@ function curatedSort(pets: PetWithMetrics[]): PetWithMetrics[] {
   });
 }
 
-const SITE_URL = "https://petdex.crafter.run";
+const SITE_URL = "https://hub.solanaclawd.com";
 
 type Props = { params: Promise<{ locale: string; vibe: string }> };
 

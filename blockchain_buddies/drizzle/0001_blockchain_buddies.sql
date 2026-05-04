@@ -10,7 +10,7 @@ CREATE TABLE "blockchain_buddies" (
 	"species" text,
 	"asset_address" text NOT NULL,
 	"mint_signature" text NOT NULL,
-	"cluster" text DEFAULT 'mainnet-beta' NOT NULL,
+	"cluster" text DEFAULT 'solana-mainnet' NOT NULL,
 	"rpc_provider" text DEFAULT 'helius' NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL
 );

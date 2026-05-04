@@ -34,7 +34,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SubmittedBy } from "@/components/submitted-by";
 
-const SITE_URL = "https://petdex.crafter.run";
+const SITE_URL = "https://hub.solanaclawd.com";
 
 type PageProps = {
   params: Promise<{

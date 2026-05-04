@@ -27,7 +27,8 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   alternates: buildLocaleAlternates("/"),
 };
-const SITE_URL = "https://petdex.crafter.run";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hub.solanaclawd.com";
 
 export default async function Home() {
   const { userId } = await auth();

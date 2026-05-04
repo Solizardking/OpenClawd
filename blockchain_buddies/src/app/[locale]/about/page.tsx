@@ -10,7 +10,7 @@ import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
-const SITE_URL = "https://petdex.crafter.run";
+const SITE_URL = "https://hub.solanaclawd.com";
 
 export const revalidate = 3600;
 
