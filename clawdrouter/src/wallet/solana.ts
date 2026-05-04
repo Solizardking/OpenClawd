@@ -1,7 +1,7 @@
 /**
  * ClawdRouter — Solana Wallet Integration
  * Ed25519 keypair generation, USDC balance checks, Solana-native auth
- * Works with the existing solana-clawd vault system
+ * Works with the existing OpenClawd vault system
  */
 
 import { createHash, randomBytes } from 'node:crypto';

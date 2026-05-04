@@ -1,7 +1,7 @@
 /**
  * ClawdRouter Model Registry
  * 55+ models across 9 providers, organized by tier and pricing
- * Solana-native routing for the solana-clawd ecosystem
+ * Solana-native routing for the OpenClawd ecosystem
  */
 
 import type { ModelEntry, TierMapping, RequestTier } from '../types.js';

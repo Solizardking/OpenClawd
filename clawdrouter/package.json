@@ -1,6 +1,6 @@
 {
   "name": "@openclawdsolana/clawdrouter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The LLM router built for autonomous Solana agents — Solana-native, wallet-signed, USDC micropayments",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -36,7 +36,7 @@
     "grok",
     "openai"
   ],
-  "author": "x402agent",
+  "author": "OpenClawd <contact@openclawd.net>",
   "license": "MIT",
   "repository": {
     "type": "git",

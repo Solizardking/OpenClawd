@@ -1,6 +1,6 @@
 /**
  * ClawdRouter — Shared types for the Solana-native LLM router
- * Part of the solana-clawd ecosystem
+ * Part of the OpenClawd ecosystem
  */
 
 // ── Request Classification ──────────────────────────────────────────

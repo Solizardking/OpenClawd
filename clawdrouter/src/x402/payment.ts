@@ -1,7 +1,7 @@
 /**
  * ClawdRouter — x402 Payment Protocol (Solana-native)
  * HTTP 402 Payment Required → wallet signs USDC → retry → response
- * Compatible with the solana-clawd x402 service
+ * Compatible with the OpenClawd x402 service
  */
 
 import type {

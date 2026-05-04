@@ -9,8 +9,8 @@
  * • USDC micropayments via x402 protocol on Solana
  * • OpenAI-compatible API proxy on localhost:8402
  *
- * Part of the solana-clawd ecosystem
- * https://github.com/x402agent/solana-clawd
+ * Part of the OpenClawd ecosystem
+ * https://github.com/clawdsolana/OpenClawd
  */
 
 import { homedir } from 'node:os';
@@ -78,7 +78,7 @@ function getDefaultConfig(): ClawdRouterConfig {
     },
     openRouterApiKey,
     openRouterSiteTitle: process.env['CLAWDROUTER_OPENROUTER_SITE_TITLE'] ?? 'ClawdRouter',
-    openRouterSiteUrl: process.env['CLAWDROUTER_OPENROUTER_SITE_URL'] ?? 'https://github.com/x402agent/solana-clawd',
+    openRouterSiteUrl: process.env['CLAWDROUTER_OPENROUTER_SITE_URL'] ?? 'https://github.com/clawdsolana/OpenClawd',
     openRouterCategories: (process.env['CLAWDROUTER_OPENROUTER_CATEGORIES'] ?? 'cli-agent,cloud-agent').split(',').map(s => s.trim()),
     openRouterEnabled,
     x402PayTo: process.env['CLAWDROUTER_X402_PAY_TO'] ?? '',

@@ -129,7 +129,7 @@ export async function proxyToOpenRouter(
     'Authorization': `Bearer ${apiKey}`,
     'Content-Type': 'application/json',
     // OpenRouter attribution headers for app rankings & analytics
-    'HTTP-Referer': siteUrl ?? 'https://github.com/x402agent/solana-clawd',
+    'HTTP-Referer': siteUrl ?? 'https://github.com/clawdsolana/OpenClawd',
     'X-OpenRouter-Title': siteTitle ?? 'ClawdRouter — Solana Agent LLM Router',
     // X-Title is also supported for backwards compatibility
     'X-Title': siteTitle ?? 'ClawdRouter — Solana Agent LLM Router',
