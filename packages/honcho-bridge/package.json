@@ -17,11 +17,23 @@
     "./feeder": {
       "types": "./src/feeder.ts",
       "default": "./src/feeder.ts"
+    },
+    "./config": {
+      "types": "./src/config.ts",
+      "default": "./src/config.ts"
+    },
+    "./webhook": {
+      "types": "./src/webhook.ts",
+      "default": "./src/webhook.ts"
     }
+  },
+  "bin": {
+    "honcho-clawd": "dist/cli.js"
   },
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "cli": "tsx src/cli.ts"
   },
   "keywords": [
     "openclawd",
@@ -40,6 +52,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "tsx": "^4.7.0",
     "typescript": "^5.6.0"
   }
 }

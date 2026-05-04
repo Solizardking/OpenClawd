@@ -320,9 +320,9 @@ bunx convex run --no-push devSeed:seedNixSkills
 
 ### Environment Variables
 
-- `VITE_CONVEX_URL` — Convex deployment URL
-- `VITE_CONVEX_SITE_URL` — Public site URL
-- `CONVEX_SITE_URL` — Backend site URL
+- `VITE_CONVEX_URL` — Convex deployment URL (`https://<deployment>.convex.cloud`)
+- `VITE_CONVEX_SITE_URL` — Convex HTTP actions URL (`https://<deployment>.convex.site`)
+- `CONVEX_SITE_URL` / `CONVEX_ACTIONS` — Backend Convex HTTP actions URL used for GitHub OAuth callbacks
 - `AUTH_GITHUB_ID` / `AUTH_GITHUB_SECRET` — GitHub OAuth
 - `HELIUS_API_KEY` / `HELIUS_RPC_URL` — Solana RPC
 - `PRIVY_APP_ID` / `PRIVY_APP_SECRET` — Embedded wallet auth

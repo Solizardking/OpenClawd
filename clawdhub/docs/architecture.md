@@ -1,61 +1,61 @@
 ---
-summary: 'System overview: web app + Convex backend + CLI + shared schema.'
+summary: 'ClawdHub architecture: web app + Convex backend + CLI + shared schema.'
 read_when:
-  - Orienting in codebase
-  - Tracing a user flow across layers
+  - Orienting in the ClawdHub codebase
+  - Tracing a user flow across ClawdHub layers
 ---
 
-# Architecture
+# ClawdHub Architecture
 
 ## Pieces
 
-- Web app: TanStack Start (React) under `src/`.
-- Backend: Convex under `convex/` (DB, storage, actions, HTTP routes).
-- CLI: `packages/clawdhub/` (published as `clawhub`, legacy `clawdhub`).
-- Shared schemas/routes: `packages/schema/` (`openclawd-hub-schema`, legacy `clawhub-schema`).
+- **Web app:** TanStack Start (React) under [`../src/`](../src/) — the `hub.solanaclawd.com` frontend.
+- **Backend:** Convex under [`../convex/`](../convex/) (DB, storage, actions, HTTP routes). Currently deployed on `third-bobcat-386`.
+- **CLI:** [`../packages/clawdhub/`](../packages/clawdhub/) — published as `@openclawdsolana/clawdhub`, bin `clawdhub` (`clawhub` retained as legacy alias).
+- **Shared schemas/routes:** [`../packages/schema/`](../packages/schema/) — `@openclawdsolana/clawdhub-schema` (legacy `clawhub-schema`).
 
 ## Data + storage
 
-- Skill “bundle” = versioned set of text files stored in Convex `_storage`.
-- Metadata extracted from `SKILL.md` frontmatter.
-- Stats stored on `skills` (downloads, installs, stars, comments, …).
+- A ClawdHub skill **bundle** = versioned set of text files stored in Convex `_storage`.
+- Metadata is extracted from each skill's `SKILL.md` frontmatter on publish.
+- Per-skill stats (downloads, installs, stars, comments) live on the `skills` table.
 
 ## Main flows
 
 ### Browse (web)
 
-- UI reads skill metadata + latest version from Convex queries/actions.
-- `SKILL.md` rendered as Markdown.
+- The ClawdHub UI reads skill metadata + latest version via Convex queries/actions.
+- `SKILL.md` is rendered as Markdown in the skill detail page.
 
 ### Search (HTTP)
 
-- `/api/v1/search?q=...` routes to Convex action for vector search.
-- Embeddings currently generated during publish.
+- `/api/v1/search?q=...` routes to a Convex action for vector search.
+- Embeddings are generated during publish on ClawdHub.
 
 ### Install (CLI)
 
-- Resolve latest version via `/api/v1/skills/<slug>`.
-- Download zip via `/api/v1/download?slug=...&version=...`.
+- Resolve latest version via `GET /api/v1/skills/<slug>` against ClawdHub.
+- Download zip via `GET /api/v1/download?slug=...&version=...`.
 - Extract into `./skills/<slug>` (default).
 - Persist install state:
-  - `./.clawhub/lock.json` (per workdir, legacy `.clawdhub`)
-  - `./skills/<slug>/.clawhub/origin.json` (per skill folder, legacy `.clawdhub`)
+  - `./.clawdhub/lock.json` (per workdir; `.clawhub` retained as legacy alias).
+  - `./skills/<slug>/.clawdhub/origin.json` (per skill folder).
 
 ### Update (CLI)
 
-- Hash local files, call `/api/v1/resolve?slug=...&hash=<sha256>`.
-- If local matches a known version → use that for “current”.
-- If local doesn’t match:
-  - refuse by default
-  - or overwrite with `--force`
+- Hash local files, call `GET /api/v1/resolve?slug=...&hash=<sha256>` against ClawdHub.
+- If the hash matches a known version → use that for "current".
+- If it doesn't match:
+  - refuse by default.
+  - or overwrite with `--force`.
 
 ### Publish (CLI)
 
-- Publish via `POST /api/v1/skills` (multipart; requires Bearer token).
+- Publish via `POST /api/v1/skills` (multipart; ClawdHub Bearer token required).
 
 ### Sync (CLI)
 
-- Scan roots for skill folders (contain `SKILL.md`).
-- Compute fingerprint; compare to registry state.
-- Optionally reports telemetry (see `docs/telemetry.md`).
-- Publishes new/changed skills (skips modified installed skills inside install root).
+- Scan roots for skill folders (any folder containing a `SKILL.md`).
+- Compute fingerprint; compare to ClawdHub registry state.
+- Optionally report telemetry — see [`telemetry.md`](telemetry.md).
+- Publish new/changed skills to ClawdHub (skips modified installed skills inside an install root).

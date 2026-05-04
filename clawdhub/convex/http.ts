@@ -523,6 +523,42 @@ http.route({
   handler: gatewayEventsGetHttp,
 })
 
+http.route({
+  path: '/openclawd/gateway/events',
+  method: 'POST',
+  handler: gatewayEventHttp,
+})
+
+http.route({
+  path: '/openclawd/gateway/events',
+  method: 'OPTIONS',
+  handler: gatewayEventHttp,
+})
+
+http.route({
+  path: '/openclawd/gateway/events',
+  method: 'GET',
+  handler: gatewayEventsGetHttp,
+})
+
+http.route({
+  path: '/clawd/gateway/events',
+  method: 'POST',
+  handler: gatewayEventHttp,
+})
+
+http.route({
+  path: '/clawd/gateway/events',
+  method: 'OPTIONS',
+  handler: gatewayEventHttp,
+})
+
+http.route({
+  path: '/clawd/gateway/events',
+  method: 'GET',
+  handler: gatewayEventsGetHttp,
+})
+
 // ── Pump Token Scanner Ingestion ─────────────────────────────────────
 http.route({
   path: '/nanosolana/tracker/pump-ingest',

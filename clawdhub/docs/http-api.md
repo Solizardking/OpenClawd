@@ -1,31 +1,31 @@
 ---
-summary: 'HTTP API reference (public + CLI endpoints + auth).'
+summary: 'ClawdHub HTTP API reference (public + CLI endpoints + auth).'
 read_when:
-  - Adding/changing endpoints
-  - Debugging CLI ↔ registry requests
+  - Adding/changing ClawdHub endpoints
+  - Debugging ClawdHub CLI ↔ registry requests
 ---
 
-# HTTP API
+# ClawdHub HTTP API
 
 Base URL: `https://hub.solanaclawd.com` (default).
 
-All v1 paths are under `/api/v1/...` and implemented by Convex HTTP routes (`convex/http.ts`).
-Legacy `/api/...` and `/api/cli/...` remain for compatibility (see `DEPRECATIONS.md`).
-OpenAPI: `/api/v1/openapi.json`.
+All v1 paths are under `/api/v1/...` and implemented by ClawdHub Convex HTTP routes ([`../convex/http.ts`](../convex/http.ts)). Legacy `/api/...` and `/api/cli/...` remain for compatibility (see [`../DEPRECATIONS.md`](../DEPRECATIONS.md)). OpenAPI: `/api/v1/openapi.json`.
 
 ## Rate limits
 
-Enforcement model:
+ClawdHub enforcement model:
 
 - Anonymous requests: enforced per IP.
 - Authenticated requests (valid Bearer token): enforced per user bucket.
 - If token is missing/invalid, behavior falls back to IP enforcement.
 
+Default budgets:
+
 - Read: 120/min per IP, 600/min per key
 - Write: 30/min per IP, 120/min per key
 - Download: 20/min per IP, 120/min per key (`/api/v1/download`)
 
-Headers:
+Headers ClawdHub returns:
 
 - Legacy compatibility: `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`
 - Standardized: `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`
@@ -37,7 +37,7 @@ Header semantics:
 - `RateLimit-Reset`: seconds until reset (delay)
 - `Retry-After`: seconds to wait before retry (delay) on `429`
 
-Example `429` response:
+Example `429` response from ClawdHub:
 
 ```http
 HTTP/2 429
@@ -53,17 +53,17 @@ retry-after: 34
 Rate limit exceeded
 ```
 
-Client guidance:
+ClawdHub client guidance:
 
 - If `Retry-After` exists, wait that many seconds before retry.
 - Use jittered backoff to avoid synchronized retries.
 - If `Retry-After` is missing, fallback to `RateLimit-Reset` (or compute from `X-RateLimit-Reset`).
 
-IP source:
+ClawdHub IP source:
 
 - Uses `cf-connecting-ip` (Cloudflare) for client IP by default.
 - Set `TRUST_FORWARDED_IPS=true` to opt in to `x-forwarded-for`, `x-real-ip`, or `fly-client-ip` (non-Cloudflare deployments).
-- If you run behind a reverse proxy/load balancer, ensure real client IP headers are preserved and trusted correctly, or rate limits may be too strict due to shared proxy IPs.
+- If you run ClawdHub behind a reverse proxy/load balancer, ensure real client IP headers are preserved and trusted correctly, or rate limits may be too strict due to shared proxy IPs.
 
 ## Public endpoints (no auth)
 
@@ -73,7 +73,7 @@ Query params:
 
 - `q` (required): query string
 - `limit` (optional): integer
-- `highlightedOnly` (optional): `true` to filter to highlighted skills
+- `highlightedOnly` (optional): `true` to filter to ClawdHub-highlighted skills
 
 Response:
 
@@ -83,7 +83,7 @@ Response:
 
 Notes:
 
-- Results are returned in relevance order (embedding similarity + exact slug/name token boosts + popularity prior from downloads).
+- Results are returned in relevance order (embedding similarity + exact slug/name token boosts + popularity prior from ClawdHub downloads).
 
 ### `GET /api/v1/skills`
 
@@ -95,7 +95,7 @@ Query params:
 
 Notes:
 
-- `trending` ranks by installs in the last 7 days (telemetry-based).
+- `trending` ranks by ClawdHub installs in the last 7 days (telemetry-based).
 
 Response:
 
@@ -120,7 +120,7 @@ Notes:
 
 ### `GET /api/v1/skills/{slug}/moderation`
 
-Returns structured moderation state.
+Returns structured ClawdHub moderation state.
 
 Response:
 
@@ -130,7 +130,7 @@ Response:
 
 Notes:
 
-- Owners and staff can access moderation details for hidden skills.
+- ClawdHub owners and staff can access moderation details for hidden skills.
 - Public callers only get `200` for already-flagged visible skills.
 - Evidence is redacted for public callers and only includes raw snippets for owners/staff.
 
@@ -143,11 +143,11 @@ Query params:
 
 ### `GET /api/v1/skills/{slug}/versions/{version}`
 
-Returns version metadata + files list.
+Returns ClawdHub version metadata + files list.
 
 ### `GET /api/v1/skills/{slug}/file`
 
-Returns raw text content.
+Returns raw text content from ClawdHub.
 
 Query params:
 
@@ -157,12 +157,12 @@ Query params:
 
 Notes:
 
-- Defaults to latest version.
+- Defaults to latest ClawdHub version.
 - File size limit: 200KB.
 
 ### `GET /api/v1/resolve`
 
-Used by the CLI to map a local fingerprint to a known version.
+Used by the ClawdHub CLI to map a local fingerprint to a known version.
 
 Query params:
 
@@ -177,7 +177,7 @@ Response:
 
 ### `GET /api/v1/download`
 
-Downloads a zip of a skill version.
+Downloads a zip of a ClawdHub skill version.
 
 Query params:
 
@@ -187,32 +187,32 @@ Query params:
 
 Notes:
 
-- If neither `version` nor `tag` is provided, the latest version is used.
+- If neither `version` nor `tag` is provided, the latest ClawdHub version is used.
 - Soft-deleted versions return `410`.
-- Download stats are counted as unique identities per hour (`userId` when API token is valid, otherwise IP).
+- Download stats are counted as unique identities per hour (`userId` when ClawdHub API token is valid, otherwise IP).
 
 ## Auth endpoints (Bearer token)
 
-All endpoints require:
+All endpoints require a ClawdHub-issued token:
 
-```
+```http
 Authorization: Bearer clh_...
 ```
 
 ### `GET /api/v1/whoami`
 
-Validates token and returns the user handle.
+Validates the ClawdHub token and returns the user handle.
 
 ### `POST /api/v1/skills`
 
-Publishes a new version.
+Publishes a new ClawdHub version.
 
 - Preferred: `multipart/form-data` with `payload` JSON + `files[]` blobs.
 - JSON body with `files` (storageId-based) is also accepted.
 
 ### `DELETE /api/v1/skills/{slug}` / `POST /api/v1/skills/{slug}/undelete`
 
-Soft-delete / restore a skill (owner, moderator, or admin).
+Soft-delete / restore a ClawdHub skill (owner, moderator, or admin).
 
 Status codes:
 
@@ -237,7 +237,7 @@ Status codes:
 
 ### `POST /api/v1/users/ban`
 
-Ban a user and hard-delete owned skills (moderator/admin only).
+Ban a ClawdHub user and hard-delete owned skills (moderator/admin only).
 
 Body:
 
@@ -259,7 +259,7 @@ Response:
 
 ### `POST /api/v1/users/role`
 
-Change a user role (admin only).
+Change a ClawdHub user role (admin only).
 
 Body:
 
@@ -281,7 +281,7 @@ Response:
 
 ### `GET /api/v1/users`
 
-List or search users (admin only).
+List or search ClawdHub users (admin only).
 
 Query params:
 
@@ -308,7 +308,7 @@ Response:
 
 ### `POST /api/v1/stars/{slug}` / `DELETE /api/v1/stars/{slug}`
 
-Add/remove a star (highlights). Both endpoints are idempotent.
+Add/remove a ClawdHub star (highlights). Both endpoints are idempotent.
 
 Responses:
 
@@ -322,7 +322,7 @@ Responses:
 
 ## Legacy CLI endpoints (deprecated)
 
-Still supported for older CLI versions:
+Still supported by ClawdHub for older CLI versions:
 
 - `GET /api/cli/whoami`
 - `POST /api/cli/upload-url`
@@ -331,14 +331,14 @@ Still supported for older CLI versions:
 - `POST /api/cli/skill/delete`
 - `POST /api/cli/skill/undelete`
 
-See `DEPRECATIONS.md` for removal plan.
+See [`../DEPRECATIONS.md`](../DEPRECATIONS.md) for removal plan.
 
-## Registry discovery (`/.well-known/clawhub.json`)
+## Registry discovery (`/.well-known/clawdhub.json`)
 
-The CLI can discover registry/auth settings from the site:
+The ClawdHub CLI can discover registry/auth settings from the site:
 
-- `/.well-known/clawhub.json` (JSON, preferred)
-- `/.well-known/clawdhub.json` (legacy)
+- `/.well-known/clawdhub.json` (JSON, preferred)
+- `/.well-known/clawhub.json` (legacy)
 
 Schema:
 
@@ -346,4 +346,4 @@ Schema:
 { "apiBase": "https://hub.solanaclawd.com", "authBase": "https://hub.solanaclawd.com", "minCliVersion": "0.0.5" }
 ```
 
-If you self-host, serve this file (or set `CLAWHUB_REGISTRY` explicitly; legacy `CLAWDHUB_REGISTRY`).
+If you self-host ClawdHub, serve this file (or set `CLAWDHUB_REGISTRY` explicitly; legacy `CLAWHUB_REGISTRY`).

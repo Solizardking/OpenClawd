@@ -1207,6 +1207,7 @@ const agentWallets = defineTable({
 const gatewayEvents = defineTable({
   kind: v.string(), // 'connect' | 'disconnect' | 'chat' | 'invoke' | 'agent_create' | 'whale' | 'graduation' | 'claim' | 'cto'
   source: v.string(), // 'gateway' | 'daemon' | 'scanner'
+  userId: v.optional(v.id('users')),
   agentId: v.optional(v.string()),
   sessionId: v.optional(v.string()),
   nodeId: v.optional(v.string()),
@@ -1216,6 +1217,7 @@ const gatewayEvents = defineTable({
   createdAt: v.number(),
 })
   .index('by_timestamp', ['timestamp'])
+  .index('by_user_timestamp', ['userId', 'timestamp'])
   .index('by_kind', ['kind', 'timestamp'])
   .index('by_source', ['source', 'timestamp'])
 

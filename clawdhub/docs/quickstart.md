@@ -1,19 +1,19 @@
 ---
-summary: 'Local setup + CLI smoke: login, search, install, publish, sync.'
+summary: 'ClawdHub local setup + CLI smoke: login, search, install, publish, sync.'
 read_when:
-  - First run / local dev setup
-  - Verifying end-to-end flows
+  - First run / local ClawdHub dev setup
+  - Verifying end-to-end ClawdHub flows
 ---
 
-# Quickstart
+# ClawdHub Quickstart
 
 ## 0) Prereqs
 
 - Bun
 - Convex CLI (`bunx convex ...`)
-- GitHub OAuth App (for login)
-- Together API key (for embeddings/search)
-- OpenAI key (for moderation/summaries)
+- GitHub OAuth App (for ClawdHub login)
+- Together API key (for ClawdHub embeddings/search)
+- OpenAI key (for ClawdHub moderation/summaries)
 
 ## 1) Local dev (web + Convex)
 
@@ -21,10 +21,10 @@ read_when:
 bun install
 cp .env.local.example .env.local
 
-# terminal A
+# terminal A — ClawdHub web app
 bun run dev
 
-# terminal B
+# terminal B — ClawdHub Convex backend
 bunx convex dev
 ```
 
@@ -40,84 +40,84 @@ Fill in `.env.local`:
 - `TOGETHER_API_KEY`
 - `OPENAI_API_KEY`
 
-Generate Convex Auth keys for your deployment:
+Generate Convex Auth keys for your ClawdHub deployment:
 
 ```bash
 bunx auth --deployment-name <deployment> --web-server-url http://localhost:3000
 ```
 
-Then paste the printed `JWT_PRIVATE_KEY` + `JWKS` into `.env.local` (and ensure the deployment got them too).
+Then paste the printed `JWT_PRIVATE_KEY` + `JWKS` into `.env.local` (and ensure the ClawdHub deployment got them too).
 
-## 3) CLI: login + basic commands
+## 3) ClawdHub CLI: login + basic commands
 
 From this repo:
 
 ```bash
-bun clawhub --help
-bun clawhub login
-bun clawhub whoami
-bun clawhub search gif --limit 5
+bun clawdhub --help
+bun clawdhub login
+bun clawdhub whoami
+bun clawdhub search gif --limit 5
 ```
 
-Install a skill into `./skills/<slug>` (if Clawdbot is configured, installs into that workspace instead):
+Install a ClawdHub skill into `./skills/<slug>` (if Clawdbot is configured, ClawdHub installs into that workspace instead):
 
 ```bash
-bun clawhub install <slug>
-bun clawhub list
-bun clawhub uninstall <slug> --yes
+bun clawdhub install <slug>
+bun clawdhub list
+bun clawdhub uninstall <slug> --yes
 ```
 
 You can also install into any folder:
 
 ```bash
-bun clawhub install <slug> --workdir /tmp/clawhub-demo --dir skills
+bun clawdhub install <slug> --workdir /tmp/clawdhub-demo --dir skills
 ```
 
 Update:
 
 ```bash
-bun clawhub update --all
+bun clawdhub update --all
 ```
 
-## 4) Publish a skill
+## 4) Publish a skill to ClawdHub
 
 Create a folder containing `SKILL.md` (required) plus any supporting text files:
 
 ```bash
-mkdir -p /tmp/clawhub-skill-demo && cd /tmp/clawhub-skill-demo
+mkdir -p /tmp/clawdhub-skill-demo && cd /tmp/clawdhub-skill-demo
 cat > SKILL.md <<'EOF'
 ---
 name: Demo Skill
-description: Demo skill for local testing
+description: Demo ClawdHub skill for local testing
 ---
 
 # Demo Skill
 
-Hello.
+Hello from ClawdHub.
 EOF
 ```
 
-Publish:
+Publish to ClawdHub:
 
 ```bash
-bun clawhub publish . \
-  --slug clawhub-demo-$(date +%s) \
+bun clawdhub publish . \
+  --slug clawdhub-demo-$(date +%s) \
   --name "Demo $(date +%s)" \
   --version 1.0.0 \
   --tags latest \
   --changelog "Initial release"
 ```
 
-## 5) Sync local skills (auto-publish new/changed)
+## 5) Sync local skills (auto-publish new/changed to ClawdHub)
 
-`sync` scans for local skill folders and publishes the ones that aren’t “synced” yet.
+`sync` scans for local skill folders and publishes the ones that aren't "synced" with ClawdHub yet.
 
 ```bash
-bun clawhub sync
+bun clawdhub sync
 ```
 
 Dry run + non-interactive:
 
 ```bash
-bun clawhub sync --all --dry-run --no-input
+bun clawdhub sync --all --dry-run --no-input
 ```

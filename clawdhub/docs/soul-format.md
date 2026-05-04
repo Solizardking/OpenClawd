@@ -1,11 +1,13 @@
 ---
-summary: 'Soul bundle format, required files, limits.'
+summary: 'ClawdHub soul bundle format, required files, limits.'
 read_when:
-  - Publishing souls
-  - Debugging soul publish failures
+  - Publishing souls to ClawdHub
+  - Debugging ClawdHub soul publish failures
 ---
 
-# Soul format
+# ClawdHub Soul Format
+
+A ClawdHub soul is a single-file agent persona, distinct from a multi-file skill. It's the "who you are" half of an OpenClawd agent (the skill is the "what you can do" half).
 
 ## On disk
 
@@ -13,18 +15,18 @@ A soul is a single file:
 
 - `SOUL.md` (or `soul.md`)
 
-For now, onlycrabs.ai rejects any extra files.
+ClawdHub's soul publisher rejects any extra files in the bundle.
 
 ## `SOUL.md`
 
 - Markdown with optional YAML frontmatter.
-- The server extracts metadata from frontmatter during publish.
-- `description` is used as the soul summary in the UI/search.
+- ClawdHub extracts metadata from frontmatter during publish.
+- `description` is used as the soul summary in the ClawdHub UI/search.
 
 ## Limits
 
-- Total bundle size: 50MB.
-- Embedding text includes `SOUL.md` only.
+- Total bundle size: 50MB (functionally `SOUL.md` only).
+- ClawdHub embedding text includes `SOUL.md` only.
 
 ## Slugs
 
@@ -33,5 +35,5 @@ For now, onlycrabs.ai rejects any extra files.
 
 ## Versioning + tags
 
-- Each publish creates a new version (semver).
+- Each ClawdHub publish creates a new version (semver).
 - Tags are string pointers to a version; `latest` is commonly used.

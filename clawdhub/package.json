@@ -17,6 +17,7 @@
     "coverage": "vitest run --coverage",
     "dev": "bun run generate:openclawd-catalog && bun --bun vite dev --port 3000",
     "docs:list": "bun scripts/docs-list.ts",
+    "docs:sync-db": "bun scripts/sync-hub-docs.ts",
     "format": "oxfmt --write",
     "lint": "bun run lint:oxlint",
     "lint:fix": "oxlint --type-aware --tsconfig ./tsconfig.oxlint.json ./src ./convex ./packages/clawdhub/src ./packages/schema/src --fix && bun run format",

@@ -14,6 +14,13 @@
 //   POST /api/agent/clone              — clone a built-in agent (trader/scanner/...)
 //   GET  /api/helius/asset?id=<id>     — DAS getAsset via the in-tree client
 //
+// Honcho integration:
+//   POST /api/honcho/webhook           — verified Honcho webhook receiver
+//   POST /api/honcho/remember          — { peer, role, channel, content } → bridge
+//   POST /api/honcho/context           — { peer, channel, tokens? } → openai-shape
+//   POST /api/honcho/ask               — { peer, query } → natural-language reply
+//   GET  /api/honcho/config            — redacted resolved config (diagnostic)
+//
 // The /src import is lazy + cached. If the import fails (broken types in
 // some unrelated /src module, /src not built), the agent routes return 503
 // while the proxy routes keep working. Set OPENCLAWD_SRC_DISABLED=1 to skip
@@ -140,6 +147,42 @@ async function readBody(req: http.IncomingMessage): Promise<unknown> {
     return JSON.parse(Buffer.concat(chunks).toString('utf-8'));
   } catch {
     return undefined;
+  }
+}
+
+async function readRawBody(req: http.IncomingMessage): Promise<Buffer> {
+  const chunks: Buffer[] = [];
+  for await (const c of req) chunks.push(c as Buffer);
+  return Buffer.concat(chunks);
+}
+
+// ── Honcho bridge (lazy) ────────────────────────────────────────────────
+type HonchoBridgeMod = {
+  loadHonchoConfig: typeof import('../../packages/honcho-bridge/src/config.js').loadHonchoConfig;
+  createHonchoEngine: typeof import('../../packages/honcho-bridge/src/engine.js').createHonchoEngine;
+  verifyHonchoWebhook: typeof import('../../packages/honcho-bridge/src/webhook.js').verifyHonchoWebhook;
+  secretForRequest: typeof import('../../packages/honcho-bridge/src/webhook.js').secretForRequest;
+};
+let honchoMod: HonchoBridgeMod | null | undefined; // undefined = not tried, null = failed
+async function loadHoncho(): Promise<HonchoBridgeMod | null> {
+  if (honchoMod !== undefined) return honchoMod;
+  try {
+    const [cfg, engine, hook] = await Promise.all([
+      import('../../packages/honcho-bridge/src/config.js'),
+      import('../../packages/honcho-bridge/src/engine.js'),
+      import('../../packages/honcho-bridge/src/webhook.js'),
+    ]);
+    honchoMod = {
+      loadHonchoConfig: cfg.loadHonchoConfig,
+      createHonchoEngine: engine.createHonchoEngine,
+      verifyHonchoWebhook: hook.verifyHonchoWebhook,
+      secretForRequest: hook.secretForRequest,
+    };
+    return honchoMod;
+  } catch (e) {
+    console.error('honcho bridge load failed:', e instanceof Error ? e.message : e);
+    honchoMod = null;
+    return null;
   }
 }
 
@@ -382,6 +425,103 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    // ── Honcho ──────────────────────────────────────────────────────────
+    if (route.startsWith('GET /api/honcho/') || route.startsWith('POST /api/honcho/')) {
+      const honcho = await loadHoncho();
+      if (!honcho) return json(res, 503, { error: 'honcho bridge not loaded' });
+
+      if (route === 'GET /api/honcho/config') {
+        const cfg = honcho.loadHonchoConfig();
+        const redact = (s: string) =>
+          !s ? '(unset)' : s.length <= 12 ? '****' : `${s.slice(0, 6)}…${s.slice(-4)}`;
+        return json(res, 200, {
+          enabled: cfg.enabled,
+          url: cfg.url,
+          apiKey: redact(cfg.apiKey),
+          workspaceId: cfg.workspaceId,
+          agentPeerId: cfg.agentPeerId,
+          reasoningLevel: cfg.reasoningLevel,
+          contextTokens: cfg.contextTokens,
+          contextSummary: cfg.contextSummary,
+          syncMessages: cfg.syncMessages,
+          webhookSecret: redact(cfg.webhookSecret),
+          webhooks: cfg.webhooks.map((w: { index: number; url: string; secret: string; workspace?: string }) => ({
+            index: w.index,
+            url: w.url,
+            workspace: w.workspace,
+            secret: redact(w.secret),
+          })),
+        });
+      }
+
+      if (route === 'POST /api/honcho/webhook') {
+        const cfg = honcho.loadHonchoConfig();
+        const raw = await readRawBody(req);
+        const headers: Record<string, string | string[] | undefined> = req.headers as never;
+        const peeked = (() => {
+          try {
+            const parsed = JSON.parse(raw.toString('utf8')) as { workspace_id?: string; workspaceId?: string };
+            return parsed.workspace_id ?? parsed.workspaceId;
+          } catch {
+            return undefined;
+          }
+        })();
+        const secret = honcho.secretForRequest(cfg, peeked);
+        const verdict = honcho.verifyHonchoWebhook({ headers, rawBody: raw }, secret);
+        if (!verdict.ok) return json(res, verdict.status, { error: verdict.reason });
+        // Server-side dispatcher hook would go here. For now we ack so the
+        // platform can confirm delivery; downstream subscribers can run via
+        // services/pump-scanner-cron or skills/* by reading the same env.
+        json(res, 200, { ok: true, type: verdict.event.type, receivedAt: verdict.event.receivedAt });
+        return;
+      }
+
+      const engine = honcho.createHonchoEngine();
+
+      if (route === 'POST /api/honcho/remember') {
+        const body = (await readBody(req)) as
+          | { peer?: string; agent?: string; role?: 'owner' | 'agent'; channel?: { thread: string; platform: string }; content?: string }
+          | undefined;
+        if (!body?.peer || !body.role || !body.channel?.thread || !body.content) {
+          return json(res, 400, { error: 'peer, role, channel.thread, content required' });
+        }
+        await engine.remember({
+          ownerId: body.peer,
+          agentId: body.agent,
+          role: body.role,
+          channel: { thread: body.channel.thread, platform: body.channel.platform ?? 'web' },
+          content: body.content,
+        });
+        return json(res, 200, { ok: true });
+      }
+
+      if (route === 'POST /api/honcho/context') {
+        const body = (await readBody(req)) as
+          | { peer?: string; agent?: string; channel?: { thread: string; platform?: string }; tokens?: number; summary?: boolean }
+          | undefined;
+        if (!body?.peer || !body.channel?.thread) {
+          return json(res, 400, { error: 'peer, channel.thread required' });
+        }
+        const messages = await engine.contextFor({
+          ownerId: body.peer,
+          agentId: body.agent,
+          channel: { thread: body.channel.thread, platform: body.channel.platform ?? 'web' },
+          tokens: body.tokens,
+          summary: body.summary,
+        });
+        return json(res, 200, { messages });
+      }
+
+      if (route === 'POST /api/honcho/ask') {
+        const body = (await readBody(req)) as { peer?: string; query?: string } | undefined;
+        if (!body?.peer || !body.query) {
+          return json(res, 400, { error: 'peer, query required' });
+        }
+        const reply = await engine.describe(body.peer, body.query);
+        return json(res, 200, { reply });
+      }
+    }
+
     json(res, 404, { error: `unknown route ${route}` });
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
@@ -413,4 +553,9 @@ server.listen(PORT, async () => {
   console.log('     POST /api/agent/text             { prompt: ... }   /src OpenRouter');
   console.log('     POST /api/agent/clone            { type: ... }     /src cloneAgent');
   console.log('     GET  /api/helius/asset?id=<id>                    /src Helius DAS');
+  console.log('     POST /api/honcho/webhook                          Honcho HMAC-verified webhook');
+  console.log('     POST /api/honcho/remember        { peer, role, channel, content }');
+  console.log('     POST /api/honcho/context         { peer, channel, tokens? }');
+  console.log('     POST /api/honcho/ask             { peer, query }');
+  console.log('     GET  /api/honcho/config                           Honcho resolved config (redacted)');
 });

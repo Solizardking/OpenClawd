@@ -1,20 +1,22 @@
 ---
-summary: 'Deploy checklist: Convex backend + Netlify/Railway web app.'
+summary: 'ClawdHub deploy checklist: Convex backend + Netlify/Railway web app.'
 read_when:
-  - Shipping to production
-  - Debugging /api routing
+  - Shipping ClawdHub to production
+  - Debugging /api routing on hub.solanaclawd.com
 ---
 
-# Deploy
+# ClawdHub Deploy
 
-ClawdHub (ClawHub runtime) is two deployables:
+ClawdHub is two deployables:
 
-- Web app (TanStack Start) → Netlify or Railway.
-- Convex backend → Convex deployment (serves `/api/...` routes).
+- **Web app** (TanStack Start) → Netlify, Railway, or Vercel.
+- **Convex backend** → ClawdHub Convex deployment (`third-bobcat-386` in production), serves `/api/...` routes.
+
+For the Vercel-flavored runbook specific to `hub.solanaclawd.com`, see [`deploy-hub.md`](deploy-hub.md).
 
 ## Fast path (single command)
 
-From repo root (`clawdhub/`):
+From the ClawdHub repo root:
 
 ```bash
 cp .env.deploy.example .env.deploy
@@ -24,13 +26,13 @@ bun run deploy:prod
 
 `deploy:prod` will:
 
-1. stamp Convex metadata (`APP_BUILD_SHA`, `APP_DEPLOYED_AT`)
-2. deploy Convex
-3. verify backend/frontend contract
-4. build the frontend for the selected runtime target
-5. optionally upload when the matching CLI and env are configured
+1. stamp ClawdHub Convex metadata (`APP_BUILD_SHA`, `APP_DEPLOYED_AT`).
+2. deploy ClawdHub Convex.
+3. verify backend/frontend contract.
+4. build the frontend for the selected runtime target.
+5. optionally upload when the matching CLI and env are configured.
 
-## 1) Deploy Convex
+## 1) Deploy ClawdHub Convex
 
 From your local machine:
 
@@ -48,9 +50,9 @@ gh workflow run deploy.yml
 
 GitHub Actions secrets required for `deploy.yml`:
 
-- `CONVEX_DEPLOY_KEY`
+- `CONVEX_DEPLOY_KEY` (ClawdHub Convex)
 
-Ensure Convex env is set (auth + embeddings):
+Ensure ClawdHub Convex env is set (auth + embeddings):
 
 - `AUTH_GITHUB_ID`
 - `AUTH_GITHUB_SECRET`
@@ -59,33 +61,33 @@ Ensure Convex env is set (auth + embeddings):
 - `JWKS`
 - `TOGETHER_API_KEY`
 - `OPENAI_API_KEY`
-- `SITE_URL` (your web app URL)
-- Optional webhook env (see `docs/webhook.md`)
-- Optional: `GITHUB_TOKEN` (recommended; raises GitHub account lookup limit used by publish gate)
+- `SITE_URL` (your ClawdHub web app URL)
+- Optional webhook env (see [`webhook.md`](webhook.md)).
+- Optional: `GITHUB_TOKEN` (recommended; raises GitHub account lookup limit used by the ClawdHub publish gate).
 
-## 2) Deploy web app
+## 2) Deploy ClawdHub web app
 
 Set env vars:
 
 - `VITE_CONVEX_URL`
-- `VITE_CONVEX_SITE_URL` (Convex “site” URL)
+- `VITE_CONVEX_SITE_URL` (ClawdHub Convex "site" URL)
 - `CONVEX_SITE_URL` (same value; used by auth provider config)
-- `SITE_URL` (web app URL)
+- `SITE_URL` (ClawdHub web app URL)
 - `VITE_APP_BUILD_SHA` (set to the same commit SHA stamped into Convex)
 - `VITE_WALLET_API_URL` if you enable the agent wallet vault UI
 
 Deploy order:
 
-1. Convex
+1. ClawdHub Convex
 2. contract verify
-3. web
+3. ClawdHub web
 4. host upload / host auto-deploy
 
 ### Netlify
 
 - Use `bun run build:netlify`.
 - Netlify serves `dist/` and routes SSR traffic through `/.netlify/functions/server`.
-- `scripts/deploy-prod.sh` will upload automatically only if `netlify` CLI, `NETLIFY_AUTH_TOKEN`, and `NETLIFY_SITE_ID` are available.
+- `scripts/deploy-prod.sh` will upload automatically only if the `netlify` CLI, `NETLIFY_AUTH_TOKEN`, and `NETLIFY_SITE_ID` are available.
 
 ### Railway
 
@@ -93,25 +95,40 @@ Deploy order:
 - Use `bun run build` so Nitro emits `.output/server/index.mjs`.
 - `scripts/deploy-prod.sh` will run `railway up --detach` when the Railway CLI is installed and the service is linked.
 
-## 3) Route `/api/*` to Convex
+## 3) Route `/api/*` to ClawdHub Convex
 
 - On Railway, Nitro proxies `/api/*` through `server/routes/api/[...path].ts`.
 - On Netlify, the generated server function handles the same proxy path and `dist/_redirects` sends requests to it.
 
-## 4) Registry discovery
+## 4) ClawdHub registry discovery
 
-The CLI can discover the API base from:
+The ClawdHub CLI can discover the API base from:
 
-- `/.well-known/clawhub.json` (preferred)
-- `/.well-known/clawdhub.json` (legacy)
+- `/.well-known/clawdhub.json` (preferred)
+- `/.well-known/clawhub.json` (legacy)
 
-If you don’t serve that file, users must set:
+If you don't serve that file, users must set:
 
 ```bash
-export CLAWHUB_REGISTRY=https://your-site.example
+export CLAWDHUB_REGISTRY=https://your-clawdhub-site.example
 ```
 
-## 5) Post-deploy checks
+## 5) Sync docs into Postgres
+
+ClawdHub keeps a Postgres mirror of the curated Markdown docs in `hub_docs`.
+The schema is created by `drizzle/0007_hub_docs.sql`; after migrations run,
+load the latest doc bodies and content hashes from the repo:
+
+```bash
+DATABASE_URL="$DATABASE_URL" bun run docs:sync-db
+```
+
+Without `DATABASE_URL`, the command prints SQL so you can inspect it or pipe it
+through your deployment database client. These rows point at
+`https://hub.solanaclawd.com/docs/...` and keep the docs connected to the live
+hub surface.
+
+## 6) Post-deploy checks
 
 ```bash
 curl -i "https://<site>/api/v1/search?q=test"
@@ -121,8 +138,8 @@ curl -i "https://<site>/api/v1/skills/gifgrep"
 Then:
 
 ```bash
-clawhub login --site https://<site>
-clawhub whoami
+clawdhub login --site https://<site>
+clawdhub whoami
 ```
 
 Rate-limit sanity checks:
@@ -131,7 +148,7 @@ Rate-limit sanity checks:
 curl -i "https://<site>/api/v1/download?slug=gifgrep"
 ```
 
-Confirm headers are present:
+Confirm ClawdHub headers are present:
 
 - `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`
 - `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`
@@ -144,11 +161,10 @@ bun run verify:convex-contract -- --prod
 PLAYWRIGHT_BASE_URL=https://<site> bunx playwright test e2e/menu-smoke.pw.test.ts e2e/upload-auth-smoke.pw.test.ts
 ```
 
-The Playwright smoke suite should fail on visible error UI, page errors, and
-browser console errors.
+The Playwright smoke suite should fail on visible error UI, page errors, and browser console errors.
 
 Proxy/IP caveat:
 
-- Default IP source is `cf-connecting-ip`.
+- Default IP source on ClawdHub is `cf-connecting-ip`.
 - For non-Cloudflare trusted proxy setups, set `TRUST_FORWARDED_IPS=true`.
-- If proxy headers are not forwarded/trusted correctly, multiple users may collapse into one IP and hit false-positive rate limits.
+- If proxy headers are not forwarded/trusted correctly, multiple users may collapse into one IP and hit false-positive ClawdHub rate limits.

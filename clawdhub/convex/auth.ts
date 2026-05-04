@@ -7,13 +7,13 @@ import type { DataModel, Id } from './_generated/dataModel'
 import { shouldScheduleGitHubProfileSync } from './lib/githubProfileSync'
 
 export const BANNED_REAUTH_MESSAGE =
-  'Your account has been banned for uploading malicious skills. If you believe this is a mistake, please contact security@openclaw.ai and we will work with you to restore access.'
+  'Your account has been banned for uploading malicious skills. If you believe this is a mistake, please contact security@openclawd.net and we will work with you to restore access.'
 export const DELETED_ACCOUNT_REAUTH_MESSAGE =
   'This account has been permanently deleted and cannot be restored.'
 
 const REAUTH_BLOCKING_BAN_ACTIONS = new Set(['user.ban', 'user.autoban.malware'])
-const FALLBACK_SITE_URL = 'https://seeker.solanaos.net'
-const FALLBACK_SOULS_SITE_URL = 'https://souls.solanaos.net'
+const FALLBACK_SITE_URL = 'https://hub.solanaclawd.com'
+const FALLBACK_SOULS_SITE_URL = 'https://souls.openclawd.net'
 const FALLBACK_CONVEX_SITE_URL = 'http://127.0.0.1:3210'
 const FALLBACK_GITHUB_CLIENT_ID = 'local-dev-github-client-id'
 const FALLBACK_GITHUB_CLIENT_SECRET = 'local-dev-github-client-secret'
@@ -113,6 +113,8 @@ function ensureAuthRuntime() {
   const convexSiteUrl =
     normalizeOrigin(process.env.CONVEX_SITE_URL) ??
     normalizeOrigin(process.env.CUSTOM_AUTH_SITE_URL) ??
+    normalizeOrigin(process.env.CONVEX_ACTIONS) ??
+    normalizeOrigin(process.env.VITE_CONVEX_SITE_URL) ??
     FALLBACK_CONVEX_SITE_URL
   const githubClientId =
     process.env.AUTH_GITHUB_ID?.trim() ||
@@ -154,6 +156,10 @@ function normalizeRedirectTarget(redirectTo: string, defaultSiteUrl: string) {
   const allowedOrigins = new Set([
     defaultSiteUrl,
     authRuntime.soulsSiteUrl,
+    'https://hub.solanaclawd.com',
+    'https://solanaclawd.com',
+    'https://openclawd.net',
+    'https://gateway.solanaclawd.com',
     'http://localhost:3000',
     'http://127.0.0.1:3000',
   ])
