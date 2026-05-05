@@ -34,8 +34,15 @@
 import http from 'node:http';
 import { URL } from 'node:url';
 import 'dotenv/config';
+import { discover } from '@openclawdsolana/service-registry';
 
-const PORT = Number(process.env.GATEWAY_HTTP_PORT) || 8788;
+// Source the boot port from @openclawdsolana/service-registry so other
+// OpenClawd surfaces (chrome-extension, clawdhub, scripts/doctor.mjs) can
+// reach the gateway at the URL they expect. The registry honors GATEWAY_HTTP_PORT
+// (port-only) and OPENCLAWD_GATEWAY_URL (full URL); we read its resolved port
+// here so a single env override moves both this server and every consumer.
+const REGISTRY_GATEWAY = discover('gateway');
+const PORT = REGISTRY_GATEWAY.port;
 const BIRDEYE_KEY = process.env.BIRDEYE_API_KEY ?? '';
 const HELIUS_KEY = process.env.HELIUS_API_KEY ?? '';
 const HELIUS_RPC =
