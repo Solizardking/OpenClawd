@@ -49,7 +49,7 @@ const SKIP_FILES = [
 ];
 
 function isSafeMatch(match) {
-  const value = match[0].replace(/["'`]/g, '');
+  const value = match.replace(/["'`]/g, '');
   return SAFE_PATTERNS.some(safe => safe.test(value));
 }
 
@@ -67,7 +67,7 @@ function scanFile(filePath, content) {
     if (matches) {
       for (const match of matches) {
         // Skip safe patterns
-        if (isSafeMatch([match])) continue;
+        if (isSafeMatch(match)) continue;
         
         issues.push({
           type: name,

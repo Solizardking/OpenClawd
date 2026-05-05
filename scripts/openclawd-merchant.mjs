@@ -18,11 +18,13 @@ Options:
   --recipient <wallet>             Merchant Solana wallet for docs/config
   --label <name>                   Store label. Default: <name>
   --cluster <devnet|mainnet-beta>  Target cluster hint. Default: devnet
+  --pay-gateway <url>              Pay.sh/x402 gateway URL hint. Default: https://pay.sh
+  --catalog <url>                  API catalog URL hint. Default: https://pay.sh
   --force                          Overwrite an existing generated project
 
 Examples:
   npm run payments:merchant -- create taco-stand --recipient 11111111111111111111111111111111 --label "Taco Stand"
-  npm run payments:merchant -- create api-store --type merchant --output ./apps
+  npm run payments:merchant -- create google-agent --type merchant --pay-gateway https://pay.sh --output ./apps
 `;
 
 function parseArgs(argv) {
@@ -35,6 +37,8 @@ function parseArgs(argv) {
     recipient: '11111111111111111111111111111111',
     label: name,
     cluster: 'devnet',
+    payGateway: 'https://pay.sh',
+    catalog: 'https://pay.sh',
     force: false,
   };
 
@@ -61,6 +65,8 @@ function parseArgs(argv) {
     else if (key === 'recipient') options.recipient = value;
     else if (key === 'label') options.label = value;
     else if (key === 'cluster') options.cluster = value;
+    else if (key === 'pay-gateway') options.payGateway = value;
+    else if (key === 'catalog') options.catalog = value;
     else throw new Error(`Unknown option: ${arg}`);
   }
 
@@ -140,6 +146,9 @@ async function writeProjectFiles(targetRoot, options, appName) {
       kind: 'solana-merchant',
       source: 'payments/pay-main',
       templates: includeForType(options.type),
+      protocols: ['solana-pay', 'x402', 'mpp'],
+      payGateway: options.payGateway,
+      catalog: options.catalog,
     },
     packageManager: 'pnpm@10.29.2',
   };
@@ -151,6 +160,8 @@ async function writeProjectFiles(targetRoot, options, appName) {
       `OPENCLAWD_MERCHANT_LABEL="${options.label}"`,
       `OPENCLAWD_MERCHANT_WALLET=${options.recipient}`,
       `OPENCLAWD_SOLANA_CLUSTER=${options.cluster}`,
+      `OPENCLAWD_PAY_GATEWAY=${options.payGateway}`,
+      `OPENCLAWD_PAY_CATALOG=${options.catalog}`,
       'SOLANA_RPC_URL=https://api.devnet.solana.com',
       'HELIUS_API_KEY=',
       '',
@@ -165,6 +176,20 @@ async function writeProjectFiles(targetRoot, options, appName) {
         recipient: options.recipient,
         cluster: options.cluster,
         currency: options.cluster === 'mainnet-beta' ? 'USDC' : 'SOL',
+        protocols: ['solana-pay', 'x402', 'mpp'],
+        paySh: {
+          gateway: options.payGateway,
+          catalog: options.catalog,
+          stablecoinSettlement: true,
+          agentCredentialModel: 'payment-is-the-credential',
+          supportedUseCases: [
+            'point-of-sale checkout',
+            'agentic merchant payment flow',
+            'pay-per-request API access',
+            'Google Cloud API proxy access',
+            'community API facilitator access',
+          ],
+        },
         generatedFrom: 'payments/pay-main',
       },
       null,
@@ -200,6 +225,11 @@ This project was generated from \`payments/pay-main\` and keeps the Solana Pay
 core/examples under \`solana-pay/\` so the upstream payment flow remains easy to
 diff and update.
 
+The manifest is OpenClawd Pay.sh compatible: it declares Solana Pay checkout
+support plus x402 and MPP rails for agent-to-API commerce. OpenClawd agents can
+use the manifest to distinguish in-person checkout, merchant simulation, and
+pay-per-request API access through a Pay.sh-style gateway.
+
 ## Install
 
 \`\`\`bash
@@ -211,7 +241,8 @@ ${posDocs}
 ${merchantDocs}
 
 Use \`openclawd.merchant.json\` as the local manifest for agents that need to
-generate store links, create checkout sessions, or validate paid orders.
+generate store links, create checkout sessions, validate paid orders, or route
+paid API calls through \`${options.payGateway}\`.
 `
   );
 }
