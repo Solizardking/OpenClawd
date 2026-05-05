@@ -77,7 +77,7 @@ export function PetCardFooter({
   async function copyInstall(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
-    const cmd = `npx petdex install ${slug}`;
+    const cmd = `npx @openclawdsolana/blockchain-buddies install ${slug}`;
     try {
       await navigator.clipboard.writeText(cmd);
       setCopied(true);
