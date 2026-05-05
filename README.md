@@ -1244,6 +1244,90 @@ Highlights from the latest integration pass:
 
 See [`RELEASE.md`](RELEASE.md) for the full diagram + runbook.
 
+### Service registry — the env-var contract
+
+`@openclawdsolana/service-registry` ([`packages/service-registry/`](packages/service-registry/)) is the single source of truth for every long-running local service URL. Importers call `discover('gateway')` (or `health(name)` / `healthAll()`) instead of hard-coding `http://localhost:18790`, so a single env override reaches every consumer at once. The chrome-extension installer pulls from it to write [`chrome-extension/build/openclawd-config.js`](chrome-extension/build/openclawd-config.js), and `npm run doctor -- --registry` pings every service for a green/red board.
+
+| Service             | Default                   | Env override                   |
+| ------------------- | ------------------------- | ------------------------------ |
+| `gateway`           | `http://127.0.0.1:18790`  | `OPENCLAWD_GATEWAY_URL`        |
+| `clawdrouter`       | `http://127.0.0.1:4000`   | `CLAWDROUTER_URL`              |
+| `walletApi`         | `http://127.0.0.1:8421`   | `OPENCLAWD_WALLET_API_URL`     |
+| `mawdaxe`           | `http://127.0.0.1:8420`   | `OPENCLAWD_MAWDAXE_URL`        |
+| `mcpBridge`         | `http://127.0.0.1:3001`   | `OPENCLAWD_MCP_URL`            |
+| `browserMcp`        | `http://127.0.0.1:38401`  | `OPENCLAWD_BROWSER_MCP_URL`    |
+| `clawdhub`          | `http://127.0.0.1:3000`   | `CLAWDHUB_URL`                 |
+| `attestationAgent`  | `http://127.0.0.1:8430`   | `OPENCLAWD_ATTESTATION_URL`    |
+| `hermesVault`       | `http://127.0.0.1:8431`   | `OPENCLAWD_HERMES_VAULT_URL`   |
+| `pumpScannerCron`   | `http://127.0.0.1:8432`   | `OPENCLAWD_PUMP_SCANNER_URL`   |
+
+Which directories integrate, and how:
+
+| Path                            | Role                  | Reads registry as                         |
+| ------------------------------- | --------------------- | ----------------------------------------- |
+| `gateway/`                      | service               | `OPENCLAWD_GATEWAY_URL` (publishes self)  |
+| `clawdrouter/`                  | service               | `CLAWDROUTER_URL` (publishes self)        |
+| `services/agent-wallet/`        | service               | `OPENCLAWD_WALLET_API_URL`                |
+| `services/attestation-agent/`   | service               | `OPENCLAWD_ATTESTATION_URL`               |
+| `services/hermes-vault/`        | service               | `OPENCLAWD_HERMES_VAULT_URL`              |
+| `services/pump-scanner-cron/`   | service               | `OPENCLAWD_PUMP_SCANNER_URL`              |
+| `clawdhub/`                     | web app               | `CLAWDHUB_URL` + `OPENCLAWD_GATEWAY_URL`  |
+| `chrome-extension/`             | extension + MCP       | generated `openclawd-config.js`           |
+| `mcp/`                          | Solana-tools MCP      | `OPENCLAWD_MCP_URL`                       |
+| `src/` & `cli/`                 | top-level entrypoints | `discover()` for any localhost call       |
+| `openclawd-framework/`, `npm/`, `packages/*`, `scripts/`, `skills/`, `site/`, `profiles/`, `clawd-vault-master/`, `plugin.delivery/` | libraries, scripts, static data | not network-bound — no integration needed |
+
+`scripts/doctor.mjs --registry` is the verification tool — run it any time you want to know which services are reachable from the current shell, with whatever env overrides happen to be set.
+
+---
+
+## 🪪 ACP ↔ Metaplex Agent Identity Bridge
+
+The local [`acp_registry/agent.json`](acp_registry/agent.json) (8004 protocol) is now the source of truth for minting a Metaplex Core agent identity. One ACP record produces one verifiable on-chain agent — and the registrar exposes the link over HTTP so every surface (CLI, hub, gateway) resolves the same identity.
+
+```bash
+# Inspect the Metaplex payload built from agent.json (no tx)
+node acp_registry/mint-metaplex.mjs --dry-run
+
+# Mint on devnet — uri must point to a hosted Core asset metadata JSON
+node acp_registry/mint-metaplex.mjs \
+  --network solana-devnet \
+  --uri https://arweave.net/<metadata-hash>
+```
+
+The script maps ACP fields onto the Metaplex Agent Registry shape:
+
+- `display_name` → Core asset `name`
+- `description` → `agentMetadata.description`
+- `services[].endpoint` → `agentMetadata.services` (entries without an endpoint are skipped)
+- `registry.program_id` → `agentMetadata.registrations[]` as `8004:<program_id>`
+- `registry.features` → `agentMetadata.supportedTrust` (`atom_reputation` → `reputation`, `proof_pass` → `proof-pass`, `seal_v1` → `seal-v1`, `x402_payments` → `crypto-economic`)
+
+On success it writes back into `agent.json`:
+
+```json
+"registry": {
+  "metaplex": {
+    "network": "solana-devnet",
+    "core_asset_address": "<base58>",
+    "signature": "<base58>",
+    "uri": "https://arweave.net/<hash>",
+    "minted_at": "2026-05-04T00:00:00.000Z",
+    "payer": "<wallet>"
+  }
+}
+```
+
+The api-registrar serves the bridge for downstream services (set `ACP_REGISTRY_DIR` if `acp_registry/` is not a sibling):
+
+|Route|Returns|
+|-----|-------|
+|`GET /api/acp/agent`|full `agent.json` + `_metaplex_registered` flag|
+|`GET /api/acp/registry`|full `registry.json`|
+|`GET /api/acp/metaplex`|Core asset address + tx signature once minted|
+
+Install for live mint: `npm install @metaplex-foundation/mpl-agent-registry @metaplex-foundation/umi @metaplex-foundation/umi-bundle-defaults`. Defaults to `~/.config/solana/id.json`; override with `--keypair` or `METAPLEX_KEYPAIR_PATH`.
+
 ---
 
 ## 📂 Project Structure
