@@ -56,26 +56,42 @@ export function posixInstallScript(pet: ResolvedPet): string {
   const safeExt = spriteExt === "png" ? "png" : "webp";
   return [
     "#!/bin/sh",
-    "# Petdex installer",
+    "# Blockchain Buddies installer",
     `# https://buddies.openclawd.biz/pets/${safeSlug}`,
     "",
     "set -e",
     "",
-    `PET_DIR="$HOME/.codex/pets/${safeSlug}"`,
+    `PET_DIR="$HOME/.openclawd/buddies/${safeSlug}"`,
     "",
     `echo "Installing ${safeName.replace(/"/g, "")} into $PET_DIR"`,
     'mkdir -p "$PET_DIR"',
     "",
     `curl -fsSL -o "$PET_DIR/pet.json" ${q(petJsonUrl)}`,
     `curl -fsSL -o "$PET_DIR/spritesheet.${safeExt}" ${q(spritesheetUrl)}`,
+    `cat > "$PET_DIR/openclawd-buddy.json" <<'JSON'`,
+    JSON.stringify(
+      {
+        source: "blockchain-buddies",
+        platform: "openclawd",
+        siteUrl: "https://buddies.openclawd.biz",
+        slug: safeSlug,
+        displayName: safeName,
+        petJsonUrl,
+        spritesheetUrl,
+        format: "codex-pet-v1",
+      },
+      null,
+      2,
+    ),
+    "JSON",
     "",
     `echo "Installed: ${safeName.replace(/"/g, "")}"`,
     'echo "  Path: $PET_DIR"',
     'echo ""',
-    'echo "Activate it inside Codex:"',
-    'echo "  Settings -> Appearance -> Pets -> select your pet"',
+    'echo "OpenClawd can discover this buddy from:"',
+    'echo "  $HOME/.openclawd/buddies"',
     'echo ""',
-    'echo "Then use /pet inside Codex to wake or tuck it away."',
+    'echo "Legacy Codex-compatible files are kept as pet.json and spritesheet.*."',
     "",
   ].join("\n");
 }
@@ -89,26 +105,43 @@ export function powershellInstallScript(pet: ResolvedPet): string {
   // Strip newlines / quotes from the display name before echoing.
   const safeName = String(displayName).replace(/[\r\n"]+/g, " ");
   return [
-    "# Petdex installer",
+    "# Blockchain Buddies installer",
     `# https://buddies.openclawd.biz/pets/${safeSlug}`,
     "",
     "$ErrorActionPreference = 'Stop'",
     `$slug = ${q(safeSlug)}`,
-    "$petDir = Join-Path $HOME (Join-Path '.codex' (Join-Path 'pets' $slug))",
+    "$petDir = Join-Path $HOME (Join-Path '.openclawd' (Join-Path 'buddies' $slug))",
     "",
     `Write-Host ${q(`Installing ${safeName} into `)}$petDir`,
     "New-Item -ItemType Directory -Force -Path $petDir | Out-Null",
     "",
     `Invoke-WebRequest -Uri ${q(petJsonUrl)} -OutFile (Join-Path $petDir 'pet.json') -UseBasicParsing`,
     `Invoke-WebRequest -Uri ${q(spritesheetUrl)} -OutFile (Join-Path $petDir ${q(`spritesheet.${safeExt}`)}) -UseBasicParsing`,
+    `$metadata = ${q(
+      JSON.stringify(
+        {
+          source: "blockchain-buddies",
+          platform: "openclawd",
+          siteUrl: "https://buddies.openclawd.biz",
+          slug: safeSlug,
+          displayName: safeName,
+          petJsonUrl,
+          spritesheetUrl,
+          format: "codex-pet-v1",
+        },
+        null,
+        2,
+      ),
+    )}`,
+    "$metadata | Set-Content -Path (Join-Path $petDir 'openclawd-buddy.json') -Encoding UTF8",
     "",
     `Write-Host ${q(`Installed: ${safeName}`)}`,
     'Write-Host "  Path: $petDir"',
     'Write-Host ""',
-    'Write-Host "Activate it inside Codex:"',
-    'Write-Host "  Settings -> Appearance -> Pets -> select your pet"',
+    'Write-Host "OpenClawd can discover this buddy from:"',
+    'Write-Host "  ~/.openclawd/buddies"',
     'Write-Host ""',
-    'Write-Host "Then use /pet inside Codex to wake or tuck it away."',
+    'Write-Host "Legacy Codex-compatible files are kept as pet.json and spritesheet.*."',
     "",
   ].join("\n");
 }
@@ -117,7 +150,7 @@ export function posixNotFoundScript(slug: string): string {
   const safe = String(slug).replace(/[^a-z0-9-]/g, "");
   return [
     "#!/bin/sh",
-    `echo "Pet '${safe}' not found in Petdex." >&2`,
+    `echo "Buddy '${safe}' not found in Blockchain Buddies." >&2`,
     'echo "Browse buddies at https://buddies.openclawd.biz" >&2',
     "exit 1",
     "",
@@ -127,7 +160,7 @@ export function posixNotFoundScript(slug: string): string {
 export function powershellNotFoundScript(slug: string): string {
   const safe = String(slug).replace(/[^a-z0-9-]/g, "");
   return [
-    `Write-Error "Pet '${safe}' not found in Petdex."`,
+    `Write-Error "Buddy '${safe}' not found in Blockchain Buddies."`,
     'Write-Error "Browse buddies at https://buddies.openclawd.biz"',
     "exit 1",
     "",

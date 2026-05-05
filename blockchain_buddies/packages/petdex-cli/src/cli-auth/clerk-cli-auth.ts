@@ -75,7 +75,7 @@ export class ClerkCliAuth {
 			issuer: normalizeIssuer(config.issuer),
 			scopes: config.scopes ?? DEFAULT_SCOPES,
 			storage,
-			keychainService: config.keychainService ?? "clerk-cli-auth",
+			keychainService: config.keychainService ?? "blockchain-buddies-cli",
 			environment,
 			callbackPort: config.callbackPort ?? 0,
 			timeoutMs: config.timeoutMs ?? 120_000,

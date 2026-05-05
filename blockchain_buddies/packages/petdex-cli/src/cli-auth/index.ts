@@ -1,5 +1,5 @@
 /**
- * Public entry point for @clerk/cli-auth.
+ * Public entry point for the Blockchain Buddies CLI auth helpers.
  *
  * The main class is `ClerkCliAuth` — instantiate with config, then:
  *   - await auth.login() → opens browser, starts localhost callback, exchanges code, stores tokens
