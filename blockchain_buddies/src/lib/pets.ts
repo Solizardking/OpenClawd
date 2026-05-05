@@ -5,7 +5,7 @@
 
 import { and, eq, sql } from "drizzle-orm";
 
-import { db, schema } from "@/lib/db/client";
+import { db, hasDatabaseUrl, schema } from "@/lib/db/client";
 import {
   getAllMetrics,
   getMetricsForSlug,
@@ -22,6 +22,7 @@ const EMPTY_METRICS: Metrics = {
 };
 
 export async function getPet(slug: string): Promise<PetdexPet | undefined> {
+  if (!hasDatabaseUrl) return undefined;
   const row = await db.query.submittedPets.findFirst({
     where: and(
       eq(schema.submittedPets.slug, slug),
@@ -44,6 +45,7 @@ export async function getPetWithMetrics(
  *  pre-render featured pets at build time; everything else is rendered
  *  on-demand and revalidated. */
 export async function getStaticPetSlugs(): Promise<string[]> {
+  if (!hasDatabaseUrl) return [];
   const rows = await db
     .select({ slug: schema.submittedPets.slug })
     .from(schema.submittedPets)
@@ -59,6 +61,7 @@ export async function getStaticPetSlugs(): Promise<string[]> {
 export async function getFeaturedPetsWithMetrics(
   limit = 6,
 ): Promise<PetWithMetrics[]> {
+  if (!hasDatabaseUrl) return [];
   const rows = await db
     .select()
     .from(schema.submittedPets)
@@ -79,6 +82,7 @@ export async function getFeaturedPetsWithMetrics(
 }
 
 export async function getAllApprovedPets(): Promise<PetdexPet[]> {
+  if (!hasDatabaseUrl) return [];
   const rows = await db
     .select()
     .from(schema.submittedPets)
@@ -97,6 +101,7 @@ export async function getApprovedPetsWithMetrics(): Promise<PetWithMetrics[]> {
 }
 
 export async function getApprovedPetCount(): Promise<number> {
+  if (!hasDatabaseUrl) return 0;
   const row = await db
     .select({ n: sql<number>`count(*)::int` })
     .from(schema.submittedPets)

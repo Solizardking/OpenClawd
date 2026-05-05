@@ -6,6 +6,7 @@
     "noEmit": false,
     "allowImportingTsExtensions": false,
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "outDir": "dist"
   },
   "include": ["src/**/*.ts"],
