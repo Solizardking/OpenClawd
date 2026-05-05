@@ -376,6 +376,7 @@ function writeStaticApi(catalog, agents, templates, registrationDocs, acpRegistr
   writeJson(path.join(PUBLIC_API_DIR, "agents-catalog.json"), catalog);
   writeJson(path.join(PUBLIC_API_DIR, "acp-registry.json"), acpRegistry);
   writeJson(path.join(WELL_KNOWN_DIR, "acp.json"), acpRegistry);
+  copyStaticMetadata();
 
   for (const agent of agents) {
     const sourcePath = path.join(SRC_DIR, agent.sourceFile);
@@ -409,6 +410,22 @@ function writeStaticApi(catalog, agents, templates, registrationDocs, acpRegistr
     if (fs.existsSync(sourcePath)) {
       writeJson(path.join(PUBLIC_TEMPLATES_DIR, `${template.templateId}.json`), readJson(sourcePath));
     }
+  }
+}
+
+function copyStaticMetadata() {
+  const files = [
+    ["server.json", path.join(PUBLIC_DIR, "server.json")],
+    ["robots.txt", path.join(PUBLIC_DIR, "robots.txt")],
+    ["humans.txt", path.join(PUBLIC_DIR, "humans.txt")],
+    [path.join(".well-known", "ai-plugin.json"), path.join(WELL_KNOWN_DIR, "ai-plugin.json")],
+  ];
+
+  for (const [from, to] of files) {
+    const source = path.join(ROOT, from);
+    if (!fs.existsSync(source)) continue;
+    fs.mkdirSync(path.dirname(to), { recursive: true });
+    fs.copyFileSync(source, to);
   }
 }
 

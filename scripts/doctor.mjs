@@ -72,7 +72,53 @@ const checks = [
   },
 ];
 
-function main() {
+async function registryMode() {
+  // Live health check across every service in @openclawdsolana/service-registry.
+  // Loaded lazily via dynamic import so the default doctor run doesn't pay the cost.
+  const registryEntry = join(rootDir, 'packages/service-registry/dist/index.js');
+  const registrySrc = join(rootDir, 'packages/service-registry/src/index.ts');
+  if (!existsSync(registryEntry)) {
+    if (!existsSync(registrySrc)) {
+      console.error('❌ service-registry package missing at packages/service-registry/');
+      process.exit(2);
+    }
+    console.error('⚠️  service-registry not built yet — run: npm --prefix packages/service-registry run build');
+    process.exit(2);
+  }
+
+  const { healthAll, SERVICES } = await import(registryEntry);
+
+  console.log('🏥 OpenClawd Doctor — service registry health\n');
+  const results = await healthAll();
+  const nameW = Math.max(...results.map((r) => r.name.length));
+  const urlW  = Math.max(...Object.values(SERVICES).map((s) => s.url.length));
+
+  let allOk = true;
+  for (const r of results) {
+    const cfg = SERVICES[r.name];
+    const icon = r.ok ? '🟢' : '🔴';
+    const detail = r.ok ? `${r.status} (${r.latencyMs}ms)` : (r.error || 'down');
+    console.log(`  ${icon} ${r.name.padEnd(nameW)}  ${cfg.url.padEnd(urlW)}  ${cfg.healthPath.padEnd(14)} ${detail}`);
+    if (!r.ok) allOk = false;
+  }
+
+  console.log('\n' + '='.repeat(40));
+  if (allOk) {
+    console.log('✅ All registered services responded.');
+    process.exit(0);
+  } else {
+    console.log('⚠️  Some services are down. Set the relevant env override or start them locally.');
+    console.log('    See packages/service-registry/README.md for the env var per service.');
+    process.exit(1);
+  }
+}
+
+async function main() {
+  if (process.argv.includes('--registry')) {
+    await registryMode();
+    return;
+  }
+
   console.log('🏥 OpenClawd Doctor\n');
   console.log('Checking bootstrap requirements...\n');
 
@@ -93,6 +139,7 @@ function main() {
     console.log('  1. npm run install:all');
     console.log('  2. npm run build:catalog');
     console.log('  3. npm run hooks:install');
+    console.log('  4. npm run doctor -- --registry   # ping every running service');
     console.log('');
     process.exit(0);
   } else {

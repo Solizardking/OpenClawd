@@ -1,0 +1,35 @@
+{
+  "name": "@openclawdsolana/service-registry",
+  "version": "0.1.0",
+  "description": "Single source of truth for OpenClawd local-service hosts/ports. Used by gateway clients, MCP servers, the chrome extension config, and scripts/doctor.mjs to avoid hard-coded localhost URLs.",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./dist": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["src", "dist", "README.md"],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["openclawd", "service-registry", "discovery"],
+  "author": "Solana Clawd",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
