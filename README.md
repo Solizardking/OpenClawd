@@ -295,7 +295,7 @@ clawd
 | **Autonomous loop** | asyncio scheduler, default mandates `pump_fun_pulse` / `market_trends` / `market_alpha` ticking every 30 min, bounded concurrency, recoverable errors | [llm-wiki-tang/api/services/research_autoloop.py](llm-wiki-tang/api/services/research_autoloop.py) |
 | **API routes** | `/chain` `/defi` `/market` rewritten on top of the orchestrator; new `/runs`, `/autoloop/{start,stop,status}`, mandate CRUD | [llm-wiki-tang/api/routes/research.py](llm-wiki-tang/api/routes/research.py) |
 | **Persistence** | `research_runs` (jsonb blobs · sources[] · confidence · metadata), `research_findings` (signal extraction), `research_mandates` (cron memory) | [llm-wiki-tang/supabase/migrations/002_research_runs.sql](llm-wiki-tang/supabase/migrations/002_research_runs.sql) |
-| **TUI integration** | typed `ResearchClient` + `/research` (chain / defi / market / runs) and `/autoloop` (start · stop · status · list · add · remove) slash commands | [clawd-tui/src/research.ts](clawd-tui/src/research.ts) · [clawd-tui/src/commands.ts](clawd-tui/src/commands.ts) |
+| **TUI integration** | typed `ResearchClient` + `/research` (chain / defi / market / runs) and `/autoloop` (start · stop · status · list · add · remove) slash commands | [apps/clawd-tui/src/research.ts](apps/clawd-tui/src/research.ts) · [apps/clawd-tui/src/commands.ts](apps/clawd-tui/src/commands.ts) |
 
 ### Required env (already set in your `llm-wiki-tang/.env`)
 
@@ -337,7 +337,7 @@ The autoloop runs three default mandates every 30 minutes — pump.fun launches 
 
 > **What shipped:** [`@openclawdsolana/clawd-tui@0.2.1`](https://www.npmjs.com/package/@openclawdsolana/clawd-tui) · [`@openclawdsolana/clawd-code-cli@0.2.3`](https://www.npmjs.com/package/@openclawdsolana/clawd-code-cli) · [`@openclawdsolana/percolator@1.0.1`](https://www.npmjs.com/package/@openclawdsolana/percolator) (perps CLI) · [`@openclawdsolana/plugin-sdk@1.1.1`](https://www.npmjs.com/package/@openclawdsolana/plugin-sdk) · [`@openclawdsolana/chat-plugins-gateway@1.9.1`](https://www.npmjs.com/package/@openclawdsolana/chat-plugins-gateway) · 🦞 [Browser Bridge v0.2.0](./chrome-extension/openclawd-chrome-extension) (Chrome MV3)
 >
-> **Read the writeup:** [clawd-tui v0.2 — A Solana-Aware Terminal](./clawd-tui/docs/v0.2-solana-aware-terminal.md) · **Debut site:** [`site/index.html`](./site)
+> **Read the writeup:** [clawd-tui v0.2 — A Solana-Aware Terminal](./apps/clawd-tui/docs/v0.2-solana-aware-terminal.md) · **Debut site:** [`site/index.html`](./site)
 
 ### `clawd` is now Solana-native by default
 
@@ -486,7 +486,7 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 | 🦞 **@openclawdsolana/leviathan** *(npm)* | Sovereign on-chain agent runtime. Solana keypair + Metaplex Agent Registry + lifecycle (spawn → molt → beach) | [`openclawd-framework/`](openclawd-framework/) |
 | 💸 **@openclawdsolana/agents-x402** *(npm)* | One-line x402 Solana USDC monetization for MCP / HTTP / agent tool calls | [`packages/agents-x402-solana/`](packages/agents-x402-solana/) |
 | 🔐 **@openclawdsolana/agentwallet** *(npm)* | Encrypted Solana + EVM keypair vault, E2B sandbox + CF Workers deploy | [`packages/agentwallet/`](packages/agentwallet/) |
-| 🦞 **@openclawdsolana/clawd-tui** *(npm)* | OpenRouter-native lobster TUI (Ink + `@openrouter/agent`) — file_read/write/edit, glob, grep, list_dir, shell, web_search, datetime, PKCE OAuth, approval gates on destructive tools, **direct DeepSeek client** (`/deepseek` thinking-mode chat · `/deepseek-fim` · `/deepseek-balance` · `/deepseek-models`, `DEEPSEEK_API_KEY` to enable) | [`clawd-tui/`](clawd-tui/) |
+| 🦞 **@openclawdsolana/clawd-tui** *(npm)* | OpenRouter-native lobster TUI (Ink + `@openrouter/agent`) — file_read/write/edit, glob, grep, list_dir, shell, web_search, datetime, PKCE OAuth, approval gates on destructive tools, **direct DeepSeek client** (`/deepseek` thinking-mode chat · `/deepseek-fim` · `/deepseek-balance` · `/deepseek-models`, `DEEPSEEK_API_KEY` to enable) | [`apps/clawd-tui/`](apps/clawd-tui/) |
 | 📚 **9 runnable examples** | Blockchain Buddies · OODA loop · x402 Solana · pump.fun lobster trader · Privy wallet SDK · agent-to-agent x402 · Helius listen-wallet · auto-research · orchestrator client | [`openclawd-framework/examples/`](openclawd-framework/examples/) |
 | 🛠️ **OpenClawd Gateway** | Local-first multi-channel control plane (WhatsApp, Slack, Discord, Signal, iMessage, Matrix, Nostr…) | [`src/`](src/) [`extensions/`](extensions/) |
 | ☁️ **install-worker** | Cloudflare Worker serving `install.solanaclawd.com`, `gateway.solanaclawd.com`, and apex aliases | [`workers/install-worker/`](workers/install-worker/) |
@@ -1432,7 +1432,7 @@ openclawd/
 │   ├── ARCHITECTURE.md · SCALING.md · SECURITY.md
 │   └── package.json            #   bin: clawd-code · clawd
 │
-├── clawd-tui/                  # OpenRouter-native TUI alternative (Ink + @openrouter/agent)
+├── apps/clawd-tui/             # OpenRouter-native TUI alternative (Ink + @openrouter/agent)
 │
 ├── openclawd-framework/        # 🦞 @openclawdsolana/leviathan — sovereign on-chain agent runtime
 │   ├── README.md               #   Lobster-themed framework README
