@@ -210,10 +210,10 @@ func (s *Server) handleRoot(w http.ResponseWriter, r *http.Request) {
 
 func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {
 	jsonResp(w, map[string]any{
-		"status":      "ok",
-		"wallets":     len(s.vault.ListWallets()),
-		"evm_chains":  len(s.evmClients),
-		"solana_rpc":  s.solanaRPC != nil,
+		"status":     "ok",
+		"wallets":    len(s.vault.ListWallets()),
+		"evm_chains": len(s.evmClients),
+		"solana_rpc": s.solanaRPC != nil,
 	})
 }
 
@@ -300,12 +300,12 @@ func (s *Server) handleListWallets(w http.ResponseWriter, r *http.Request) {
 	result := make([]map[string]any, len(wallets))
 	for i, wl := range wallets {
 		result[i] = map[string]any{
-			"id":        wl.ID,
-			"label":     wl.Label,
-			"chain":     wl.ChainType,
-			"chain_id":  wl.ChainID,
-			"address":   wl.Address,
-			"paused":    wl.Paused,
+			"id":         wl.ID,
+			"label":      wl.Label,
+			"chain":      wl.ChainType,
+			"chain_id":   wl.ChainID,
+			"address":    wl.Address,
+			"paused":     wl.Paused,
 			"created_at": wl.CreatedAt,
 		}
 	}
@@ -320,12 +320,12 @@ func (s *Server) handleGetWallet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	jsonResp(w, map[string]any{
-		"id":        wl.ID,
-		"label":     wl.Label,
-		"chain":     wl.ChainType,
-		"chain_id":  wl.ChainID,
-		"address":   wl.Address,
-		"paused":    wl.Paused,
+		"id":         wl.ID,
+		"label":      wl.Label,
+		"chain":      wl.ChainType,
+		"chain_id":   wl.ChainID,
+		"address":    wl.Address,
+		"paused":     wl.Paused,
 		"created_at": wl.CreatedAt,
 	})
 }
