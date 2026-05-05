@@ -35,6 +35,7 @@ import http from 'node:http';
 import { URL } from 'node:url';
 import 'dotenv/config';
 import { discover } from '@openclawdsolana/service-registry';
+import { CodexDispatcher, type CodexTaskRequest } from './codex-dispatcher.js';
 
 // Source the boot port from @openclawdsolana/service-registry so other
 // OpenClawd surfaces (chrome-extension, clawdhub, scripts/doctor.mjs) can
@@ -49,6 +50,11 @@ const HELIUS_RPC =
   process.env.HELIUS_RPC_URL ||
   (HELIUS_KEY ? `https://mainnet.helius-rpc.com/?api-key=${HELIUS_KEY}` : '');
 const SRC_DISABLED = process.env.OPENCLAWD_SRC_DISABLED === '1';
+const codex = new CodexDispatcher({
+  openaiApiKey: process.env.OPENAI_API_KEY,
+  model: process.env.OPENAI_CODEX_MODEL,
+  repoPath: process.env.OPENCLAWD_REPO_PATH,
+});
 
 // Lazy bridge to the root /src runtime. Each subsystem loads independently
 // so a broken module in /src doesn't take down the whole bridge — e.g. if
@@ -68,6 +74,13 @@ const SRC_ERRORS: Record<string, string | null> = {
 };
 const srcBridge: SrcBridge = {};
 let srcLoaded = false;
+
+const runtimeImport = (specifier: string): Promise<unknown> => {
+  const importer = new Function('specifier', 'return import(specifier)') as (
+    specifier: string,
+  ) => Promise<unknown>;
+  return importer(specifier);
+};
 
 async function loadSrcModule<T>(
   key: keyof SrcBridge,
@@ -93,7 +106,7 @@ async function loadSrcModule<T>(
 }
 
 async function ensureRuntime() {
-  return loadSrcModule('runtime', () => import('../../src/agents/runtime.js'), (m) => {
+  return loadSrcModule('runtime', () => runtimeImport('../../src/agents/runtime.js'), (m) => {
     const mod = m as {
       getRuntime: () => unknown;
       describeRuntime: (r: unknown) => unknown;
@@ -102,13 +115,13 @@ async function ensureRuntime() {
   });
 }
 async function ensureClone() {
-  return loadSrcModule('clone', () => import('../../src/agents/clone.js'), (m) => {
+  return loadSrcModule('clone', () => runtimeImport('../../src/agents/clone.js'), (m) => {
     const mod = m as { cloneAgent: (t: string, o?: unknown) => unknown };
     return { cloneAgent: mod.cloneAgent };
   });
 }
 async function ensureHelius() {
-  return loadSrcModule('helius', () => import('../../src/helius/index.js'), (m) => {
+  return loadSrcModule('helius', () => runtimeImport('../../src/helius/index.js'), (m) => {
     const mod = m as {
       createHeliusClient?: (cfg: { apiKey: string; rpcUrl?: string }) => {
         getAsset: (id: string) => Promise<unknown>;
@@ -165,25 +178,61 @@ async function readRawBody(req: http.IncomingMessage): Promise<Buffer> {
 
 // ── Honcho bridge (lazy) ────────────────────────────────────────────────
 type HonchoBridgeMod = {
-  loadHonchoConfig: typeof import('../../packages/honcho-bridge/src/config.js').loadHonchoConfig;
-  createHonchoEngine: typeof import('../../packages/honcho-bridge/src/engine.js').createHonchoEngine;
-  verifyHonchoWebhook: typeof import('../../packages/honcho-bridge/src/webhook.js').verifyHonchoWebhook;
-  secretForRequest: typeof import('../../packages/honcho-bridge/src/webhook.js').secretForRequest;
+  loadHonchoConfig: () => {
+    enabled: boolean;
+    url: string;
+    apiKey: string;
+    workspaceId: string;
+    agentPeerId: string;
+    reasoningLevel: string;
+    contextTokens: number;
+    contextSummary: boolean;
+    syncMessages: boolean;
+    webhookSecret: string;
+    webhooks: Array<{ index: number; url: string; secret: string; workspace?: string }>;
+  };
+  createHonchoEngine: () => {
+    remember: (input: {
+      ownerId: string;
+      agentId?: string;
+      role: 'owner' | 'agent';
+      channel: { thread: string; platform: string };
+      content: string;
+    }) => Promise<void>;
+    contextFor: (input: {
+      ownerId: string;
+      agentId?: string;
+      channel: { thread: string; platform: string };
+      tokens?: number;
+      summary?: boolean;
+    }) => Promise<unknown>;
+    describe: (peer: string, query: string) => Promise<string>;
+  };
+  verifyHonchoWebhook: (
+    req: { headers: Record<string, string | string[] | undefined>; rawBody: Buffer | string },
+    secret: string,
+  ) =>
+    | { ok: true; event: { type: string; receivedAt: string } }
+    | { ok: false; reason: string; status: 400 | 401 | 415 };
+  secretForRequest: (cfg: ReturnType<HonchoBridgeMod['loadHonchoConfig']>, hintedWorkspace?: string) => string;
 };
 let honchoMod: HonchoBridgeMod | null | undefined; // undefined = not tried, null = failed
 async function loadHoncho(): Promise<HonchoBridgeMod | null> {
   if (honchoMod !== undefined) return honchoMod;
   try {
     const [cfg, engine, hook] = await Promise.all([
-      import('../../packages/honcho-bridge/src/config.js'),
-      import('../../packages/honcho-bridge/src/engine.js'),
-      import('../../packages/honcho-bridge/src/webhook.js'),
+      runtimeImport('../../packages/honcho-bridge/src/config.js'),
+      runtimeImport('../../packages/honcho-bridge/src/engine.js'),
+      runtimeImport('../../packages/honcho-bridge/src/webhook.js'),
     ]);
+    const cfgMod = cfg as Pick<HonchoBridgeMod, 'loadHonchoConfig'>;
+    const engineMod = engine as Pick<HonchoBridgeMod, 'createHonchoEngine'>;
+    const hookMod = hook as Pick<HonchoBridgeMod, 'verifyHonchoWebhook' | 'secretForRequest'>;
     honchoMod = {
-      loadHonchoConfig: cfg.loadHonchoConfig,
-      createHonchoEngine: engine.createHonchoEngine,
-      verifyHonchoWebhook: hook.verifyHonchoWebhook,
-      secretForRequest: hook.secretForRequest,
+      loadHonchoConfig: cfgMod.loadHonchoConfig,
+      createHonchoEngine: engineMod.createHonchoEngine,
+      verifyHonchoWebhook: hookMod.verifyHonchoWebhook,
+      secretForRequest: hookMod.secretForRequest,
     };
     return honchoMod;
   } catch (e) {
@@ -331,6 +380,11 @@ const server = http.createServer(async (req, res) => {
         version: '1.0.0',
         birdeye: Boolean(BIRDEYE_KEY),
         helius: Boolean(HELIUS_KEY),
+        codex: {
+          configured: codex.isConfigured(),
+          model: process.env.OPENAI_CODEX_MODEL || 'gpt-5',
+          tasks: codex.listTasks(100).length,
+        },
         srcBridge: SRC_DISABLED ? 'disabled' : 'live',
         srcModules: {
           runtime: srcBridge.runtime ? 'ok' : SRC_ERRORS.runtime ?? 'lazy',
@@ -339,6 +393,50 @@ const server = http.createServer(async (req, res) => {
         },
         time: Date.now(),
       });
+      return;
+    }
+
+    // ── Codex task dispatcher ────────────────────────────────────────
+    if (route === 'GET /api/codex/tasks') {
+      const limit = Number.parseInt(url.searchParams.get('limit') ?? '20', 10);
+      json(res, 200, { tasks: codex.listTasks(Number.isFinite(limit) ? limit : 20) });
+      return;
+    }
+
+    if (route === 'POST /api/codex/tasks') {
+      const body = (await readBody(req)) as
+        | (CodexTaskRequest & { runAsync?: boolean })
+        | undefined;
+      if (!body) return json(res, 400, { error: 'missing JSON body' });
+      const prompt = body.prompt?.trim();
+      if (!prompt) return json(res, 400, { error: 'missing "prompt"' });
+      const taskBody = body;
+
+      const reqBody: CodexTaskRequest = {
+        prompt,
+        source: taskBody.source ?? 'http',
+        chatId: taskBody.chatId,
+        userId: taskBody.userId,
+        username: taskBody.username,
+        repoPath: taskBody.repoPath,
+        mode: taskBody.mode,
+      };
+
+      if (taskBody.runAsync) {
+        const task = codex.createTask(reqBody);
+        void codex.runTask(task.id);
+        json(res, 202, { task });
+      } else {
+        const task = await codex.dispatch(reqBody);
+        json(res, task.status === 'failed' ? 502 : 200, { task });
+      }
+      return;
+    }
+
+    const codexTaskMatch = url.pathname.match(/^\/api\/codex\/tasks\/([^/]+)$/);
+    if (req.method === 'GET' && codexTaskMatch) {
+      const task = codex.getTask(decodeURIComponent(codexTaskMatch[1]));
+      json(res, task ? 200 : 404, task ? { task } : { error: 'task not found' });
       return;
     }
 
@@ -572,4 +670,7 @@ server.listen(PORT, async () => {
   console.log('     POST /api/honcho/context         { peer, channel, tokens? }');
   console.log('     POST /api/honcho/ask             { peer, query }');
   console.log('     GET  /api/honcho/config                           Honcho resolved config (redacted)');
+  console.log('     POST /api/codex/tasks            { prompt, mode? } OpenAI Responses task dispatch');
+  console.log('     GET  /api/codex/tasks                             list Codex tasks');
+  console.log('     GET  /api/codex/tasks/<id>                        inspect Codex task');
 });

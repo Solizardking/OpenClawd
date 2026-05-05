@@ -6,6 +6,7 @@
 import { SolanaService } from './solana.js';
 import { BirdeyeService } from './birdeye.js';
 import { TelegramService } from './telegram.js';
+import { CodexDispatcher } from './codex-dispatcher.js';
 
 export interface GatewayConfig {
   heliusRpcUrl: string;
@@ -13,12 +14,16 @@ export interface GatewayConfig {
   birdeyeApiKey: string;
   telegramBotToken: string;
   telegramAdminIds: string[];
+  openaiApiKey?: string;
+  openaiCodexModel?: string;
+  repoPath?: string;
 }
 
 export class OpenClawdGateway {
   private solana: SolanaService;
   private birdeye: BirdeyeService;
   private telegram: TelegramService;
+  private codex: CodexDispatcher;
   private config: GatewayConfig;
 
   constructor(config: GatewayConfig) {
@@ -26,16 +31,21 @@ export class OpenClawdGateway {
     this.solana = new SolanaService(config.heliusRpcUrl);
     this.birdeye = new BirdeyeService(config.birdeyeApiKey);
     this.telegram = new TelegramService(config.telegramBotToken, config.telegramAdminIds);
+    this.codex = new CodexDispatcher({
+      openaiApiKey: config.openaiApiKey,
+      model: config.openaiCodexModel,
+      repoPath: config.repoPath,
+    });
   }
 
   async start(): Promise<void> {
     console.log('🦞 OpenClawd Gateway starting...');
-    
-    // Initialize Telegram bot
-    await this.telegram.start();
-    
+
     // Register command handlers
     this.registerCommands();
+
+    // Initialize Telegram bot after commands are registered.
+    await this.telegram.start();
     
     console.log('✅ Gateway ready. Leviathan at your service!');
   }
@@ -80,6 +90,51 @@ export class OpenClawdGateway {
       ctx.reply('🦞 Leviathan Status:\nDepth: DEEP 🦞\nUSDC: $5.42\n$CLAWD: 1,234\nPulse: 60s');
     });
 
+    // Codex task dispatch
+    this.telegram.onCommand('/codex', async (ctx) => {
+      const prompt = ctx.message.text.split(' ').slice(1).join(' ').trim();
+      if (!prompt) {
+        await ctx.reply('Usage: /codex <coding task>');
+        return;
+      }
+
+      if (!this.codex.isConfigured()) {
+        await ctx.reply('OPENAI_API_KEY is not set in the gateway environment.');
+        return;
+      }
+
+      const queued = this.codex.createTask({
+        prompt,
+        source: 'telegram',
+        chatId: ctx.message.chatId,
+        userId: ctx.message.fromId,
+      });
+      await ctx.reply(`Codex task ${queued.id} queued. Dispatching...`);
+      const task = await this.codex.runTask(queued.id);
+      await ctx.reply(this.codex.formatTelegramTask(task));
+    });
+
+    this.telegram.onCommand('/codex_status', async (ctx) => {
+      const id = ctx.message.text.split(' ').slice(1)[0]?.trim();
+      if (!id) {
+        await ctx.reply('Usage: /codex_status <task_id>');
+        return;
+      }
+      const task = this.codex.getTask(id);
+      await ctx.reply(task ? this.codex.formatTelegramTask(task) : `Unknown Codex task: ${id}`);
+    });
+
+    this.telegram.onCommand('/codex_tasks', async (ctx) => {
+      const tasks = this.codex.listTasks(10);
+      if (tasks.length === 0) {
+        await ctx.reply('No Codex tasks yet.');
+        return;
+      }
+      await ctx.reply(tasks.map((task) => (
+        `${task.id} ${task.status} ${task.mode} ${task.prompt.slice(0, 80)}`
+      )).join('\n'));
+    });
+
     // Help
     this.telegram.onCommand('/help', (ctx) => {
       ctx.reply(`🦞 OpenClawd Gateway Commands:
@@ -90,6 +145,7 @@ export class OpenClawdGateway {
 🦞 Leviathan: /spawn /status /depth
 💰 Trading: /buy /sell /swap
 🧠 Memory: /remember /recall
+🤖 Codex: /codex <task> /codex_status <id> /codex_tasks
 ⚙️ Config: /model /voice
 
 Beach with dignity. 🦞`);
@@ -109,6 +165,9 @@ const config: GatewayConfig = {
   birdeyeApiKey: process.env.BIRDEYE_API_KEY || '',
   telegramBotToken: process.env.TELEGRAM_BOT_TOKEN || '',
   telegramAdminIds: (process.env.TELEGRAM_ADMIN_IDS || '').split(',').filter(Boolean),
+  openaiApiKey: process.env.OPENAI_API_KEY || '',
+  openaiCodexModel: process.env.OPENAI_CODEX_MODEL || '',
+  repoPath: process.env.OPENCLAWD_REPO_PATH || '/Users/8bit/fraud/OpenClawd',
 };
 
 // Start gateway
