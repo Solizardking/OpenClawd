@@ -1,0 +1,110 @@
+/* OpenClawd shared theme — import once at the top of every popup, side panel, options page. */
+
+:root {
+  --oc-color-solana-green: #14F195;
+  --oc-color-solana-purple: #9945FF;
+  --oc-color-solana-purple-deep: #7053F2;
+  --oc-color-lobster-red: #FF4D2E;
+  --oc-color-lobster-coral: #FF7A3D;
+  --oc-color-bg: #06141A;
+  --oc-color-bg-raised: #0E1A24;
+  --oc-color-bg-glass: rgba(20, 28, 38, 0.72);
+  --oc-color-border: rgba(153, 69, 255, 0.35);
+  --oc-color-border-strong: rgba(20, 241, 149, 0.55);
+  --oc-color-text: #E8F0F8;
+  --oc-color-text-muted: #7886A0;
+  --oc-color-text-dim: #4B5874;
+  --oc-color-danger: #FF5757;
+  --oc-color-warning: #FFB13D;
+  --oc-color-success: #14F195;
+
+  --oc-gradient-brand: linear-gradient(135deg, #9945FF 0%, #7053F2 50%, #14F195 100%);
+  --oc-gradient-brand-subtle: linear-gradient(135deg, rgba(153,69,255,0.18) 0%, rgba(20,241,149,0.18) 100%);
+  --oc-gradient-glass-panel: linear-gradient(180deg, rgba(20,28,38,0.78) 0%, rgba(8,16,22,0.86) 100%);
+
+  --oc-radius-xs: 4px;
+  --oc-radius-sm: 8px;
+  --oc-radius-md: 12px;
+  --oc-radius-lg: 16px;
+  --oc-radius-xl: 24px;
+  --oc-radius-pill: 9999px;
+
+  --oc-space-xs: 4px;
+  --oc-space-sm: 8px;
+  --oc-space-md: 12px;
+  --oc-space-lg: 16px;
+  --oc-space-xl: 24px;
+  --oc-space-xxl: 32px;
+
+  --oc-font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  --oc-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --oc-font-size-xs: 11px;
+  --oc-font-size-sm: 12px;
+  --oc-font-size-md: 14px;
+  --oc-font-size-lg: 16px;
+  --oc-font-size-xl: 20px;
+  --oc-font-size-xxl: 28px;
+
+  --oc-shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.04);
+  --oc-shadow-glow: 0 0 24px rgba(153, 69, 255, 0.35);
+  --oc-shadow-glow-green: 0 0 24px rgba(20, 241, 149, 0.35);
+}
+
+/* Base resets scoped under .oc-root so we don't trample host pages. */
+.oc-root {
+  font-family: var(--oc-font-family);
+  font-size: var(--oc-font-size-md);
+  color: var(--oc-color-text);
+  background: var(--oc-color-bg);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+.oc-root *, .oc-root *::before, .oc-root *::after { box-sizing: border-box; }
+
+.oc-glass {
+  background: var(--oc-gradient-glass-panel);
+  border: 1px solid var(--oc-color-border);
+  border-radius: var(--oc-radius-md);
+  box-shadow: var(--oc-shadow-glass);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+}
+
+.oc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--oc-space-sm);
+  padding: var(--oc-space-sm) var(--oc-space-lg);
+  border: 1px solid var(--oc-color-border);
+  border-radius: var(--oc-radius-sm);
+  background: transparent;
+  color: var(--oc-color-text);
+  font: inherit;
+  cursor: pointer;
+  transition: transform 80ms ease, border-color 120ms ease, box-shadow 120ms ease;
+}
+.oc-btn:hover { border-color: var(--oc-color-border-strong); box-shadow: var(--oc-shadow-glow-green); }
+.oc-btn:active { transform: translateY(1px); }
+.oc-btn--primary {
+  background: var(--oc-gradient-brand);
+  color: #ffffff;
+  border-color: transparent;
+  font-weight: var(--oc-font-weight-bold, 700);
+}
+.oc-btn--danger { border-color: var(--oc-color-danger); color: var(--oc-color-danger); }
+
+.oc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--oc-space-xs);
+  padding: 2px 8px;
+  border-radius: var(--oc-radius-pill);
+  font-size: var(--oc-font-size-xs);
+  background: var(--oc-gradient-brand-subtle);
+  border: 1px solid var(--oc-color-border);
+}
+
+.oc-mono { font-family: var(--oc-font-mono); }
+.oc-muted { color: var(--oc-color-text-muted); }
+.oc-dim { color: var(--oc-color-text-dim); }

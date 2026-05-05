@@ -1,0 +1,23 @@
+{
+  "name": "@openclawdsolana/pagent-theme",
+  "version": "1.6.4",
+  "private": false,
+  "description": "OpenClawd brand tokens, CSS variables, and lobster mark — shared by every pAGENT surface.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "default": "./dist/esm/index.js"
+    },
+    "./theme.css": "./src/theme.css",
+    "./lobster.svg": "./src/lobster.svg"
+  },
+  "files": ["dist", "src/theme.css", "src/lobster.svg"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  }
+}

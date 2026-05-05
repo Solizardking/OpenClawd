@@ -1,0 +1,21 @@
+{
+  "name": "@openclawdsolana/pagent-wallet",
+  "version": "1.6.4",
+  "private": false,
+  "description": "Unified Solana wallet adapter for the OpenClawd pAGENT — wraps the local vault (:8421), in-extension Ed25519 keystore, and Solana Seeker bridge behind one interface.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "default": "./dist/esm/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  }
+}

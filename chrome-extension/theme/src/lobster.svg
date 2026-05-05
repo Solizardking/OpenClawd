@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" shape-rendering="geometricPrecision">
+  <defs>
+    <linearGradient id="lob" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%"   stop-color="#9945FF"/>
+      <stop offset="55%"  stop-color="#7053F2"/>
+      <stop offset="100%" stop-color="#14F195"/>
+    </linearGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#1A1030"/>
+      <stop offset="100%" stop-color="#06141A"/>
+    </linearGradient>
+    <radialGradient id="shine" cx="0.35" cy="0.3" r="0.7">
+      <stop offset="0%"  stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- backplate -->
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="url(#bg)"/>
+  <rect x="10" y="10" width="236" height="236" rx="54" fill="none" stroke="url(#lob)" stroke-width="2.5" opacity="0.7"/>
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="url(#shine)"/>
+
+  <g stroke="#ffffff" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- antennae -->
+    <path d="M 108 92 Q 86 48 60 24"  fill="none" stroke-width="2.5"/>
+    <path d="M 148 92 Q 170 48 196 24" fill="none" stroke-width="2.5"/>
+    <circle cx="60"  cy="24" r="4" fill="#14F195" stroke="none"/>
+    <circle cx="196" cy="24" r="4" fill="#9945FF" stroke="none"/>
+
+    <!-- arms (drawn first so claws/body cover the joint) -->
+    <path d="M 96  142 Q 60  124  46  88" fill="none" stroke="url(#lob)" stroke-width="11"/>
+    <path d="M 160 142 Q 196 124  210 88" fill="none" stroke="url(#lob)" stroke-width="11"/>
+
+    <!-- claws -->
+    <circle cx="46"  cy="78" r="32" fill="url(#lob)"/>
+    <circle cx="210" cy="78" r="32" fill="url(#lob)"/>
+
+    <!-- pincer bites (point toward body, cut into the dark bg color) -->
+    <path d="M 76  66 L 58  78 L 76  90 Z"   fill="url(#bg)" stroke="none"/>
+    <path d="M 180 66 L 198 78 L 180 90 Z"   fill="url(#bg)" stroke="none"/>
+
+    <!-- pincer tip dots (small spike on outside of each claw) -->
+    <circle cx="22"  cy="62" r="4" fill="url(#lob)" stroke-width="2.5"/>
+    <circle cx="234" cy="62" r="4" fill="url(#lob)" stroke-width="2.5"/>
+
+    <!-- body / cephalothorax -->
+    <ellipse cx="128" cy="150" rx="60" ry="56" fill="url(#lob)"/>
+
+    <!-- shell segments -->
+    <path d="M 74 156 Q 128 168 182 156" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.45"/>
+    <path d="M 78 178 Q 128 188 178 178" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.45"/>
+
+    <!-- tail fan -->
+    <path d="M 86 198 Q 100 234 128 224 Q 156 234 170 198 Q 154 214 128 214 Q 102 214 86 198 Z"
+          fill="url(#lob)"/>
+
+    <!-- side legs -->
+    <path d="M 78 168 Q 64 178 60 196" fill="none" stroke="url(#lob)" stroke-width="5"/>
+    <path d="M 178 168 Q 192 178 196 196" fill="none" stroke="url(#lob)" stroke-width="5"/>
+
+    <!-- eyes -->
+    <circle cx="110" cy="132" r="12" fill="#ffffff" stroke="#0B0E14" stroke-width="2.5"/>
+    <circle cx="146" cy="132" r="12" fill="#ffffff" stroke="#0B0E14" stroke-width="2.5"/>
+    <circle cx="112" cy="134" r="5.5" fill="#0B0E14" stroke="none"/>
+    <circle cx="148" cy="134" r="5.5" fill="#0B0E14" stroke="none"/>
+    <circle cx="114" cy="132" r="1.7" fill="#ffffff" stroke="none"/>
+    <circle cx="150" cy="132" r="1.7" fill="#ffffff" stroke="none"/>
+
+    <!-- smile -->
+    <path d="M 117 162 Q 128 172 139 162" fill="none" stroke="#0B0E14" stroke-width="2.5"/>
+  </g>
+</svg>

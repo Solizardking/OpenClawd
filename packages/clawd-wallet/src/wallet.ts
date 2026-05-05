@@ -164,7 +164,7 @@ export class ClawdWallet implements IClawdWallet {
     options?: { commitment?: "processed" | "confirmed" | "finalized" }
   ): Promise<"confirmed" | "failed"> {
     const commitment = options?.commitment ?? "confirmed";
-    const sub = this.rpcSubscriptions.signatureNotifications(signature, {
+    const sub = (this.rpcSubscriptions as any).signatureNotifications(signature, {
       commitment,
     });
 

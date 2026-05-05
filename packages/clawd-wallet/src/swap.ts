@@ -83,7 +83,7 @@ export class SwapService {
   constructor(config?: { chain?: SolanaChain; apiUrl?: string }) {
     this.#chain = config?.chain ?? "mainnet";
     const basePath = config?.apiUrl ?? JUPITER_ENDPOINTS[this.#chain];
-    this.#jupiter = createJupiterApiClient({ basePath } as ConstructorParameters<typeof createJupiterApiClient>[0]);
+    this.#jupiter = createJupiterApiClient({ basePath } as Parameters<typeof createJupiterApiClient>[0]);
   }
 
   /**
