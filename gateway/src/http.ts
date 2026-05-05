@@ -537,7 +537,8 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, async () => {
-  console.log(`🦞 OpenClawd Gateway HTTP listening on http://127.0.0.1:${PORT}`);
+  console.log(`🦞 OpenClawd Gateway HTTP listening on ${REGISTRY_GATEWAY.url}`);
+  console.log(`   registry override: ${REGISTRY_GATEWAY.envOverride} (or ${REGISTRY_GATEWAY.portEnvOverride ?? '—'})`);
   console.log(`   birdeye: ${BIRDEYE_KEY ? '✓' : '✗ (set BIRDEYE_API_KEY)'}`);
   console.log(`   helius:  ${HELIUS_KEY ? '✓' : '✗ (set HELIUS_API_KEY)'}`);
   await probeSrc();
