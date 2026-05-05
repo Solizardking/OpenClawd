@@ -17,7 +17,6 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TerminalRouteImport } from './routes/terminal'
 import { Route as StrategyRouteImport } from './routes/strategy'
 import { Route as StarsRouteImport } from './routes/stars'
-import { Route as SolanaosRouteImport } from './routes/solanaos'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as ScannerRouteImport } from './routes/scanner'
@@ -28,17 +27,21 @@ import { Route as PairRouteImport } from './routes/pair'
 import { Route as MobileRouteImport } from './routes/mobile'
 import { Route as MiningRouteImport } from './routes/mining'
 import { Route as MemescopeRouteImport } from './routes/memescope'
+import { Route as MarketplaceRouteImport } from './routes/marketplace'
 import { Route as ManagementRouteImport } from './routes/management'
 import { Route as LicenseRouteImport } from './routes/license'
 import { Route as LaunchRouteImport } from './routes/launch'
 import { Route as IpfsRouteImport } from './routes/ipfs'
 import { Route as ImportRouteImport } from './routes/import'
+import { Route as HubRouteImport } from './routes/hub'
 import { Route as GodmodeRouteImport } from './routes/godmode'
+import { Route as GatewayRouteImport } from './routes/gateway'
 import { Route as EarlyAccessRouteImport } from './routes/early-access'
 import { Route as DexRouteImport } from './routes/dex'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CreateRouteImport } from './routes/create'
 import { Route as CopyrightRouteImport } from './routes/copyright'
+import { Route as ConsoleRouteImport } from './routes/console'
 import { Route as ChessRouteImport } from './routes/chess'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -102,11 +105,6 @@ const StarsRoute = StarsRouteImport.update({
   path: '/stars',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SolanaosRoute = SolanaosRouteImport.update({
-  id: '/solanaos',
-  path: '/solanaos',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -157,6 +155,11 @@ const MemescopeRoute = MemescopeRouteImport.update({
   path: '/memescope',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarketplaceRoute = MarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ManagementRoute = ManagementRouteImport.update({
   id: '/management',
   path: '/management',
@@ -182,9 +185,19 @@ const ImportRoute = ImportRouteImport.update({
   path: '/import',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HubRoute = HubRouteImport.update({
+  id: '/hub',
+  path: '/hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GodmodeRoute = GodmodeRouteImport.update({
   id: '/godmode',
   path: '/godmode',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GatewayRoute = GatewayRouteImport.update({
+  id: '/gateway',
+  path: '/gateway',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EarlyAccessRoute = EarlyAccessRouteImport.update({
@@ -210,6 +223,11 @@ const CreateRoute = CreateRouteImport.update({
 const CopyrightRoute = CopyrightRouteImport.update({
   id: '/copyright',
   path: '/copyright',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConsoleRoute = ConsoleRouteImport.update({
+  id: '/console',
+  path: '/console',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChessRoute = ChessRouteImport.update({
@@ -328,17 +346,21 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/chat': typeof ChatRoute
   '/chess': typeof ChessRoute
+  '/console': typeof ConsoleRoute
   '/copyright': typeof CopyrightRoute
   '/create': typeof CreateRoute
   '/dashboard': typeof DashboardRoute
   '/dex': typeof DexRoute
   '/early-access': typeof EarlyAccessRoute
+  '/gateway': typeof GatewayRoute
   '/godmode': typeof GodmodeRoute
+  '/hub': typeof HubRoute
   '/import': typeof ImportRoute
   '/ipfs': typeof IpfsRoute
   '/launch': typeof LaunchRoute
   '/license': typeof LicenseRoute
   '/management': typeof ManagementRoute
+  '/marketplace': typeof MarketplaceRoute
   '/memescope': typeof MemescopeRoute
   '/mining': typeof MiningRoute
   '/mobile': typeof MobileRoute
@@ -349,7 +371,6 @@ export interface FileRoutesByFullPath {
   '/scanner': typeof ScannerRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
-  '/solanaos': typeof SolanaosRoute
   '/stars': typeof StarsRoute
   '/strategy': typeof StrategyRoute
   '/terminal': typeof TerminalRoute
@@ -382,17 +403,21 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/chat': typeof ChatRoute
   '/chess': typeof ChessRoute
+  '/console': typeof ConsoleRoute
   '/copyright': typeof CopyrightRoute
   '/create': typeof CreateRoute
   '/dashboard': typeof DashboardRoute
   '/dex': typeof DexRoute
   '/early-access': typeof EarlyAccessRoute
+  '/gateway': typeof GatewayRoute
   '/godmode': typeof GodmodeRoute
+  '/hub': typeof HubRoute
   '/import': typeof ImportRoute
   '/ipfs': typeof IpfsRoute
   '/launch': typeof LaunchRoute
   '/license': typeof LicenseRoute
   '/management': typeof ManagementRoute
+  '/marketplace': typeof MarketplaceRoute
   '/memescope': typeof MemescopeRoute
   '/mining': typeof MiningRoute
   '/mobile': typeof MobileRoute
@@ -403,7 +428,6 @@ export interface FileRoutesByTo {
   '/scanner': typeof ScannerRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
-  '/solanaos': typeof SolanaosRoute
   '/stars': typeof StarsRoute
   '/strategy': typeof StrategyRoute
   '/terminal': typeof TerminalRoute
@@ -437,17 +461,21 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/chat': typeof ChatRoute
   '/chess': typeof ChessRoute
+  '/console': typeof ConsoleRoute
   '/copyright': typeof CopyrightRoute
   '/create': typeof CreateRoute
   '/dashboard': typeof DashboardRoute
   '/dex': typeof DexRoute
   '/early-access': typeof EarlyAccessRoute
+  '/gateway': typeof GatewayRoute
   '/godmode': typeof GodmodeRoute
+  '/hub': typeof HubRoute
   '/import': typeof ImportRoute
   '/ipfs': typeof IpfsRoute
   '/launch': typeof LaunchRoute
   '/license': typeof LicenseRoute
   '/management': typeof ManagementRoute
+  '/marketplace': typeof MarketplaceRoute
   '/memescope': typeof MemescopeRoute
   '/mining': typeof MiningRoute
   '/mobile': typeof MobileRoute
@@ -458,7 +486,6 @@ export interface FileRoutesById {
   '/scanner': typeof ScannerRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
-  '/solanaos': typeof SolanaosRoute
   '/stars': typeof StarsRoute
   '/strategy': typeof StrategyRoute
   '/terminal': typeof TerminalRoute
@@ -493,17 +520,21 @@ export interface FileRouteTypes {
     | '/admin'
     | '/chat'
     | '/chess'
+    | '/console'
     | '/copyright'
     | '/create'
     | '/dashboard'
     | '/dex'
     | '/early-access'
+    | '/gateway'
     | '/godmode'
+    | '/hub'
     | '/import'
     | '/ipfs'
     | '/launch'
     | '/license'
     | '/management'
+    | '/marketplace'
     | '/memescope'
     | '/mining'
     | '/mobile'
@@ -514,7 +545,6 @@ export interface FileRouteTypes {
     | '/scanner'
     | '/search'
     | '/settings'
-    | '/solanaos'
     | '/stars'
     | '/strategy'
     | '/terminal'
@@ -547,17 +577,21 @@ export interface FileRouteTypes {
     | '/admin'
     | '/chat'
     | '/chess'
+    | '/console'
     | '/copyright'
     | '/create'
     | '/dashboard'
     | '/dex'
     | '/early-access'
+    | '/gateway'
     | '/godmode'
+    | '/hub'
     | '/import'
     | '/ipfs'
     | '/launch'
     | '/license'
     | '/management'
+    | '/marketplace'
     | '/memescope'
     | '/mining'
     | '/mobile'
@@ -568,7 +602,6 @@ export interface FileRouteTypes {
     | '/scanner'
     | '/search'
     | '/settings'
-    | '/solanaos'
     | '/stars'
     | '/strategy'
     | '/terminal'
@@ -601,17 +634,21 @@ export interface FileRouteTypes {
     | '/admin'
     | '/chat'
     | '/chess'
+    | '/console'
     | '/copyright'
     | '/create'
     | '/dashboard'
     | '/dex'
     | '/early-access'
+    | '/gateway'
     | '/godmode'
+    | '/hub'
     | '/import'
     | '/ipfs'
     | '/launch'
     | '/license'
     | '/management'
+    | '/marketplace'
     | '/memescope'
     | '/mining'
     | '/mobile'
@@ -622,7 +659,6 @@ export interface FileRouteTypes {
     | '/scanner'
     | '/search'
     | '/settings'
-    | '/solanaos'
     | '/stars'
     | '/strategy'
     | '/terminal'
@@ -656,17 +692,21 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   ChatRoute: typeof ChatRoute
   ChessRoute: typeof ChessRoute
+  ConsoleRoute: typeof ConsoleRoute
   CopyrightRoute: typeof CopyrightRoute
   CreateRoute: typeof CreateRoute
   DashboardRoute: typeof DashboardRoute
   DexRoute: typeof DexRoute
   EarlyAccessRoute: typeof EarlyAccessRoute
+  GatewayRoute: typeof GatewayRoute
   GodmodeRoute: typeof GodmodeRoute
+  HubRoute: typeof HubRoute
   ImportRoute: typeof ImportRoute
   IpfsRoute: typeof IpfsRoute
   LaunchRoute: typeof LaunchRoute
   LicenseRoute: typeof LicenseRoute
   ManagementRoute: typeof ManagementRoute
+  MarketplaceRoute: typeof MarketplaceRoute
   MemescopeRoute: typeof MemescopeRoute
   MiningRoute: typeof MiningRoute
   MobileRoute: typeof MobileRoute
@@ -677,7 +717,6 @@ export interface RootRouteChildren {
   ScannerRoute: typeof ScannerRoute
   SearchRoute: typeof SearchRoute
   SettingsRoute: typeof SettingsRoute
-  SolanaosRoute: typeof SolanaosRoute
   StarsRoute: typeof StarsRoute
   StrategyRoute: typeof StrategyRoute
   TerminalRoute: typeof TerminalRoute
@@ -764,13 +803,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StarsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/solanaos': {
-      id: '/solanaos'
-      path: '/solanaos'
-      fullPath: '/solanaos'
-      preLoaderRoute: typeof SolanaosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/settings': {
       id: '/settings'
       path: '/settings'
@@ -841,6 +873,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MemescopeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/marketplace': {
+      id: '/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/management': {
       id: '/management'
       path: '/management'
@@ -876,11 +915,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ImportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/hub': {
+      id: '/hub'
+      path: '/hub'
+      fullPath: '/hub'
+      preLoaderRoute: typeof HubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/godmode': {
       id: '/godmode'
       path: '/godmode'
       fullPath: '/godmode'
       preLoaderRoute: typeof GodmodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gateway': {
+      id: '/gateway'
+      path: '/gateway'
+      fullPath: '/gateway'
+      preLoaderRoute: typeof GatewayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/early-access': {
@@ -916,6 +969,13 @@ declare module '@tanstack/react-router' {
       path: '/copyright'
       fullPath: '/copyright'
       preLoaderRoute: typeof CopyrightRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/console': {
+      id: '/console'
+      path: '/console'
+      fullPath: '/console'
+      preLoaderRoute: typeof ConsoleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/chess': {
@@ -1080,17 +1140,21 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   ChatRoute: ChatRoute,
   ChessRoute: ChessRoute,
+  ConsoleRoute: ConsoleRoute,
   CopyrightRoute: CopyrightRoute,
   CreateRoute: CreateRoute,
   DashboardRoute: DashboardRoute,
   DexRoute: DexRoute,
   EarlyAccessRoute: EarlyAccessRoute,
+  GatewayRoute: GatewayRoute,
   GodmodeRoute: GodmodeRoute,
+  HubRoute: HubRoute,
   ImportRoute: ImportRoute,
   IpfsRoute: IpfsRoute,
   LaunchRoute: LaunchRoute,
   LicenseRoute: LicenseRoute,
   ManagementRoute: ManagementRoute,
+  MarketplaceRoute: MarketplaceRoute,
   MemescopeRoute: MemescopeRoute,
   MiningRoute: MiningRoute,
   MobileRoute: MobileRoute,
@@ -1101,7 +1165,6 @@ const rootRouteChildren: RootRouteChildren = {
   ScannerRoute: ScannerRoute,
   SearchRoute: SearchRoute,
   SettingsRoute: SettingsRoute,
-  SolanaosRoute: SolanaosRoute,
   StarsRoute: StarsRoute,
   StrategyRoute: StrategyRoute,
   TerminalRoute: TerminalRoute,
