@@ -1,0 +1,36 @@
+{
+  "schema": "openclawd.robot.identity.v1",
+  "robot_id": "OPENCLAWDASV1",
+  "profile": "OCASV1",
+  "chain": "solana",
+  "wallet_pubkey": null,
+  "token": {
+    "symbol": "$CLAWD",
+    "mint": "8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump"
+  },
+  "capabilities": [
+    "telemetry",
+    "camera",
+    "imu",
+    "audio",
+    "can-bus",
+    "motion-control",
+    "mujoco-sim",
+    "gr00t-policy",
+    "x402",
+    "mpp",
+    "pay-sh"
+  ],
+  "policy": {
+    "default_mode": "dry_run",
+    "movement_requires_operator": true,
+    "payment_requires_operator": true,
+    "attest_command_receipts": true
+  },
+  "receipts": {
+    "command_receipt_type": "openclawd.robot_command.v1",
+    "hash_private_sensor_payloads": true,
+    "solana_attestation_service": "22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG"
+  }
+}
+

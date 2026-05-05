@@ -61,14 +61,19 @@
 GET /api/robotics/hardware
 ```
 
-Returns a public-safe manifest for the Asimov v1 hardware tree:
+Returns a public-safe manifest for the OCASV1 / `OPENCLAWDASV1` hardware tree:
 
+- `Robotics/OCASV1/manifest.json`
+- `Robotics/OCASV1/solana-robot.json`
 - `Robotics/assets/asimov-v1.jpg`
+- `Robotics/electrical/OPENCLAWDASV1.md`
 - `Robotics/electrical/wiring/wiring.yaml`
 - `Robotics/electrical/wiring/wiring.svg`
 - `Robotics/electrical/motion_control/mcb-io.dts`
+- `Robotics/mechanical/OCASV1/README.md`
 - `Robotics/mechanical/ASV1/ASIMOV_V1.STEP`
 - `Robotics/sim-model/xmls/asimov.xml`
+- `Robotics/Isaac-GR00T-main/OPENCLAWDASV1.md`
 
 ## Robot Gateway Connect
 
@@ -79,10 +84,10 @@ content-type: application/json
 
 ```json
 {
-  "robot_id": "asimov-v1",
-  "robot_url": "http://asimov.local:8080",
+  "robot_id": "OPENCLAWDASV1",
+  "robot_url": "http://ocasv1.local:8080",
   "wallet": "11111111111111111111111111111111",
-  "model": "asimov-v1",
+  "model": "ocasv1",
   "capabilities": ["telemetry", "camera", "imu", "can-bus", "motion-control", "x402", "mpp", "pay-sh"]
 }
 ```
@@ -96,8 +101,8 @@ content-type: application/json
 
 ```json
 {
-  "robot_id": "asimov-v1",
-  "robot_url": "http://asimov.local:8080",
+  "robot_id": "OPENCLAWDASV1",
+  "robot_url": "http://ocasv1.local:8080",
   "objective": "inspect aisle B hazard",
   "amount_usd": "0.005",
   "service": "thermal-diagnostic-plugin",

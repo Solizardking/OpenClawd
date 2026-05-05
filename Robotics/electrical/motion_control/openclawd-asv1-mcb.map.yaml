@@ -1,0 +1,95 @@
+profile: OCASV1
+name: OPENCLAWDASV1 Motion Control Board Map
+source_device_tree: mcb-io.dts
+controller:
+  board: Radxa CM5 Motion Control Board
+  role: low_level_motion_control
+  live_execution_default: disabled
+  required_operator_env: OPENCLAWD_ROBOT_LIVE
+openclawd:
+  robot_id: OPENCLAWDASV1
+  gateway_route: /api/robot/task
+  policy_default: dry_run_only
+  payment_rails:
+    - x402
+    - mpp
+    - pay-sh
+can_buses:
+  can0:
+    mcb_port: C0
+    source: native
+    bitrate: 1000000
+    chain: left_leg
+    actuators:
+      - left_hip_pitch
+      - left_hip_roll
+      - left_hip_yaw
+      - left_knee
+      - left_ankle_a
+      - left_ankle_b
+  can1:
+    mcb_port: C1
+    source: native
+    bitrate: 1000000
+    chain: right_leg
+    actuators:
+      - right_hip_pitch
+      - right_hip_roll
+      - right_hip_yaw
+      - right_knee
+      - right_ankle_a
+      - right_ankle_b
+  can2:
+    mcb_port: C2
+    source: native
+    bitrate: 1000000
+    chain: right_arm
+    actuators:
+      - right_shoulder_pitch
+      - right_shoulder_roll
+      - right_shoulder_yaw
+      - right_elbow
+      - right_wrist_yaw
+  can3:
+    mcb_port: C3
+    source: spi_mcp2518fd
+    bitrate: 1000000
+    chain: left_arm
+    actuators:
+      - left_shoulder_pitch
+      - left_shoulder_roll
+      - left_shoulder_yaw
+      - left_elbow
+      - left_wrist_yaw
+  can4:
+    mcb_port: C4
+    source: spi_mcp2518fd
+    bitrate: 1000000
+    chain: waist_neck
+    actuators:
+      - waist_yaw
+      - neck_yaw
+      - neck_pitch
+  can5:
+    mcb_port: C5
+    source: spi_mcp2518fd
+    bitrate: 500000
+    chain: bms
+    sensors:
+      - battery_management_system
+safety_inputs:
+  estop:
+    required: true
+    action_on_assert: stop_motion_and_block_payment_execution
+  imu:
+    part: LSM6DSV
+    action_on_fault: stop_motion
+  bms:
+    action_on_fault: stop_motion_and_alert_operator
+telemetry:
+  publish_to_gateway:
+    - bus_health
+    - actuator_faults
+    - imu_status
+    - battery_status
+    - estop_status

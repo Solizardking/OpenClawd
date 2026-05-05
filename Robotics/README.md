@@ -4,6 +4,15 @@
 [![Firmware: GPL-2.0](https://img.shields.io/badge/Firmware-GPL--2.0-blue)](SOFTWARE-LICENSE.txt)
 [![Integration: MIT](https://img.shields.io/badge/Integration-MIT-blue)](../LICENSE)
 [![Solana: $CLAWD](https://img.shields.io/badge/Solana-%24CLAWD-9945FF?logo=solana)](https://solanaclawd.com)
+[![Thesis](https://img.shields.io/badge/Thesis-Robot_AI_×_DePIN-14F195?style=flat)](docs/THESIS.md)
+
+> **Start here →** [`docs/THESIS.md`](docs/THESIS.md) — *Robot AI: Blockchain's
+> Breakout AI Use Case?* Adapted from the Solana Foundation thesis on
+> DePIN-powered physical AI, mapped onto the OpenClawd Robotics stack
+> (Asimov v1 + GR00T N1.7 + HERMES + `$CLAWD` settlement). Read this before
+> the spec sheet — it explains **why** this directory exists.
+
+---
 
 OpenClawd Robotics is the physical embodiment layer of the OpenClawd stack: an
 open humanoid you can build, train, and deploy, with on-chain payment rails and
@@ -28,10 +37,6 @@ threaded through them:
 > The robot is the body. GR00T is the mind. HERMES is the hands.
 > $CLAWD is the wallet, the receipt, and the credential.
 
-For the **why** — the market thesis, the DePIN-for-physical-AI argument, the
-market sizing, and the cold-water reality check — see
-[`docs/THESIS.md`](docs/THESIS.md).
-
 ---
 
 ## Specifications (reference platform)
@@ -41,7 +46,7 @@ this repo are dimensioned for this body. You can deviate, but the URDF/MuJoCo
 and BOM assume this geometry.
 
 | Spec | Value |
-|---|---|
+| --- | --- |
 | Height | 1.2 m |
 | Weight | 35 kg |
 | Degrees of Freedom | 25 actuated + 2 passive |
@@ -55,7 +60,7 @@ and BOM assume this geometry.
 | Structural Materials | 7075 aluminium, MJF PA12 nylon |
 
 | Activity | Load |
-|---|---|
+| --- | --- |
 | Squat | 5 kg |
 | Bicep curl | 15 kg each arm |
 | Lateral raise | 18 kg each arm |
@@ -82,6 +87,30 @@ See [`/payments/pay-main/`](../payments/pay-main/) for the Pay.sh integration
 and [`/payments/pay-main/typescript/packages/solana-pay/`](../payments/pay-main/typescript/packages/solana-pay/)
 for the Solana Pay packages.
 
+## OCASV1 / OPENCLAWDASV1 profile
+
+The OpenClawd robot profile is [`OCASV1`](OCASV1/), with gateway robot id
+`OPENCLAWDASV1`.
+
+| Profile layer | Path |
+|---|---|
+| OCASV1 overview | [`OCASV1/README.md`](OCASV1/README.md) |
+| Solana robot manifest | [`OCASV1/solana-robot.json`](OCASV1/solana-robot.json) |
+| Hardware manifest | [`OCASV1/openclawd-asv1.hardware.json`](OCASV1/openclawd-asv1.hardware.json) |
+| GR00T deployment plan | [`OCASV1/gr00t-deployment.md`](OCASV1/gr00t-deployment.md) |
+| Electrical profile | [`electrical/OPENCLAWDASV1.md`](electrical/OPENCLAWDASV1.md) |
+| MCB profile | [`electrical/motion_control/OPENCLAWDASV1-MCB.md`](electrical/motion_control/OPENCLAWDASV1-MCB.md) |
+| MCB machine map | [`electrical/motion_control/openclawd-asv1-mcb.map.yaml`](electrical/motion_control/openclawd-asv1-mcb.map.yaml) |
+| Wiring profile | [`electrical/wiring/OPENCLAWDASV1-WIRING.md`](electrical/wiring/OPENCLAWDASV1-WIRING.md) |
+| Wiring machine map | [`electrical/wiring/openclawd-asv1-wiring.map.yaml`](electrical/wiring/openclawd-asv1-wiring.map.yaml) |
+| Mechanical profile | [`mechanical/OCASV1/README.md`](mechanical/OCASV1/README.md) |
+| GR00T integration | [`Isaac-GR00T-main/OPENCLAWDASV1.md`](Isaac-GR00T-main/OPENCLAWDASV1.md) |
+| GR00T example | [`Isaac-GR00T-main/examples/OpenClawdASV1`](Isaac-GR00T-main/examples/OpenClawdASV1) |
+
+`OPENCLAWDASV1` treats GR00T output as an action proposal. OpenClawd wraps that
+proposal with policy checks, x402 / MPP / Pay.sh task payment intent metadata,
+and a Solana receipt path before any live robot execution.
+
 ---
 
 ## Build options
@@ -90,7 +119,7 @@ for the Solana Pay packages.
 > harness drawings, BOM scaffolding, and a MuJoCo simulation model. You bring
 > the fab, the actuators, and the compute. License terms apply per directory —
 > see [LICENSE.md](LICENSE.md).
-
+>
 > **Sim-only:** You can use everything under [`sim-model/`](sim-model/) plus
 > [`Isaac-GR00T-main/`](Isaac-GR00T-main/) without ever touching hardware.
 > This is the recommended starting point for software contributors and policy
@@ -99,9 +128,10 @@ for the Solana Pay packages.
 ### What's in this directory
 
 | Path | Contents | License |
-|---|---|---|
+| --- | --- | --- |
 | [`mechanical/`](mechanical/) | CAD, subassemblies, naming conventions | CERN-OHL-S-2.0 |
 | [`electrical/`](electrical/) | Schematics, PCB files, wiring harness | CERN-OHL-S-2.0 |
+| [`OCASV1/`](OCASV1/) | OpenClawd Solana robot profile, GR00T deployment plan, and manifests | MIT integration glue |
 | [`sim-model/`](sim-model/) | MuJoCo XMLs, sim assets | CERN-OHL-S-2.0 (model files) + GPL-2.0 (any sim glue) |
 | [`Isaac-GR00T-main/`](Isaac-GR00T-main/) | NVIDIA Isaac GR00T N1.7 (vendored) | Apache-2.0 (upstream) — see directory's own LICENSE |
 | [`docs/arXiv-2503.14734v2/`](docs/arXiv-2503.14734v2/) | GR00T N1 paper source | Upstream license — research reference only |
@@ -113,11 +143,13 @@ for the Solana Pay packages.
 ## Roadmap
 
 | Status | Item |
-|---|---|
+| --- | --- |
 | Done | Mechanical CAD — 7 subassemblies (inherited) |
 | Done | MuJoCo simulation model |
 | Done | Electrical wiring harness + schematics |
 | Done | GR00T N1.7 vendored for cognition |
+| Done | OCASV1 OpenClawd Asimov Solana V1 profile |
+| Done | GR00T `NEW_EMBODIMENT` example for OpenClawd ASV1 |
 | In progress | HERMES policy port to OpenClawd embodiment |
 | In progress | Solana action-attestation memo schema |
 | In progress | Pay.sh manifest for robot-as-service |

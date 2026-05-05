@@ -1,5 +1,7 @@
 ## Motion Control Board
 
+OpenClawd profile: [`OPENCLAWDASV1.md`](OPENCLAWDASV1.md).
+
 The Motion Control Board (MCB) is a carrier board designed for the Radxa CM5, providing comprehensive connectivity for robotic applications.
 
 - The board serves as a carrier board for the Radxa CM5.
@@ -45,6 +47,5 @@ W-<ID>-<TYPE>
 ID = unique ID
 TYPE = Power (PWR) or Signal (SIG) cable bundle
 ```
-
 
 

@@ -1,0 +1,28 @@
+{
+  "profile": "OCASV1",
+  "robot_id": "OPENCLAWDASV1",
+  "agent_id": "openclawd-robotics-commander",
+  "display_name": "OPENCLAWDASV1",
+  "symbol": "CLAWD-ASV1",
+  "chain": "solana",
+  "wallet_pubkey": null,
+  "token": {
+    "symbol": "$CLAWD",
+    "mint": "8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump"
+  },
+  "attestation": {
+    "program": "22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG",
+    "schema": "openclawd.robot_command.v1",
+    "mode": "planned"
+  },
+  "policy": {
+    "default_mode": "dry_run",
+    "requires_human_for_motion": true,
+    "requires_human_for_payment": true,
+    "max_default_task_payment_usd": "0.005"
+  },
+  "secrets": {
+    "private_key_committed": false,
+    "env_files_committed": false
+  }
+}

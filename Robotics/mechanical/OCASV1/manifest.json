@@ -1,0 +1,22 @@
+{
+  "profile": "OCASV1",
+  "robot_id": "OPENCLAWDASV1",
+  "source_namespace": "ASV1",
+  "full_assembly": "Robotics/mechanical/ASV1/ASIMOV_V1.STEP",
+  "subassemblies": [
+    "Robotics/mechanical/ASV1/100/ASV1_100.STEP",
+    "Robotics/mechanical/ASV1/200/ASV1_200.STEP",
+    "Robotics/mechanical/ASV1/300/ASV1_300.STEP",
+    "Robotics/mechanical/ASV1/400/ASV1_400.STEP",
+    "Robotics/mechanical/ASV1/500/ASV1_500.STEP",
+    "Robotics/mechanical/ASV1/600/ASV1_600.STEP",
+    "Robotics/mechanical/ASV1/700/ASV1_700.STEP"
+  ],
+  "simulation": "Robotics/sim-model/xmls/asimov.xml",
+  "control_identity": {
+    "chain": "solana",
+    "token": "$CLAWD",
+    "gateway_robot_id": "OPENCLAWDASV1"
+  }
+}
+

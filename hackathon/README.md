@@ -32,7 +32,7 @@ Submission package for **OpenClawd Robotics Command Layer**: a Solana-native AI 
 | Speaker notes | [`presentation/speaker-notes.md`](./presentation/speaker-notes.md) | 5-minute talk track |
 | Architecture docs | [`docs/architecture.md`](./docs/architecture.md) | How the monorepo pieces combine into the robotics submission |
 | Autonomous research loop | [`docs/autonomous-research-loop.md`](./docs/autonomous-research-loop.md) | Self-evolving paper-trading loop, Honcho persistence model, and Toly/Karpathy inspiration |
-| Real hardware integration | [`robotics/README.md`](./robotics/README.md) and [`../Robotics/`](../Robotics/) | Asimov v1 hardware assets, CAD, wiring, MuJoCo model, and physical install path |
+| Real hardware integration | [`robotics/README.md`](./robotics/README.md), [`../Robotics/OCASV1/`](../Robotics/OCASV1/), and [`../Robotics/`](../Robotics/) | OCASV1 / `OPENCLAWDASV1`, Asimov v1 CAD/wiring, GR00T integration, MuJoCo model, and physical install path |
 | Package shades | [`docs/package-shades.md`](./docs/package-shades.md) and [`assets/package-shades.json`](./assets/package-shades.json) | Public-safe snapshot of each OpenClawd package's role in the hackathon project |
 | Demo guide | [`docs/demo-guide.md`](./docs/demo-guide.md) | Demo flow for judges and local reviewers |
 | Technical spec | [`docs/technical-spec.md`](./docs/technical-spec.md) | APIs, data contracts, security model, and integration points |
@@ -62,7 +62,7 @@ The demo is read-only and deterministic. It does not require `SOLANA_PRIVATE_KEY
 ## Live Stack This Submission Combines
 
 - `src/` core agent engine, tool permissioning, memory tiers, and command surface.
-- `Robotics/` real Asimov v1 hardware assets: CAD, wiring, device tree, MuJoCo model, and public licenses.
+- `Robotics/` real OCASV1 / `OPENCLAWDASV1` robot profile: Asimov v1 CAD, wiring, device tree, MuJoCo model, NVIDIA Isaac GR00T integration, and public licenses.
 - `cmd/openclawd-go/` hardware-friendly OpenClawd binary for robot install, gateway registration, and paid task intents.
 - `mcp/` Solana MCP tools for Helius, token data, wallet reads, market data, memory, and transfer scaffolding.
 - `agents/` catalog of 50 Solana-native deployable agents with Metaplex-ready metadata.

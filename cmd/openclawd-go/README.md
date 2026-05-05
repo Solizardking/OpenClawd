@@ -21,8 +21,8 @@ GOOS=linux GOARCH=arm64 go build -o dist/openclawd-go-linux-arm64 .
 sudo ./openclawd-go install \
   --target /opt/openclawd \
   --gateway http://192.168.1.10:8788 \
-  --robot-id asimov-v1 \
-  --robot-url http://asimov.local:8080
+  --robot-id OPENCLAWDASV1 \
+  --robot-url http://ocasv1.local:8080
 ```
 
 The installer copies the binary and writes `/opt/openclawd/etc/openclawd-robot.env`.
@@ -33,12 +33,12 @@ It does not write private keys.
 ```bash
 openclawd-go gateway connect \
   --gateway http://127.0.0.1:8788 \
-  --robot-id asimov-v1 \
-  --robot-url http://asimov.local:8080
+  --robot-id OPENCLAWDASV1 \
+  --robot-url http://ocasv1.local:8080
 
 openclawd-go robot task \
   --gateway http://127.0.0.1:8788 \
-  --robot-id asimov-v1 \
+  --robot-id OPENCLAWDASV1 \
   --objective "inspect aisle B hazard" \
   --amount-usd 0.005 \
   --pay-gateway https://pay.sh

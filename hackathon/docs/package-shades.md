@@ -22,7 +22,7 @@ This is a public-safe snapshot of the OpenClawd package surface. It is not a sou
 | `tailclawd` | Tail-style monitoring surface. | Useful for watching recurring autonomous loops and receipts. |
 | `@openclawdsolana/gateway` | Trading agent control plane over Telegram, Helius, Birdeye, and Leviathan spawn paths. | Bridges chat operations, market intelligence, and agent lifecycle management. |
 | `cmd/openclawd-go` | Statically portable Go client for robot hardware installation and gateway calls. | Lets physical robot compute register with the gateway and request x402/MPP/Pay.sh paid task envelopes. |
-| `Robotics/` | Asimov v1 hardware package with CAD, wiring, motion-control device tree, MuJoCo model, and public licenses. | Provides the real hardware target for the robotics submission. |
+| `Robotics/` | OCASV1 / `OPENCLAWDASV1` hardware package with Asimov v1 CAD, wiring, motion-control device tree, MuJoCo model, NVIDIA Isaac GR00T integration, and public licenses. | Provides the real Solana robot target for the robotics submission. |
 | `clawdhub` | Public skills marketplace, agent registry, tracker, wallet, and console surface. | Shows how robot/trader agents and paid plugins become discoverable. |
 | `moltbook-agent` | Autonomous social agent package for OpenClawd community workflows. | Demonstrates social/communication agent patterns around the same memory and policy model. |
 | `blockchain_buddies` | Companion gallery and agent birth station. | Provides a friendly identity and minting surface for agent personalities and on-chain profiles. |

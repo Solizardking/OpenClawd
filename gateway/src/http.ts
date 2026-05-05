@@ -621,19 +621,44 @@ function normalizeAmountUsd(value: string | number | undefined): string {
 
 function robotHardwareManifest() {
   return {
-    name: 'Asimov v1 humanoid robot',
+    name: 'OPENCLAWDASV1 Solana robot',
+    profile: 'OCASV1',
+    base: 'Asimov v1 humanoid robot',
     source: 'Robotics/',
+    openclawd: {
+      profile: 'Robotics/OCASV1/README.md',
+      manifest: 'Robotics/OCASV1/manifest.json',
+      solanaRobot: 'Robotics/OCASV1/solana-robot.json',
+      robotId: 'OPENCLAWDASV1',
+      token: '$CLAWD',
+      mint: '8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump',
+    },
     licenses: {
       hardware: 'Robotics/HARDWARE-LICENSE.txt',
       software: 'Robotics/SOFTWARE-LICENSE.txt',
+      gr00t: 'Robotics/Isaac-GR00T-main/LICENSE',
     },
     assets: {
       image: 'Robotics/assets/asimov-v1.jpg',
+      electricalProfile: 'Robotics/electrical/OPENCLAWDASV1.md',
       wiring: 'Robotics/electrical/wiring/wiring.yaml',
       wiringDiagram: 'Robotics/electrical/wiring/wiring.svg',
+      wiringProfile: 'Robotics/electrical/wiring/OPENCLAWDASV1-WIRING.md',
       deviceTree: 'Robotics/electrical/motion_control/mcb-io.dts',
+      motionControlProfile: 'Robotics/electrical/motion_control/OPENCLAWDASV1-MCB.md',
       cad: 'Robotics/mechanical/ASV1/ASIMOV_V1.STEP',
+      mechanicalProfile: 'Robotics/mechanical/OCASV1/README.md',
+      mechanicalManifest: 'Robotics/mechanical/OCASV1/manifest.json',
       mujoco: 'Robotics/sim-model/xmls/asimov.xml',
+    },
+    gr00t: {
+      source: 'Robotics/Isaac-GR00T-main',
+      integration: 'Robotics/Isaac-GR00T-main/OPENCLAWDASV1.md',
+      policyApi: 'Robotics/Isaac-GR00T-main/getting_started/policy.md',
+      realWorldDeployment: 'Robotics/Isaac-GR00T-main/getting_started/real_world_deployment.md',
+      finetuneNewEmbodiment: 'Robotics/Isaac-GR00T-main/getting_started/finetune_new_embodiment.md',
+      deploymentScripts: 'Robotics/Isaac-GR00T-main/scripts/deployment',
+      role: 'vision-language-action proposal engine',
     },
     specs: {
       height_m: 1.2,
@@ -648,6 +673,8 @@ function robotHardwareManifest() {
       connectRoute: '/api/robot/connect',
       taskRoute: '/api/robot/task',
       liveExecutionEnabled: ROBOT_LIVE_ENABLED,
+      defaultMode: ROBOT_LIVE_ENABLED ? 'operator_approval_required' : 'dry_run',
+      paymentRails: ['x402', 'mpp', 'pay-sh'],
     },
   };
 }
@@ -695,7 +722,7 @@ function buildRobotTaskEnvelope(body: RobotTaskRequest) {
       robot_id: robotId,
       robot_url: robotUrl,
       wallet: body.wallet && BASE58.test(body.wallet) ? body.wallet : null,
-      model: body.model ?? 'asimov-v1',
+      model: body.model ?? 'ocasv1',
       capabilities: body.capabilities ?? ['telemetry', 'camera', 'imu', 'can-bus', 'motion-control', 'x402', 'mpp', 'pay-sh'],
     },
     command_envelope: {
@@ -1000,7 +1027,7 @@ const server = http.createServer(async (req, res) => {
         robot_id: robotId,
         robot_url: robotUrl,
         wallet: body.wallet && BASE58.test(body.wallet) ? body.wallet : null,
-        model: body.model ?? 'asimov-v1',
+        model: body.model ?? 'ocasv1',
         capabilities: body.capabilities ?? ['telemetry', 'camera', 'imu', 'can-bus', 'motion-control'],
         hardware: robotHardwareManifest(),
         liveExecutionEnabled: ROBOT_LIVE_ENABLED,
@@ -1148,7 +1175,7 @@ server.listen(PORT, async () => {
   console.log('     GET  /api/wallet/portfolio?address=<wallet>       Birdeye → Helius DAS');
   console.log('     POST /api/wallet/submit          { signed: ... }   Helius RPC');
   console.log('     POST /api/wallet/swap/build                       (501 stub)');
-  console.log('     GET  /api/robotics/hardware                       Asimov v1 manifest');
+  console.log('     GET  /api/robotics/hardware                       OCASV1 hardware manifest');
   console.log('     POST /api/robot/connect          { robot_id, robot_url? }');
   console.log('     POST /api/robot/task             { robot_id, objective, amount_usd? }');
   console.log('     GET  /api/agent/runtime                           /src runtime');

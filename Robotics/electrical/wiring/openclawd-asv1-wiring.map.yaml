@@ -1,0 +1,60 @@
+profile: OCASV1
+name: OPENCLAWDASV1 Wiring Harness Map
+source_wireviz: wiring.yaml
+diagram: wiring.svg
+power_domains:
+  lower_body:
+    connector: Lower Body PWR
+    buses: [can0, can1]
+  left_arm:
+    connector: Left Arm PWR
+    buses: [can3]
+  right_arm:
+    connector: Right Arm PWR
+    buses: [can2]
+  neck_waist:
+    connector: Neck-Waist PWR
+    buses: [can4]
+  bms:
+    connector: BMS Power
+    buses: [can5]
+signal_roots:
+  left_leg:
+    connector: Left Leg Root SIG
+    can_bus: can0
+  right_leg:
+    connector: Right Leg Root SIG
+    can_bus: can1
+  left_arm:
+    connector: Left Arm Root SIG
+    can_bus: can3
+  right_arm:
+    connector: Right Arm Root SIG
+    can_bus: can2
+  waist_neck:
+    connector: Neck-Waist Root SIG
+    can_bus: can4
+  bms:
+    connector: BMS Root SIG
+    can_bus: can5
+openclawd_network:
+  gateway_default: http://127.0.0.1:8788
+  robot_url_default: http://ocasv1.local:8080
+  pay_gateway_default: https://pay.sh
+  mpp_proxy_default: https://pay.sh/mpp
+  never_on_harness:
+    - solana_private_key
+    - api_keys
+    - wallet_seed_phrase
+gr00t_sensors:
+  front:
+    source: third_person_or_head_camera
+    minimum_fps: 30
+  wrist:
+    source: wrist_or_hand_camera
+    minimum_fps: 30
+  proprioception:
+    source: can_joint_states
+    minimum_hz: 30
+  language:
+    source: operator_task_description

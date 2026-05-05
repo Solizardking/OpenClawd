@@ -5,7 +5,7 @@
 ```text
 Robot / Operator / Simulator
   -> Real hardware
-     Asimov v1 CAD · wiring · device tree · MuJoCo model · openclawd-go
+     OCASV1 · OPENCLAWDASV1 · Asimov v1 CAD · wiring · device tree · GR00T · MuJoCo model · openclawd-go
   -> OpenClawd surface
      chrome-extension · clawd-tui · tailclawd · one-page demo
   -> Command router
@@ -25,7 +25,7 @@ Robot / Operator / Simulator
 | Robotics Concept | OpenClawd Primitive | Implementation Path |
 | --- | --- | --- |
 | Robot identity | Wallet + Metaplex Core asset + ACP record | `openclawd-framework/`, `acp_registry/`, `api-registrar/` |
-| Physical robot | Asimov v1 hardware bundle | `Robotics/` |
+| Physical robot | OCASV1 / `OPENCLAWDASV1` over Asimov v1 hardware | `Robotics/OCASV1/`, `Robotics/` |
 | On-robot install | Go binary + env file | `cmd/openclawd-go/` |
 | Robot gateway link | HTTP command and payment intent endpoints | `gateway/src/http.ts` |
 | Sensor packet | `KNOWN` memory item | `src/memory/`, `llm-wiki-tang/` |
@@ -81,7 +81,8 @@ PERSIST
 ## Module Composition
 
 - `src/` supplies the core engine, command handling, tools, permission posture, and memory tier model.
-- `Robotics/` supplies the public real-hardware reference: Asimov v1 mechanical CAD, electrical wiring, motion-control device tree, and MuJoCo simulation model.
+- `Robotics/` supplies the public real-hardware reference: OCASV1 / `OPENCLAWDASV1`, Asimov v1 mechanical CAD, electrical wiring, motion-control device tree, and MuJoCo simulation model.
+- `Robotics/Isaac-GR00T-main/` supplies the NVIDIA Isaac GR00T policy tree; `Robotics/Isaac-GR00T-main/OPENCLAWDASV1.md` maps it to OCASV1.
 - `cmd/openclawd-go/` supplies a hardware-installable binary for robot-side gateway registration and paid task intent creation.
 - `gateway/` now exposes `/api/robotics/hardware`, `/api/robot/connect`, and `/api/robot/task` for robot connectivity and payment-aware task envelopes.
 - `mcp/` supplies the standard tool boundary that can expose both Solana operations and robotics commands.

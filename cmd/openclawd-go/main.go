@@ -74,8 +74,8 @@ Commands:
   version
   doctor --gateway http://127.0.0.1:8788
   install --target /opt/openclawd --gateway http://127.0.0.1:8788 --robot-url http://robot.local:8080
-  gateway connect --robot-id asimov-v1 --robot-url http://robot.local:8080 --wallet <pubkey>
-  robot task --robot-id asimov-v1 --objective "inspect aisle B" --amount-usd 0.005 --pay-gateway https://pay.sh
+  gateway connect --robot-id OPENCLAWDASV1 --robot-url http://robot.local:8080 --wallet <pubkey>
+  robot task --robot-id OPENCLAWDASV1 --objective "inspect aisle B" --amount-usd 0.005 --pay-gateway https://pay.sh
 `)
 }
 
@@ -99,7 +99,7 @@ func runInstall(args []string) error {
 	target := fs.String("target", "/opt/openclawd", "install target directory")
 	gatewayURL := fs.String("gateway", envOr("OPENCLAWD_GATEWAY_URL", "http://127.0.0.1:8788"), "OpenClawd gateway URL")
 	robotURL := fs.String("robot-url", "", "robot HTTP/WebSocket control URL")
-	robotID := fs.String("robot-id", "asimov-v1", "robot id")
+	robotID := fs.String("robot-id", "OPENCLAWDASV1", "robot id")
 	if err := fs.Parse(args); err != nil {
 		return err
 	}
@@ -146,10 +146,10 @@ func runGateway(args []string) error {
 	fs := flag.NewFlagSet("gateway connect", flag.ExitOnError)
 	gatewayURL := fs.String("gateway", envOr("OPENCLAWD_GATEWAY_URL", "http://127.0.0.1:8788"), "OpenClawd gateway URL")
 	req := robotConnectRequest{}
-	fs.StringVar(&req.RobotID, "robot-id", envOr("OPENCLAWD_ROBOT_ID", "asimov-v1"), "robot id")
+	fs.StringVar(&req.RobotID, "robot-id", envOr("OPENCLAWD_ROBOT_ID", "OPENCLAWDASV1"), "robot id")
 	fs.StringVar(&req.RobotURL, "robot-url", os.Getenv("OPENCLAWD_ROBOT_URL"), "robot HTTP/WebSocket control URL")
 	fs.StringVar(&req.Wallet, "wallet", os.Getenv("OPENCLAWD_ROBOT_WALLET"), "robot Solana wallet pubkey")
-	fs.StringVar(&req.Model, "model", "asimov-v1", "robot model")
+	fs.StringVar(&req.Model, "model", "ocasv1", "robot model")
 	if err := fs.Parse(args[1:]); err != nil {
 		return err
 	}
@@ -171,10 +171,10 @@ func runRobot(args []string) error {
 	payGateway := fs.String("pay-gateway", envOr("PAY_SH_GATEWAY_URL", "https://pay.sh"), "Pay.sh-compatible gateway")
 	mppProxy := fs.String("mpp-proxy", envOr("MPP_PROXY_URL", "https://pay.sh/mpp"), "MPP proxy URL")
 	req := robotTaskRequest{}
-	fs.StringVar(&req.RobotID, "robot-id", envOr("OPENCLAWD_ROBOT_ID", "asimov-v1"), "robot id")
+	fs.StringVar(&req.RobotID, "robot-id", envOr("OPENCLAWD_ROBOT_ID", "OPENCLAWDASV1"), "robot id")
 	fs.StringVar(&req.RobotURL, "robot-url", os.Getenv("OPENCLAWD_ROBOT_URL"), "robot HTTP/WebSocket control URL")
 	fs.StringVar(&req.Wallet, "wallet", os.Getenv("OPENCLAWD_ROBOT_WALLET"), "robot Solana wallet pubkey")
-	fs.StringVar(&req.Model, "model", "asimov-v1", "robot model")
+	fs.StringVar(&req.Model, "model", "ocasv1", "robot model")
 	fs.StringVar(&req.Objective, "objective", "", "robot task objective")
 	fs.StringVar(&req.AmountUSD, "amount-usd", "0.005", "quoted task spend in USD")
 	fs.StringVar(&req.Service, "service", "robotics-task-plugin", "paid service slug")

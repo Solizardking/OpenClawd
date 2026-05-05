@@ -1,0 +1,52 @@
+{
+  "profile": "OCASV1",
+  "name": "OPENCLAWDASV1",
+  "description": "OpenClawd Solana robotics profile for the Asimov v1 hardware body with NVIDIA Isaac GR00T policy integration.",
+  "public": true,
+  "default_mode": "dry_run",
+  "solana": {
+    "token": "$CLAWD",
+    "mint": "8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump",
+    "identity_model": "robot_wallet_pubkey",
+    "attestation_model": "command_receipt_hashes"
+  },
+  "hardware": {
+    "base": "Asimov v1",
+    "electrical": {
+      "profile": "Robotics/electrical/OPENCLAWDASV1.md",
+      "motion_control": "Robotics/electrical/motion_control",
+      "wiring": "Robotics/electrical/wiring"
+    },
+    "mechanical": {
+      "profile": "Robotics/mechanical/OCASV1/README.md",
+      "assembly": "Robotics/mechanical/ASV1/ASIMOV_V1.STEP",
+      "subassemblies": [
+        "Robotics/mechanical/ASV1/100/ASV1_100.STEP",
+        "Robotics/mechanical/ASV1/200/ASV1_200.STEP",
+        "Robotics/mechanical/ASV1/300/ASV1_300.STEP",
+        "Robotics/mechanical/ASV1/400/ASV1_400.STEP",
+        "Robotics/mechanical/ASV1/500/ASV1_500.STEP",
+        "Robotics/mechanical/ASV1/600/ASV1_600.STEP",
+        "Robotics/mechanical/ASV1/700/ASV1_700.STEP"
+      ]
+    },
+    "simulation": "Robotics/sim-model/xmls/asimov.xml"
+  },
+  "policy": {
+    "provider": "NVIDIA Isaac GR00T",
+    "source": "Robotics/Isaac-GR00T-main",
+    "integration": "Robotics/Isaac-GR00T-main/OPENCLAWDASV1.md",
+    "role": "vision-language-action proposal engine"
+  },
+  "gateway": {
+    "client": "cmd/openclawd-go",
+    "routes": [
+      "GET /api/robotics/hardware",
+      "POST /api/robot/connect",
+      "POST /api/robot/task"
+    ],
+    "payment_rails": ["x402", "mpp", "pay-sh"],
+    "live_execution_env": "OPENCLAWD_ROBOT_LIVE"
+  }
+}
+

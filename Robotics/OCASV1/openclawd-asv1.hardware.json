@@ -1,0 +1,44 @@
+{
+  "profile": "OCASV1",
+  "name": "OPENCLAWDASV1",
+  "description": "OpenClawd ASV1 Solana hardware profile with GR00T cognition and Solana payment rails.",
+  "robot_id": "OPENCLAWDASV1",
+  "body": {
+    "base": "Asimov v1",
+    "height_m": 1.2,
+    "weight_kg": 35,
+    "actuated_degrees_of_freedom": 25,
+    "passive_degrees_of_freedom": 2,
+    "mechanical_cad": "Robotics/mechanical/ASV1/ASIMOV_V1.STEP",
+    "openclawd_mechanical_profile": "Robotics/mechanical/OCASV1/README.md"
+  },
+  "compute": {
+    "media_network": "Raspberry Pi 5",
+    "motion_control": "Radxa CM5 on Motion Control Board",
+    "recommended_edge_inference": "Jetson AGX Thor",
+    "remote_inference": "GR00T ZMQ model server on H100/H20/L40/RTX Pro"
+  },
+  "electrical": {
+    "overview": "Robotics/electrical/OPENCLAWDASV1.md",
+    "motion_control_map": "Robotics/electrical/motion_control/openclawd-asv1-mcb.map.yaml",
+    "wiring_map": "Robotics/electrical/wiring/openclawd-asv1-wiring.map.yaml",
+    "source_wiring": "Robotics/electrical/wiring/wiring.yaml",
+    "device_tree": "Robotics/electrical/motion_control/mcb-io.dts"
+  },
+  "gr00t": {
+    "source": "Robotics/Isaac-GR00T-main",
+    "example": "Robotics/Isaac-GR00T-main/examples/OpenClawdASV1",
+    "modality_config": "Robotics/Isaac-GR00T-main/examples/OpenClawdASV1/openclawd_asv1_config.py",
+    "modality_json": "Robotics/Isaac-GR00T-main/examples/OpenClawdASV1/modality.json",
+    "embodiment_tag": "NEW_EMBODIMENT",
+    "action_horizon": 32,
+    "recommended_deployment": "ZMQ server-client with asynchronous inference and RTC"
+  },
+  "solana": {
+    "token": "$CLAWD",
+    "mint": "8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump",
+    "identity_template": "Robotics/OCASV1/solana-identity.json",
+    "payment_rails": ["x402", "mpp", "pay-sh"],
+    "default_settlement": "dry_run_until_operator_approval"
+  }
+}

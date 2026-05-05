@@ -83,8 +83,8 @@
     {
       "name": "Robotics",
       "path": "Robotics/",
-      "shade": "Asimov v1 hardware package with CAD, wiring, motion-control device tree, MuJoCo model, and public licenses.",
-      "hackathon_role": "Provides the real hardware target for the robotics submission."
+      "shade": "OCASV1 / OPENCLAWDASV1 hardware package with Asimov v1 CAD, wiring, motion-control device tree, MuJoCo model, NVIDIA Isaac GR00T integration, and public licenses.",
+      "hackathon_role": "Provides the real Solana robot target for the robotics submission."
     },
     {
       "name": "clawdhub",

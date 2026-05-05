@@ -1,5 +1,7 @@
 # Mechanical Design
 
+OpenClawd profile: [`OCASV1/README.md`](OCASV1/README.md).
+
 CAD for all 7 Asimov v1 subassemblies. STEP files, CNC aluminium parts, MJF nylon parts, and off-the-shelf hardware.
 
 ## Contents
