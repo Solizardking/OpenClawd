@@ -68,7 +68,7 @@ func main() {
 }
 
 func usage() {
-	fmt.Fprintln(os.Stderr, `openclawd-go - hardware-friendly OpenClawd robot gateway client
+	fmt.Fprint(os.Stderr, `openclawd-go - hardware-friendly OpenClawd robot gateway client
 
 Commands:
   version
