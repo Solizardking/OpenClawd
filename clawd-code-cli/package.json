@@ -1,6 +1,6 @@
 {
   "name": "@openclawdsolana/clawd-code-cli",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Clawd Code CLI — a lobster-themed AI terminal operator for coding, system ops & Solana.",
   "license": "MIT",
   "type": "module",
@@ -53,6 +53,7 @@
     "openclawd",
     "terminal",
     "grok",
+    "deepseek",
     "openai",
     "mcp"
   ]

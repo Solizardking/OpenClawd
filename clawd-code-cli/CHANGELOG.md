@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.4] - 2026-05-05
+
+### Added
+
+- Added first-class DeepSeek provider routing with `deepseek/` model prefixes,
+  `DEEPSEEK_API_KEY`, `DEEPSEEK_BASE_URL`, and `/config deepseek ...` support.
+- Added default DeepSeek models from the TUI provider surface:
+  `deepseek/deepseek-v4-pro` and `deepseek/deepseek-v4-flash`.
+
 ## [0.2.0] - 2026-04-27
 
 ### Bin rename (breaking)
