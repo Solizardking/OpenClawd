@@ -199,7 +199,61 @@ All three loadable extensions share three contracts:
    - In-extension Ed25519 keystore (`openclawd-chrome-extension/solana-wallet.js`)
    - Local AES-256-GCM vault on `localhost:8421` (`packages/clawd-wallet`)
    - Hardware-isolated Solana Seeker bridge (`gateway/seeker`)
-   The popup picks whichever is configured.
+
+   `@openclawdsolana/pagent-wallet` wraps all three behind a single `WalletAdapter` interface. Use `detectWallet({ prefer: ['vault', 'in-extension', 'seeker'] })` to pick the first available backend.
+4. **Brand tokens** — `@openclawdsolana/pagent-theme` ships `theme.css` (`--oc-*` vars) + a tokens module. The popup, the Browser Bridge options page, and any future surface load this once and inherit identical colors, gradients, radii, shadows, and the lobster mark.
+
+---
+
+## Solana wallet + LLM tools — wiring it together
+
+The shared packages compose into a single chain. End-to-end example for the side panel / pAGENT loop:
+
+```ts
+import { PageAgent } from '@openclawdsolana/pagent'
+import { solanaWalletTools } from '@openclawdsolana/pagent-llms'
+import { detectWallet, HttpGatewayClient } from '@openclawdsolana/pagent-wallet'
+import { injectThemeCSS } from '@openclawdsolana/pagent-theme'
+import { WalletPanel } from '@openclawdsolana/pagent-ui'
+
+// 1. Brand tokens onto the page (MV3 picks them up from theme.css automatically).
+injectThemeCSS(document)
+
+// 2. Auto-detect the wallet (vault → in-extension → seeker).
+const wallet  = await detectWallet({ prefer: ['vault', 'in-extension'] })
+const gateway = new HttpGatewayClient({ baseUrl: 'http://127.0.0.1:8788' })
+
+// 3. Build the LLM tool surface — solana_health, solana_portfolio,
+//    solana_token_overview, solana_swap, solana_sign_message, etc.
+const solanaTools = solanaWalletTools({ wallet: wallet!, gateway })
+
+// 4. Spin up the Re-Act loop. PageAgent merges solanaTools into customTools
+//    and the macro-tool union picks them up automatically.
+const agent = new PageAgent({
+  baseURL: 'https://api.openrouter.ai/v1',
+  model: 'anthropic/claude-sonnet-4-6',
+  apiKey: import.meta.env.OPENROUTER_KEY,
+  solanaTools,
+})
+
+// 5. Drop a wallet card alongside the agent panel.
+new WalletPanel({ wallet: wallet!, gateway, mount: document.getElementById('wallet')! })
+
+await agent.execute('Show me my SOL balance and quote a 0.5 SOL → USDC swap')
+```
+
+For a one-file content-script form, see [`page-agent/src/demo-solana.ts`](./page-agent/src/demo-solana.ts).
+
+For the MV3 popup / Browser Bridge that can't ship a TS bundler, the same WalletPanel ships as plain JS at [`openclawd-chrome-extension/wallet-panel.js`](./openclawd-chrome-extension/wallet-panel.js):
+
+```js
+import { WalletPanel } from './wallet-panel.js'
+new WalletPanel({
+  wallet:  WalletPanel.adaptRuntime(chrome, 'wallet'),
+  gateway: WalletPanel.adaptRuntime(chrome, 'gateway'),
+  mount:   document.getElementById('wallet-card'),
+})
+```
 
 ---
 
