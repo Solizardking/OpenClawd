@@ -236,6 +236,40 @@ npm run release:manifest
 
 ---
 
+## Browser Use workspace upload
+
+The OpenClawd source tree (framework, packages, skills, the two flagged apps —
+`apps/blockchain_buddies/` and `apps/clawd-code-cli/` — plus the canonical
+top-level docs) can be mirrored into a Browser Use workspace so hosted
+browser-automation tasks can read it as workspace files.
+
+```bash
+# Default workspace: e112d4ea-a250-4036-8ed7-f66c564911b5
+export BROWSER_USE_API_KEY=bu_…
+npm run upload:browseruse:dry      # show what would upload (no network)
+npm run upload:browseruse          # actually upload
+```
+
+Optional flags:
+
+- `--workspace-id=<uuid>` (or `BROWSER_USE_WORKSPACE_ID` env)
+- `--prefix=<dir>` to land under a subdirectory in the workspace
+- `--concurrency=<n>` parallel PUTs (default 8)
+- `--max-file-bytes=<n>` skip individual files larger than this (default 25 MB)
+
+The script ([`scripts/upload-to-browseruse.mjs`](scripts/upload-to-browseruse.mjs))
+uses Browser Use v3's two-step flow:
+`POST /workspaces/{id}/files/upload` to declare files (≤10 per batch) and
+receive presigned PUT URLs, then `PUT` the bytes. It excludes
+`node_modules` / `dist` / build outputs at any depth, vendored upstreams
+(`Isaac-GR00T-main`, `lightweight-charts-master`,
+`solana-attestation-service-master`), session/runtime caches, and any
+secret-shaped filenames (`.env*`, `*keypair*.json`, `id.json`,
+`*wallet*.json`, `*.pem`, `*.key`, `*.p8`, `*.jwk`). Current dry-run scope:
+**~1,300 files / ~13 MB**.
+
+---
+
 ## Adding a new surface
 
 1. Drop the package or service into the right folder (`/packages`, `/services`,
