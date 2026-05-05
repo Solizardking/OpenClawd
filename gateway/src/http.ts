@@ -318,6 +318,12 @@ const server = http.createServer(async (req, res) => {
   const route = `${req.method} ${url.pathname}`;
 
   try {
+    if (route === 'GET /healthz') {
+      // Lightweight probe used by @openclawdsolana/service-registry → scripts/doctor.mjs.
+      json(res, 200, { ok: true, service: '@openclawdsolana/gateway' });
+      return;
+    }
+
     if (route === 'GET /health') {
       json(res, 200, {
         ok: true,
