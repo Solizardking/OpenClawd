@@ -141,6 +141,7 @@ cd blockchain_buddies && bun install && bun dev
 # → http://localhost:3000
 
 # Or use the CLI to grab a buddy
+npm install -g @openclawdsolana/blockchain-buddies
 npx @openclawdsolana/blockchain-buddies list
 npx @openclawdsolana/blockchain-buddies install commit-crab
 npx @openclawdsolana/blockchain-buddies codex sync commit-crab
