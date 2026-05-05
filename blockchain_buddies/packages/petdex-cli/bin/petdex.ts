@@ -9,24 +9,55 @@ import pc from "picocolors";
 import { ClerkCliAuth } from "../src/cli-auth/index.js";
 
 // ─── config ────────────────────────────────────────────────────────────────
-const PETDEX_URL = process.env.PETDEX_URL ?? "https://petdex.crafter.run";
+const CLI_NAME = "blockchain-buddies";
+const SHORT_CLI_NAME = "buddies";
+const SITE_URL =
+  process.env.BLOCKCHAIN_BUDDIES_URL ??
+  process.env.BUDDIES_URL ??
+  process.env.PETDEX_URL ??
+  "https://buddies.openclawd.biz";
 const CLERK_ISSUER =
-  process.env.CLERK_ISSUER ?? "https://clerk.petdex.crafter.run";
-const CLIENT_ID = process.env.CLERK_OAUTH_CLIENT_ID ?? "LcThwEayl6KAA1Qm";
+  process.env.BLOCKCHAIN_BUDDIES_CLERK_ISSUER ??
+  process.env.CLERK_CLI_ISSUER ??
+  process.env.CLERK_ISSUER ??
+  "";
+const CLIENT_ID =
+  process.env.BLOCKCHAIN_BUDDIES_CLERK_CLIENT_ID ??
+  process.env.CLERK_OAUTH_CLIENT_ID ??
+  "";
+const BUDDIES_DIR =
+  process.env.OPENCLAWD_BUDDIES_DIR ??
+  process.env.BLOCKCHAIN_BUDDIES_DIR ??
+  path.join(homedir(), ".openclawd", "buddies");
 
-const auth = new ClerkCliAuth({
-  clientId: CLIENT_ID,
-  issuer: CLERK_ISSUER,
-  scopes: ["profile", "email", "openid", "offline_access"],
-  storage: "keychain",
-  keychainService: "petdex-cli",
-});
+let authClient: ClerkCliAuth | null = null;
 
-const VERSION = "0.1.1";
+function auth(): ClerkCliAuth {
+  if (!CLIENT_ID || !CLERK_ISSUER) {
+    throw new Error(
+      [
+        "CLI auth is not configured.",
+        "Set BLOCKCHAIN_BUDDIES_CLERK_CLIENT_ID and BLOCKCHAIN_BUDDIES_CLERK_ISSUER",
+        "or the compatible CLERK_OAUTH_CLIENT_ID and CLERK_CLI_ISSUER variables.",
+      ].join(" "),
+    );
+  }
+  authClient ??= new ClerkCliAuth({
+    clientId: CLIENT_ID,
+    issuer: CLERK_ISSUER,
+    scopes: ["profile", "email", "openid", "offline_access"],
+    storage: "keychain",
+    keychainService: "blockchain-buddies-cli",
+    environment: "openclawd",
+  });
+  return authClient;
+}
+
+const VERSION = "0.1.0";
 
 // ─── entrypoint ────────────────────────────────────────────────────────────
 main().catch((err) => {
-  p.cancel(`petdex: ${(err as Error).message}`);
+  p.cancel(`${CLI_NAME}: ${(err as Error).message}`);
   process.exit(1);
 });
 
@@ -76,27 +107,28 @@ function printHelp() {
   console.log(
     [
       "",
-      `  ${pc.bold(pc.magenta("petdex"))} ${dim(VERSION)} ${dim("— Codex pet gallery CLI")}`,
+      `  ${pc.bold(pc.magenta(CLI_NAME))} ${dim(VERSION)} ${dim("— OpenClawd buddy CLI")}`,
       "",
       `  ${c("Usage")}`,
-      `    petdex <command> [args]`,
+      `    ${CLI_NAME} <command> [args]`,
+      `    ${SHORT_CLI_NAME} <command> [args]`,
       "",
       `  ${c("Commands")}`,
       `    ${pc.bold("login")}              Sign in with Clerk OAuth`,
       `    ${pc.bold("logout")}             Clear stored credentials`,
       `    ${pc.bold("whoami")}             Show signed-in user`,
-      `    ${pc.bold("submit")} <path>      Submit a pet folder, zip, or parent of pets (bulk)`,
-      `    ${pc.bold("install")} <slug>     Install a pet into ~/.codex/pets/<slug>`,
-      `    ${pc.bold("list")}               List approved pets`,
+      `    ${pc.bold("submit")} <path>      Submit a buddy folder, zip, or parent folder (bulk)`,
+      `    ${pc.bold("install")} <slug>     Install a buddy into ${BUDDIES_DIR}/<slug>`,
+      `    ${pc.bold("list")}               List approved buddies`,
       "",
       `  ${c("Examples")}`,
-      `    ${dim("$")} petdex login`,
-      `    ${dim("$")} petdex submit ~/.codex/pets/boba       ${dim("# single folder")}`,
-      `    ${dim("$")} petdex submit ~/Downloads/boba.zip     ${dim("# zip file")}`,
-      `    ${dim("$")} petdex submit ~/.codex/pets            ${dim("# bulk all subfolders")}`,
-      `    ${dim("$")} petdex install boba`,
+      `    ${dim("$")} ${CLI_NAME} login`,
+      `    ${dim("$")} ${CLI_NAME} submit ${BUDDIES_DIR}/boba       ${dim("# single folder")}`,
+      `    ${dim("$")} ${CLI_NAME} submit ~/Downloads/boba.zip     ${dim("# zip file")}`,
+      `    ${dim("$")} ${CLI_NAME} submit ${BUDDIES_DIR}            ${dim("# bulk all subfolders")}`,
+      `    ${dim("$")} ${CLI_NAME} install boba`,
       "",
-      `  ${dim("Gallery & docs:")} ${pc.underline(PETDEX_URL)}`,
+      `  ${dim("Gallery & docs:")} ${pc.underline(SITE_URL)}`,
       "",
     ].join("\n"),
   );
@@ -105,13 +137,13 @@ function printHelp() {
 // ─── commands ──────────────────────────────────────────────────────────────
 
 async function cmdLogin() {
-  p.intro(pc.bgMagenta(pc.white(" petdex login ")));
+  p.intro(pc.bgMagenta(pc.white(` ${CLI_NAME} login `)));
   const s = p.spinner();
   s.start("Opening your browser to sign in with Clerk");
   try {
-    const { user } = await auth.login();
+    const { user } = await auth().login();
     s.stop(pc.green("✓ ") + `Signed in as ${pc.cyan(user.email ?? user.username ?? user.sub)}`);
-    p.outro(`Try ${pc.cyan("petdex submit ~/.codex/pets")} to share your pets.`);
+    p.outro(`Try ${pc.cyan(`${CLI_NAME} submit ${BUDDIES_DIR}`)} to share your buddies.`);
   } catch (err) {
     s.stop(pc.red("× login failed"));
     throw err;
@@ -119,13 +151,13 @@ async function cmdLogin() {
 }
 
 async function cmdLogout() {
-  await auth.logout();
+  await auth().logout();
   console.log(pc.green("✓ ") + "Signed out");
 }
 
 async function cmdWhoami() {
   try {
-    const me = await auth.whoami();
+    const me = await auth().whoami();
     p.note(
       [
         `${pc.dim("user:    ")}${me.sub}`,
@@ -136,7 +168,7 @@ async function cmdWhoami() {
       "Signed in",
     );
   } catch {
-    p.cancel(`Not signed in. Run ${pc.cyan("petdex login")}.`);
+    p.cancel(`Not signed in. Run ${pc.cyan(`${CLI_NAME} login`)}.`);
     process.exit(1);
   }
 }
@@ -144,14 +176,14 @@ async function cmdWhoami() {
 async function cmdInstall(args: string[]) {
   const slug = args[0];
   if (!slug) {
-    p.cancel(`Usage: ${pc.cyan("petdex install <slug>")}`);
+    p.cancel(`Usage: ${pc.cyan(`${CLI_NAME} install <slug>`)}`);
     process.exit(1);
   }
 
   // Cross-platform install implemented in Node. Earlier versions piped a
   // POSIX shell script through `sh`, which crashed on Windows where there is
   // no `sh` (#10 from kayotimoteo). Now we just resolve the asset URLs from
-  // /api/manifest and write the files ourselves — same end result, works
+  // /api/manifest and write the files ourselves - same end result, works
   // identically on macOS, Linux, and Windows.
   const s = p.spinner();
   s.start(`Resolving ${slug}`);
@@ -163,7 +195,7 @@ async function cmdInstall(args: string[]) {
     petJsonUrl: string;
   };
   try {
-    const manifestRes = await fetch(`${PETDEX_URL}/api/manifest`);
+    const manifestRes = await fetch(`${SITE_URL}/api/manifest`);
     if (!manifestRes.ok) {
       s.stop(pc.red("failed"));
       throw new Error(`manifest fetch ${manifestRes.status}`);
@@ -180,7 +212,7 @@ async function cmdInstall(args: string[]) {
     if (!found) {
       s.stop(pc.red("not found"));
       p.cancel(
-        `No pet with slug ${pc.bold(slug)}. Try ${pc.cyan("petdex list")} to see what's available.`,
+        `No buddy with slug ${pc.bold(slug)}. Try ${pc.cyan(`${CLI_NAME} list`)} to see what's available.`,
       );
       process.exit(1);
     }
@@ -190,7 +222,7 @@ async function cmdInstall(args: string[]) {
     throw err;
   }
 
-  const petDir = path.join(homedir(), ".codex", "pets", slug);
+  const petDir = path.join(BUDDIES_DIR, slug);
   s.message(`Downloading to ${petDir}`);
 
   await mkdir(petDir, { recursive: true });
@@ -200,9 +232,10 @@ async function cmdInstall(args: string[]) {
     download(pet.petJsonUrl, path.join(petDir, "pet.json")),
     download(pet.spritesheetUrl, path.join(petDir, `spritesheet.${ext}`)),
   ]);
+  await writeInstallMetadata(petDir, pet);
 
   // Fire-and-forget install metric so the gallery counter ticks up.
-  void fetch(`${PETDEX_URL}/install/${slug}`, { method: "GET" }).catch(
+  void fetch(`${SITE_URL}/install/${slug}`, { method: "GET" }).catch(
     () => {},
   );
 
@@ -212,11 +245,33 @@ async function cmdInstall(args: string[]) {
     [
       `Path: ${pc.dim(petDir)}`,
       "",
-      "Activate inside Codex:",
-      `  ${pc.cyan("Settings → Appearance → Pets")} → select ${pc.bold(pet.displayName)}`,
-      `Then ${pc.cyan("/pet")} inside Codex to wake or tuck it away.`,
+      "OpenClawd can discover this buddy from:",
+      `  ${pc.cyan(BUDDIES_DIR)}`,
+      "",
+      "Legacy Codex-compatible files are kept as pet.json and spritesheet.*.",
     ].join("\n"),
     "Next steps",
+  );
+}
+
+async function writeInstallMetadata(
+  petDir: string,
+  pet: { slug: string; displayName: string; spritesheetUrl: string; petJsonUrl: string },
+): Promise<void> {
+  const metadata = {
+    source: "blockchain-buddies",
+    platform: "openclawd",
+    siteUrl: SITE_URL,
+    slug: pet.slug,
+    displayName: pet.displayName,
+    petJsonUrl: pet.petJsonUrl,
+    spritesheetUrl: pet.spritesheetUrl,
+    installedAt: new Date().toISOString(),
+    format: "codex-pet-v1",
+  };
+  await writeFile(
+    path.join(petDir, "openclawd-buddy.json"),
+    `${JSON.stringify(metadata, null, 2)}\n`,
   );
 }
 
@@ -231,8 +286,8 @@ async function download(url: string, dest: string): Promise<void> {
 
 async function cmdList() {
   const s = p.spinner();
-  s.start("Fetching gallery");
-  const res = await fetch(`${PETDEX_URL}/api/manifest`);
+  s.start("Fetching buddy gallery");
+  const res = await fetch(`${SITE_URL}/api/manifest`);
   if (!res.ok) {
     s.stop(pc.red("failed"));
     throw new Error(`failed to fetch manifest: ${res.status}`);
@@ -246,7 +301,7 @@ async function cmdList() {
       submittedBy: string | null;
     }>;
   };
-  s.stop(`${data.total} pets`);
+  s.stop(`${data.total} buddies`);
 
   const lines = data.pets.map((pet) => {
     const tag = pet.submittedBy ? pc.dim(` — by ${pet.submittedBy}`) : "";
@@ -254,28 +309,28 @@ async function cmdList() {
   });
   console.log(lines.join("\n"));
   console.log(
-    `\n${pc.dim("Install with")} ${pc.cyan("petdex install <slug>")}\n${pc.dim("Browse:")} ${pc.underline(PETDEX_URL)}`,
+    `\n${pc.dim("Install with")} ${pc.cyan(`${CLI_NAME} install <slug>`)}\n${pc.dim("Browse:")} ${pc.underline(SITE_URL)}`,
   );
 }
 
 async function cmdSubmit(args: string[]) {
   const target = args[0];
   if (!target) {
-    p.cancel(`Usage: ${pc.cyan("petdex submit <path>")}`);
+    p.cancel(`Usage: ${pc.cyan(`${CLI_NAME} submit <path>`)}`);
     process.exit(1);
   }
 
   // Ensure auth before doing any work.
   let token: string;
   try {
-    const t = await auth.getAccessToken();
+    const t = await auth().getAccessToken();
     if (!t) {
-      p.cancel(`Not signed in. Run ${pc.cyan("petdex login")}.`);
+      p.cancel(`Not signed in. Run ${pc.cyan(`${CLI_NAME} login`)}.`);
       process.exit(1);
     }
     token = t;
   } catch {
-    p.cancel(`Not signed in. Run ${pc.cyan("petdex login")}.`);
+    p.cancel(`Not signed in. Run ${pc.cyan(`${CLI_NAME} login`)}.`);
     process.exit(1);
   }
 
@@ -286,19 +341,19 @@ async function cmdSubmit(args: string[]) {
     process.exit(1);
   }
 
-  p.intro(pc.bgMagenta(pc.white(" petdex submit ")));
+  p.intro(pc.bgMagenta(pc.white(` ${CLI_NAME} submit `)));
   const scan = p.spinner();
   scan.start(`Scanning ${absPath}`);
   const candidates = await collectCandidates(absPath, stats.isDirectory());
   scan.stop(
     candidates.length > 0
-      ? `${candidates.length} pet${candidates.length === 1 ? "" : "s"} found`
-      : pc.red("no pets found"),
+      ? `${candidates.length} ${candidates.length === 1 ? "buddy" : "buddies"} found`
+      : pc.red("no buddies found"),
   );
 
   if (candidates.length === 0) {
     p.cancel(
-      "A pet folder must contain pet.json and spritesheet.{webp,png}.",
+      "A buddy folder must contain pet.json and spritesheet.{webp,png}.",
     );
     process.exit(1);
   }
@@ -321,7 +376,7 @@ async function cmdSubmit(args: string[]) {
     const ps = p.spinner();
     ps.start(`Submitting ${pc.cyan(cand.label)}`);
     try {
-      const t = await auth.getAccessToken();
+      const t = await auth().getAccessToken();
       if (!t) throw new Error("session expired");
       token = t;
       const result = await submitOne(cand, token);
@@ -347,7 +402,7 @@ async function cmdSubmit(args: string[]) {
   p.outro(
     `${pc.green(String(succeeded))} submitted, ${
       failed > 0 ? pc.red(String(failed)) : pc.dim(String(failed))
-    } failed. Review at ${pc.underline(PETDEX_URL + "/admin")} (admin only).`,
+    } failed. Review at ${pc.underline(SITE_URL + "/admin")} (admin only).`,
   );
   if (failed > 0) process.exit(1);
 }
@@ -487,7 +542,7 @@ async function submitOne(
     throw new Error("spritesheet dimensions could not be parsed");
   }
 
-  const presignRes = await fetch(`${PETDEX_URL}/api/cli/submit`, {
+  const presignRes = await fetch(`${SITE_URL}/api/cli/submit`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${bearer}`,
@@ -534,7 +589,7 @@ async function submitOne(
     ),
   ]);
 
-  const reg = await fetch(`${PETDEX_URL}/api/cli/submit/register`, {
+  const reg = await fetch(`${SITE_URL}/api/cli/submit/register`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${bearer}`,
@@ -548,7 +603,7 @@ async function submitOne(
       displayName: pickString(cand.petJsonObj.displayName, "Untitled pet"),
       description: pickString(
         cand.petJsonObj.description,
-        "A Codex-compatible digital pet.",
+        "An OpenClawd-compatible blockchain buddy.",
       ),
       spritesheetWidth: width,
       spritesheetHeight: height,
