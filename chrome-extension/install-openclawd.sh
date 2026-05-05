@@ -7,9 +7,13 @@
 
 set -euo pipefail
 
-REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
-EXT_DIR="$REPO_ROOT/chrome-extension"
-MCP_DIR="$REPO_ROOT/openclawd-stack/orchestrator"
+# This script lives inside chrome-extension/, so the repo root is one level up.
+EXT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$EXT_DIR/.." && pwd)"
+# Solana-tools MCP server (Helius/Jupiter/etc) — has its own package.json + tsc build.
+MCP_DIR="$REPO_ROOT/mcp"
+# Browser-MCP bridge that talks to the chrome extension (no build step, plain ESM).
+EXT_MCP_DIR="$EXT_DIR/mcp"
 
 # Colors
 RED='\033[0;31m'
@@ -33,19 +37,26 @@ echo -e "${NC}"
 # ── Step 1: Check prerequisites ──────────────────────────────────
 echo -e "\n${BOLD}🔍 Checking prerequisites...${NC}"
 
-check_command() {
+require_command() {
   if command -v "$1" &> /dev/null; then
     echo -e "  ${GREEN}✓${NC} $1 found"
-    return 0
   else
-    echo -e "  ${YELLOW}⚠${NC} $1 not found (optional)"
-    return 1
+    echo -e "  ${RED}✗${NC} $1 not found — please install it and re-run." >&2
+    exit 1
   fi
 }
 
-check_command "node"
-check_command "npm"
-check_command "git"
+optional_command() {
+  if command -v "$1" &> /dev/null; then
+    echo -e "  ${GREEN}✓${NC} $1 found"
+  else
+    echo -e "  ${YELLOW}⚠${NC} $1 not found (optional)"
+  fi
+}
+
+require_command "node"
+require_command "npm"
+optional_command "git"
 
 # ── Step 2: Build Chrome Extension ────────────────────────────────
 echo -e "\n${BOLD}🔨 Building Chrome Extension...${NC}"
@@ -73,30 +84,52 @@ cp -r clawd-agent build/
 
 echo -e "  ${GREEN}✓${NC} Extension built at: $EXT_DIR/build/"
 
-# ── Step 3: Start OpenClawd Orchestrator MCP ────────────────────
-echo -e "\n${BOLD}🚀 Starting OpenClawd MCP Bridge...${NC}"
+# ── Step 3: Build & Start OpenClawd Solana-tools MCP ─────────────
+echo -e "\n${BOLD}🚀 Preparing OpenClawd MCP servers...${NC}"
 
-cd "$MCP_DIR" || exit 1
+MCP_PID=""
+ORCH_ENTRY="$MCP_DIR/dist/index.js"
 
-# Check if node_modules exists
-if [ ! -d "node_modules" ]; then
-  echo -e "  ${YELLOW}⚠${NC} Installing orchestrator dependencies..."
-  npm install
+if [ -d "$MCP_DIR" ] && [ -f "$MCP_DIR/package.json" ]; then
+  cd "$MCP_DIR" || exit 1
+
+  if [ ! -d node_modules ]; then
+    echo -e "  ${BLUE}→${NC} Installing $MCP_DIR dependencies..."
+    npm install --no-audit --no-fund
+  fi
+
+  if [ ! -f "$ORCH_ENTRY" ] || [ "$MCP_DIR/src/index.ts" -nt "$ORCH_ENTRY" ]; then
+    echo -e "  ${BLUE}→${NC} Building Solana-tools MCP (tsc)..."
+    npm run build
+  fi
+
+  if [ -f "$ORCH_ENTRY" ]; then
+    LOG_DIR="$REPO_ROOT/.logs"
+    mkdir -p "$LOG_DIR"
+    echo -e "  ${BLUE}→${NC} Starting Solana-tools MCP in background..."
+    nohup node "$ORCH_ENTRY" > "$LOG_DIR/openclawd-mcp.log" 2>&1 &
+    MCP_PID=$!
+    echo "$MCP_PID" > "$REPO_ROOT/.openclawd-mcp.pid"
+
+    sleep 1
+    if kill -0 "$MCP_PID" 2>/dev/null; then
+      echo -e "  ${GREEN}✓${NC} Solana-tools MCP running (PID: $MCP_PID, log: $LOG_DIR/openclawd-mcp.log)"
+    else
+      echo -e "  ${YELLOW}⚠${NC} Solana-tools MCP exited immediately — check $LOG_DIR/openclawd-mcp.log"
+      MCP_PID=""
+    fi
+  else
+    echo -e "  ${RED}✗${NC} Build did not produce $ORCH_ENTRY — skipping MCP launch." >&2
+  fi
+else
+  echo -e "  ${YELLOW}⚠${NC} $MCP_DIR not found; skipping Solana-tools MCP startup."
 fi
 
-# Start MCP server in background
-echo -e "  ${BLUE}→${NC} Starting MCP bridge on port 3001..."
-nohup node dist/index.js > .logs/mcp-bridge.log 2>&1 &
-MCP_PID=$!
-echo $MCP_PID > .mcp-bridge.pid
-
-# Wait for MCP to be ready
-sleep 2
-
-if kill -0 $MCP_PID 2>/dev/null; then
-  echo -e "  ${GREEN}✓${NC} MCP bridge running (PID: $MCP_PID)"
-else
-  echo -e "  ${YELLOW}⚠${NC} MCP bridge failed to start - check logs"
+# Browser-MCP deps (ESM; no build step needed, but it does need its node_modules).
+if [ -d "$EXT_MCP_DIR" ] && [ -f "$EXT_MCP_DIR/package.json" ] && [ ! -d "$EXT_MCP_DIR/node_modules" ]; then
+  echo -e "  ${BLUE}→${NC} Installing browser-MCP dependencies..."
+  ( cd "$EXT_MCP_DIR" && npm install --no-audit --no-fund ) || \
+    echo -e "  ${YELLOW}⚠${NC} Browser-MCP install failed; the openclawd-browser MCP server may not start."
 fi
 
 # ── Step 4: Generate Chrome Extension Config ─────────────────────
@@ -183,36 +216,65 @@ EOFCONFIG
 
 echo -e "  ${GREEN}✓${NC} Config generated"
 
-# ── Step 5: Create Claude Desktop Config ──────────────────────────
-echo -e "\n${BOLD}📝 Creating Claude Desktop MCP config...${NC}"
+# ── Step 5: Merge Claude Desktop Config ──────────────────────────
+echo -e "\n${BOLD}📝 Updating Claude Desktop MCP config...${NC}"
 
 CLAUDE_CONFIG_DIR="$HOME/Library/Application Support/Claude"
+CLAUDE_CONFIG_FILE="$CLAUDE_CONFIG_DIR/claude_desktop_config.json"
 mkdir -p "$CLAUDE_CONFIG_DIR"
 
-cat > "$CLAUDE_CONFIG_DIR/claude_desktop_config.json" << 'EOFCLAUDE'
+BROWSER_ENTRY="$EXT_MCP_DIR/src/index.js"
+
+# Build the two server entries we want to register.
+NEW_SERVERS=$(cat <<EOFSERVERS
 {
-  "mcpServers": {
-    "openclawd": {
-      "command": "node",
-      "args": ["/Users/8bit/openclawd/openclawd-stack/orchestrator/dist/index.js"],
-      "env": {
-        "OPENCLAWD_GATEWAY_URL": "http://localhost:18790",
-        "OPENCLAWD_MCP_PORT": "3001"
-      }
-    },
-    "openclawd-browser": {
-      "command": "node",
-      "args": ["/Users/8bit/openclawd/chrome-extension/mcp/src/index.js"],
-      "env": {
-        "LLM_BASE_URL": "https://api.openrouter.ai/v1",
-        "LLM_MODEL_NAME": "anthropic/claude-sonnet-4-6"
-      }
+  "openclawd": {
+    "command": "node",
+    "args": ["$ORCH_ENTRY"],
+    "env": {
+      "OPENCLAWD_GATEWAY_URL": "http://localhost:18790",
+      "OPENCLAWD_MCP_PORT": "3001"
+    }
+  },
+  "openclawd-browser": {
+    "command": "node",
+    "args": ["$BROWSER_ENTRY"],
+    "env": {
+      "LLM_BASE_URL": "https://openrouter.ai/api/v1",
+      "LLM_MODEL_NAME": "anthropic/claude-sonnet-4-6"
     }
   }
 }
-EOFCLAUDE
+EOFSERVERS
+)
 
-echo -e "  ${GREEN}✓${NC} Claude Desktop config created"
+if [ -f "$CLAUDE_CONFIG_FILE" ]; then
+  BACKUP="$CLAUDE_CONFIG_FILE.bak.$(date +%Y%m%d-%H%M%S)"
+  cp "$CLAUDE_CONFIG_FILE" "$BACKUP"
+  echo -e "  ${BLUE}→${NC} Backed up existing config to $BACKUP"
+fi
+
+if command -v node &> /dev/null; then
+  node - "$CLAUDE_CONFIG_FILE" "$NEW_SERVERS" <<'EOFNODE'
+const fs = require('fs');
+const [, , configPath, newServersJson] = process.argv;
+let existing = {};
+if (fs.existsSync(configPath)) {
+  try {
+    existing = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+  } catch (e) {
+    console.error('  Existing config is not valid JSON; aborting merge to avoid data loss.');
+    process.exit(1);
+  }
+}
+const additions = JSON.parse(newServersJson);
+existing.mcpServers = { ...(existing.mcpServers || {}), ...additions };
+fs.writeFileSync(configPath, JSON.stringify(existing, null, 2) + '\n');
+EOFNODE
+  echo -e "  ${GREEN}✓${NC} Claude Desktop config merged (existing servers preserved)"
+else
+  echo -e "  ${YELLOW}⚠${NC} node not available; skipped Claude Desktop config merge"
+fi
 
 # ── Step 6: Print Instructions ────────────────────────────────────
 echo -e "\n${PURPLE}═══════════════════════════════════════════════════════════════${NC}"
@@ -241,8 +303,12 @@ echo -e "\n${BOLD}🤖 Claude Desktop Integration:${NC}"
 echo -e "  Config written to: $CLAUDE_CONFIG_DIR/claude_desktop_config.json"
 echo -e "  Restart Claude Desktop to activate MCP servers"
 
-echo -e "\n${BOLD}🌐 OpenClawd Services Running:${NC}"
-echo -e "  ${GREEN}✓${NC} MCP Bridge: http://localhost:3001 (PID: $MCP_PID)"
+echo -e "\n${BOLD}🌐 OpenClawd Services:${NC}"
+if [ -n "$MCP_PID" ]; then
+  echo -e "  ${GREEN}✓${NC} Solana-tools MCP: PID $MCP_PID (log: $REPO_ROOT/.logs/openclawd-mcp.log)"
+else
+  echo -e "  ${YELLOW}○${NC} Solana-tools MCP: not started — see logs above"
+fi
 echo -e "  ${YELLOW}○${NC} Gateway: Connect to SolanaOS at :18790"
 echo -e "  ${YELLOW}○${NC} Wallet API: Start with 'npm run ext:vault'"
 

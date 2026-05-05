@@ -751,6 +751,38 @@ chrome.runtime.sendMessage({ kind: 'wallet', op: 'signSolanaMessage', args: [msg
 
 Right-click any selected base58 string anywhere in Chrome → **🦞 Look up "..." in OpenClawd** → desktop notification with `$SYM · price · mcap`. Full architecture, security model, and sign-and-submit flow: [chrome-extension/openclawd-chrome-extension/README.md](chrome-extension/openclawd-chrome-extension/README.md).
 
+### One-shot installer — extension + MCP
+
+[`chrome-extension/install-openclawd.sh`](chrome-extension/install-openclawd.sh) bootstraps the Chrome extension build, the Solana-tools MCP server, and the browser-bridge MCP server, then merges both into your Claude Desktop config — preserving any MCP servers already configured there.
+
+```bash
+bash chrome-extension/install-openclawd.sh
+```
+
+What it does, step by step:
+
+| Step | Action | Where |
+| ---- | ------ | ----- |
+| 1 | Hard-checks `node` + `npm` (exits cleanly if missing); `git` is optional | `command -v` |
+| 2 | Builds the unpacked extension by copying `manifest.json`, `popup.*`, `background.js`, `icons/`, and `clawd-agent/` into [`chrome-extension/build/`](chrome-extension/build/) | `chrome-extension/` |
+| 3 | Installs deps & runs `tsc` for the [Solana-tools MCP](mcp/) (`npm i` + `npm run build`) when `mcp/dist/index.js` is missing or stale | [`mcp/`](mcp/) |
+| 4 | Starts that MCP in the background, writes the PID to `.openclawd-mcp.pid` and logs to `.logs/openclawd-mcp.log` at the repo root | repo root |
+| 5 | Installs deps for the browser-MCP bridge (no build step — plain ESM) | [`chrome-extension/mcp/`](chrome-extension/mcp/) |
+| 6 | Generates `chrome-extension/build/openclawd-config.js` (gateway/wallet ports, `$CLAWD` token mint, hub/docs links, default LLM provider) | extension build |
+| 7 | **Merges** two MCP entries (`openclawd` → Solana-tools, `openclawd-browser` → browser bridge) into `~/Library/Application Support/Claude/claude_desktop_config.json`, with a timestamped `.bak.<date>` backup before any write | Claude Desktop |
+
+Defaults the installer wires up:
+
+- **Gateway:** `http://127.0.0.1:18790` (with `:7777` / `localhost` fallbacks)
+- **Wallet API:** `http://localhost:8421`
+- **MawdAxe mining fleet:** `http://localhost:8420`
+- **LLM:** OpenRouter at `https://openrouter.ai/api/v1`, model `anthropic/claude-sonnet-4-6`
+- **`$CLAWD` mint:** `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump`
+
+Once it finishes, open `chrome://extensions/`, enable Developer mode, **Load unpacked** → `chrome-extension/build/` (or `chrome-extension/build/clawd-agent/` for the full GUI-vision pAGENT side-panel), and restart Claude Desktop to pick up the merged MCP servers.
+
+> **Recent installer fixes (May 2026)** — the script previously had broken `REPO_ROOT` math, pointed `MCP_DIR` at a nonexistent `openclawd-stack/orchestrator`, hard-coded `/Users/8bit/openclawd/...` paths, used the wrong OpenRouter base URL, and *clobbered* `claude_desktop_config.json`. All five are now fixed: paths resolve relative to the repo root, the script targets the real [`mcp/`](mcp/) workspace, the OpenRouter URL is `https://openrouter.ai/api/v1`, and Claude Desktop config is merged (not overwritten) with a `.bak.<timestamp>` snapshot taken first.
+
 ---
 
 ## 🦞 Solana Console — Live Gateway Dashboard

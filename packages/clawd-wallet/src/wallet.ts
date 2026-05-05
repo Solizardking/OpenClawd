@@ -7,15 +7,16 @@ import {
   createSolanaRpc,
   createSolanaRpcSubscriptions,
   address,
-  type SolanaRpc,
-  type SolanaRpcSubscriptions,
 } from "@solana/kit";
+import bs58 from "bs58";
 import type {
   ClawdWallet as IClawdWallet,
   ClawdWalletInfo,
   SolanaChain,
-  WalletNotReadyError,
 } from "./types.js";
+
+type SolanaRpc = ReturnType<typeof createSolanaRpc>;
+type SolanaRpcSubscriptions = ReturnType<typeof createSolanaRpcSubscriptions>;
 
 const CHAIN_RPC: Record<SolanaChain, string> = {
   mainnet: "https://api.mainnet-beta.solana.com",
@@ -101,6 +102,7 @@ export class ClawdWallet implements IClawdWallet {
       chain: this.#chain,
       ready: this.ready,
       walletClientType: "privy",
+      createdAt: new Date().toISOString(),
     };
   }
 
@@ -135,9 +137,7 @@ export class ClawdWallet implements IClawdWallet {
       { preflightCommitment: "confirmed" }
     );
 
-    // Convert Uint8Array signature to base58 string
-    const { Signature } = await import("@solana/web3.js");
-    return Signature.from(result.signature).toBase58();
+    return bs58.encode(result.signature);
   }
 
   /**
@@ -169,8 +169,8 @@ export class ClawdWallet implements IClawdWallet {
     });
 
     return new Promise((resolve) => {
-      const unsubscribe = sub.subscribe({
-        onData: (notif) => {
+      const unsubscribe = (sub as any).subscribe({
+        onData: (notif: any) => {
           if (notif.value.err) {
             unsubscribe();
             resolve("failed");

@@ -27,9 +27,10 @@
       "default": "./src/webhook.ts"
     }
   },
-  "bin": {
-    "honcho-clawd": "dist/cli.js"
-  },
+  "files": [
+    "src",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
@@ -46,9 +47,17 @@
   ],
   "author": "OpenClawd Team",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
+    "directory": "packages/honcho-bridge"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@honcho-ai/sdk": "^1.0.0",
-    "@openclawdsolana/membrain-types": "1.0.0"
+    "@openclawdsolana/membrain-types": "^1.0.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

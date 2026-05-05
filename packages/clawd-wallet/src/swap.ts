@@ -6,9 +6,7 @@
 import {
   createJupiterApiClient,
   type QuoteResponse,
-  type SwapResponse,
 } from "@jup-ag/api";
-import type { Connection, Transaction } from "@solana/web3.js";
 import Decimal from "decimal.js";
 import type { ClawdWallet } from "./wallet.js";
 import type {
@@ -16,8 +14,6 @@ import type {
   SwapQuote,
   SwapResult,
   SolanaChain,
-  SwapError,
-  CHAIN_RPC,
 } from "./types.js";
 
 /** Jupiter API endpoints per chain */
@@ -115,8 +111,8 @@ export class SwapService {
       outAmount: response.outAmount,
       priceImpactPct: parseFloat(response.priceImpactPct ?? "0"),
       minimumReceivedAmount: response.otherAmountThreshold,
-      routePlan: response.routePlan,
-      transaction: "", // filled by .execute()
+      routePlan: response.routePlan as unknown as SwapQuote["routePlan"],
+      transaction: "",
     };
   }
 
@@ -173,12 +169,19 @@ export class SwapService {
   }
 
   /**
-   * Get available tokens on Jupiter
+   * Get available tokens on Jupiter (queries the public token list endpoint)
    */
   async getTokens(): Promise<
     Array<{ symbol: string; mint: string; decimals: number; name: string }>
   > {
-    const tokens = await this.#jupiter.tokenList();
+    const res = await fetch("https://tokens.jup.ag/tokens?tags=verified");
+    if (!res.ok) throw new Error(`Failed to fetch Jupiter token list: ${res.status}`);
+    const tokens = (await res.json()) as Array<{
+      address: string;
+      symbol?: string;
+      name: string;
+      decimals?: number;
+    }>;
     return tokens.map((t) => ({
       symbol: t.symbol ?? t.name,
       mint: t.address,

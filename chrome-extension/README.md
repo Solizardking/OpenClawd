@@ -1,6 +1,7 @@
-# OpenClawd — pAGENT Browser
+# 🦞 OpenClawd — Chrome Extensions
 
-**The autonomous AI browser agent — your keys never leave your machine.**
+> **One folder. Three loadable extensions. Five reusable packages.**
+> Every surface speaks the same OpenClawd Gateway, ships the same agent wallet primitives, and shares the lobster.
 
 [![Version](https://img.shields.io/badge/version-3.0.0-9945FF)](manifest.json)
 [![Manifest V3](https://img.shields.io/badge/manifest-v3-blue)]()
@@ -8,150 +9,132 @@
 [![License MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![$CLAWD](https://img.shields.io/badge/%24CLAWD-pump.fun-ff69b4)](https://pump.fun/8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump)
 
-> **The Hermes of Web3** — AI agent browser with wallet, trading, and harness integration.
+---
+
+## What's in this folder
+
+The `chrome-extension/` folder is a small monorepo. Three of these directories are **loadable Chrome extensions** (have a `manifest.json` you can install in `chrome://extensions`). The rest are **TypeScript packages** consumed by the extensions and by the OpenClawd MCP bridge.
+
+### Loadable extensions (pick one or stack them)
+
+| # | Folder | What it is | When to load |
+|---|---|---|---|
+| 1 | [`./`](.) (top-level popup) | **OpenClawd — pAGENT Browser** — 7-tab popup (Wallet · Seeker · Miner · Chat · Tools · Vault · pAGENT). MV3, localhost-only host permissions, ships the popup wallet. | **Start here.** Daily-driver UI. |
+| 2 | [`./clawd-agent/`](./clawd-agent) | **OpenClawd Agent** — full pAGENT bundle with side panel + GUI-vision Re-Act loop. `<all_urls>` host permissions, injects `window.PAGENT`. | Want browser automation on any tab. |
+| 3 | [`./openclawd-chrome-extension/`](./openclawd-chrome-extension) | **OpenClawd Browser Bridge** — CDP relay + Gateway HTTP client + in-extension Solana agent wallet (Ed25519 + AES-GCM keystore). | Pairing Chrome with the local OpenClawd daemon for tab automation + on-chain signing. |
+
+### Source packages (not loaded directly — built and consumed)
+
+| Folder | Package | Role |
+|---|---|---|
+| [`./core/`](./core) | `@openclawdsolana/pagent-core` | Re-Act agent loop (think → act → observe). |
+| [`./page-controller/`](./page-controller) | `@openclawdsolana/pagent-page-controller` | DOM state extraction + action surface. |
+| [`./page-agent/`](./page-agent) | `@openclawdsolana/pagent` | High-level wrapper (`window.PAGENT.execute`). |
+| [`./ui/`](./ui) | `@openclawdsolana/pagent-ui` | Side-panel + popup React shell. |
+| [`./llms/`](./llms) | `@openclawdsolana/pagent-llms` | Provider adapters (OpenRouter, xAI/Grok, local). |
+| [`./mcp/`](./mcp) | `@openclawdsolana/browser-mcp` | MCP server bridging pAGENT to Claude Desktop / Cursor / Cline. |
+
+### Build & store assets
+
+| File | Purpose |
+|---|---|
+| [`build-cws.sh`](./build-cws.sh) | Packs the popup extension into `build/openclawd-popup-vX.Y.Z.zip` for the Chrome Web Store. |
+| [`install-openclawd.sh`](./install-openclawd.sh) | One-shot: builds the extension, starts the MCP bridge, writes Claude Desktop config. |
+| [`CWS-LISTING.md`](./CWS-LISTING.md) | Paste-ready Chrome Web Store listing copy. |
+| [`icons/`](./icons) | 16 / 32 / 48 / 128 px lobster icons for the popup extension. |
 
 ---
 
-## Table of Contents
+## Install — one by one
 
-1. [Quick Install](#quick-install)
-2. [One-Shot Installer](#one-shot-installer)
-3. [Six Tabs](#six-tabs)
-4. [OpenClawd Pro — Hold $CLAWD](#openclawd-pro--hold-clawd)
-5. [pAGENT — GUI Vision Browser Agent](#pagent--gui-vision-browser-agent)
-6. [Agent Wallet Vault](#agent-wallet-vault)
-7. [MCP Bridge](#mcp-bridge)
-8. [OpenClawd Integration](#openclawd-integration)
-9. [Configuration](#configuration)
-10. [Directory Layout](#directory-layout)
+The fastest path is **one-shot** (Section 1). The step-by-step paths (Sections 2 & 3) exist for when you want to load only a specific surface.
 
----
-
-## Quick Install
-
-### Option A — One-Shot Installer (Recommended)
+### 1. One-shot install (recommended)
 
 ```bash
 cd chrome-extension
 bash install-openclawd.sh
 ```
 
-This installs the Chrome extension AND starts the OpenClawd MCP bridge automatically.
+This will:
+1. ✅ Build the source packages (`core`, `page-controller`, `page-agent`, `ui`, `llms`)
+2. ✅ Build the popup extension (top-level `chrome-extension/`)
+3. ✅ Start the MCP bridge on `:3001`
+4. ✅ Write `~/.claude.json` MCP config so Claude Desktop sees `openclawd-browser`
+5. ✅ Print the path to load unpacked + a copyable `chrome://extensions` link
 
-### Option B — Load Unpacked
+After it finishes, open Chrome → `chrome://extensions` → **Developer mode** ON → **Load unpacked** → select the printed folder.
 
-1. Open `chrome://extensions/` in Chrome, Brave, or Edge
-2. Toggle **Developer mode** (top-right)
-3. Click **Load unpacked** and select one:
-   - `chrome-extension/` → popup build (wallet + chat + tools + vault + miner + seeker)
-   - `chrome-extension/clawd-agent/` → full pAGENT build with side panel + GUI-vision automation
+### 2. Load the popup extension manually
 
-### Option C — Build and Load
+Use this if you only want the 7-tab wallet/chat/tools UI.
 
-```bash
-bash build-cws.sh
-# → build/openclawd-popup-v3.0.0.zip
-```
+1. **Build the source packages** (only needed once or after pulling):
+   ```bash
+   cd /path/to/OpenClawd
+   npm run install:pagent
+   npm run build:pagent
+   ```
+2. **Open Chrome** → `chrome://extensions` (or `brave://extensions`, `edge://extensions`).
+3. Toggle **Developer mode** in the top-right.
+4. Click **Load unpacked**.
+5. Select `chrome-extension/` (the top-level folder — the one with `manifest.json` v3.0.0).
+6. **Pin the lobster** in the toolbar so it's always one click away.
+7. Click the lobster → **⚙️ Settings**:
+   - **OpenClawd Server URL** → `http://127.0.0.1:7777` (default)
+   - **OpenRouter API Key** → paste your `sk-or-...` (free models work)
+   - **MawdAxe Server URL** → `http://127.0.0.1:8420` (only if you run the miner fleet)
+8. Click **💰 Wallet** → confirms the daemon is reachable. The badge shows 🟢 when healthy.
 
----
+> **No daemon running?** Run `bash ../install.sh && openclawd daemon` from the repo root, then click the lobster again.
 
-## One-Shot Installer
+### 3. Load the pAGENT side-panel manually (`clawd-agent/`)
 
-The `install-openclawd.sh` script:
+Use this when you want browser automation injected into every tab.
 
-1. ✅ Builds the Chrome extension
-2. ✅ Starts the OpenClawd MCP bridge (port 3001)
-3. ✅ Creates Claude Desktop MCP config
-4. ✅ Generates extension configuration
-5. ✅ Prints installation instructions
+1. Build (only needed after pulling):
+   ```bash
+   cd chrome-extension/clawd-agent
+   npm install --no-audit --no-fund
+   npm run build
+   ```
+2. Chrome → `chrome://extensions` → **Developer mode** ON → **Load unpacked**.
+3. Select `chrome-extension/clawd-agent/` (the folder with `manifest.json` v2.0.0 referencing `assets/icon128.png`).
+4. Open the side panel (lobster icon → **Open side panel**) and configure:
+   - **LLM provider** → OpenRouter / xAI Grok / local
+   - **API key** → your provider key (or `XAI_API_KEY` from `~/.openclawdsolana/.env` if Grok)
+   - **GUI vision** → ON for screenshot-driven Re-Act, OFF for pure DOM
+5. Drive it programmatically from any page:
+   ```js
+   await window.PAGENT.execute("Find the cheapest SOL→USDC route on Jupiter and screenshot it");
+   ```
 
-```bash
-bash chrome-extension/install-openclawd.sh
-```
+### 4. Load the Browser Bridge manually (`openclawd-chrome-extension/`)
 
-Output includes:
-- Extension location
-- How to load unpacked
-- Claude Desktop integration
-- Running services
+Use this when you want CDP relay + the in-extension Solana agent wallet (Ed25519, signs without leaving the browser).
 
----
+1. **Run the OpenClawd CDP relay** (any one of these):
+   ```bash
+   openclawd browser relay        # native Go binary
+   # or
+   cd gateway && npm run dev      # Node gateway with relay
+   ```
+   It must answer `HEAD /` on `ws://127.0.0.1:18792/extension`.
+2. (Optional but recommended) Start the OpenClawd Gateway:
+   ```bash
+   cd gateway && npm run dev      # http://127.0.0.1:8788
+   ```
+3. Chrome → `chrome://extensions` → **Developer mode** ON → **Load unpacked**.
+4. Select `chrome-extension/openclawd-chrome-extension/`.
+5. The options page opens automatically. Configure the three cards:
+   - **CDP Relay** — port `18792`, click **Test** → expect ✅
+   - **Gateway** — `http://127.0.0.1:8788` (or `https://gateway.solanaclawd.com`)
+   - **Agent Wallet** — **Create** (generates Ed25519 + encrypts with passphrase) or **Import** (Phantom-format 64-byte base58 secret)
+6. Click the lobster on any tab → debugger attaches → badge turns 🟢 `ON`.
 
-## Six Tabs
+Full subsystem documentation: [openclawd-chrome-extension/README.md](./openclawd-chrome-extension/README.md).
 
-| Tab | What it does | Paid? |
-|---|---|:---:|
-| 💰 **Wallet** | SOL + SPL balances, OODA trade history, Bitaxe miner card, send / swap | Free |
-| 📱 **Seeker** | WebSocket bridge to the Solana Seeker phone | Free |
-| ⛏  **Miner** | MawdAxe Bitaxe fleet dashboard with SSE live updates | Free |
-| 💬 **Chat** | Multi-turn chat with OpenClawd — routes to OpenRouter or the local daemon | Free |
-| 🔧 **Tools** | Live RPC health, trending tokens, system status, on-chain agent identity mint | Free |
-| 🔐 **Vault** | AES-256-GCM local wallet vault at `localhost:8421` — keys never leave your box | Free |
-| 🧠 **pAGENT** | GUI-vision browser agent, `window.PAGENT.execute("...")` on any page | Free core, **Pro unlocks more** |
-
----
-
-## OpenClawd Pro — Hold $CLAWD
-
-OpenClawd is free to use. **OpenClawd Pro** unlocks premium features based on $CLAWD holdings.
-
-| Tier | Hold | Daily Runs | Models | Features |
-|---|---|---|---|---|
-| **Free** | 0 $CLAWD | 5 | Claude Haiku, GPT-4.1-nano | Core 6 tabs |
-| **Bronze** | 1+ $CLAWD | 20 | + Gemini 3 Flash, DeepSeek R1 | Price alerts, watchlist |
-| **Silver** | 1,000+ $CLAWD | 50 | + Claude Sonnet 4.6 | OODA autopilot, Telegram |
-| **Gold** | 10,000+ $CLAWD | 100 | + Claude Opus 4.6, Grok 4 | Multi-agent (4), X feed |
-| **Diamond** | 100,000+ $CLAWD | 250 | + Grok multi-agent 16 | Sniper, MEV routing |
-
-### Grab $CLAWD
-
-[**pump.fun/8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump →**](https://pump.fun/8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump)
-
----
-
-## pAGENT — GUI Vision Browser Agent
-
-pAGENT injects `window.PAGENT` into every page. Drive your browser with natural language:
-
-```javascript
-await window.PAGENT.execute("Find the cheapest SOL→USDC route on Jupiter and screenshot it", {
-  baseURL: "https://api.openrouter.ai/v1",
-  model: "anthropic/claude-sonnet-4-6",
-  apiKey: "sk-or-...",
-  guiVision: true,
-  onStatusChange: (s) => console.log(s),
-});
-```
-
-**What makes it different:**
-- **GUI vision** — screenshots parsed by vision model, not just DOM
-- **Re-Act loop** — think / act / observe / repeat until task is done
-- **MCP bridge** — plugs into Claude Desktop, Cursor, Cline via stdio
-
----
-
-## Agent Wallet Vault
-
-Local-only vault server at `localhost:8421`:
-
-```
-Chrome extension popup
-    ↓ HTTP to 127.0.0.1:8421
-OpenClawd Wallet API
-    ↓ AES-256-GCM at rest
-~/.openclawd/vault.json  (chmod 0600)
-```
-
-Start the vault:
-```bash
-npx @openclawd/wallet serve --port 8421
-```
-
----
-
-## MCP Bridge
-
-The `mcp/` package bridges pAGENT to Claude Desktop:
+### 5. Wire the MCP bridge into Claude Desktop / Cursor / Cline
 
 ```bash
 cd chrome-extension/mcp
@@ -161,14 +144,14 @@ LLM_MODEL_NAME=anthropic/claude-sonnet-4-6 \
 node src/index.js
 ```
 
-Add to Claude Desktop (`~/.claude.json`):
+Add to `~/.claude.json` (Claude Desktop) or your client's MCP config:
 
 ```json
 {
   "mcpServers": {
     "openclawd-browser": {
       "command": "node",
-      "args": ["/Users/8bit/openclawd/chrome-extension/mcp/src/index.js"]
+      "args": ["/absolute/path/to/OpenClawd/chrome-extension/mcp/src/index.js"]
     }
   }
 }
@@ -176,19 +159,89 @@ Add to Claude Desktop (`~/.claude.json`):
 
 ---
 
-## OpenClawd Integration
+## Subsystem map — how the surfaces talk to each other
 
-OpenClawd connects to the OpenClawd Go binary for:
+```
+┌──────────────────────────────────────────────────────────────────────────┐
+│                       chrome-extension monorepo                           │
+│                                                                           │
+│  ┌─────────────────┐   ┌─────────────────┐   ┌────────────────────────┐  │
+│  │  Popup (top     │   │  clawd-agent/   │   │ openclawd-chrome-      │  │
+│  │  level)         │   │  side panel +   │   │ extension/             │  │
+│  │  7 tabs         │   │  window.PAGENT  │   │ CDP relay + agent      │  │
+│  │                 │   │                 │   │ wallet (Ed25519)       │  │
+│  └────────┬────────┘   └────────┬────────┘   └───────────┬────────────┘  │
+│           │                     │                        │               │
+│           ▼                     ▼                        ▼               │
+│      ┌────────────────────────────────────────────────────────┐         │
+│      │  shared TS packages: core · page-controller · page-    │         │
+│      │  agent · ui · llms · mcp                                │         │
+│      └────────────────────────────────────────────────────────┘         │
+└─────────────────────────────────┬────────────────────────────────────────┘
+                                  │  ws / http (loopback only by default)
+                                  ▼
+   ┌──────────────────────────────────────────────────────────────────┐
+   │  OpenClawd daemon  (Go binary from `bash install.sh`)            │
+   │  • Gateway WS  :18790    • Control UI  :7777                     │
+   │  • Wallet API  :8421     • MawdAxe SSE :8420                     │
+   │  • CDP relay   :18792    • MCP bridge  :3001                     │
+   │  • Voice via XAI_API_KEY → wss://api.x.ai/v1/realtime            │
+   └──────────────────────────────────────────────────────────────────┘
+```
 
-| Service | Port | OpenClawd Connection |
-|---------|------|---------------------|
-| Gateway WS | 18790 | WebSocket client |
-| Control UI | 7777 | HTTP API |
-| Wallet API | 8421 | REST client |
-| MawdAxe | 8420 | SSE client |
-| MCP Bridge | 3001 | stdio + HTTP |
+All three loadable extensions share three contracts:
 
-See [`INTEGRATION_STRATEGY.md`](INTEGRATION_STRATEGY.md) for full integration guide.
+1. **OpenClawd Gateway HTTP** (`/api/token/overview`, `/api/wallet/portfolio`, `/api/wallet/swap/build`, `/api/wallet/submit`) — see `gateway/` in the repo root.
+2. **CDP relay protocol** on `ws://127.0.0.1:18792/extension` — see `services/cdp-relay`.
+3. **Agent wallet** — three implementations live side-by-side:
+   - In-extension Ed25519 keystore (`openclawd-chrome-extension/solana-wallet.js`)
+   - Local AES-256-GCM vault on `localhost:8421` (`packages/clawd-wallet`)
+   - Hardware-isolated Solana Seeker bridge (`gateway/seeker`)
+   The popup picks whichever is configured.
+
+---
+
+## Six tabs (popup) at a glance
+
+| Tab | What it does | Tier |
+|---|---|---|
+| 💰 **Wallet** | SOL + SPL balances, OODA trade history, send / swap, miner card | Free |
+| 📱 **Seeker** | WebSocket bridge to a paired Solana Seeker phone | Free |
+| ⛏  **Miner** | MawdAxe Bitaxe fleet dashboard with SSE live updates | Free |
+| 💬 **Chat** | Multi-turn chat — OpenRouter, xAI Grok (voice-capable), or the local daemon | Free |
+| 🔧 **Tools** | RPC health, trending Solana tokens, on-chain agent identity mint | Free |
+| 🔐 **Vault** | AES-256-GCM local wallet vault on `localhost:8421` | Free |
+| 🧠 **pAGENT** | GUI-vision browser agent — `window.PAGENT.execute("...")` | Free core, Pro unlocks more |
+
+---
+
+## OpenClawd Pro — hold $CLAWD
+
+Tier detection is **local**: the popup reads your connected wallet's `$CLAWD` balance from the daemon's `/api/wallet/portfolio` endpoint, maps it to a tier, and unlocks features in the UI. No remote call, no server gate.
+
+| Tier | Hold | Daily runs | Models | Unlocks |
+|---|---|---|---|---|
+| **Free** | 0 | 5 | Haiku, GPT-4.1-nano | Core 7 tabs |
+| **Bronze** | 1+ $CLAWD | 20 | + Gemini Flash, DeepSeek | Watchlist, price alerts |
+| **Silver** | 1,000+ | 50 | + Sonnet 4.6 | OODA autopilot, Telegram mirror |
+| **Gold** | 10,000+ | 100 | + Opus 4.6, Grok 4 | Multi-agent (4), X feed |
+| **Diamond** | 100,000+ | 250 | + Grok multi-agent 16 | Pump.fun sniper, MEV routing |
+
+[**Grab $CLAWD on pump.fun →**](https://pump.fun/8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump)
+
+---
+
+## Solana wallet primitives — three options, one popup
+
+Every loadable extension can sign Solana transactions. They differ only in **where the secret lives**:
+
+| Surface | Secret location | Crypto | Auto-lock |
+|---|---|---|---|
+| **In-extension** (`openclawd-chrome-extension`) | `chrome.storage.local`, AES-GCM at rest | Ed25519 (WebCrypto, Chrome 130+) | 15 min idle |
+| **Local vault** (popup default) | `~/.openclawd/vault.json` (`chmod 0600`) | AES-256-GCM | configurable |
+| **Seeker bridge** | Solana Seeker secure element | Ed25519 (hardware) | hardware-managed |
+
+The popup auto-detects which is available and routes signing accordingly. The extension intentionally **does not bundle `@solana/web3.js`** — the gateway constructs transactions, hands serialized messages to the extension, the extension signs, the gateway broadcasts. Keeps the package small and the secret strictly in-extension.
 
 ---
 
@@ -196,65 +249,47 @@ See [`INTEGRATION_STRATEGY.md`](INTEGRATION_STRATEGY.md) for full integration gu
 
 Click ⚙️ in the popup header.
 
-| Setting | Description | Default |
+| Setting | Default | Notes |
 |---|---|---|
-| OpenClawd Server URL | Local orchestrator API endpoint | `http://127.0.0.1:7777` |
-| Setup Code Import | Paste connect bundle | — |
-| Gateway Secret | Bearer token for auth | — |
-| Network | Mainnet or Devnet | Mainnet |
-| MawdAxe Server URL | Mining fleet API | `http://127.0.0.1:8420` |
-| OpenRouter API Key | AI chat routing | — |
-| AI Model | Default chat model | `anthropic/claude-sonnet-4-6` |
+| OpenClawd Server URL | `http://127.0.0.1:7777` | The Go daemon's control plane |
+| Gateway URL | `http://127.0.0.1:8788` | Or `https://gateway.solanaclawd.com` for prod |
+| Network | `mainnet` | Or `devnet` for testing |
+| MawdAxe Server URL | `http://127.0.0.1:8420` | Only required for the Miner tab |
+| OpenRouter API Key | — | For chat / pAGENT routing |
+| `XAI_API_KEY` | — | Read from `~/.openclawdsolana/.env`; powers Grok voice mode |
+| AI Model | `anthropic/claude-sonnet-4-6` | Any OpenRouter model |
 
----
-
-## Directory Layout
-
-```
-chrome-extension/
-├── manifest.json        Popup Manifest V3 (OpenClawd branded)
-├── background.js        Service worker — status polling, badge updates
-├── popup.html           6-tab UI shell (OpenClawd branded)
-├── popup.js             Popup controller — wallet, chat, mining, seeker, vault
-├── popup.css            Glassmorphism + cyberpunk theme
-├── icons/               16/32/48/128 extension icons
-├── install-openclawd.sh # One-shot installer
-├── build-cws.sh         Builds Chrome Web Store zip
-├── CWS-LISTING.md       Paste-ready store listing
-│
-├── clawd-agent/         Prebuilt pAGENT bundle (load for GUI vision)
-│   ├── manifest.json
-│   ├── background.js
-│   ├── main-world.js    Injects window.PAGENT
-│   ├── hub.html         WebSocket hub for MCP
-│   ├── sidepanel.html
-│   └── ...
-│
-├── core/                @page-agent/core — Re-Act agent loop
-├── page-controller/     @page-agent/page-controller — DOM state + actions
-├── page-agent/          High-level wrapper
-├── ui/                  @page-agent/ui — Panel stub
-├── llms/                LLM provider adapters
-└── mcp/                 Browser MCP server for AI clients
-```
+The keys are stored only in `chrome.storage.local`. The extension makes **zero remote calls by default** — host permissions only whitelist `127.0.0.1` and `localhost` (the popup); the Browser Bridge additionally allows `solanaclawd.com` and `helius-rpc.com` for live market data.
 
 ---
 
 ## Security
 
-- **Zero internet calls** from extension popup. Only `127.0.0.1` / `localhost` in `host_permissions`
-- **No bundled secrets** — users supply their own API keys
-- **Vault files** are `chmod 0600`, AES-256-GCM encrypted
-- **Zero telemetry** — no analytics, no crash reports
+- **Localhost-only by default** — popup `host_permissions` only contains `127.0.0.1` and `localhost`.
+- **No bundled secrets** — `OR_BUNDLED_KEY` ships empty; users supply their own keys.
+- **Vault files** — `chmod 0600`, AES-256-GCM, never synced to `chrome.storage.sync`.
+- **In-extension wallet** — PBKDF2-SHA-256 with 310,000 iterations (matches OWASP 2024).
+- **Zero telemetry** — no analytics, no crash reports, no DSN.
+- **MIT-licensed source** on GitHub — audit it yourself.
+
+---
+
+## Publish to the Chrome Web Store
+
+```bash
+bash chrome-extension/build-cws.sh
+# → chrome-extension/build/openclawd-popup-v3.0.0.zip
+```
+
+Then follow [CWS-LISTING.md](./CWS-LISTING.md) for paste-ready listing copy, screenshots, promo tiles, and the privacy disclosure checklist.
 
 ---
 
 ## Support
 
-- **GitHub Issues** — [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
+- **GitHub** — [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
 - **Hub** — [hub.solanaclawd.com](https://hub.solanaclawd.com)
-- **Website** — [solanaclawd.com](https://solanaclawd.com)
+- **Site** — [solanaclawd.com](https://solanaclawd.com)
+- **Token** — `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump`
 
----
-
-*Built with 🦞 by the OpenClawd crew — The Hermes of Web3*
+*Built with 🦞 by the OpenClawd crew — The Hermes of Web3.*
