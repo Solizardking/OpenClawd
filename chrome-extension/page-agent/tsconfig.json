@@ -11,7 +11,8 @@
             "@openclawdsolana/pagent-llms": ["../llms/src/index.ts"],
             "@openclawdsolana/pagent-page-controller": ["../page-controller/src/PageController.ts"],
             "@openclawdsolana/pagent-core": ["../core/src/PageAgentCore.ts"],
-            "@openclawdsolana/pagent-ui": ["../ui/src/index.ts"]
+            "@openclawdsolana/pagent-ui": ["../ui/src/index.ts"],
+            "@openclawdsolana/pagent-wallet": ["../wallet/src/index.ts"]
         }
     },
     "include": ["**/*.ts"],
@@ -20,6 +21,7 @@
         { "path": "../llms" },
         { "path": "../page-controller" },
         { "path": "../core" },
-        { "path": "../ui" }
+        { "path": "../ui" },
+        { "path": "../wallet" }
     ]
 }

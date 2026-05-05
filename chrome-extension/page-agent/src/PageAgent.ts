@@ -48,15 +48,21 @@ export class PageAgent extends PageAgentCore {
 }
 
 /**
- * Adapt an LLM Tool (raw JSON Schema, returns any) into a PageAgentTool
- * (zod schema, returns string). The LLM still sees `tool.description` so
- * arg shape is conveyed there — using `z.any()` keeps the macro-tool
- * schema permissive and avoids dragging in a JSONSchema→Zod converter.
+ * Adapt an LLM Tool into a PageAgentTool (zod schema, returns string).
+ *
+ * `solanaWalletTools` already produces zod schemas, so we pass them through
+ * verbatim — the macro-tool schema gets precise validation. If a tool happens
+ * to ship a raw JSON schema (no `safeParse`), we fall back to `z.any()` so
+ * the union build in #packMacroTool doesn't blow up.
  */
 function adaptLLMTool(tool: Tool): PageAgentTool {
+	const isZod = !!tool.inputSchema
+		&& typeof (tool.inputSchema as { safeParse?: unknown }).safeParse === 'function'
+	const inputSchema = (isZod ? tool.inputSchema : z.any()) as z.ZodType
+
 	return {
 		description: tool.description ?? '',
-		inputSchema: z.any() as unknown as z.ZodType,
+		inputSchema,
 		execute: async function (this: PageAgentCore, args: unknown): Promise<string> {
 			const result = await tool.execute(args)
 			return typeof result === 'string' ? result : JSON.stringify(result)

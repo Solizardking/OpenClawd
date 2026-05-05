@@ -17,8 +17,8 @@ import {
 } from "drizzle-orm";
 
 import { COLOR_FAMILIES, type ColorFamily } from "@/lib/color-families";
+import { db, hasDatabaseUrl, schema } from "@/lib/db/client";
 import { getAvailableBatches } from "@/lib/dex-batch.server";
-import { db, schema } from "@/lib/db/client";
 import type { PetWithMetrics } from "@/lib/pets";
 import { rowToPet } from "@/lib/pets";
 import { embedQuery, looksLikeVibeQuery } from "@/lib/query-embed";
@@ -66,6 +66,10 @@ const DEFAULT_LIMIT = 24;
 const MAX_LIMIT = 60;
 
 export async function searchPets(input: SearchInput): Promise<SearchOutput> {
+  if (!hasDatabaseUrl) {
+    return emptySearchOutput(input.q?.trim() ? "keyword" : "all");
+  }
+
   const sortKey = input.sort ?? "curated";
   const limit = clamp(input.limit ?? DEFAULT_LIMIT, 1, MAX_LIMIT);
   const cursor = Math.max(0, input.cursor ?? 0);
@@ -341,6 +345,8 @@ function orderForSort(
 }
 
 async function loadFacets(): Promise<SearchOutput["facets"]> {
+  if (!hasDatabaseUrl) return emptyFacets();
+
   const [kindRows, vibeRows, batches] = await Promise.all([
     db
       .select({
@@ -396,6 +402,32 @@ async function loadFacets(): Promise<SearchOutput["facets"]> {
 
 function clamp(n: number, lo: number, hi: number): number {
   return Math.max(lo, Math.min(hi, n));
+}
+
+function emptySearchOutput(
+  searchMode: SearchOutput["searchMode"],
+): SearchOutput {
+  return {
+    pets: [],
+    total: 0,
+    nextCursor: null,
+    searchMode,
+    facets: emptyFacets(),
+  };
+}
+
+function emptyFacets(): SearchOutput["facets"] {
+  const kinds: Record<string, number> = {};
+  for (const k of PET_KINDS) kinds[k] = 0;
+
+  const vibes: Record<string, number> = {};
+  for (const v of PET_VIBES) vibes[v] = 0;
+
+  const colors = Object.fromEntries(
+    COLOR_FAMILIES.map((family) => [family, 0]),
+  ) as Record<ColorFamily, number>;
+
+  return { kinds, vibes, colors, batches: [] };
 }
 
 export const SEARCH_LIMITS = {
