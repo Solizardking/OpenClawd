@@ -55,7 +55,7 @@ router.post('/generate-code', async (c) => {
   
   try {
     // Check if user exists or create one
-    let userResult = await sql`
+    const userResult = await sql`
       SELECT id FROM users WHERE wallet_address = ${walletAddress}
     `;
     
@@ -85,10 +85,9 @@ router.post('/generate-code', async (c) => {
     // Create verification code record
     const expiresAt = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
     
-    const codeResult = await sql`
+    await sql`
       INSERT INTO x_verification_codes (wallet_address, user_id, verification_code, expires_at)
       VALUES (${walletAddress}, ${userId}, ${verificationCode}, ${expiresAt.toISOString()})
-      RETURNING id
     `;
     
     return c.json({

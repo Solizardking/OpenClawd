@@ -508,6 +508,32 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 
 ---
 
+## 📦 Package Layer — [`packages/`](packages/)
+
+The `packages/` directory is the reusable layer of OpenClawd: wallet custody, Solana trading, paid-agent x402 tooling, memory engines, local service discovery, and internal plugin contracts. **Canonical map: [`packages/README.md`](packages/README.md).** The summary below is the index — read the package READMEs for details.
+
+| Package | Public name | Surface | License |
+| --- | --- | --- | --- |
+| [`packages/agents-x402-solana/`](packages/agents-x402-solana/) | `@openclawdsolana/agents-x402` | x402 USDC payment gates for MCP / HTTP / agent tools, settled through the Clawd facilitator. | MIT |
+| [`packages/agentwallet/`](packages/agentwallet/) | `@openclawdsolana/agentwallet` | Encrypted Solana + EVM keypair vault — CLI, HTTP, E2B + Cloudflare Workers deploy. | MIT |
+| [`packages/Clawd-code/`](packages/Clawd-code/) | `clawd-code-cli` (docs/dist) | AI terminal operator distribution + provider routing / file / shell / MCP / Solana docs. | MIT |
+| [`packages/clawd-wallet/`](packages/clawd-wallet/) | `@openclawdsolana/clawd-wallet` | Solana wallet + Jupiter swap core for agent workflows. | MIT |
+| [`packages/honcho-bridge/`](packages/honcho-bridge/) | `@openclawdsolana/honcho-bridge` | Honcho reasoning-memory adapter — peer/session persistence, optional Membrain feeder. | MIT |
+| [`packages/membrain/`](packages/membrain/) | Go daemon (gRPC) | Typed financial memory: episodic / working / semantic / competence / plan_graph. Decay, consolidation, trust gating. | MIT |
+| [`packages/membrain-types/`](packages/membrain-types/) | `@openclawdsolana/membrain-types` | TypeScript contracts + gRPC-web client for Membrain consumers. | MIT |
+| [`packages/memory-host-sdk/`](packages/memory-host-sdk/) | *internal* | Host-side memory engines: SQLite, embeddings, QMD, Honcho, batch, multimodal, query expansion. | private |
+| [`packages/percolator/`](packages/percolator/) | `@openclawdsolana/percolator` | Solana perpetuals CLI — 31 subcommands across markets, accounts, oracles, slab, insurance. | MIT |
+| [`packages/plugin-package-contract/`](packages/plugin-package-contract/) | *internal* | Shared plugin manifest/types contract. | private |
+| [`packages/plugin-sdk/`](packages/plugin-sdk/) | `@openclawdsolana/plugin-sdk-internal` | Internal plugin SDK — auth, channels, browser, streaming, secrets, SSRF, testing surfaces. | private |
+| [`packages/service-registry/`](packages/service-registry/) | `@openclawdsolana/service-registry` | Single source of truth for local-service hosts/ports across gateway, MCP, scripts. | MIT |
+| [`packages/npm/openclawd-cli/`](packages/npm/openclawd-cli/) | `@openclawdsolana/cli` | Lightweight bootstrapper — `npx @openclawdsolana/cli install`. | MIT |
+| [`packages/npm/openclawd-computer/`](packages/npm/openclawd-computer/) | `@openclawdsolana/computer` | Canonical runtime entrypoint with boot animation. | MIT |
+| [`packages/npm/openclawd-installer/`](packages/npm/openclawd-installer/) | `@openclawdsolana/installer` | Installer-focused entrypoint with broad bin-alias coverage. | MIT |
+
+All three `npm/*` bootstrappers install the same Go runtime under `~/.openclawdsolana/bin/` and expose `openclawd`, `openclawdsolana`, and `clawd` commands — they differ in branding/aliases, not in payload. Companion docs: [`packages/article.md`](packages/article.md) · [`packages/npm.md`](packages/npm.md).
+
+---
+
 ## 🦞 The Lobster Lifecycle
 
 <div align="center">

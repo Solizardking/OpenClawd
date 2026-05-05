@@ -27,8 +27,21 @@ GitHub root: [github.com/clawdsolana/OpenClawd/tree/main/packages](https://githu
 | [`plugin-package-contract/`](./plugin-package-contract/) | Tiny internal | Private workspace package | Shared plugin package manifest/types contract used to keep plugin metadata consistent. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/plugin-package-contract) |
 | [`plugin-sdk/`](./plugin-sdk/) | Small internal | Private workspace package | Internal plugin SDK exports for runtime, provider, auth, browser, streaming, secret, testing, and security surfaces. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/plugin-sdk) |
 | [`service-registry/`](./service-registry/) | Small | `@openclawdsolana/service-registry` | Single source of truth for local service URLs and health checks across gateway, wallet API, MCP bridges, hub, scanner, and related services. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/service-registry) |
+| [`npm/`](./npm/) | 3 small bootstrappers | `@openclawdsolana/cli`, `@openclawdsolana/computer`, `@openclawdsolana/installer` | npm bootstrappers for the OpenClawd Go runtime — different entry-point shapes, same Go binary installed under `~/.openclawdsolana/bin/`. See [`npm.md`](./npm.md) for the full breakdown. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/npm) |
 
 Scale is based on source and documentation footprint, not installed `node_modules`. Some package folders currently contain local install output or build artifacts, so disk size can be much larger than the authored package.
+
+### `npm/` Bootstrappers Detail
+
+Three sibling npm packages all install the same Go runtime under `~/.openclawdsolana/bin/` and expose the `openclawd`, `openclawdsolana`, and `clawd` commands. They differ in branding and bin-alias surface, not in payload:
+
+| Folder | Package | Bin aliases | When to use |
+| --- | --- | --- | --- |
+| [`npm/openclawd-cli/`](./npm/openclawd-cli/) | `@openclawdsolana/cli` | `clawd`, `openclawd`, `openclawdsolana` | Lightweight bootstrapper. Install via `npx @openclawdsolana/cli install`. |
+| [`npm/openclawd-computer/`](./npm/openclawd-computer/) | `@openclawdsolana/computer` | `clawd`, `clawd-computer`, `openclawd`, `openclawd-cli`, `openclawdsolana` | Canonical runtime entrypoint with the boot animation. |
+| [`npm/openclawd-installer/`](./npm/openclawd-installer/) | `@openclawdsolana/installer` | `clawd-cli`, `clawd`, `openclawd-cli`, `openclawd`, `openclawdsolana` | Installer-focused entrypoint with broader alias coverage. |
+
+If you are unsure which to install, `@openclawdsolana/computer` is the canonical surface.
 
 ## Size Guide
 
@@ -40,6 +53,7 @@ For people new to the repository, these packages fall into a few practical size 
 | **Trading and wallet modules** | `agentwallet`, `clawd-wallet`, `percolator`, `agents-x402-solana` | Directly tied to Solana wallet, swap, payment, or market execution paths. Treat signing, settlement, and transaction-building code as high risk. |
 | **Memory integration modules** | `honcho-bridge`, `membrain-types`, `memory-host-sdk` | Agent context, retrieval, embeddings, and reasoning state. Behavior changes here can affect how agents remember and retrieve information. |
 | **Infrastructure contracts** | `service-registry`, `plugin-sdk`, `plugin-package-contract` | Small but shared. Changes may have broad impact because many services import these contracts. |
+| **Bootstrap surfaces** | `npm/openclawd-cli`, `npm/openclawd-computer`, `npm/openclawd-installer` | Tiny bin-only packages whose only job is to fetch and launch the Go runtime. Logic lives in the runtime, not in these. |
 
 ## How The Pieces Fit
 
@@ -61,10 +75,15 @@ OpenClawd agents
   |     |-- memory-host-sdk: local host memory engines
   |
   |-- runtime wiring
-        |-- service-registry: local URL discovery and health checks
-        |-- plugin-sdk: internal plugin runtime surfaces
-        |-- plugin-package-contract: plugin metadata contract
-        |-- Clawd-code: terminal operator distribution/docs
+  |     |-- service-registry: local URL discovery and health checks
+  |     |-- plugin-sdk: internal plugin runtime surfaces
+  |     |-- plugin-package-contract: plugin metadata contract
+  |     |-- Clawd-code: terminal operator distribution/docs
+  |
+  |-- bootstrap (npm bins for the Go runtime)
+        |-- npm/openclawd-cli: lightweight bootstrapper
+        |-- npm/openclawd-computer: canonical entrypoint + boot animation
+        |-- npm/openclawd-installer: installer entrypoint with alias coverage
 ```
 
 ## Package Notes
@@ -178,9 +197,9 @@ Package-specific READMEs have the most accurate command examples for that packag
 - Use `--simulate` where available before broadcasting Solana transactions.
 - Keep internal packages private unless package metadata, exports, docs, and versioning are intentionally prepared for public use.
 
-## Companion Article
+## Companion Articles
 
-For a longer explanation aimed at readers who are new to the repo, see [`article.md`](./article.md).
+For a longer explanation aimed at readers who are new to the repo, see [`article.md`](./article.md). For the npm-bootstrappers detail (`@openclawdsolana/cli` vs `computer` vs `installer`), see [`npm.md`](./npm.md).
 
 ## GitHub Paths
 
@@ -197,9 +216,14 @@ These are the canonical GitHub locations for the package paths in this workspace
 | `/Users/8bit/fraud/OpenClawd/packages/membrain` | [membrain](https://github.com/clawdsolana/OpenClawd/tree/main/packages/membrain) |
 | `/Users/8bit/fraud/OpenClawd/packages/membrain-types` | [membrain-types](https://github.com/clawdsolana/OpenClawd/tree/main/packages/membrain-types) |
 | `/Users/8bit/fraud/OpenClawd/packages/memory-host-sdk` | [memory-host-sdk](https://github.com/clawdsolana/OpenClawd/tree/main/packages/memory-host-sdk) |
+| `/Users/8bit/fraud/OpenClawd/packages/npm` | [npm](https://github.com/clawdsolana/OpenClawd/tree/main/packages/npm) |
+| `/Users/8bit/fraud/OpenClawd/packages/npm/openclawd-cli` | [openclawd-cli](https://github.com/clawdsolana/OpenClawd/tree/main/packages/npm/openclawd-cli) |
+| `/Users/8bit/fraud/OpenClawd/packages/npm/openclawd-computer` | [openclawd-computer](https://github.com/clawdsolana/OpenClawd/tree/main/packages/npm/openclawd-computer) |
+| `/Users/8bit/fraud/OpenClawd/packages/npm/openclawd-installer` | [openclawd-installer](https://github.com/clawdsolana/OpenClawd/tree/main/packages/npm/openclawd-installer) |
 | `/Users/8bit/fraud/OpenClawd/packages/percolator` | [percolator](https://github.com/clawdsolana/OpenClawd/tree/main/packages/percolator) |
 | `/Users/8bit/fraud/OpenClawd/packages/plugin-package-contract` | [plugin-package-contract](https://github.com/clawdsolana/OpenClawd/tree/main/packages/plugin-package-contract) |
 | `/Users/8bit/fraud/OpenClawd/packages/plugin-sdk` | [plugin-sdk](https://github.com/clawdsolana/OpenClawd/tree/main/packages/plugin-sdk) |
 | `/Users/8bit/fraud/OpenClawd/packages/service-registry` | [service-registry](https://github.com/clawdsolana/OpenClawd/tree/main/packages/service-registry) |
 | `/Users/8bit/fraud/OpenClawd/packages/README.md` | [README.md](https://github.com/clawdsolana/OpenClawd/blob/main/packages/README.md) |
 | `/Users/8bit/fraud/OpenClawd/packages/article.md` | [article.md](https://github.com/clawdsolana/OpenClawd/blob/main/packages/article.md) |
+| `/Users/8bit/fraud/OpenClawd/packages/npm.md` | [npm.md](https://github.com/clawdsolana/OpenClawd/blob/main/packages/npm.md) |

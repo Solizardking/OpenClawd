@@ -35,22 +35,20 @@ const app = new Hono();
 
 // Security headers
 app.use('*', secureHeaders({
-  hsts: true,
   contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-    },
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'", "'unsafe-inline'"],
+    styleSrc: ["'self'", "'unsafe-inline'"],
   },
+  strictTransportSecurity: true,
 }));
 
 // CORS
 app.use('*', cors({
   origin: process.env.CORS_ORIGIN || '*',
   credentials: true,
-  methods: ['GET', 'POST', 'DELETE'],
-  headers: ['Content-Type', 'Authorization'],
+  allowMethods: ['GET', 'POST', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization'],
 }));
 
 // Request logging
