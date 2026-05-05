@@ -1,18 +1,15 @@
 /**
- * @openclawd/wallet — Main entry point
+ * @openclawdsolana/clawd-wallet — Main entry point
  * Privy-powered embedded Solana wallet for the openclawd agent ecosystem
  */
 
-// Types
 export type {
   SolanaChain,
   TokenSymbol,
   TokenAmount,
-  ClawdWallet,
   ClawdWalletInfo,
   SwapQuoteParams,
   SwapQuote,
-  SwapQuoteResult,
   SwapResult,
   PendingTransaction,
   AgenticTxStatus,
@@ -23,16 +20,22 @@ export type {
   WalletCliOptions,
   WalletServerRequest,
   SwapRequest,
+  JupiterRoutePlan,
+} from "./types.js";
+
+export {
   ClawdWalletError,
   SwapError,
   WalletNotReadyError,
+  DEFAULT_PERMISSIONS,
+  DEFAULT_CHAIN,
 } from "./types.js";
 
-// Core classes
-export { ClawdWallet } from "./wallet.js";
-export { SwapService } from "./swap.js";
-export { AgenticWallet, DEFAULT_PERMISSIONS } from "./agent.js";
-export { createCli } from "./cli.js";
-
-// Re-exports from sub-paths
-export type { PrivyProviderConfig } from "./react.js";
+export { ClawdWallet, EXPLORER_URL, CHAIN_RPC } from "./wallet.js";
+export {
+  SwapService,
+  SOLANA_TOKENS,
+  resolveTokenMint,
+  getTokenDecimals,
+  formatTokenAmount,
+} from "./swap.js";

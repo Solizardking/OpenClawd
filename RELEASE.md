@@ -3,7 +3,18 @@
 How the publishable surfaces find each other after a user runs
 `npx @openclawdsolana/installer install`, plus the current rollout state.
 
-> **Last update:** 2026-04-30 — pAGENT family rollout 4 of 6 packages live · ClawdHub on Convex `third-bobcat-386` · legacy → OpenClawd brand sweep complete · gateway HTTP server + `/src` bridge + `/console` route shipping.
+> **Last update:** 2026-05-04 — root docs refreshed for new-user onboarding, Honcho webhook env is documented with placeholders only, and Blockchain Buddies birth flows now belong in the app-specific release notes under [`blockchain_buddies/`](blockchain_buddies/).
+
+## Before a Public Release
+
+1. Run `npm run guard:worktree` and rotate anything it flags.
+2. Confirm `.env`, `.env.local`, wallet keypairs, Honcho webhook secrets, and
+   deploy keys are not staged.
+3. Run `npm run doctor` and the relevant subproject build.
+4. Update [ONBOARDING.md](./ONBOARDING.md), [STACK.md](./STACK.md), and this
+   file when endpoint, package, or service wiring changes.
+5. Keep `OPENCLAWD_*`, `HONCHO_*`, and Solana signing env documented with
+   placeholder values only.
 
 ---
 

@@ -1,6 +1,7 @@
-# 🐾 OpenClawd Contributor Onboarding Guide
+# OpenClawd Onboarding Guide
 
-> Everything you need to know to get started contributing to OpenClawd.
+Everything a new user or contributor needs to get OpenClawd running locally
+without leaking keys or getting lost in the monorepo.
 
 ---
 
@@ -30,6 +31,10 @@ OpenClawd is an **open-source monorepo** for building, deploying, and monetizing
 
 **Stack Flow:** `Surface → Router → Runtime → Skills → Settlement → Chain`
 
+OpenClawd is financial software. Treat every wallet key as live, keep trading
+actions permission-gated, and use read-only API keys until you intentionally
+enable signed transactions.
+
 ---
 
 ## Quick Start
@@ -45,12 +50,32 @@ cd openclawd
 
 ```bash
 # Copy environment template
-cp .env.example .env
+cp .env.example .env.local
 
 # Edit with your API keys (at minimum):
 # - OPENROUTER_API_KEY
 # - HELIUS_API_KEY or SOLANA_RPC_URL
 ```
+
+Use `.env.local` for local development. Do not commit `.env`, `.env.local`,
+wallet keypairs, webhook secrets, or provider exports.
+
+Optional Honcho memory/reasoning setup:
+
+```bash
+HONCHO_ENABLED=true
+HONCHO_URL=https://api.honcho.dev
+HONCHO_WORKSPACE_ID=openclawd
+HONCHO_AGENT_PEER_ID=openclawd
+HONCHO_REASONING_LEVEL=low
+HONCHO_CONTEXT_TOKENS=4000
+HONCHO_CONTEXT_SUMMARY=true
+HONCHO_SYNC_MESSAGES=true
+HONCHO_WEBHOOK_SECRET=<rotate-and-store-in-secret-manager>
+```
+
+If a real Honcho webhook secret was pasted into chat, a ticket, or git history,
+rotate it before deploying. Use [ROTATE.md](./ROTATE.md).
 
 ### 3. Install Dependencies
 
@@ -93,7 +118,7 @@ npm run dev:cli
 
 ### 5. Try the CLI Tools
 
-OpenClawd ships one canonical CLI — [`clawd-code-cli/`](./clawd-code-cli/). Legacy
+OpenClawd ships one canonical coding CLI — [`clawd-code-cli/`](./clawd-code-cli/). Legacy
 variants (`clawd-code-main`, `clawd-code-localy`, `clawd-code-proxy-main`) have
 been archived under [`legacy/`](./legacy/).
 
@@ -165,7 +190,7 @@ clawdrouter doctor    # Run diagnostics
 | `MCP/` | MCP server implementations |
 | `clawdhub/` | Skills marketplace |
 | `src/` | Core TypeScript engine |
-| `packages/` | Shared npm packages (`@openclawd/*`) |
+| `packages/` | Shared npm packages (`@openclawdsolana/*`) |
 | `acp_registry/` | Project registry (JSON) |
 | `docs/articles/` | Documentation articles |
 | `services/` | Backend services |
@@ -370,8 +395,8 @@ git filter-branch --force --index-filter \
 
 ```bash
 # Scan skills before publishing
-cd services/hermes-vault
-python -m hermes_vault.cli scan ../../skills/my-skill
+npm run guard:worktree
+# For skill bundles, also run the ClawdVault scanner when available.
 ```
 
 ---

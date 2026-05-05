@@ -99,7 +99,7 @@ The shared flow is:
 | Memory | [`packages/membrain/`](./packages/membrain/) | Selective, revisable memory daemon (Go + gRPC) — episodic, semantic, competence, working, plan_graph |
 | Memory | [`packages/membrain/clients/typescript/`](./packages/membrain/clients/typescript/) | `@gustycube/membrane` TypeScript SDK |
 | Memory | [`packages/membrain/clients/python/`](./packages/membrain/clients/python/) | `membrane` Python SDK |
-| Memory | [`packages/membrain/clients/openclawd/`](./packages/membrain/clients/openclawd/) | OpenClaw plugin bridge — auto-context injection + `membrane_search` tool |
+| Memory | [`packages/membrain/clients/openclawd/`](./packages/membrain/clients/openclawd/) | OpenClawd plugin bridge — auto-context injection + `membrane_search` tool |
 | Memory | [`packages/membrain-types/`](./packages/membrain-types/) | Shared TypeScript types for in-process consumers |
 | Memory | [`packages/memory-host-sdk/`](./packages/memory-host-sdk/) | Host runtime + engine modules that compose Membrain into the OpenClawd stack |
 
@@ -209,7 +209,7 @@ and the consuming service's `.env.example`.
 | 7777 | pAGENT Control UI | `chrome-extension/` |
 | 8000 | llm-wiki-tang FastAPI | `llm-wiki-tang/` |
 | 8080 | Cloud Bridge (`openclawd-stack/bridge/`) | WebSocket terminal → E2B |
-| 8420 | MawdAxe miner SSE | `chrome-extension/` |
+| 8420 | OpenClawd mining/stream SSE | `chrome-extension/` |
 | 8421 | Wallet API | `chrome-extension/` |
 | 8787 | OpenClawd Orchestrator | `openclawd-stack/orchestrator/` |
 | 9090 | Membrain gRPC daemon (`membraned`) | `packages/membrain/pkg/membrane/config.go` |
@@ -262,6 +262,14 @@ The shared env surface lives in [`.env.example`](./.env.example).
 - `PRIVY_APP_SECRET`
 - `HONCHO_URL`
 - `HONCHO_API_KEY`
+- `HONCHO_ENABLED`
+- `HONCHO_WORKSPACE_ID`
+- `HONCHO_AGENT_PEER_ID`
+- `HONCHO_WEBHOOK_SECRET`
+
+`HONCHO_WEBHOOK*_SECRET` values are deployment secrets. Keep only placeholder
+names in docs and `.env.example`; store real values in the local `.env.local`
+or the host secret manager.
 
 ### Solana and data providers
 

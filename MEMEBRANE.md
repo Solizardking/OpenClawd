@@ -12,7 +12,7 @@ Membrain is the memory and persistence layer for OpenClawd trading agents.
 - **Working memory** — Active position state tracking
 - **Plan graphs** — Reusable DeFi workflows (swap → stake → claim)
 
-Backed by SQLite (single-agent) or Postgres + pgvector (multi-agent / similarity search). A 15-method gRPC API on `:9090` is consumed by TypeScript ([`@gustycube/membrane`](./packages/membrain/clients/typescript/)) and Python ([`membrane`](./packages/membrain/clients/python/)) clients, plus an OpenClaw plugin bridge ([`@vainplex/openclaw-membrane`](./packages/membrain/clients/openclawd/)) that auto-injects context before agent runs.
+Backed by SQLite (single-agent) or Postgres + pgvector (multi-agent / similarity search). A 15-method gRPC API on `:9090` is consumed by TypeScript ([`@gustycube/membrane`](./packages/membrain/clients/typescript/)) and Python ([`membrane`](./packages/membrain/clients/python/)) clients, plus an OpenClawd plugin bridge ([`packages/membrain/clients/openclawd/`](./packages/membrain/clients/openclawd/)) that auto-injects context before agent runs.
 
 ## Quick Start
 

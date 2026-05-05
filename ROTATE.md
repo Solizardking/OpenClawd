@@ -65,6 +65,10 @@ wallet *before* anything else.
 ## Auth / wallet infra
 
 - [ ] `PRIVY_APP_SECRET` / `PRIVY_AUTHORIZATION_KEY_ID` / `PRIVY_JWKS`
+- [ ] `HONCHO_API_KEY` / `HONCHO_WEBHOOK_SECRET` /
+      `HONCHO_WEBHOOK*_SECRET`
+- [ ] `BUDDIES_MINT_AUTHORITY_SECRET_KEY` — move any funds first if this key
+      can sign on-chain transactions
 - [ ] `REOWN_PROJECT_ID` / `WALLET_CONNECT_PROJECT_ID`
 - [ ] `PHANTOM_APP_ID` / `VITE_PHANTOM_APP_ID`
 - [ ] `THIRDWEB_CLIENT_ID` / `THIRDWEB_CLIENT_SECRET` /

@@ -35,7 +35,9 @@ openclawd/
 
 - Product name: **OpenClawd**
 - CLI command: **clawd**
-- Package name: `@openclawd/core`
+- Public package scope: `@openclawdsolana/*`
+- Core package names vary by surface; prefer the existing package name in
+  that subproject's `package.json`.
 - Config keys: `openclawd.*`
 
 ## Financial Agent Capabilities
@@ -76,3 +78,9 @@ JUPITER_API_KEY=          # Jupiter (optional)
 # Optional
 SOLANA_PRIVATE_KEY=       # Trading wallet
 BIRDEYE_API_KEY=          # Token data
+```
+
+Do not commit populated env files or wallet keypairs. New agent work should
+start read-only with `HELIUS_API_KEY` and `BIRDEYE_API_KEY`; add
+`SOLANA_PRIVATE_KEY` only when the execution path is permission-gated and
+tested.

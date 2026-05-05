@@ -1,10 +1,13 @@
 # ClawdBot Integration
 
-ClawdBot lives at `X/` and is integrated as the primary Twitter/Telegram trading agent.
+ClawdBot is the social trading agent surface for X/Twitter and Telegram. In
+this checkout, treat any `X/` implementation as deployment-specific: verify the
+directory exists before running commands, and keep credentials in local env
+files or the host secret manager.
 
 ## Integration Points
 
-The `X/` folder contains:
+The bot implementation typically contains:
 - `src/services/sentient-engine.ts` — Autonomous intelligence loop
 - `src/services/command-handler.ts` — 46+ command system
 - `src/services/jupiter-service.ts` — Jupiter DEX integration
@@ -19,6 +22,9 @@ cd X
 npm install
 npx tsx src/scripts/start-bot.ts
 ```
+
+If `X/` is not present in your checkout, use the Telegram and gateway surfaces
+listed in [STACK.md](./STACK.md) instead.
 
 ## Commands
 

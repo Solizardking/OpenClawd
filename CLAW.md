@@ -64,3 +64,11 @@ ORIENT   → Score opportunities (trend + momentum + liquidity)
 DECIDE   → Confidence >= 60%? Size position appropriately
 ACT      → Execute (permission-gated)
 LEARN    → Log outcome to memory, promote signals
+```
+
+## New User Defaults
+
+- Start with read-only tools: Helius, Birdeye, Jupiter quotes.
+- Keep swap execution disabled until a human approval path is configured.
+- Never paste private keys into prompts, issues, logs, or docs.
+- Use [CLAWD.md](./CLAWD.md) for execution guardrails and sizing rules.

@@ -180,7 +180,7 @@ openclawd/
 ├── tui/                        # 🦀 clawd-code-cli — Solana lobster TUI (Ink + React)
 │   └── src/                    #   commands · spinners · components · agents · store · services
 │
-├── openclawd-framework/        # 🦞 @openclawd/leviathan — sovereign on-chain agent runtime
+├── openclawd-framework/        # @openclawdsolana/leviathan — sovereign on-chain agent runtime
 │   ├── README.md               #   The framework manifesto
 │   ├── three-laws.md           #   Constitution — immutable, propagated
 │   ├── scripts/three-laws.txt  #   Plaintext loaded into every system prompt
@@ -286,8 +286,8 @@ Nine standalone TypeScript examples ship at [`openclawd-framework/examples/`](op
 | [`auto-research-client.ts`](openclawd-framework/examples/auto-research-client.ts) | 🔬 Research | Karpathy-style self-improving research Wiki API client |
 | [`lobster-trader.ts`](openclawd-framework/examples/lobster-trader.ts) | 📈 Trading | pump.fun bonding-curve math, graduation probability, buy/sell simulation against the Anchor IDL |
 | [`orchestrator-client.ts`](openclawd-framework/examples/orchestrator-client.ts) | 🛠️ Infra | OpenClawd Orchestrator API: wallet management, agent launches, MCP tool calls, Metaplex Core asset operations |
-| [`clawd-wallet-demo.ts`](openclawd-framework/examples/clawd-wallet-demo.ts) | 👛 Wallet | `@openclawd/wallet` SDK — Privy-embedded Solana wallet, AgenticWallet (Grok 4.20), SwapService, deny / ask / allow permission system |
-| [`x402-payment-demo.ts`](openclawd-framework/examples/x402-payment-demo.ts) | 💸 Payments | `@openclawd/agents-x402` — agent-to-agent USDC micropayments. Core fetch wrapper + HTTP middleware (Node / Workers / Hono / Express) + paid MCP tool registration |
+| [`clawd-wallet-demo.ts`](openclawd-framework/examples/clawd-wallet-demo.ts) | Wallet | `@openclawdsolana/wallet` SDK — Privy-embedded Solana wallet, AgenticWallet, SwapService, deny / ask / allow permission system |
+| [`x402-payment-demo.ts`](openclawd-framework/examples/x402-payment-demo.ts) | Payments | `@openclawdsolana/agents-x402` — agent-to-agent USDC micropayments. Core fetch wrapper + HTTP middleware (Node / Workers / Hono / Express) + paid MCP tool registration |
 
 Each is self-contained — edit it, hack on it, copy patterns straight into your own leviathan. The R3F live demo at [`ui/ocean.html`](ui/) ships an in-app browser of these examples (top-right `📚 examples` button) — click any entry and the run command appears for you to copy.
 

@@ -1,6 +1,23 @@
 # Skills Catalog
 
-Skills are stored at `openclaw-main/skills/` and integrated for Clawd agents.
+Skills are stored in [`skills/`](./skills/) and published through
+ClawdHub when they are ready for wider use. Keep skill files self-contained:
+instructions in `SKILL.md`, optional references in `references/`, and no live
+secrets.
+
+## New User Path
+
+```bash
+# Browse checked-in skills
+find skills -maxdepth 2 -name SKILL.md | sort | head
+
+# Install from the public registry
+npx clawdhub search solana
+npx clawdhub install jupiter-swap
+
+# Publish after review
+npx clawdhub publish ./skills/my-skill --slug my-skill
+```
 
 ## Financial Skills
 
@@ -75,3 +92,11 @@ const text = await openrouter.generateText('Pick a SNIPE candidate', {
     tools: skills.tools(['jupiter.quote', 'memory.tiers']),
 });
 ```
+
+## Publishing Requirements
+
+- Use `OpenClawd`, `ClawdHub`, and `$CLAWD` naming consistently.
+- Do not include API keys, private keys, bearer tokens, webhook secrets, or
+  `.env` files.
+- Document required env vars with placeholders.
+- Run `npm run guard:worktree` before publishing or opening a PR.

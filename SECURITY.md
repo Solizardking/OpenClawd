@@ -30,6 +30,8 @@ If you find a vulnerability, a leaked secret, or a credential that appears live:
 
 - Use `.env.example` files as templates only.
 - Never commit `.env`, `.env.local`, private keys, or provider exports.
+- Never commit populated `HONCHO_WEBHOOK*_SECRET`, `SOLANA_PRIVATE_KEY`,
+  `BUDDIES_MINT_AUTHORITY_SECRET_KEY`, deploy keys, or bearer tokens.
 - For hosted deployments, store secrets in provider dashboards or secret stores.
 - If a secret lands in git history, rotate it first and then scrub history with `git filter-repo` or BFG before republishing.
 - The repo installs local git hooks via `npm install` or `npm run hooks:install`; pre-commit blocks staged `.env` files, key files, and common live-secret patterns.

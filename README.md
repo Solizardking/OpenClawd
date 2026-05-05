@@ -19,6 +19,61 @@
 
 ---
 
+## Start Here
+
+OpenClawd is a Solana-native financial AI agent stack. The fastest path for a
+new user is:
+
+```bash
+# 1. Install the runtime and CLI
+curl -fsSL https://install.solanaclawd.com | bash
+
+# 2. Add provider keys locally, never in git
+cp .env.example .env.local
+$EDITOR .env.local
+
+# 3. Verify the checkout
+npm run doctor
+
+# 4. Run the main agent terminal
+npm run dev:cli
+```
+
+Minimum useful env:
+
+```bash
+OPENROUTER_API_KEY=        # model routing
+HELIUS_API_KEY=            # Solana RPC + DAS
+BIRDEYE_API_KEY=           # token market data, optional but recommended
+```
+
+For memory and reasoning, enable Honcho with placeholder secrets only:
+
+```bash
+HONCHO_ENABLED=true
+HONCHO_URL=https://api.honcho.dev
+HONCHO_WORKSPACE_ID=openclawd
+HONCHO_AGENT_PEER_ID=openclawd
+HONCHO_REASONING_LEVEL=low
+HONCHO_CONTEXT_TOKENS=4000
+HONCHO_CONTEXT_SUMMARY=true
+HONCHO_SYNC_MESSAGES=true
+HONCHO_WEBHOOK_SECRET=<rotate-and-store-in-secret-manager>
+```
+
+Do not paste live webhook secrets into docs, issues, or commits. If a real key
+was shared anywhere public, rotate it first; see [ROTATE.md](./ROTATE.md).
+
+### New User Reading Order
+
+1. [ONBOARDING.md](./ONBOARDING.md) — install, env, and first local run.
+2. [STACK.md](./STACK.md) — how directories and services connect.
+3. [SKILLS.md](./SKILLS.md) — skill catalog and publishing rules.
+4. [SECURITY.md](./SECURITY.md) and [ROTATE.md](./ROTATE.md) — safe handling of keys and wallets.
+5. [RELEASE.md](./RELEASE.md) — publish and deployment plumbing.
+
+---
+
 ## ⛓️ v0.3.1 — Solana Attestation Agent (formal birth on chain)
 
 > **What shipped:** [`@openclawdsolana/attestation-agent`](./services/attestation-agent/) — credential / schema / attestation / MPL Core birth flows on top of the **Solana Attestation Service**, plus a matching agent template.
@@ -775,7 +830,7 @@ Defaults the installer wires up:
 
 - **Gateway:** `http://127.0.0.1:18790` (with `:7777` / `localhost` fallbacks)
 - **Wallet API:** `http://localhost:8421`
-- **MawdAxe mining fleet:** `http://localhost:8420`
+- **OpenClawd mining/stream service:** `http://localhost:8420`
 - **LLM:** OpenRouter at `https://openrouter.ai/api/v1`, model `anthropic/claude-sonnet-4-6`
 - **`$CLAWD` mint:** `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump`
 

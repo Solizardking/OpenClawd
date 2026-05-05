@@ -47,13 +47,13 @@ TypeScript MCP server exposing vault tools to agents.
 ## Usage
 
 ```bash
-# Run a security scan
+# Repository-level guard
+npm run guard:worktree
+
+# Run a ClawdVault scan when the vault CLI is installed
 npx claudette vault scan --path . --full
 
-# Scan for secrets
-npx claudette vault scan --secrets
-
-# Auto-harden codebase
+# Auto-harden codebase after reviewing the diff
 npx claudette vault harden --auto
 
 # Check policy compliance
