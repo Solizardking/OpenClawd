@@ -28,6 +28,10 @@ threaded through them:
 > The robot is the body. GR00T is the mind. HERMES is the hands.
 > $CLAWD is the wallet, the receipt, and the credential.
 
+For the **why** — the market thesis, the DePIN-for-physical-AI argument, the
+market sizing, and the cold-water reality check — see
+[`docs/THESIS.md`](docs/THESIS.md).
+
 ---
 
 ## Specifications (reference platform)
