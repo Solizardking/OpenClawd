@@ -146,7 +146,9 @@ function renderPackageCard(pkg: OpenClawdPackage) {
       }
       <div class="package-card__links">
         <a href=${pkg.githubPath} target="_blank" rel="noreferrer">GitHub</a>
-        ${pkg.docsPath ? html`<a href=${pkg.docsPath}>Local docs</a>` : ""}
+        ${pkg.docsPath
+          ? html`<a href=${pkg.githubPath.replace("/tree/main/", "/blob/main/") + "/README.md"} target="_blank" rel="noreferrer">Docs</a>`
+          : ""}
       </div>
       <div class="package-card__path mono">${pkg.localPath}</div>
     </article>
