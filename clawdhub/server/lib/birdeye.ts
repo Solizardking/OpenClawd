@@ -200,6 +200,43 @@ export async function getBirdeyeTokenSecurity(address: string) {
   return birdeyeFetch('/defi/token_security', { address })
 }
 
+/* ── Smart Money ─────────────────────────────────────────── */
+
+export interface BirdeyeSmartMoneyToken {
+  token: string
+  price: number
+  liquidity: number
+  market_cap: number
+  net_flow: number
+  smart_traders_no: number
+  trader_style: string
+  volume_usd: number
+  volume_buy_usd: number
+  volume_sell_usd: number
+  symbol: string
+  name: string
+  logo_uri: string
+  price_change_percent: number
+}
+
+export async function getBirdeyeSmartMoneyTokens(opts?: {
+  interval?: string
+  traderStyle?: string
+  sortBy?: string
+  sortType?: string
+  offset?: number
+  limit?: number
+}): Promise<BirdeyeSmartMoneyToken[]> {
+  return birdeyeFetch('/smart-money/v1/token/list', {
+    interval: opts?.interval ?? '1d',
+    trader_style: opts?.traderStyle ?? 'all',
+    sort_by: opts?.sortBy ?? 'smart_traders_no',
+    sort_type: opts?.sortType ?? 'desc',
+    offset: opts?.offset ?? 0,
+    limit: opts?.limit ?? 20,
+  })
+}
+
 /* ── Re-exports ──────────────────────────────────────────── */
 
 export { getBirdeyeApiKey, getBirdeyeWssUrl, birdeyeFetch }
