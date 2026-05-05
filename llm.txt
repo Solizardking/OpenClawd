@@ -25,6 +25,12 @@
   - `lint`
   - `typecheck`
   - `dev:cli`
+- App directory map now lives under [`apps/`](./apps/):
+  - [`apps/blockchain_buddies/`](./apps/blockchain_buddies/)
+  - [`apps/clawd-code-cli/`](./apps/clawd-code-cli/)
+  - [`apps/clawd-tui/`](./apps/clawd-tui/)
+  - [`apps/clawd-vault-master/`](./apps/clawd-vault-master/)
+- `apps/clawd-tui/` was intentionally left untouched while updating root docs/workspace paths.
 - Verification performed:
   - `bash -n apps/clawd-code-cli/install-clawd.sh`
   - `node apps/clawd-code-cli/dist/index.js --version` -> `0.2.4`
@@ -193,7 +199,10 @@ npm run brand:check
 | `packages/membrain/` | Membrain memory daemon (Go + gRPC) — episodic, semantic, competence, working, plan_graph |
 | `MCP/` | MCP servers: vault-mcp, wurk-mcp |
 | `clawdhub/` | Skills marketplace & hub CLI |
+| `apps/blockchain_buddies/` | Blockchain Buddies app and Petdex CLI workspace |
 | `apps/clawd-code-cli/` | Terminal-native coding surface (`@openclawdsolana/clawd-code-cli`; bins `clawd-code`, `clawd-code-cli`) |
+| `apps/clawd-tui/` | OpenRouter-native TUI (`@openclawdsolana/clawd-tui`; bins `clawd`, `clawd-tui`) |
+| `apps/clawd-vault-master/` | ClawdVault app/runtime surface |
 | `openclawd-framework/` | Agent framework |
 | `solana-attestation-service-master/` | On-chain SAS program |
 
