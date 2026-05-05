@@ -12,10 +12,15 @@
   },
   "hardware": {
     "base": "Asimov v1",
+    "manifest": "Robotics/OCASV1/openclawd-asv1.hardware.json",
+    "solana_identity": "Robotics/OCASV1/solana-identity.json",
+    "solana_robot": "Robotics/OCASV1/solana-robot.json",
     "electrical": {
       "profile": "Robotics/electrical/OPENCLAWDASV1.md",
       "motion_control": "Robotics/electrical/motion_control",
-      "wiring": "Robotics/electrical/wiring"
+      "motion_control_map": "Robotics/electrical/motion_control/openclawd-asv1-mcb.map.yaml",
+      "wiring": "Robotics/electrical/wiring",
+      "wiring_map": "Robotics/electrical/wiring/openclawd-asv1-wiring.map.yaml"
     },
     "mechanical": {
       "profile": "Robotics/mechanical/OCASV1/README.md",
@@ -36,6 +41,8 @@
     "provider": "NVIDIA Isaac GR00T",
     "source": "Robotics/Isaac-GR00T-main",
     "integration": "Robotics/Isaac-GR00T-main/OPENCLAWDASV1.md",
+    "deployment_plan": "Robotics/OCASV1/gr00t-deployment.md",
+    "example": "Robotics/Isaac-GR00T-main/examples/OpenClawdASV1",
     "role": "vision-language-action proposal engine"
   },
   "gateway": {
@@ -49,4 +56,3 @@
     "live_execution_env": "OPENCLAWD_ROBOT_LIVE"
   }
 }
-

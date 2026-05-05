@@ -37,7 +37,7 @@ OCASV1 uses a deny-first boundary:
 ## Hardware Profile
 
 - Body: Asimov v1 humanoid.
-- OpenClawd robot id: `openclawd-asv1`.
+- OpenClawd robot id: `OPENCLAWDASV1`.
 - Solana identity alias: `OPENCLAWDASV1`.
 - Motion controller: Radxa CM5 carrier MCB.
 - Media/network controller: Raspberry Pi 5 or equivalent.
