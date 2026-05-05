@@ -8,7 +8,16 @@ const scriptDir = path.dirname(scriptFile)
 const hubRoot = path.resolve(scriptDir, '..')
 const repoRoot = path.resolve(hubRoot, '..')
 const solanaClawdRoot = path.join(repoRoot, 'solana-clawd')
-const pkgRoot = await firstExistingDirectory([path.join(repoRoot, 'pkg'), path.join(solanaClawdRoot, 'pkg')], 'pkg')
+const goImportBase = 'github.com/x402agent/openclawd'
+const runtimeRootInfo = await firstExistingDirectory(
+  [
+    { path: path.join(repoRoot, 'pkg'), repoPath: 'pkg', importBase: `${goImportBase}/pkg` },
+    { path: path.join(solanaClawdRoot, 'pkg'), repoPath: 'solana-clawd/pkg', importBase: `${goImportBase}/pkg` },
+    { path: path.join(repoRoot, 'src'), repoPath: 'src', importBase: null },
+    { path: path.join(repoRoot, 'packages'), repoPath: 'packages', importBase: null },
+  ],
+  'runtime package',
+)
 const skillsRoot = await firstExistingDirectory(
   [path.join(repoRoot, 'skills'), path.join(solanaClawdRoot, 'skills')],
   'skills',
@@ -18,7 +27,6 @@ const publicDownloadsDir = path.join(hubRoot, 'public', 'downloads', 'skills')
 const outputFile = path.join(generatedDir, 'openclawdCatalog.ts')
 const repoHttpBase = 'https://github.com/x402agent/openclawd'
 const repoBranch = 'main'
-const goImportBase = 'github.com/x402agent/openclawd'
 const publicSiteUrl = 'https://solanaclawd.com'
 const publicSolanaOsHubUrl = `${publicSiteUrl}/hub`
 const publicTroubleshootingUrl = `${publicSiteUrl}/setup/troubleshooting`
@@ -158,19 +166,27 @@ const installCommands = {
 
 async function firstExistingDirectory(candidates, label) {
   for (const candidate of candidates) {
+    const candidatePath = typeof candidate === 'string' ? candidate : candidate.path
     try {
-      const stats = await fs.stat(candidate)
+      const stats = await fs.stat(candidatePath)
       if (stats.isDirectory()) return candidate
     } catch (error) {
       if (error?.code !== 'ENOENT') throw error
     }
   }
 
-  throw new Error(`Could not find ${label} directory. Tried: ${candidates.join(', ')}`)
+  throw new Error(
+    `Could not find ${label} directory. Tried: ${candidates
+      .map((candidate) => (typeof candidate === 'string' ? candidate : candidate.path))
+      .join(', ')}`,
+  )
 }
 
 async function main() {
-  const packageNames = await listDirectories(pkgRoot)
+  const runtimeRoot = typeof runtimeRootInfo === 'string' ? runtimeRootInfo : runtimeRootInfo.path
+  const runtimeRepoPath = typeof runtimeRootInfo === 'string' ? path.basename(runtimeRootInfo) : runtimeRootInfo.repoPath
+  const runtimeImportBase = typeof runtimeRootInfo === 'string' ? null : runtimeRootInfo.importBase
+  const packageNames = await listDirectories(runtimeRoot)
   const skillNames = await listDirectories(skillsRoot)
 
   await fs.mkdir(generatedDir, { recursive: true })
@@ -179,7 +195,7 @@ async function main() {
 
   const packages = []
   for (const name of packageNames) {
-    const abs = path.join(pkgRoot, name)
+    const abs = path.join(runtimeRoot, name)
     const stats = await collectTreeStats(abs)
     const blueprint = packageBlueprints[name] ?? {
       category: 'Utilities',
@@ -188,14 +204,14 @@ async function main() {
     const keyFiles = await listDirectFiles(abs)
     packages.push({
       name,
-      path: `pkg/${name}`,
-      importPath: `${goImportBase}/pkg/${name}`,
+      path: `${runtimeRepoPath}/${name}`,
+      importPath: runtimeImportBase ? `${runtimeImportBase}/${name}` : null,
       fileCount: stats.fileCount,
       sizeBytes: stats.sizeBytes,
       category: blueprint.category,
       summary: blueprint.summary,
       keyFiles,
-      sourceUrl: `${repoHttpBase}/tree/${repoBranch}/pkg/${name}`,
+      sourceUrl: `${repoHttpBase}/tree/${repoBranch}/${runtimeRepoPath}/${name}`,
     })
   }
 
