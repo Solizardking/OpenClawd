@@ -1,5 +1,3 @@
-import { stripReasoningTagsFromText } from "../../../src/shared/text/reasoning-tags.js";
-
 export function formatMs(ms?: number | null): string {
   if (!ms && ms !== 0) {
     return "n/a";
@@ -99,5 +97,14 @@ export function parseList(input: string): string[] {
 }
 
 export function stripThinkingTags(value: string): string {
-  return stripReasoningTagsFromText(value, { mode: "preserve", trim: "start" });
+  return stripReasoningTagsFromText(value);
+}
+
+function stripReasoningTagsFromText(value: string): string {
+  let out = value.replace(/<think(?:ing)?\b[^>]*>[\s\S]*?<\/think(?:ing)?>/gi, "");
+  out = out.replace(/<\/?think(?:ing)?>/gi, "");
+  out = out.replace(/<final\b[^>]*>/gi, "");
+  out = out.replace(/<\/final>/gi, "");
+  out = out.replace(/^[\s\n\r]+/, "");
+  return out;
 }
