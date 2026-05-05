@@ -14,7 +14,7 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import { createServer } from "./server.js";
 
-const PORT = parseInt(process.env.PORT ?? "3000", 10);
+const PORT = parseInt(process.env.OPENCLAWD_MCP_PORT ?? process.env.PORT ?? "3002", 10);
 const API_KEY = process.env.MCP_API_KEY;
 
 function authMiddleware(req: express.Request, res: express.Response, next: express.NextFunction): void {

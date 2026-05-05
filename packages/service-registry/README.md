@@ -28,7 +28,7 @@ for (const r of await healthAll()) {
 | `clawdrouter`       | `CLAWDROUTER_URL`                | `http://127.0.0.1:8402`      |
 | `walletApi`         | `OPENCLAWD_WALLET_API_URL`       | `http://127.0.0.1:3000`      |
 | `mawdaxe`           | `OPENCLAWD_MAWDAXE_URL`          | `http://127.0.0.1:8420`      |
-| `mcpBridge`         | `OPENCLAWD_MCP_URL`              | `http://127.0.0.1:3001`      |
+| `mcpBridge`         | `OPENCLAWD_MCP_URL`              | `http://127.0.0.1:3002`      |
 | `browserMcp`        | `OPENCLAWD_BROWSER_MCP_URL`      | `http://127.0.0.1:38401`     |
 | `apiRegistrar`      | `OPENCLAWD_REGISTRAR_URL`        | `http://127.0.0.1:3001`      |
 | `clawdhub`          | `CLAWDHUB_URL`                   | `http://127.0.0.1:5173`      |

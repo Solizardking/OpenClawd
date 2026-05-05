@@ -33,7 +33,7 @@ Add to your MCP client configuration:
   "mcpServers": {
     "openclawd": {
       "type": "http",
-      "url": "http://localhost:3000/mcp"
+      "url": "http://localhost:3002/mcp"
     }
   }
 }
@@ -46,6 +46,9 @@ npm run dev    # Development mode with hot reload
 npm run build  # Production build
 npm start      # Run production server
 ```
+
+The HTTP server listens on `OPENCLAWD_MCP_PORT`, then `PORT`, then `3002`.
+That keeps it clear of the wallet API (`3000`) and API registrar (`3001`).
 
 ## License
 
