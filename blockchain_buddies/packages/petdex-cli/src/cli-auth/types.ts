@@ -1,7 +1,7 @@
 /**
- * Public types for @clerk/cli-auth.
- * This file is the CONTRACT — Codex agents building the implementation
- * and the demo consumer both import from here. Keep signatures stable.
+ * Public types for the Blockchain Buddies CLI auth layer.
+ * This file is the CONTRACT for the OpenClawd CLI OAuth implementation.
+ * Keep signatures stable.
  */
 
 export type StorageKind = "keychain" | "file" | "memory";
@@ -21,7 +21,7 @@ export interface ClerkCliAuthConfig {
 	scopes?: string[];
 	/** Credential storage strategy. Default: "keychain" (with file fallback). */
 	storage?: StorageKind | CredentialStore;
-	/** Keychain service name (macOS/Linux/Windows credential manager). Default: "clerk-cli-auth". */
+	/** Keychain service name (macOS/Linux/Windows credential manager). Default: "blockchain-buddies-cli". */
 	keychainService?: string;
 	/** Environment label to namespace stored tokens. Default: "default". */
 	environment?: string;
