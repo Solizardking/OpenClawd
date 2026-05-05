@@ -1,18 +1,18 @@
 {
-  "$schema": "https://solanaclawd.com/schemas/clawdAgentCatalog.v1.json",
+  "$schema": "https://agents.openclawd.biz/schema/clawdAgentCatalog.v1.json",
   "apiVersion": "1.0",
-  "generatedAt": "2026-04-23T20:38:56.065Z",
+  "generatedAt": "2026-05-05T02:15:15.684Z",
   "hub": {
-    "gallery": "https://solanaclawd.com/agents",
-    "mint": "https://solanaclawd.com/agents/mint",
-    "registry": "https://solanaclawd.com/agents/registry",
-    "api": "https://solanaclawd.com/api/agents"
+    "gallery": "https://agents.openclawd.biz/agents",
+    "mint": "https://agents.openclawd.biz/agents/mint",
+    "registry": "https://agents.openclawd.biz/api/agents/registry",
+    "api": "https://agents.openclawd.biz/api/agents"
   },
   "stats": {
     "totalAgents": 51,
     "totalOneShots": 40,
     "totalFeatured": 20,
-    "totalTemplates": 4,
+    "totalTemplates": 5,
     "byCategory": {
       "trading": 6,
       "education": 6,
@@ -230,7 +230,8 @@
         "json": "/api/agents/catalog/airdrop-hunter.json",
         "chat": "/agents/chat?agent=airdrop-hunter",
         "mint": "/agents/mint?template=airdrop-hunter",
-        "mcp": "/api/agents/catalog/airdrop-hunter.json"
+        "mcp": "/api/agents/catalog/airdrop-hunter.json",
+        "registration": "/api/agents/registry/airdrop-hunter.json"
       }
     },
     {
@@ -276,7 +277,8 @@
         "json": "/api/agents/catalog/alpha-leak-detector.json",
         "chat": "/agents/chat?agent=alpha-leak-detector",
         "mint": "/agents/mint?template=alpha-leak-detector",
-        "mcp": "/api/agents/catalog/alpha-leak-detector.json"
+        "mcp": "/api/agents/catalog/alpha-leak-detector.json",
+        "registration": "/api/agents/registry/alpha-leak-detector.json"
       }
     },
     {
@@ -321,7 +323,8 @@
         "json": "/api/agents/catalog/apy-vs-apr-educator.json",
         "chat": "/agents/chat?agent=apy-vs-apr-educator",
         "mint": "/agents/mint?template=apy-vs-apr-educator",
-        "mcp": "/api/agents/catalog/apy-vs-apr-educator.json"
+        "mcp": "/api/agents/catalog/apy-vs-apr-educator.json",
+        "registration": "/api/agents/registry/apy-vs-apr-educator.json"
       }
     },
     {
@@ -367,7 +370,8 @@
         "json": "/api/agents/catalog/bridge-security-analyst.json",
         "chat": "/agents/chat?agent=bridge-security-analyst",
         "mint": "/agents/mint?template=bridge-security-analyst",
-        "mcp": "/api/agents/catalog/bridge-security-analyst.json"
+        "mcp": "/api/agents/catalog/bridge-security-analyst.json",
+        "registration": "/api/agents/registry/bridge-security-analyst.json"
       }
     },
     {
@@ -410,7 +414,8 @@
         "json": "/api/agents/catalog/clawd-bridge-assistant.json",
         "chat": "/agents/chat?agent=clawd-bridge-assistant",
         "mint": "/agents/mint?template=clawd-bridge-assistant",
-        "mcp": "/api/agents/catalog/clawd-bridge-assistant.json"
+        "mcp": "/api/agents/catalog/clawd-bridge-assistant.json",
+        "registration": "/api/agents/registry/clawd-bridge-assistant.json"
       }
     },
     {
@@ -451,7 +456,8 @@
         "json": "/api/agents/catalog/clawd-firecrawl.json",
         "chat": "/agents/chat?agent=clawd-firecrawl",
         "mint": "/agents/mint?template=clawd-firecrawl",
-        "mcp": "/api/agents/catalog/clawd-firecrawl.json"
+        "mcp": "/api/agents/catalog/clawd-firecrawl.json",
+        "registration": "/api/agents/registry/clawd-firecrawl.json"
       }
     },
     {
@@ -496,7 +502,8 @@
         "json": "/api/agents/catalog/clawd-governance-guide.json",
         "chat": "/agents/chat?agent=clawd-governance-guide",
         "mint": "/agents/mint?template=clawd-governance-guide",
-        "mcp": "/api/agents/catalog/clawd-governance-guide.json"
+        "mcp": "/api/agents/catalog/clawd-governance-guide.json",
+        "registration": "/api/agents/registry/clawd-governance-guide.json"
       }
     },
     {
@@ -546,7 +553,8 @@
         "json": "/api/agents/catalog/clawd-liquidity-strategist.json",
         "chat": "/agents/chat?agent=clawd-liquidity-strategist",
         "mint": "/agents/mint?template=clawd-liquidity-strategist",
-        "mcp": "/api/agents/catalog/clawd-liquidity-strategist.json"
+        "mcp": "/api/agents/catalog/clawd-liquidity-strategist.json",
+        "registration": "/api/agents/registry/clawd-liquidity-strategist.json"
       }
     },
     {
@@ -616,7 +624,8 @@
         "json": "/api/agents/catalog/clawd-mayhem-mode.json",
         "chat": "/agents/chat?agent=clawd-mayhem-mode",
         "mint": "/agents/mint?template=clawd-mayhem-mode",
-        "mcp": "/api/agents/catalog/clawd-mayhem-mode.json"
+        "mcp": "/api/agents/catalog/clawd-mayhem-mode.json",
+        "registration": "/api/agents/registry/clawd-mayhem-mode.json"
       }
     },
     {
@@ -659,7 +668,8 @@
         "json": "/api/agents/catalog/clawd-onboarding-guide.json",
         "chat": "/agents/chat?agent=clawd-onboarding-guide",
         "mint": "/agents/mint?template=clawd-onboarding-guide",
-        "mcp": "/api/agents/catalog/clawd-onboarding-guide.json"
+        "mcp": "/api/agents/catalog/clawd-onboarding-guide.json",
+        "registration": "/api/agents/registry/clawd-onboarding-guide.json"
       }
     },
     {
@@ -704,7 +714,8 @@
         "json": "/api/agents/catalog/clawd-portfolio-tracker.json",
         "chat": "/agents/chat?agent=clawd-portfolio-tracker",
         "mint": "/agents/mint?template=clawd-portfolio-tracker",
-        "mcp": "/api/agents/catalog/clawd-portfolio-tracker.json"
+        "mcp": "/api/agents/catalog/clawd-portfolio-tracker.json",
+        "registration": "/api/agents/registry/clawd-portfolio-tracker.json"
       }
     },
     {
@@ -755,7 +766,8 @@
         "json": "/api/agents/catalog/clawd-pumpfun-official.json",
         "chat": "/agents/chat?agent=clawd-pumpfun-official",
         "mint": "/agents/mint?template=clawd-pumpfun-official",
-        "mcp": "/api/agents/catalog/clawd-pumpfun-official.json"
+        "mcp": "/api/agents/catalog/clawd-pumpfun-official.json",
+        "registration": "/api/agents/registry/clawd-pumpfun-official.json"
       }
     },
     {
@@ -801,7 +813,8 @@
         "json": "/api/agents/catalog/clawd-risk-monitor.json",
         "chat": "/agents/chat?agent=clawd-risk-monitor",
         "mint": "/agents/mint?template=clawd-risk-monitor",
-        "mcp": "/api/agents/catalog/clawd-risk-monitor.json"
+        "mcp": "/api/agents/catalog/clawd-risk-monitor.json",
+        "registration": "/api/agents/registry/clawd-risk-monitor.json"
       }
     },
     {
@@ -851,7 +864,8 @@
         "json": "/api/agents/catalog/clawd-yield-aggregator.json",
         "chat": "/agents/chat?agent=clawd-yield-aggregator",
         "mint": "/agents/mint?template=clawd-yield-aggregator",
-        "mcp": "/api/agents/catalog/clawd-yield-aggregator.json"
+        "mcp": "/api/agents/catalog/clawd-yield-aggregator.json",
+        "registration": "/api/agents/registry/clawd-yield-aggregator.json"
       }
     },
     {
@@ -895,7 +909,8 @@
         "json": "/api/agents/catalog/defi-onboarding-mentor.json",
         "chat": "/agents/chat?agent=defi-onboarding-mentor",
         "mint": "/agents/mint?template=defi-onboarding-mentor",
-        "mcp": "/api/agents/catalog/defi-onboarding-mentor.json"
+        "mcp": "/api/agents/catalog/defi-onboarding-mentor.json",
+        "registration": "/api/agents/registry/defi-onboarding-mentor.json"
       }
     },
     {
@@ -939,7 +954,8 @@
         "json": "/api/agents/catalog/defi-protocol-comparator.json",
         "chat": "/agents/chat?agent=defi-protocol-comparator",
         "mint": "/agents/mint?template=defi-protocol-comparator",
-        "mcp": "/api/agents/catalog/defi-protocol-comparator.json"
+        "mcp": "/api/agents/catalog/defi-protocol-comparator.json",
+        "registration": "/api/agents/registry/defi-protocol-comparator.json"
       }
     },
     {
@@ -986,7 +1002,8 @@
         "json": "/api/agents/catalog/defi-risk-scoring-engine.json",
         "chat": "/agents/chat?agent=defi-risk-scoring-engine",
         "mint": "/agents/mint?template=defi-risk-scoring-engine",
-        "mcp": "/api/agents/catalog/defi-risk-scoring-engine.json"
+        "mcp": "/api/agents/catalog/defi-risk-scoring-engine.json",
+        "registration": "/api/agents/registry/defi-risk-scoring-engine.json"
       }
     },
     {
@@ -1036,7 +1053,8 @@
         "json": "/api/agents/catalog/defi-yield-farmer.json",
         "chat": "/agents/chat?agent=defi-yield-farmer",
         "mint": "/agents/mint?template=defi-yield-farmer",
-        "mcp": "/api/agents/catalog/defi-yield-farmer.json"
+        "mcp": "/api/agents/catalog/defi-yield-farmer.json",
+        "registration": "/api/agents/registry/defi-yield-farmer.json"
       }
     },
     {
@@ -1084,7 +1102,8 @@
         "json": "/api/agents/catalog/dex-aggregator-optimizer.json",
         "chat": "/agents/chat?agent=dex-aggregator-optimizer",
         "mint": "/agents/mint?template=dex-aggregator-optimizer",
-        "mcp": "/api/agents/catalog/dex-aggregator-optimizer.json"
+        "mcp": "/api/agents/catalog/dex-aggregator-optimizer.json",
+        "registration": "/api/agents/registry/dex-aggregator-optimizer.json"
       }
     },
     {
@@ -1131,7 +1150,8 @@
         "json": "/api/agents/catalog/gas-optimization-expert.json",
         "chat": "/agents/chat?agent=gas-optimization-expert",
         "mint": "/agents/mint?template=gas-optimization-expert",
-        "mcp": "/api/agents/catalog/gas-optimization-expert.json"
+        "mcp": "/api/agents/catalog/gas-optimization-expert.json",
+        "registration": "/api/agents/registry/gas-optimization-expert.json"
       }
     },
     {
@@ -1177,7 +1197,8 @@
         "json": "/api/agents/catalog/governance-proposal-analyst.json",
         "chat": "/agents/chat?agent=governance-proposal-analyst",
         "mint": "/agents/mint?template=governance-proposal-analyst",
-        "mcp": "/api/agents/catalog/governance-proposal-analyst.json"
+        "mcp": "/api/agents/catalog/governance-proposal-analyst.json",
+        "registration": "/api/agents/registry/governance-proposal-analyst.json"
       }
     },
     {
@@ -1223,7 +1244,8 @@
         "json": "/api/agents/catalog/impermanent-loss-calculator.json",
         "chat": "/agents/chat?agent=impermanent-loss-calculator",
         "mint": "/agents/mint?template=impermanent-loss-calculator",
-        "mcp": "/api/agents/catalog/impermanent-loss-calculator.json"
+        "mcp": "/api/agents/catalog/impermanent-loss-calculator.json",
+        "registration": "/api/agents/registry/impermanent-loss-calculator.json"
       }
     },
     {
@@ -1266,7 +1288,8 @@
         "json": "/api/agents/catalog/layer-2-comparison-guide.json",
         "chat": "/agents/chat?agent=layer-2-comparison-guide",
         "mint": "/agents/mint?template=layer-2-comparison-guide",
-        "mcp": "/api/agents/catalog/layer-2-comparison-guide.json"
+        "mcp": "/api/agents/catalog/layer-2-comparison-guide.json",
+        "registration": "/api/agents/registry/layer-2-comparison-guide.json"
       }
     },
     {
@@ -1315,7 +1338,8 @@
         "json": "/api/agents/catalog/liquidation-risk-manager.json",
         "chat": "/agents/chat?agent=liquidation-risk-manager",
         "mint": "/agents/mint?template=liquidation-risk-manager",
-        "mcp": "/api/agents/catalog/liquidation-risk-manager.json"
+        "mcp": "/api/agents/catalog/liquidation-risk-manager.json",
+        "registration": "/api/agents/registry/liquidation-risk-manager.json"
       }
     },
     {
@@ -1363,7 +1387,8 @@
         "json": "/api/agents/catalog/liquidity-pool-analyzer.json",
         "chat": "/agents/chat?agent=liquidity-pool-analyzer",
         "mint": "/agents/mint?template=liquidity-pool-analyzer",
-        "mcp": "/api/agents/catalog/liquidity-pool-analyzer.json"
+        "mcp": "/api/agents/catalog/liquidity-pool-analyzer.json",
+        "registration": "/api/agents/registry/liquidity-pool-analyzer.json"
       }
     },
     {
@@ -1409,7 +1434,8 @@
         "json": "/api/agents/catalog/mev-protection-advisor.json",
         "chat": "/agents/chat?agent=mev-protection-advisor",
         "mint": "/agents/mint?template=mev-protection-advisor",
-        "mcp": "/api/agents/catalog/mev-protection-advisor.json"
+        "mcp": "/api/agents/catalog/mev-protection-advisor.json",
+        "registration": "/api/agents/registry/mev-protection-advisor.json"
       }
     },
     {
@@ -1458,7 +1484,8 @@
         "json": "/api/agents/catalog/nft-liquidity-advisor.json",
         "chat": "/agents/chat?agent=nft-liquidity-advisor",
         "mint": "/agents/mint?template=nft-liquidity-advisor",
-        "mcp": "/api/agents/catalog/nft-liquidity-advisor.json"
+        "mcp": "/api/agents/catalog/nft-liquidity-advisor.json",
+        "registration": "/api/agents/registry/nft-liquidity-advisor.json"
       }
     },
     {
@@ -1505,7 +1532,8 @@
         "json": "/api/agents/catalog/portfolio-rebalancing-advisor.json",
         "chat": "/agents/chat?agent=portfolio-rebalancing-advisor",
         "mint": "/agents/mint?template=portfolio-rebalancing-advisor",
-        "mcp": "/api/agents/catalog/portfolio-rebalancing-advisor.json"
+        "mcp": "/api/agents/catalog/portfolio-rebalancing-advisor.json",
+        "registration": "/api/agents/registry/portfolio-rebalancing-advisor.json"
       }
     },
     {
@@ -1555,7 +1583,8 @@
         "json": "/api/agents/catalog/pump-fun-sdk-expert.json",
         "chat": "/agents/chat?agent=pump-fun-sdk-expert",
         "mint": "/agents/mint?template=pump-fun-sdk-expert",
-        "mcp": "/api/agents/catalog/pump-fun-sdk-expert.json"
+        "mcp": "/api/agents/catalog/pump-fun-sdk-expert.json",
+        "registration": "/api/agents/registry/pump-fun-sdk-expert.json"
       }
     },
     {
@@ -1599,7 +1628,8 @@
         "json": "/api/agents/catalog/solana-jupiter-router.json",
         "chat": "/agents/chat?agent=solana-jupiter-router",
         "mint": "/agents/mint?template=solana-jupiter-router",
-        "mcp": "/api/agents/catalog/solana-jupiter-router.json"
+        "mcp": "/api/agents/catalog/solana-jupiter-router.json",
+        "registration": "/api/agents/registry/solana-jupiter-router.json"
       }
     },
     {
@@ -1645,7 +1675,8 @@
         "json": "/api/agents/catalog/solana-kamino-picker.json",
         "chat": "/agents/chat?agent=solana-kamino-picker",
         "mint": "/agents/mint?template=solana-kamino-picker",
-        "mcp": "/api/agents/catalog/solana-kamino-picker.json"
+        "mcp": "/api/agents/catalog/solana-kamino-picker.json",
+        "registration": "/api/agents/registry/solana-kamino-picker.json"
       }
     },
     {
@@ -1698,7 +1729,8 @@
         "json": "/api/agents/catalog/solana-mpl-core-launcher.json",
         "chat": "/agents/chat?agent=solana-mpl-core-launcher",
         "mint": "/agents/mint?template=solana-mpl-core-launcher",
-        "mcp": "/api/agents/catalog/solana-mpl-core-launcher.json"
+        "mcp": "/api/agents/catalog/solana-mpl-core-launcher.json",
+        "registration": "/api/agents/registry/solana-mpl-core-launcher.json"
       }
     },
     {
@@ -1742,7 +1774,8 @@
         "json": "/api/agents/catalog/solana-pumpfun-screener.json",
         "chat": "/agents/chat?agent=solana-pumpfun-screener",
         "mint": "/agents/mint?template=solana-pumpfun-screener",
-        "mcp": "/api/agents/catalog/solana-pumpfun-screener.json"
+        "mcp": "/api/agents/catalog/solana-pumpfun-screener.json",
+        "registration": "/api/agents/registry/solana-pumpfun-screener.json"
       }
     },
     {
@@ -1787,7 +1820,8 @@
         "json": "/api/agents/catalog/solana-validator-picker.json",
         "chat": "/agents/chat?agent=solana-validator-picker",
         "mint": "/agents/mint?template=solana-validator-picker",
-        "mcp": "/api/agents/catalog/solana-validator-picker.json"
+        "mcp": "/api/agents/catalog/solana-validator-picker.json",
+        "registration": "/api/agents/registry/solana-validator-picker.json"
       }
     },
     {
@@ -1834,7 +1868,8 @@
         "json": "/api/agents/catalog/stablecoin-comparator.json",
         "chat": "/agents/chat?agent=stablecoin-comparator",
         "mint": "/agents/mint?template=stablecoin-comparator",
-        "mcp": "/api/agents/catalog/stablecoin-comparator.json"
+        "mcp": "/api/agents/catalog/stablecoin-comparator.json",
+        "registration": "/api/agents/registry/stablecoin-comparator.json"
       }
     },
     {
@@ -1882,7 +1917,8 @@
         "json": "/api/agents/catalog/staking-rewards-calculator.json",
         "chat": "/agents/chat?agent=staking-rewards-calculator",
         "mint": "/agents/mint?template=staking-rewards-calculator",
-        "mcp": "/api/agents/catalog/staking-rewards-calculator.json"
+        "mcp": "/api/agents/catalog/staking-rewards-calculator.json",
+        "registration": "/api/agents/registry/staking-rewards-calculator.json"
       }
     },
     {
@@ -1928,7 +1964,8 @@
         "json": "/api/agents/catalog/wallet-security-advisor.json",
         "chat": "/agents/chat?agent=wallet-security-advisor",
         "mint": "/agents/mint?template=wallet-security-advisor",
-        "mcp": "/api/agents/catalog/wallet-security-advisor.json"
+        "mcp": "/api/agents/catalog/wallet-security-advisor.json",
+        "registration": "/api/agents/registry/wallet-security-advisor.json"
       }
     },
     {
@@ -1974,7 +2011,8 @@
         "json": "/api/agents/catalog/whale-watcher.json",
         "chat": "/agents/chat?agent=whale-watcher",
         "mint": "/agents/mint?template=whale-watcher",
-        "mcp": "/api/agents/catalog/whale-watcher.json"
+        "mcp": "/api/agents/catalog/whale-watcher.json",
+        "registration": "/api/agents/registry/whale-watcher.json"
       }
     },
     {
@@ -2019,7 +2057,8 @@
         "json": "/api/agents/catalog/yield-dashboard-builder.json",
         "chat": "/agents/chat?agent=yield-dashboard-builder",
         "mint": "/agents/mint?template=yield-dashboard-builder",
-        "mcp": "/api/agents/catalog/yield-dashboard-builder.json"
+        "mcp": "/api/agents/catalog/yield-dashboard-builder.json",
+        "registration": "/api/agents/registry/yield-dashboard-builder.json"
       }
     },
     {
@@ -2064,7 +2103,8 @@
         "json": "/api/agents/catalog/yield-sustainability-analyst.json",
         "chat": "/agents/chat?agent=yield-sustainability-analyst",
         "mint": "/agents/mint?template=yield-sustainability-analyst",
-        "mcp": "/api/agents/catalog/yield-sustainability-analyst.json"
+        "mcp": "/api/agents/catalog/yield-sustainability-analyst.json",
+        "registration": "/api/agents/registry/yield-sustainability-analyst.json"
       }
     }
   ],
@@ -2112,7 +2152,8 @@
         "json": "/api/agents/catalog/alpha-leak-detector.json",
         "chat": "/agents/chat?agent=alpha-leak-detector",
         "mint": "/agents/mint?template=alpha-leak-detector",
-        "mcp": "/api/agents/catalog/alpha-leak-detector.json"
+        "mcp": "/api/agents/catalog/alpha-leak-detector.json",
+        "registration": "/api/agents/registry/alpha-leak-detector.json"
       }
     },
     {
@@ -2153,7 +2194,8 @@
         "json": "/api/agents/catalog/clawd-firecrawl.json",
         "chat": "/agents/chat?agent=clawd-firecrawl",
         "mint": "/agents/mint?template=clawd-firecrawl",
-        "mcp": "/api/agents/catalog/clawd-firecrawl.json"
+        "mcp": "/api/agents/catalog/clawd-firecrawl.json",
+        "registration": "/api/agents/registry/clawd-firecrawl.json"
       }
     },
     {
@@ -2203,7 +2245,8 @@
         "json": "/api/agents/catalog/clawd-liquidity-strategist.json",
         "chat": "/agents/chat?agent=clawd-liquidity-strategist",
         "mint": "/agents/mint?template=clawd-liquidity-strategist",
-        "mcp": "/api/agents/catalog/clawd-liquidity-strategist.json"
+        "mcp": "/api/agents/catalog/clawd-liquidity-strategist.json",
+        "registration": "/api/agents/registry/clawd-liquidity-strategist.json"
       }
     },
     {
@@ -2273,7 +2316,8 @@
         "json": "/api/agents/catalog/clawd-mayhem-mode.json",
         "chat": "/agents/chat?agent=clawd-mayhem-mode",
         "mint": "/agents/mint?template=clawd-mayhem-mode",
-        "mcp": "/api/agents/catalog/clawd-mayhem-mode.json"
+        "mcp": "/api/agents/catalog/clawd-mayhem-mode.json",
+        "registration": "/api/agents/registry/clawd-mayhem-mode.json"
       }
     },
     {
@@ -2316,7 +2360,8 @@
         "json": "/api/agents/catalog/clawd-onboarding-guide.json",
         "chat": "/agents/chat?agent=clawd-onboarding-guide",
         "mint": "/agents/mint?template=clawd-onboarding-guide",
-        "mcp": "/api/agents/catalog/clawd-onboarding-guide.json"
+        "mcp": "/api/agents/catalog/clawd-onboarding-guide.json",
+        "registration": "/api/agents/registry/clawd-onboarding-guide.json"
       }
     },
     {
@@ -2361,7 +2406,8 @@
         "json": "/api/agents/catalog/clawd-portfolio-tracker.json",
         "chat": "/agents/chat?agent=clawd-portfolio-tracker",
         "mint": "/agents/mint?template=clawd-portfolio-tracker",
-        "mcp": "/api/agents/catalog/clawd-portfolio-tracker.json"
+        "mcp": "/api/agents/catalog/clawd-portfolio-tracker.json",
+        "registration": "/api/agents/registry/clawd-portfolio-tracker.json"
       }
     },
     {
@@ -2412,7 +2458,8 @@
         "json": "/api/agents/catalog/clawd-pumpfun-official.json",
         "chat": "/agents/chat?agent=clawd-pumpfun-official",
         "mint": "/agents/mint?template=clawd-pumpfun-official",
-        "mcp": "/api/agents/catalog/clawd-pumpfun-official.json"
+        "mcp": "/api/agents/catalog/clawd-pumpfun-official.json",
+        "registration": "/api/agents/registry/clawd-pumpfun-official.json"
       }
     },
     {
@@ -2458,7 +2505,8 @@
         "json": "/api/agents/catalog/clawd-risk-monitor.json",
         "chat": "/agents/chat?agent=clawd-risk-monitor",
         "mint": "/agents/mint?template=clawd-risk-monitor",
-        "mcp": "/api/agents/catalog/clawd-risk-monitor.json"
+        "mcp": "/api/agents/catalog/clawd-risk-monitor.json",
+        "registration": "/api/agents/registry/clawd-risk-monitor.json"
       }
     },
     {
@@ -2508,7 +2556,8 @@
         "json": "/api/agents/catalog/clawd-yield-aggregator.json",
         "chat": "/agents/chat?agent=clawd-yield-aggregator",
         "mint": "/agents/mint?template=clawd-yield-aggregator",
-        "mcp": "/api/agents/catalog/clawd-yield-aggregator.json"
+        "mcp": "/api/agents/catalog/clawd-yield-aggregator.json",
+        "registration": "/api/agents/registry/clawd-yield-aggregator.json"
       }
     },
     {
@@ -2558,7 +2607,8 @@
         "json": "/api/agents/catalog/defi-yield-farmer.json",
         "chat": "/agents/chat?agent=defi-yield-farmer",
         "mint": "/agents/mint?template=defi-yield-farmer",
-        "mcp": "/api/agents/catalog/defi-yield-farmer.json"
+        "mcp": "/api/agents/catalog/defi-yield-farmer.json",
+        "registration": "/api/agents/registry/defi-yield-farmer.json"
       }
     },
     {
@@ -2606,7 +2656,8 @@
         "json": "/api/agents/catalog/dex-aggregator-optimizer.json",
         "chat": "/agents/chat?agent=dex-aggregator-optimizer",
         "mint": "/agents/mint?template=dex-aggregator-optimizer",
-        "mcp": "/api/agents/catalog/dex-aggregator-optimizer.json"
+        "mcp": "/api/agents/catalog/dex-aggregator-optimizer.json",
+        "registration": "/api/agents/registry/dex-aggregator-optimizer.json"
       }
     },
     {
@@ -2655,7 +2706,8 @@
         "json": "/api/agents/catalog/liquidation-risk-manager.json",
         "chat": "/agents/chat?agent=liquidation-risk-manager",
         "mint": "/agents/mint?template=liquidation-risk-manager",
-        "mcp": "/api/agents/catalog/liquidation-risk-manager.json"
+        "mcp": "/api/agents/catalog/liquidation-risk-manager.json",
+        "registration": "/api/agents/registry/liquidation-risk-manager.json"
       }
     },
     {
@@ -2702,7 +2754,8 @@
         "json": "/api/agents/catalog/portfolio-rebalancing-advisor.json",
         "chat": "/agents/chat?agent=portfolio-rebalancing-advisor",
         "mint": "/agents/mint?template=portfolio-rebalancing-advisor",
-        "mcp": "/api/agents/catalog/portfolio-rebalancing-advisor.json"
+        "mcp": "/api/agents/catalog/portfolio-rebalancing-advisor.json",
+        "registration": "/api/agents/registry/portfolio-rebalancing-advisor.json"
       }
     },
     {
@@ -2752,7 +2805,8 @@
         "json": "/api/agents/catalog/pump-fun-sdk-expert.json",
         "chat": "/agents/chat?agent=pump-fun-sdk-expert",
         "mint": "/agents/mint?template=pump-fun-sdk-expert",
-        "mcp": "/api/agents/catalog/pump-fun-sdk-expert.json"
+        "mcp": "/api/agents/catalog/pump-fun-sdk-expert.json",
+        "registration": "/api/agents/registry/pump-fun-sdk-expert.json"
       }
     },
     {
@@ -2796,7 +2850,8 @@
         "json": "/api/agents/catalog/solana-jupiter-router.json",
         "chat": "/agents/chat?agent=solana-jupiter-router",
         "mint": "/agents/mint?template=solana-jupiter-router",
-        "mcp": "/api/agents/catalog/solana-jupiter-router.json"
+        "mcp": "/api/agents/catalog/solana-jupiter-router.json",
+        "registration": "/api/agents/registry/solana-jupiter-router.json"
       }
     },
     {
@@ -2842,7 +2897,8 @@
         "json": "/api/agents/catalog/solana-kamino-picker.json",
         "chat": "/agents/chat?agent=solana-kamino-picker",
         "mint": "/agents/mint?template=solana-kamino-picker",
-        "mcp": "/api/agents/catalog/solana-kamino-picker.json"
+        "mcp": "/api/agents/catalog/solana-kamino-picker.json",
+        "registration": "/api/agents/registry/solana-kamino-picker.json"
       }
     },
     {
@@ -2895,7 +2951,8 @@
         "json": "/api/agents/catalog/solana-mpl-core-launcher.json",
         "chat": "/agents/chat?agent=solana-mpl-core-launcher",
         "mint": "/agents/mint?template=solana-mpl-core-launcher",
-        "mcp": "/api/agents/catalog/solana-mpl-core-launcher.json"
+        "mcp": "/api/agents/catalog/solana-mpl-core-launcher.json",
+        "registration": "/api/agents/registry/solana-mpl-core-launcher.json"
       }
     },
     {
@@ -2939,7 +2996,8 @@
         "json": "/api/agents/catalog/solana-pumpfun-screener.json",
         "chat": "/agents/chat?agent=solana-pumpfun-screener",
         "mint": "/agents/mint?template=solana-pumpfun-screener",
-        "mcp": "/api/agents/catalog/solana-pumpfun-screener.json"
+        "mcp": "/api/agents/catalog/solana-pumpfun-screener.json",
+        "registration": "/api/agents/registry/solana-pumpfun-screener.json"
       }
     },
     {
@@ -2984,7 +3042,8 @@
         "json": "/api/agents/catalog/solana-validator-picker.json",
         "chat": "/agents/chat?agent=solana-validator-picker",
         "mint": "/agents/mint?template=solana-validator-picker",
-        "mcp": "/api/agents/catalog/solana-validator-picker.json"
+        "mcp": "/api/agents/catalog/solana-validator-picker.json",
+        "registration": "/api/agents/registry/solana-validator-picker.json"
       }
     },
     {
@@ -3030,7 +3089,8 @@
         "json": "/api/agents/catalog/wallet-security-advisor.json",
         "chat": "/agents/chat?agent=wallet-security-advisor",
         "mint": "/agents/mint?template=wallet-security-advisor",
-        "mcp": "/api/agents/catalog/wallet-security-advisor.json"
+        "mcp": "/api/agents/catalog/wallet-security-advisor.json",
+        "registration": "/api/agents/registry/wallet-security-advisor.json"
       }
     }
   ],
@@ -3079,7 +3139,8 @@
         "json": "/api/agents/catalog/airdrop-hunter.json",
         "chat": "/agents/chat?agent=airdrop-hunter",
         "mint": "/agents/mint?template=airdrop-hunter",
-        "mcp": "/api/agents/catalog/airdrop-hunter.json"
+        "mcp": "/api/agents/catalog/airdrop-hunter.json",
+        "registration": "/api/agents/registry/airdrop-hunter.json"
       }
     },
     {
@@ -3125,7 +3186,8 @@
         "json": "/api/agents/catalog/alpha-leak-detector.json",
         "chat": "/agents/chat?agent=alpha-leak-detector",
         "mint": "/agents/mint?template=alpha-leak-detector",
-        "mcp": "/api/agents/catalog/alpha-leak-detector.json"
+        "mcp": "/api/agents/catalog/alpha-leak-detector.json",
+        "registration": "/api/agents/registry/alpha-leak-detector.json"
       }
     },
     {
@@ -3170,7 +3232,8 @@
         "json": "/api/agents/catalog/apy-vs-apr-educator.json",
         "chat": "/agents/chat?agent=apy-vs-apr-educator",
         "mint": "/agents/mint?template=apy-vs-apr-educator",
-        "mcp": "/api/agents/catalog/apy-vs-apr-educator.json"
+        "mcp": "/api/agents/catalog/apy-vs-apr-educator.json",
+        "registration": "/api/agents/registry/apy-vs-apr-educator.json"
       }
     },
     {
@@ -3216,7 +3279,8 @@
         "json": "/api/agents/catalog/bridge-security-analyst.json",
         "chat": "/agents/chat?agent=bridge-security-analyst",
         "mint": "/agents/mint?template=bridge-security-analyst",
-        "mcp": "/api/agents/catalog/bridge-security-analyst.json"
+        "mcp": "/api/agents/catalog/bridge-security-analyst.json",
+        "registration": "/api/agents/registry/bridge-security-analyst.json"
       }
     },
     {
@@ -3259,7 +3323,8 @@
         "json": "/api/agents/catalog/clawd-bridge-assistant.json",
         "chat": "/agents/chat?agent=clawd-bridge-assistant",
         "mint": "/agents/mint?template=clawd-bridge-assistant",
-        "mcp": "/api/agents/catalog/clawd-bridge-assistant.json"
+        "mcp": "/api/agents/catalog/clawd-bridge-assistant.json",
+        "registration": "/api/agents/registry/clawd-bridge-assistant.json"
       }
     },
     {
@@ -3300,7 +3365,8 @@
         "json": "/api/agents/catalog/clawd-firecrawl.json",
         "chat": "/agents/chat?agent=clawd-firecrawl",
         "mint": "/agents/mint?template=clawd-firecrawl",
-        "mcp": "/api/agents/catalog/clawd-firecrawl.json"
+        "mcp": "/api/agents/catalog/clawd-firecrawl.json",
+        "registration": "/api/agents/registry/clawd-firecrawl.json"
       }
     },
     {
@@ -3345,7 +3411,8 @@
         "json": "/api/agents/catalog/clawd-governance-guide.json",
         "chat": "/agents/chat?agent=clawd-governance-guide",
         "mint": "/agents/mint?template=clawd-governance-guide",
-        "mcp": "/api/agents/catalog/clawd-governance-guide.json"
+        "mcp": "/api/agents/catalog/clawd-governance-guide.json",
+        "registration": "/api/agents/registry/clawd-governance-guide.json"
       }
     },
     {
@@ -3395,7 +3462,8 @@
         "json": "/api/agents/catalog/clawd-liquidity-strategist.json",
         "chat": "/agents/chat?agent=clawd-liquidity-strategist",
         "mint": "/agents/mint?template=clawd-liquidity-strategist",
-        "mcp": "/api/agents/catalog/clawd-liquidity-strategist.json"
+        "mcp": "/api/agents/catalog/clawd-liquidity-strategist.json",
+        "registration": "/api/agents/registry/clawd-liquidity-strategist.json"
       }
     },
     {
@@ -3465,7 +3533,8 @@
         "json": "/api/agents/catalog/clawd-mayhem-mode.json",
         "chat": "/agents/chat?agent=clawd-mayhem-mode",
         "mint": "/agents/mint?template=clawd-mayhem-mode",
-        "mcp": "/api/agents/catalog/clawd-mayhem-mode.json"
+        "mcp": "/api/agents/catalog/clawd-mayhem-mode.json",
+        "registration": "/api/agents/registry/clawd-mayhem-mode.json"
       }
     },
     {
@@ -3508,7 +3577,8 @@
         "json": "/api/agents/catalog/clawd-onboarding-guide.json",
         "chat": "/agents/chat?agent=clawd-onboarding-guide",
         "mint": "/agents/mint?template=clawd-onboarding-guide",
-        "mcp": "/api/agents/catalog/clawd-onboarding-guide.json"
+        "mcp": "/api/agents/catalog/clawd-onboarding-guide.json",
+        "registration": "/api/agents/registry/clawd-onboarding-guide.json"
       }
     },
     {
@@ -3553,7 +3623,8 @@
         "json": "/api/agents/catalog/clawd-portfolio-tracker.json",
         "chat": "/agents/chat?agent=clawd-portfolio-tracker",
         "mint": "/agents/mint?template=clawd-portfolio-tracker",
-        "mcp": "/api/agents/catalog/clawd-portfolio-tracker.json"
+        "mcp": "/api/agents/catalog/clawd-portfolio-tracker.json",
+        "registration": "/api/agents/registry/clawd-portfolio-tracker.json"
       }
     },
     {
@@ -3604,7 +3675,8 @@
         "json": "/api/agents/catalog/clawd-pumpfun-official.json",
         "chat": "/agents/chat?agent=clawd-pumpfun-official",
         "mint": "/agents/mint?template=clawd-pumpfun-official",
-        "mcp": "/api/agents/catalog/clawd-pumpfun-official.json"
+        "mcp": "/api/agents/catalog/clawd-pumpfun-official.json",
+        "registration": "/api/agents/registry/clawd-pumpfun-official.json"
       }
     },
     {
@@ -3650,7 +3722,8 @@
         "json": "/api/agents/catalog/clawd-risk-monitor.json",
         "chat": "/agents/chat?agent=clawd-risk-monitor",
         "mint": "/agents/mint?template=clawd-risk-monitor",
-        "mcp": "/api/agents/catalog/clawd-risk-monitor.json"
+        "mcp": "/api/agents/catalog/clawd-risk-monitor.json",
+        "registration": "/api/agents/registry/clawd-risk-monitor.json"
       }
     },
     {
@@ -3700,7 +3773,8 @@
         "json": "/api/agents/catalog/clawd-yield-aggregator.json",
         "chat": "/agents/chat?agent=clawd-yield-aggregator",
         "mint": "/agents/mint?template=clawd-yield-aggregator",
-        "mcp": "/api/agents/catalog/clawd-yield-aggregator.json"
+        "mcp": "/api/agents/catalog/clawd-yield-aggregator.json",
+        "registration": "/api/agents/registry/clawd-yield-aggregator.json"
       }
     },
     {
@@ -3745,7 +3819,8 @@
         "json": "/api/agents/catalog/crypto-news-analyst.json",
         "chat": "/agents/chat?agent=crypto-news-analyst",
         "mint": "/agents/mint?template=crypto-news-analyst",
-        "mcp": "/api/agents/catalog/crypto-news-analyst.json"
+        "mcp": "/api/agents/catalog/crypto-news-analyst.json",
+        "registration": "/api/agents/registry/crypto-news-analyst.json"
       }
     },
     {
@@ -3788,7 +3863,8 @@
         "json": "/api/agents/catalog/crypto-tax-strategist.json",
         "chat": "/agents/chat?agent=crypto-tax-strategist",
         "mint": "/agents/mint?template=crypto-tax-strategist",
-        "mcp": "/api/agents/catalog/crypto-tax-strategist.json"
+        "mcp": "/api/agents/catalog/crypto-tax-strategist.json",
+        "registration": "/api/agents/registry/crypto-tax-strategist.json"
       }
     },
     {
@@ -3832,7 +3908,8 @@
         "json": "/api/agents/catalog/defi-insurance-advisor.json",
         "chat": "/agents/chat?agent=defi-insurance-advisor",
         "mint": "/agents/mint?template=defi-insurance-advisor",
-        "mcp": "/api/agents/catalog/defi-insurance-advisor.json"
+        "mcp": "/api/agents/catalog/defi-insurance-advisor.json",
+        "registration": "/api/agents/registry/defi-insurance-advisor.json"
       }
     },
     {
@@ -3876,7 +3953,8 @@
         "json": "/api/agents/catalog/defi-onboarding-mentor.json",
         "chat": "/agents/chat?agent=defi-onboarding-mentor",
         "mint": "/agents/mint?template=defi-onboarding-mentor",
-        "mcp": "/api/agents/catalog/defi-onboarding-mentor.json"
+        "mcp": "/api/agents/catalog/defi-onboarding-mentor.json",
+        "registration": "/api/agents/registry/defi-onboarding-mentor.json"
       }
     },
     {
@@ -3920,7 +3998,8 @@
         "json": "/api/agents/catalog/defi-protocol-comparator.json",
         "chat": "/agents/chat?agent=defi-protocol-comparator",
         "mint": "/agents/mint?template=defi-protocol-comparator",
-        "mcp": "/api/agents/catalog/defi-protocol-comparator.json"
+        "mcp": "/api/agents/catalog/defi-protocol-comparator.json",
+        "registration": "/api/agents/registry/defi-protocol-comparator.json"
       }
     },
     {
@@ -3967,7 +4046,8 @@
         "json": "/api/agents/catalog/defi-risk-scoring-engine.json",
         "chat": "/agents/chat?agent=defi-risk-scoring-engine",
         "mint": "/agents/mint?template=defi-risk-scoring-engine",
-        "mcp": "/api/agents/catalog/defi-risk-scoring-engine.json"
+        "mcp": "/api/agents/catalog/defi-risk-scoring-engine.json",
+        "registration": "/api/agents/registry/defi-risk-scoring-engine.json"
       }
     },
     {
@@ -4017,7 +4097,8 @@
         "json": "/api/agents/catalog/defi-yield-farmer.json",
         "chat": "/agents/chat?agent=defi-yield-farmer",
         "mint": "/agents/mint?template=defi-yield-farmer",
-        "mcp": "/api/agents/catalog/defi-yield-farmer.json"
+        "mcp": "/api/agents/catalog/defi-yield-farmer.json",
+        "registration": "/api/agents/registry/defi-yield-farmer.json"
       }
     },
     {
@@ -4065,7 +4146,8 @@
         "json": "/api/agents/catalog/dex-aggregator-optimizer.json",
         "chat": "/agents/chat?agent=dex-aggregator-optimizer",
         "mint": "/agents/mint?template=dex-aggregator-optimizer",
-        "mcp": "/api/agents/catalog/dex-aggregator-optimizer.json"
+        "mcp": "/api/agents/catalog/dex-aggregator-optimizer.json",
+        "registration": "/api/agents/registry/dex-aggregator-optimizer.json"
       }
     },
     {
@@ -4112,7 +4194,8 @@
         "json": "/api/agents/catalog/gas-optimization-expert.json",
         "chat": "/agents/chat?agent=gas-optimization-expert",
         "mint": "/agents/mint?template=gas-optimization-expert",
-        "mcp": "/api/agents/catalog/gas-optimization-expert.json"
+        "mcp": "/api/agents/catalog/gas-optimization-expert.json",
+        "registration": "/api/agents/registry/gas-optimization-expert.json"
       }
     },
     {
@@ -4158,7 +4241,8 @@
         "json": "/api/agents/catalog/governance-proposal-analyst.json",
         "chat": "/agents/chat?agent=governance-proposal-analyst",
         "mint": "/agents/mint?template=governance-proposal-analyst",
-        "mcp": "/api/agents/catalog/governance-proposal-analyst.json"
+        "mcp": "/api/agents/catalog/governance-proposal-analyst.json",
+        "registration": "/api/agents/registry/governance-proposal-analyst.json"
       }
     },
     {
@@ -4204,7 +4288,8 @@
         "json": "/api/agents/catalog/impermanent-loss-calculator.json",
         "chat": "/agents/chat?agent=impermanent-loss-calculator",
         "mint": "/agents/mint?template=impermanent-loss-calculator",
-        "mcp": "/api/agents/catalog/impermanent-loss-calculator.json"
+        "mcp": "/api/agents/catalog/impermanent-loss-calculator.json",
+        "registration": "/api/agents/registry/impermanent-loss-calculator.json"
       }
     },
     {
@@ -4247,7 +4332,8 @@
         "json": "/api/agents/catalog/layer-2-comparison-guide.json",
         "chat": "/agents/chat?agent=layer-2-comparison-guide",
         "mint": "/agents/mint?template=layer-2-comparison-guide",
-        "mcp": "/api/agents/catalog/layer-2-comparison-guide.json"
+        "mcp": "/api/agents/catalog/layer-2-comparison-guide.json",
+        "registration": "/api/agents/registry/layer-2-comparison-guide.json"
       }
     },
     {
@@ -4296,7 +4382,8 @@
         "json": "/api/agents/catalog/liquidation-risk-manager.json",
         "chat": "/agents/chat?agent=liquidation-risk-manager",
         "mint": "/agents/mint?template=liquidation-risk-manager",
-        "mcp": "/api/agents/catalog/liquidation-risk-manager.json"
+        "mcp": "/api/agents/catalog/liquidation-risk-manager.json",
+        "registration": "/api/agents/registry/liquidation-risk-manager.json"
       }
     },
     {
@@ -4344,7 +4431,8 @@
         "json": "/api/agents/catalog/liquidity-pool-analyzer.json",
         "chat": "/agents/chat?agent=liquidity-pool-analyzer",
         "mint": "/agents/mint?template=liquidity-pool-analyzer",
-        "mcp": "/api/agents/catalog/liquidity-pool-analyzer.json"
+        "mcp": "/api/agents/catalog/liquidity-pool-analyzer.json",
+        "registration": "/api/agents/registry/liquidity-pool-analyzer.json"
       }
     },
     {
@@ -4390,7 +4478,8 @@
         "json": "/api/agents/catalog/mev-protection-advisor.json",
         "chat": "/agents/chat?agent=mev-protection-advisor",
         "mint": "/agents/mint?template=mev-protection-advisor",
-        "mcp": "/api/agents/catalog/mev-protection-advisor.json"
+        "mcp": "/api/agents/catalog/mev-protection-advisor.json",
+        "registration": "/api/agents/registry/mev-protection-advisor.json"
       }
     },
     {
@@ -4434,7 +4523,8 @@
         "json": "/api/agents/catalog/narrative-trend-analyst.json",
         "chat": "/agents/chat?agent=narrative-trend-analyst",
         "mint": "/agents/mint?template=narrative-trend-analyst",
-        "mcp": "/api/agents/catalog/narrative-trend-analyst.json"
+        "mcp": "/api/agents/catalog/narrative-trend-analyst.json",
+        "registration": "/api/agents/registry/narrative-trend-analyst.json"
       }
     },
     {
@@ -4483,7 +4573,8 @@
         "json": "/api/agents/catalog/nft-liquidity-advisor.json",
         "chat": "/agents/chat?agent=nft-liquidity-advisor",
         "mint": "/agents/mint?template=nft-liquidity-advisor",
-        "mcp": "/api/agents/catalog/nft-liquidity-advisor.json"
+        "mcp": "/api/agents/catalog/nft-liquidity-advisor.json",
+        "registration": "/api/agents/registry/nft-liquidity-advisor.json"
       }
     },
     {
@@ -4530,7 +4621,8 @@
         "json": "/api/agents/catalog/portfolio-rebalancing-advisor.json",
         "chat": "/agents/chat?agent=portfolio-rebalancing-advisor",
         "mint": "/agents/mint?template=portfolio-rebalancing-advisor",
-        "mcp": "/api/agents/catalog/portfolio-rebalancing-advisor.json"
+        "mcp": "/api/agents/catalog/portfolio-rebalancing-advisor.json",
+        "registration": "/api/agents/registry/portfolio-rebalancing-advisor.json"
       }
     },
     {
@@ -4575,7 +4667,8 @@
         "json": "/api/agents/catalog/protocol-revenue-analyst.json",
         "chat": "/agents/chat?agent=protocol-revenue-analyst",
         "mint": "/agents/mint?template=protocol-revenue-analyst",
-        "mcp": "/api/agents/catalog/protocol-revenue-analyst.json"
+        "mcp": "/api/agents/catalog/protocol-revenue-analyst.json",
+        "registration": "/api/agents/registry/protocol-revenue-analyst.json"
       }
     },
     {
@@ -4620,7 +4713,8 @@
         "json": "/api/agents/catalog/protocol-treasury-analyst.json",
         "chat": "/agents/chat?agent=protocol-treasury-analyst",
         "mint": "/agents/mint?template=protocol-treasury-analyst",
-        "mcp": "/api/agents/catalog/protocol-treasury-analyst.json"
+        "mcp": "/api/agents/catalog/protocol-treasury-analyst.json",
+        "registration": "/api/agents/registry/protocol-treasury-analyst.json"
       }
     },
     {
@@ -4670,7 +4764,8 @@
         "json": "/api/agents/catalog/pump-fun-sdk-expert.json",
         "chat": "/agents/chat?agent=pump-fun-sdk-expert",
         "mint": "/agents/mint?template=pump-fun-sdk-expert",
-        "mcp": "/api/agents/catalog/pump-fun-sdk-expert.json"
+        "mcp": "/api/agents/catalog/pump-fun-sdk-expert.json",
+        "registration": "/api/agents/registry/pump-fun-sdk-expert.json"
       }
     },
     {
@@ -4715,7 +4810,8 @@
         "json": "/api/agents/catalog/smart-contract-auditor.json",
         "chat": "/agents/chat?agent=smart-contract-auditor",
         "mint": "/agents/mint?template=smart-contract-auditor",
-        "mcp": "/api/agents/catalog/smart-contract-auditor.json"
+        "mcp": "/api/agents/catalog/smart-contract-auditor.json",
+        "registration": "/api/agents/registry/smart-contract-auditor.json"
       }
     },
     {
@@ -4759,7 +4855,8 @@
         "json": "/api/agents/catalog/solana-jupiter-router.json",
         "chat": "/agents/chat?agent=solana-jupiter-router",
         "mint": "/agents/mint?template=solana-jupiter-router",
-        "mcp": "/api/agents/catalog/solana-jupiter-router.json"
+        "mcp": "/api/agents/catalog/solana-jupiter-router.json",
+        "registration": "/api/agents/registry/solana-jupiter-router.json"
       }
     },
     {
@@ -4805,7 +4902,8 @@
         "json": "/api/agents/catalog/solana-kamino-picker.json",
         "chat": "/agents/chat?agent=solana-kamino-picker",
         "mint": "/agents/mint?template=solana-kamino-picker",
-        "mcp": "/api/agents/catalog/solana-kamino-picker.json"
+        "mcp": "/api/agents/catalog/solana-kamino-picker.json",
+        "registration": "/api/agents/registry/solana-kamino-picker.json"
       }
     },
     {
@@ -4858,7 +4956,8 @@
         "json": "/api/agents/catalog/solana-mpl-core-launcher.json",
         "chat": "/agents/chat?agent=solana-mpl-core-launcher",
         "mint": "/agents/mint?template=solana-mpl-core-launcher",
-        "mcp": "/api/agents/catalog/solana-mpl-core-launcher.json"
+        "mcp": "/api/agents/catalog/solana-mpl-core-launcher.json",
+        "registration": "/api/agents/registry/solana-mpl-core-launcher.json"
       }
     },
     {
@@ -4902,7 +5001,8 @@
         "json": "/api/agents/catalog/solana-pumpfun-screener.json",
         "chat": "/agents/chat?agent=solana-pumpfun-screener",
         "mint": "/agents/mint?template=solana-pumpfun-screener",
-        "mcp": "/api/agents/catalog/solana-pumpfun-screener.json"
+        "mcp": "/api/agents/catalog/solana-pumpfun-screener.json",
+        "registration": "/api/agents/registry/solana-pumpfun-screener.json"
       }
     },
     {
@@ -4947,7 +5047,8 @@
         "json": "/api/agents/catalog/solana-validator-picker.json",
         "chat": "/agents/chat?agent=solana-validator-picker",
         "mint": "/agents/mint?template=solana-validator-picker",
-        "mcp": "/api/agents/catalog/solana-validator-picker.json"
+        "mcp": "/api/agents/catalog/solana-validator-picker.json",
+        "registration": "/api/agents/registry/solana-validator-picker.json"
       }
     },
     {
@@ -4990,7 +5091,8 @@
         "json": "/api/agents/catalog/spa-tokenomics-analyst.json",
         "chat": "/agents/chat?agent=spa-tokenomics-analyst",
         "mint": "/agents/mint?template=spa-tokenomics-analyst",
-        "mcp": "/api/agents/catalog/spa-tokenomics-analyst.json"
+        "mcp": "/api/agents/catalog/spa-tokenomics-analyst.json",
+        "registration": "/api/agents/registry/spa-tokenomics-analyst.json"
       }
     },
     {
@@ -5037,7 +5139,8 @@
         "json": "/api/agents/catalog/stablecoin-comparator.json",
         "chat": "/agents/chat?agent=stablecoin-comparator",
         "mint": "/agents/mint?template=stablecoin-comparator",
-        "mcp": "/api/agents/catalog/stablecoin-comparator.json"
+        "mcp": "/api/agents/catalog/stablecoin-comparator.json",
+        "registration": "/api/agents/registry/stablecoin-comparator.json"
       }
     },
     {
@@ -5085,7 +5188,8 @@
         "json": "/api/agents/catalog/staking-rewards-calculator.json",
         "chat": "/agents/chat?agent=staking-rewards-calculator",
         "mint": "/agents/mint?template=staking-rewards-calculator",
-        "mcp": "/api/agents/catalog/staking-rewards-calculator.json"
+        "mcp": "/api/agents/catalog/staking-rewards-calculator.json",
+        "registration": "/api/agents/registry/staking-rewards-calculator.json"
       }
     },
     {
@@ -5129,7 +5233,8 @@
         "json": "/api/agents/catalog/token-unlock-tracker.json",
         "chat": "/agents/chat?agent=token-unlock-tracker",
         "mint": "/agents/mint?template=token-unlock-tracker",
-        "mcp": "/api/agents/catalog/token-unlock-tracker.json"
+        "mcp": "/api/agents/catalog/token-unlock-tracker.json",
+        "registration": "/api/agents/registry/token-unlock-tracker.json"
       }
     },
     {
@@ -5174,7 +5279,8 @@
         "json": "/api/agents/catalog/usds-stablecoin-expert.json",
         "chat": "/agents/chat?agent=usds-stablecoin-expert",
         "mint": "/agents/mint?template=usds-stablecoin-expert",
-        "mcp": "/api/agents/catalog/usds-stablecoin-expert.json"
+        "mcp": "/api/agents/catalog/usds-stablecoin-expert.json",
+        "registration": "/api/agents/registry/usds-stablecoin-expert.json"
       }
     },
     {
@@ -5221,7 +5327,8 @@
         "json": "/api/agents/catalog/vespa-optimizer.json",
         "chat": "/agents/chat?agent=vespa-optimizer",
         "mint": "/agents/mint?template=vespa-optimizer",
-        "mcp": "/api/agents/catalog/vespa-optimizer.json"
+        "mcp": "/api/agents/catalog/vespa-optimizer.json",
+        "registration": "/api/agents/registry/vespa-optimizer.json"
       }
     },
     {
@@ -5267,7 +5374,8 @@
         "json": "/api/agents/catalog/wallet-security-advisor.json",
         "chat": "/agents/chat?agent=wallet-security-advisor",
         "mint": "/agents/mint?template=wallet-security-advisor",
-        "mcp": "/api/agents/catalog/wallet-security-advisor.json"
+        "mcp": "/api/agents/catalog/wallet-security-advisor.json",
+        "registration": "/api/agents/registry/wallet-security-advisor.json"
       }
     },
     {
@@ -5313,7 +5421,8 @@
         "json": "/api/agents/catalog/whale-watcher.json",
         "chat": "/agents/chat?agent=whale-watcher",
         "mint": "/agents/mint?template=whale-watcher",
-        "mcp": "/api/agents/catalog/whale-watcher.json"
+        "mcp": "/api/agents/catalog/whale-watcher.json",
+        "registration": "/api/agents/registry/whale-watcher.json"
       }
     },
     {
@@ -5358,7 +5467,8 @@
         "json": "/api/agents/catalog/yield-dashboard-builder.json",
         "chat": "/agents/chat?agent=yield-dashboard-builder",
         "mint": "/agents/mint?template=yield-dashboard-builder",
-        "mcp": "/api/agents/catalog/yield-dashboard-builder.json"
+        "mcp": "/api/agents/catalog/yield-dashboard-builder.json",
+        "registration": "/api/agents/registry/yield-dashboard-builder.json"
       }
     },
     {
@@ -5403,7 +5513,8 @@
         "json": "/api/agents/catalog/yield-sustainability-analyst.json",
         "chat": "/agents/chat?agent=yield-sustainability-analyst",
         "mint": "/agents/mint?template=yield-sustainability-analyst",
-        "mcp": "/api/agents/catalog/yield-sustainability-analyst.json"
+        "mcp": "/api/agents/catalog/yield-sustainability-analyst.json",
+        "registration": "/api/agents/registry/yield-sustainability-analyst.json"
       }
     }
   ],
@@ -5523,6 +5634,49 @@
       "deploy": {
         "template": "/api/agents/templates/screener.json",
         "create": "/agents/mint?fromTemplate=screener"
+      }
+    },
+    {
+      "templateId": "solana-attestation-agent",
+      "name": "Solana Attestation Agent",
+      "description": "Birth-and-attest service for OpenClawd lobsters. Stamps every newborn agent with a Solana Attestation Service credential, records the OpenClawd Skill + Agent Identity schemas on chain, mints a Metaplex MPL Core asset for the agent's identity, and exposes a verify path. Talks to the SAS program at 22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG and the public verifier UI at attest.solana.com.",
+      "category": "infrastructure",
+      "avatar": "⛓️",
+      "variables": [
+        {
+          "name": "AGENT_TITLE",
+          "description": "Display name for this attestation agent.",
+          "example": "OpenClawd Spawn Notary",
+          "required": true
+        },
+        {
+          "name": "CREDENTIAL_AUTHORITY",
+          "description": "Public key (base58) of the on-chain authority that owns the OpenClawd credential. This is the keypair that signs every CreateSchema and CreateAttestation. Must already be funded.",
+          "example": "AuthxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxX",
+          "required": true
+        },
+        {
+          "name": "CREDENTIAL_NAME",
+          "description": "Human-readable credential name. Becomes part of the credential PDA seed (first 32 bytes only).",
+          "example": "OpenClawd Skill Authority",
+          "required": true
+        },
+        {
+          "name": "RPC_URL",
+          "description": "Solana RPC endpoint. Defaults to mainnet via Helius. Use a devnet URL while testing.",
+          "example": "https://mainnet.helius-rpc.com/?api-key=...",
+          "required": false
+        },
+        {
+          "name": "VAULT_ADDRESS",
+          "description": "Hermes vault PDA the newborn agent is custodied under. Required for the Agent Identity attestation.",
+          "example": "VaultxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxX",
+          "required": false
+        }
+      ],
+      "deploy": {
+        "template": "/api/agents/templates/solana-attestation-agent.json",
+        "create": "/agents/mint?fromTemplate=solana-attestation-agent"
       }
     },
     {
