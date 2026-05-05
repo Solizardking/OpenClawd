@@ -1,4 +1,4 @@
--- Migration: Add X Verification and API Key tables for SolanaClawd API Registrar
+-- Migration: Add X Verification and API Key tables for OpenClawd API Registrar
 -- Run: npx drizzle-kit push
 
 -- X Verification Codes table
