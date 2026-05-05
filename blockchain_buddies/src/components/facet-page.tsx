@@ -32,7 +32,7 @@ export function FacetPage({
   relatedLabel,
   related,
 }: FacetPageProps) {
-  const cmd = `npx petdex install ${exampleSlug ?? pets[0]?.slug ?? "boba"}`;
+  const cmd = `npx @openclawdsolana/blockchain-buddies install ${exampleSlug ?? pets[0]?.slug ?? "boba"}`;
 
   return (
     <main className="min-h-dvh bg-background text-foreground">
