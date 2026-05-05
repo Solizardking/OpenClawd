@@ -1,35 +1,35 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.nirholas/defi-agents",
-  "title": "DeFi Agents Library",
-  "description": "AI Agents library for DeFi, trading, portfolio management, yield optimization, and blockchain automation. Index of specialized agents.",
+  "name": "biz.openclawd/agents",
+  "title": "OpenClawd Agents Registry",
+  "description": "Solana-native financial AI agent registry with catalog JSON, ACP discovery, and Metaplex Agent Registry registration documents.",
   "license": "MIT",
   "authors": [
     {
-      "name": "nich",
-      "url": "https://github.com/nirholas"
+      "name": "OpenClawd",
+      "url": "https://openclawd.biz"
     }
   ],
   "repository": {
-    "url": "https://github.com/nirholas/defi-agents",
+    "url": "https://github.com/clawdsolana/OpenClawd/tree/main/agents",
     "source": "github"
   },
   "version": "1.42.0",
   "links": {
-    "homepage": "https://github.com/nirholas/defi-agents",
-    "bugs": "https://github.com/nirholas/defi-agents/issues",
-    "npm": "https://www.npmjs.com/package/@nirholas/ai-agents-library"
+    "homepage": "https://agents.openclawd.biz",
+    "bugs": "https://github.com/clawdsolana/OpenClawd/issues",
+    "npm": "https://www.npmjs.com/package/@openclawdsolana/agents-registry"
   },
   "icons": [
     {
-      "url": "https://raw.githubusercontent.com/nirholas/g1t/d9a0ee206b8136472c04384905999369f198b3c9/milady.svg",
-      "type": "svg"
+      "url": "https://agents.openclawd.biz/nich.jpg",
+      "type": "image/jpeg"
     }
   ],
   "packages": [
     {
       "registryType": "npm",
-      "identifier": "@nirholas/ai-agents-library",
+      "identifier": "@openclawdsolana/agents-registry",
       "version": "1.42.0",
       "runtimeHint": "npx",
       "transport": {
@@ -51,11 +51,13 @@
         "blockchain",
         "crypto",
         "mcp",
-        "ai"
+        "ai",
+        "metaplex",
+        "agent-registry",
+        "acp"
       ],
       "category": "DeFi"
     }
   }
 }
-
 

@@ -36,6 +36,43 @@ The $CLAWD token powers the OpenClawd ecosystem with:
 
 See [`registry.json`](registry.json) for full machine-readable metadata.
 
+## 🪪 Metaplex Agent Identity Bridge
+
+The ACP record (`agent.json`) doubles as the source of truth for minting a Metaplex Core agent identity (Agent Registry / 8004 standard).
+
+```bash
+# Build & inspect the Metaplex payload without sending a tx
+node acp_registry/mint-metaplex.mjs --dry-run
+
+# Mint on devnet — uri must point to a publicly hosted Core asset metadata JSON
+node acp_registry/mint-metaplex.mjs \
+  --network solana-devnet \
+  --uri https://arweave.net/<metadata-hash>
+```
+
+On success the script writes `registry.metaplex` back into `agent.json`:
+
+```json
+"metaplex": {
+  "network": "solana-devnet",
+  "core_asset_address": "<base58>",
+  "signature": "<base58>",
+  "uri": "https://arweave.net/<hash>",
+  "minted_at": "2026-05-04T00:00:00.000Z",
+  "payer": "<wallet>"
+}
+```
+
+The `api-registrar` service exposes this over HTTP so other surfaces can resolve the on-chain identity without filesystem coupling:
+
+|Route|Returns|
+|-----|-------|
+|`GET /api/acp/agent`|full `agent.json` + `_metaplex_registered` flag|
+|`GET /api/acp/registry`|full `registry.json`|
+|`GET /api/acp/metaplex`|Core asset address + tx signature once minted|
+
+Set `ACP_REGISTRY_DIR` on the registrar to point at this directory if it isn't a sibling of `api-registrar/`.
+
 ## 🔐 x402 Payment Protocol
 
 Multi-protocol agentic payment gateway supporting:

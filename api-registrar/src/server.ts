@@ -15,6 +15,7 @@ import { logger } from 'hono/logger';
 import { serve } from '@hono/node-server';
 import { secureHeaders } from 'hono/secure-headers';
 import registerRoutes from './routes/register';
+import acpRoutes from './routes/acp';
 import { validateApiKey } from './lib/auth';
 
 // Canonical OpenClawd endpoints. Mirrors ~/.openclawdsolana/config.json so
@@ -78,6 +79,9 @@ app.get('/api', (c) => c.json({
     'POST /api/register/verify-tweet': 'Verify tweet and get API key',
     'GET /api/register/keys/:walletAddress': 'List API keys for wallet',
     'DELETE /api/register/keys/:keyId': 'Revoke an API key',
+    'GET /api/acp/agent': 'ACP agent.json (8004 protocol metadata + Metaplex link)',
+    'GET /api/acp/registry': 'ACP registry.json (ecosystem-wide project list)',
+    'GET /api/acp/metaplex': 'Metaplex Core asset address for the registered agent',
   },
   documentation: ENDPOINTS.repository,
   registry: `${ENDPOINTS.repository}/tree/main/acp_registry`,
@@ -148,6 +152,7 @@ app.use('/api/stats/*', validateApiKey);
 
 // API routes
 app.route('/api/register', registerRoutes);
+app.route('/api/acp', acpRoutes);
 
 // Error handling
 app.onError((err, c) => {

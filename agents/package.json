@@ -1,14 +1,14 @@
 {
-  "name": "@nirholas/ai-agents-library",
+  "name": "@openclawdsolana/agents-registry",
   "version": "1.42.0",
-  "description": "General Agent Index and library of specialized AI agents for general use, DeFi, portfolio management, yield optimization, trading, and blockchain automation. Supports linting, automated translation, and CI auto-build for seamless plugin discovery via index.json. Github Pages compatible.",
-  "homepage": "https://github.com/nirholas/ai-agents-library",
+  "description": "OpenClawd Solana-native financial AI agent registry, catalog API, ACP discovery document, and Metaplex Agent Registry registration documents.",
+  "homepage": "https://agents.openclawd.biz",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nirholas/ai-agents-library.git"
+    "url": "https://github.com/clawdsolana/OpenClawd.git"
   },
   "license": "MIT",
-  "author": "nich <nirholasi@github.io>",
+  "author": "OpenClawd",
   "type": "module",
   "main": "public/index.json",
   "files": [
@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "awesome": "bun scripts/commands/build.ts && bun scripts/commands/update-awesome.ts",
-    "build": "bun scripts/commands/build.ts",
+    "build": "bun scripts/commands/build.ts && node build-catalog.cjs",
     "format": "bun scripts/commands/format.ts",
     "i18n:clean": "bun scripts/commands/validate-language.ts --delete",
     "i18n:fix": "bun scripts/commands/validate-language.ts --fix",
@@ -62,5 +62,4 @@
     "registry": "https://registry.npmjs.org"
   }
 }
-
 
