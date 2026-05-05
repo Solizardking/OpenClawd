@@ -1,5 +1,5 @@
 export const openClawdCatalog = {
-  "generatedAt": "2026-05-05T04:07:33.343Z",
+  "generatedAt": "2026-05-05T04:07:55.703Z",
   "repositoryUrl": "https://github.com/x402agent/openclawd",
   "siteUrl": "https://hub.openclawd.biz",
   "skillsHubUrl": "https://hub.openclawd.biz/hub",
