@@ -146,10 +146,6 @@ app.get('/manifest', async (c) => {
   }
 });
 
-// Protected API routes (require API key)
-app.use('/api/keys/*', validateApiKey);
-app.use('/api/stats/*', validateApiKey);
-
 // API routes
 app.route('/api/register', registerRoutes);
 app.route('/api/acp', acpRoutes);

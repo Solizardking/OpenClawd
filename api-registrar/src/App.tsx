@@ -5,6 +5,14 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 
 type Step = 'connect' | 'code' | 'tweet' | 'verify' | 'success';
 
+function bytesToBase64(bytes: Uint8Array): string {
+  let binary = '';
+  bytes.forEach((byte) => {
+    binary += String.fromCharCode(byte);
+  });
+  return window.btoa(binary);
+}
+
 export default function App() {
   const { connected, publicKey, signMessage } = useWallet();
   const [step, setStep] = useState<Step>('connect');
@@ -32,7 +40,7 @@ export default function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           walletAddress: publicKey.toBase58(),
-          signature: signature ? Buffer.from(signature).toString('base64') : null,
+          signature: signature ? bytesToBase64(signature) : null,
         }),
       });
       
@@ -43,8 +51,8 @@ export default function App() {
       const data = await response.json();
       setVerificationCode(data.verificationCode);
       setStep('code');
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to generate code');
     } finally {
       setLoading(false);
     }
@@ -83,8 +91,8 @@ export default function App() {
         setError(data.message || 'Tweet verification failed');
         setStep('tweet');
       }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Verification failed');
     } finally {
       setLoading(false);
     }

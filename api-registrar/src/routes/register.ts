@@ -11,6 +11,7 @@
 
 import { Hono } from 'hono';
 import { neon } from '@neondatabase/serverless';
+import { validateApiKey } from '../lib/auth';
 
 const sql = neon(process.env.DATABASE_URL!);
 const router = new Hono();
@@ -18,12 +19,14 @@ const router = new Hono();
 // X API base URL
 const X_API_BASE = 'https://api.twitter.com/2';
 
+router.use('/stats', validateApiKey);
+
 /**
  * POST /api/register/generate-code
  * Generate a verification code for a wallet
  */
 router.post('/generate-code', async (c) => {
-  const { walletAddress, signature } = await c.req.json();
+  const { walletAddress } = await c.req.json();
   
   if (!walletAddress) {
     return c.json({ 
@@ -314,7 +317,11 @@ router.get('/keys/:walletAddress', async (c) => {
  * Revoke an API key
  */
 router.delete('/keys/:keyId', async (c) => {
-  const keyId = c.req.param('keyId');
+  const keyId = Number(c.req.param('keyId'));
+  
+  if (!Number.isInteger(keyId) || keyId <= 0) {
+    return c.json({ error: 'Invalid API key id' }, 400);
+  }
   
   try {
     const result = await sql`

@@ -215,7 +215,7 @@ Full docs: [services/attestation-agent/README.md](services/attestation-agent/REA
   <img src="blockchain_buddies/public/brand/clawd-lobster.svg" alt="Clawd the lobster waving" width="360"/>
 </div>
 
-> **What shipped:** [`blockchain_buddies/`](./blockchain_buddies/) — a Solana-native **companion gallery** and **birth station** for OpenClawd agents. Browse 50+ pixel pets, preview every animation state, and **mint a buddy onchain** (Helius RPC + Metaplex Agent Registry + MPL Core) in a single transaction.
+> **What shipped:** [`apps/blockchain_buddies/`](./apps/blockchain_buddies/) — a Solana-native **companion gallery** and **birth station** for OpenClawd agents. Browse 50+ pixel pets, preview every animation state, and **mint a buddy onchain** (Helius RPC + Metaplex Agent Registry + MPL Core) in a single transaction.
 
 Each buddy born here gets:
 
@@ -238,10 +238,10 @@ npx @openclawdsolana/blockchain-buddies codex sync commit-crab
 
 | Layer | What it does | Where |
 | --- | --- | --- |
-| **Gallery + `/birth`** | Next.js + React 19 app — browse, preview, submit, mint | [blockchain_buddies/src](blockchain_buddies/src) |
-| **Onchain birth** | Umi + `@metaplex-foundation/mpl-agent-registry` v0.2+ — `mintAndSubmitAgent` signs and confirms | [blockchain_buddies/README.md](blockchain_buddies/README.md) |
-| **CLI** | `blockchain-buddies` / `buddies` / `petdex` — install, codex sync, metaplex metadata | [blockchain_buddies/packages/petdex-cli](blockchain_buddies/packages/petdex-cli/README.md) |
-| **Roster** | 50 pixel pets — Commit Crab, Token Turtle, Deploy Dragon, Ship Squid, Webhook Whale, Vault Viper, … | [blockchain_buddies/pets/ideas.json](blockchain_buddies/pets/ideas.json) |
+| **Gallery + `/birth`** | Next.js + React 19 app — browse, preview, submit, mint | [apps/blockchain_buddies/src](apps/blockchain_buddies/src) |
+| **Onchain birth** | Umi + `@metaplex-foundation/mpl-agent-registry` v0.2+ — `mintAndSubmitAgent` signs and confirms | [apps/blockchain_buddies/README.md](apps/blockchain_buddies/README.md) |
+| **CLI** | `blockchain-buddies` / `buddies` / `petdex` — install, codex sync, metaplex metadata | [apps/blockchain_buddies/packages/petdex-cli](apps/blockchain_buddies/packages/petdex-cli/README.md) |
+| **Roster** | 50 pixel pets — Commit Crab, Token Turtle, Deploy Dragon, Ship Squid, Webhook Whale, Vault Viper, … | [apps/blockchain_buddies/pets/ideas.json](apps/blockchain_buddies/pets/ideas.json) |
 
 **Required env:**
 
@@ -253,7 +253,7 @@ METAPLEX_AGENT_NETWORK=solana-mainnet      # or solana-devnet
 BUDDIES_MINT_AUTHORITY_SECRET_KEY=         # base58 OR JSON array keypair
 ```
 
-Full docs: [blockchain_buddies/README.md](./blockchain_buddies/README.md).
+Full docs: [apps/blockchain_buddies/README.md](./apps/blockchain_buddies/README.md).
 
 ---
 
@@ -410,7 +410,7 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 
 | Package | One-liner | Install |
 |---|---|---|
-| 🦞 [**clawd-tui**](./clawd-tui) | OpenRouter-native lobster TUI (Ink + `@openrouter/agent`) — block input, streaming tools, PKCE OAuth, file/glob/grep/shell, web_search + datetime. **v0.2.1**: Birdeye + Helius DAS + on-paste contract analysis ([writeup](./clawd-tui/docs/v0.2-solana-aware-terminal.md)) | `npm i -g @openclawdsolana/clawd-tui` |
+| 🦞 [**clawd-tui**](./apps/clawd-tui) | OpenRouter-native lobster TUI (Ink + `@openrouter/agent`) — block input, streaming tools, PKCE OAuth, file/glob/grep/shell, web_search + datetime. **v0.2.1**: Birdeye + Helius DAS + on-paste contract analysis ([writeup](./apps/clawd-tui/docs/v0.2-solana-aware-terminal.md)) | `npm i -g @openclawdsolana/clawd-tui` |
 | 🌊 [**clawdrouter**](./clawdrouter) | LLM router built for autonomous Solana agents — wallet-signed, USDC micropayments, multi-upstream | `npm i -g @openclawdsolana/clawdrouter` |
 | 🔒 [**vault-mcp**](./mcp/vault-mcp) | ClawdVault MCP server — security pattern scanning, secret detection, vault ops over MCP | `npm i @openclawdsolana/vault-mcp` |
 | 💼 [**wurk-mcp**](./mcp/wurk-mcp) | WURK API MCP server — agent job creation with x402 payment flow on Solana + Base | `npm i @openclawdsolana/wurk-mcp` |
@@ -481,8 +481,8 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 
 | Surface | What it is | Where |
 |---|---|---|
-| 🦀 **clawd-code-cli** *(npm)* | Solana lobster TUI — multi-provider AI (Grok / Ollama / OpenRouter / OpenAI), MCP, 14 tools (text-editor, bash, solana, bags, dflow, kalshi, polymarket, morph-editor, todo, search, wallet, token-launch), Grok-powered voice (xAI TTS + STT) and Live Search (`/search`, `/x`), Three-Laws gate, Blockchain Buddies | [`clawd-code-cli/`](clawd-code-cli/) |
-| 🐦 **ClawdBot** | Autonomous X (`@clawddevs`) + Telegram agent. Sentient Engine, command monitor, image/video gen via xAI | [`clawdhub/`](clawdhub/) and bot scripts under [`clawd-code-cli/`](clawd-code-cli/) |
+| 🦀 **clawd-code-cli** *(npm)* | Solana lobster TUI — multi-provider AI (Grok / Ollama / OpenRouter / OpenAI), MCP, 14 tools (text-editor, bash, solana, bags, dflow, kalshi, polymarket, morph-editor, todo, search, wallet, token-launch), Grok-powered voice (xAI TTS + STT) and Live Search (`/search`, `/x`), Three-Laws gate, Blockchain Buddies | [`apps/clawd-code-cli/`](apps/clawd-code-cli/) |
+| 🐦 **ClawdBot** | Autonomous X (`@clawddevs`) + Telegram agent. Sentient Engine, command monitor, image/video gen via xAI | [`apps/clawdhub/`](apps/clawdhub/) and bot scripts under [`apps/clawd-code-cli/`](apps/clawd-code-cli/) |
 | 🦞 **@openclawdsolana/leviathan** *(npm)* | Sovereign on-chain agent runtime. Solana keypair + Metaplex Agent Registry + lifecycle (spawn → molt → beach) | [`openclawd-framework/`](openclawd-framework/) |
 | 💸 **@openclawdsolana/agents-x402** *(npm)* | One-line x402 Solana USDC monetization for MCP / HTTP / agent tool calls | [`packages/agents-x402-solana/`](packages/agents-x402-solana/) |
 | 🔐 **@openclawdsolana/agentwallet** *(npm)* | Encrypted Solana + EVM keypair vault, E2B sandbox + CF Workers deploy | [`packages/agentwallet/`](packages/agentwallet/) |
@@ -491,7 +491,7 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 | 🛠️ **OpenClawd Gateway** | Local-first multi-channel control plane (WhatsApp, Slack, Discord, Signal, iMessage, Matrix, Nostr…) | [`src/`](src/) [`extensions/`](extensions/) |
 | ☁️ **install-worker** | Cloudflare Worker serving `install.solanaclawd.com`, `gateway.solanaclawd.com`, and apex aliases | [`workers/install-worker/`](workers/install-worker/) |
 | 🧠 **Skills (66)** | birdeye · solana-dev · pump-fun-manager · bankr · ore-miner · clawdbot-twitter · gemini · canvas · github · skill-creator · clawhub … | [`skills/`](skills/) |
-| 🌊 **@openclawdsolana/clawdrouter** *(npm)* | LLM router for autonomous Solana agents — wallet-signed, USDC micropayments | [`clawdrouter/`](clawdrouter/) |
+| 🌊 **@openclawdsolana/clawdrouter** *(npm)* | LLM router for autonomous Solana agents — wallet-signed, USDC micropayments | [`apps/clawdrouter/`](apps/clawdrouter/) |
 | 🔒 **@openclawdsolana/vault-mcp** *(npm)* | Security-pattern scanning + vault ops over MCP | [`mcp/vault-mcp/`](mcp/vault-mcp/) |
 | 💼 **@openclawdsolana/wurk-mcp** *(npm)* | WURK API MCP server — agent jobs with x402 payments | [`mcp/wurk-mcp/`](mcp/wurk-mcp/) |
 | 🧠 **@openclawdsolana/membrain-types** *(npm)* | TypeScript types + gRPC-web client for Membrain memory layer | [`packages/membrain-types/`](packages/membrain-types/) |
@@ -1020,7 +1020,7 @@ sidebar layout:
 
 ## 🏪 ClawdHub — The Skills Marketplace
 
-[`clawdhub/`](clawdhub) is the public skills marketplace + agent registry deployed at [`hub.solanaclawd.com`](https://hub.solanaclawd.com). TanStack Start + Convex + Vercel — 40+ routes covering the marketplace, agent registry, tracker, wallet, x402 payment surface, and the new **`/console`** page wired to the OpenClawd HTTP gateway.
+[`apps/clawdhub/`](clawdhub) is the public skills marketplace + agent registry deployed at [`hub.solanaclawd.com`](https://hub.solanaclawd.com). TanStack Start + Convex + Vercel — 40+ routes covering the marketplace, agent registry, tracker, wallet, x402 payment surface, and the new **`/console`** page wired to the OpenClawd HTTP gateway.
 
 ```bash
 # Run locally
@@ -1050,7 +1050,7 @@ cd ../gateway && npm run http
 | `/gateway`     | Marketing page for the gateway with links to install + console                                          |
 | `/api/skills`  | JSON API for the catalog (used by `npx clawdhub install`)                                               |
 
-Full deploy runbook: [clawdhub/docs/deploy-hub.md](clawdhub/docs/deploy-hub.md). Required env vars, Vercel + Convex wire-up, custom domain steps, smoke tests, rollback. To ship: `vercel --prod` from the `clawdhub/` directory once env vars are set.
+Full deploy runbook: [apps/clawdhub/docs/deploy-hub.md](apps/clawdhub/docs/deploy-hub.md). Required env vars, Vercel + Convex wire-up, custom domain steps, smoke tests, rollback. To ship: `vercel --prod` from the `clawdhub/` directory once env vars are set.
 
 ---
 
@@ -1427,7 +1427,7 @@ Install for live mint: `npm install @metaplex-foundation/mpl-agent-registry @met
 
 ```
 openclawd/
-├── clawd-code-cli/             # 🦀 @openclawdsolana/clawd-code-cli — Solana lobster TUI (Ink + React)
+├── apps/clawd-code-cli/             # 🦀 @openclawdsolana/clawd-code-cli — Solana lobster TUI (Ink + React)
 │   ├── dist/                   #   Pre-built ship
 │   ├── ARCHITECTURE.md · SCALING.md · SECURITY.md
 │   └── package.json            #   bin: clawd-code · clawd
@@ -1458,8 +1458,8 @@ openclawd/
 │   ├── plugin-package-contract/
 │   └── honcho-bridge/
 │
-├── clawdrouter/                # @openclawdsolana/clawdrouter — Solana-native LLM router (USDC micropayments)
-├── clawdhub/                   # Skills marketplace + ClawdHub CLI (sub-monorepo)
+├── apps/clawdrouter/                # @openclawdsolana/clawdrouter — Solana-native LLM router (USDC micropayments)
+├── apps/clawdhub/                   # Skills marketplace + ClawdHub CLI (sub-monorepo)
 ├── api-registrar/              # @openclawdsolana/api-registrar — issues API keys, serves /manifest
 ├── mcp/                        # @openclawdsolana/mcp + vault-mcp + wurk-mcp
 ├── moltbook-agent/             # @openclawdsolana/moltbook-agent — molt log / diary
