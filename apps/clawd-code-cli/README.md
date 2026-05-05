@@ -5,7 +5,7 @@
 **A lobster-themed AI terminal operator for coding, system ops & Solana**
 
 [![Solana](https://img.shields.io/badge/Solana-Blockchain-14F195)](https://solana.com)
-[![npm](https://img.shields.io/badge/npm-clawd--code--cli-CB3837)](https://www.npmjs.com/package/clawd-code-cli)
+[![npm](https://img.shields.io/badge/npm-@openclawdsolana%2Fclawd--code--cli-CB3837)](https://www.npmjs.com/package/@openclawdsolana/clawd-code-cli)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 🦞 *"Claws that code, brains that deploy"* 🦞
@@ -72,7 +72,7 @@ npm install -g @openclawdsolana/clawd-tui @openclawdsolana/clawd-code-cli
 npx -y @openclawdsolana/clawd-tui
 
 # One-shot installer for both packages
-curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/clawd-code-cli/install-clawd.sh | bash
+curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/apps/clawd-code-cli/install-clawd.sh | bash
 ```
 
 The TUI owns the short `clawd` command. The code-focused package exposes
@@ -95,7 +95,7 @@ path for this machine:
    npx -y @openclawdsolana/clawd-tui
 
 3. If I want the curl installer, use:
-   curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/clawd-code-cli/install-clawd.sh | bash
+   curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/apps/clawd-code-cli/install-clawd.sh | bash
 
 After install, start the TUI with:
    clawd
@@ -105,7 +105,7 @@ Use clawd-code for the code-agent CLI:
 
 Do not ask follow-up questions unless Node.js/npm are missing or the install
 fails with a permission error. If npm global permissions fail, retry with:
-   curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/clawd-code-cli/install-clawd.sh | bash -s -- --prefix "$HOME/.local"
+   curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/apps/clawd-code-cli/install-clawd.sh | bash -s -- --prefix "$HOME/.local"
 ```
 
 Direct one-liners:
@@ -118,7 +118,7 @@ npx -y @openclawdsolana/clawd-tui
 npm install -g @openclawdsolana/clawd-tui @openclawdsolana/clawd-code-cli && clawd
 
 # Curl installer, user-prefix fallback when global npm is locked down
-curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/clawd-code-cli/install-clawd.sh | bash -s -- --prefix "$HOME/.local"
+curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/apps/clawd-code-cli/install-clawd.sh | bash -s -- --prefix "$HOME/.local"
 ```
 
 ---

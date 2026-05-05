@@ -2,8 +2,8 @@
 # One-shot Clawd Code + TUI installer.
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/clawd-code-cli/install-clawd.sh | bash
-#   curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/clawd-code-cli/install-clawd.sh | bash -s -- --prefix "$HOME/.local"
+#   curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/apps/clawd-code-cli/install-clawd.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/apps/clawd-code-cli/install-clawd.sh | bash -s -- --prefix "$HOME/.local"
 
 set -euo pipefail
 
@@ -17,8 +17,8 @@ usage() {
 One-shot Clawd Code + TUI installer.
 
 Usage:
-  curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/clawd-code-cli/install-clawd.sh | bash
-  curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/clawd-code-cli/install-clawd.sh | bash -s -- --prefix "$HOME/.local"
+  curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/apps/clawd-code-cli/install-clawd.sh | bash
+  curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/apps/clawd-code-cli/install-clawd.sh | bash -s -- --prefix "$HOME/.local"
 
 Flags:
   --prefix=PATH  Install npm globals into PATH instead of npm's configured global prefix.
