@@ -2,6 +2,7 @@
   "name": "openclawd",
   "version": "0.3.1",
   "private": true,
+  "type": "module",
   "description": "OpenClawd monorepo for Solana-native AI agents, payments, MCP tools, and developer surfaces.",
   "license": "MIT",
   "engines": {

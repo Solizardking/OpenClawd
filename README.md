@@ -1252,7 +1252,7 @@ See [`RELEASE.md`](RELEASE.md) for the full diagram + runbook.
 | ------------------ | ------------------------ | ---------------------------- | ---------------------- |
 | `gateway`          | `http://127.0.0.1:8788`  | `OPENCLAWD_GATEWAY_URL`      | `GATEWAY_HTTP_PORT`    |
 | `clawdrouter`      | `http://127.0.0.1:8402`  | `CLAWDROUTER_URL`            | `CLAWDROUTER_PORT`     |
-| `walletApi`        | `http://127.0.0.1:3000`  | `OPENCLAWD_WALLET_API_URL`   | `WALLET_API_PORT`      |
+| `walletApi`        | `http://127.0.0.1:3000/healthz` | `OPENCLAWD_WALLET_API_URL` | `WALLET_API_PORT` |
 | `mawdaxe`          | `http://127.0.0.1:8420`  | `OPENCLAWD_MAWDAXE_URL`      | —                      |
 | `mcpBridge`        | `http://127.0.0.1:3001`  | `OPENCLAWD_MCP_URL`          | `OPENCLAWD_MCP_PORT`   |
 | `browserMcp`       | `http://127.0.0.1:38401` | `OPENCLAWD_BROWSER_MCP_URL`  | `PORT`                 |
