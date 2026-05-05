@@ -57,6 +57,11 @@ Cloud/community facilitator access through a Pay.sh-style gateway. Payment
 build hooks are available as `npm run install:payments`, `npm run
 build:payments`, and `npm run typecheck:payments`.
 
+Read the integration note and launch writeup:
+[Pay.sh x OpenClawd: Payment Is the Credential](./docs/articles/PAYSH_OPENCLAWD.md).
+Operational docs live in [payments/README.md](./payments/README.md) and
+[payments/PAYSH.md](./payments/PAYSH.md).
+
 Minimum useful env:
 
 ```bash
