@@ -451,6 +451,135 @@ const COMMANDS: Command[] = [
     },
   },
   {
+    name: '/deepseek',
+    description: 'Direct DeepSeek chat with thinking mode (usage: /deepseek <prompt>)',
+    async run(ctx, args) {
+      if (args.length === 0) {
+        console.log(`\n  ${DIM}usage: /deepseek <prompt>${RESET}`);
+        console.log(`  ${DIM}model: ${ORANGE}${ctx.config.deepseekModel}${RESET} ${DIM}(set DEEPSEEK_MODEL to override)${RESET}\n`);
+        return { handled: true };
+      }
+      const client = deepseek(ctx);
+      if (!client) return { handled: true };
+      const prompt = args.join(' ');
+      const messages: DeepSeekChatMessage[] = [{ role: 'user', content: prompt }];
+      console.log(`\n  ${BOLD}${ORANGE}deepseek${RESET} ${DIM}${ctx.config.deepseekModel}${RESET}`);
+      let inReasoning = false;
+      let inText = false;
+      let usage: { prompt_tokens?: number; completion_tokens?: number; prompt_cache_hit_tokens?: number } | undefined;
+      try {
+        for await (const evt of client.chatStream({ messages })) {
+          if (evt.type === 'reasoning' && evt.delta) {
+            if (!inReasoning) {
+              process.stdout.write(`\n  ${DIM}reasoning…${RESET}\n  ${GRAY}`);
+              inReasoning = true;
+            }
+            process.stdout.write(evt.delta.replace(/\n/g, '\n  '));
+          } else if (evt.type === 'text' && evt.delta) {
+            if (inReasoning) {
+              process.stdout.write(`${RESET}\n`);
+              inReasoning = false;
+            }
+            if (!inText) {
+              process.stdout.write(`\n  `);
+              inText = true;
+            }
+            process.stdout.write(evt.delta.replace(/\n/g, '\n  '));
+          } else if (evt.type === 'usage' && evt.usage) {
+            usage = evt.usage;
+          } else if (evt.type === 'error') {
+            console.log(`\n  ${DIM}stream error: ${evt.error}${RESET}`);
+          }
+        }
+        if (inReasoning) process.stdout.write(RESET);
+        process.stdout.write('\n');
+        if (usage) {
+          const inT = usage.prompt_tokens ?? 0;
+          const outT = usage.completion_tokens ?? 0;
+          const cached = usage.prompt_cache_hit_tokens ?? 0;
+          const cachedHint = cached ? ` ${DIM}(${cached} cached)${RESET}` : '';
+          console.log(`${GRAY}  ${inT} in${RESET}${cachedHint}${GRAY} · ${outT} out${RESET}\n`);
+        } else {
+          console.log('');
+        }
+      } catch (err) {
+        const msg = err instanceof DeepSeekError ? err.message : (err as Error).message;
+        const body = err instanceof DeepSeekError && err.body ? `\n  ${DIM}${err.body}${RESET}` : '';
+        console.log(`\n  ${DIM}/deepseek failed:${RESET} ${msg}${body}\n`);
+      }
+      return { handled: true };
+    },
+  },
+  {
+    name: '/deepseek-fim',
+    description: 'DeepSeek FIM completion — fill in the middle (usage: /deepseek-fim <prefix> -- <suffix>)',
+    async run(ctx, args) {
+      if (args.length === 0) {
+        console.log(`\n  ${DIM}usage: /deepseek-fim <prefix> [-- <suffix>]${RESET}\n`);
+        return { handled: true };
+      }
+      const client = deepseek(ctx);
+      if (!client) return { handled: true };
+      const sepIdx = args.indexOf('--');
+      const prefix = (sepIdx >= 0 ? args.slice(0, sepIdx) : args).join(' ');
+      const suffix = sepIdx >= 0 ? args.slice(sepIdx + 1).join(' ') : undefined;
+      try {
+        const res = await client.fim({ prompt: prefix, suffix: suffix ?? null, max_tokens: 1024 });
+        const text = res.choices[0]?.text ?? '';
+        console.log(`\n  ${BOLD}${ORANGE}fim${RESET} ${DIM}${res.model}${RESET}`);
+        console.log(`  ${prefix}${ORANGE}${text}${RESET}${suffix ? suffix : ''}\n`);
+        if (res.usage) {
+          console.log(`${GRAY}  ${res.usage.prompt_tokens ?? 0} in · ${res.usage.completion_tokens ?? 0} out${RESET}\n`);
+        }
+      } catch (err) {
+        const msg = err instanceof DeepSeekError ? err.message : (err as Error).message;
+        console.log(`\n  ${DIM}/deepseek-fim failed:${RESET} ${msg}\n`);
+      }
+      return { handled: true };
+    },
+  },
+  {
+    name: '/deepseek-balance',
+    description: 'Show DeepSeek account balance',
+    async run(ctx) {
+      const client = deepseek(ctx);
+      if (!client) return { handled: true };
+      try {
+        const res = await client.getBalance();
+        console.log(`\n  ${BOLD}DeepSeek balance${RESET}  ${res.is_available ? `${ORANGE}available${RESET}` : `${DIM}unavailable${RESET}`}`);
+        for (const b of res.balance_infos) {
+          console.log(`  ${ORANGE}${b.currency.padEnd(5)}${RESET} ${DIM}total${RESET} ${b.total_balance}  ${DIM}granted${RESET} ${b.granted_balance}  ${DIM}topped${RESET} ${b.topped_up_balance}`);
+        }
+        console.log('');
+      } catch (err) {
+        const msg = err instanceof DeepSeekError ? err.message : (err as Error).message;
+        console.log(`\n  ${DIM}/deepseek-balance failed:${RESET} ${msg}\n`);
+      }
+      return { handled: true };
+    },
+  },
+  {
+    name: '/deepseek-models',
+    description: 'List available DeepSeek models',
+    async run(ctx) {
+      const client = deepseek(ctx);
+      if (!client) return { handled: true };
+      try {
+        const res = await client.listModels();
+        console.log(`\n  ${BOLD}DeepSeek models${RESET} ${DIM}(${res.data.length})${RESET}`);
+        for (const m of res.data) {
+          const owned = m.owned_by ? ` ${DIM}${m.owned_by}${RESET}` : '';
+          console.log(`  ${ORANGE}${m.id}${RESET}${owned}`);
+        }
+        console.log('');
+      } catch (err) {
+        const msg = err instanceof DeepSeekError ? err.message : (err as Error).message;
+        console.log(`\n  ${DIM}/deepseek-models failed:${RESET} ${msg}\n`);
+      }
+      return { handled: true };
+    },
+  },
+  {
     name: '/autoloop',
     description: 'Manage the autonomous research loop (usage: /autoloop <start|stop|status|add|list|remove>)',
     async run(ctx, args) {
