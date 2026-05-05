@@ -1,6 +1,6 @@
 import { html, nothing } from "lit";
 import type { AppViewState } from "./app-view-state";
-import { parseAgentSessionKey } from "../../../src/routing/session-key.js";
+import { parseAgentSessionKey } from "../../../../src/routing/session-key.js";
 import { refreshChatAvatar } from "./app-chat";
 import { renderChatControls, renderTab, renderThemeToggle } from "./app-render.helpers";
 import { loadChannels } from "./controllers/channels";
@@ -58,9 +58,9 @@ import { renderInstances } from "./views/instances";
 import { renderLogs } from "./views/logs";
 import { renderNodes } from "./views/nodes";
 import { renderOverview } from "./views/overview";
+import { renderPackages } from "./views/packages";
 import { renderSessions } from "./views/sessions";
 import { renderSkills } from "./views/skills";
-import { renderSolana } from "./views/solana";
 
 const AVATAR_DATA_RE = /^data:/i;
 const AVATAR_HTTP_RE = /^https?:\/\//i;
@@ -110,11 +110,11 @@ export function renderApp(state: AppViewState) {
           </button>
           <div class="brand">
             <div class="brand-logo">
-              <img src="/favicon.svg" alt="🦞 OpenClawd" />
+              <img src="/favicon.svg" alt="OpenClaw" />
             </div>
             <div class="brand-text">
-              <div class="brand-title">🦞 OPENCLAWD</div>
-              <div class="brand-sub">Solana AI Agent Platform</div>
+              <div class="brand-title">OPENCLAW</div>
+              <div class="brand-sub">Gateway Dashboard</div>
             </div>
           </div>
         </div>
@@ -339,7 +339,14 @@ export function renderApp(state: AppViewState) {
             : nothing
         }
 
-        ${state.tab === "solana" ? renderSolana() : nothing}
+        ${
+          state.tab === "packages"
+            ? renderPackages({
+                filter: state.packagesFilter,
+                onFilterChange: (next) => (state.packagesFilter = next),
+              })
+            : nothing
+        }
 
         ${
           state.tab === "nodes"

@@ -6,7 +6,7 @@ export const TAB_GROUPS = [
     label: "Control",
     tabs: ["overview", "channels", "instances", "sessions", "cron"],
   },
-  { label: "Agent", tabs: ["skills", "nodes", "solana"] },
+  { label: "Agent", tabs: ["skills", "packages", "nodes"] },
   { label: "Settings", tabs: ["config", "debug", "logs"] },
 ] as const;
 
@@ -17,8 +17,8 @@ export type Tab =
   | "sessions"
   | "cron"
   | "skills"
+  | "packages"
   | "nodes"
-  | "solana"
   | "chat"
   | "config"
   | "debug"
@@ -31,8 +31,8 @@ const TAB_PATHS: Record<Tab, string> = {
   sessions: "/sessions",
   cron: "/cron",
   skills: "/skills",
+  packages: "/packages",
   nodes: "/nodes",
-  solana: "/solana",
   chat: "/chat",
   config: "/config",
   debug: "/debug",
@@ -136,10 +136,10 @@ export function iconForTab(tab: Tab): IconName {
       return "loader";
     case "skills":
       return "zap";
+    case "packages":
+      return "package";
     case "nodes":
       return "monitor";
-    case "solana":
-      return "zap";
     case "config":
       return "settings";
     case "debug":
@@ -165,10 +165,10 @@ export function titleForTab(tab: Tab) {
       return "Cron Jobs";
     case "skills":
       return "Skills";
+    case "packages":
+      return "Packages";
     case "nodes":
       return "Nodes";
-    case "solana":
-      return "Solana";
     case "chat":
       return "Chat";
     case "config":
@@ -195,11 +195,11 @@ export function subtitleForTab(tab: Tab) {
     case "cron":
       return "Schedule wakeups and recurring agent runs.";
     case "skills":
-      return "Manage skill availability and API key injection.";
+      return "Manage live skills, package-backed capabilities, and API key injection.";
+    case "packages":
+      return "OpenClawd package map, GitHub links, and connection surfaces.";
     case "nodes":
       return "Paired devices, capabilities, and command exposure.";
-    case "solana":
-      return "🦞 Live Solana data — Birdeye, Helius DAS, agent runtime, on-paste lookups.";
     case "chat":
       return "Direct gateway chat session for quick interventions.";
     case "config":

@@ -1,7 +1,7 @@
 import type { OpenClawApp } from "./app";
 import type { GatewayHelloOk } from "./gateway";
 import type { ChatAttachment, ChatQueueItem } from "./ui-types";
-import { parseAgentSessionKey } from "../../../src/sessions/session-key-utils.js";
+import { parseAgentSessionKey } from "../../../../src/sessions/session-key-utils.js";
 import { scheduleChatScroll } from "./app-scroll";
 import { setLastActiveSessionKey } from "./app-settings";
 import { resetToolStream } from "./app-tool-stream";

@@ -2,6 +2,7 @@ import { html, nothing } from "lit";
 import type { SkillMessageMap } from "../controllers/skills";
 import type { OpenRouterState } from "../controllers/openrouter";
 import type { SkillStatusEntry, SkillStatusReport } from "../types";
+import { OPENCLAWD_PACKAGES } from "../data/openclawd-packages";
 import { clampText } from "../format";
 import { renderSigninWithOpenRouter } from "../components/openrouter-signin";
 
@@ -27,19 +28,74 @@ export type SkillsProps = {
 export function renderSkills(props: SkillsProps) {
   const skills = props.report?.skills ?? [];
   const filter = props.filter.trim().toLowerCase();
+  const packagedCapabilities = OPENCLAWD_PACKAGES.filter((pkg) =>
+    ["wallet", "trading", "payments", "memory", "runtime"].includes(pkg.group),
+  );
+  const packageMatches = filter
+    ? packagedCapabilities.filter((pkg) =>
+        [pkg.name, pkg.npmName, pkg.summary, pkg.group].join(" ").toLowerCase().includes(filter),
+      )
+    : packagedCapabilities;
   const filtered = filter
     ? skills.filter((skill) =>
         [skill.name, skill.description, skill.source].join(" ").toLowerCase().includes(filter),
       )
     : skills;
+  const summary = summarizeSkills(skills);
 
   return html`
     ${renderOpenRouterPanel(props)}
+    <section class="grid grid-cols-4 stack-metrics" style="margin-bottom: 14px;">
+      <div class="card stat-card">
+        <div class="stat-label">Live Skills</div>
+        <div class="stat-value">${skills.length}</div>
+        <div class="muted">Reported by the gateway.</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">Eligible</div>
+        <div class="stat-value ok">${summary.eligible}</div>
+        <div class="muted">Runnable with current requirements.</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">Needs Setup</div>
+        <div class="stat-value warn">${summary.needsSetup}</div>
+        <div class="muted">Missing env, bins, config, or OS support.</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">Packages</div>
+        <div class="stat-value">${packagedCapabilities.length}</div>
+        <div class="muted">Package-backed capability surfaces.</div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom: 14px;">
+      <div class="row" style="justify-content: space-between; align-items: flex-start;">
+        <div>
+          <div class="card-title">Packaged Capabilities</div>
+          <div class="card-sub">
+            These packages are not all gateway skills, but they are the modules skills and agents connect to.
+          </div>
+        </div>
+        <a class="btn" href="/packages/article.md">Read package article</a>
+      </div>
+      <div class="capability-strip" style="margin-top: 14px;">
+        ${packageMatches.map(
+          (pkg) => html`
+            <a class="capability-card" href=${pkg.githubPath} target="_blank" rel="noreferrer">
+              <span class="capability-card__group">${pkg.group}</span>
+              <strong>${pkg.name}</strong>
+              <span>${clampText(pkg.summary, 92)}</span>
+            </a>
+          `,
+        )}
+      </div>
+    </section>
+
     <section class="card">
       <div class="row" style="justify-content: space-between;">
         <div>
           <div class="card-title">Skills</div>
-          <div class="card-sub">Bundled, managed, and workspace skills.</div>
+          <div class="card-sub">Bundled, managed, workspace, and package-connected skills.</div>
         </div>
         <button class="btn" ?disabled=${props.loading} @click=${props.onRefresh}>
           ${props.loading ? "Loading…" : "Refresh"}
@@ -55,7 +111,7 @@ export function renderSkills(props: SkillsProps) {
             placeholder="Search skills"
           />
         </label>
-        <div class="muted">${filtered.length} shown</div>
+        <div class="muted">${filtered.length} skills · ${packageMatches.length} packages</div>
       </div>
 
       ${
@@ -77,6 +133,24 @@ export function renderSkills(props: SkillsProps) {
       }
     </section>
   `;
+}
+
+function summarizeSkills(skills: SkillStatusEntry[]) {
+  return skills.reduce(
+    (acc, skill) => {
+      if (skill.eligible) acc.eligible += 1;
+      const missingCount =
+        skill.missing.bins.length +
+        skill.missing.env.length +
+        skill.missing.config.length +
+        skill.missing.os.length;
+      if (missingCount > 0 || skill.disabled || skill.blockedByAllowlist) {
+        acc.needsSetup += 1;
+      }
+      return acc;
+    },
+    { eligible: 0, needsSetup: 0 },
+  );
 }
 
 function renderOpenRouterPanel(props: SkillsProps) {
