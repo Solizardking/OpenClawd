@@ -1,5 +1,5 @@
 export const openClawdCatalog = {
-  "generatedAt": "2026-05-05T03:40:11.219Z",
+  "generatedAt": "2026-05-05T03:43:37.098Z",
   "repositoryUrl": "https://github.com/x402agent/openclawd",
   "siteUrl": "https://solanaclawd.com",
   "skillsHubUrl": "https://solanaclawd.com/hub",
