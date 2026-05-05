@@ -9,7 +9,7 @@
 
 A lobster-themed agent terminal built on [`@openrouter/agent`](https://www.npmjs.com/package/@openrouter/agent) with first-class Solana on-chain awareness. Adaptive input block, streaming tool calls, session persistence, slash commands, approval gates for destructive actions — and live Birdeye + Helius DAS lookups whenever you paste a Solana address.
 
-📦 **Published:** [`@openclawdsolana/clawd-tui` on npm](https://www.npmjs.com/package/@openclawdsolana/clawd-tui) · 📰 **What's new in v0.2:** [Solana-aware terminal](./docs/v0.2-solana-aware-terminal.md)
+📦 **Published:** [`@openclawdsolana/clawd-tui` on npm](https://www.npmjs.com/package/@openclawdsolana/clawd-tui) · 📰 **What's new in v0.2:** [Solana-aware terminal](./docs/v0.2-solana-aware-terminal.md) · ⚡ **New:** [`/deepseek`](#deepseek--direct-chat-fim-models-balance) direct DeepSeek chat (thinking mode), FIM, balance & models — `DEEPSEEK_API_KEY` toggles it on alongside OpenRouter.
 
 ```text
  ██████╗██╗      █████╗ ██╗    ██╗██████╗
