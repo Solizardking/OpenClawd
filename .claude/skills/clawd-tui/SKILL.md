@@ -15,5 +15,5 @@ that skill first when responding to `/clawd-tui <args>`. The split exists
 purely so users can type either command name and get the same help.
 
 If anything in `clawd/SKILL.md` conflicts with the code, the code in
-[`clawd-tui/`](../../../clawd-tui/) wins — that skill is a fast lookup table
+[`clawd-tui/`](../../../apps/clawd-tui/) wins — that skill is a fast lookup table
 on top of the source, and the source can drift faster than the skill.

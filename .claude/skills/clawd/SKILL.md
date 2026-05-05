@@ -1,6 +1,6 @@
 ---
 name: clawd
-description: OpenClawd `clawd` TUI — launch, configure, and use the lobster-themed agent terminal. Triggers on `/clawd <args>`. Covers binary install, env vars (OPENROUTER_API_KEY, BIRDEYE_API_KEY, HELIUS_API_KEY, DEEPSEEK_API_KEY), in-TUI slash commands (/model, /trending, /search, /wallet, /asset, /holders, /research, /autoloop, /deepseek, /deepseek-fim, /deepseek-balance, /deepseek-models), on-paste Solana address auto-analysis, and PKCE OAuth login flow. Source lives at clawd-tui/ in this repo.
+description: OpenClawd `clawd` TUI — launch, configure, and use the lobster-themed agent terminal. Triggers on `/clawd <args>`. Covers binary install, env vars (OPENROUTER_API_KEY, BIRDEYE_API_KEY, HELIUS_API_KEY, DEEPSEEK_API_KEY), in-TUI slash commands (/model, /trending, /search, /wallet, /asset, /holders, /research, /autoloop, /deepseek, /deepseek-fim, /deepseek-balance, /deepseek-models), on-paste Solana address auto-analysis, and PKCE OAuth login flow. Source lives at apps/clawd-tui/ in this repo.
 user-invocable: true
 ---
 
@@ -8,7 +8,7 @@ user-invocable: true
 
 `clawd` is the OpenClawd lobster-themed agent terminal, published as
 [`@openclawdsolana/clawd-tui`](https://www.npmjs.com/package/@openclawdsolana/clawd-tui).
-Source in this repo: [`clawd-tui/`](../../../clawd-tui/).
+Source in this repo: [`clawd-tui/`](../../../apps/clawd-tui/).
 
 ## When to use this skill
 
@@ -16,7 +16,7 @@ Use this skill when the user asks anything about the `clawd` binary, the
 `@openclawdsolana/clawd-tui` package, slash commands inside the TUI, OAuth
 login issues, env-var configuration, the on-paste Solana address analyzer, or
 the DeepSeek/OpenRouter/Birdeye/Helius integrations that ship with it. The
-canonical source of truth is [`clawd-tui/README.md`](../../../clawd-tui/README.md);
+canonical source of truth is [`clawd-tui/README.md`](../../../apps/clawd-tui/README.md);
 this skill is a fast lookup table on top of it.
 
 ## Install / run
@@ -86,7 +86,7 @@ beats files: `./.env` → `~/.clawd.env` → `~/.config/openclawd/.env`.
 
 DeepSeek runs **alongside** OpenRouter — the agent loop still uses the
 OpenRouter key for tool-driven coding tasks; the `/deepseek*` commands hit
-DeepSeek directly. Source: [`clawd-tui/src/deepseek.ts`](../../../clawd-tui/src/deepseek.ts).
+DeepSeek directly. Source: [`clawd-tui/src/deepseek.ts`](../../../apps/clawd-tui/src/deepseek.ts).
 
 ### On-paste contract analysis
 
@@ -102,12 +102,12 @@ instruction about the TUI:
    them the exact line plus the env var that powers it.
 2. If they paste an error message → check OAuth (`clawd --login`), env-var
    loading order, and approval-gate behavior in
-   [`clawd-tui/src/approval.ts`](../../../clawd-tui/src/approval.ts).
+   [`clawd-tui/src/approval.ts`](../../../apps/clawd-tui/src/approval.ts).
 3. If they ask about a slash command's behavior → read the implementation in
-   [`clawd-tui/src/commands.ts`](../../../clawd-tui/src/commands.ts) before
+   [`clawd-tui/src/commands.ts`](../../../apps/clawd-tui/src/commands.ts) before
    answering, since this skill can drift from code.
 4. If they want to add a new slash command → the pattern is: append a
-   `Command` entry to `COMMANDS` in [`clawd-tui/src/commands.ts`](../../../clawd-tui/src/commands.ts),
+   `Command` entry to `COMMANDS` in [`clawd-tui/src/commands.ts`](../../../apps/clawd-tui/src/commands.ts),
    destructive ops should respect `ctx.config.requireApproval`, and any new
    API client should live in its own `src/<provider>.ts` (see `birdeye.ts`,
    `helius.ts`, `research.ts`, `deepseek.ts` for the pattern).
