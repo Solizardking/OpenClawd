@@ -13,6 +13,9 @@
 //   POST /api/agent/text               — generateText through OpenRouter
 //   POST /api/agent/clone              — clone a built-in agent (trader/scanner/...)
 //   GET  /api/helius/asset?id=<id>     — DAS getAsset via the in-tree client
+//   GET  /api/robotics/hardware        — public hardware manifest
+//   POST /api/robot/connect            — register a robot gateway target
+//   POST /api/robot/task               — create a gated robot task + payment intent
 //
 // Honcho integration:
 //   POST /api/honcho/webhook           — verified Honcho webhook receiver
@@ -51,6 +54,9 @@ const HELIUS_RPC =
   process.env.HELIUS_RPC_URL ||
   (HELIUS_KEY ? `https://mainnet.helius-rpc.com/?api-key=${HELIUS_KEY}` : '');
 const SRC_DISABLED = process.env.OPENCLAWD_SRC_DISABLED === '1';
+const PAY_SH_GATEWAY_URL = process.env.PAY_SH_GATEWAY_URL ?? 'https://pay.sh';
+const MPP_PROXY_URL = process.env.MPP_PROXY_URL ?? process.env.PAY_SH_MPP_PROXY_URL ?? `${PAY_SH_GATEWAY_URL}/mpp`;
+const ROBOT_LIVE_ENABLED = process.env.OPENCLAWD_ROBOT_LIVE === '1';
 const codex = new CodexDispatcher({
   openaiApiKey: process.env.OPENAI_API_KEY,
   model: process.env.OPENAI_CODEX_MODEL,
@@ -151,7 +157,7 @@ function corsHeaders() {
   return {
     'access-control-allow-origin': '*',
     'access-control-allow-methods': 'GET, POST, OPTIONS',
-    'access-control-allow-headers': 'content-type, x-api-key, x-chain',
+    'access-control-allow-headers': 'content-type, x-api-key, x-chain, x-robot-token',
   };
 }
 
@@ -549,6 +555,185 @@ async function heliusSendTransaction(signedBase58: string): Promise<unknown> {
   return { signature: j.result };
 }
 
+// ── Robotics gateway: hardware manifest + deny-first task envelopes ──
+type RobotCapability =
+  | 'telemetry'
+  | 'camera'
+  | 'imu'
+  | 'audio'
+  | 'can-bus'
+  | 'motion-control'
+  | 'x402'
+  | 'mpp'
+  | 'pay-sh';
+
+type RobotConnection = {
+  robot_id?: string;
+  robot_url?: string;
+  wallet?: string;
+  model?: string;
+  capabilities?: RobotCapability[];
+};
+
+type RobotTaskRequest = RobotConnection & {
+  objective?: string;
+  task?: string;
+  amount_usd?: string | number;
+  service?: string;
+  execute?: boolean;
+  payment_rails?: Array<'x402' | 'mpp' | 'pay-sh'>;
+};
+
+const ROBOT_ID = /^[A-Za-z0-9_.:-]{3,80}$/;
+const SAFE_ROBOT_TEXT = /^[\w .,:/$#@()[\]+=-]{1,220}$/;
+
+function assertRobotId(robotId: string | undefined): string {
+  const value = robotId?.trim() ?? '';
+  if (!ROBOT_ID.test(value)) throw new Error('robot_id must be 3-80 safe characters');
+  return value;
+}
+
+function assertSafeRobotText(value: string | undefined, field: string): string {
+  const text = value?.trim() ?? '';
+  if (!SAFE_ROBOT_TEXT.test(text)) throw new Error(`${field} is missing or contains unsafe characters`);
+  return text;
+}
+
+function safeRobotUrl(value: string | undefined): string | null {
+  if (!value) return null;
+  const url = new URL(value);
+  if (!['http:', 'https:', 'ws:', 'wss:'].includes(url.protocol)) {
+    throw new Error('robot_url must use http, https, ws, or wss');
+  }
+  return url.toString();
+}
+
+function normalizeAmountUsd(value: string | number | undefined): string {
+  if (value === undefined || value === '') return '0.005';
+  const parsed = typeof value === 'number' ? value : Number.parseFloat(value);
+  if (!Number.isFinite(parsed) || parsed < 0 || parsed > 10) {
+    throw new Error('amount_usd must be between 0 and 10');
+  }
+  return parsed.toFixed(3);
+}
+
+function robotHardwareManifest() {
+  return {
+    name: 'Asimov v1 humanoid robot',
+    source: 'Robotics/',
+    licenses: {
+      hardware: 'Robotics/HARDWARE-LICENSE.txt',
+      software: 'Robotics/SOFTWARE-LICENSE.txt',
+    },
+    assets: {
+      image: 'Robotics/assets/asimov-v1.jpg',
+      wiring: 'Robotics/electrical/wiring/wiring.yaml',
+      wiringDiagram: 'Robotics/electrical/wiring/wiring.svg',
+      deviceTree: 'Robotics/electrical/motion_control/mcb-io.dts',
+      cad: 'Robotics/mechanical/ASV1/ASIMOV_V1.STEP',
+      mujoco: 'Robotics/sim-model/xmls/asimov.xml',
+    },
+    specs: {
+      height_m: 1.2,
+      weight_kg: 35,
+      actuated_degrees_of_freedom: 25,
+      passive_degrees_of_freedom: 2,
+      compute: ['Raspberry Pi 5', 'Radxa CM5'],
+      buses: ['5x CAN @ 1Mbps', '1x CAN @ 500kbps'],
+      sensors: ['2MP monocular camera', '6 DOF IMU', 'quad microphone array', 'joint states'],
+    },
+    gateway: {
+      connectRoute: '/api/robot/connect',
+      taskRoute: '/api/robot/task',
+      liveExecutionEnabled: ROBOT_LIVE_ENABLED,
+    },
+  };
+}
+
+function buildRobotPaymentIntent(input: {
+  robotId: string;
+  objective: string;
+  amountUsd: string;
+  service: string;
+  rails?: Array<'x402' | 'mpp' | 'pay-sh'>;
+}) {
+  const rails = input.rails?.length ? input.rails : ['x402', 'mpp', 'pay-sh'];
+  return {
+    protocol: 'x402',
+    accepted_rails: rails,
+    chain: 'solana',
+    asset: 'USDC',
+    amount_usd: input.amountUsd,
+    service: input.service,
+    pay_gateway: PAY_SH_GATEWAY_URL,
+    mpp_proxy: MPP_PROXY_URL,
+    credential_model: 'payment-proof-as-credential',
+    settlement: ROBOT_LIVE_ENABLED ? 'operator_approval_required' : 'dry_run',
+    memo: `openclawd:${input.robotId}:${input.objective.slice(0, 64)}`,
+  };
+}
+
+function buildRobotTaskEnvelope(body: RobotTaskRequest) {
+  const robotId = assertRobotId(body.robot_id);
+  const objective = assertSafeRobotText(body.objective ?? body.task, 'objective');
+  const robotUrl = safeRobotUrl(body.robot_url);
+  const amountUsd = normalizeAmountUsd(body.amount_usd);
+  const service = assertSafeRobotText(body.service ?? 'robotics-task-plugin', 'service');
+  const now = new Date().toISOString();
+  const executeRequested = body.execute === true;
+  const liveAllowed = ROBOT_LIVE_ENABLED && executeRequested;
+
+  return {
+    ok: true,
+    robot: {
+      robot_id: robotId,
+      robot_url: robotUrl,
+      wallet: body.wallet && BASE58.test(body.wallet) ? body.wallet : null,
+      model: body.model ?? 'asimov-v1',
+      capabilities: body.capabilities ?? ['telemetry', 'camera', 'imu', 'can-bus', 'motion-control', 'x402', 'mpp', 'pay-sh'],
+    },
+    command_envelope: {
+      robot_id: robotId,
+      agent_id: 'openclawd-robotics-commander',
+      timestamp: now,
+      objective,
+      command_plan: {
+        action: 'paid_robot_task_intent',
+        task: objective,
+        requires_human: true,
+        requires_payment: true,
+        max_speed_mps: 0,
+      },
+      policy: {
+        decision: liveAllowed ? 'allow_after_operator_approval' : 'dry_run_only',
+        allowed: ['connect', 'telemetry', 'quote_task', 'request_payment', 'operator_review'],
+        blocked: liveAllowed ? [] : ['physical_motion', 'funds_transfer', 'private_key_use'],
+        reason: liveAllowed
+          ? 'OPENCLAWD_ROBOT_LIVE=1 and execute=true, still requiring downstream operator confirmation'
+          : 'robotics gateway defaults to public-safe dry-run mode',
+      },
+    },
+    payment_intent: buildRobotPaymentIntent({
+      robotId,
+      objective,
+      amountUsd,
+      service,
+      rails: body.payment_rails,
+    }),
+    proxy: {
+      robot_target: robotUrl,
+      gateway_route: '/api/robot/task',
+      mpp_proxy: MPP_PROXY_URL,
+      pay_gateway: PAY_SH_GATEWAY_URL,
+    },
+    execution: {
+      requested: executeRequested,
+      live_enabled: ROBOT_LIVE_ENABLED,
+      mode: liveAllowed ? 'operator_approval_required' : 'dry_run',
+    },
+  };
+}
+
 // ── Router ──────────────────────────────────────────────────────────
 const server = http.createServer(async (req, res) => {
   if (req.method === 'OPTIONS') {
@@ -575,6 +760,12 @@ const server = http.createServer(async (req, res) => {
         birdeye: Boolean(BIRDEYE_KEY),
         birdeyeWss: Boolean(BIRDEYE_WSS_URL),
         helius: Boolean(HELIUS_KEY),
+        robotics: {
+          hardware: 'Robotics/',
+          payShGateway: PAY_SH_GATEWAY_URL,
+          mppProxy: MPP_PROXY_URL,
+          liveExecutionEnabled: ROBOT_LIVE_ENABLED,
+        },
         codex: {
           configured: codex.isConfigured(),
           model: process.env.OPENAI_CODEX_MODEL || 'gpt-5',
@@ -786,6 +977,36 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    if (route === 'GET /api/robotics/hardware') {
+      json(res, 200, robotHardwareManifest());
+      return;
+    }
+
+    if (route === 'POST /api/robot/connect') {
+      const body = (await readBody(req)) as RobotConnection | undefined;
+      if (!body) return json(res, 400, { error: 'missing JSON body' });
+      const robotId = assertRobotId(body.robot_id);
+      const robotUrl = safeRobotUrl(body.robot_url);
+      json(res, 200, {
+        ok: true,
+        robot_id: robotId,
+        robot_url: robotUrl,
+        wallet: body.wallet && BASE58.test(body.wallet) ? body.wallet : null,
+        model: body.model ?? 'asimov-v1',
+        capabilities: body.capabilities ?? ['telemetry', 'camera', 'imu', 'can-bus', 'motion-control'],
+        hardware: robotHardwareManifest(),
+        liveExecutionEnabled: ROBOT_LIVE_ENABLED,
+      });
+      return;
+    }
+
+    if (route === 'POST /api/robot/task') {
+      const body = (await readBody(req)) as RobotTaskRequest | undefined;
+      if (!body) return json(res, 400, { error: 'missing JSON body' });
+      json(res, 200, buildRobotTaskEnvelope(body));
+      return;
+    }
+
     // ── Honcho ──────────────────────────────────────────────────────────
     if (route.startsWith('GET /api/honcho/') || route.startsWith('POST /api/honcho/')) {
       const honcho = await loadHoncho();
@@ -919,6 +1140,9 @@ server.listen(PORT, async () => {
   console.log('     GET  /api/wallet/portfolio?address=<wallet>       Birdeye → Helius DAS');
   console.log('     POST /api/wallet/submit          { signed: ... }   Helius RPC');
   console.log('     POST /api/wallet/swap/build                       (501 stub)');
+  console.log('     GET  /api/robotics/hardware                       Asimov v1 manifest');
+  console.log('     POST /api/robot/connect          { robot_id, robot_url? }');
+  console.log('     POST /api/robot/task             { robot_id, objective, amount_usd? }');
   console.log('     GET  /api/agent/runtime                           /src runtime');
   console.log('     GET  /api/agent/skills                            /src skills');
   console.log('     POST /api/agent/text             { prompt: ... }   /src OpenRouter');
