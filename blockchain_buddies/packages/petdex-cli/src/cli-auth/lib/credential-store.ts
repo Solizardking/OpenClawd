@@ -24,7 +24,7 @@ function environmentName(options?: CreateStoreOptions): string {
 }
 
 function defaultFilePath(environment: string): string {
-	return join(homedir(), ".config", "clerk-cli-auth", `${environment}.json`);
+	return join(homedir(), ".config", "openclawd", "blockchain-buddies", `${environment}.json`);
 }
 
 class MemoryCredentialStore implements CredentialStore {
@@ -190,7 +190,7 @@ export function createCredentialStore(
 	if (kind === "file") return createFileStore(options);
 
 	const fallback = createFileStore(options);
-	const service = options?.keychainService ?? "clerk-cli-auth";
+	const service = options?.keychainService ?? "blockchain-buddies-cli";
 	const environment = environmentName(options);
 	return new KeychainCredentialStore(service, environment, fallback);
 }
