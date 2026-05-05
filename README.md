@@ -1248,18 +1248,20 @@ See [`RELEASE.md`](RELEASE.md) for the full diagram + runbook.
 
 `@openclawdsolana/service-registry` ([`packages/service-registry/`](packages/service-registry/)) is the single source of truth for every long-running local service URL. Importers call `discover('gateway')` (or `health(name)` / `healthAll()`) instead of hard-coding `http://localhost:18790`, so a single env override reaches every consumer at once. The chrome-extension installer pulls from it to write [`chrome-extension/build/openclawd-config.js`](chrome-extension/build/openclawd-config.js), and `npm run doctor -- --registry` pings every service for a green/red board.
 
-| Service             | Default                   | Env override                   |
-| ------------------- | ------------------------- | ------------------------------ |
-| `gateway`           | `http://127.0.0.1:18790`  | `OPENCLAWD_GATEWAY_URL`        |
-| `clawdrouter`       | `http://127.0.0.1:4000`   | `CLAWDROUTER_URL`              |
-| `walletApi`         | `http://127.0.0.1:8421`   | `OPENCLAWD_WALLET_API_URL`     |
-| `mawdaxe`           | `http://127.0.0.1:8420`   | `OPENCLAWD_MAWDAXE_URL`        |
-| `mcpBridge`         | `http://127.0.0.1:3001`   | `OPENCLAWD_MCP_URL`            |
-| `browserMcp`        | `http://127.0.0.1:38401`  | `OPENCLAWD_BROWSER_MCP_URL`    |
-| `clawdhub`          | `http://127.0.0.1:3000`   | `CLAWDHUB_URL`                 |
-| `attestationAgent`  | `http://127.0.0.1:8430`   | `OPENCLAWD_ATTESTATION_URL`    |
-| `hermesVault`       | `http://127.0.0.1:8431`   | `OPENCLAWD_HERMES_VAULT_URL`   |
-| `pumpScannerCron`   | `http://127.0.0.1:8432`   | `OPENCLAWD_PUMP_SCANNER_URL`   |
+| Service            | Default                  | URL override                 | Port-only override     |
+| ------------------ | ------------------------ | ---------------------------- | ---------------------- |
+| `gateway`          | `http://127.0.0.1:8788`  | `OPENCLAWD_GATEWAY_URL`      | `GATEWAY_HTTP_PORT`    |
+| `clawdrouter`      | `http://127.0.0.1:8402`  | `CLAWDROUTER_URL`            | `CLAWDROUTER_PORT`     |
+| `walletApi`        | `http://127.0.0.1:3000`  | `OPENCLAWD_WALLET_API_URL`   | `WALLET_API_PORT`      |
+| `mawdaxe`          | `http://127.0.0.1:8420`  | `OPENCLAWD_MAWDAXE_URL`      | —                      |
+| `mcpBridge`        | `http://127.0.0.1:3001`  | `OPENCLAWD_MCP_URL`          | `OPENCLAWD_MCP_PORT`   |
+| `browserMcp`       | `http://127.0.0.1:38401` | `OPENCLAWD_BROWSER_MCP_URL`  | `PORT`                 |
+| `clawdhub`         | `http://127.0.0.1:5173`  | `CLAWDHUB_URL`               | —                      |
+| `attestationAgent` | `http://127.0.0.1:8430`  | `OPENCLAWD_ATTESTATION_URL`  | —                      |
+| `hermesVault`      | `http://127.0.0.1:8431`  | `OPENCLAWD_HERMES_VAULT_URL` | —                      |
+| `pumpScannerCron`  | `http://127.0.0.1:8432`  | `OPENCLAWD_PUMP_SCANNER_URL` | —                      |
+
+The defaults match what each service's source actually defaults to today — auditing this list against `gateway/src/http.ts`, `clawdrouter/src/index.ts`, `services/agent-wallet/api.go`, etc. The URL override always wins; the port-only column lists each service's own existing knob (`GATEWAY_HTTP_PORT`, `CLAWDROUTER_PORT`, `WALLET_API_PORT`…) which the registry honors so you don't have to set both.
 
 Which directories integrate, and how:
 

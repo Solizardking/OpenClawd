@@ -31,7 +31,6 @@ import { getTierCostBreakdown } from './router/tiers.js';
 import { scoreRequest } from './router/scorer.js';
 import { CLAWD_TOKEN_MINT } from './token/clawd-gate.js';
 import { LOBSTER_BANNER, showLobsterBanner, showLobsterWelcome } from './utils/lobster-ascii.js';
-import { discover as discoverService } from '@openclawdsolana/service-registry';
 
 // ── Default Configuration ───────────────────────────────────────────
 
@@ -511,18 +510,25 @@ async function startServer(): Promise<void> {
   console.log('');
   // Cross-check the boot port against @openclawdsolana/service-registry so other
   // OpenClawd surfaces (clawdhub, chrome-extension, scripts/doctor.mjs) can
-  // reach this clawdrouter at the URL they expect.
-  const registered = discoverService('clawdrouter');
-  if (registered.port !== config.port) {
-    console.log(
-      `  ⚠ clawdrouter port ${config.port} disagrees with service-registry default ${registered.port}.`,
-    );
-    console.log(
-      `    Set CLAWDROUTER_URL=http://${registered.host}:${config.port} so peers can find you.`,
-    );
+  // reach this clawdrouter at the URL they expect. Dynamic import keeps this
+  // tolerant of the registry being missing or unbuilt in dev checkouts.
+  try {
+    const registry = await import('@openclawdsolana/service-registry');
+    const registered = registry.discover('clawdrouter');
+    if (registered.port !== config.port) {
+      console.log(
+        `  ⚠ clawdrouter port ${config.port} disagrees with service-registry default ${registered.port}.`,
+      );
+      console.log(
+        `    Set CLAWDROUTER_URL=http://${registered.host}:${config.port} so peers can find you.`,
+      );
+    }
+    console.log(`  🔗 Registry URL: ${registered.url}  (override via ${registered.envOverride})`);
+  } catch {
+    // Registry not installed or not built — service still works, peers just
+    // have to know the URL out of band.
   }
   console.log(`  🚀 Starting proxy on http://localhost:${config.port}`);
-  console.log(`  🔗 Registry URL: ${registered.url}  (override via ${registered.envOverride})`);
   console.log(`  ⚡ Profile: ${config.profile.toUpperCase()}`);
   console.log(`  📡 Network: ${config.network}`);
   console.log(`  🧠 Models:  ${MODEL_REGISTRY.filter(m => m.enabled).length} enabled`);
