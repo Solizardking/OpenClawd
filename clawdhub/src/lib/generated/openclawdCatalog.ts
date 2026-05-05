@@ -1,5 +1,5 @@
 export const openClawdCatalog = {
-  "generatedAt": "2026-05-05T03:43:37.098Z",
+  "generatedAt": "2026-05-05T03:49:38.287Z",
   "repositoryUrl": "https://github.com/x402agent/openclawd",
   "siteUrl": "https://solanaclawd.com",
   "skillsHubUrl": "https://solanaclawd.com/hub",
@@ -2340,6 +2340,20 @@ export const openClawdCatalog = {
       }
     },
     {
+      "name": "openclawd",
+      "path": "skills/openclawd",
+      "fileCount": 1,
+      "sizeBytes": 6231,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/openclawd",
+      "downloadUrl": "https://solanaclawd.com/downloads/skills/openclawd.zip",
+      "catalogUrl": "https://solanaclawd.com/hub#skill-openclawd",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install openclawd",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install openclawd",
+        "bun": "bunx @nanosolana/nanohub@latest install openclawd"
+      }
+    },
+    {
       "name": "openclawd-clawd-code-skill-main",
       "path": "skills/openclawd-clawd-code-skill-main",
       "fileCount": 54,
@@ -2967,20 +2981,6 @@ export const openClawdCatalog = {
         "npm": "npx @nanosolana/nanohub@latest install solana-research-brief",
         "pnpm": "pnpm dlx @nanosolana/nanohub@latest install solana-research-brief",
         "bun": "bunx @nanosolana/nanohub@latest install solana-research-brief"
-      }
-    },
-    {
-      "name": "solanaos",
-      "path": "skills/solanaos",
-      "fileCount": 1,
-      "sizeBytes": 6231,
-      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/solanaos",
-      "downloadUrl": "https://solanaclawd.com/downloads/skills/solanaos.zip",
-      "catalogUrl": "https://solanaclawd.com/hub#skill-solanaos",
-      "install": {
-        "npm": "npx @nanosolana/nanohub@latest install solanaos",
-        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install solanaos",
-        "bun": "bunx @nanosolana/nanohub@latest install solanaos"
       }
     },
     {
