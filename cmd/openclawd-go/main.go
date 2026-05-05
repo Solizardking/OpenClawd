@@ -32,6 +32,8 @@ type robotTaskRequest struct {
 	Objective    string   `json:"objective"`
 	AmountUSD    string   `json:"amount_usd,omitempty"`
 	Service      string   `json:"service,omitempty"`
+	PayGateway   string   `json:"pay_gateway,omitempty"`
+	MPPProxy     string   `json:"mpp_proxy,omitempty"`
 	PaymentRails []string `json:"payment_rails,omitempty"`
 	Execute      bool     `json:"execute"`
 }
@@ -167,6 +169,7 @@ func runRobot(args []string) error {
 	fs := flag.NewFlagSet("robot task", flag.ExitOnError)
 	gatewayURL := fs.String("gateway", envOr("OPENCLAWD_GATEWAY_URL", "http://127.0.0.1:8788"), "OpenClawd gateway URL")
 	payGateway := fs.String("pay-gateway", envOr("PAY_SH_GATEWAY_URL", "https://pay.sh"), "Pay.sh-compatible gateway")
+	mppProxy := fs.String("mpp-proxy", envOr("MPP_PROXY_URL", "https://pay.sh/mpp"), "MPP proxy URL")
 	req := robotTaskRequest{}
 	fs.StringVar(&req.RobotID, "robot-id", envOr("OPENCLAWD_ROBOT_ID", "asimov-v1"), "robot id")
 	fs.StringVar(&req.RobotURL, "robot-url", os.Getenv("OPENCLAWD_ROBOT_URL"), "robot HTTP/WebSocket control URL")
@@ -182,8 +185,9 @@ func runRobot(args []string) error {
 	if req.Objective == "" {
 		return fmt.Errorf("--objective is required")
 	}
+	req.PayGateway = *payGateway
+	req.MPPProxy = *mppProxy
 	req.PaymentRails = []string{"x402", "mpp", "pay-sh"}
-	os.Setenv("PAY_SH_GATEWAY_URL", *payGateway)
 
 	var out map[string]any
 	if err := postJSON(*gatewayURL+"/api/robot/task", req, &out); err != nil {

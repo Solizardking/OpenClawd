@@ -7,6 +7,9 @@
   "static_site": "hackathon/one-page-site/index.html",
   "pitch_deck": "hackathon/presentation/pitch-deck.html",
   "offline_demo": "hackathon/demos/robot-command-demo.mjs",
+  "real_hardware": "Robotics/",
+  "hardware_gateway_binary": "cmd/openclawd-go",
+  "robotics_integration": "hackathon/robotics/README.md",
   "package_shades": "hackathon/docs/package-shades.md",
   "autonomous_research_loop": "hackathon/docs/autonomous-research-loop.md",
   "tags": [

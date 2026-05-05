@@ -97,6 +97,7 @@
     "build:service-registry": "npm --prefix packages/service-registry run build",
     "build:blockchain-buddies-cli": "npm --prefix blockchain_buddies/packages/petdex-cli run build",
     "build:payments": "cd payments/pay-main/typescript && pnpm --dir packages/solana-pay/core build",
+    "build:openclawd-go": "cd cmd/openclawd-go && go build -o openclawd-go .",
     "typecheck:payments": "cd payments/pay-main/typescript && pnpm --dir packages/solana-pay/core typecheck",
     "payments:merchant": "node scripts/openclawd-merchant.mjs",
     "typecheck:blockchain-buddies-cli": "npm --prefix blockchain_buddies/packages/petdex-cli run typecheck",

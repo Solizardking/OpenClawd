@@ -44,13 +44,90 @@
 ```json
 {
   "protocol": "x402",
+  "accepted_rails": ["x402", "mpp", "pay-sh"],
   "chain": "solana",
   "asset": "USDC",
   "amount_usd": "0.005",
   "service": "thermal-diagnostic-plugin",
+  "pay_gateway": "https://pay.sh",
+  "mpp_proxy": "https://pay.sh/mpp",
   "settlement": "pending_demo"
 }
 ```
+
+## Hardware Manifest Route
+
+```http
+GET /api/robotics/hardware
+```
+
+Returns a public-safe manifest for the Asimov v1 hardware tree:
+
+- `Robotics/assets/asimov-v1.jpg`
+- `Robotics/electrical/wiring/wiring.yaml`
+- `Robotics/electrical/wiring/wiring.svg`
+- `Robotics/electrical/motion_control/mcb-io.dts`
+- `Robotics/mechanical/ASV1/ASIMOV_V1.STEP`
+- `Robotics/sim-model/xmls/asimov.xml`
+
+## Robot Gateway Connect
+
+```http
+POST /api/robot/connect
+content-type: application/json
+```
+
+```json
+{
+  "robot_id": "asimov-v1",
+  "robot_url": "http://asimov.local:8080",
+  "wallet": "11111111111111111111111111111111",
+  "model": "asimov-v1",
+  "capabilities": ["telemetry", "camera", "imu", "can-bus", "motion-control", "x402", "mpp", "pay-sh"]
+}
+```
+
+## Paid Robot Task
+
+```http
+POST /api/robot/task
+content-type: application/json
+```
+
+```json
+{
+  "robot_id": "asimov-v1",
+  "robot_url": "http://asimov.local:8080",
+  "objective": "inspect aisle B hazard",
+  "amount_usd": "0.005",
+  "service": "thermal-diagnostic-plugin",
+  "payment_rails": ["x402", "mpp", "pay-sh"],
+  "execute": false
+}
+```
+
+The gateway returns a command envelope, policy decision, x402/MPP/Pay.sh
+payment intent, proxy routing metadata, and execution mode. It defaults to
+`dry_run`; live movement requires `OPENCLAWD_ROBOT_LIVE=1`, `execute=true`, and
+downstream operator approval.
+
+## OpenClawd Go Binary
+
+`cmd/openclawd-go` is a stdlib-only Go binary intended for physical hardware.
+
+```bash
+cd cmd/openclawd-go
+go build -o openclawd-go .
+mkdir -p dist
+GOOS=linux GOARCH=arm64 go build -o dist/openclawd-go-linux-arm64 .
+```
+
+It supports:
+
+- `openclawd-go install`
+- `openclawd-go doctor`
+- `openclawd-go gateway connect`
+- `openclawd-go robot task`
 
 ## Attestation Fields
 

@@ -23,6 +23,7 @@ OpenClawd adapts the existing Solana-native financial agent stack into a robotic
 - **Permission-gated actions:** The same deny-first signing model used for swaps and mints gates commands such as `navigate`, `inspect`, `pause`, `handoff`, and `pay_plugin`.
 - **Sensor memory:** Telemetry enters `KNOWN`, `INFERRED`, and `LEARNED` memory tiers, so the robot can separate live facts from hypotheses and long-term patterns.
 - **Paid autonomy:** x402 and plugin.delivery let agents pay for specialist capabilities per call while preserving API discoverability.
+- **Real hardware path:** The submission includes Asimov v1 hardware assets plus a small Go binary that can be installed on robot compute.
 - **Reusable MCP tools:** The MCP layer exposes Solana, wallet, market, memory, and robotics-command tools through a standard interface.
 - **Self-evolving research:** The agent can run fixed-budget paper-trading trials, score results, keep only improvements, and persist strategy lineage across sessions.
 
@@ -36,6 +37,7 @@ OpenClawd adapts the existing Solana-native financial agent stack into a robotic
 | Tooling surface | `mcp/`, `skills/`, `clawdhub/`, `extensions/` |
 | Research and telemetry memory | `llm-wiki-tang/`, `packages/`, `services/` |
 | Payments and plugin delivery | `clawdrouter/`, `payments/`, `plugin.delivery/`, `workers/` |
+| Real robot hardware and install | `Robotics/`, `cmd/openclawd-go/`, `gateway/` |
 | User surfaces | `site/`, `chrome-extension/`, `tailclawd/`, `moltbook-agent/`, `blockchain_buddies/` |
 
 See [`docs/package-shades.md`](./docs/package-shades.md) for a public-safe shade of each package and how it contributes to the hackathon project.
@@ -53,8 +55,9 @@ Flow:
 3. The agent infers a possible leaking battery pack with confidence and risk level.
 4. A policy gate blocks forward motion and permits a low-speed reverse plus operator alert.
 5. The agent requests a paid inspection plugin using the x402/plugin delivery pattern.
-6. A receipt is produced with robot identity, command plan, policy result, payment intent, and attestation placeholders.
-7. The same run records a paper-trading research loop: hypothesis, candidate strategy, simulated score, ratchet decision, and Honcho-style persistence payload.
+6. The gateway can also register a physical Asimov v1 target and create a dry-run x402/MPP/Pay.sh task envelope through `cmd/openclawd-go`.
+7. A receipt is produced with robot identity, command plan, policy result, payment intent, and attestation placeholders.
+8. The same run records a paper-trading research loop: hypothesis, candidate strategy, simulated score, ratchet decision, and Honcho-style persistence payload.
 
 Run:
 

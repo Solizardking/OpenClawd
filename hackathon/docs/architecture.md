@@ -4,10 +4,12 @@
 
 ```text
 Robot / Operator / Simulator
+  -> Real hardware
+     Asimov v1 CAD · wiring · device tree · MuJoCo model · openclawd-go
   -> OpenClawd surface
      chrome-extension · clawd-tui · tailclawd · one-page demo
   -> Command router
-     clawdrouter · workers · payments · plugin.delivery
+     gateway · clawdrouter · workers · payments · plugin.delivery
   -> Agent runtime
      src · openclawd-framework · agents · skills · mcp
   -> Memory and research
@@ -23,12 +25,16 @@ Robot / Operator / Simulator
 | Robotics Concept | OpenClawd Primitive | Implementation Path |
 | --- | --- | --- |
 | Robot identity | Wallet + Metaplex Core asset + ACP record | `openclawd-framework/`, `acp_registry/`, `api-registrar/` |
+| Physical robot | Asimov v1 hardware bundle | `Robotics/` |
+| On-robot install | Go binary + env file | `cmd/openclawd-go/` |
+| Robot gateway link | HTTP command and payment intent endpoints | `gateway/src/http.ts` |
 | Sensor packet | `KNOWN` memory item | `src/memory/`, `llm-wiki-tang/` |
 | Diagnosis | `INFERRED` memory item with confidence | `src/`, `skills/`, `llm-wiki-tang/` |
 | Strategy experiment | `EXPERIMENTAL` memory item with score | `llm-wiki-tang/`, Honcho persistence, `skills/` |
 | Fleet policy | Permission gate | `src/`, `CLAWD.md`, `CLAW.md` |
 | Command | MCP tool call | `mcp/`, `src/tools/` |
 | Specialist cloud service | paid plugin | `plugin.delivery/`, `payments/`, `clawdrouter/` |
+| Task payment | x402 + MPP proxy + Pay.sh-compatible proof | `packages/agents-x402-solana/`, `payments/`, `gateway/` |
 | Audit receipt | SAS attestation + JSON receipt | `services/attestation-agent/`, `solana-attestation-service-master/` |
 
 ## Command Lifecycle
@@ -75,6 +81,9 @@ PERSIST
 ## Module Composition
 
 - `src/` supplies the core engine, command handling, tools, permission posture, and memory tier model.
+- `Robotics/` supplies the public real-hardware reference: Asimov v1 mechanical CAD, electrical wiring, motion-control device tree, and MuJoCo simulation model.
+- `cmd/openclawd-go/` supplies a hardware-installable binary for robot-side gateway registration and paid task intent creation.
+- `gateway/` now exposes `/api/robotics/hardware`, `/api/robot/connect`, and `/api/robot/task` for robot connectivity and payment-aware task envelopes.
 - `mcp/` supplies the standard tool boundary that can expose both Solana operations and robotics commands.
 - `agents/` supplies a deployable agent catalog and schema conventions for on-chain agent identities.
 - `openclawd-framework/` supplies the birth/lifecycle abstraction and the Sense -> Think -> Strike -> Drift loop.

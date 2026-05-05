@@ -73,6 +73,39 @@ Narrative:
 5. The autonomous research block shows how OpenClawd evolves trading strategies through paper experiments before anything reaches a live wallet.
 6. The package shades doc shows how each repo package contributes without exposing private code or secrets.
 
+## Demo 5: Real Hardware Path
+
+Read:
+
+```bash
+open hackathon/robotics/README.md
+open Robotics/README.md
+```
+
+Optionally build the hardware-side binary:
+
+```bash
+cd cmd/openclawd-go
+go build -o openclawd-go .
+./openclawd-go version
+```
+
+If the gateway is running, show the public-safe hardware and task routes:
+
+```bash
+npm --prefix gateway run http:once
+curl -sS http://127.0.0.1:8788/api/robotics/hardware
+./openclawd-go gateway connect --robot-id asimov-v1 --robot-url http://asimov.local:8080
+./openclawd-go robot task --robot-id asimov-v1 --objective "inspect aisle B hazard" --amount-usd 0.005
+```
+
+What it demonstrates:
+
+- Real hardware materials are included: CAD, electrical wiring, device tree, and MuJoCo model.
+- The robot can be registered through the OpenClawd gateway.
+- Robotic tasks produce x402, MPP, and Pay.sh-compatible payment intent metadata.
+- Physical motion and fund transfer remain dry-run unless explicitly enabled by the operator.
+
 ## Optional Live Extensions
 
 These require environment setup and are intentionally outside the offline judging path:

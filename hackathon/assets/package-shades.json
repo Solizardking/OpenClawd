@@ -71,8 +71,20 @@
     {
       "name": "@openclawdsolana/gateway",
       "path": "gateway/",
-      "shade": "Multi-channel trading agent control plane.",
-      "hackathon_role": "Connects chat surfaces, market data, and agent lifecycle operations."
+      "shade": "Multi-channel trading agent control plane with robotics hardware and task-intent routes.",
+      "hackathon_role": "Connects chat surfaces, market data, robot targets, x402/MPP/Pay.sh intents, and agent lifecycle operations."
+    },
+    {
+      "name": "openclawd-go",
+      "path": "cmd/openclawd-go/",
+      "shade": "Stdlib-only Go binary for robot hardware installation and OpenClawd gateway calls.",
+      "hackathon_role": "Lets physical robot compute register with the gateway and request paid task envelopes without installing the Node workspace."
+    },
+    {
+      "name": "Robotics",
+      "path": "Robotics/",
+      "shade": "Asimov v1 hardware package with CAD, wiring, motion-control device tree, MuJoCo model, and public licenses.",
+      "hackathon_role": "Provides the real hardware target for the robotics submission."
     },
     {
       "name": "clawdhub",

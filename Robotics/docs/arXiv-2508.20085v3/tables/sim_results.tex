@@ -1,0 +1,28 @@
+
+\begin{table*}[t] \caption{Real-world manipulation  evaluation results. Across $6$ real-world bimanual dexterous manipulation tasks, \ourshort obtains $\mathbf{+54.5\%}$  performance gains on average. }
+\label{table1: generalization}
+\centering
+\renewcommand\tabcolsep{4.0pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{normalsize}
+\resizebox{0.9\textwidth}{!}{
+\begin{tabular}{c|cccccc|c}
+\cline{2-6}
+\toprule[0.3mm]
+\begin{tabular}[c]{@{}c@{}}  \multicolumn{1}{c}{\multirow{1}{*}{Method  $\backslash$ Tasks}} \end{tabular} & Bottle Handover & Clean Table & Scan Bottle & Putoff Burner & Clean Plate & Pour Teapot &  \textbf{Average} \\
+% Setting & \begin{tabular}[c]{@{}c@{}}Method $\backslash$ Tasks\end{tabular} & \begin{tabular}[c]{@{}c@{}}MW~(Medium 11) \end{tabular} & \begin{tabular}[c]{@{}c@{}}MW~(Hard 5) \end{tabular}   & \begin{tabular}[c]{@{}c@{}} MS~(Deformable 4) \end{tabular}  & \begin{tabular}[c]{@{}c@{}} DexArt~(4)  \end{tabular}  \\  \hline
+\hline 
+\begin{tabular}[c]{@{}c@{}} \ourshort  \end{tabular} & \best{66.7}  & \best{60.0} & \best{73.3}  & \best{66.7} & \best{66.7} & \best{73.3}   & \textcolor{lyydeepred}{\ddbf{67.8}{5.0}} \\
+\begin{tabular}[c]{@{}c@{}} raw depth \end{tabular}  & $6.7$ & $0.0$  &  $0.0$  & $20.0$   &   $13.3$    & $40.0$   &   \dd{13.3}{15.2}   \\
+\hline
+\end{tabular}
+}
+% \end{tabular}
+
+\end{normalsize}
+\label{table:sim-results}
+\vspace{-10pt}
+\end{table*}
+
+
+% \normalsize\textcolor{darkgreen}{$(+2.0\%)$}

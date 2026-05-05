@@ -1,0 +1,112 @@
+\documentclass[lettersize,journal]{IEEEtran}
+\usepackage{amsmath,amsfonts}
+\usepackage{array}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{xspace}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{cite}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{dsfont}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{soul}
+\usepackage[table,xcdraw]{xcolor} 
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\usepackage{balance}
+\begin{document}
+\title{HERMES: \textbf{H}uman-to-Robot \textbf{E}mbodied Learning from Multi-Sou\textbf{R}ce \textbf{M}otion Data for Mobil\textbf{E} Dexterou\textbf{S} Manipulation}
+\author{Zhecheng Yuan$^{1,2*}$, Tianming Wei$^{1,2*}$, Langzhe Gu$^{1,2}$, Pu Hua$^{1,2}$,\\ Tianhai Liang$^{1,2}$,  Yuanpei Chen$^{3}$, Huazhe Xu$^{1,2}$
+\thanks{$^{*}$ indicates equal contribution. $^{1}$ Tsinghua University $^{2}$ Shanghai Qi Zhi Institute $^{3}$ Peking University 
+
+Corresponding to huazhe\_xu@mail.tsinghua.edu.cn.
+}
+
+
+
+}
+
+\markboth{}%
+{How to Use the IEEEtran \LaTeX \ Templates}
+
+\maketitle
+\definecolor{darkgreen}{rgb}{0.09, 0.45, 0.27}
+\definecolor{snsorange}{RGB}{255, 141, 98}
+\definecolor{lyyblue}{RGB}{216,237,243}
+\definecolor{lyyred}{RGB}{249,214,214}
+\definecolor{lyydeepred}{RGB}{221,73,57}
+\newtheorem{theo}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+% \usepackage{colortbl} 
+% \usepackage{booktabs} 
+\definecolor{tablecolor}{RGB}{255,224,179}
+\definecolor{ourorange}{RGB}{255,153,0}
+% \definecolor{tablecolor2}{RGB}{179, 224, 255}
+\definecolor{tablecolor2}{RGB}{240, 220, 220}
+\newcommand{\dd}[2]{$#1\scriptstyle{\pm#2}$}
+\newcommand{\singledd}[1]{$#1$}
+\newcommand{\singleddbf}[1]
+{\cellcolor{lyyblue}$\mathbf{#1}$}
+
+\newcommand{\ddbf}[2]
+{\cellcolor{lyyred}$\mathbf{#1\scriptstyle{\pm#2}}$}
+\newcommand{\blueddbf}[2]{%
+  \cellcolor{lyyblue}%
+  {\textcolor{lyydeepred}{$\mathbf{#1{\scriptstyle\,\pm\,}#2}$}}%
+}
+
+
+
+\newcommand{\ddbfblue}[2]{\cellcolor{tablecolor2}$\mathbf{#1\scriptstyle{\pm#2}}$}
+\newcommand{\cc}[1]{$#1$}
+\newcommand{\ccbf}[1]{\cellcolor{lyyred}$\mathbf{#1}$}
+\newcommand{\best}[1]{\textcolor{lyydeepred}{\singleddbf{#1}}}
+\newcommand{\ourshort}{HERMES\xspace}
+
+
+\input{figures/traj_vis}
+
+\begin{abstract}
+Leveraging human motion data to impart robots with versatile manipulation skills has emerged as a promising paradigm in robotic manipulation. Nevertheless, translating multi-source human hand motions into feasible robot behaviors remains challenging, particularly for robots equipped with multi-fingered dexterous hands characterized by complex, high-dimensional action spaces. Moreover, existing approaches often struggle to produce policies capable of adapting to diverse environmental conditions. In this paper, we introduce \ourshort, a human-to-robot learning framework for mobile bimanual dexterous manipulation. First, \ourshort formulates a unified reinforcement learning approach capable of seamlessly transforming heterogeneous human hand motions from multiple sources into physically plausible robotic behaviors. Subsequently, to mitigate the sim2real gap, we devise an end-to-end, depth image-based sim2real transfer method for improved generalization to real-world scenarios. Furthermore, to enable autonomous operation in varied and unstructured environments, we augment the navigation foundation model with a closed-loop Perspective-n-Point (PnP) localization mechanism, ensuring precise alignment of visual goals and effectively bridging autonomous navigation and dexterous manipulation. Extensive experimental results demonstrate that \ourshort consistently exhibits generalizable behaviors across diverse, in-the-wild scenarios, successfully performing numerous complex mobile bimanual dexterous manipulation tasks. Project Page:\url{https://gemcollector.github.io/HERMES/}. 
+\end{abstract}
+
+\begin{IEEEkeywords}
+Bimanual dexterous manipulation, Mobile manipulation, Sim2real, Reinforcement learning, Learning from human motion.
+\end{IEEEkeywords}
+
+
+
+
+\input{sections/01introduction}
+\input{sections/02relatedwork}
+\input{sections/03systemdesign}
+\input{sections/04rlmethod}
+\input{sections/05sim2real}
+\input{sections/06navigation}
+\input{sections/07experiment}
+\input{sections/08conclusion}
+\input{sections/09limitation}
+\input{sections/10acknowledgement}
+
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,./references}
+
+
+\input{sections/appendix}
+
+\end{document}
+
+

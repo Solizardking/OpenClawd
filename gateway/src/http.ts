@@ -580,6 +580,8 @@ type RobotTaskRequest = RobotConnection & {
   task?: string;
   amount_usd?: string | number;
   service?: string;
+  pay_gateway?: string;
+  mpp_proxy?: string;
   execute?: boolean;
   payment_rails?: Array<'x402' | 'mpp' | 'pay-sh'>;
 };
@@ -655,9 +657,13 @@ function buildRobotPaymentIntent(input: {
   objective: string;
   amountUsd: string;
   service: string;
+  payGateway?: string;
+  mppProxy?: string;
   rails?: Array<'x402' | 'mpp' | 'pay-sh'>;
 }) {
   const rails = input.rails?.length ? input.rails : ['x402', 'mpp', 'pay-sh'];
+  const payGateway = safeRobotUrl(input.payGateway) ?? PAY_SH_GATEWAY_URL;
+  const mppProxy = safeRobotUrl(input.mppProxy) ?? MPP_PROXY_URL;
   return {
     protocol: 'x402',
     accepted_rails: rails,
@@ -665,8 +671,8 @@ function buildRobotPaymentIntent(input: {
     asset: 'USDC',
     amount_usd: input.amountUsd,
     service: input.service,
-    pay_gateway: PAY_SH_GATEWAY_URL,
-    mpp_proxy: MPP_PROXY_URL,
+    pay_gateway: payGateway,
+    mpp_proxy: mppProxy,
     credential_model: 'payment-proof-as-credential',
     settlement: ROBOT_LIVE_ENABLED ? 'operator_approval_required' : 'dry_run',
     memo: `openclawd:${input.robotId}:${input.objective.slice(0, 64)}`,
@@ -718,13 +724,15 @@ function buildRobotTaskEnvelope(body: RobotTaskRequest) {
       objective,
       amountUsd,
       service,
+      payGateway: body.pay_gateway,
+      mppProxy: body.mpp_proxy,
       rails: body.payment_rails,
     }),
     proxy: {
       robot_target: robotUrl,
       gateway_route: '/api/robot/task',
-      mpp_proxy: MPP_PROXY_URL,
-      pay_gateway: PAY_SH_GATEWAY_URL,
+      mpp_proxy: safeRobotUrl(body.mpp_proxy) ?? MPP_PROXY_URL,
+      pay_gateway: safeRobotUrl(body.pay_gateway) ?? PAY_SH_GATEWAY_URL,
     },
     execution: {
       requested: executeRequested,

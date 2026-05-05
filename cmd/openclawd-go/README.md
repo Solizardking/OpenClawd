@@ -11,6 +11,7 @@ Node workspace on the robot.
 ```bash
 cd cmd/openclawd-go
 go build -o openclawd-go .
+mkdir -p dist
 GOOS=linux GOARCH=arm64 go build -o dist/openclawd-go-linux-arm64 .
 ```
 
