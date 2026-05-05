@@ -27,6 +27,39 @@ export type ChatEventPayload = {
   errorMessage?: string;
 };
 
+function getAgentHttpGatewayBase(): string {
+  const params = new URLSearchParams(window.location.search);
+  const fromUrl = params.get("agentGatewayUrl") ?? params.get("gatewayHttpUrl");
+  if (fromUrl?.trim()) {
+    return fromUrl.trim().replace(/\/+$/, "");
+  }
+  try {
+    const raw = localStorage.getItem("openclawd.control.settings.v1");
+    const parsed = raw ? (JSON.parse(raw) as { gatewayUrl?: unknown }) : null;
+    const gatewayUrl = typeof parsed?.gatewayUrl === "string" ? parsed.gatewayUrl.trim() : "";
+    if (gatewayUrl.startsWith("http://") || gatewayUrl.startsWith("https://")) {
+      return gatewayUrl.replace(/\/+$/, "");
+    }
+  } catch {
+    // Ignore malformed local settings and use the dev gateway default.
+  }
+  return "http://127.0.0.1:8788";
+}
+
+async function sendAgentTextViaHttp(prompt: string, model?: string): Promise<string> {
+  const base = getAgentHttpGatewayBase();
+  const res = await fetch(`${base}/api/agent/text`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ prompt, model }),
+  });
+  const body = (await res.json().catch(() => ({}))) as { text?: unknown; error?: unknown };
+  if (!res.ok || body.error) {
+    throw new Error(String(body.error ?? `HTTP ${res.status}`));
+  }
+  return typeof body.text === "string" ? body.text : JSON.stringify(body);
+}
+
 export async function loadChatHistory(state: ChatState) {
   if (!state.client || !state.connected) {
     return;
@@ -60,12 +93,14 @@ export async function sendChatMessage(
   message: string,
   attachments?: ChatAttachment[],
 ): Promise<string | null> {
-  if (!state.client || !state.connected) {
-    return null;
-  }
   const msg = message.trim();
   const hasAttachments = attachments && attachments.length > 0;
   if (!msg && !hasAttachments) {
+    return null;
+  }
+  const useControlGateway = Boolean(state.client && state.connected);
+  if (!useControlGateway && hasAttachments) {
+    state.lastError = "Image attachments need the WebSocket control gateway.";
     return null;
   }
 
@@ -120,13 +155,29 @@ export async function sendChatMessage(
     : undefined;
 
   try {
-    await state.client.request("chat.send", {
-      sessionKey: state.sessionKey,
-      message: msg,
-      deliver: false,
-      idempotencyKey: runId,
-      attachments: apiAttachments,
-    });
+    if (useControlGateway) {
+      await state.client!.request("chat.send", {
+        sessionKey: state.sessionKey,
+        message: msg,
+        deliver: false,
+        idempotencyKey: runId,
+        attachments: apiAttachments,
+      });
+      return runId;
+    }
+
+    const text = await sendAgentTextViaHttp(msg);
+    state.chatMessages = [
+      ...state.chatMessages,
+      {
+        role: "assistant",
+        content: [{ type: "text", text }],
+        timestamp: Date.now(),
+      },
+    ];
+    state.chatRunId = null;
+    state.chatStream = null;
+    state.chatStreamStartedAt = null;
     return runId;
   } catch (err) {
     const error = String(err);

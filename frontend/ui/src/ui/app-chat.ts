@@ -135,7 +135,7 @@ async function sendChatMessageNow(
 }
 
 async function flushChatQueue(host: ChatHost) {
-  if (!host.connected || isChatBusy(host)) {
+  if (isChatBusy(host)) {
     return;
   }
   const [next, ...rest] = host.chatQueue;
@@ -161,9 +161,6 @@ export async function handleSendChat(
   messageOverride?: string,
   opts?: { restoreDraft?: boolean },
 ) {
-  if (!host.connected) {
-    return;
-  }
   const previousDraft = host.chatMessage;
   const message = (messageOverride ?? host.chatMessage).trim();
   const attachments = host.chatAttachments ?? [];
@@ -175,7 +172,7 @@ export async function handleSendChat(
     return;
   }
 
-  if (isChatStopCommand(message)) {
+  if (host.connected && isChatStopCommand(message)) {
     await handleAbortChat(host);
     return;
   }
