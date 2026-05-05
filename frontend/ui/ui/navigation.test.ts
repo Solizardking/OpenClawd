@@ -33,6 +33,7 @@ describe("iconForTab", () => {
     expect(iconForTab("sessions")).toBe("📄");
     expect(iconForTab("cron")).toBe("⏰");
     expect(iconForTab("skills")).toBe("⚡️");
+    expect(iconForTab("packages")).toBe("package");
     expect(iconForTab("nodes")).toBe("🖥️");
     expect(iconForTab("config")).toBe("⚙️");
     expect(iconForTab("debug")).toBe("🐞");
