@@ -195,6 +195,7 @@
       <div class="navlinks">
         <a href="#problem">Problem</a>
         <a href="#solution">Solution</a>
+        <a href="#data">Data</a>
         <a href="#research">Research</a>
         <a href="#architecture">Architecture</a>
         <a href="#demo">Demo</a>
@@ -207,7 +208,7 @@
     <section class="hero wrap">
       <span class="eyebrow">Solana Robotics Hackathon Submission</span>
       <h1>Verifiable AI command layers for robot fleets.</h1>
-      <p class="lead">OpenClawd combines Solana identity, x402 payments, MCP tools, telemetry memory, and deny-first permission gates so autonomous robots can act, pay, learn, and prove what happened.</p>
+      <p class="lead">OpenClawd combines Solana identity, x402 payments, MCP tools, telemetry memory, deny-first permission gates, and DePIN data receipts so autonomous robots can act, pay, learn, and prove what happened.</p>
       <div class="cta">
         <a class="btn primary" href="../presentation/pitch-deck.html">View Pitch Deck</a>
         <a class="btn" href="../SUBMISSION.md">Read Submission</a>
@@ -218,7 +219,7 @@
         <div class="status">telemetry memory</div>
         <div class="status">policy gate</div>
         <div class="status">x402 intent</div>
-        <div class="status">SAS receipt</div>
+        <div class="status">data receipt</div>
       </div>
     </section>
 
@@ -230,7 +231,7 @@
       <div class="grid">
         <article class="card"><h3>Identity is weak</h3><p>Operators need to verify which robot, model, plugin, and policy approved a command.</p></article>
         <article class="card"><h3>Services are hard to pay</h3><p>Robots need specialist APIs for vision, mapping, diagnostics, and maintenance without manual billing.</p></article>
-        <article class="card"><h3>Actions need gates</h3><p>Physical movement deserves the same explicit approval posture OpenClawd already applies to swaps and mints.</p></article>
+        <article class="card"><h3>Data is scarce</h3><p>Physical AI needs synchronized real-world video, state, action, safety, and task outcome data.</p></article>
       </div>
     </section>
 
@@ -244,6 +245,20 @@
         <article class="card"><h3>Telemetry memory</h3><p>Sensor facts enter KNOWN memory, hypotheses enter INFERRED memory, validated patterns become LEARNED.</p></article>
         <article class="card"><h3>Paid autonomy</h3><p>x402 and plugin.delivery let robots pay per call for specialist services while keeping commands auditable.</p></article>
       </div>
+    </section>
+
+    <section id="data" class="wrap">
+      <div class="section-head">
+        <h2>Robot AI needs a DePIN data loop</h2>
+        <p class="sub">OpenClawd adapts the Robot AI thesis into a narrow implementation: validate useful OCASV1 episodes, reward contributors, and turn accepted traces into GR00T-compatible datasets.</p>
+      </div>
+      <div class="grid">
+        <article class="card"><h3>Collect</h3><p>`OPENCLAWDASV1` captures camera views, joint state, action chunks, safety signals, and task outcomes.</p></article>
+        <article class="card"><h3>Validate</h3><p>Receipts track timestamp sync, trajectory smoothness, duplicate score, freshness, and operator review.</p></article>
+        <article class="card"><h3>Reward</h3><p>x402, MPP, and Pay.sh intents price useful robot data while private sensor payloads stay hash-only.</p></article>
+      </div>
+      <pre>capture -> normalize -> validate -> reward -> GR00T NEW_EMBODIMENT fine-tune</pre>
+      <p class="sub" style="margin-top:18px">Full spec: <a href="../docs/depin-physical-ai.md">docs/depin-physical-ai.md</a>.</p>
     </section>
 
     <section id="research" class="wrap">
@@ -265,6 +280,7 @@
         <p class="sub">Built from the monorepo modules already present in OpenClawd.</p>
       </div>
       <pre>Robot / Operator / Simulator
+  -> OCASV1 · GR00T LeRobot episodes · data receipts
   -> chrome-extension · clawd-tui · tailclawd · site
   -> clawdrouter · workers · payments · plugin.delivery
   -> src · openclawd-framework · agents · skills · mcp

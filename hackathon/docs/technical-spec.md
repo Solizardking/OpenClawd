@@ -133,6 +133,43 @@ It supports:
 - `openclawd-go doctor`
 - `openclawd-go gateway connect`
 - `openclawd-go robot task`
+- `openclawd-go gr00t plan`
+
+## Physical-AI Data Contribution Receipt
+
+OpenClawd adapts the DePIN robotics data thesis into a receipt that can be
+stored locally, attached to a payment intent, or later attested on Solana.
+Large sensor payloads remain off-chain; receipts carry hashes, validation
+status, and reward metadata.
+
+```json
+{
+  "schema": "openclawd.robot_data_contribution.v1",
+  "robot_id": "OPENCLAWDASV1",
+  "episode_hash": "sha256:...",
+  "dataset_format": "gr00t_lerobot_v2",
+  "embodiment_tag": "NEW_EMBODIMENT",
+  "modalities": ["front_rgb", "wrist_rgb", "joint_state", "gripper", "safety"],
+  "quality": {
+    "timestamp_sync": "pass",
+    "trajectory_smoothness": "pass",
+    "duplicate_score": 0.08,
+    "freshness_score": 0.91
+  },
+  "reward": {
+    "rails": ["x402", "mpp", "pay-sh"],
+    "asset": "USDC",
+    "amount_usd": "0.005",
+    "settlement": "dry_run"
+  }
+}
+```
+
+The GR00T dataset target is:
+
+```text
+Robotics/Isaac-GR00T-main/demo_data/openclawd_asv1
+```
 
 ## Attestation Fields
 
@@ -144,6 +181,7 @@ agent_wallet    pubkey
 command_hash    bytes32
 policy_hash     bytes32
 payment_hash    bytes32
+rdata_hash      bytes32
 risk_level      string
 approved        bool
 issued_at       u64

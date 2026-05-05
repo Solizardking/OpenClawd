@@ -59,9 +59,20 @@
     <ul>
       <li>Command provenance is buried in private logs.</li>
       <li>Robots cannot easily pay specialist services per task.</li>
+      <li>Physical-world training data is scarce, fragmented, and proprietary.</li>
       <li>Sensor facts, hypotheses, and learned patterns get mixed together.</li>
       <li>Physical actions need explicit safety gates.</li>
     </ul>
+  </section>
+
+  <section>
+    <div class="kicker">Robot AI x DePIN</div>
+    <h2>Physical AI needs a paid data flywheel.</h2>
+    <div class="grid">
+      <div class="card"><strong>Collect</strong>OCASV1 records GR00T-compatible video, joint state, action, safety, and task outcomes.</div>
+      <div class="card"><strong>Validate</strong>Receipts score timestamp sync, trajectory quality, uniqueness, freshness, and operator review.</div>
+      <div class="card"><strong>Reward</strong>x402, MPP, and Pay.sh intents pay useful robot episodes without exposing private sensor payloads.</div>
+    </div>
   </section>
 
   <section>
@@ -78,6 +89,7 @@
     <div class="kicker">Architecture</div>
     <h2>Built from the OpenClawd monorepo.</h2>
     <pre>Robot / Operator / Simulator
+  -> OCASV1 · GR00T LeRobot episodes · data receipts
   -> clawd-tui · chrome-extension · tailclawd · site
   -> clawdrouter · payments · workers · plugin.delivery
   -> src · mcp · agents · skills · openclawd-framework
@@ -116,6 +128,7 @@ assets/package-shades.json</pre>
     <ul>
       <li>Low-cost attestations for command and credential receipts.</li>
       <li>SPL payments for robot-to-service transactions.</li>
+      <li>Wallet-native rewards for physical-AI data contributors.</li>
       <li>Metaplex and ACP records for discoverable robot identity.</li>
       <li>Helius and Birdeye data paths already integrated in OpenClawd.</li>
     </ul>
@@ -135,6 +148,7 @@ assets/package-shades.json</pre>
     <h2>From demo to deployed robot agents.</h2>
     <ul>
       <li>Add robotics MCP tools and ROS2/simulator bridge.</li>
+      <li>Turn validated OCASV1 episodes into GR00T fine-tuning datasets.</li>
       <li>Register robot command SAS schema on devnet.</li>
       <li>Mint robot identities via Metaplex and ACP.</li>
       <li>Settle x402 payments against hosted diagnostic plugins.</li>

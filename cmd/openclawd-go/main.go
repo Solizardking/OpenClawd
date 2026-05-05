@@ -48,6 +48,8 @@ type gr00tPlan struct {
 	EmbodimentTag  string   `json:"embodiment_tag"`
 	ActionHorizon  int      `json:"action_horizon"`
 	PaymentRails   []string `json:"payment_rails"`
+	DataReceipt    string   `json:"data_receipt"`
+	DataNetwork    string   `json:"data_network"`
 	SafetyMode     string   `json:"safety_mode"`
 }
 
@@ -230,6 +232,8 @@ func runGr00t(args []string) error {
 	plan.EmbodimentTag = "NEW_EMBODIMENT"
 	plan.ActionHorizon = 32
 	plan.PaymentRails = []string{"x402", "mpp", "pay-sh"}
+	plan.DataReceipt = "openclawd.robot_data_contribution.v1"
+	plan.DataNetwork = "hackathon/docs/depin-physical-ai.md"
 	plan.SafetyMode = "dry_run_until_operator_approval"
 	return printJSON(plan)
 }

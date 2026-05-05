@@ -31,6 +31,7 @@ Submission package for **OpenClawd Robotics Command Layer**: a Solana-native AI 
 | Pitch deck | [`presentation/pitch-deck.html`](./presentation/pitch-deck.html) | Printable HTML slide deck |
 | Speaker notes | [`presentation/speaker-notes.md`](./presentation/speaker-notes.md) | 5-minute talk track |
 | Architecture docs | [`docs/architecture.md`](./docs/architecture.md) | How the monorepo pieces combine into the robotics submission |
+| DePIN physical-AI data network | [`docs/depin-physical-ai.md`](./docs/depin-physical-ai.md) | Adapted Robot AI thesis, contribution classes, validation checks, and reward receipt model |
 | Autonomous research loop | [`docs/autonomous-research-loop.md`](./docs/autonomous-research-loop.md) | Self-evolving paper-trading loop, Honcho persistence model, and Toly/Karpathy inspiration |
 | Real hardware integration | [`robotics/README.md`](./robotics/README.md), [`../Robotics/OCASV1/`](../Robotics/OCASV1/), and [`../Robotics/`](../Robotics/) | OCASV1 / `OPENCLAWDASV1`, Asimov v1 CAD/wiring, GR00T integration, MuJoCo model, and physical install path |
 | Package shades | [`docs/package-shades.md`](./docs/package-shades.md) and [`assets/package-shades.json`](./assets/package-shades.json) | Public-safe snapshot of each OpenClawd package's role in the hackathon project |
@@ -69,6 +70,7 @@ The demo is read-only and deterministic. It does not require `SOLANA_PRIVATE_KEY
 - `openclawd-framework/` on-chain agent lifecycle: spawn, sense, think, strike, drift.
 - `llm-wiki-tang/` live research memory over Helius and Birdeye data.
 - Honcho-style persistence layer for cross-session strategy memory, operator preferences, experiment lineage, and durable agent self-models.
+- DePIN physical-AI data loop for robot episodes, environment updates, failure cases, validation, and x402/MPP/Pay.sh reward receipts.
 - `services/attestation-agent/` Solana Attestation Service credential, schema, attestation, and MPL Core birth flows.
 - `plugin.delivery/` paid plugin delivery, plugin attestation, and gateway model.
 - `clawdrouter/`, `payments/`, and `workers/` payment-aware routing and deployment surfaces.
@@ -84,6 +86,7 @@ OpenClawd turns robots and field agents into accountable Solana actors:
 3. The agent proposes commands through an OODA loop.
 4. Risk policies gate physical and financial actions.
 5. Commands, credentials, capabilities, and revenue events can be attested or settled on Solana.
+6. Robot task data can be hashed, validated, and rewarded as GR00T-compatible physical-AI contributions.
 
 For the hackathon, the packaged demo shows a warehouse inspection robot that detects a hazard, checks its policy, requests a paid specialist plugin, and emits a verifiable command receipt.
 

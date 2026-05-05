@@ -63,6 +63,9 @@ export interface AgentConfig {
   heliusApiKey: string;
   heliusRpcUrl: string;
   researchApiUrl: string;
+  deepseekApiKey: string;
+  deepseekBaseUrl: string;
+  deepseekModel: string;
 }
 
 const DEFAULTS: AgentConfig = {
@@ -94,6 +97,9 @@ const DEFAULTS: AgentConfig = {
   heliusApiKey: '',
   heliusRpcUrl: '',
   researchApiUrl: '',
+  deepseekApiKey: '',
+  deepseekBaseUrl: 'https://api.deepseek.com',
+  deepseekModel: 'deepseek-v4-pro',
 };
 
 export function loadConfig(overrides: Partial<AgentConfig> = {}): AgentConfig {
@@ -118,6 +124,9 @@ export function loadConfig(overrides: Partial<AgentConfig> = {}): AgentConfig {
   if (process.env.HELIUS_RPC_URL) config.heliusRpcUrl = process.env.HELIUS_RPC_URL;
   if (process.env.RESEARCH_API_URL) config.researchApiUrl = process.env.RESEARCH_API_URL;
   if (process.env.OPENCLAWD_RESEARCH_URL) config.researchApiUrl = process.env.OPENCLAWD_RESEARCH_URL;
+  if (process.env.DEEPSEEK_API_KEY) config.deepseekApiKey = process.env.DEEPSEEK_API_KEY;
+  if (process.env.DEEPSEEK_BASE_URL) config.deepseekBaseUrl = process.env.DEEPSEEK_BASE_URL;
+  if (process.env.DEEPSEEK_MODEL) config.deepseekModel = process.env.DEEPSEEK_MODEL;
 
   if (overrides.display) {
     config.display = { ...config.display, ...overrides.display };

@@ -14,6 +14,7 @@
   "hardware_gateway_binary": "cmd/openclawd-go",
   "robotics_integration": "hackathon/robotics/README.md",
   "package_shades": "hackathon/docs/package-shades.md",
+  "depin_physical_ai": "hackathon/docs/depin-physical-ai.md",
   "autonomous_research_loop": "hackathon/docs/autonomous-research-loop.md",
   "tags": [
     "solana",
@@ -21,6 +22,8 @@
     "ai-agents",
     "x402",
     "attestation",
+    "depin",
+    "physical-ai-data",
     "mcp",
     "autonomous-research",
     "honcho-memory",

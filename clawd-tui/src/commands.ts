@@ -28,6 +28,7 @@ import {
   type MarketResearchPayload,
   type AutoloopMandate,
 } from './research.js';
+import { DeepSeekClient, DeepSeekError, type DeepSeekChatMessage } from './deepseek.js';
 
 const RESET = '\x1b[0m';
 const BOLD = '\x1b[1m';
@@ -74,6 +75,18 @@ function helius(ctx: CommandContext): HeliusClient | null {
 function research(ctx: CommandContext): ResearchClient {
   return new ResearchClient({
     baseUrl: ctx.config.researchApiUrl || 'http://localhost:8000',
+  });
+}
+
+function deepseek(ctx: CommandContext): DeepSeekClient | null {
+  if (!ctx.config.deepseekApiKey) {
+    console.log(`\n  ${DIM}DEEPSEEK_API_KEY is not set. Add it to .env or export it.${RESET}\n`);
+    return null;
+  }
+  return new DeepSeekClient({
+    apiKey: ctx.config.deepseekApiKey,
+    baseUrl: ctx.config.deepseekBaseUrl,
+    defaultModel: ctx.config.deepseekModel,
   });
 }
 

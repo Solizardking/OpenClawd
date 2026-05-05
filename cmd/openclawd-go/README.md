@@ -44,6 +44,19 @@ openclawd-go robot task \
   --pay-gateway https://pay.sh
 ```
 
+## GR00T Plan
+
+```bash
+openclawd-go gr00t plan \
+  --robot-id OPENCLAWDASV1 \
+  --model-server tcp://127.0.0.1:5555 \
+  --dataset-path Robotics/Isaac-GR00T-main/demo_data/openclawd_asv1
+```
+
+The plan command prints the OCASV1 GR00T `NEW_EMBODIMENT` paths, 32-step
+action horizon, payment rails, and DePIN physical-AI data receipt schema
+expected by the robot gateway.
+
 The gateway defaults to dry-run task envelopes. Live movement remains blocked
 unless the gateway is started with `OPENCLAWD_ROBOT_LIVE=1` and the task request
 sets `--execute`.

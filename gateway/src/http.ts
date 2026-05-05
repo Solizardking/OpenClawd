@@ -671,6 +671,16 @@ function robotHardwareManifest() {
       deploymentScripts: 'Robotics/Isaac-GR00T-main/scripts/deployment',
       role: 'vision-language-action proposal engine',
     },
+    dataNetwork: {
+      thesis: 'Robotics/docs/THESIS.md',
+      hackathonSpec: 'hackathon/docs/depin-physical-ai.md',
+      receiptSchema: 'openclawd.robot_data_contribution.v1',
+      datasetFormat: 'gr00t_lerobot_v2',
+      datasetPath: 'Robotics/Isaac-GR00T-main/demo_data/openclawd_asv1',
+      rewardRails: ['x402', 'mpp', 'pay-sh'],
+      validationSignals: ['timestamp_sync', 'trajectory_smoothness', 'duplicate_score', 'freshness_score', 'operator_review'],
+      privacyMode: 'hash_private_sensor_payloads',
+    },
     specs: {
       height_m: 1.2,
       weight_kg: 35,
@@ -766,6 +776,26 @@ function buildRobotTaskEnvelope(body: RobotTaskRequest) {
       mppProxy: body.mpp_proxy,
       rails: body.payment_rails,
     }),
+    data_contribution: {
+      schema: 'openclawd.robot_data_contribution.v1',
+      dataset_format: 'gr00t_lerobot_v2',
+      embodiment_tag: 'NEW_EMBODIMENT',
+      dataset_path: 'Robotics/Isaac-GR00T-main/demo_data/openclawd_asv1',
+      episode_hash: null,
+      modalities: ['front_rgb', 'wrist_rgb', 'joint_state', 'gripper', 'safety'],
+      validation: {
+        timestamp_sync: 'pending',
+        trajectory_smoothness: 'pending',
+        duplicate_score: null,
+        freshness_score: null,
+        operator_review: liveAllowed ? 'required' : 'dry_run_pending',
+      },
+      reward_model: {
+        rails: body.payment_rails?.length ? body.payment_rails : ['x402', 'mpp', 'pay-sh'],
+        settlement: ROBOT_LIVE_ENABLED ? 'operator_approval_required' : 'dry_run',
+        private_sensor_payloads: 'hash_only',
+      },
+    },
     proxy: {
       robot_target: robotUrl,
       gateway_route: '/api/robot/task',

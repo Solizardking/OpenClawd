@@ -14,6 +14,8 @@ Robot / Operator / Simulator
      src · openclawd-framework · agents · skills · mcp
   -> Memory and research
      llm-wiki-tang · Honcho persistence · packages · services
+  -> DePIN physical-AI data loop
+     GR00T LeRobot episodes · validation receipts · reward intents
   -> Autonomous strategy lab
      research lane · paper-trade lane · score lane · gated execution lane
   -> Solana trust layer
@@ -35,6 +37,7 @@ Robot / Operator / Simulator
 | Command | MCP tool call | `mcp/`, `src/tools/` |
 | Specialist cloud service | paid plugin | `plugin.delivery/`, `payments/`, `clawdrouter/` |
 | Task payment | x402 + MPP proxy + Pay.sh-compatible proof | `packages/agents-x402-solana/`, `payments/`, `gateway/` |
+| Physical-AI data contribution | GR00T episode hash + quality receipt + reward intent | `hackathon/docs/depin-physical-ai.md`, `Robotics/Isaac-GR00T-main/examples/OpenClawdASV1/` |
 | Audit receipt | SAS attestation + JSON receipt | `services/attestation-agent/`, `solana-attestation-service-master/` |
 
 ## Command Lifecycle
@@ -78,6 +81,25 @@ PERSIST
   Write lineage and lessons to Honcho-style long-term memory
 ```
 
+## DePIN Physical-AI Data Lifecycle
+
+```text
+CAPTURE
+  OCASV1 records camera, state, action, safety, and task metadata
+
+NORMALIZE
+  Convert into GR00T-flavored LeRobot v2 with meta/modality.json
+
+VALIDATE
+  Check timestamp sync, joint/action bounds, duplicate score, and operator review
+
+REWARD
+  Issue x402 / MPP / Pay.sh payment intent or dry-run reward receipt
+
+TRAIN
+  Use accepted episodes for NEW_EMBODIMENT fine-tuning and evaluation
+```
+
 ## Module Composition
 
 - `src/` supplies the core engine, command handling, tools, permission posture, and memory tier model.
@@ -85,6 +107,7 @@ PERSIST
 - `Robotics/Isaac-GR00T-main/` supplies the NVIDIA Isaac GR00T policy tree; `Robotics/Isaac-GR00T-main/OPENCLAWDASV1.md` maps it to OCASV1.
 - `cmd/openclawd-go/` supplies a hardware-installable binary for robot-side gateway registration and paid task intent creation.
 - `gateway/` now exposes `/api/robotics/hardware`, `/api/robot/connect`, and `/api/robot/task` for robot connectivity and payment-aware task envelopes.
+- `hackathon/docs/depin-physical-ai.md` adapts the Robot AI / DePIN data thesis into contribution classes, validator checks, and a concrete receipt schema.
 - `mcp/` supplies the standard tool boundary that can expose both Solana operations and robotics commands.
 - `agents/` supplies a deployable agent catalog and schema conventions for on-chain agent identities.
 - `openclawd-framework/` supplies the birth/lifecycle abstraction and the Sense -> Think -> Strike -> Drift loop.

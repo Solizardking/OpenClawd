@@ -4,6 +4,8 @@
 
 OpenClawd brings Solana-native identity, payments, memory, and permission-gated AI command execution to robotics fleets.
 
+It adapts the "Robot AI as blockchain's breakout AI use case" thesis into a concrete DePIN loop: robots and operators contribute validated physical-world episodes, receive payment/reward receipts, and feed GR00T-compatible datasets for open humanoid policies.
+
 It also demonstrates the next OpenClawd loop: autonomous research agents that evolve Solana trading strategies through bounded paper experiments, Honcho-style persistent memory, and deny-first wallet gates.
 
 ## Problem
@@ -12,6 +14,7 @@ Robotics systems increasingly use AI agents, but most deployments still lack a s
 
 - Operators cannot easily verify which robot, model, plugin, or human approved a command.
 - Robots need paid specialist services such as mapping, vision, maintenance diagnostics, and market data, but payments are usually off-platform or manual.
+- Physical AI needs real-world robot data, but video, proprioception, force, task outcomes, and failure cases are fragmented across proprietary fleets.
 - Sensor memory and command history are fragmented across logs, dashboards, and proprietary clouds.
 - Physical actions require stronger guardrails than ordinary chat actions.
 
@@ -24,6 +27,7 @@ OpenClawd adapts the existing Solana-native financial agent stack into a robotic
 - **Sensor memory:** Telemetry enters `KNOWN`, `INFERRED`, and `LEARNED` memory tiers, so the robot can separate live facts from hypotheses and long-term patterns.
 - **Paid autonomy:** x402 and plugin.delivery let agents pay for specialist capabilities per call while preserving API discoverability.
 - **Real hardware path:** The submission includes OCASV1 / `OPENCLAWDASV1`, an OpenClawd Solana robot profile over Asimov v1 hardware assets, NVIDIA Isaac GR00T policy infrastructure, and a small Go binary that can be installed on robot compute.
+- **DePIN data rewards:** Robot episodes can be converted into GR00T LeRobot v2 contributions with hashed receipts, quality checks, and x402/MPP/Pay.sh reward intents.
 - **Reusable MCP tools:** The MCP layer exposes Solana, wallet, market, memory, and robotics-command tools through a standard interface.
 - **Self-evolving research:** The agent can run fixed-budget paper-trading trials, score results, keep only improvements, and persist strategy lineage across sessions.
 
@@ -38,6 +42,7 @@ OpenClawd adapts the existing Solana-native financial agent stack into a robotic
 | Research and telemetry memory | `llm-wiki-tang/`, `packages/`, `services/` |
 | Payments and plugin delivery | `clawdrouter/`, `payments/`, `plugin.delivery/`, `workers/` |
 | Real robot hardware and install | `Robotics/`, `cmd/openclawd-go/`, `gateway/` |
+| DePIN physical-AI data model | `hackathon/docs/depin-physical-ai.md`, `Robotics/docs/THESIS.md`, `Robotics/Isaac-GR00T-main/examples/OpenClawdASV1/` |
 | User surfaces | `site/`, `chrome-extension/`, `tailclawd/`, `moltbook-agent/`, `blockchain_buddies/` |
 
 See [`docs/package-shades.md`](./docs/package-shades.md) for a public-safe shade of each package and how it contributes to the hackathon project.
@@ -69,6 +74,8 @@ node hackathon/demos/robot-command-demo.mjs
 
 Solana is a practical base layer for robotics agents because it supports low-latency settlement, inexpensive attestations, wallet-native identity, SPL token payments, and mature ecosystem tooling such as Helius, Jupiter, Metaplex, and the Solana Attestation Service.
 
+For physical AI, Solana also gives DePIN contributors a common reward and provenance layer: robot data can be validated off-chain, hashed into receipts, priced through x402/MPP/Pay.sh, and associated with a wallet identity without exposing private sensor feeds.
+
 OpenClawd already uses those primitives for DeFi agents. The hackathon contribution is the robotics command layer that maps the same primitives to physical-world autonomy:
 
 - Wallet = robot identity and payment account.
@@ -88,6 +95,16 @@ OpenClawd treats robotic commands like financial actions:
 - Private keys and wallet keypairs are never committed.
 - The demo stays offline and does not sign transactions.
 - Autonomous research is limited to simulation and paper trading until an operator approves a live wallet policy.
+
+## Research Loop Inspiration
+
+## DePIN Physical-AI Thesis
+
+The submission adapts the Solana Foundation Robot AI argument into OpenClawd's stack: robotics is approaching broad adoption, but the binding constraint is scarce physical-world data rather than model architecture alone. OpenClawd focuses that thesis on a repeatable open embodiment, `OPENCLAWDASV1`, so contributed episodes are comparable across operators.
+
+The practical loop is intentionally narrow: collect OCASV1 task traces, validate schema and quality, hash sensitive payloads, reward useful contributions, and turn accepted episodes into GR00T-compatible LeRobot datasets. The market risk is explicit: external robotics data demand is still thin, so the first buyer of the data is the OpenClawd robot itself through better local policies and safer paid task execution.
+
+See [`docs/depin-physical-ai.md`](./docs/depin-physical-ai.md).
 
 ## Research Loop Inspiration
 
