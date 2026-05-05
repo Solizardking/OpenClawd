@@ -45,6 +45,7 @@ import { CodexDispatcher, type CodexTaskRequest } from './codex-dispatcher.js';
 const REGISTRY_GATEWAY = discover('gateway');
 const PORT = REGISTRY_GATEWAY.port;
 const BIRDEYE_KEY = process.env.BIRDEYE_API_KEY ?? '';
+const BIRDEYE_WSS_URL = process.env.BIRDEYE_WSS_URL ?? '';
 const HELIUS_KEY = process.env.HELIUS_API_KEY ?? '';
 const HELIUS_RPC =
   process.env.HELIUS_RPC_URL ||
@@ -243,13 +244,89 @@ async function loadHoncho(): Promise<HonchoBridgeMod | null> {
 }
 
 // ── Birdeye proxy ────────────────────────────────────────────────────
-async function birdeyeOverview(address: string): Promise<unknown> {
+const BIRDEYE_BASE_URL = 'https://public-api.birdeye.so';
+const SOL_MINT = 'So11111111111111111111111111111111111111112';
+const USDC_MINT = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
+const MAX_ADDRESS_LIST = 100;
+const SAFE_KEYWORD = /^[\w .:$-]{0,64}$/;
+const OHLCV_TYPES = new Set([
+  '1s',
+  '15s',
+  '30s',
+  '1m',
+  '3m',
+  '5m',
+  '15m',
+  '30m',
+  '1H',
+  '2H',
+  '4H',
+  '6H',
+  '8H',
+  '12H',
+  '1D',
+  '3D',
+  '1W',
+  '1M',
+]);
+const PRICE_TIMEFRAMES = new Set(['1m', '5m', '30m', '1h', '2h', '4h', '8h', '24h', '2d', '3d', '7d']);
+const SMART_INTERVALS = new Set(['1d', '7d', '30d']);
+const SMART_STYLES = new Set(['all', 'risk_averse', 'risk_balancers', 'trenchers']);
+
+function requireBirdeye(): void {
   if (!BIRDEYE_KEY) throw new Error('BIRDEYE_API_KEY not set');
-  const url = new URL('https://public-api.birdeye.so/defi/token_overview');
+}
+
+function birdeyeHeaders(extra?: Record<string, string>): Record<string, string> {
+  requireBirdeye();
+  return {
+    accept: 'application/json',
+    'x-chain': 'solana',
+    'X-API-KEY': BIRDEYE_KEY,
+    ...extra,
+  };
+}
+
+async function birdeyeGet(path: string, params: Record<string, string | number | boolean | undefined>): Promise<unknown> {
+  const url = new URL(path, BIRDEYE_BASE_URL);
+  for (const [key, value] of Object.entries(params)) {
+    if (value !== undefined && value !== '') url.searchParams.set(key, String(value));
+  }
+  const r = await fetch(url, { headers: birdeyeHeaders() });
+  if (!r.ok) throw new Error(`Birdeye ${r.status}: ${(await r.text()).slice(0, 200)}`);
+  const j = (await r.json()) as { success?: boolean; data?: unknown; message?: string };
+  if (j.success === false) throw new Error(j.message ?? 'Birdeye request failed');
+  return j.data ?? j;
+}
+
+function parseAddressList(value: string, max = MAX_ADDRESS_LIST): string[] {
+  const addresses = value
+    .split(',')
+    .map((a) => a.trim())
+    .filter(Boolean);
+  if (addresses.length === 0) throw new Error('missing address list');
+  if (addresses.length > max) throw new Error(`too many addresses; max ${max}`);
+  const invalid = addresses.find((a) => !BASE58.test(a));
+  if (invalid) throw new Error(`invalid base58 address: ${invalid}`);
+  return addresses;
+}
+
+function unixParam(url: URL, key: string, fallback: number): number {
+  const raw = url.searchParams.get(key);
+  if (!raw) return fallback;
+  const value = Number.parseInt(raw, 10);
+  if (!Number.isFinite(value) || value < 0 || value > 10_000_000_000) {
+    throw new Error(`invalid ${key}`);
+  }
+  return value;
+}
+
+async function birdeyeOverview(address: string): Promise<unknown> {
+  const url = new URL('/defi/token_overview', BIRDEYE_BASE_URL);
   url.searchParams.set('address', address);
   url.searchParams.set('ui_amount_mode', 'scaled');
   const r = await fetch(url, {
-    headers: { accept: 'application/json', 'x-chain': 'solana', 'X-API-KEY': BIRDEYE_KEY },
+    headers: birdeyeHeaders(),
   });
   if (!r.ok) throw new Error(`Birdeye ${r.status}: ${(await r.text()).slice(0, 200)}`);
   const j = (await r.json()) as { success?: boolean; data?: unknown; message?: string };
@@ -258,16 +335,133 @@ async function birdeyeOverview(address: string): Promise<unknown> {
 }
 
 async function birdeyeWalletPortfolio(wallet: string): Promise<unknown> {
-  if (!BIRDEYE_KEY) throw new Error('BIRDEYE_API_KEY not set');
-  const url = new URL('https://public-api.birdeye.so/v1/wallet/token_list');
+  const url = new URL('/v1/wallet/token_list', BIRDEYE_BASE_URL);
   url.searchParams.set('wallet', wallet);
   const r = await fetch(url, {
-    headers: { accept: 'application/json', 'x-chain': 'solana', 'X-API-KEY': BIRDEYE_KEY },
+    headers: birdeyeHeaders(),
   });
   if (!r.ok) throw new Error(`Birdeye ${r.status}: ${(await r.text()).slice(0, 200)}`);
   const j = (await r.json()) as { success?: boolean; data?: { items?: unknown[]; totalUsd?: number } };
   if (j.success === false) throw new Error('Birdeye request failed');
   return j.data ?? j;
+}
+
+async function birdeyePrice(address: string): Promise<unknown> {
+  return birdeyeGet('/defi/price', {
+    address,
+    include_liquidity: true,
+    ui_amount_mode: 'scaled',
+  });
+}
+
+async function birdeyeMultiPrice(addresses: string[]): Promise<unknown> {
+  return birdeyeGet('/defi/multi_price', {
+    list_address: addresses.join(','),
+    include_liquidity: true,
+    ui_amount_mode: 'scaled',
+  });
+}
+
+async function birdeyeOhlcv(url: URL): Promise<unknown> {
+  const address = url.searchParams.get('address')?.trim() || SOL_MINT;
+  if (!BASE58.test(address)) throw new Error('invalid base58 address');
+  const type = url.searchParams.get('type')?.trim() || '15m';
+  if (!OHLCV_TYPES.has(type)) throw new Error('invalid ohlcv type');
+  const now = Math.floor(Date.now() / 1000);
+  const timeTo = unixParam(url, 'time_to', now);
+  const timeFrom = unixParam(url, 'time_from', timeTo - 24 * 60 * 60);
+  return birdeyeGet('/defi/v3/ohlcv', {
+    address,
+    type,
+    currency: 'usd',
+    time_from: timeFrom,
+    time_to: timeTo,
+    ui_amount_mode: 'scaled',
+    count_limit: 500,
+  });
+}
+
+async function birdeyeBaseQuoteOhlcv(url: URL): Promise<unknown> {
+  const base = url.searchParams.get('base_address')?.trim() || SOL_MINT;
+  const quote = url.searchParams.get('quote_address')?.trim() || USDC_MINT;
+  if (!BASE58.test(base) || !BASE58.test(quote)) throw new Error('invalid base58 address');
+  const type = url.searchParams.get('type')?.trim() || '15m';
+  if (!OHLCV_TYPES.has(type)) throw new Error('invalid ohlcv type');
+  const now = Math.floor(Date.now() / 1000);
+  const timeTo = unixParam(url, 'time_to', now);
+  const timeFrom = unixParam(url, 'time_from', timeTo - 24 * 60 * 60);
+  return birdeyeGet('/defi/ohlcv/base_quote', {
+    base_address: base,
+    quote_address: quote,
+    type,
+    time_from: timeFrom,
+    time_to: timeTo,
+    ui_amount_mode: 'scaled',
+  });
+}
+
+async function birdeyePriceStats(address: string, listTimeframe: string): Promise<unknown> {
+  const frames = listTimeframe
+    .split(',')
+    .map((f) => f.trim())
+    .filter(Boolean);
+  if (frames.length === 0 || frames.some((f) => !PRICE_TIMEFRAMES.has(f))) {
+    throw new Error('invalid price stat timeframe');
+  }
+  return birdeyeGet('/defi/v3/price/stats/single', {
+    address,
+    list_timeframe: frames.join(','),
+    ui_amount_mode: 'scaled',
+  });
+}
+
+async function birdeyeTradeData(address: string): Promise<unknown> {
+  return birdeyeGet('/defi/v3/token/trade-data/single', {
+    address,
+    frames: '1m,5m,30m,1h,4h,24h',
+    ui_amount_mode: 'scaled',
+  });
+}
+
+async function birdeyeSearch(url: URL): Promise<unknown> {
+  const keyword = (url.searchParams.get('keyword') ?? '').trim();
+  if (!SAFE_KEYWORD.test(keyword)) throw new Error('invalid keyword');
+  const target = url.searchParams.get('target') ?? 'all';
+  const searchBy = url.searchParams.get('search_by') ?? (BASE58.test(keyword) ? 'address' : 'combination');
+  const searchMode = url.searchParams.get('search_mode') ?? 'fuzzy';
+  const markets = url.searchParams.get('markets') ?? 'Raydium,Raydium CP,Raydium Clamm,Meteora,Meteora DLMM,Pump.fun,Orca';
+  const limit = Math.min(Math.max(Number.parseInt(url.searchParams.get('limit') ?? '12', 10) || 12, 1), 20);
+  return birdeyeGet('/defi/v3/search', {
+    chain: 'solana',
+    keyword,
+    target,
+    search_mode: searchMode,
+    search_by: searchBy,
+    sort_by: url.searchParams.get('sort_by') ?? 'volume_24h_usd',
+    sort_type: url.searchParams.get('sort_type') ?? 'desc',
+    verify_token: url.searchParams.get('verify_token') ?? undefined,
+    markets,
+    offset: Math.max(Number.parseInt(url.searchParams.get('offset') ?? '0', 10) || 0, 0),
+    limit,
+    ui_amount_mode: 'scaled',
+  });
+}
+
+async function birdeyeSmartMoney(url: URL): Promise<unknown> {
+  const interval = url.searchParams.get('interval') ?? '1d';
+  const traderStyle = url.searchParams.get('trader_style') ?? 'all';
+  if (!SMART_INTERVALS.has(interval) || !SMART_STYLES.has(traderStyle)) {
+    throw new Error('invalid smart money filter');
+  }
+  const limit = Math.min(Math.max(Number.parseInt(url.searchParams.get('limit') ?? '12', 10) || 12, 1), 20);
+  return birdeyeGet('/smart-money/v1/token/list', {
+    interval,
+    trader_style: traderStyle,
+    sort_by: url.searchParams.get('sort_by') ?? 'smart_traders_no',
+    sort_type: url.searchParams.get('sort_type') ?? 'desc',
+    offset: Math.max(Number.parseInt(url.searchParams.get('offset') ?? '0', 10) || 0, 0),
+    limit,
+  });
 }
 
 // Helius DAS fallback for wallet portfolio when Birdeye's wallet endpoint
@@ -379,6 +573,7 @@ const server = http.createServer(async (req, res) => {
         service: '@openclawdsolana/gateway',
         version: '1.0.0',
         birdeye: Boolean(BIRDEYE_KEY),
+        birdeyeWss: Boolean(BIRDEYE_WSS_URL),
         helius: Boolean(HELIUS_KEY),
         codex: {
           configured: codex.isConfigured(),
@@ -501,6 +696,61 @@ const server = http.createServer(async (req, res) => {
       const address = url.searchParams.get('address')?.trim() ?? '';
       if (!BASE58.test(address)) return json(res, 400, { error: 'invalid base58 address' });
       const data = await birdeyeOverview(address);
+      json(res, 200, data);
+      return;
+    }
+
+    if (route === 'GET /api/token/price') {
+      const address = url.searchParams.get('address')?.trim() ?? '';
+      if (!BASE58.test(address)) return json(res, 400, { error: 'invalid base58 address' });
+      const data = await birdeyePrice(address);
+      json(res, 200, data);
+      return;
+    }
+
+    if (route === 'GET /api/token/multi-price') {
+      const addresses = parseAddressList(url.searchParams.get('addresses') ?? url.searchParams.get('list_address') ?? '');
+      const data = await birdeyeMultiPrice(addresses);
+      json(res, 200, data);
+      return;
+    }
+
+    if (route === 'GET /api/token/ohlcv') {
+      const data = await birdeyeOhlcv(url);
+      json(res, 200, data);
+      return;
+    }
+
+    if (route === 'GET /api/token/base-quote-ohlcv') {
+      const data = await birdeyeBaseQuoteOhlcv(url);
+      json(res, 200, data);
+      return;
+    }
+
+    if (route === 'GET /api/token/price-stats') {
+      const address = url.searchParams.get('address')?.trim() ?? '';
+      if (!BASE58.test(address)) return json(res, 400, { error: 'invalid base58 address' });
+      const data = await birdeyePriceStats(address, url.searchParams.get('list_timeframe') ?? '1m,5m,30m,1h,4h,24h');
+      json(res, 200, data);
+      return;
+    }
+
+    if (route === 'GET /api/token/trade-data') {
+      const address = url.searchParams.get('address')?.trim() ?? '';
+      if (!BASE58.test(address)) return json(res, 400, { error: 'invalid base58 address' });
+      const data = await birdeyeTradeData(address);
+      json(res, 200, data);
+      return;
+    }
+
+    if (route === 'GET /api/market/search') {
+      const data = await birdeyeSearch(url);
+      json(res, 200, data);
+      return;
+    }
+
+    if (route === 'GET /api/smart-money/tokens') {
+      const data = await birdeyeSmartMoney(url);
       json(res, 200, data);
       return;
     }
@@ -644,6 +894,7 @@ server.listen(PORT, async () => {
   console.log(`🦞 OpenClawd Gateway HTTP listening on ${REGISTRY_GATEWAY.url}`);
   console.log(`   registry override: ${REGISTRY_GATEWAY.envOverride} (or ${REGISTRY_GATEWAY.portEnvOverride ?? '—'})`);
   console.log(`   birdeye: ${BIRDEYE_KEY ? '✓' : '✗ (set BIRDEYE_API_KEY)'}`);
+  console.log(`   birdeye wss: ${BIRDEYE_WSS_URL ? '✓' : '✗ (set BIRDEYE_WSS_URL for stream clients)'}`);
   console.log(`   helius:  ${HELIUS_KEY ? '✓' : '✗ (set HELIUS_API_KEY)'}`);
   await probeSrc();
   if (!SRC_DISABLED) {
@@ -657,6 +908,14 @@ server.listen(PORT, async () => {
   console.log('   routes:');
   console.log('     GET  /health');
   console.log('     GET  /api/token/overview?address=<mint>           Birdeye');
+  console.log('     GET  /api/token/price?address=<mint>              Birdeye');
+  console.log('     GET  /api/token/multi-price?addresses=<mints>     Birdeye');
+  console.log('     GET  /api/token/ohlcv?address=<mint>&type=15m     Birdeye');
+  console.log('     GET  /api/token/base-quote-ohlcv                  Birdeye');
+  console.log('     GET  /api/token/price-stats?address=<mint>        Birdeye');
+  console.log('     GET  /api/token/trade-data?address=<mint>         Birdeye');
+  console.log('     GET  /api/market/search?keyword=<symbol>          Birdeye');
+  console.log('     GET  /api/smart-money/tokens                      Birdeye');
   console.log('     GET  /api/wallet/portfolio?address=<wallet>       Birdeye → Helius DAS');
   console.log('     POST /api/wallet/submit          { signed: ... }   Helius RPC');
   console.log('     POST /api/wallet/swap/build                       (501 stub)');

@@ -32,7 +32,7 @@
       <div class="hero-row">
         <div>
           <h1>The lobster<br/>is <span class="accent">awake.</span></h1>
-          <p class="sub">Live cyberpunk operations deck for the OpenClawd gateway. Every panel is real data: Birdeye, Helius DAS, agent runtime, and the skill registry fetched from <code>http://127.0.0.1:8788</code>.</p>
+          <p class="sub">Live operations deck for the OpenClawd gateway. Every panel is real data: Birdeye market data, Helius DAS, agent runtime, and the skill registry fetched from <code>http://127.0.0.1:8788</code>.</p>
         </div>
         <div class="anim-stack">
           <pre class="anim" id="anim-pulse"></pre>
@@ -43,6 +43,51 @@
   </header>
 
   <main class="container">
+    <!-- Solana DEX -->
+    <section class="card dex-card">
+      <div class="card-head"><h2>Solana DEX Terminal</h2><span class="pill green">Birdeye market data</span></div>
+      <p class="hint">Search tokens and markets, load live price stats, render OHLCV candles, and scan smart-money flow through gateway-side Birdeye routes.</p>
+      <div class="toolbar">
+        <input id="dex-search" class="mono" placeholder="Search SOL, CLAWD, BONK, WIF, or a mint" spellcheck="false" />
+        <button class="btn primary" id="dex-search-btn">Search</button>
+        <button class="btn ghost" id="dex-clawd-btn">$CLAWD</button>
+        <button class="btn ghost" id="dex-sol-btn">SOL</button>
+        <select id="dex-interval" class="select mono">
+          <option value="1m">1m</option>
+          <option value="5m">5m</option>
+          <option value="15m" selected>15m</option>
+          <option value="1H">1H</option>
+          <option value="4H">4H</option>
+          <option value="1D">1D</option>
+        </select>
+      </div>
+      <div class="dex-layout">
+        <div>
+          <div id="dex-token" class="token-hero"></div>
+          <canvas id="dex-chart" class="chart" width="760" height="300"></canvas>
+          <div id="dex-results" class="search-results"></div>
+        </div>
+        <aside class="dex-side">
+          <div class="mini-panel">
+            <div class="mini-title">Watchlist</div>
+            <div id="dex-watchlist" class="watchlist"></div>
+          </div>
+          <div class="mini-panel">
+            <div class="mini-title">Smart Money</div>
+            <div class="row compact">
+              <select id="smart-style" class="select mono">
+                <option value="all">all</option>
+                <option value="risk_averse">risk averse</option>
+                <option value="risk_balancers">balancers</option>
+                <option value="trenchers">trenchers</option>
+              </select>
+              <button class="btn ghost small-btn" id="smart-refresh">Refresh</button>
+            </div>
+            <div id="smart-list" class="smart-list"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
 
     <!-- Lookup -->
     <section class="card">

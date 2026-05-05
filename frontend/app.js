@@ -4,6 +4,16 @@
 
 const $ = (id) => document.getElementById(id);
 const LS_KEY = 'openclawd-gw-base';
+const CLAWD_MINT = '8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump';
+const SOL_MINT = 'So11111111111111111111111111111111111111112';
+const USDC_MINT = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
+const WATCHLIST = [
+  { symbol: 'CLAWD', address: CLAWD_MINT },
+  { symbol: 'SOL', address: SOL_MINT },
+  { symbol: 'USDC', address: USDC_MINT },
+  { symbol: 'BONK', address: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263' },
+  { symbol: 'WIF', address: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLkF5qgNf7jg' },
+];
 
 let gwBase = localStorage.getItem(LS_KEY) || $('gw-base').value;
 $('gw-base').value = gwBase;
@@ -80,6 +90,210 @@ async function refreshHealth() {
 }
 refreshHealth();
 setInterval(refreshHealth, 8000);
+
+// ── Solana DEX terminal ───────────────────────────────────────────
+let activeDexToken = { symbol: 'CLAWD', address: CLAWD_MINT, name: 'OpenClawd' };
+
+async function loadWatchlist() {
+  const out = $('dex-watchlist');
+  out.innerHTML = '<span class="lbl">loading prices...</span>';
+  try {
+    const data = await api('/api/token/multi-price?addresses=' + encodeURIComponent(WATCHLIST.map((t) => t.address).join(',')));
+    out.innerHTML = WATCHLIST.map((t) => {
+      const p = data[t.address] || {};
+      const change = p.priceChange24h;
+      return `
+        <button class="watch-row" data-address="${esc(t.address)}" data-symbol="${esc(t.symbol)}">
+          <span>${esc(t.symbol)}</span>
+          <strong>${fmtUsd(p.value)}</strong>
+          <em class="${change >= 0 ? 'ok' : 'err'}">${change == null ? ' -- ' : change.toFixed(2) + '%'}</em>
+        </button>`;
+    }).join('');
+    out.querySelectorAll('.watch-row').forEach((btn) => {
+      btn.addEventListener('click', () => selectDexToken({ address: btn.dataset.address, symbol: btn.dataset.symbol }));
+    });
+  } catch (err) {
+    out.innerHTML = `<span class="err">${esc(err.message)}</span>`;
+  }
+}
+
+async function searchDex() {
+  const keyword = $('dex-search').value.trim();
+  const out = $('dex-results');
+  out.innerHTML = '<span class="lbl">searching...</span>';
+  try {
+    const data = await api('/api/market/search?keyword=' + encodeURIComponent(keyword) + '&limit=12');
+    const groups = data.items || [];
+    const rows = groups.flatMap((g) => (g.result || []).map((r) => ({ ...r, type: g.type })));
+    if (!rows.length) {
+      out.innerHTML = '<span class="lbl">No matching tokens or markets.</span>';
+      return;
+    }
+    out.innerHTML = rows.map((r) => `
+      <button class="search-row" data-address="${esc(r.address)}" data-symbol="${esc(r.symbol || r.name || '?')}" data-name="${esc(r.name || '')}">
+        <span class="asset-logo">${r.logo_uri ? `<img src="${esc(r.logo_uri)}" alt="" />` : ''}</span>
+        <span><strong>${esc(r.symbol || '?')}</strong><small>${esc(r.name || r.type || '')}</small></span>
+        <span>${fmtUsd(r.price)}</span>
+        <span class="${(r.price_change_24h_percent || 0) >= 0 ? 'ok' : 'err'}">${r.price_change_24h_percent == null ? '--' : r.price_change_24h_percent.toFixed(2) + '%'}</span>
+        <span>${fmtUsd(r.volume_24h_usd)}</span>
+      </button>`).join('');
+    out.querySelectorAll('.search-row').forEach((btn) => {
+      btn.addEventListener('click', () => selectDexToken({ address: btn.dataset.address, symbol: btn.dataset.symbol, name: btn.dataset.name }));
+    });
+  } catch (err) {
+    out.innerHTML = `<span class="err">${esc(err.message)}</span>`;
+  }
+}
+
+async function selectDexToken(token) {
+  activeDexToken = { ...activeDexToken, ...token };
+  $('dex-search').value = token.symbol || token.address;
+  await Promise.all([loadDexToken(), loadDexChart()]);
+}
+
+async function loadDexToken() {
+  const out = $('dex-token');
+  out.innerHTML = '<span class="lbl">loading token...</span>';
+  try {
+    const [overview, stats, trades] = await Promise.all([
+      api('/api/token/overview?address=' + encodeURIComponent(activeDexToken.address)),
+      api('/api/token/price-stats?address=' + encodeURIComponent(activeDexToken.address)),
+      api('/api/token/trade-data?address=' + encodeURIComponent(activeDexToken.address)),
+    ]);
+    const trade = Array.isArray(trades) ? trades[0] : trades;
+    const statFrames = Array.isArray(stats) ? (stats[0]?.data || []) : [];
+    const frame = (name) => statFrames.find((s) => s.time_frame === name) || {};
+    activeDexToken.symbol = overview.symbol || activeDexToken.symbol;
+    activeDexToken.name = overview.name || activeDexToken.name;
+    out.innerHTML = `
+      <div class="token-main">
+        ${overview.logoURI ? `<img class="token-logo" src="${esc(overview.logoURI)}" alt="" />` : '<div class="token-logo blank"></div>'}
+        <div>
+          <h3>${esc(overview.symbol || activeDexToken.symbol || '?')}</h3>
+          <p>${esc(overview.name || activeDexToken.name || activeDexToken.address)}</p>
+        </div>
+        <div class="token-price">${fmtUsd(overview.price)}</div>
+      </div>
+      <div class="metrics-grid">
+        ${metric('24h', pct(overview.priceChange24hPercent ?? frame('24h').price_change_percent), overview.priceChange24hPercent ?? frame('24h').price_change_percent)}
+        ${metric('Market cap', fmtUsd(overview.marketCap ?? overview.market_cap))}
+        ${metric('Liquidity', fmtUsd(overview.liquidity))}
+        ${metric('Volume 24h', fmtUsd(trade?.volume_24h_usd ?? overview.v24hUSD))}
+        ${metric('Trades 24h', fmtNum(trade?.trade_24h))}
+        ${metric('Wallets 24h', fmtNum(trade?.unique_wallet_24h ?? overview.uniqueWallet24h))}
+        ${metric('High 24h', fmtUsd(frame('24h').high))}
+        ${metric('Low 24h', fmtUsd(frame('24h').low))}
+      </div>`;
+  } catch (err) {
+    out.innerHTML = `<span class="err">${esc(err.message)}</span>`;
+  }
+}
+
+async function loadDexChart() {
+  const interval = $('dex-interval').value;
+  const canvas = $('dex-chart');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  try {
+    const data = await api('/api/token/ohlcv?address=' + encodeURIComponent(activeDexToken.address) + '&type=' + encodeURIComponent(interval));
+    const items = (data.items || []).slice(-120);
+    drawCandles(canvas, items);
+  } catch (err) {
+    ctx.fillStyle = '#ff5d6c';
+    ctx.font = '14px JetBrains Mono, monospace';
+    ctx.fillText(err.message, 18, 32);
+  }
+}
+
+async function loadSmartMoney() {
+  const out = $('smart-list');
+  out.innerHTML = '<span class="lbl">loading flow...</span>';
+  try {
+    const style = $('smart-style').value;
+    const data = await api('/api/smart-money/tokens?interval=1d&trader_style=' + encodeURIComponent(style) + '&limit=12');
+    const rows = Array.isArray(data) ? data : [];
+    out.innerHTML = rows.map((t) => `
+      <button class="smart-row" data-address="${esc(t.token)}" data-symbol="${esc(t.symbol || '?')}" data-name="${esc(t.name || '')}">
+        <span>${t.logo_uri ? `<img src="${esc(t.logo_uri)}" alt="" />` : ''}</span>
+        <strong>${esc(t.symbol || '?')}</strong>
+        <em>${fmtUsd(t.net_flow)}</em>
+        <small>${fmtNum(t.smart_traders_no)} wallets</small>
+      </button>`).join('');
+    out.querySelectorAll('.smart-row').forEach((btn) => {
+      btn.addEventListener('click', () => selectDexToken({ address: btn.dataset.address, symbol: btn.dataset.symbol, name: btn.dataset.name }));
+    });
+  } catch (err) {
+    out.innerHTML = `<span class="err">${esc(err.message)}</span>`;
+  }
+}
+
+function drawCandles(canvas, items) {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width;
+  const h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = '#05070d';
+  ctx.fillRect(0, 0, w, h);
+  if (!items.length) {
+    ctx.fillStyle = '#89adbd';
+    ctx.font = '14px JetBrains Mono, monospace';
+    ctx.fillText('No candles returned.', 18, 32);
+    return;
+  }
+  const pad = { l: 46, r: 14, t: 18, b: 28 };
+  const highs = items.map((i) => i.h);
+  const lows = items.map((i) => i.l);
+  const max = Math.max(...highs);
+  const min = Math.min(...lows);
+  const range = max - min || 1;
+  const plotW = w - pad.l - pad.r;
+  const plotH = h - pad.t - pad.b;
+  const y = (v) => pad.t + (max - v) / range * plotH;
+  ctx.strokeStyle = 'rgba(137,173,189,.18)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i < 5; i += 1) {
+    const yy = pad.t + (plotH / 4) * i;
+    ctx.beginPath();
+    ctx.moveTo(pad.l, yy);
+    ctx.lineTo(w - pad.r, yy);
+    ctx.stroke();
+  }
+  const step = plotW / items.length;
+  const bodyW = Math.max(3, Math.min(10, step * 0.62));
+  items.forEach((c, i) => {
+    const x = pad.l + i * step + step / 2;
+    const up = c.c >= c.o;
+    ctx.strokeStyle = up ? '#14F195' : '#ff5d6c';
+    ctx.fillStyle = ctx.strokeStyle;
+    ctx.beginPath();
+    ctx.moveTo(x, y(c.h));
+    ctx.lineTo(x, y(c.l));
+    ctx.stroke();
+    const top = y(Math.max(c.o, c.c));
+    const bottom = y(Math.min(c.o, c.c));
+    ctx.fillRect(x - bodyW / 2, top, bodyW, Math.max(1, bottom - top));
+  });
+  ctx.fillStyle = '#89adbd';
+  ctx.font = '11px JetBrains Mono, monospace';
+  ctx.fillText(fmtUsd(max), 6, pad.t + 4);
+  ctx.fillText(fmtUsd(min), 6, h - pad.b);
+  ctx.fillStyle = '#d7f7ff';
+  ctx.fillText(`${activeDexToken.symbol || 'TOKEN'} / USD ${$('dex-interval').value}`, pad.l, h - 8);
+}
+
+$('dex-search-btn').addEventListener('click', searchDex);
+$('dex-search').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') searchDex();
+});
+$('dex-clawd-btn').addEventListener('click', () => selectDexToken({ symbol: 'CLAWD', name: 'OpenClawd', address: CLAWD_MINT }));
+$('dex-sol-btn').addEventListener('click', () => selectDexToken({ symbol: 'SOL', name: 'Wrapped SOL', address: SOL_MINT }));
+$('dex-interval').addEventListener('change', loadDexChart);
+$('smart-refresh').addEventListener('click', loadSmartMoney);
+$('smart-style').addEventListener('change', loadSmartMoney);
+
+loadWatchlist();
+loadSmartMoney();
+selectDexToken(activeDexToken);
 
 // ── Token / address lookup ─────────────────────────────────────────
 async function lookup(address) {
@@ -242,6 +456,14 @@ function fmtNum(n) {
   if (a >= 1e6) return (n / 1e6).toFixed(2) + 'M';
   if (a >= 1e3) return (n / 1e3).toFixed(2) + 'K';
   return n.toLocaleString(undefined, { maximumFractionDigits: 4 });
+}
+function pct(n) {
+  if (n == null || !Number.isFinite(n)) return '--';
+  return n.toFixed(2) + '%';
+}
+function metric(label, value, toneValue) {
+  const tone = toneValue == null ? '' : toneValue >= 0 ? ' ok' : ' err';
+  return `<div class="metric"><span>${esc(label)}</span><strong class="${tone}">${esc(value)}</strong></div>`;
 }
 function esc(s) {
   return String(s ?? '').replace(/[<>&"']/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;' })[c]);
