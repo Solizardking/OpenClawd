@@ -88,25 +88,21 @@ function getStagedFiles() {
 }
 
 function getAllFiles() {
-  const files = [];
-  
-  function walk(dir) {
-    const entries = readdirSync(dir, { withFileTypes: true });
-    for (const entry of entries) {
-      const fullPath = join(dir, entry.name);
-      if (entry.name === 'node_modules' || entry.name === '.git') continue;
-      if (SKIP_FILES.includes(entry.name)) continue;
-      
-      if (entry.isDirectory()) {
-        walk(fullPath);
-      } else if (SCAN_EXTENSIONS.includes(extname(entry.name).toLowerCase())) {
-        files.push(fullPath);
-      }
-    }
+  try {
+    const output = execSync('git ls-files --cached --others --exclude-standard', {
+      cwd: rootDir,
+      encoding: 'utf8',
+    });
+    return output
+      .trim()
+      .split('\n')
+      .filter(Boolean)
+      .filter(file => SCAN_EXTENSIONS.includes(extname(file).toLowerCase()))
+      .filter(file => !SKIP_FILES.some(skip => file === skip || file.includes(`/${skip}/`)))
+      .map(file => join(rootDir, file));
+  } catch {
+    return [];
   }
-  
-  walk(rootDir);
-  return files;
 }
 
 async function main() {

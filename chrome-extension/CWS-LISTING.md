@@ -10,13 +10,13 @@ Run:
 ./build-cws.sh
 ```
 
-Upload `build/clawd-popup-vX.Y.Z.zip`.
+Upload `build/openclawd-popup-vX.Y.Z.zip`.
 
 ## Item Details
 
 **Name** (max 45 chars)
 ```
-Solana Clawd — Wallet, Vault & AI Agent
+OpenClawd — Wallet, Vault & AI Agent
 ```
 
 **Summary / Short description** (max 132 chars — already enforced in `manifest.json`)
@@ -37,7 +37,7 @@ English
 ## Detailed Description
 
 ```
-Solana Clawd is the first AI-powered browser companion for Solana that keeps your private keys on your machine. Not "encrypted in the cloud." Not "we promise we'll never look." Actually on your machine — talking only to localhost.
+OpenClawd is an AI-powered browser companion for Solana that keeps your private keys on your machine. Not encrypted in the cloud. Not "we promise we'll never look." Actually on your machine, talking only to localhost.
 
 WHAT YOU GET
 
@@ -67,7 +67,7 @@ PRIVACY & SECURITY
 
 REQUIREMENTS
 
-• Clawd daemon running locally (one-shot install at github.com/clawdsolana/OpenClawd)
+• OpenClawd daemon running locally (one-shot install at github.com/clawdsolana/OpenClawd)
 • OpenRouter API key (for AI chat — you supply your own)
 • Optional: agentwallet-vault running on port 9099 for the Vault tab
 
@@ -99,7 +99,7 @@ Take them at 1280×800 against a dark desktop for consistency with the cyberpunk
 
 **Single purpose**
 ```
-Solana wallet dashboard and AI chat companion that talks only to a local Clawd daemon.
+Solana wallet dashboard and AI chat companion that talks only to a local OpenClawd daemon.
 ```
 
 **Permission justification**
@@ -107,7 +107,7 @@ Solana wallet dashboard and AI chat companion that talks only to a local Clawd d
 - `storage` — persist the user's settings (daemon URL, API key, tier state) in `chrome.storage.local`
 - `activeTab` — used only when the user clicks "Open in Solscan" to open the current wallet's explorer page
 - `alarms` — periodic health check (every 30s) against the local daemon to update the toolbar badge
-- `host_permissions` for `127.0.0.1:*` and `localhost:*` — required to talk to the local Clawd daemon, Seeker gateway, MawdAxe miner API, and agentwallet-vault. No remote hosts are whitelisted.
+- `host_permissions` for `127.0.0.1:*` and `localhost:*` — required to talk to the local OpenClawd daemon, Seeker gateway, MawdAxe miner API, and agentwallet-vault. No remote hosts are whitelisted.
 
 **Data usage disclosures** — check all of:
 - [x] I do not sell or transfer user data to third parties
@@ -132,7 +132,7 @@ https://github.com/clawdsolana/OpenClawd
 
 Before publishing:
 
-- [ ] `./build-cws.sh` runs clean and produces `build/clawd-popup-vX.Y.Z.zip`
+- [ ] `./build-cws.sh` runs clean and produces `build/openclawd-popup-vX.Y.Z.zip`
 - [ ] Version bumped in `manifest.json` (CWS rejects re-uploads with the same version)
 - [ ] No `console.log` debug statements in `popup.js` or `background.js`
 - [ ] No hardcoded API keys (check `OR_BUNDLED_KEY` is empty)

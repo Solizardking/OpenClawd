@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "OpenClawd Browser Bridge",
   "version": "0.2.0",
-  "description": "🦞 Attach OpenClawd to your Chrome tab via CDP relay, talk to the OpenClawd Gateway, and carry a Solana agent wallet for on-chain signing.",
+  "description": "Attach OpenClawd to Chrome via CDP relay, Gateway HTTP, and a local Solana agent wallet for on-chain signing.",
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",

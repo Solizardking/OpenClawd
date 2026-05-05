@@ -6,7 +6,7 @@
   <a href="https://solanaclawd.com"><img src="https://img.shields.io/badge/$CLAWD-on_Solana-9945FF?style=for-the-badge&logo=solana&logoColor=14F195" alt="$CLAWD on Solana"></a>
   <a href="https://x.com/clawddevs"><img src="https://img.shields.io/badge/@clawddevs-X-000000?style=for-the-badge&logo=x" alt="@clawddevs"></a>
   <a href="https://www.npmjs.com/package/@openclawdsolana/clawd-code-cli"><img src="https://img.shields.io/badge/npm-@openclawdsolana-CB3837?style=for-the-badge&logo=npm" alt="@openclawdsolana on npm"></a>
-  <a href="https://github.com/clawdsolana/OpenClawd/releases/tag/v0.1.1"><img src="https://img.shields.io/badge/release-v0.1.1-14F195?style=for-the-badge&logo=github" alt="v0.1.1"></a>
+  <a href="https://github.com/clawdsolana/OpenClawd/releases/tag/v0.3.1"><img src="https://img.shields.io/badge/release-v0.3.1-14F195?style=for-the-badge&logo=github" alt="v0.3.1"></a>
   <a href="https://t.me/clawdbot_sol_bot"><img src="https://img.shields.io/badge/Telegram-clawdbot-26A5E4?style=for-the-badge&logo=telegram" alt="Telegram"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="MIT"></a>
 </p>

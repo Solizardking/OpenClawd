@@ -3,7 +3,7 @@
 How the publishable surfaces find each other after a user runs
 `npx @openclawdsolana/installer install`, plus the current rollout state.
 
-> **Last update:** 2026-05-04 — root docs refreshed for new-user onboarding, Honcho webhook env is documented with placeholders only, and Blockchain Buddies birth flows now belong in the app-specific release notes under [`blockchain_buddies/`](blockchain_buddies/).
+> **Last update:** 2026-05-05 — root env placeholders added, release secret guard now ignores gitignored local env files, Chrome extension package metadata was refreshed for OpenClawd, and Blockchain Buddies production deployment notes now belong in [`blockchain_buddies/`](blockchain_buddies/).
 
 ## Before a Public Release
 
@@ -29,6 +29,7 @@ How the publishable surfaces find each other after a user runs
 - **OpenClawd theme overlay** ([clawdhub/src/styles/openclawd-theme.css](clawdhub/src/styles/openclawd-theme.css)) — single CSS file mapping ClawdHub's existing variables to the v0.2 OpenClawd palette. Loaded once in `__root.tsx` so every route picks it up.
 - **Legacy brand sweep → OpenClawd** — 50+ files in `clawdhub/src/`, plus `convex/`, `server/`, `netlify/`, `live_chess-main/`, `e2e/`. Domains updated to `openclawd.net` / `seeker.openclawd.net`. Solana (the chain) preserved.
 - **Browser Bridge extension v0.2.0** ([chrome-extension/openclawd-chrome-extension/](chrome-extension/openclawd-chrome-extension/)) — CDP relay + Gateway HTTP client + Solana agent wallet (Ed25519, AES-GCM at-rest, PBKDF2 310k, 15-min auto-lock). Published as load-unpacked; CWS submission still TODO.
+- **Chrome extension release cleanup** — top-level popup package now emits `openclawd-popup-vX.Y.Z.zip`, Browser Bridge manifest summary is Chrome Web Store length-safe, generated installer config points at `~/.openclawdsolana/config.json`, and Browser MCP lock metadata matches `@openclawdsolana/browser-mcp@2.0.0`.
 
 ---
 

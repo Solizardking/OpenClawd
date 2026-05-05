@@ -188,8 +188,8 @@ const OPENCLAWD_CONFIG = {
   
   // SolanaOS Binary Connection
   solanaos: {
-    binaryPath: 'solanaos',
-    configPath: '~/.solanaos/solanaos.json',
+    binaryPath: 'openclawd',
+    configPath: '~/.openclawdsolana/config.json',
     gatewayPort: 18790,
     controlUIPort: 7777,
   },
@@ -205,7 +205,7 @@ const OPENCLAWD_CONFIG = {
     hub: 'https://hub.solanaclawd.com',
     website: 'https://solanaclawd.com',
     docs: 'https://docs.solanaclawd.com',
-    github: 'https://github.com/x402agent/openclawd',
+    github: 'https://github.com/clawdsolana/OpenClawd',
   },
 };
 
@@ -315,7 +315,7 @@ echo -e "  ${YELLOW}○${NC} Wallet API: Start with 'npm run ext:vault'"
 echo -e "\n${BOLD}📚 Documentation:${NC}"
 echo -e "  ${BLUE}→${NC} Hub: https://hub.solanaclawd.com"
 echo -e "  ${BLUE}→${NC} Docs: https://docs.solanaclawd.com"
-echo -e "  ${BLUE}→${NC} GitHub: https://github.com/x402agent/openclawd"
+echo -e "  ${BLUE}→${NC} GitHub: https://github.com/clawdsolana/OpenClawd"
 
 echo -e "\n${BOLD}💰 $CLAWD Token:${NC}"
 echo -e "  Mint: 8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump"

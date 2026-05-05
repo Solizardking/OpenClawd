@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Package the popup extension for Chrome Web Store submission.
-# Writes build/clawd-popup-vX.Y.Z.zip containing only the runtime files.
+# Writes build/openclawd-popup-vX.Y.Z.zip containing only the runtime files.
 set -euo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -9,7 +9,7 @@ cd "$HERE"
 VERSION=$(node -p "require('./manifest.json').version")
 OUT_DIR="build"
 STAGE="$OUT_DIR/stage"
-ZIP_NAME="clawd-popup-v${VERSION}.zip"
+ZIP_NAME="openclawd-popup-v${VERSION}.zip"
 
 rm -rf "$OUT_DIR"
 mkdir -p "$STAGE/icons"
