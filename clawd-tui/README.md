@@ -87,6 +87,17 @@ Requires `HELIUS_API_KEY` (get one at [helius.dev](https://www.helius.dev/)). Op
 - `/sigs <id>` — `getSignaturesForAsset` — recent on-chain history for a compressed asset
 - `/balance <addr>` — native SOL balance (RPC `getBalance`)
 
+### DeepSeek — direct chat, FIM, models, balance
+
+Requires `DEEPSEEK_API_KEY` (get one at [platform.deepseek.com](https://platform.deepseek.com/)). Optional `DEEPSEEK_BASE_URL` (defaults to `https://api.deepseek.com`) and `DEEPSEEK_MODEL` (defaults to `deepseek-v4-pro`; `deepseek-v4-flash` is cheaper).
+
+- `/deepseek <prompt>` — direct chat with thinking mode (streaming `reasoning_content` then `content`, with cache-hit token accounting)
+- `/deepseek-fim <prefix> -- <suffix>` — Fill-In-the-Middle completion against the beta endpoint
+- `/deepseek-balance` — show account balance (`is_available`, granted vs topped-up)
+- `/deepseek-models` — list available models from `/models`
+
+DeepSeek runs **alongside** OpenRouter — the agent loop still uses your OpenRouter key for tool-driven coding tasks; the `/deepseek*` commands hit DeepSeek directly for raw reasoning/FIM/account ops without an OpenRouter hop. The client also supports DeepSeek's Anthropic-compatible base URL (`https://api.deepseek.com/anthropic`) via `deepseekAnthropicBaseUrl()` if you want to point the official `@anthropic-ai/sdk` at DeepSeek elsewhere in your stack.
+
 ### On-paste contract analysis
 
 Paste any base58 Solana address straight into the prompt and Clawd auto-detects it. Birdeye and Helius fan out in **parallel** before the agent ever runs:
@@ -127,6 +138,9 @@ Env overrides:
 | `BIRDEYE_API_KEY`    | Powers `/trending /search /wallet /portfolio /networth` + paste analysis |
 | `HELIUS_API_KEY`     | Powers `/asset /assets /nfts /holders /sigs /balance` + paste analysis   |
 | `HELIUS_RPC_URL`     | Optional Helius RPC base override (defaults to mainnet)                  |
+| `DEEPSEEK_API_KEY`   | Powers `/deepseek /deepseek-fim /deepseek-balance /deepseek-models`      |
+| `DEEPSEEK_BASE_URL`  | Override DeepSeek base URL (defaults to `https://api.deepseek.com`)      |
+| `DEEPSEEK_MODEL`     | Default DeepSeek model id (defaults to `deepseek-v4-pro`)                |
 
 ## Develop
 
