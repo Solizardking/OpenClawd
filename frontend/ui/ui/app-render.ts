@@ -58,6 +58,7 @@ import { renderInstances } from "./views/instances";
 import { renderLogs } from "./views/logs";
 import { renderNodes } from "./views/nodes";
 import { renderOverview } from "./views/overview";
+import { renderPackages } from "./views/packages";
 import { renderSessions } from "./views/sessions";
 import { renderSkills } from "./views/skills";
 
@@ -334,6 +335,15 @@ export function renderApp(state: AppViewState) {
                 onSaveKey: (key) => saveSkillApiKey(state, key),
                 onInstall: (skillKey, name, installId) =>
                   installSkill(state, skillKey, name, installId),
+              })
+            : nothing
+        }
+
+        ${
+          state.tab === "packages"
+            ? renderPackages({
+                filter: state.packagesFilter,
+                onFilterChange: (next) => (state.packagesFilter = next),
               })
             : nothing
         }

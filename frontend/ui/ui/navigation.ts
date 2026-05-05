@@ -6,7 +6,7 @@ export const TAB_GROUPS = [
     label: "Control",
     tabs: ["overview", "channels", "instances", "sessions", "cron"],
   },
-  { label: "Agent", tabs: ["skills", "nodes"] },
+  { label: "Agent", tabs: ["skills", "packages", "nodes"] },
   { label: "Settings", tabs: ["config", "debug", "logs"] },
 ] as const;
 
@@ -17,6 +17,7 @@ export type Tab =
   | "sessions"
   | "cron"
   | "skills"
+  | "packages"
   | "nodes"
   | "chat"
   | "config"
@@ -30,6 +31,7 @@ const TAB_PATHS: Record<Tab, string> = {
   sessions: "/sessions",
   cron: "/cron",
   skills: "/skills",
+  packages: "/packages",
   nodes: "/nodes",
   chat: "/chat",
   config: "/config",
@@ -134,6 +136,8 @@ export function iconForTab(tab: Tab): IconName {
       return "loader";
     case "skills":
       return "zap";
+    case "packages":
+      return "package";
     case "nodes":
       return "monitor";
     case "config":
@@ -161,6 +165,8 @@ export function titleForTab(tab: Tab) {
       return "Cron Jobs";
     case "skills":
       return "Skills";
+    case "packages":
+      return "Packages";
     case "nodes":
       return "Nodes";
     case "chat":
@@ -189,7 +195,9 @@ export function subtitleForTab(tab: Tab) {
     case "cron":
       return "Schedule wakeups and recurring agent runs.";
     case "skills":
-      return "Manage skill availability and API key injection.";
+      return "Manage live skills, package-backed capabilities, and API key injection.";
+    case "packages":
+      return "OpenClawd package map, GitHub links, and connection surfaces.";
     case "nodes":
       return "Paired devices, capabilities, and command exposure.";
     case "chat":
