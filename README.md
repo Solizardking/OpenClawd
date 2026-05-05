@@ -1263,18 +1263,18 @@ See [`RELEASE.md`](RELEASE.md) for the full diagram + runbook.
 
 Which directories integrate, and how:
 
-| Path                            | Role                  | Reads registry as                         |
-| ------------------------------- | --------------------- | ----------------------------------------- |
-| `gateway/`                      | service               | `OPENCLAWD_GATEWAY_URL` (publishes self)  |
-| `clawdrouter/`                  | service               | `CLAWDROUTER_URL` (publishes self)        |
-| `services/agent-wallet/`        | service               | `OPENCLAWD_WALLET_API_URL`                |
-| `services/attestation-agent/`   | service               | `OPENCLAWD_ATTESTATION_URL`               |
-| `services/hermes-vault/`        | service               | `OPENCLAWD_HERMES_VAULT_URL`              |
-| `services/pump-scanner-cron/`   | service               | `OPENCLAWD_PUMP_SCANNER_URL`              |
-| `clawdhub/`                     | web app               | `CLAWDHUB_URL` + `OPENCLAWD_GATEWAY_URL`  |
-| `chrome-extension/`             | extension + MCP       | generated `openclawd-config.js`           |
-| `mcp/`                          | Solana-tools MCP      | `OPENCLAWD_MCP_URL`                       |
-| `src/` & `cli/`                 | top-level entrypoints | `discover()` for any localhost call       |
+| Path | Role | Reads registry as |
+| --- | --- | --- |
+| `gateway/` | service | `OPENCLAWD_GATEWAY_URL` (publishes self) |
+| `clawdrouter/` | service | `CLAWDROUTER_URL` (publishes self) |
+| `services/agent-wallet/` | service | `OPENCLAWD_WALLET_API_URL` |
+| `services/attestation-agent/` | service | `OPENCLAWD_ATTESTATION_URL` |
+| `services/hermes-vault/` | service | `OPENCLAWD_HERMES_VAULT_URL` |
+| `services/pump-scanner-cron/` | service | `OPENCLAWD_PUMP_SCANNER_URL` |
+| `clawdhub/` | web app | `CLAWDHUB_URL` + `OPENCLAWD_GATEWAY_URL` |
+| `chrome-extension/` | extension + MCP | generated `openclawd-config.js` |
+| `mcp/` | Solana-tools MCP | `OPENCLAWD_MCP_URL` |
+| `src/` & `cli/` | top-level entrypoints | `discover()` for any localhost call |
 | `openclawd-framework/`, `npm/`, `packages/*`, `scripts/`, `skills/`, `site/`, `profiles/`, `clawd-vault-master/`, `plugin.delivery/` | libraries, scripts, static data | not network-bound — no integration needed |
 
 `scripts/doctor.mjs --registry` is the verification tool — run it any time you want to know which services are reachable from the current shell, with whatever env overrides happen to be set.
