@@ -56,9 +56,21 @@ node hackathon/demos/robot-command-demo.mjs
 
 # 4. Optional: build the hardware-side Go binary
 cd cmd/openclawd-go && go build -o openclawd-go .
+
+# 5. Optional: print the physical GR00T deployment plan
+./cmd/openclawd-go/openclawd-go gr00t plan --robot-id OPENCLAWDASV1
 ```
 
 The demo is read-only and deterministic. It does not require `SOLANA_PRIVATE_KEY`, funded wallets, RPC access, or API keys.
+
+## Presentation Status
+
+- One-page site: ready at [`one-page-site/index.html`](./one-page-site/index.html).
+- Pitch deck: ready at [`presentation/pitch-deck.html`](./presentation/pitch-deck.html).
+- Speaker notes: ready at [`presentation/speaker-notes.md`](./presentation/speaker-notes.md).
+- Offline demo: ready at [`demos/robot-command-demo.mjs`](./demos/robot-command-demo.mjs).
+- DePIN physical-AI story: ready at [`docs/depin-physical-ai.md`](./docs/depin-physical-ai.md).
+- Real hardware path: ready at [`robotics/README.md`](./robotics/README.md) and [`../Robotics/OCASV1/`](../Robotics/OCASV1/).
 
 ## Live Stack This Submission Combines
 
