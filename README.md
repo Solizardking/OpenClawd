@@ -39,6 +39,20 @@ npm run doctor
 npm run dev:cli
 ```
 
+To spin up a Solana merchant or agentic point-of-sale from the vendored Pay
+stack:
+
+```bash
+npm run payments:merchant -- create demo-store \
+  --recipient 11111111111111111111111111111111 \
+  --label "Demo Store"
+```
+
+This generates `generated/merchants/demo-store` with Solana Pay core, the POS
+app, a merchant payment-flow simulator, and `openclawd.merchant.json` for
+OpenClawd agents. Payment build hooks are available as `npm run
+install:payments`, `npm run build:payments`, and `npm run typecheck:payments`.
+
 Minimum useful env:
 
 ```bash

@@ -16,6 +16,7 @@ const rootDir = join(__dirname, '..');
 // Known-safe patterns (excluded from scanning)
 const SAFE_PATTERNS = [
   /^11111111111111111111111111111111$/, // Solana System Program address
+  /^11111111111111111111111111111112$/, // Solana placeholder address (System Program + 1), common test fixture
   /^AKIAIOSFODNN7EXAMPLE$/, // AWS example access key
   /^c8a8aaeb7ef3fbcce40bada2196e2bcb$/, // Known example hash
   /^0bc83cb571cd1c50ba6f3e8a78ef1346$/, // Gravatar example hash (MD5)
