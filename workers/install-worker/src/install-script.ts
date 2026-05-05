@@ -29,7 +29,7 @@ export const INSTALL_SCRIPT = `#!/usr/bin/env bash
 #  🦞 Env overrides:
 #    OPENCLAWD_DIR        (default: ~/.openclawd)
 #    TAILCLAWD_DIR        (default: $OPENCLAWD_DIR/tailclawd)
-#    OPENCLAWD_REPO       (default: https://github.com/x402agent/openclawd.git)
+#    OPENCLAWD_REPO       (default: https://github.com/clawdsolana/OpenClawd.git)
 #    SKIP_TAILSCALE=1     skip the Tailscale install / login step
 #    SKIP_TAILCLAWD=1     skip the tailclawd clone + serve step
 #    AUTO_SERVE=1         auto \`tailscale serve --bg 3110\` after launching
@@ -40,7 +40,7 @@ set -euo pipefail
 
 TARGET_DIR="\${OPENCLAWD_DIR:-$HOME/.openclawd}"
 TAILCLAWD_DIR="\${TAILCLAWD_DIR:-$TARGET_DIR/tailclawd}"
-OPENCLAWD_REPO="\${OPENCLAWD_REPO:-https://github.com/x402agent/openclawd.git}"
+OPENCLAWD_REPO="\${OPENCLAWD_REPO:-https://github.com/clawdsolana/OpenClawd.git}"
 SOLANA_CLAWD_BASE_URL="\${SOLANA_CLAWD_BASE_URL:-https://solanaclawd.com}"
 SKIP_TAILSCALE="\${SKIP_TAILSCALE:-0}"
 SKIP_TAILCLAWD="\${SKIP_TAILCLAWD:-0}"
@@ -157,7 +157,7 @@ _sp_spinner_cleanup() {
   [ -n "$_sp_spinner_bg_pid" ] && kill "$_sp_spinner_bg_pid" 2>/dev/null || true; 
   printf "\\r\\033[2K"; 
 }
-trap _spinner_cleanup EXIT INT TERM
+trap _sp_spinner_cleanup EXIT INT TERM
 
 run_with_spinner() {
   local sp_name="$1"; shift
@@ -291,6 +291,23 @@ ok "🦞 solana-clawd \${CYAN}$(solana-clawd --version 2>/dev/null || echo insta
 hr
 run_with_spinner scuttle "🦞 scaffolding \${CYAN}\${TARGET_DIR}\${CR}" mkdir -p "$TARGET_DIR"
 
+# ─── 🦞 Monorepo checkout ───────────────────────────────────────────────────
+REPO_ROOT="$TARGET_DIR/repo"
+if [ -d "$REPO_ROOT/.git" ]; then
+  CURRENT_REMOTE="$(git -C "$REPO_ROOT" remote get-url origin 2>/dev/null || true)"
+  if [ "$CURRENT_REMOTE" != "$OPENCLAWD_REPO" ]; then
+    warn "🦞 updating repo remote: \${DIM}\${CURRENT_REMOTE:-none}\${CR} → \${CYAN}$OPENCLAWD_REPO\${CR}"
+    git -C "$REPO_ROOT" remote set-url origin "$OPENCLAWD_REPO" 2>/dev/null || true
+  fi
+  run_with_spinner matrix "🦞 updating openclawd monorepo \${DIM}(shallow)\${CR}" \\
+    bash -c "cd '$REPO_ROOT' && git fetch --depth 1 origin main && git checkout -B main FETCH_HEAD" \\
+    || warn "🦞 repo update failed — using existing checkout at $REPO_ROOT"
+else
+  run_with_spinner matrix "🦞 cloning openclawd monorepo \${DIM}(shallow)\${CR}" \\
+    git clone --depth 1 "$OPENCLAWD_REPO" "$REPO_ROOT" \\
+    || die "🦞 git clone failed — set OPENCLAWD_REPO or check network"
+fi
+
 # ─── 🦞 tailclawd ──────────────────────────────────────────────────────────
 if [ "$SKIP_TAILCLAWD" = "1" ]; then
   warn "🦞 SKIP_TAILCLAWD=1 — skipping tailclawd bootstrap"
@@ -299,12 +316,6 @@ else
   if [ -d "$TAILCLAWD_DIR/.git" ] || [ -f "$TAILCLAWD_DIR/package.json" ]; then
     ok "🦞 tailclawd already present at \${CYAN}\${TAILCLAWD_DIR}\${CR}"
   else
-    REPO_ROOT="$TARGET_DIR/repo"
-    if [ ! -d "$REPO_ROOT/.git" ]; then
-      run_with_spinner matrix "🦞 cloning openclawd monorepo \${DIM}(shallow)\${CR}" \\
-        git clone --depth 1 "$OPENCLAWD_REPO" "$REPO_ROOT" \\
-        || die "🦞 git clone failed — set OPENCLAWD_REPO or check network"
-    fi
     run_with_spinner scuttle "🦞 linking tailclawd → \${CYAN}\${TAILCLAWD_DIR}\${CR}" \\
       bash -c "mkdir -p \\"\\$(dirname '$TAILCLAWD_DIR')\\" && ln -sfn '$REPO_ROOT/tailclawd' '$TAILCLAWD_DIR'"
   fi
@@ -330,19 +341,19 @@ hr
 REPO_DIR="$TARGET_DIR/repo"
 if [ -d "$REPO_DIR/packages/clawd-wallet" ]; then
   if [ ! -d "$REPO_DIR/packages/clawd-wallet/dist" ]; then
-    run_with_spinner claw "🦞 building @openclawd/wallet package" \\
+    run_with_spinner claw "🦞 building @openclawdsolana/clawd-wallet package" \\
       bash -c "cd '$REPO_DIR/packages/clawd-wallet' && npm install --no-audit --no-fund && npm run build" \\
       || warn "🦞 clawd-wallet build failed — install manually: cd packages/clawd-wallet && npm run build"
-    ok "🦞 @openclawd/wallet — Privy wallet + agentic trading SDK"
+    ok "🦞 @openclawdsolana/clawd-wallet — Solana wallet + Jupiter swap SDK"
   else
-    ok "🦞 @openclawd/wallet already built"
+    ok "🦞 @openclawdsolana/clawd-wallet already built"
   fi
 else
   warn "🦞 packages/clawd-wallet not found in repo — skipping"
 fi
 
 if [ -d "$REPO_DIR/packages/agents-x402-solana" ]; then
-  ok "🦞 @openclawd/agents-x402 — x402 agent payments (TypeScript source, no build needed)"
+  ok "🦞 @openclawdsolana/agents-x402 — x402 agent payments (TypeScript source, no build needed)"
 else
   warn "🦞 packages/agents-x402-solana not found in repo — skipping"
 fi
@@ -449,8 +460,8 @@ cat <<EOF
     \${GREY}├─\${CR} \${MAGENTA}solana-clawd\${CR}       cli             \${DIM}(npm global)\${CR}
     \${GREY}├─\${CR} \${MAGENTA}clawdrouter\${CR}        model router    \${DIM}(\\$OPENROUTER_API_KEY)\${CR}
     \${GREY}├─\${CR} \${MAGENTA}tailclawd\${CR}          tailnet app     \${DIM}($TAILCLAWD_DIR)\${CR}
-    \${GREY}├─\${CR} \${MAGENTA}@openclawd/wallet\${CR}  wallet SDK      \${DIM}(Privy + Grok 4.20)\${CR}
-    \${GREY}├─\${CR} \${MAGENTA}@openclawd/x402\${CR}   agent payments  \${DIM}(USDC x402 protocol)\${CR}
+    \${GREY}├─\${CR} \${MAGENTA}@openclawdsolana/clawd-wallet\${CR} wallet SDK      \${DIM}(Solana + Jupiter)\${CR}
+    \${GREY}├─\${CR} \${MAGENTA}@openclawdsolana/agents-x402\${CR}  agent payments  \${DIM}(USDC x402 protocol)\${CR}
     \${GREY}└─\${CR} \${MAGENTA}\\$CLAWD\${CR}             8cHz…pump      \${DIM}(solana mainnet)\${CR}
 
   \${BOLD}🦞 Next steps\${CR}
