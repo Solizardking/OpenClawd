@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/PageAgent.ts", "src/demo-solana.ts"],
+  "exclude": ["src/demo.ts", "dist", "node_modules"]
+}

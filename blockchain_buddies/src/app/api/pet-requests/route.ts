@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
 import { auth, clerkClient } from "@clerk/nextjs/server";
-import { desc, eq, inArray, sql } from "drizzle-orm";
 import { neon } from "@neondatabase/serverless";
+import { desc, eq, inArray, sql } from "drizzle-orm";
 
 import { db, schema } from "@/lib/db/client";
 import { embedQuery } from "@/lib/query-embed";
@@ -41,13 +41,17 @@ export async function GET(req: Request): Promise<Response> {
     ? await db
         .select()
         .from(schema.petRequests)
-        .orderBy(sql`${schema.petRequests.upvoteCount} DESC, ${schema.petRequests.createdAt} DESC`)
+        .orderBy(
+          sql`${schema.petRequests.upvoteCount} DESC, ${schema.petRequests.createdAt} DESC`,
+        )
         .limit(limit)
     : await db
         .select()
         .from(schema.petRequests)
         .where(eq(schema.petRequests.status, statusParam))
-        .orderBy(sql`${schema.petRequests.upvoteCount} DESC, ${schema.petRequests.createdAt} DESC`)
+        .orderBy(
+          sql`${schema.petRequests.upvoteCount} DESC, ${schema.petRequests.createdAt} DESC`,
+        )
         .limit(limit);
 
   const requestIds = rows.map((r) => r.id);
@@ -137,7 +141,7 @@ export async function GET(req: Request): Promise<Response> {
   return NextResponse.json({
     requests: rows.map((r) => {
       const requester = r.requestedBy
-        ? clerkInfo.get(r.requestedBy) ?? null
+        ? (clerkInfo.get(r.requestedBy) ?? null)
         : null;
       // Exclude the requester from the voter stack — they auto-vote
       // for their own request, but rendering them twice in the UI
@@ -150,7 +154,7 @@ export async function GET(req: Request): Promise<Response> {
         .filter((v): v is ClerkInfo => Boolean(v))
         .slice(0, 6);
       const fulfilledPet = r.fulfilledPetSlug
-        ? petBySlug.get(r.fulfilledPetSlug) ?? null
+        ? (petBySlug.get(r.fulfilledPetSlug) ?? null)
         : null;
       return {
         id: r.id,

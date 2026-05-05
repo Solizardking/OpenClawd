@@ -24,7 +24,10 @@ import { rowToPet } from "@/lib/pets";
 import { embedQuery, looksLikeVibeQuery } from "@/lib/query-embed";
 import { PET_KINDS, PET_VIBES, type PetKind, type PetVibe } from "@/lib/types";
 
-const rawSql = neon(process.env.DATABASE_URL ?? "");
+const rawSql = neon(
+  process.env.DATABASE_URL ??
+    "postgres://missing:missing@localhost:5432/missing",
+);
 
 export type SortKey = "curated" | "popular" | "installed" | "alpha";
 
