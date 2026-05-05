@@ -1,6 +1,11 @@
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
 import type { NextConfig } from "next";
 
 import createNextIntlPlugin from "next-intl/plugin";
+
+const appDir = dirname(fileURLToPath(import.meta.url));
 
 // Content-Security-Policy. Blocks inline <script> sources we didn't ship,
 // caps img / connect / frame ancestors. The `unsafe-inline` allowance for
@@ -71,6 +76,9 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   // Hide the framework banner on every response.
   poweredByHeader: false,
+  turbopack: {
+    root: appDir,
+  },
   async headers() {
     return [
       {
