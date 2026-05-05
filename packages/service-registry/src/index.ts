@@ -22,6 +22,8 @@ export interface ServiceConfig {
   url: string
   healthPath: string
   envOverride: string
+  /** Service-specific env var that overrides only the port (kept for back-compat with each service's existing knob). */
+  portEnvOverride?: string
 }
 
 const env = (key: string): string | undefined => {
@@ -31,17 +33,21 @@ const env = (key: string): string | undefined => {
   return undefined
 }
 
+// Defaults match what each service actually defaults to today (audited against
+// gateway/src/http.ts, clawdrouter/src/index.ts, services/agent-wallet/api.go,
+// chrome-extension/mcp/src/index.js, etc.). Updating these without updating
+// the matching service constant will silently desync the registry from reality.
 const defaults: Record<ServiceName, Omit<ServiceConfig, 'name' | 'url'>> = {
-  gateway:          { host: '127.0.0.1', port: 18790, healthPath: '/healthz', envOverride: 'OPENCLAWD_GATEWAY_URL' },
-  clawdrouter:      { host: '127.0.0.1', port: 4000,  healthPath: '/healthz', envOverride: 'CLAWDROUTER_URL' },
-  walletApi:        { host: '127.0.0.1', port: 8421,  healthPath: '/health',  envOverride: 'OPENCLAWD_WALLET_API_URL' },
-  mawdaxe:          { host: '127.0.0.1', port: 8420,  healthPath: '/health',  envOverride: 'OPENCLAWD_MAWDAXE_URL' },
-  mcpBridge:        { host: '127.0.0.1', port: 3001,  healthPath: '/healthz', envOverride: 'OPENCLAWD_MCP_URL' },
-  browserMcp:       { host: '127.0.0.1', port: 38401, healthPath: '/healthz', envOverride: 'OPENCLAWD_BROWSER_MCP_URL' },
-  clawdhub:         { host: '127.0.0.1', port: 3000,  healthPath: '/api/health', envOverride: 'CLAWDHUB_URL' },
-  attestationAgent: { host: '127.0.0.1', port: 8430,  healthPath: '/health',  envOverride: 'OPENCLAWD_ATTESTATION_URL' },
-  hermesVault:      { host: '127.0.0.1', port: 8431,  healthPath: '/health',  envOverride: 'OPENCLAWD_HERMES_VAULT_URL' },
-  pumpScannerCron:  { host: '127.0.0.1', port: 8432,  healthPath: '/health',  envOverride: 'OPENCLAWD_PUMP_SCANNER_URL' },
+  gateway:          { host: '127.0.0.1', port: 8788,  healthPath: '/healthz',     envOverride: 'OPENCLAWD_GATEWAY_URL',     portEnvOverride: 'GATEWAY_HTTP_PORT' },
+  clawdrouter:      { host: '127.0.0.1', port: 8402,  healthPath: '/healthz',     envOverride: 'CLAWDROUTER_URL',           portEnvOverride: 'CLAWDROUTER_PORT' },
+  walletApi:        { host: '127.0.0.1', port: 3000,  healthPath: '/health',      envOverride: 'OPENCLAWD_WALLET_API_URL',  portEnvOverride: 'WALLET_API_PORT' },
+  mawdaxe:          { host: '127.0.0.1', port: 8420,  healthPath: '/health',      envOverride: 'OPENCLAWD_MAWDAXE_URL' },
+  mcpBridge:        { host: '127.0.0.1', port: 3001,  healthPath: '/healthz',     envOverride: 'OPENCLAWD_MCP_URL',         portEnvOverride: 'OPENCLAWD_MCP_PORT' },
+  browserMcp:       { host: '127.0.0.1', port: 38401, healthPath: '/healthz',     envOverride: 'OPENCLAWD_BROWSER_MCP_URL', portEnvOverride: 'PORT' },
+  clawdhub:         { host: '127.0.0.1', port: 5173,  healthPath: '/api/health',  envOverride: 'CLAWDHUB_URL' },
+  attestationAgent: { host: '127.0.0.1', port: 8430,  healthPath: '/health',      envOverride: 'OPENCLAWD_ATTESTATION_URL' },
+  hermesVault:      { host: '127.0.0.1', port: 8431,  healthPath: '/health',      envOverride: 'OPENCLAWD_HERMES_VAULT_URL' },
+  pumpScannerCron:  { host: '127.0.0.1', port: 8432,  healthPath: '/health',      envOverride: 'OPENCLAWD_PUMP_SCANNER_URL' },
 }
 
 const buildUrl = (host: string, port: number): string => `http://${host}:${port}`
@@ -60,8 +66,26 @@ const parseOverride = (raw: string, fallback: { host: string; port: number }): {
 
 export const discover = (name: ServiceName): ServiceConfig => {
   const def = defaults[name]
-  const override = env(def.envOverride)
-  const { host, port } = override ? parseOverride(override, def) : { host: def.host, port: def.port }
+  const urlOverride = env(def.envOverride)
+  let host = def.host
+  let port = def.port
+
+  if (urlOverride) {
+    const parsed = parseOverride(urlOverride, def)
+    host = parsed.host
+    port = parsed.port
+  }
+
+  // Port-only override (kept for compat with each service's existing knob —
+  // GATEWAY_HTTP_PORT, CLAWDROUTER_PORT, etc.). Applied after the URL override
+  // so an explicit URL still wins.
+  if (!urlOverride && def.portEnvOverride) {
+    const portOverride = env(def.portEnvOverride)
+    if (portOverride && /^\d+$/.test(portOverride)) {
+      port = Number(portOverride)
+    }
+  }
+
   return {
     name,
     host,
@@ -69,6 +93,7 @@ export const discover = (name: ServiceName): ServiceConfig => {
     url: buildUrl(host, port),
     healthPath: def.healthPath,
     envOverride: def.envOverride,
+    portEnvOverride: def.portEnvOverride,
   }
 }
 
