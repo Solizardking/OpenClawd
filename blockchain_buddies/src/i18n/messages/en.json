@@ -60,7 +60,7 @@
   "home": {
     "eyebrow": "The OpenClawd buddy index",
     "title": "Blockchain Buddies",
-    "tagline": "The public gallery of animated companions for <brand />. Browse {totalBuddies}+ open-source companions, preview their states, and install one with a single command.",
+    "tagline": "The public gallery of animated companions for <brand />. Browse {totalPets}+ open-source companions, preview their states, and install one with a single command.",
     "heroCommand": "npx blockchain-buddies install boba",
     "submitCta": "Submit a buddy",
     "browseGallery": "Browse gallery",
@@ -421,7 +421,7 @@
     "eyebrow": "About",
     "hero": {
       "title": "Blockchain Buddies is the index of OpenClawd buddies",
-      "body": "An open-source gallery of {totalBuddies}+ animated companions for <strong>OpenClawd</strong>. Install one with a single command and ship with company."
+      "body": "An open-source gallery of {totalPets}+ animated companions for <strong>OpenClawd</strong>. Install one with a single command and ship with company."
     },
     "sections": {
       "what": {
