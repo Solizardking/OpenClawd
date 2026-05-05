@@ -1,4 +1,4 @@
-# 🦞 OpenClawd Control UI
+# 🦞 OpenClawd Cyberdeck UI
 
 Lit + React-Three-Fiber dashboard for the OpenClawd stack. Three entry points share one Vite build:
 
@@ -79,7 +79,7 @@ src/
 ├── styles.css                   # shared global styles
 ├── ocean/                       # 3D scene (R3F, separate React tree)
 └── ui/                          # control-panel app
-    ├── app.ts                   # <openclaw-app> root LitElement
+    ├── app.ts                   # <openclawd-app> root LitElement
     ├── app-render.ts            # render dispatch table — adds renderSolana
     ├── navigation.ts            # tab union, paths, icons, titles
     ├── solana-gateway-client.ts # typed fetch wrapper for the HTTP gateway
@@ -92,6 +92,6 @@ src/
 
 ## Production deploy
 
-`vite build` outputs to `../dist/control-ui/` with all three HTML entries — wire that to any static host (Cloudflare Pages, Vercel, S3) and point `OPENCLAW_CONTROL_UI_BASE_PATH` to the path prefix if you're hosting at a sub-route.
+`vite build` outputs to `../dist/control-ui/` with all three HTML entries — wire that to any static host (Cloudflare Pages, Vercel, S3) and point `OPENCLAWD_CONTROL_UI_BASE_PATH` to the path prefix if you're hosting at a sub-route.
 
 The Solana panel reads its gateway URL from `localStorage` (`openclawd-solana-gateway-base`) so a deployed UI can talk to a remote gateway — set the URL in the top-right input on first visit, it persists across reloads.
