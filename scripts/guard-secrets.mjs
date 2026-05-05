@@ -25,7 +25,9 @@ const SAFE_PATTERNS = [
 // Secret patterns to detect
 const SECRET_PATTERNS = [
   { pattern: /sk-[a-zA-Z0-9]{20,}/, name: 'OpenAI/HeyAPI key', exclude: ['scripts/', 'node_modules/'] },
-  { pattern: /sk-proj-[a-zA-Z0-9_-]{20,}/, name: 'OpenRouter key', exclude: ['scripts/', 'node_modules/'] },
+  { pattern: /sk-proj-[a-zA-Z0-9_-]{20,}/, name: 'OpenAI project key', exclude: ['scripts/', 'node_modules/'] },
+  { pattern: /sk-or-v1-[a-zA-Z0-9_-]{20,}/, name: 'OpenRouter key', exclude: ['scripts/', 'node_modules/'] },
+  { pattern: /xai-[a-zA-Z0-9_-]{20,}/, name: 'xAI API key', exclude: ['scripts/', 'node_modules/'] },
   { pattern: /[a-zA-Z0-9_-]{32,}\.(api|secret|key)[a-zA-Z0-9_-]*['"`,]/i, name: 'Generic API key', exclude: ['scripts/', 'node_modules/'] },
   { pattern: /-----BEGIN (RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----/, name: 'Private key block', exclude: ['scripts/', 'node_modules/'] },
   { pattern: /xox[baprs]-[a-zA-Z0-9]{10,}/, name: 'Slack token', exclude: ['scripts/', 'node_modules/'] },
