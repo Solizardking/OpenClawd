@@ -9,19 +9,20 @@
     <style>
       :root {
         color-scheme: dark;
-        --bg: #0a0e1a;
-        --bg-elev: #131a2e;
-        --bg-card: #131a2e;
-        --border: #1f2942;
-        --border-bright: #2c3a60;
-        --text: #e6edf7;
-        --muted: #93a0bd;
-        --accent: #14F195;     /* Solana green */
-        --accent-2: #9945FF;   /* Solana purple */
-        --orange: #ff9e44;     /* Lobster */
-        --red: #ff5d6c;
-        --gradient: linear-gradient(135deg, #14F195 0%, #9945FF 100%);
-        font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        /* Legacy aliases — sourced from @openclawdsolana/pagent-theme via theme.css. */
+        --bg:            var(--oc-color-bg, #0a0e1a);
+        --bg-elev:       var(--oc-color-bg-raised, #131a2e);
+        --bg-card:       var(--oc-color-bg-raised, #131a2e);
+        --border:        var(--oc-color-border, #1f2942);
+        --border-bright: var(--oc-color-border-strong, #2c3a60);
+        --text:          var(--oc-color-text, #e6edf7);
+        --muted:         var(--oc-color-text-muted, #93a0bd);
+        --accent:        var(--oc-color-solana-green, #14F195);
+        --accent-2:      var(--oc-color-solana-purple, #9945FF);
+        --orange:        var(--oc-color-lobster-coral, #ff9e44);
+        --red:           var(--oc-color-danger, #ff5d6c);
+        --gradient:      var(--oc-gradient-brand, linear-gradient(135deg, #14F195 0%, #9945FF 100%));
+        font-family: var(--oc-font-family, 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif);
         line-height: 1.5;
       }
       * { box-sizing: border-box; }
