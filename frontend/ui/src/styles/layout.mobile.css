@@ -167,6 +167,28 @@
     gap: 8px;
   }
 
+  .stack-hero {
+    grid-template-columns: 1fr;
+    padding: 14px;
+  }
+
+  .stack-hero h2 {
+    font-size: 20px;
+  }
+
+  .stack-actions,
+  .segmented-control {
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+
+  .package-grid,
+  .capability-strip,
+  .connection-grid {
+    grid-template-columns: 1fr;
+  }
+
   /* Forms */
   .form-grid {
     grid-template-columns: 1fr;
