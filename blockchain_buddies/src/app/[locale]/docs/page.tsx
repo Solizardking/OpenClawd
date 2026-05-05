@@ -74,7 +74,7 @@ export default function DocsPage() {
                 rel="noreferrer"
                 className="inline-flex h-10 items-center gap-2 rounded-full border border-border-base bg-surface px-4 text-sm font-medium transition hover:border-border-strong"
               >
-                npmjs.com//blockchain-buddies
+                npmjs.com/@openclawdsolana/blockchain-buddies
                 <ArrowRight className="size-4" />
               </a>
               <a
