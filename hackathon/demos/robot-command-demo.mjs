@@ -88,10 +88,68 @@ function paymentIntent(command) {
   };
 }
 
+function autonomousResearchLoop(packet, memory, policy) {
+  const riskBudget = policy.decision === "allow_limited" ? "reduced" : "blocked";
+  const candidate = {
+    id: "percolator-lane-v1",
+    market: "SOL/USDC",
+    mode: "paper",
+    hypothesis: "Volatility expansion with healthy liquidity can outperform the current champion when hazard context reduces position size.",
+    entry: "volume expansion and liquidity above policy floor",
+    exit: "take_profit_3_5_pct_or_stop_1_2_pct",
+    max_budget_usd: riskBudget === "reduced" ? 250 : 0,
+    live_execution: "blocked_until_wallet_policy_approval"
+  };
+
+  const evaluation = {
+    duration: "offline_bounded_demo",
+    simulated_pnl_pct: 2.4,
+    max_drawdown_pct: 0.8,
+    policy_violations: 0,
+    beats_current_champion: true,
+    score: 0.71
+  };
+
+  const ratchet = evaluation.beats_current_champion && evaluation.policy_violations === 0
+    ? "promote_to_paper_champion"
+    : "retire_candidate";
+
+  const honchoPersistence = {
+    memory_provider: "honcho_style_persistence",
+    session: "openclawd-hackathon-autoresearch",
+    peer: "openclawd-robotics-commander",
+    remember: [
+      "operator default is read-only until wallet policy approval",
+      `${candidate.id} improved simulated score without policy violations`,
+      `${packet.site} hazard context should reduce live trading budget`
+    ],
+    search_tags: ["strategy-lineage", "risk-policy", "paper-trading", "robotics"]
+  };
+
+  return {
+    inspiration: {
+      percolator: "parallel risk-contained trading lanes",
+      karpathy_autoresearch: "bounded experiment, objective score, keep winners, discard failures",
+      honcho: "cross-session strategy and operator memory"
+    },
+    research_goal: "evolve a Solana paper-trading strategy without live wallet access",
+    memory_inputs: {
+      known_count: memory.known.length,
+      inferred_count: memory.inferred.length,
+      learned_count: memory.learned.length
+    },
+    candidate_strategy: candidate,
+    evaluation,
+    ratchet_decision: ratchet,
+    honcho_persistence: honchoPersistence
+  };
+}
+
 const memory = classifyTelemetry(sample);
 const command = planCommand(sample, memory);
 const policy = policyCheck(command);
 const payment = paymentIntent(command);
+const autonomousResearch = autonomousResearchLoop(sample, memory, policy);
 
 const receipt = {
   receipt_type: "openclawd.robot_command.v1",
@@ -104,11 +162,13 @@ const receipt = {
   command,
   policy,
   payment,
+  autonomous_research: autonomousResearch,
   hashes: {
     telemetry: hash(sample.telemetry),
     command: hash(command),
     policy: hash(policy),
-    payment: payment ? hash(payment) : null
+    payment: payment ? hash(payment) : null,
+    autonomous_research: hash(autonomousResearch)
   },
   next_onchain_step: "Register OpenClawdRobotCommand schema through services/attestation-agent and submit this receipt hash on devnet."
 };
@@ -121,6 +181,6 @@ console.log(`Memory KNOWN: ${memory.known.join(" | ")}`);
 console.log(`Command: ${command.action} @ ${command.max_speed_mps} m/s`);
 console.log(`Policy: ${policy.decision}`);
 console.log(`Payment intent: ${payment ? `${payment.protocol} ${payment.amount_usd} ${payment.asset} -> ${payment.service}` : "none"}`);
+console.log(`Autonomous research: ${autonomousResearch.ratchet_decision} (${autonomousResearch.candidate_strategy.id})`);
 console.log("");
 console.log(JSON.stringify(receipt, null, 2));
-

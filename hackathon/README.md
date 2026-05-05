@@ -32,6 +32,7 @@ Submission package for **OpenClawd Robotics Command Layer**: a Solana-native AI 
 | Speaker notes | [`presentation/speaker-notes.md`](./presentation/speaker-notes.md) | 5-minute talk track |
 | Architecture docs | [`docs/architecture.md`](./docs/architecture.md) | How the monorepo pieces combine into the robotics submission |
 | Autonomous research loop | [`docs/autonomous-research-loop.md`](./docs/autonomous-research-loop.md) | Self-evolving paper-trading loop, Honcho persistence model, and Toly/Karpathy inspiration |
+| Package shades | [`docs/package-shades.md`](./docs/package-shades.md) and [`assets/package-shades.json`](./assets/package-shades.json) | Public-safe snapshot of each OpenClawd package's role in the hackathon project |
 | Demo guide | [`docs/demo-guide.md`](./docs/demo-guide.md) | Demo flow for judges and local reviewers |
 | Technical spec | [`docs/technical-spec.md`](./docs/technical-spec.md) | APIs, data contracts, security model, and integration points |
 | Judging checklist | [`docs/judging-checklist.md`](./docs/judging-checklist.md) | Clear mapping to likely hackathon judging criteria |

@@ -38,6 +38,8 @@ OpenClawd adapts the existing Solana-native financial agent stack into a robotic
 | Payments and plugin delivery | `clawdrouter/`, `payments/`, `plugin.delivery/`, `workers/` |
 | User surfaces | `site/`, `chrome-extension/`, `tailclawd/`, `moltbook-agent/`, `blockchain_buddies/` |
 
+See [`docs/package-shades.md`](./docs/package-shades.md) for a public-safe shade of each package and how it contributes to the hackathon project.
+
 ## Demo Scenario
 
 **Robot:** `clawd-rover-07`  

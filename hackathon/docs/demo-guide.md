@@ -61,6 +61,7 @@ open hackathon/presentation/pitch-deck.html
 open hackathon/docs/architecture.md
 open hackathon/docs/technical-spec.md
 open hackathon/docs/autonomous-research-loop.md
+open hackathon/docs/package-shades.md
 ```
 
 Narrative:
@@ -70,6 +71,7 @@ Narrative:
 3. The hackathon package adapts the repo into a robotics command layer.
 4. The offline demo proves the control flow without exposing keys.
 5. The autonomous research block shows how OpenClawd evolves trading strategies through paper experiments before anything reaches a live wallet.
+6. The package shades doc shows how each repo package contributes without exposing private code or secrets.
 
 ## Optional Live Extensions
 

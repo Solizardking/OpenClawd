@@ -1,0 +1,90 @@
+{
+  "description": "Public-safe package shades for the OpenClawd hackathon bundle.",
+  "private_code_included": false,
+  "packages": [
+    {
+      "name": "openclawd",
+      "path": ".",
+      "shade": "Solana-native AI agent monorepo for payments, MCP tools, memory, wallet policy, and developer surfaces.",
+      "hackathon_role": "Shared architecture for autonomous robotics and trading loops."
+    },
+    {
+      "name": "@openclawdsolana/mcp",
+      "path": "mcp/",
+      "shade": "MCP boundary for Helius, Jupiter, wallet reads, token data, memory, and future robot tools.",
+      "hackathon_role": "Standardizes read-only observation, paper-trading tools, and gated execution."
+    },
+    {
+      "name": "@openclawdsolana/agents-registry",
+      "path": "agents/",
+      "shade": "Agent registry and Metaplex-ready metadata catalog.",
+      "hackathon_role": "Makes robot and trader agents discoverable as Solana actors."
+    },
+    {
+      "name": "@openclawdsolana/leviathan",
+      "path": "openclawd-framework/",
+      "shade": "Sovereign lifecycle runtime for spawn, sense, think, strike, and drift.",
+      "hackathon_role": "Gives autonomous agents a repeatable lifecycle."
+    },
+    {
+      "name": "llm-wiki-tang",
+      "path": "llm-wiki-tang/",
+      "shade": "AutoResearch wiki over Solana market and wallet data.",
+      "hackathon_role": "Stores research runs and feeds the self-evolving strategy loop."
+    },
+    {
+      "name": "@openclawdsolana/honcho-bridge",
+      "path": "packages/honcho-bridge/",
+      "shade": "Honcho-style peer/session memory bridge.",
+      "hackathon_role": "Persists operator preferences, strategy lineage, and durable agent self-models."
+    },
+    {
+      "name": "plugin.delivery",
+      "path": "plugin.delivery/",
+      "shade": "Plugin marketplace, SDK, gateway, and attestation-aware manifests.",
+      "hackathon_role": "Lets agents discover paid specialist capabilities."
+    },
+    {
+      "name": "@openclawdsolana/clawdrouter",
+      "path": "clawdrouter/",
+      "shade": "Wallet-signed LLM router with USDC micropayment support.",
+      "hackathon_role": "Routes paid machine-to-machine service calls."
+    },
+    {
+      "name": "services/attestation-agent",
+      "path": "services/attestation-agent/",
+      "shade": "Solana Attestation Service schemas, credentials, attestations, and MPL Core birth flows.",
+      "hackathon_role": "Creates verifiable receipts for commands, plugins, identities, and strategy research."
+    },
+    {
+      "name": "@openclawdsolana/clawd-code-cli",
+      "path": "clawd-code-cli/",
+      "shade": "AI terminal operator for coding, operations, and Solana workflows.",
+      "hackathon_role": "Developer cockpit for inspection and controlled execution."
+    },
+    {
+      "name": "@openclawdsolana/clawd-tui",
+      "path": "clawd-tui/",
+      "shade": "Operator terminal UI with Solana-aware tools.",
+      "hackathon_role": "Human review surface for policy-gated autonomy."
+    },
+    {
+      "name": "@openclawdsolana/gateway",
+      "path": "gateway/",
+      "shade": "Multi-channel trading agent control plane.",
+      "hackathon_role": "Connects chat surfaces, market data, and agent lifecycle operations."
+    },
+    {
+      "name": "clawdhub",
+      "path": "clawdhub/",
+      "shade": "Public skills marketplace, agent registry, tracker, wallet, and console.",
+      "hackathon_role": "Discovery layer for agents, skills, and paid plugins."
+    },
+    {
+      "name": "chrome-extension",
+      "path": "chrome-extension/",
+      "shade": "Browser-side GUI vision agent, wallet adapter, and MCP bridge.",
+      "hackathon_role": "Browser-native operator and inspection surface."
+    }
+  ]
+}
