@@ -1,7 +1,7 @@
 {
   "schema": "openclawd-release-manifest/2",
-  "generatedAt": "2026-04-27T19:15:56.217Z",
-  "version": "0.1.0",
+  "generatedAt": "2026-05-05T03:21:53.085Z",
+  "version": "0.3.1",
   "scope": "@openclawdsolana",
   "repository": {
     "type": "git",
@@ -71,7 +71,7 @@
     {
       "path": "packages/agents-x402-solana",
       "name": "@openclawdsolana/agents-x402",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "private": false,
       "bin": null,
       "description": "One-line x402 Solana monetization for MCP servers, HTTP handlers, and agent tool calls. Settles through the Clawd multi-tenant facilitator."
@@ -79,7 +79,7 @@
     {
       "path": "packages/agentwallet",
       "name": "@openclawdsolana/agentwallet",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "private": false,
       "bin": {
         "agentwallet": "dist/cli.js"
@@ -88,13 +88,11 @@
     },
     {
       "path": "packages/clawd-wallet",
-      "name": "@openclawdsolana/wallet",
+      "name": "@openclawdsolana/clawd-wallet",
       "version": "0.1.0",
       "private": false,
-      "bin": {
-        "clawd-wallet": "dist/cli.js"
-      },
-      "description": "Clawd Wallet — Privy-powered embedded Solana wallet for the openclawd agent ecosystem. Swap, sign, send, and agentic trading with Grok 4.20 Beta as the reasoning layer."
+      "bin": null,
+      "description": "Clawd Wallet — Solana wallet + Jupiter swap core for the openclawd agent ecosystem. (React/CLI/agent surfaces ship in a future release.)"
     },
     {
       "path": "packages/honcho-bridge",
@@ -107,7 +105,7 @@
     {
       "path": "packages/membrain-types",
       "name": "@openclawdsolana/membrain-types",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "private": false,
       "bin": null,
       "description": "TypeScript types and client for Membrain memory layer"
@@ -123,10 +121,10 @@
     {
       "path": "packages/percolator",
       "name": "@openclawdsolana/percolator",
-      "version": "1.0.0",
+      "version": "1.0.3",
       "private": false,
       "bin": {
-        "percolator": "./dist/index.js"
+        "percolator": "dist/index.js"
       },
       "description": "🦞 OpenClawd Percolator — agentic perpetuals CLI for Solana. Trade, manage, and monitor perp markets from the lobster's claw."
     },
@@ -140,11 +138,19 @@
     },
     {
       "path": "packages/plugin-sdk",
-      "name": "@openclawdsolana/plugin-sdk",
+      "name": "@openclawdsolana/plugin-sdk-internal",
       "version": "0.0.0-private",
       "private": true,
       "bin": null,
       "description": null
+    },
+    {
+      "path": "packages/service-registry",
+      "name": "@openclawdsolana/service-registry",
+      "version": "0.1.0",
+      "private": false,
+      "bin": null,
+      "description": "Single source of truth for OpenClawd local-service hosts/ports. Used by gateway clients, MCP servers, the chrome extension config, and scripts/doctor.mjs to avoid hard-coded localhost URLs."
     },
     {
       "path": "openclawd-framework",
@@ -158,13 +164,13 @@
     },
     {
       "path": "openclawd-framework/packages/clawd",
-      "name": "@openclawdsolana/clawd-code",
+      "name": "@openclawdsolana/clawd-leviathan",
       "version": "1.3.0",
-      "private": false,
+      "private": true,
       "bin": {
-        "clawd-code": "dist/index.js"
+        "clawd-leviathan": "dist/index.js"
       },
-      "description": "🦞 Clawd Code CLI — operator interface for the OpenClawd Leviathan framework. Lobster-themed terminal agent: streaming chat, realtime voice (Grok), Solana, MCP, Bags/pump.fun launches, DFlow/Kalshi/Polymarket, on-chain Leviathan integration. CLAWD: 8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump"
+      "description": "🦞 Clawd Leviathan operator — TUI bound to the @openclawdsolana/leviathan runtime. Lobster-themed terminal agent: streaming chat, realtime voice (Grok), Solana, MCP, Bags/pump.fun launches, DFlow/Kalshi/Polymarket, on-chain Leviathan integration. CLAWD: 8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump"
     },
     {
       "path": "openclawd-framework/packages/cli-standalone",
@@ -195,9 +201,10 @@
     {
       "path": "clawd-code-cli",
       "name": "@openclawdsolana/clawd-code-cli",
-      "version": "0.1.0",
+      "version": "0.2.3",
       "private": false,
       "bin": {
+        "clawd-code": "dist/index.js",
         "clawd-code-cli": "dist/index.js"
       },
       "description": "Clawd Code CLI — a lobster-themed AI terminal operator for coding, system ops & Solana."
@@ -205,9 +212,10 @@
     {
       "path": "clawd-tui",
       "name": "@openclawdsolana/clawd-tui",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "private": false,
       "bin": {
+        "clawd": "dist/cli.js",
         "clawd-tui": "dist/cli.js"
       },
       "description": "OpenClawd TUI — a lobster-themed agent terminal built on @openrouter/agent with OAuth login."
@@ -215,7 +223,7 @@
     {
       "path": "clawdrouter",
       "name": "@openclawdsolana/clawdrouter",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "private": false,
       "bin": {
         "clawdrouter": "dist/index.js"
@@ -255,6 +263,14 @@
       "private": true,
       "bin": null,
       "description": "Autonomous $CLAWD agent for Moltbook — uses official API (skill.md v1.12.0) with verification challenge solving 🦞"
+    },
+    {
+      "path": "clawd-vault-master",
+      "name": "@openclawdsolana/clawd-vault",
+      "version": "0.0.0-dev",
+      "private": true,
+      "bin": null,
+      "description": "ClawdVault CLI — Obsidian-style vault for the OpenClawd memory graph. Adds canvas templates, dashboards, and project boards on top of the JSON Canvas spec. See AGENT-TASK.md for the implementation plan."
     },
     {
       "path": "extensions/discord",
@@ -303,15 +319,104 @@
       "private": false,
       "bin": null,
       "description": "OpenClawd WhatsApp channel plugin"
+    },
+    {
+      "path": "automaton-main",
+      "name": "@openclawdsolana/automaton",
+      "version": "0.1.0",
+      "private": false,
+      "bin": {
+        "automaton": "dist/index.js",
+        "openclawd-automaton": "dist/index.js"
+      },
+      "description": "OpenClawd Automaton — sovereign self-replicating AI agent runtime. Born inside the OpenClawd lobster framework, runs the Sense → Think → Strike → Drift loop with on-chain identity (SAS), self-versioned shell.md, scheduled heartbeats, and skill replication."
+    },
+    {
+      "path": "automaton-main/packages/cli",
+      "name": "@openclawdsolana/automaton-cli",
+      "version": "0.1.0",
+      "private": false,
+      "bin": {
+        "automaton-cli": "dist/index.js",
+        "openclawd-automaton-cli": "dist/index.js"
+      },
+      "description": "OpenClawd Automaton — Creator CLI. Status, logs, funding, and direct messaging for sovereign automatons."
+    },
+    {
+      "path": "chrome-extension/core",
+      "name": "@openclawdsolana/pagent-core",
+      "version": "1.6.4",
+      "private": false,
+      "bin": null,
+      "description": "OpenClawd pAGENT core — GUI vision agent for web applications. Powers the Clawd browser extension and any embedding host. (forked from @page-agent/core)"
+    },
+    {
+      "path": "chrome-extension/llms",
+      "name": "@openclawdsolana/pagent-llms",
+      "version": "1.6.3",
+      "private": false,
+      "bin": null,
+      "description": "OpenClawd pAGENT LLM router — OpenAI / OpenRouter / Anthropic adapters used by @openclawdsolana/pagent-core."
+    },
+    {
+      "path": "chrome-extension/page-controller",
+      "name": "@openclawdsolana/pagent-page-controller",
+      "version": "1.6.3",
+      "private": false,
+      "bin": null,
+      "description": "OpenClawd pAGENT page controller — DOM operations and element interactions used by @openclawdsolana/pagent-core."
+    },
+    {
+      "path": "chrome-extension/page-agent",
+      "name": "@openclawdsolana/pagent",
+      "version": "1.6.3",
+      "private": false,
+      "bin": null,
+      "description": "OpenClawd pAGENT — GUI vision agent for web applications. Top-level package that wires pagent-core + pagent-llms + pagent-page-controller + pagent-ui. (forked from page-agent)"
+    },
+    {
+      "path": "chrome-extension/theme",
+      "name": "@openclawdsolana/pagent-theme",
+      "version": "1.6.4",
+      "private": false,
+      "bin": null,
+      "description": "OpenClawd brand tokens, CSS variables, and lobster mark — shared by every pAGENT surface."
+    },
+    {
+      "path": "chrome-extension/ui",
+      "name": "@openclawdsolana/pagent-ui",
+      "version": "1.6.4",
+      "private": false,
+      "bin": null,
+      "description": "OpenClawd pAGENT UI helpers — viewport overlays, screenshot adapters, and rendering utilities used by @openclawdsolana/pagent-core."
+    },
+    {
+      "path": "chrome-extension/wallet",
+      "name": "@openclawdsolana/pagent-wallet",
+      "version": "1.6.4",
+      "private": false,
+      "bin": null,
+      "description": "Unified Solana wallet adapter for the OpenClawd pAGENT — wraps the local vault (:8421), in-extension Ed25519 keystore, and Solana Seeker bridge behind one interface."
+    },
+    {
+      "path": "chrome-extension/mcp",
+      "name": "@openclawdsolana/browser-mcp",
+      "version": "2.0.0",
+      "private": false,
+      "bin": {
+        "clawd-browser-mcp": "src/index.js"
+      },
+      "description": "Solana Clawd pAGENT Browser MCP server — AI-powered browser control via the Clawd pAGENT extension"
     }
   ],
   "apps": [
     {
       "path": "clawd-code-cli",
       "name": "@openclawdsolana/clawd-code-cli",
-      "version": "0.1.0",
+      "version": "0.2.3",
       "private": false,
       "bin": {
+        "clawd-code": "dist/index.js",
         "clawd-code-cli": "dist/index.js"
       },
       "description": "Clawd Code CLI — a lobster-themed AI terminal operator for coding, system ops & Solana."
@@ -319,9 +424,10 @@
     {
       "path": "clawd-tui",
       "name": "@openclawdsolana/clawd-tui",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "private": false,
       "bin": {
+        "clawd": "dist/cli.js",
         "clawd-tui": "dist/cli.js"
       },
       "description": "OpenClawd TUI — a lobster-themed agent terminal built on @openrouter/agent with OAuth login."
@@ -329,7 +435,7 @@
     {
       "path": "clawdrouter",
       "name": "@openclawdsolana/clawdrouter",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "private": false,
       "bin": {
         "clawdrouter": "dist/index.js"
@@ -354,11 +460,11 @@
     },
     {
       "path": "agents",
-      "name": "@nirholas/ai-agents-library",
+      "name": "@openclawdsolana/agents-registry",
       "version": "1.42.0",
       "private": false,
       "bin": null,
-      "description": "General Agent Index and library of specialized AI agents for general use, DeFi, portfolio management, yield optimization, trading, and blockchain automation. Supports linting, automated translation, and CI auto-build for seamless plugin discovery via index.json. Github Pages compatible."
+      "description": "OpenClawd Solana-native financial AI agent registry, catalog API, ACP discovery document, and Metaplex Agent Registry registration documents."
     }
   ],
   "mcp": [
@@ -418,6 +524,8 @@
       },
       "scripts": [
         "dev",
+        "http",
+        "http:once",
         "build",
         "start"
       ]
@@ -457,6 +565,24 @@
       "scripts": []
     },
     {
+      "path": "services/attestation-agent",
+      "name": "@openclawdsolana/attestation-agent",
+      "version": "0.1.0",
+      "runtime": "node",
+      "description": "OpenClawd Solana Attestation Agent — credential, schema, agent-birth (MPL Core) and skill attestation flows on top of the Solana Attestation Service.",
+      "deployment": {
+        "docker": false,
+        "railway": false,
+        "procfile": false
+      },
+      "scripts": [
+        "build",
+        "typecheck",
+        "start",
+        "dev"
+      ]
+    },
+    {
       "path": "services/pump-scanner-cron",
       "name": "pump-scanner-cron",
       "version": "5.0.0",
@@ -490,14 +616,14 @@
       },
       {
         "slug": "gateway-node-ops",
-        "name": "OpenClawd Gateway + Node Workflow",
-        "description": "How to spawn a OpenClawd Gateway and connect headless nodes",
+        "name": "SolanaOS Gateway + Node Workflow",
+        "description": "How to spawn a SolanaOS Gateway and connect headless nodes",
         "category": "DevOps / Infrastructure"
       },
       {
         "slug": "canvas",
         "name": "Canvas Skill",
-        "description": "Display HTML content on connected OpenClawd nodes (Mac app, iOS, Android).",
+        "description": "Display HTML content on connected SolanaOS nodes (Mac app, iOS, Android).",
         "category": "Media"
       },
       {
@@ -865,8 +991,8 @@
         "path": "skills/solana-research-brief"
       },
       {
-        "slug": "openclawd",
-        "path": "skills/openclawd"
+        "slug": "solanaos",
+        "path": "skills/solanaos"
       },
       {
         "slug": "songsee",
@@ -1163,8 +1289,8 @@
     {
       "slug": "core",
       "path": "chrome-extension/core",
-      "name": "@page-agent/core",
-      "version": "1.6.2",
+      "name": "@openclawdsolana/pagent-core",
+      "version": "1.6.4",
       "private": false
     },
     {
@@ -1177,9 +1303,9 @@
     {
       "slug": "llms",
       "path": "chrome-extension/llms",
-      "name": "@page-agent/llms",
-      "version": "1.6.2",
-      "private": true
+      "name": "@openclawdsolana/pagent-llms",
+      "version": "1.6.3",
+      "private": false
     },
     {
       "slug": "mcp",
@@ -1189,25 +1315,46 @@
       "private": false
     },
     {
+      "slug": "openclawd-chrome-extension",
+      "path": "chrome-extension/openclawd-chrome-extension",
+      "name": null,
+      "version": null,
+      "private": false
+    },
+    {
       "slug": "page-agent",
       "path": "chrome-extension/page-agent",
-      "name": "page-agent",
-      "version": "1.6.2",
+      "name": "@openclawdsolana/pagent",
+      "version": "1.6.3",
       "private": false
     },
     {
       "slug": "page-controller",
       "path": "chrome-extension/page-controller",
-      "name": "@page-agent/page-controller",
-      "version": "1.6.2",
+      "name": "@openclawdsolana/pagent-page-controller",
+      "version": "1.6.3",
+      "private": false
+    },
+    {
+      "slug": "theme",
+      "path": "chrome-extension/theme",
+      "name": "@openclawdsolana/pagent-theme",
+      "version": "1.6.4",
       "private": false
     },
     {
       "slug": "ui",
       "path": "chrome-extension/ui",
-      "name": "@page-agent/ui",
-      "version": "1.6.2",
-      "private": true
+      "name": "@openclawdsolana/pagent-ui",
+      "version": "1.6.4",
+      "private": false
+    },
+    {
+      "slug": "wallet",
+      "path": "chrome-extension/wallet",
+      "name": "@openclawdsolana/pagent-wallet",
+      "version": "1.6.4",
+      "private": false
     }
   ],
   "api": [
@@ -1225,14 +1372,14 @@
     }
   ],
   "totals": {
-    "packages": 30,
-    "publicPackages": 24,
+    "packages": 42,
+    "publicPackages": 34,
     "apps": 6,
     "mcp": 5,
-    "services": 4,
+    "services": 5,
     "skills": 98,
     "extensions": 31,
-    "chromeExtension": 9,
+    "chromeExtension": 12,
     "apiSubprojects": 2
   }
 }
