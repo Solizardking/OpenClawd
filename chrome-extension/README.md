@@ -29,9 +29,11 @@ The `chrome-extension/` folder is a small monorepo. Three of these directories a
 |---|---|---|
 | [`./core/`](./core) | `@openclawdsolana/pagent-core` | Re-Act agent loop (think → act → observe). |
 | [`./page-controller/`](./page-controller) | `@openclawdsolana/pagent-page-controller` | DOM state extraction + action surface. |
-| [`./page-agent/`](./page-agent) | `@openclawdsolana/pagent` | High-level wrapper (`window.PAGENT.execute`). |
-| [`./ui/`](./ui) | `@openclawdsolana/pagent-ui` | Side-panel + popup React shell. |
-| [`./llms/`](./llms) | `@openclawdsolana/pagent-llms` | Provider adapters (OpenRouter, xAI/Grok, local). |
+| [`./page-agent/`](./page-agent) | `@openclawdsolana/pagent` | High-level wrapper (`window.PAGENT.execute`). Auto-merges Solana tools when `solanaTools` config supplied. |
+| [`./ui/`](./ui) | `@openclawdsolana/pagent-ui` | Vanilla-DOM panel primitives — includes `WalletPanel`. |
+| [`./llms/`](./llms) | `@openclawdsolana/pagent-llms` | Provider adapters (OpenRouter, xAI/Grok, local) + `solanaWalletTools` / `solanaGatewayTools`. |
+| [`./theme/`](./theme) | `@openclawdsolana/pagent-theme` | Brand tokens + `theme.css` (`--oc-*`) + lobster mark. Single source of styling truth. |
+| [`./wallet/`](./wallet) | `@openclawdsolana/pagent-wallet` | Unified Solana wallet adapter (vault / in-extension / Seeker) + `HttpGatewayClient`. |
 | [`./mcp/`](./mcp) | `@openclawdsolana/browser-mcp` | MCP server bridging pAGENT to Claude Desktop / Cursor / Cline. |
 
 ### Build & store assets
@@ -57,7 +59,7 @@ bash install-openclawd.sh
 ```
 
 This will:
-1. ✅ Build the source packages (`core`, `page-controller`, `page-agent`, `ui`, `llms`)
+1. ✅ Build the source packages (`theme`, `wallet`, `core`, `page-controller`, `llms`, `ui`, `page-agent`)
 2. ✅ Build the popup extension (top-level `chrome-extension/`)
 3. ✅ Start the MCP bridge on `:3001`
 4. ✅ Write `~/.claude.json` MCP config so Claude Desktop sees `openclawd-browser`
@@ -174,8 +176,8 @@ Add to `~/.claude.json` (Claude Desktop) or your client's MCP config:
 │           │                     │                        │               │
 │           ▼                     ▼                        ▼               │
 │      ┌────────────────────────────────────────────────────────┐         │
-│      │  shared TS packages: core · page-controller · page-    │         │
-│      │  agent · ui · llms · mcp                                │         │
+│      │  shared TS packages: theme · wallet · core ·            │         │
+│      │  page-controller · llms · ui · page-agent · mcp         │         │
 │      └────────────────────────────────────────────────────────┘         │
 └─────────────────────────────────┬────────────────────────────────────────┘
                                   │  ws / http (loopback only by default)
