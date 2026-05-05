@@ -2,7 +2,7 @@
 
 Single source of truth for OpenClawd local-service URLs.
 
-Every service in the monorepo (gateway, clawdrouter, MCP bridges, agent-wallet, attestation-agent, hermes-vault, pump-scanner-cron, clawdhub, mawdaxe) is registered here with a default host/port and an env-var override. Importers call `discover(name)` instead of hard-coding `http://localhost:18790`, so a single env change reaches every consumer.
+Every service in the monorepo (gateway, clawdrouter, API registrar, MCP bridges, agent-wallet, attestation-agent, hermes-vault, pump-scanner-cron, clawdhub, mawdaxe) is registered here with a default host/port and an env-var override. Importers call `discover(name)` instead of hard-coding `http://localhost:8788`, so a single env change reaches every consumer.
 
 ## Use
 
@@ -24,13 +24,14 @@ for (const r of await healthAll()) {
 
 | Service             | Env var                          | Default                      |
 | ------------------- | -------------------------------- | ---------------------------- |
-| `gateway`           | `OPENCLAWD_GATEWAY_URL`          | `http://127.0.0.1:18790`     |
-| `clawdrouter`       | `CLAWDROUTER_URL`                | `http://127.0.0.1:4000`      |
-| `walletApi`         | `OPENCLAWD_WALLET_API_URL`       | `http://127.0.0.1:8421`      |
+| `gateway`           | `OPENCLAWD_GATEWAY_URL`          | `http://127.0.0.1:8788`      |
+| `clawdrouter`       | `CLAWDROUTER_URL`                | `http://127.0.0.1:8402`      |
+| `walletApi`         | `OPENCLAWD_WALLET_API_URL`       | `http://127.0.0.1:3000`      |
 | `mawdaxe`           | `OPENCLAWD_MAWDAXE_URL`          | `http://127.0.0.1:8420`      |
 | `mcpBridge`         | `OPENCLAWD_MCP_URL`              | `http://127.0.0.1:3001`      |
 | `browserMcp`        | `OPENCLAWD_BROWSER_MCP_URL`      | `http://127.0.0.1:38401`     |
-| `clawdhub`          | `CLAWDHUB_URL`                   | `http://127.0.0.1:3000`      |
+| `apiRegistrar`      | `OPENCLAWD_REGISTRAR_URL`        | `http://127.0.0.1:3001`      |
+| `clawdhub`          | `CLAWDHUB_URL`                   | `http://127.0.0.1:5173`      |
 | `attestationAgent`  | `OPENCLAWD_ATTESTATION_URL`      | `http://127.0.0.1:8430`      |
 | `hermesVault`       | `OPENCLAWD_HERMES_VAULT_URL`     | `http://127.0.0.1:8431`      |
 | `pumpScannerCron`   | `OPENCLAWD_PUMP_SCANNER_URL`     | `http://127.0.0.1:8432`      |

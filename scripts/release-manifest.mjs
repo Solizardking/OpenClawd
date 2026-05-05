@@ -102,7 +102,14 @@ const extensions = listDirs(join(ROOT, 'extensions')).map((slug) => {
 });
 
 // --- apps (terminal UIs, code CLI, router, agents) -------------------------
-const APP_DIRS = ['clawd-code-cli', 'clawd-tui', 'clawdrouter', 'clawdhub', 'moltbook-agent', 'agents'];
+const APP_DIRS = [
+  'apps/clawd-code-cli',
+  'apps/clawd-tui',
+  'apps/clawdrouter',
+  'apps/clawdhub',
+  'moltbook-agent',
+  'agents',
+];
 const apps = APP_DIRS
   .filter((d) => existsSync(join(ROOT, d, 'package.json')))
   .map((d) => {
@@ -116,6 +123,38 @@ const apps = APP_DIRS
       description: pkg.description || null,
     };
   });
+
+// --- top-level communication surfaces --------------------------------------
+const surfaceCandidates = [
+  'acp_registry',
+  'agents',
+  'api',
+  'api-registrar',
+  'cli',
+  'gateway',
+  'frontend',
+  'extensions',
+  'mcp',
+  'llm-wiki-tang',
+  'packages/npm',
+  'packages',
+  'openclawd-framework',
+  'payments',
+  'packages/plugin-package-contract',
+  'profiles',
+  'scripts',
+  'services',
+  'skills',
+  'src',
+  'solana-attestation-service-master',
+  'tailclawd',
+];
+const surfaces = surfaceCandidates.map((rel) => ({
+  path: rel,
+  present: existsSync(join(ROOT, rel)),
+  packageName: safeJson(join(ROOT, rel, 'package.json'))?.name || null,
+  readme: existsSync(join(ROOT, rel, 'README.md')),
+}));
 
 // --- mcp servers (any package.json under /mcp + chrome-extension/mcp + services/*/mcp)
 const mcp = [];
@@ -209,6 +248,7 @@ const manifest = {
   apps,
   mcp,
   services,
+  surfaces,
   skills,
   extensions,
   chromeExtension,
@@ -219,6 +259,7 @@ const manifest = {
     apps: apps.length,
     mcp: mcp.length,
     services: services.length,
+    surfaces: surfaces.filter((s) => s.present).length,
     skills: skillsScanned.length,
     extensions: extensions.length,
     chromeExtension: chromeExtension.length,
@@ -239,6 +280,7 @@ if (ARGS.has('--stdout')) {
   console.log(`   apps:        ${manifest.totals.apps}`);
   console.log(`   mcp servers: ${manifest.totals.mcp}`);
   console.log(`   services:    ${manifest.totals.services}`);
+  console.log(`   surfaces:    ${manifest.totals.surfaces}/${surfaces.length}`);
   console.log(`   skills:      ${manifest.totals.skills}`);
   console.log(`   extensions:  ${manifest.totals.extensions}`);
   console.log(`   chrome-ext:  ${manifest.totals.chromeExtension}`);

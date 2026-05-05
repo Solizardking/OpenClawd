@@ -132,8 +132,21 @@ app.get('/manifest', async (c) => {
   try {
     const fs = await import('node:fs/promises');
     const path = await import('node:path');
-    const manifestPath = path.resolve(process.cwd(), 'release.manifest.json');
-    const raw = await fs.readFile(manifestPath, 'utf8');
+    const candidates = [
+      path.resolve(process.cwd(), 'release.manifest.json'),
+      path.resolve(process.cwd(), '..', 'release.manifest.json'),
+      path.resolve(process.env.OPENCLAWD_REPO_PATH || '', 'release.manifest.json'),
+    ].filter(Boolean);
+    let raw: string | null = null;
+    for (const candidate of candidates) {
+      try {
+        raw = await fs.readFile(candidate, 'utf8');
+        break;
+      } catch {
+        // Keep looking; the registrar may be launched from api-registrar/.
+      }
+    }
+    if (!raw) throw new Error('release.manifest.json not found');
     return c.json(JSON.parse(raw));
   } catch {
     return c.json(

@@ -1,6 +1,6 @@
 {
   "schema": "openclawd-release-manifest/2",
-  "generatedAt": "2026-05-05T03:21:53.085Z",
+  "generatedAt": "2026-05-05T23:00:12.454Z",
   "version": "0.3.1",
   "scope": "@openclawdsolana",
   "repository": {
@@ -30,43 +30,27 @@
   "packages": [
     {
       "path": "npm/openclawd-cli",
-      "name": "@openclawdsolana/cli",
-      "version": "0.1.0",
+      "name": null,
+      "version": null,
       "private": false,
-      "bin": {
-        "clawd": "bin/clawd.mjs",
-        "openclawd": "bin/clawd.mjs",
-        "openclawdsolana": "bin/clawd.mjs"
-      },
-      "description": "OpenClawd CLI bootstrapper — installs and runs the Solana-native AI agent runtime with ClawdRouter, Helius, and Jupiter integration."
+      "bin": null,
+      "description": null
     },
     {
       "path": "npm/openclawd-computer",
-      "name": "@openclawdsolana/computer",
-      "version": "0.1.0",
+      "name": null,
+      "version": null,
       "private": false,
-      "bin": {
-        "clawd": "bin/clawd.mjs",
-        "clawd-computer": "bin/clawd.mjs",
-        "openclawd": "bin/clawd.mjs",
-        "openclawd-cli": "bin/clawd.mjs",
-        "openclawdsolana": "bin/clawd.mjs"
-      },
-      "description": "OpenClawd Computer — the Solana-native AI agent runtime. Pure-Go binary, ClawdRouter API, OODA loop, and zero-config bootstrap."
+      "bin": null,
+      "description": null
     },
     {
       "path": "npm/openclawd-installer",
-      "name": "@openclawdsolana/installer",
-      "version": "0.1.0",
+      "name": null,
+      "version": null,
       "private": false,
-      "bin": {
-        "clawd-cli": "bin/clawd.mjs",
-        "clawd": "bin/clawd.mjs",
-        "openclawd-cli": "bin/clawd.mjs",
-        "openclawd": "bin/clawd.mjs",
-        "openclawdsolana": "bin/clawd.mjs"
-      },
-      "description": "OpenClawd Installer — one command to install the Solana-native AI agent runtime, with ClawdRouter zero-config deployment."
+      "bin": null,
+      "description": null
     },
     {
       "path": "packages/agents-x402-solana",
@@ -153,6 +137,18 @@
       "description": "Single source of truth for OpenClawd local-service hosts/ports. Used by gateway clients, MCP servers, the chrome extension config, and scripts/doctor.mjs to avoid hard-coded localhost URLs."
     },
     {
+      "path": "apps/blockchain_buddies/packages/petdex-cli",
+      "name": "@openclawdsolana/blockchain-buddies",
+      "version": "0.1.0",
+      "private": false,
+      "bin": {
+        "blockchain-buddies": "dist/blockchain-buddies.js",
+        "buddies": "dist/blockchain-buddies.js",
+        "petdex": "dist/blockchain-buddies.js"
+      },
+      "description": "OpenClawd Blockchain Buddies CLI with Metaplex, OpenAI Codex, and Petdex-compatible integrations."
+    },
+    {
       "path": "openclawd-framework",
       "name": "@openclawdsolana/leviathan",
       "version": "0.1.0",
@@ -199,9 +195,9 @@
       "description": "OpenClawd API Key Registrar — X verification + ClawdRouter integration. Issues per-user API keys and stores them via Drizzle/Neon."
     },
     {
-      "path": "clawd-code-cli",
+      "path": "apps/clawd-code-cli",
       "name": "@openclawdsolana/clawd-code-cli",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "private": false,
       "bin": {
         "clawd-code": "dist/index.js",
@@ -210,7 +206,7 @@
       "description": "Clawd Code CLI — a lobster-themed AI terminal operator for coding, system ops & Solana."
     },
     {
-      "path": "clawd-tui",
+      "path": "apps/clawd-tui",
       "name": "@openclawdsolana/clawd-tui",
       "version": "0.2.1",
       "private": false,
@@ -221,7 +217,7 @@
       "description": "OpenClawd TUI — a lobster-themed agent terminal built on @openrouter/agent with OAuth login."
     },
     {
-      "path": "clawdrouter",
+      "path": "apps/clawdrouter",
       "name": "@openclawdsolana/clawdrouter",
       "version": "0.2.0",
       "private": false,
@@ -265,7 +261,7 @@
       "description": "Autonomous $CLAWD agent for Moltbook — uses official API (skill.md v1.12.0) with verification challenge solving 🦞"
     },
     {
-      "path": "clawd-vault-master",
+      "path": "apps/clawd-vault-master",
       "name": "@openclawdsolana/clawd-vault",
       "version": "0.0.0-dev",
       "private": true,
@@ -411,9 +407,9 @@
   ],
   "apps": [
     {
-      "path": "clawd-code-cli",
+      "path": "apps/clawd-code-cli",
       "name": "@openclawdsolana/clawd-code-cli",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "private": false,
       "bin": {
         "clawd-code": "dist/index.js",
@@ -422,7 +418,7 @@
       "description": "Clawd Code CLI — a lobster-themed AI terminal operator for coding, system ops & Solana."
     },
     {
-      "path": "clawd-tui",
+      "path": "apps/clawd-tui",
       "name": "@openclawdsolana/clawd-tui",
       "version": "0.2.1",
       "private": false,
@@ -433,7 +429,7 @@
       "description": "OpenClawd TUI — a lobster-themed agent terminal built on @openrouter/agent with OAuth login."
     },
     {
-      "path": "clawdrouter",
+      "path": "apps/clawdrouter",
       "name": "@openclawdsolana/clawdrouter",
       "version": "0.2.0",
       "private": false,
@@ -443,7 +439,7 @@
       "description": "The LLM router built for autonomous Solana agents — Solana-native, wallet-signed, USDC micropayments"
     },
     {
-      "path": "clawdhub",
+      "path": "apps/clawdhub",
       "name": "clawdhub",
       "version": null,
       "private": true,
@@ -548,6 +544,7 @@
         "server",
         "db:push",
         "db:studio",
+        "typecheck",
         "lint"
       ]
     },
@@ -599,6 +596,140 @@
       ]
     }
   ],
+  "surfaces": [
+    {
+      "path": "acp_registry",
+      "present": true,
+      "packageName": null,
+      "readme": true
+    },
+    {
+      "path": "agents",
+      "present": true,
+      "packageName": "@openclawdsolana/agents-registry",
+      "readme": true
+    },
+    {
+      "path": "api",
+      "present": true,
+      "packageName": null,
+      "readme": true
+    },
+    {
+      "path": "api-registrar",
+      "present": true,
+      "packageName": "@openclawdsolana/api-registrar",
+      "readme": true
+    },
+    {
+      "path": "cli",
+      "present": true,
+      "packageName": null,
+      "readme": true
+    },
+    {
+      "path": "gateway",
+      "present": true,
+      "packageName": "@openclawdsolana/gateway",
+      "readme": false
+    },
+    {
+      "path": "frontend",
+      "present": true,
+      "packageName": null,
+      "readme": false
+    },
+    {
+      "path": "extensions",
+      "present": true,
+      "packageName": null,
+      "readme": false
+    },
+    {
+      "path": "mcp",
+      "present": true,
+      "packageName": "@openclawdsolana/mcp",
+      "readme": true
+    },
+    {
+      "path": "llm-wiki-tang",
+      "present": true,
+      "packageName": null,
+      "readme": true
+    },
+    {
+      "path": "packages/npm",
+      "present": true,
+      "packageName": null,
+      "readme": false
+    },
+    {
+      "path": "packages",
+      "present": true,
+      "packageName": null,
+      "readme": true
+    },
+    {
+      "path": "openclawd-framework",
+      "present": true,
+      "packageName": "@openclawdsolana/leviathan",
+      "readme": true
+    },
+    {
+      "path": "payments",
+      "present": true,
+      "packageName": null,
+      "readme": true
+    },
+    {
+      "path": "packages/plugin-package-contract",
+      "present": true,
+      "packageName": "@openclawdsolana/plugin-package-contract",
+      "readme": false
+    },
+    {
+      "path": "profiles",
+      "present": true,
+      "packageName": null,
+      "readme": true
+    },
+    {
+      "path": "scripts",
+      "present": true,
+      "packageName": null,
+      "readme": false
+    },
+    {
+      "path": "services",
+      "present": true,
+      "packageName": null,
+      "readme": true
+    },
+    {
+      "path": "skills",
+      "present": true,
+      "packageName": null,
+      "readme": true
+    },
+    {
+      "path": "src",
+      "present": true,
+      "packageName": null,
+      "readme": true
+    },
+    {
+      "path": "solana-attestation-service-master",
+      "present": true,
+      "packageName": "solana-attestation-service",
+      "readme": true
+    },
+    {
+      "path": "tailclawd",
+      "present": true,
+      "packageName": "tailclawd",
+      "readme": true
+    }
+  ],
   "skills": {
     "count": 98,
     "catalog": [
@@ -616,14 +747,14 @@
       },
       {
         "slug": "gateway-node-ops",
-        "name": "OpenClawd Gateway + Node Workflow",
-        "description": "How to spawn an OpenClawd Gateway and connect headless nodes",
+        "name": "SolanaOS Gateway + Node Workflow",
+        "description": "How to spawn a SolanaOS Gateway and connect headless nodes",
         "category": "DevOps / Infrastructure"
       },
       {
         "slug": "canvas",
         "name": "Canvas Skill",
-        "description": "Display HTML content on connected OpenClawd nodes (Mac app, iOS, Android).",
+        "description": "Display HTML content on connected SolanaOS nodes (Mac app, iOS, Android).",
         "category": "Media"
       },
       {
@@ -811,6 +942,10 @@
         "path": "skills/openai-whisper-api"
       },
       {
+        "slug": "openclawd",
+        "path": "skills/openclawd"
+      },
+      {
         "slug": "openclawd-clawd-code-skill-main",
         "path": "skills/openclawd-clawd-code-skill-main"
       },
@@ -989,10 +1124,6 @@
       {
         "slug": "solana-research-brief",
         "path": "skills/solana-research-brief"
-      },
-      {
-        "slug": "openclawd",
-        "path": "skills/openclawd"
       },
       {
         "slug": "songsee",
@@ -1372,11 +1503,12 @@
     }
   ],
   "totals": {
-    "packages": 42,
-    "publicPackages": 34,
+    "packages": 43,
+    "publicPackages": 32,
     "apps": 6,
     "mcp": 5,
     "services": 5,
+    "surfaces": 22,
     "skills": 98,
     "extensions": 31,
     "chromeExtension": 12,

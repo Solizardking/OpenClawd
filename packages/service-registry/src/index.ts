@@ -10,6 +10,7 @@ export type ServiceName =
   | 'mawdaxe'
   | 'mcpBridge'
   | 'browserMcp'
+  | 'apiRegistrar'
   | 'clawdhub'
   | 'attestationAgent'
   | 'hermesVault'
@@ -42,8 +43,9 @@ const defaults: Record<ServiceName, Omit<ServiceConfig, 'name' | 'url'>> = {
   clawdrouter:      { host: '127.0.0.1', port: 8402,  healthPath: '/healthz',     envOverride: 'CLAWDROUTER_URL',           portEnvOverride: 'CLAWDROUTER_PORT' },
   walletApi:        { host: '127.0.0.1', port: 3000,  healthPath: '/healthz',     envOverride: 'OPENCLAWD_WALLET_API_URL',  portEnvOverride: 'WALLET_API_PORT' },
   mawdaxe:          { host: '127.0.0.1', port: 8420,  healthPath: '/health',      envOverride: 'OPENCLAWD_MAWDAXE_URL' },
-  mcpBridge:        { host: '127.0.0.1', port: 3001,  healthPath: '/healthz',     envOverride: 'OPENCLAWD_MCP_URL',         portEnvOverride: 'OPENCLAWD_MCP_PORT' },
+  mcpBridge:        { host: '127.0.0.1', port: 3001,  healthPath: '/health',      envOverride: 'OPENCLAWD_MCP_URL',         portEnvOverride: 'OPENCLAWD_MCP_PORT' },
   browserMcp:       { host: '127.0.0.1', port: 38401, healthPath: '/healthz',     envOverride: 'OPENCLAWD_BROWSER_MCP_URL', portEnvOverride: 'PORT' },
+  apiRegistrar:     { host: '127.0.0.1', port: 3001,  healthPath: '/health',      envOverride: 'OPENCLAWD_REGISTRAR_URL',   portEnvOverride: 'API_REGISTRAR_PORT' },
   clawdhub:         { host: '127.0.0.1', port: 5173,  healthPath: '/api/health',  envOverride: 'CLAWDHUB_URL' },
   attestationAgent: { host: '127.0.0.1', port: 8430,  healthPath: '/health',      envOverride: 'OPENCLAWD_ATTESTATION_URL' },
   hermesVault:      { host: '127.0.0.1', port: 8431,  healthPath: '/health',      envOverride: 'OPENCLAWD_HERMES_VAULT_URL' },
