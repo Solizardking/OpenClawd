@@ -16,7 +16,6 @@ import { serve } from '@hono/node-server';
 import { secureHeaders } from 'hono/secure-headers';
 import registerRoutes from './routes/register';
 import acpRoutes from './routes/acp';
-import { validateApiKey } from './lib/auth';
 
 // Canonical OpenClawd endpoints. Mirrors ~/.openclawdsolana/config.json so
 // the registrar plays back the same URLs every CLI surface resolves to. Each

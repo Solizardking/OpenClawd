@@ -12,6 +12,14 @@
 import { Hono } from 'hono';
 import { neon } from '@neondatabase/serverless';
 import { validateApiKey } from '../lib/auth';
+import {
+  generateApiKey,
+  generateVerificationCode,
+  getKeyPrefix,
+  hashApiKey,
+  isValidSolanaAddress,
+  parseXTweetUrl,
+} from '../lib/verification';
 
 const sql = neon(process.env.DATABASE_URL!);
 const router = new Hono();
@@ -35,9 +43,7 @@ router.post('/generate-code', async (c) => {
     }, 400);
   }
   
-  // Validate Solana address format
-  const isValidAddress = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(walletAddress);
-  if (!isValidAddress) {
+  if (!isValidSolanaAddress(walletAddress)) {
     return c.json({ 
       error: 'Invalid Solana wallet address',
       field: 'walletAddress',
@@ -45,9 +51,7 @@ router.post('/generate-code', async (c) => {
     }, 400);
   }
   
-  // Generate verification code (format: clawd + hex)
-  const randomBytes = crypto.getRandomValues(new Uint8Array(4));
-  const verificationCode = 'clawd' + Array.from(randomBytes).map(b => b.toString(16).padStart(2, '0')).join('');
+  const verificationCode = generateVerificationCode();
   
   try {
     // Check if user exists or create one
@@ -122,8 +126,7 @@ router.post('/verify-tweet', async (c) => {
     }, 400);
   }
   
-  // Validate Solana address
-  if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(walletAddress)) {
+  if (!isValidSolanaAddress(walletAddress)) {
     return c.json({ error: 'Invalid wallet address' }, 400);
   }
   
@@ -155,19 +158,16 @@ router.post('/verify-tweet', async (c) => {
       }, 400);
     }
     
-    // Parse tweet URL
-    const tweetMatch = tweetUrl.match(/x\.com\/(\w+)\/status\/(\d+)/i) 
-      || tweetUrl.match(/twitter\.com\/(\w+)\/status\/(\d+)/i);
-    
-    if (!tweetMatch) {
+    const parsedTweet = parseXTweetUrl(tweetUrl);
+
+    if (!parsedTweet) {
       return c.json({ 
         error: 'Invalid tweet URL format',
         hint: 'Use format: https://x.com/username/status/123456789',
       }, 400);
     }
     
-    const xUsername = tweetMatch[1];
-    const tweetId = tweetMatch[2];
+    const { username: xUsername, tweetId } = parsedTweet;
     
     // Verify tweet content via X API (if token available)
     if (process.env.X_API_BEARER_TOKEN) {
@@ -209,14 +209,9 @@ router.post('/verify-tweet', async (c) => {
       WHERE id = ${codeRecord.id}
     `;
     
-    // Generate API key
-    const randomBytes = crypto.getRandomValues(new Uint8Array(32));
-    const apiKey = 'clawd_sk_' + btoa(String.fromCharCode(...randomBytes))
-      .replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
-    
-    const keyPrefix = apiKey.slice(0, 18); // clawd_sk_ + 8 chars
-    const keyHash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(apiKey))
-      .then(buf => Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join(''));
+    const apiKey = generateApiKey();
+    const keyPrefix = getKeyPrefix(apiKey);
+    const keyHash = hashApiKey(apiKey);
     
     // Create API key record
     const expiresAt = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000); // 1 year
@@ -277,7 +272,7 @@ router.post('/verify-tweet', async (c) => {
 router.get('/keys/:walletAddress', async (c) => {
   const walletAddress = c.req.param('walletAddress');
   
-  if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(walletAddress)) {
+  if (!isValidSolanaAddress(walletAddress)) {
     return c.json({ error: 'Invalid wallet address' }, 400);
   }
   
