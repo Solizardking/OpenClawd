@@ -93,6 +93,47 @@ Relevant repo code:
 }
 ```
 
+## Autonomous Research Envelope
+
+```json
+{
+  "research_goal": "improve hazard-aware SOL/USDC paper-trading response",
+  "candidate_strategy": {
+    "id": "percolator-lane-v1",
+    "market": "SOL/USDC",
+    "entry": "only trade when volatility expands and liquidity remains above policy floor",
+    "exit": "take profit at 3.5%, stop at 1.2%, retire after two policy violations",
+    "budget_usd": 1000,
+    "mode": "paper"
+  },
+  "evaluation": {
+    "duration": "bounded_offline_demo",
+    "simulated_pnl_pct": 2.4,
+    "max_drawdown_pct": 0.8,
+    "policy_violations": 0,
+    "beats_current_champion": true
+  },
+  "ratchet_decision": "promote_to_paper_champion",
+  "live_execution": "blocked_until_wallet_policy_approval"
+}
+```
+
+## Honcho Persistence Record
+
+```json
+{
+  "memory_provider": "honcho_style_persistence",
+  "session": "openclawd-hackathon-autoresearch",
+  "peer": "openclawd-robotics-commander",
+  "remember": [
+    "operator prefers read-only and paper-trading defaults",
+    "percolator-lane-v1 beat the current offline champion without policy violations",
+    "thermal hazard context should reduce risk budget for live execution"
+  ],
+  "search_tags": ["strategy-lineage", "risk-policy", "paper-trading", "robotics"]
+}
+```
+
 ## Security Requirements
 
 - No private key in prompts, docs, logs, or committed files.
@@ -100,6 +141,8 @@ Relevant repo code:
 - Human approval required for physical movement outside the limited policy set.
 - Human approval required for mainnet payments above a configured threshold.
 - Receipts should include hashes of command payloads, not raw private sensor feeds, when privacy matters.
+- Autonomous research loops are restricted to offline simulation or paper trading until an operator approves the live execution lane.
+- Honcho-style memory must store strategy state, preferences, and conclusions, not private keys or raw wallet secrets.
 
 ## Production Integration Plan
 
@@ -108,4 +151,5 @@ Relevant repo code:
 3. Add a SAS schema constant to `services/attestation-agent`.
 4. Add a plugin.delivery sample for `thermal-diagnostic-plugin`.
 5. Connect a ROS2 bridge or browser simulator as the first real robot surface.
-
+6. Add `strategy_research_loop`, `paper_trade_score`, and `strategy_memory_write` tools for bounded autonomous trading research.
+7. Connect Honcho persistence behind a memory-provider interface with local-file fallback for offline demos.

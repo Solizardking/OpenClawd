@@ -4,6 +4,8 @@
 
 OpenClawd brings Solana-native identity, payments, memory, and permission-gated AI command execution to robotics fleets.
 
+It also demonstrates the next OpenClawd loop: autonomous research agents that evolve Solana trading strategies through bounded paper experiments, Honcho-style persistent memory, and deny-first wallet gates.
+
 ## Problem
 
 Robotics systems increasingly use AI agents, but most deployments still lack a shared trust layer:
@@ -22,6 +24,7 @@ OpenClawd adapts the existing Solana-native financial agent stack into a robotic
 - **Sensor memory:** Telemetry enters `KNOWN`, `INFERRED`, and `LEARNED` memory tiers, so the robot can separate live facts from hypotheses and long-term patterns.
 - **Paid autonomy:** x402 and plugin.delivery let agents pay for specialist capabilities per call while preserving API discoverability.
 - **Reusable MCP tools:** The MCP layer exposes Solana, wallet, market, memory, and robotics-command tools through a standard interface.
+- **Self-evolving research:** The agent can run fixed-budget paper-trading trials, score results, keep only improvements, and persist strategy lineage across sessions.
 
 ## Built From This Repo
 
@@ -49,6 +52,7 @@ Flow:
 4. A policy gate blocks forward motion and permits a low-speed reverse plus operator alert.
 5. The agent requests a paid inspection plugin using the x402/plugin delivery pattern.
 6. A receipt is produced with robot identity, command plan, policy result, payment intent, and attestation placeholders.
+7. The same run records a paper-trading research loop: hypothesis, candidate strategy, simulated score, ratchet decision, and Honcho-style persistence payload.
 
 Run:
 
@@ -67,6 +71,7 @@ OpenClawd already uses those primitives for DeFi agents. The hackathon contribut
 - MCP tool = robot capability or cloud service.
 - x402 payment = machine-to-machine service access.
 - Memory tier = operational state and learning boundary.
+- Percolator-style lanes = isolated research, simulation, risk, and execution slabs.
 
 ## Safety Model
 
@@ -77,6 +82,15 @@ OpenClawd treats robotic commands like financial actions:
 - High-risk actions require explicit human confirmation.
 - Private keys and wallet keypairs are never committed.
 - The demo stays offline and does not sign transactions.
+- Autonomous research is limited to simulation and paper trading until an operator approves a live wallet policy.
+
+## Research Loop Inspiration
+
+The autonomous trading loop is deliberately constrained:
+
+- **Toly / Percolator:** Use Solana's parallelism as an architecture pattern for isolated trading lanes: research can run constantly, paper trading can score candidates, and live execution remains a separate gated lane.
+- **Karpathy / autoresearch:** Treat strategy evolution as a ratchet loop: propose one change, run a bounded experiment, measure the result, promote winners, retire failures.
+- **Honcho persistence:** Keep agent memory durable across sessions so OpenClawd remembers operator risk preferences, prior failed strategies, successful conditions, and strategy lineage.
 
 ## Deliverables
 
@@ -93,4 +107,4 @@ OpenClawd treats robotic commands like financial actions:
 3. Connect a real ROS2 bridge or browser robot simulator.
 4. Add x402 payment settlement against a hosted specialist plugin.
 5. Mint robot identities through the ACP and Metaplex Agent Registry path.
-
+6. Connect Honcho-backed persistence for cross-session research memory and strategy self-modeling.

@@ -12,9 +12,13 @@ AI robots need stronger trust boundaries than chatbots. A command can move hardw
 
 OpenClawd Robotics Command Layer makes each robot an accountable Solana actor. A robot can have a wallet, a registry profile, an on-chain asset identity, and attested command receipts. The agent runtime turns sensor data into memory, proposes a command, runs a policy gate, and only then acts.
 
+The evolved version adds an autonomous research loop for trading agents. It observes Solana markets, proposes a bounded paper strategy, scores it against the current champion, and persists the result in Honcho-style memory. Live wallet execution stays behind the same deny-first permission gate.
+
 ## 4. Demo
 
 The included offline demo uses a warehouse inspection robot. It ingests telemetry, detects elevated thermal and vibration risk, blocks unsafe forward movement, permits slow reverse plus operator alert, creates an x402-style payment intent for a diagnostic plugin, and emits a receipt with hashes.
+
+The demo also prints a paper-trading research block: research goal, candidate strategy, evaluation metrics, ratchet decision, and the memory record that would be persisted for future sessions.
 
 ## 5. Why Solana
 
@@ -24,3 +28,4 @@ Solana is useful here because machine-to-machine service calls need fast low-cos
 
 The package is public and MIT licensed. Judges can open the static site, print the pitch deck, inspect the docs, and run the demo without private keys or API credentials.
 
+The larger point is that OpenClawd gives autonomy a memory and a brake pedal: research can self-improve, but money and hardware still require policy.

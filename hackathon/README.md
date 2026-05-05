@@ -31,6 +31,7 @@ Submission package for **OpenClawd Robotics Command Layer**: a Solana-native AI 
 | Pitch deck | [`presentation/pitch-deck.html`](./presentation/pitch-deck.html) | Printable HTML slide deck |
 | Speaker notes | [`presentation/speaker-notes.md`](./presentation/speaker-notes.md) | 5-minute talk track |
 | Architecture docs | [`docs/architecture.md`](./docs/architecture.md) | How the monorepo pieces combine into the robotics submission |
+| Autonomous research loop | [`docs/autonomous-research-loop.md`](./docs/autonomous-research-loop.md) | Self-evolving paper-trading loop, Honcho persistence model, and Toly/Karpathy inspiration |
 | Demo guide | [`docs/demo-guide.md`](./docs/demo-guide.md) | Demo flow for judges and local reviewers |
 | Technical spec | [`docs/technical-spec.md`](./docs/technical-spec.md) | APIs, data contracts, security model, and integration points |
 | Judging checklist | [`docs/judging-checklist.md`](./docs/judging-checklist.md) | Clear mapping to likely hackathon judging criteria |
@@ -60,6 +61,7 @@ The demo is read-only and deterministic. It does not require `SOLANA_PRIVATE_KEY
 - `agents/` catalog of 50 Solana-native deployable agents with Metaplex-ready metadata.
 - `openclawd-framework/` on-chain agent lifecycle: spawn, sense, think, strike, drift.
 - `llm-wiki-tang/` live research memory over Helius and Birdeye data.
+- Honcho-style persistence layer for cross-session strategy memory, operator preferences, experiment lineage, and durable agent self-models.
 - `services/attestation-agent/` Solana Attestation Service credential, schema, attestation, and MPL Core birth flows.
 - `plugin.delivery/` paid plugin delivery, plugin attestation, and gateway model.
 - `clawdrouter/`, `payments/`, and `workers/` payment-aware routing and deployment surfaces.
@@ -77,3 +79,16 @@ OpenClawd turns robots and field agents into accountable Solana actors:
 5. Commands, credentials, capabilities, and revenue events can be attested or settled on Solana.
 
 For the hackathon, the packaged demo shows a warehouse inspection robot that detects a hazard, checks its policy, requests a paid specialist plugin, and emits a verifiable command receipt.
+
+## Autonomous Trading Loop
+
+The evolved demo also frames OpenClawd as a self-improving Solana trading agent stack:
+
+1. Observe markets, wallets, telemetry, and protocol signals.
+2. Generate a bounded research hypothesis.
+3. Run an offline or paper-trading experiment with fixed risk and fixed budget.
+4. Score the candidate against the current champion strategy.
+5. Persist the result, rationale, and lineage in Honcho-style durable memory.
+6. Promote only validated improvements; live execution remains permission-gated.
+
+This is inspired by Toly's Percolator model of parallel, risk-contained Solana trading lanes and Karpathy's autoresearch ratchet loop: experiment, measure, keep what improves, discard what fails.

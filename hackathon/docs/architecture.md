@@ -11,7 +11,9 @@ Robot / Operator / Simulator
   -> Agent runtime
      src · openclawd-framework · agents · skills · mcp
   -> Memory and research
-     llm-wiki-tang · packages · services
+     llm-wiki-tang · Honcho persistence · packages · services
+  -> Autonomous strategy lab
+     research lane · paper-trade lane · score lane · gated execution lane
   -> Solana trust layer
      Helius · SAS · Metaplex · ACP registry · SPL payments
 ```
@@ -23,6 +25,7 @@ Robot / Operator / Simulator
 | Robot identity | Wallet + Metaplex Core asset + ACP record | `openclawd-framework/`, `acp_registry/`, `api-registrar/` |
 | Sensor packet | `KNOWN` memory item | `src/memory/`, `llm-wiki-tang/` |
 | Diagnosis | `INFERRED` memory item with confidence | `src/`, `skills/`, `llm-wiki-tang/` |
+| Strategy experiment | `EXPERIMENTAL` memory item with score | `llm-wiki-tang/`, Honcho persistence, `skills/` |
 | Fleet policy | Permission gate | `src/`, `CLAWD.md`, `CLAW.md` |
 | Command | MCP tool call | `mcp/`, `src/tools/` |
 | Specialist cloud service | paid plugin | `plugin.delivery/`, `payments/`, `clawdrouter/` |
@@ -47,6 +50,28 @@ LEARN
   Persist outcome and promote validated facts to LEARNED memory
 ```
 
+## Autonomous Research Lifecycle
+
+```text
+OBSERVE
+  Market data, wallet state, robot telemetry, protocol state
+
+HYPOTHESIZE
+  Candidate strategy or operational policy change
+
+SIMULATE
+  Fixed-budget paper run with no private keys and no live execution
+
+SCORE
+  Compare against the current champion strategy and policy limits
+
+RATCHET
+  Promote, hold, or retire the candidate
+
+PERSIST
+  Write lineage and lessons to Honcho-style long-term memory
+```
+
 ## Module Composition
 
 - `src/` supplies the core engine, command handling, tools, permission posture, and memory tier model.
@@ -54,6 +79,7 @@ LEARN
 - `agents/` supplies a deployable agent catalog and schema conventions for on-chain agent identities.
 - `openclawd-framework/` supplies the birth/lifecycle abstraction and the Sense -> Think -> Strike -> Drift loop.
 - `llm-wiki-tang/` supplies persistent research and telemetry memory.
+- Honcho-style persistence supplies cross-session memory for strategy lineage, operator risk preferences, and agent self-model evolution.
 - `services/attestation-agent/` supplies credential, schema, attestation, and MPL Core mint orchestration.
 - `plugin.delivery/` supplies paid, discoverable specialist plugins.
 - `clawdrouter/`, `payments/`, and `workers/` supply routing, hosted deployment, and settlement surfaces.
@@ -67,4 +93,10 @@ The robotics layer inherits the financial-agent safety boundary:
 3. Command plans are structured and inspectable.
 4. Movement, payments, key use, and chain writes require permission.
 5. Receipts can be attested for external review.
+6. Autonomous research can promote paper strategies, but live trading remains behind wallet policy and human-configured limits.
 
+## Design Influences
+
+- Toly's Percolator inspires the separation of autonomous trading into parallel lanes with strict risk boundaries.
+- Karpathy's autoresearch inspires the strategy ratchet: bounded experiment, objective score, keep the improvement, discard the regression.
+- Honcho persistence inspires durable agent memory that survives context resets and lets the system learn from prior research sessions.

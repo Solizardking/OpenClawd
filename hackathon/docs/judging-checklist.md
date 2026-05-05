@@ -6,6 +6,8 @@
 - Reuses existing OpenClawd agent runtime, MCP, agent catalog, and attestation services.
 - Includes runnable demo code.
 - Includes clear production integration points.
+- Adds a bounded autonomous research loop for self-evolving paper-trading strategies.
+- Includes a Honcho-style persistence model for strategy lineage and agent continuity.
 
 ## Originality
 
@@ -13,6 +15,7 @@
 - Treats robots as wallet-native, attestable Solana actors.
 - Combines x402 paid services with robotic specialist plugins.
 - Uses memory tiers to separate sensor facts, hypotheses, and learned operating patterns.
+- Connects Toly's Percolator-style parallel trading lanes with Karpathy's autoresearch ratchet loop.
 
 ## Product Clarity
 
@@ -24,6 +27,7 @@
 
 - Offline demo does not require keys or live chain writes.
 - Command execution is permission-gated.
+- Live trading remains blocked until wallet policy approval; autonomous evolution is paper-only in the public demo.
 - Irreversible movement, payment, and signing operations are explicitly separated from read-only observation.
 - Privacy-aware receipt model uses hashes for sensitive data.
 
@@ -45,4 +49,3 @@
 - Demo guide: complete.
 - Technical spec: complete.
 - Offline demo: complete.
-

@@ -30,6 +30,8 @@ Expected result:
 - Generates a command plan.
 - Applies safety policy.
 - Emits an x402-style payment intent.
+- Runs a bounded paper-trading research loop.
+- Shows the Honcho-style persistence payload that would survive future sessions.
 - Writes a command receipt to stdout.
 
 No API keys or wallet keys are needed.
@@ -58,6 +60,7 @@ Read:
 open hackathon/presentation/pitch-deck.html
 open hackathon/docs/architecture.md
 open hackathon/docs/technical-spec.md
+open hackathon/docs/autonomous-research-loop.md
 ```
 
 Narrative:
@@ -66,6 +69,7 @@ Narrative:
 2. Robotics needs the same primitives: identity, payments, memory, command gates, audit receipts.
 3. The hackathon package adapts the repo into a robotics command layer.
 4. The offline demo proves the control flow without exposing keys.
+5. The autonomous research block shows how OpenClawd evolves trading strategies through paper experiments before anything reaches a live wallet.
 
 ## Optional Live Extensions
 
@@ -83,4 +87,4 @@ With valid keys, the next integration step is to connect:
 - `HELIUS_API_KEY` for RPC and DAS.
 - `BIRDEYE_API_KEY` for market and telemetry enrichment.
 - A devnet payer keypair for SAS and Metaplex identity tests.
-
+- `HONCHO_API_KEY` for durable cross-session strategy memory, with local memory as the offline fallback.
