@@ -19,6 +19,28 @@
 
 ---
 
+## Pay.sh x OpenClawd — Payment Is the Credential
+
+OpenClawd now includes a Pay.sh-compatible payment surface for Solana merchants,
+agentic point-of-sale generation, and pay-per-request API access over x402 and
+MPP. The integration follows Solana Foundation's May 5, 2026 Pay.sh launch with
+Google Cloud: agents can discover priced APIs, pay with stablecoins on Solana,
+and use the payment proof as the credential.
+
+```bash
+npm run payments:merchant -- create demo-store \
+  --recipient 11111111111111111111111111111111 \
+  --label "Demo Store" \
+  --pay-gateway https://pay.sh
+```
+
+Read the full article:
+[Pay.sh x OpenClawd: Payment Is the Credential](./docs/articles/PAYSH_OPENCLAWD.md).
+Operational docs: [payments/README.md](./payments/README.md) and
+[payments/PAYSH.md](./payments/PAYSH.md).
+
+---
+
 ## Start Here
 
 OpenClawd is a Solana-native financial AI agent stack. The fastest path for a
