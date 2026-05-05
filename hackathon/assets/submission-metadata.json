@@ -1,12 +1,25 @@
 {
   "name": "OpenClawd Robotics Command Layer",
-  "tagline": "Solana-native identity, payments, memory, and permission-gated autonomy for robotics agents.",
+  "tagline": "Solana-native identity, payments, memory, autonomous research, and permission-gated autonomy for robotics and trading agents.",
   "license": "MIT",
   "public": true,
   "repository_path": "hackathon",
   "static_site": "hackathon/one-page-site/index.html",
   "pitch_deck": "hackathon/presentation/pitch-deck.html",
   "offline_demo": "hackathon/demos/robot-command-demo.mjs",
+  "package_shades": "hackathon/docs/package-shades.md",
+  "autonomous_research_loop": "hackathon/docs/autonomous-research-loop.md",
+  "tags": [
+    "solana",
+    "robotics",
+    "ai-agents",
+    "x402",
+    "attestation",
+    "mcp",
+    "autonomous-research",
+    "honcho-memory",
+    "paper-trading"
+  ],
   "solana": {
     "token": "$CLAWD",
     "mint": "8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump",
@@ -18,4 +31,3 @@
     "requires_network": false
   }
 }
-

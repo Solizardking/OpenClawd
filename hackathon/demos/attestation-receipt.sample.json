@@ -29,10 +29,33 @@
     "service": "thermal-diagnostic-plugin",
     "settlement": "pending-demo"
   },
+  "autonomous_research": {
+    "research_goal": "evolve a Solana paper-trading strategy without live wallet access",
+    "candidate_strategy": {
+      "id": "percolator-lane-v1",
+      "market": "SOL/USDC",
+      "mode": "paper",
+      "max_budget_usd": 250,
+      "live_execution": "blocked_until_wallet_policy_approval"
+    },
+    "evaluation": {
+      "duration": "offline_bounded_demo",
+      "simulated_pnl_pct": 2.4,
+      "max_drawdown_pct": 0.8,
+      "policy_violations": 0,
+      "beats_current_champion": true
+    },
+    "ratchet_decision": "promote_to_paper_champion",
+    "honcho_persistence": {
+      "memory_provider": "honcho_style_persistence",
+      "session": "openclawd-hackathon-autoresearch",
+      "search_tags": ["strategy-lineage", "risk-policy", "paper-trading", "robotics"]
+    }
+  },
   "public_links": {
     "submission": "../SUBMISSION.md",
     "site": "../one-page-site/index.html",
-    "deck": "../presentation/pitch-deck.html"
+    "deck": "../presentation/pitch-deck.html",
+    "package_shades": "../docs/package-shades.md"
   }
 }
-

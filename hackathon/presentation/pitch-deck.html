@@ -86,9 +86,27 @@
   </section>
 
   <section>
+    <div class="kicker">Autonomous Research</div>
+    <h2>Self-evolving trading, bounded by policy.</h2>
+    <div class="grid">
+      <div class="card"><strong>Percolator</strong>Parallel lanes separate research, paper trading, scoring, and live execution.</div>
+      <div class="card"><strong>Autoresearch</strong>Run a fixed-budget experiment, score it, keep winners, retire failures.</div>
+      <div class="card"><strong>Honcho</strong>Persist strategy lineage, operator preferences, and learned risk context across sessions.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Package Shades</div>
+    <h2>Every package has a public role.</h2>
+    <p>The bundle includes a judge-safe package map that explains how MCP, Leviathan, llm-wiki-tang, Honcho bridge, plugin.delivery, ClawdRouter, attestation services, CLIs, and gateway surfaces combine.</p>
+    <pre>docs/package-shades.md
+assets/package-shades.json</pre>
+  </section>
+
+  <section>
     <div class="kicker">Demo</div>
     <h2>Hazard inspection without private keys.</h2>
-    <p>A warehouse robot receives telemetry, infers elevated risk, blocks unsafe forward motion, requests a paid diagnostic plugin, and emits a command receipt.</p>
+    <p>A warehouse robot receives telemetry, infers elevated risk, blocks unsafe forward motion, requests a paid diagnostic plugin, runs a paper-trading research pass, and emits a command receipt.</p>
     <pre>node hackathon/demos/robot-command-demo.mjs</pre>
   </section>
 

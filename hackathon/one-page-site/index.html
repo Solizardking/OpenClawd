@@ -195,6 +195,7 @@
       <div class="navlinks">
         <a href="#problem">Problem</a>
         <a href="#solution">Solution</a>
+        <a href="#research">Research</a>
         <a href="#architecture">Architecture</a>
         <a href="#demo">Demo</a>
         <a href="#open">Open Source</a>
@@ -245,6 +246,19 @@
       </div>
     </section>
 
+    <section id="research" class="wrap">
+      <div class="section-head">
+        <h2>Self-evolving trading loops</h2>
+        <p class="sub">OpenClawd turns market research into a bounded ratchet: propose one strategy change, run a paper experiment, score it, persist the result, and keep only validated improvements.</p>
+      </div>
+      <div class="grid">
+        <article class="card"><h3>Percolator lanes</h3><p>Research, paper trading, risk review, and live execution stay isolated like parallel Solana trading lanes.</p></article>
+        <article class="card"><h3>Autoresearch ratchet</h3><p>Inspired by Karpathy's loop: fixed-budget experiments, objective scoring, promote winners, retire failures.</p></article>
+        <article class="card"><h3>Honcho persistence</h3><p>Durable memory preserves strategy lineage, operator risk preferences, and lessons from prior runs.</p></article>
+      </div>
+      <pre>observe -> research -> simulate -> score -> ratchet -> persist -> gated execution</pre>
+    </section>
+
     <section id="architecture" class="wrap">
       <div class="section-head">
         <h2>Architecture</h2>
@@ -259,19 +273,21 @@
       <div style="margin-top:14px">
         <span class="pill">src</span><span class="pill">mcp</span><span class="pill">agents</span><span class="pill">llm-wiki-tang</span><span class="pill">openclawd-framework</span><span class="pill">plugin.delivery</span><span class="pill">services/attestation-agent</span><span class="pill">solana-attestation-service-master</span>
       </div>
+      <p class="sub" style="margin-top:18px">Package shades are available at <a href="../docs/package-shades.md">docs/package-shades.md</a> and <a href="../assets/package-shades.json">assets/package-shades.json</a>.</p>
     </section>
 
     <section id="demo" class="wrap">
       <div class="section-head">
         <h2>Offline demo flow</h2>
-        <p class="sub">A warehouse robot detects a hazard, blocks unsafe motion, requests a paid diagnostic plugin, and emits a verifiable receipt.</p>
+        <p class="sub">A warehouse robot detects a hazard, blocks unsafe motion, requests a paid diagnostic plugin, runs a paper-trading research pass, and emits a verifiable receipt.</p>
       </div>
       <div class="timeline">
         <div class="step"><strong>Observe</strong><span>Lidar obstruction, thermal spike, vibration anomaly.</span></div>
         <div class="step"><strong>Orient</strong><span>Classify readings into memory tiers and infer elevated risk.</span></div>
         <div class="step"><strong>Decide</strong><span>Generate a limited command plan: reverse slowly, capture image, alert operator.</span></div>
         <div class="step"><strong>Act</strong><span>Policy allows limited movement and creates an x402 payment intent for a thermal diagnostic plugin.</span></div>
-        <div class="step"><strong>Prove</strong><span>Receipt includes hashes for telemetry, policy, command, and payment intent.</span></div>
+        <div class="step"><strong>Evolve</strong><span>Paper-trade candidate strategy is scored and promoted only if it beats the current champion.</span></div>
+        <div class="step"><strong>Prove</strong><span>Receipt includes hashes for telemetry, policy, command, payment intent, and autonomous research state.</span></div>
       </div>
       <pre>node hackathon/demos/robot-command-demo.mjs</pre>
     </section>
