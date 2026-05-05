@@ -142,7 +142,7 @@ async function cmdLogin() {
   s.start("Opening your browser to sign in with Clerk");
   try {
     const { user } = await auth().login();
-    s.stop(pc.green("✓ ") + `Signed in as ${pc.cyan(user.email ?? user.username ?? user.sub)}`);
+    s.stop(pc.green("✓ ") + `Signed in as ${pc.cyan(userLabel(user))}`);
     p.outro(`Try ${pc.cyan(`${CLI_NAME} submit ${BUDDIES_DIR}`)} to share your buddies.`);
   } catch (err) {
     s.stop(pc.red("× login failed"));
@@ -158,12 +158,13 @@ async function cmdLogout() {
 async function cmdWhoami() {
   try {
     const me = await auth().whoami();
+    if (!me) throw new Error("not signed in");
     p.note(
       [
         `${pc.dim("user:    ")}${me.sub}`,
         `${pc.dim("email:   ")}${me.email ?? "—"}`,
-        `${pc.dim("name:    ")}${[me.given_name, me.family_name].filter(Boolean).join(" ") || "—"}`,
-        `${pc.dim("username:")}${me.preferred_username ?? "—"}`,
+        `${pc.dim("name:    ")}${[pickString(me.given_name, ""), pickString(me.family_name, "")].filter(Boolean).join(" ") || "—"}`,
+        `${pc.dim("username:")}${pickString(me.preferred_username, "—")}`,
       ].join("\n"),
       "Signed in",
     );
@@ -648,6 +649,15 @@ async function fileExists(p: string): Promise<boolean> {
 function pickString(value: unknown, fallback: string): string {
   if (typeof value === "string" && value.trim()) return value.trim();
   return fallback;
+}
+
+function userLabel(user: Record<string, unknown>): string {
+  return (
+    pickString(user.email, "") ||
+    pickString(user.username, "") ||
+    pickString(user.preferred_username, "") ||
+    pickString(user.sub, "unknown")
+  );
 }
 
 function slugify(value: string): string {

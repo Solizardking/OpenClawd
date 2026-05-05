@@ -11,7 +11,13 @@ export interface CreateStoreOptions {
 	filePath?: string;
 }
 
-type KeyringModule = typeof import("@napi-rs/keyring");
+type KeyringModule = {
+	Entry: new (service: string, account: string) => {
+		getPassword(): string | null;
+		setPassword(value: string): void;
+		deletePassword(): void;
+	};
+};
 
 function storageError(message: string, error: unknown): ClerkCliAuthError {
 	if (error instanceof ClerkCliAuthError) return error;
@@ -127,10 +133,12 @@ class KeychainCredentialStore implements CredentialStore {
 	}
 
 	private async loadKeyring(): Promise<KeyringModule | null> {
-		this.keyringPromise ??= import("@napi-rs/keyring").catch((error: unknown) => {
-			this.warnFallback("initialization", error);
-			return null;
-		});
+		this.keyringPromise ??= import("@napi-rs/keyring")
+			.then((module) => module as KeyringModule)
+			.catch((error: unknown) => {
+				this.warnFallback("initialization", error);
+				return null;
+			});
 		return this.keyringPromise;
 	}
 
