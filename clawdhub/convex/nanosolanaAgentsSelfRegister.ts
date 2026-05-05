@@ -13,6 +13,7 @@
  */
 
 import { IPFSClient, ServiceType, SolanaSDK, buildRegistrationFileJson } from '8004-solana'
+import type { Cluster } from '8004-solana'
 import { PublicKey } from '@solana/web3.js'
 import { ConvexError, v } from 'convex/values'
 import { internal } from './_generated/api'
@@ -22,8 +23,11 @@ import { action } from './functions'
 const MAX_NAME_LENGTH = 64
 const MAX_DESCRIPTION_LENGTH = 800
 
-function resolveCluster(): string {
-  return process.env.AGENT_REGISTRY_CLUSTER?.trim() || 'mainnet-beta'
+const VALID_CLUSTERS: readonly Cluster[] = ['devnet', 'testnet', 'mainnet-beta', 'localnet']
+
+function resolveCluster(): Cluster {
+  const raw = process.env.AGENT_REGISTRY_CLUSTER?.trim() || 'mainnet-beta'
+  return (VALID_CLUSTERS as readonly string[]).includes(raw) ? (raw as Cluster) : 'mainnet-beta'
 }
 
 function resolveRpcUrl(cluster: string): string {
@@ -58,7 +62,14 @@ export const prepareRegistration = action({
     website: v.optional(v.string()),
     atomEnabled: v.optional(v.boolean()),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx, args): Promise<{
+    pendingId: Id<'nanosolanaAgents'>
+    transaction: string
+    metadataUri: string
+    metadataCid: string
+    cluster: Cluster
+    estimatedCost: string
+  }> => {
     const walletAddress = args.walletAddress.trim()
     if (!walletAddress) throw new ConvexError('Wallet address is required.')
 
@@ -102,7 +113,7 @@ export const prepareRegistration = action({
       const metadataUri = `ipfs://${cid}`
 
       // Build unsigned transaction via skipSend
-      const sdkConfig: ConstructorParameters<typeof SolanaSDK>[0] = {
+      const sdkConfig: NonNullable<ConstructorParameters<typeof SolanaSDK>[0]> = {
         cluster,
         useIndexer: true,
         indexerFallback: true,
@@ -117,12 +128,12 @@ export const prepareRegistration = action({
         atomEnabled: Boolean(args.atomEnabled),
       })
 
-      if (!prepared?.transaction) {
+      if (!('transaction' in prepared) || !prepared.transaction) {
         throw new ConvexError('Failed to build registration transaction.')
       }
 
       // Create a pending record in Convex
-      const pendingId = await ctx.runMutation(internal.nanosolanaAgentsSelfRegisterMutations.createPending, {
+      const pendingId: Id<'nanosolanaAgents'> = await ctx.runMutation(internal.nanosolanaAgentsSelfRegisterMutations.createPending, {
         walletAddress,
         name,
         description,
