@@ -27,8 +27,6 @@ const RETRY_BACKOFF_MS = [4000, 10000, 30000] as const;
 const SOUND_BRIEF_SYSTEM_PROMPT =
   "You design 2-3 second AUDIO PORTRAITS for animated pixel pets in a Pokedex-style catalog. The sound is NOT a musical jingle — it's a tiny SOUND STORY that captures what this specific pet IS DOING or what they EVOKE in pop culture.\n\nThink like a sound designer for Cuphead, Animal Crossing, or Pixar shorts: the audio CHARACTERIZES the pet through specific real-world or pop-culture sounds that match their description.\n\nGOOD examples:\n- An otter sipping bubble tea → STRAW SLURP + tapioca pearl pop + content sigh + tail-splash. NOT marimba.\n- A spider detective → vintage typewriter clack-clack-clack + carriage return bell + paper slide.\n- A fintech koala → cheerful CASH REGISTER ka-ching + coin tumble + happy bank-app notification chirp.\n- A Rick Rubin-style producer → SUDDEN bass drop + finger snap + record scratch tail.\n- A Microsoft Clippy paperclip → tiny WIN95 startup chord + paper rustling + spring-bounce.\n\nBAD examples (lazy/generic):\n- 'marimba 3-note ascending'\n- 'kalimba with bell ding'\n- 'soft piano descending'\n- ANYTHING that sounds like a UI notification jingle\n\nRULES:\n1. NO HUMAN VOICES OR HUMMING. No vocal exclamations, no 'mmm', no breathing, no whispers. Foley vocals like a slurp or sneeze are OK if they fit the pet's action.\n2. The sound NARRATES what the pet does or references what it evokes. Honor pop culture references in descriptions (Spider-Man Noir, Rick Rubin, Microsoft Clippy, etc.).\n3. 2-3 sound elements layered or sequenced in time. Each element specific (named action or instrument), not generic.\n4. Phone-speaker audible. Punchy lead in the first 300ms.\n5. Cute, charming, family-friendly. Not scary, not muddy, not ambient.\n6. AVOID ambient textures: tape hiss, vinyl crackle alone, room tone, studio breath, generic ambience. They produce muddy mixes.\n\nReturn JSON: { promptForElevenLabs: '<2-3 sentence prompt naming SPECIFIC actions or pop-culture references the description evokes, sequence the sounds in time, end with no human voice, no humming, no music bed>', duration: <number 1.8-2.8>, rationale: '<one sentence>' }";
 
-const openai = new OpenAI({ apiKey: requireEnv("OPENAI_API_KEY") });
-
 export type PetSoundCandidate = {
   id: string;
   slug: string;
@@ -66,15 +64,17 @@ type ProcessOptions = {
   elevenLabsLimiter?: Semaphore;
 };
 
-type ElevenLabsResponse = {
-  ok: true;
-  bytes: Buffer;
-} | {
-  ok: false;
-  status: number;
-  body: string;
-  retryable: boolean;
-};
+type ElevenLabsResponse =
+  | {
+      ok: true;
+      bytes: Buffer;
+    }
+  | {
+      ok: false;
+      status: number;
+      body: string;
+      retryable: boolean;
+    };
 
 export async function listApprovedPetsMissingSound(limit?: number) {
   const query = db
@@ -97,7 +97,8 @@ export async function listApprovedPetsMissingSound(limit?: number) {
       ),
     );
 
-  const rows = typeof limit === "number" ? await query.limit(limit) : await query;
+  const rows =
+    typeof limit === "number" ? await query.limit(limit) : await query;
   return rows.map((row) => ({
     id: row.id,
     slug: row.slug,
@@ -143,6 +144,7 @@ export async function buildSoundBrief(
 ): Promise<SoundBrief> {
   await limiter.wait();
 
+  const openai = new OpenAI({ apiKey: requireEnv("OPENAI_API_KEY") });
   const completion = await openai.chat.completions.create({
     model: OPENAI_MODEL,
     response_format: { type: "json_object" },

@@ -787,6 +787,8 @@ Chrome MV3 extension at [`chrome-extension/openclawd-chrome-extension/`](chrome-
 
 The **agent wallet** is the headline feature — a real Solana keypair living encrypted inside the extension, never leaves it. Sign-and-submit pattern: gateway builds the tx → extension signs the bytes via `crypto.subtle` → gateway forwards to Helius RPC. Means the extension stays small (no `@solana/web3.js` bundle) and the secret stays sandboxed.
 
+`@openclawdsolana/pagent-wallet` wraps this in-extension wallet alongside the local AES-256-GCM vault (`localhost:8421`) and the Solana Seeker bridge so any TS surface gets a single `WalletAdapter` interface — `detectWallet({ prefer: ['vault', 'in-extension', 'seeker'] })` picks the first available backend. The brand surface (`@openclawdsolana/pagent-theme`) ships a single `theme.css` consumed by the popup, the Browser Bridge options page, and any future surface, so all OpenClawd UIs stay color-cohesive without copy-pasting palettes.
+
 ```bash
 # Load unpacked
 open chrome://extensions
