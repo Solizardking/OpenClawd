@@ -1,4 +1,4 @@
-import { useQuery } from 'convex/react'
+import { useConvexAuth, useQuery } from 'convex/react'
 import { useEffect, useState } from 'react'
 import { api } from '../../convex/_generated/api'
 import type { Doc } from '../../convex/_generated/dataModel'
@@ -6,7 +6,11 @@ import { loadWalletSession } from './nanosolanaWalletSession'
 import { usePhantomState } from './phantomContext'
 
 export function useAuthStatus() {
-  const me = useQuery(api.users.me) as Doc<'users'> | null | undefined
+  const convexAuth = useConvexAuth()
+  const me = useQuery(
+    api.users.me,
+    convexAuth.isAuthenticated ? {} : 'skip',
+  ) as Doc<'users'> | null | undefined
 
   // Phantom SDK wallet (safe — returns disconnected if outside PhantomProvider)
   const { isConnected: phantomConnected, address: phantomAddress } = usePhantomState()
@@ -30,14 +34,17 @@ export function useAuthStatus() {
     null
 
   // Authenticated if ANY auth source is active
-  const isAuthenticated = Boolean(me) || phantomConnected || Boolean(activeWalletSession)
+  const isConvexAuthed = convexAuth.isAuthenticated && Boolean(me)
+  const isAuthenticated = isConvexAuthed || phantomConnected || Boolean(activeWalletSession)
 
   return {
     me,
-    isLoading: me === undefined && !phantomConnected && !activeWalletSession,
+    isLoading:
+      convexAuth.isLoading ||
+      (convexAuth.isAuthenticated && me === undefined && !phantomConnected && !activeWalletSession),
     isAuthenticated,
     /** True only when the user has a Convex/GitHub account */
-    isConvexAuthed: Boolean(me),
+    isConvexAuthed,
     phantomConnected,
     phantomAddress,
     walletSession: activeWalletSession,
