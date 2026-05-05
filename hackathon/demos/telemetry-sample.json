@@ -1,0 +1,15 @@
+{
+  "robot_id": "clawd-rover-07",
+  "site": "warehouse-alpha",
+  "timestamp": "2026-05-05T16:00:00.000Z",
+  "objective": "inspect aisle B hazard",
+  "telemetry": {
+    "battery_pct": 72,
+    "lidar_obstruction_m": 1.4,
+    "thermal_c": 61.8,
+    "vibration_rms": 0.82,
+    "operator_distance_m": 18.5,
+    "network_rtt_ms": 44
+  }
+}
+

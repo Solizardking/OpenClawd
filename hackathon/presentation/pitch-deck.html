@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenClawd Robotics Pitch Deck</title>
+  <style>
+    :root { --bg:#071018; --panel:#0f1d28; --line:#25485c; --text:#f1fbfb; --muted:#a9c0c8; --green:#14f195; --violet:#9945ff; --amber:#ffb14a; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    main { scroll-snap-type: y mandatory; }
+    section {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      display: grid;
+      align-content: center;
+      padding: 7vh 8vw;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 85% 15%, rgba(153,69,255,.16), transparent 34%),
+        radial-gradient(circle at 5% 95%, rgba(20,241,149,.12), transparent 30%);
+    }
+    section > * { animation: slideIn .62s ease both; }
+    section > *:nth-child(2) { animation-delay: .08s; }
+    section > *:nth-child(3) { animation-delay: .16s; }
+    .kicker { color: var(--green); text-transform: uppercase; letter-spacing: .12em; font-size: 13px; font-weight: 800; }
+    h1, h2 { margin: 12px 0 18px; letter-spacing: -.045em; line-height: .98; }
+    h1 { font-size: clamp(52px, 9vw, 110px); max-width: 1050px; }
+    h2 { font-size: clamp(42px, 7vw, 82px); max-width: 980px; }
+    p { color: var(--muted); font-size: clamp(19px, 2.2vw, 28px); max-width: 920px; }
+    ul { display: grid; gap: 14px; padding-left: 22px; color: var(--muted); font-size: clamp(18px, 2vw, 25px); max-width: 980px; }
+    .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; margin-top: 22px; }
+    .card { border:1px solid var(--line); background:rgba(15,29,40,.78); border-radius:8px; padding:20px; min-height:150px; }
+    .card strong { display:block; color:var(--green); font-size:22px; margin-bottom:10px; }
+    pre { white-space: pre-wrap; border:1px solid var(--line); background:#06131d; border-radius:8px; padding:20px; color:#cfe3e4; font-size: clamp(14px, 1.5vw, 18px); }
+    .tag { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:6px 10px; margin:4px; color:var(--muted); }
+    .pulse { display:inline-block; color:var(--green); animation: blink 1.2s steps(2, start) infinite; }
+    @keyframes slideIn { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes blink { 50% { opacity:.25; } }
+    @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation:none !important; } }
+    @media print {
+      main { scroll-snap-type:none; }
+      section { min-height: 7.5in; page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <section>
+    <div class="kicker"><span class="pulse">●</span> OpenClawd x Solana Robotics</div>
+    <h1>Verifiable AI command layers for robot fleets.</h1>
+    <p>Solana-native identity, payments, memory, and permission-gated autonomy for robots and field agents.</p>
+  </section>
+
+  <section>
+    <div class="kicker">Problem</div>
+    <h2>Robotics AI lacks a shared trust layer.</h2>
+    <ul>
+      <li>Command provenance is buried in private logs.</li>
+      <li>Robots cannot easily pay specialist services per task.</li>
+      <li>Sensor facts, hypotheses, and learned patterns get mixed together.</li>
+      <li>Physical actions need explicit safety gates.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="kicker">Solution</div>
+    <h2>Make each robot an accountable Solana actor.</h2>
+    <div class="grid">
+      <div class="card"><strong>Identity</strong>Wallet, ACP record, Metaplex Core asset, and SAS receipts.</div>
+      <div class="card"><strong>Command Gates</strong>Deny-first permission model for movement, payments, and signatures.</div>
+      <div class="card"><strong>Paid Skills</strong>x402 and plugin.delivery for per-call robotics services.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Architecture</div>
+    <h2>Built from the OpenClawd monorepo.</h2>
+    <pre>Robot / Operator / Simulator
+  -> clawd-tui · chrome-extension · tailclawd · site
+  -> clawdrouter · payments · workers · plugin.delivery
+  -> src · mcp · agents · skills · openclawd-framework
+  -> llm-wiki-tang · services/attestation-agent
+  -> Solana · Helius · Metaplex · SAS · SPL payments</pre>
+  </section>
+
+  <section>
+    <div class="kicker">Demo</div>
+    <h2>Hazard inspection without private keys.</h2>
+    <p>A warehouse robot receives telemetry, infers elevated risk, blocks unsafe forward motion, requests a paid diagnostic plugin, and emits a command receipt.</p>
+    <pre>node hackathon/demos/robot-command-demo.mjs</pre>
+  </section>
+
+  <section>
+    <div class="kicker">Why Solana</div>
+    <h2>Fast settlement for machine autonomy.</h2>
+    <ul>
+      <li>Low-cost attestations for command and credential receipts.</li>
+      <li>SPL payments for robot-to-service transactions.</li>
+      <li>Metaplex and ACP records for discoverable robot identity.</li>
+      <li>Helius and Birdeye data paths already integrated in OpenClawd.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="kicker">Open Source</div>
+    <h2>Public by default.</h2>
+    <p>The hackathon bundle is MIT licensed, sanitized for public review, and designed to run offline. Judges can open the site, read the docs, print this deck, and run the demo directly.</p>
+    <div>
+      <span class="tag">MIT</span><span class="tag">No private keys</span><span class="tag">No network required</span><span class="tag">Fork-ready</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Roadmap</div>
+    <h2>From demo to deployed robot agents.</h2>
+    <ul>
+      <li>Add robotics MCP tools and ROS2/simulator bridge.</li>
+      <li>Register robot command SAS schema on devnet.</li>
+      <li>Mint robot identities via Metaplex and ACP.</li>
+      <li>Settle x402 payments against hosted diagnostic plugins.</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>

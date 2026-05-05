@@ -1,0 +1,38 @@
+{
+  "receipt_type": "openclawd.robot_command.v1",
+  "status": "demo_not_onchain",
+  "robot_id": "clawd-rover-07",
+  "agent_id": "openclawd-robotics-commander",
+  "agent_wallet": "Demo111111111111111111111111111111111111111",
+  "solana": {
+    "network": "devnet",
+    "sas_program": "22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG",
+    "schema": "OpenClawdRobotCommand",
+    "attestation_pda": "pending-demo",
+    "metaplex_core_asset": "pending-demo"
+  },
+  "command": {
+    "action": "reverse_and_alert",
+    "risk_level": "elevated",
+    "approved": true,
+    "requires_human": false,
+    "command_hash": "sha256:68a07a6e2a5f7dce1eec5a6d0eb8e58e1f7dbacbb9f125a4b9961e2d9a9f1007"
+  },
+  "policy": {
+    "decision": "allow_limited",
+    "policy_hash": "sha256:7f5b85d43be77dbd076ca5cfe71df17d93f4e02797cdf9c3cf90e59b7c6cf0ff"
+  },
+  "payment": {
+    "protocol": "x402",
+    "asset": "USDC",
+    "amount_usd": "0.005",
+    "service": "thermal-diagnostic-plugin",
+    "settlement": "pending-demo"
+  },
+  "public_links": {
+    "submission": "../SUBMISSION.md",
+    "site": "../one-page-site/index.html",
+    "deck": "../presentation/pitch-deck.html"
+  }
+}
+

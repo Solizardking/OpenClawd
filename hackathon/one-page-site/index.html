@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenClawd Robotics Command Layer</title>
+  <meta name="description" content="Solana-native identity, payments, memory, and permission-gated autonomy for robotics agents." />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071018;
+      --panel: #0e1a24;
+      --panel2: #102331;
+      --line: #224154;
+      --text: #edf7f6;
+      --muted: #a8bcc4;
+      --green: #14f195;
+      --violet: #9945ff;
+      --amber: #ffb14a;
+      --red: #ff6673;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        linear-gradient(135deg, rgba(20, 241, 149, 0.1), transparent 32%),
+        linear-gradient(225deg, rgba(153, 69, 255, 0.14), transparent 38%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(20, 241, 149, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(153, 69, 255, 0.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.8), transparent 78%);
+      animation: gridDrift 18s linear infinite;
+    }
+    a { color: var(--green); text-decoration: none; }
+    .wrap { width: min(1120px, calc(100% - 36px)); margin: 0 auto; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(7, 16, 24, 0.86);
+      border-bottom: 1px solid rgba(34, 65, 84, 0.8);
+      backdrop-filter: blur(14px);
+    }
+    nav { display: flex; align-items: center; justify-content: space-between; min-height: 64px; gap: 20px; }
+    .brand { font-weight: 800; letter-spacing: 0.01em; }
+    .navlinks { display: flex; gap: 18px; font-size: 14px; }
+    .navlinks a { color: var(--muted); }
+    .hero { padding: 72px 0 44px; }
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      border: 1px solid rgba(20, 241, 149, 0.35);
+      color: var(--green);
+      background: rgba(20, 241, 149, 0.08);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    h1 {
+      margin: 22px 0 18px;
+      max-width: 900px;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+    .hero h1, .lead, .cta, .eyebrow { animation: riseIn .7s ease both; }
+    .lead { animation-delay: .08s; }
+    .cta { animation-delay: .16s; }
+    .lead { max-width: 760px; color: var(--muted); font-size: clamp(18px, 2vw, 22px); }
+    .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--text);
+      font-weight: 750;
+    }
+    .btn.primary { background: linear-gradient(135deg, var(--green), var(--violet)); color: #041018; border: 0; }
+    .btn.primary { background-size: 180% 180%; animation: gradientShift 5s ease infinite; }
+    section { padding: 56px 0; }
+    .section-head { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 22px; }
+    h2 { margin: 0; font-size: clamp(26px, 4vw, 42px); letter-spacing: -0.03em; }
+    .sub { color: var(--muted); max-width: 620px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .grid.two { grid-template-columns: repeat(2, 1fr); }
+    .card {
+      background: linear-gradient(180deg, rgba(16, 35, 49, 0.95), rgba(14, 26, 36, 0.95));
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      min-height: 160px;
+      transform: translateY(0);
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+    .card:hover { transform: translateY(-4px); border-color: rgba(20, 241, 149, .55); box-shadow: 0 18px 48px rgba(0,0,0,.28); }
+    .card h3 { margin: 0 0 8px; font-size: 18px; }
+    .card p { color: var(--muted); margin: 0; }
+    .pill { display: inline-block; border: 1px solid var(--line); border-radius: 999px; padding: 5px 9px; margin: 4px 4px 0 0; color: var(--muted); font-size: 12px; }
+    .diagram, pre {
+      overflow-x: auto;
+      background: #07131d;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      color: #cfe1e3;
+      position: relative;
+    }
+    pre { font-family: "SFMono-Regular", Consolas, monospace; font-size: 13px; }
+    .timeline { display: grid; gap: 10px; }
+    .step { display: grid; grid-template-columns: 120px 1fr; gap: 14px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: rgba(16, 35, 49, 0.7); }
+    .step strong { color: var(--green); }
+    .step { animation: pulseLine 4s ease-in-out infinite; }
+    .step:nth-child(2) { animation-delay: .25s; }
+    .step:nth-child(3) { animation-delay: .5s; }
+    .step:nth-child(4) { animation-delay: .75s; }
+    .step:nth-child(5) { animation-delay: 1s; }
+    .status-rail {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .status {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: rgba(16, 35, 49, .7);
+      color: var(--muted);
+      font-size: 13px;
+      position: relative;
+      overflow: hidden;
+    }
+    .status::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), var(--violet), var(--amber));
+      transform: translateX(-100%);
+      animation: scan 2.6s ease-in-out infinite;
+    }
+    .status:nth-child(2)::after { animation-delay: .25s; }
+    .status:nth-child(3)::after { animation-delay: .5s; }
+    .status:nth-child(4)::after { animation-delay: .75s; }
+    .status:nth-child(5)::after { animation-delay: 1s; }
+    table { width: 100%; border-collapse: collapse; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; }
+    th, td { text-align: left; padding: 13px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--green); background: rgba(20, 241, 149, 0.06); }
+    td { color: var(--muted); }
+    footer { padding: 36px 0 60px; color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; }
+    @keyframes gridDrift { from { background-position: 0 0; } to { background-position: 42px 42px; } }
+    @keyframes riseIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    @keyframes pulseLine {
+      0%, 100% { border-color: var(--line); }
+      50% { border-color: rgba(20, 241, 149, .5); }
+    }
+    @keyframes scan { 0% { transform: translateX(-100%); } 45%, 55% { transform: translateX(0); } 100% { transform: translateX(100%); } }
+    @media (max-width: 800px) {
+      .navlinks { display: none; }
+      .grid, .grid.two { grid-template-columns: 1fr; }
+      .section-head { display: block; }
+      .step { grid-template-columns: 1fr; }
+      .status-rail { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap">
+      <div class="brand">OpenClawd Robotics</div>
+      <div class="navlinks">
+        <a href="#problem">Problem</a>
+        <a href="#solution">Solution</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#demo">Demo</a>
+        <a href="#open">Open Source</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <span class="eyebrow">Solana Robotics Hackathon Submission</span>
+      <h1>Verifiable AI command layers for robot fleets.</h1>
+      <p class="lead">OpenClawd combines Solana identity, x402 payments, MCP tools, telemetry memory, and deny-first permission gates so autonomous robots can act, pay, learn, and prove what happened.</p>
+      <div class="cta">
+        <a class="btn primary" href="../presentation/pitch-deck.html">View Pitch Deck</a>
+        <a class="btn" href="../SUBMISSION.md">Read Submission</a>
+        <a class="btn" href="../demos/robot-command-demo.mjs">Demo Script</a>
+      </div>
+      <div class="status-rail" aria-label="submission status">
+        <div class="status">robot identity</div>
+        <div class="status">telemetry memory</div>
+        <div class="status">policy gate</div>
+        <div class="status">x402 intent</div>
+        <div class="status">SAS receipt</div>
+      </div>
+    </section>
+
+    <section id="problem" class="wrap">
+      <div class="section-head">
+        <h2>The trust gap in AI robotics</h2>
+        <p class="sub">Robots are getting smarter, but identity, payments, audit trails, and safety approvals remain fragmented across proprietary logs and manual workflows.</p>
+      </div>
+      <div class="grid">
+        <article class="card"><h3>Identity is weak</h3><p>Operators need to verify which robot, model, plugin, and policy approved a command.</p></article>
+        <article class="card"><h3>Services are hard to pay</h3><p>Robots need specialist APIs for vision, mapping, diagnostics, and maintenance without manual billing.</p></article>
+        <article class="card"><h3>Actions need gates</h3><p>Physical movement deserves the same explicit approval posture OpenClawd already applies to swaps and mints.</p></article>
+      </div>
+    </section>
+
+    <section id="solution" class="wrap">
+      <div class="section-head">
+        <h2>OpenClawd Robotics Command Layer</h2>
+        <p class="sub">The existing financial AI agent stack becomes a robotics layer by mapping wallets to robots, MCP tools to capabilities, and attestations to command receipts.</p>
+      </div>
+      <div class="grid">
+        <article class="card"><h3>On-chain robot identity</h3><p>Wallet, ACP record, Metaplex Core asset, and Solana Attestation Service receipts.</p></article>
+        <article class="card"><h3>Telemetry memory</h3><p>Sensor facts enter KNOWN memory, hypotheses enter INFERRED memory, validated patterns become LEARNED.</p></article>
+        <article class="card"><h3>Paid autonomy</h3><p>x402 and plugin.delivery let robots pay per call for specialist services while keeping commands auditable.</p></article>
+      </div>
+    </section>
+
+    <section id="architecture" class="wrap">
+      <div class="section-head">
+        <h2>Architecture</h2>
+        <p class="sub">Built from the monorepo modules already present in OpenClawd.</p>
+      </div>
+      <pre>Robot / Operator / Simulator
+  -> chrome-extension · clawd-tui · tailclawd · site
+  -> clawdrouter · workers · payments · plugin.delivery
+  -> src · openclawd-framework · agents · skills · mcp
+  -> llm-wiki-tang · packages · services
+  -> Helius · SAS · Metaplex · ACP registry · SPL payments</pre>
+      <div style="margin-top:14px">
+        <span class="pill">src</span><span class="pill">mcp</span><span class="pill">agents</span><span class="pill">llm-wiki-tang</span><span class="pill">openclawd-framework</span><span class="pill">plugin.delivery</span><span class="pill">services/attestation-agent</span><span class="pill">solana-attestation-service-master</span>
+      </div>
+    </section>
+
+    <section id="demo" class="wrap">
+      <div class="section-head">
+        <h2>Offline demo flow</h2>
+        <p class="sub">A warehouse robot detects a hazard, blocks unsafe motion, requests a paid diagnostic plugin, and emits a verifiable receipt.</p>
+      </div>
+      <div class="timeline">
+        <div class="step"><strong>Observe</strong><span>Lidar obstruction, thermal spike, vibration anomaly.</span></div>
+        <div class="step"><strong>Orient</strong><span>Classify readings into memory tiers and infer elevated risk.</span></div>
+        <div class="step"><strong>Decide</strong><span>Generate a limited command plan: reverse slowly, capture image, alert operator.</span></div>
+        <div class="step"><strong>Act</strong><span>Policy allows limited movement and creates an x402 payment intent for a thermal diagnostic plugin.</span></div>
+        <div class="step"><strong>Prove</strong><span>Receipt includes hashes for telemetry, policy, command, and payment intent.</span></div>
+      </div>
+      <pre>node hackathon/demos/robot-command-demo.mjs</pre>
+    </section>
+
+    <section id="open" class="wrap">
+      <div class="section-head">
+        <h2>Public and open source</h2>
+        <p class="sub">The hackathon bundle is MIT licensed, sanitized for public review, and designed to run without private credentials.</p>
+      </div>
+      <table>
+        <tr><th>Artifact</th><th>Path</th></tr>
+        <tr><td>License</td><td><a href="../LICENSE.md">hackathon/LICENSE.md</a></td></tr>
+        <tr><td>Contributing</td><td><a href="../CONTRIBUTING.md">hackathon/CONTRIBUTING.md</a></td></tr>
+        <tr><td>Security</td><td><a href="../SECURITY.md">hackathon/SECURITY.md</a></td></tr>
+        <tr><td>Publication guide</td><td><a href="../PUBLICATION.md">hackathon/PUBLICATION.md</a></td></tr>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">OpenClawd Robotics Command Layer. MIT licensed. Built for public judging and community forks.</div>
+  </footer>
+</body>
+</html>
