@@ -36,7 +36,7 @@ const SOLANA_PULSE = [
   '⠀⠀⠙⣿⠋⠀⠀',
   '⠀⠀⠀⠁⠀⠀⠀',
 ];
-const LOBSTER_CLAW = [
+const LOBSTER_CLAWD = [
   '   _\n  ( v ) c\n   ^^^^',
   '   _\n  ( ^ ) C\n   ^^^^',
   '   _\n  ( v ) c\n   ^^^^',
@@ -50,7 +50,7 @@ function spin(el, frames, interval) {
   }, interval);
 }
 spin($('anim-pulse'), SOLANA_PULSE, 100);
-spin($('anim-claw'), LOBSTER_CLAW, 220);
+spin($('anim-clawd'), LOBSTER_CLAWD, 220);
 
 // Bounce the brand lobster on every health refresh
 function bounceLobster() {

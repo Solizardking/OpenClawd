@@ -70,7 +70,7 @@ export const EXAMPLES: Example[] = [
     file: 'x402-payment-demo.ts',
     title: 'x402 Agent Payments',
     category: 'payments',
-    desc: '@openclawd/agents-x402 — agent-to-agent USDC micropayments on Solana.',
+    desc: '@openclawdsolana/agents-x402 — agent-to-agent USDC micropayments on Solana.',
     cmd: 'npx tsx examples/x402-payment-demo.ts',
   },
 ];

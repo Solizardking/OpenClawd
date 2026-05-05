@@ -68,7 +68,7 @@ If a pill is red, fix the corresponding service:
 - **Agent Runtime** — live skill registry from `src/agents/runtime.ts`. Refresh the list, clone a built-in agent (trader / scanner / analyst / monitor), or run a prompt through OpenRouter.
 - **Gateway Health** — full `/health` JSON for debugging, refreshed every 8s.
 
-The lobster animations on the hero (`solanaPulse` and the 4-frame ASCII claw) come from `src/animations/web-frames.ts` — same braille frames the CLI uses, exported as plain data for the browser.
+The lobster animations on the hero (`solanaPulse` and the 4-frame ASCII clawd) come from `src/animations/web-frames.ts` — same braille frames the CLI uses, exported as plain data for the browser.
 
 ## File map
 

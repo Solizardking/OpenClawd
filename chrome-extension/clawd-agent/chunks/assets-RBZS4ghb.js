@@ -19512,7 +19512,7 @@ var Motion = class {
 		gl.bindVertexArray(null);
 	}
 	greet() {
-		console.log(`%c🌈 ai-motion 0.4.8 🌈`, "background: linear-gradient(90deg, #39b6ff, #bd45fb, #ff5733, #ffd600); color: white; text-shadow: 0 0 2px rgba(0, 0, 0, 0.2); font-weight: bold; font-size: 1em; padding: 2px 12px; border-radius: 6px;");
+		console.log(`%c🌈 ai-motion 0.4.8 🌈`, "background: linear-gradient(90deg, #14F195, #9945FF, #9945FF, #14F195); color: white; text-shadow: 0 0 2px rgba(0, 0, 0, 0.2); font-weight: bold; font-size: 1em; padding: 2px 12px; border-radius: 6px;");
 	}
 };
 //#endregion

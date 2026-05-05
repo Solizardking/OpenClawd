@@ -6,7 +6,10 @@
 
 .card {
   border: 1px solid var(--border);
-  background: var(--card);
+  background:
+    linear-gradient(135deg, rgba(20, 241, 149, 0.045), transparent 34%),
+    linear-gradient(315deg, rgba(153, 69, 255, 0.035), transparent 32%),
+    var(--card);
   border-radius: var(--radius-lg);
   padding: 20px;
   animation: rise 0.35s var(--ease-out) backwards;
@@ -20,17 +23,19 @@
 }
 
 .card:hover {
-  border-color: var(--border-strong);
+  border-color: rgba(153, 69, 255, 0.35);
   box-shadow:
     var(--shadow-md),
+    0 0 22px rgba(153, 69, 255, 0.07),
     inset 0 1px 0 var(--card-highlight);
 }
 
 .card-title {
   font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-weight: 800;
+  letter-spacing: 0.04em;
   color: var(--text-strong);
+  text-transform: uppercase;
 }
 
 .card-sub {
@@ -429,10 +434,13 @@
   border: 1px solid var(--border);
   padding: 6px 12px;
   border-radius: var(--radius-full);
-  background: var(--secondary);
+  background:
+    linear-gradient(90deg, rgba(20, 241, 149, 0.1), rgba(153, 69, 255, 0.06)),
+    var(--secondary);
   font-size: 13px;
   font-weight: 500;
   transition: border-color var(--duration-fast) ease;
+  box-shadow: inset 0 0 14px rgba(20, 241, 149, 0.04);
 }
 
 .pill:hover {
@@ -527,7 +535,7 @@
   height: 8px;
   border-radius: var(--radius-full);
   background: var(--danger);
-  box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 8px rgba(112, 83, 242, 0.5);
   animation: pulse-subtle 2s ease-in-out infinite;
 }
 
@@ -642,7 +650,7 @@
 }
 
 .btn.danger:hover {
-  background: rgba(239, 68, 68, 0.15);
+  background: rgba(112, 83, 242, 0.15);
 }
 
 .btn--sm {
@@ -783,8 +791,8 @@
 }
 
 .callout.danger {
-  border-color: rgba(239, 68, 68, 0.25);
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(239, 68, 68, 0.04) 100%);
+  border-color: rgba(112, 83, 242, 0.25);
+  background: linear-gradient(135deg, rgba(112, 83, 242, 0.08) 0%, rgba(112, 83, 242, 0.04) 100%);
   color: var(--danger);
 }
 

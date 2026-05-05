@@ -1198,7 +1198,7 @@
   }
 
   .border-green-500\/30 {
-    border-color: #00c7584d;
+    border-color: #14F1954d;
   }
 
   @supports (color: color-mix(in lab, red, red)) {
@@ -1212,7 +1212,7 @@
   }
 
   .border-purple-500\/30 {
-    border-color: #ac4bff4d;
+    border-color: #9945FF4d;
   }
 
   @supports (color: color-mix(in lab, red, red)) {
@@ -1226,7 +1226,7 @@
   }
 
   .border-l-blue-500\/50 {
-    border-left-color: #3080ff80;
+    border-left-color: #9945FF80;
   }
 
   @supports (color: color-mix(in lab, red, red)) {
@@ -1236,7 +1236,7 @@
   }
 
   .border-l-green-500\/50 {
-    border-left-color: #00c75880;
+    border-left-color: #14F19580;
   }
 
   @supports (color: color-mix(in lab, red, red)) {
@@ -1306,7 +1306,7 @@
   }
 
   .bg-green-500\/10 {
-    background-color: #00c7581a;
+    background-color: #14F1951a;
   }
 
   @supports (color: color-mix(in lab, red, red)) {
@@ -2252,7 +2252,7 @@
   }
 
   .has-\[\[data-slot\=input-group-control\]\:focus-visible\]\:shadow-\[0_0_0_1px_rgba\(57\,182\,255\,0\.2\)\,0_0_8px_rgba\(57\,182\,255\,0\.15\)\,0_0_16px_rgba\(189\,69\,251\,0\.1\)\]:has([data-slot="input-group-control"]:focus-visible) {
-    --tw-shadow: 0 0 0 1px var(--tw-shadow-color, #39b6ff33), 0 0 8px var(--tw-shadow-color, #39b6ff26), 0 0 16px var(--tw-shadow-color, #bd45fb1a);
+    --tw-shadow: 0 0 0 1px var(--tw-shadow-color, #14F19533), 0 0 8px var(--tw-shadow-color, #14F19526), 0 0 16px var(--tw-shadow-color, #9945FF1a);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
 

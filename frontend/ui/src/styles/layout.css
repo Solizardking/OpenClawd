@@ -80,8 +80,13 @@
   gap: 16px;
   padding: 0 20px;
   height: var(--shell-topbar-height);
-  border-bottom: 1px solid var(--border);
-  background: var(--bg);
+  border-bottom: 1px solid rgba(20, 241, 149, 0.26);
+  background:
+    linear-gradient(90deg, rgba(20, 241, 149, 0.11), transparent 34%),
+    linear-gradient(270deg, rgba(153, 69, 255, 0.12), transparent 38%),
+    var(--chrome-strong);
+  box-shadow: 0 0 28px rgba(20, 241, 149, 0.1), inset 0 -1px 0 rgba(153, 69, 255, 0.16);
+  backdrop-filter: blur(14px) saturate(1.18);
 }
 
 .topbar-left {
@@ -114,9 +119,14 @@
 }
 
 .brand-logo {
-  width: 28px;
-  height: 28px;
+  width: 34px;
+  height: 34px;
   flex-shrink: 0;
+  border: 1px solid rgba(20, 241, 149, 0.38);
+  border-radius: 10px;
+  padding: 4px;
+  background: rgba(5, 7, 13, 0.74);
+  box-shadow: 0 0 18px rgba(20, 241, 149, 0.18), inset 0 0 12px rgba(153, 69, 255, 0.08);
 }
 
 .brand-logo img {
@@ -132,20 +142,22 @@
 }
 
 .brand-title {
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   line-height: 1.1;
-  color: var(--text-strong);
+  color: var(--accent);
+  text-shadow: 0 0 14px rgba(20, 241, 149, 0.42);
 }
 
 .brand-sub {
   font-size: 10px;
-  font-weight: 500;
-  color: var(--muted);
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: var(--accent-2);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   line-height: 1;
+  text-shadow: 0 0 12px rgba(153, 69, 255, 0.32);
 }
 
 /* Topbar status */
@@ -196,7 +208,11 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding: 16px 12px;
-  background: var(--bg);
+  background:
+    linear-gradient(180deg, rgba(20, 241, 149, 0.045), transparent 24%),
+    linear-gradient(0deg, rgba(153, 69, 255, 0.04), transparent 30%),
+    rgba(5, 7, 13, 0.94);
+  border-right: 1px solid rgba(153, 69, 255, 0.13);
   scrollbar-width: none; /* Firefox */
   transition:
     width var(--shell-focus-duration) var(--shell-focus-ease),

@@ -1,18 +1,20 @@
 :root {
-  --bg: #0a0e1a;
-  --bg-elev: #0f1424;
-  --bg-card: #131a2e;
-  --border: #1f2942;
-  --border-bright: #2c3a60;
-  --text: #e6edf7;
-  --text-dim: #93a0bd;
-  --text-mute: #5a6685;
-  --accent: #14F195;
-  --accent-2: #9945FF;
-  --orange: #ff9e44;
+  --solana-purple: #9945FF;
+  --solana-green: #14F195;
+  --bg: #05070d;
+  --bg-elev: #08111b;
+  --bg-card: #0b101a;
+  --border: rgba(20,241,149,.18);
+  --border-bright: rgba(153, 69, 255,.42);
+  --text: #d7f7ff;
+  --text-dim: #89adbd;
+  --text-mute: #5e7d90;
+  --accent: var(--solana-green);
+  --accent-2: var(--solana-purple);
+  --orange: #ffd166;
   --red: #ff5d6c;
   --yellow: #ffd166;
-  --gradient: linear-gradient(135deg, #14F195 0%, #9945FF 100%);
+  --gradient: linear-gradient(135deg, var(--solana-purple) 0%, var(--solana-green) 52%, var(--solana-purple) 100%);
 }
 
 * { box-sizing: border-box; }
@@ -30,10 +32,10 @@ body {
 .ocean {
   position: fixed; inset: 0; z-index: -1;
   background:
-    radial-gradient(1100px 600px at 80% -10%, rgba(153,69,255,.18), transparent 60%),
-    radial-gradient(900px 500px at 10% 30%, rgba(20,241,149,.12), transparent 60%),
-    radial-gradient(700px 400px at 50% 110%, rgba(255,158,68,.08), transparent 70%),
+    linear-gradient(rgba(153, 69, 255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(153, 69, 255,.04) 1px, transparent 1px),
     var(--bg);
+  background-size: 44px 44px, 44px 44px, auto;
 }
 
 .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
@@ -41,8 +43,9 @@ body {
 nav.top {
   position: sticky; top: 0; z-index: 50;
   backdrop-filter: blur(12px);
-  background: rgba(10,14,26,.78);
-  border-bottom: 1px solid var(--border);
+  background: linear-gradient(90deg, rgba(20,241,149,.12), rgba(153, 69, 255,.08)), rgba(5,7,13,.88);
+  border-bottom: 1px solid rgba(20,241,149,.28);
+  box-shadow: 0 0 24px rgba(20,241,149,.12);
 }
 nav.top .row {
   display: flex; align-items: center; gap: 18px;
