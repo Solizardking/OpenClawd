@@ -120,6 +120,53 @@ Full docs: [services/attestation-agent/README.md](services/attestation-agent/REA
 
 ---
 
+## 🦞 Blockchain Buddies — pixel pets, born onchain
+
+<div align="center">
+  <img src="blockchain_buddies/public/brand/clawd-lobster.svg" alt="Clawd the lobster waving" width="360"/>
+</div>
+
+> **What shipped:** [`blockchain_buddies/`](./blockchain_buddies/) — a Solana-native **companion gallery** and **birth station** for OpenClawd agents. Browse 50+ pixel pets, preview every animation state, and **mint a buddy onchain** (Helius RPC + Metaplex Agent Registry + MPL Core) in a single transaction.
+
+Each buddy born here gets:
+
+- 🦞 a registered **Metaplex Agent identity** on Solana
+- 🐾 a public **MPL Core asset** with metadata + animation pack
+- 📦 a downloadable **ZIP** that drops into `~/.openclawd/buddies` or `~/.codex/pets`
+- 🪙 an immutable **birth signature** persisted to Postgres via Drizzle
+
+```bash
+# Run the gallery + /birth station locally
+cd blockchain_buddies && bun install && bun dev
+# → http://localhost:3000
+
+# Or use the CLI to grab a buddy
+npx @openclawdsolana/blockchain-buddies list
+npx @openclawdsolana/blockchain-buddies install commit-crab
+npx @openclawdsolana/blockchain-buddies codex sync commit-crab
+```
+
+| Layer | What it does | Where |
+| --- | --- | --- |
+| **Gallery + `/birth`** | Next.js + React 19 app — browse, preview, submit, mint | [blockchain_buddies/src](blockchain_buddies/src) |
+| **Onchain birth** | Umi + `@metaplex-foundation/mpl-agent-registry` v0.2+ — `mintAndSubmitAgent` signs and confirms | [blockchain_buddies/README.md](blockchain_buddies/README.md) |
+| **CLI** | `blockchain-buddies` / `buddies` / `petdex` — install, codex sync, metaplex metadata | [blockchain_buddies/packages/petdex-cli](blockchain_buddies/packages/petdex-cli/README.md) |
+| **Roster** | 50 pixel pets — Commit Crab, Token Turtle, Deploy Dragon, Ship Squid, Webhook Whale, Vault Viper, … | [blockchain_buddies/pets/ideas.json](blockchain_buddies/pets/ideas.json) |
+
+**Required env:**
+
+```bash
+DATABASE_URL=                              # Postgres
+HELIUS_RPC_URL=                            # https://mainnet.helius-rpc.com/?api-key=...
+HELIUS_API_KEY=                            # alternative to RPC URL
+METAPLEX_AGENT_NETWORK=solana-mainnet      # or solana-devnet
+BUDDIES_MINT_AUTHORITY_SECRET_KEY=         # base58 OR JSON array keypair
+```
+
+Full docs: [blockchain_buddies/README.md](./blockchain_buddies/README.md).
+
+---
+
 ## 🧠 v0.3 — AutoResearch Wiki goes live (the agents teach themselves)
 
 > **What shipped:** [`llm-wiki-tang`](./llm-wiki-tang/) auto-research API now returns **live** Birdeye + Helius data (was 60% mock), an in-process autonomous research loop, and `/research` + `/autoloop` slash commands inside the TUI.
