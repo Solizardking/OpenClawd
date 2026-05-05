@@ -41,6 +41,50 @@ Operational docs: [payments/README.md](./payments/README.md) and
 
 ---
 
+## Solana Robotics Hackathon — Presentation-Ready Bundle
+
+OpenClawd now includes a public Solana Robotics Hackathon submission under
+[`hackathon/`](./hackathon/) and a real hardware integration under
+[`Robotics/`](./Robotics/).
+
+What was added:
+
+- **OCASV1 / `OPENCLAWDASV1` hardware path** — Asimov v1 mechanical assets,
+  electrical/motion-control maps, MuJoCo model, Solana robot identity manifests,
+  and a safe operator-gated command boundary.
+- **NVIDIA Isaac GR00T integration** — `NEW_EMBODIMENT` config, modality JSON,
+  32-step action horizon for RTC-style deployment, and GR00T deployment docs for
+  `OPENCLAWDASV1`.
+- **Hardware-side Go binary** — [`cmd/openclawd-go`](./cmd/openclawd-go/)
+  installs on robot compute, registers with the gateway, creates paid task
+  envelopes, and prints `gr00t plan` metadata for physical deployment.
+- **Gateway robotics routes** — `/api/robotics/hardware`,
+  `/api/robot/connect`, and `/api/robot/task` expose public-safe hardware
+  manifests, robot registration, dry-run task envelopes, x402/MPP/Pay.sh
+  payment intent, and physical-AI data contribution metadata.
+- **DePIN physical-AI data story** — adapted the “Robot AI as blockchain’s
+  breakout AI use case” thesis into validated GR00T LeRobot episode receipts,
+  reward intents, and judge-facing docs.
+- **Presentation package** — one-page site, pitch deck, speaker notes,
+  submission brief, technical spec, judging checklist, demo guide, offline demo,
+  and publication guide are all in [`hackathon/`](./hackathon/).
+
+Fast review:
+
+```bash
+open hackathon/one-page-site/index.html
+open hackathon/presentation/pitch-deck.html
+node hackathon/demos/robot-command-demo.mjs
+./cmd/openclawd-go/openclawd-go gr00t plan --robot-id OPENCLAWDASV1
+```
+
+The public hackathon path requires no private keys, no funded wallet, no RPC
+credentials, and no network access for the offline demo. Start with
+[`hackathon/README.md`](./hackathon/README.md) and
+[`hackathon/SUBMISSION.md`](./hackathon/SUBMISSION.md).
+
+---
+
 ## Start Here
 
 OpenClawd is a Solana-native financial AI agent stack. The fastest path for a
@@ -459,6 +503,7 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 | 🤖 **Automaton** *(npm)* | `@openclawdsolana/automaton` — sovereign self-replicating AI agent runtime. Heartbeat daemon + Sense→Think→Strike→Drift loop, self-versioned `shell.md`, on-chain SAS identity, skill replication. Plus `@openclawdsolana/automaton-cli` for creator-side status / logs / fund / send | [`automaton-main/`](automaton-main/) |
 | 🌐 **pAGENT** *(npm × 8)* | Browser-side GUI vision agent family — `@openclawdsolana/pagent` (top-level, auto-merges Solana tools), [`pagent-core@1.6.4`](https://www.npmjs.com/package/@openclawdsolana/pagent-core) (vision agent · **live · 765 KB**), [`pagent-llms@1.6.3`](https://www.npmjs.com/package/@openclawdsolana/pagent-llms) (OpenAI/OpenRouter adapters + `solanaWalletTools` · **live**), [`pagent-page-controller@1.6.3`](https://www.npmjs.com/package/@openclawdsolana/pagent-page-controller) (DOM ops · **live · 268 KB**), `pagent-ui` (vanilla-DOM panels incl. `WalletPanel`), [`pagent-theme`](chrome-extension/theme/) (brand tokens + `theme.css`), [`pagent-wallet`](chrome-extension/wallet/) (unified Vault/InExt/Seeker adapter + `HttpGatewayClient`), and `browser-mcp` (MCP server bridging Claude/Cursor → live browser). Drives the Chrome extension bundle in [`chrome-extension/clawd-agent`](chrome-extension/clawd-agent/) | [`chrome-extension/`](chrome-extension/) |
 | 🧬 **Honcho bridge** *(npm)* | `@openclawdsolana/honcho-bridge` — conversational reasoning + peer/session memory across the build (gateway HTTP routes, automaton, AutoResearch wiki, pump-scanner-cron). HMAC-verified webhook receiver, multi-channel fan-out, `honcho-clawd` CLI, opt-in Membrain feeder | [`packages/honcho-bridge/`](packages/honcho-bridge/) |
+| 🤖 **Solana Robotics Hackathon** | Presentation-ready robotics submission: OCASV1 / `OPENCLAWDASV1`, Asimov v1 hardware, GR00T `NEW_EMBODIMENT`, openclawd-go hardware binary, gateway robot routes, Pay.sh/x402/MPP task payment, and DePIN physical-AI data receipts | [`hackathon/`](hackathon/) · [`Robotics/`](Robotics/) · [`cmd/openclawd-go/`](cmd/openclawd-go/) |
 | 📰 **Articles** | Long-form pieces tying everything together — three laws · lifecycle · Metaplex · Tide · examples · sovereign research | [`ARTICLE.md`](ARTICLE.md) · [`docs/articles/SOVEREIGN_RESEARCH.md`](docs/articles/SOVEREIGN_RESEARCH.md) |
 
 ---

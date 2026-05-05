@@ -31,7 +31,22 @@ Output directory: .
 - `hackathon/LICENSE.md` present.
 - `hackathon/CONTRIBUTING.md` present.
 - `hackathon/SECURITY.md` present.
+- `hackathon/SUBMISSION.md` present and links to the hardware, GR00T, Pay.sh,
+  and DePIN physical-AI pieces.
+- `hackathon/presentation/pitch-deck.html` opens directly from disk.
+- `hackathon/presentation/speaker-notes.md` contains the five-minute talk track.
+- `hackathon/docs/depin-physical-ai.md` explains the Robot AI / DePIN data
+  flywheel, receipt schema, validator checks, and market constraints.
+- `hackathon/robotics/README.md` points to OCASV1 / `OPENCLAWDASV1`, GR00T, and
+  the hardware-side Go binary.
 - No secrets or private keys.
 - Offline demo works with `node`.
 - Site opens directly from disk.
 
+## Final Local Smoke Test
+
+```bash
+node hackathon/demos/robot-command-demo.mjs
+node -e "const fs=require('fs'); for (const f of ['hackathon/one-page-site/index.html','hackathon/presentation/pitch-deck.html']) { const s=fs.readFileSync(f,'utf8'); if(!s.includes('<!doctype html>') || !s.includes('</html>')) throw new Error(f); }"
+./cmd/openclawd-go/openclawd-go gr00t plan --robot-id OPENCLAWDASV1
+```
