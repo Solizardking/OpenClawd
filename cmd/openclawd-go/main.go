@@ -38,6 +38,19 @@ type robotTaskRequest struct {
 	Execute      bool     `json:"execute"`
 }
 
+type gr00tPlan struct {
+	RobotID        string   `json:"robot_id"`
+	Profile        string   `json:"profile"`
+	ModelServer    string   `json:"model_server"`
+	DatasetPath    string   `json:"dataset_path"`
+	ModalityConfig string   `json:"modality_config"`
+	ModalityJSON   string   `json:"modality_json"`
+	EmbodimentTag  string   `json:"embodiment_tag"`
+	ActionHorizon  int      `json:"action_horizon"`
+	PaymentRails   []string `json:"payment_rails"`
+	SafetyMode     string   `json:"safety_mode"`
+}
+
 func main() {
 	if len(os.Args) < 2 {
 		usage()
@@ -56,6 +69,8 @@ func main() {
 		err = runGateway(os.Args[2:])
 	case "robot":
 		err = runRobot(os.Args[2:])
+	case "gr00t":
+		err = runGr00t(os.Args[2:])
 	default:
 		usage()
 		err = fmt.Errorf("unknown command %q", os.Args[1])
@@ -76,6 +91,7 @@ Commands:
   install --target /opt/openclawd --gateway http://127.0.0.1:8788 --robot-url http://robot.local:8080
   gateway connect --robot-id OPENCLAWDASV1 --robot-url http://robot.local:8080 --wallet <pubkey>
   robot task --robot-id OPENCLAWDASV1 --objective "inspect aisle B" --amount-usd 0.005 --pay-gateway https://pay.sh
+  gr00t plan --robot-id OPENCLAWDASV1 --model-server tcp://127.0.0.1:5555
 `)
 }
 
@@ -194,6 +210,28 @@ func runRobot(args []string) error {
 		return err
 	}
 	return printJSON(out)
+}
+
+func runGr00t(args []string) error {
+	if len(args) < 1 || args[0] != "plan" {
+		return fmt.Errorf("usage: openclawd-go gr00t plan --robot-id <id> [--model-server tcp://host:5555]")
+	}
+	fs := flag.NewFlagSet("gr00t plan", flag.ExitOnError)
+	plan := gr00tPlan{}
+	fs.StringVar(&plan.RobotID, "robot-id", envOr("OPENCLAWD_ROBOT_ID", "OPENCLAWDASV1"), "robot id")
+	fs.StringVar(&plan.ModelServer, "model-server", envOr("GR00T_MODEL_SERVER", "tcp://127.0.0.1:5555"), "GR00T ZMQ model server")
+	fs.StringVar(&plan.DatasetPath, "dataset-path", "Robotics/Isaac-GR00T-main/demo_data/openclawd_asv1", "GR00T LeRobot dataset path")
+	if err := fs.Parse(args[1:]); err != nil {
+		return err
+	}
+	plan.Profile = "OCASV1"
+	plan.ModalityConfig = "Robotics/Isaac-GR00T-main/examples/OpenClawdASV1/openclawd_asv1_config.py"
+	plan.ModalityJSON = "Robotics/Isaac-GR00T-main/examples/OpenClawdASV1/modality.json"
+	plan.EmbodimentTag = "NEW_EMBODIMENT"
+	plan.ActionHorizon = 32
+	plan.PaymentRails = []string{"x402", "mpp", "pay-sh"}
+	plan.SafetyMode = "dry_run_until_operator_approval"
+	return printJSON(plan)
 }
 
 func getJSON(url string, out any) error {
