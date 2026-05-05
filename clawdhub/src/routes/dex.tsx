@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { Search, TrendingUp, Shield, Activity, ExternalLink, Lock } from 'lucide-react'
 import { useAuthStatus } from '../lib/useAuthStatus'
 import { enrichTokensWithBirdeye } from '../lib/unifiedTokenData'
+import { birdeyeApi, type BirdeyeSmartMoneyToken } from '../lib/birdeyeApi'
 
 export const Route = createFileRoute('/dex')({
   head: () => ({ meta: [{ title: 'DEX — OpenClawd Hub' }] }),
@@ -83,7 +84,7 @@ interface RugCheckData {
   risks?: Array<{ label: string; level: string }>
 }
 
-type TabId = 'memescope' | 'latest' | 'rugcheck' | 'trending'
+type TabId = 'memescope' | 'latest' | 'rugcheck' | 'trending' | 'smart'
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -1267,6 +1268,144 @@ function TrendingTab() {
   )
 }
 
+// ─── Birdeye Smart Money Tab ────────────────────────────────────────────────
+
+function SmartMoneyTab() {
+  const [tokens, setTokens] = useState<BirdeyeSmartMoneyToken[]>([])
+  const [style, setStyle] = useState<'all' | 'risk_averse' | 'risk_balancers' | 'trenchers'>('all')
+  const [sortBy, setSortBy] = useState<'smart_traders_no' | 'net_flow' | 'market_cap'>('smart_traders_no')
+  const [loading, setLoading] = useState(true)
+
+  const load = useCallback(async () => {
+    setLoading(true)
+    try {
+      const rows = await birdeyeApi.getSmartMoney({
+        interval: '1d',
+        traderStyle: style,
+        sortBy,
+        limit: 20,
+      })
+      setTokens(rows)
+    } catch (e) {
+      console.error('Birdeye smart money error:', e)
+      setTokens([])
+    } finally {
+      setLoading(false)
+    }
+  }, [sortBy, style])
+
+  useEffect(() => {
+    void load()
+  }, [load])
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', marginBottom: 16 }}>
+        <div>
+          <h2 style={{ margin: 0, fontSize: 18, color: '#fff' }}>Birdeye Smart Money</h2>
+          <p style={{ margin: '4px 0 0', color: '#6b7280', fontSize: 13 }}>
+            Tokens ranked by smart-trader flow, wallet count, and fresh volume.
+          </p>
+        </div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <select
+            value={style}
+            onChange={(e) => setStyle(e.target.value as typeof style)}
+            style={{ ...styles.input, padding: '8px 10px', color: '#e5e7eb' }}
+          >
+            <option value="all">All cohorts</option>
+            <option value="risk_averse">Risk averse</option>
+            <option value="risk_balancers">Risk balancers</option>
+            <option value="trenchers">Trenchers</option>
+          </select>
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+            style={{ ...styles.input, padding: '8px 10px', color: '#e5e7eb' }}
+          >
+            <option value="smart_traders_no">Smart wallets</option>
+            <option value="net_flow">Net flow</option>
+            <option value="market_cap">Market cap</option>
+          </select>
+          <button type="button" onClick={() => void load()} style={{ ...styles.btnGhost, padding: '8px 14px' }}>
+            Refresh
+          </button>
+        </div>
+      </div>
+
+      {loading ? (
+        <Spinner />
+      ) : tokens.length === 0 ? (
+        <div style={{ ...styles.card, padding: 28, color: '#6b7280', textAlign: 'center' }}>
+          Birdeye smart-money data is unavailable for the current key or quota.
+        </div>
+      ) : (
+        <div style={{ ...styles.card, overflow: 'hidden' }}>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', ...styles.mono }}>
+              <thead>
+                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                  {['Token', 'Smart Wallets', 'Net Flow', 'Volume', 'Buy / Sell', 'Liquidity', '24h', 'Open'].map((h) => (
+                    <th
+                      key={h}
+                      style={{
+                        padding: '12px 14px',
+                        textAlign: h === 'Token' ? 'left' : 'right',
+                        fontSize: 10,
+                        color: '#6b7280',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.08em',
+                      }}
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {tokens.map((token) => (
+                  <tr key={token.token} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                    <td style={{ padding: '12px 14px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                        {token.logo_uri ? (
+                          <img src={token.logo_uri} alt="" style={{ width: 30, height: 30, borderRadius: '50%' }} />
+                        ) : (
+                          <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'rgba(20,241,149,0.12)' }} />
+                        )}
+                        <div>
+                          <div style={{ color: '#fff', fontSize: 13, fontWeight: 700 }}>{token.symbol || token.name || '?'}</div>
+                          <div style={{ color: '#6b7280', fontSize: 10 }}>{truncAddr(token.token)}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td style={{ padding: '12px 14px', textAlign: 'right', color: '#e5e7eb' }}>{formatNum(token.smart_traders_no)}</td>
+                    <td style={{ padding: '12px 14px', textAlign: 'right', color: token.net_flow >= 0 ? '#14f195' : '#ef4444' }}>{formatUsd(token.net_flow)}</td>
+                    <td style={{ padding: '12px 14px', textAlign: 'right', color: '#d1d5db' }}>{formatUsd(token.volume_usd)}</td>
+                    <td style={{ padding: '12px 14px', textAlign: 'right', color: '#d1d5db' }}>
+                      <span style={{ color: '#14f195' }}>{formatUsd(token.volume_buy_usd)}</span>
+                      <span style={{ color: '#6b7280' }}> / </span>
+                      <span style={{ color: '#ef4444' }}>{formatUsd(token.volume_sell_usd)}</span>
+                    </td>
+                    <td style={{ padding: '12px 14px', textAlign: 'right', color: '#d1d5db' }}>{formatUsd(token.liquidity)}</td>
+                    <td style={{ padding: '12px 14px', textAlign: 'right', color: token.price_change_percent >= 0 ? '#14f195' : '#ef4444' }}>
+                      {formatPercent(token.price_change_percent)}
+                    </td>
+                    <td style={{ padding: '12px 14px', textAlign: 'right' }}>
+                      <Link to="/chart/$token" params={{ token: token.token }} style={{ color: '#00d4ff', textDecoration: 'none', fontSize: 12 }}>
+                        Chart
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ─── Main Route ──────────────────────────────────────────────────────────────
 
 const tabs: { id: TabId; label: string; icon: React.ReactNode }[] = [
@@ -1274,6 +1413,7 @@ const tabs: { id: TabId; label: string; icon: React.ReactNode }[] = [
   { id: 'latest', label: 'Latest Tokens', icon: <TrendingUp size={15} /> },
   { id: 'rugcheck', label: 'Rugcheck', icon: <Shield size={15} /> },
   { id: 'trending', label: 'Trending', icon: <TrendingUp size={15} /> },
+  { id: 'smart', label: 'Smart Money', icon: <Activity size={15} /> },
 ]
 
 function DexRoute() {
@@ -1355,6 +1495,7 @@ function DexRoute() {
         {activeTab === 'latest' && <LatestTokensTab />}
         {activeTab === 'rugcheck' && <RugcheckTab />}
         {activeTab === 'trending' && <TrendingTab />}
+        {activeTab === 'smart' && <SmartMoneyTab />}
       </div>
     </div>
   )

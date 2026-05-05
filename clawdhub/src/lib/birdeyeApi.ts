@@ -111,6 +111,23 @@ export interface BirdeyeTradeData {
   [key: string]: unknown
 }
 
+export interface BirdeyeSmartMoneyToken {
+  token: string
+  price: number
+  liquidity: number
+  market_cap: number
+  net_flow: number
+  smart_traders_no: number
+  trader_style: string
+  volume_usd: number
+  volume_buy_usd: number
+  volume_sell_usd: number
+  symbol: string
+  name: string
+  logo_uri: string
+  price_change_percent: number
+}
+
 export const birdeyeApi = {
   /**
    * Get OHLCV candlestick data for a token.
@@ -166,5 +183,19 @@ export const birdeyeApi = {
   getMultiPrice: (addresses: string[]) =>
     fetchJson<Record<string, BirdeyeMultiPriceItem>>('/multi-price', {
       addresses: addresses.join(','),
+    }),
+
+  /** Get Birdeye smart-money token flow */
+  getSmartMoney: (params?: {
+    interval?: '1d' | '7d' | '30d'
+    traderStyle?: 'all' | 'risk_averse' | 'risk_balancers' | 'trenchers'
+    sortBy?: 'net_flow' | 'smart_traders_no' | 'market_cap'
+    limit?: number
+  }) =>
+    fetchJson<BirdeyeSmartMoneyToken[]>('/smart-money', {
+      interval: params?.interval,
+      trader_style: params?.traderStyle,
+      sort_by: params?.sortBy,
+      limit: params?.limit,
     }),
 }
