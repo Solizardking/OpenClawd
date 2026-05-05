@@ -1,7 +1,7 @@
 /* @vitest-environment node */
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { GlobalOpts } from '../types'
+import type { GlobalOpts } from '../types.js'
 
 const mockIntro = vi.fn()
 const mockOutro = vi.fn()
@@ -83,7 +83,7 @@ vi.mock('./publish.js', () => ({
   cmdPublish: (...args: unknown[]) => mockCmdPublish(...args),
 }))
 
-const { cmdSync } = await import('./sync')
+const { cmdSync } = await import('./sync.js')
 
 function makeOpts(): GlobalOpts {
   return {

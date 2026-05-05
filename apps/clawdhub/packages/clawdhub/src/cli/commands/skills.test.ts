@@ -2,7 +2,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { ApiRoutes } from '../../schema/index.js'
-import type { GlobalOpts } from '../types'
+import type { GlobalOpts } from '../types.js'
 
 const mockApiRequest = vi.fn()
 const mockDownloadZip = vi.fn()
@@ -64,7 +64,7 @@ vi.mock('node:fs/promises', () => ({
 }))
 
 const { clampLimit, cmdExplore, cmdInstall, cmdSearch, cmdUninstall, cmdUpdate, formatExploreLine } =
-  await import('./skills')
+  await import('./skills.js')
 const {
   extractZipToDir,
   hashSkillFiles,

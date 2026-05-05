@@ -8,7 +8,7 @@ import {
   fetchText,
   registryUrl,
   shouldUseProxyFromEnv,
-} from './http'
+} from './http.js'
 import { ApiV1WhoamiResponseSchema } from './schema/index.js'
 
 function mockImmediateTimeouts() {

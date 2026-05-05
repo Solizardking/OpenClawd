@@ -2,7 +2,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { ApiRoutes } from '../../schema/index.js'
-import type { GlobalOpts } from '../types'
+import type { GlobalOpts } from '../types.js'
 
 const mockApiRequest = vi.fn()
 const mockFetchText = vi.fn()
@@ -43,7 +43,7 @@ vi.mock('../ui.js', () => ({
   formatError: (error: unknown) => (error instanceof Error ? error.message : String(error)),
 }))
 
-const { cmdInspect } = await import('./inspect')
+const { cmdInspect } = await import('./inspect.js')
 
 const mockLog = vi.spyOn(console, 'log').mockImplementation(() => {})
 const mockWrite = vi.spyOn(process.stdout, 'write').mockImplementation(() => true)
