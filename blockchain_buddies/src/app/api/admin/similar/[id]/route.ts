@@ -30,7 +30,11 @@ const VISUAL_THRESHOLD = 14;
 const SEMANTIC_THRESHOLD = 0.75;
 const MAX_RESULTS = 12;
 
-const sql = neon(process.env.DATABASE_URL!);
+const hasDatabaseUrl = Boolean(process.env.DATABASE_URL);
+const sql = neon(
+  process.env.DATABASE_URL ??
+    "postgres://missing:missing@localhost:5432/missing",
+);
 
 export async function GET(
   _req: Request,
@@ -39,6 +43,12 @@ export async function GET(
   const { userId } = await auth();
   if (!isAdmin(userId)) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
+  }
+  if (!hasDatabaseUrl) {
+    return NextResponse.json(
+      { error: "database_unconfigured" },
+      { status: 503 },
+    );
   }
 
   const { id } = await ctx.params;

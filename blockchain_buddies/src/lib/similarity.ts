@@ -103,7 +103,8 @@ export async function refreshSimilarityFor(petId: string): Promise<void> {
     // Drizzle doesn't model pgvector yet; raw SQL via the neon-http driver.
     const literal = `[${vec.join(",")}]`;
     const { neon } = await import("@neondatabase/serverless");
-    const sql = neon(process.env.DATABASE_URL!);
+    if (!process.env.DATABASE_URL) return;
+    const sql = neon(process.env.DATABASE_URL);
     await sql`
       UPDATE submitted_pets
       SET embedding = ${literal}::vector

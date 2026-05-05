@@ -12,7 +12,10 @@ import { requireSameOrigin } from "@/lib/same-origin";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const rawSql = neon(process.env.DATABASE_URL ?? "");
+const rawSql = neon(
+  process.env.DATABASE_URL ??
+    "postgres://missing:missing@localhost:5432/missing",
+);
 
 function normalize(q: string): string {
   return q
