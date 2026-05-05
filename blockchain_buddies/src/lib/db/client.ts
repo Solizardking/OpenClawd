@@ -9,11 +9,12 @@ import { drizzle } from "drizzle-orm/neon-http";
 
 import * as schema from "./schema";
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL is not set");
-}
+export const hasDatabaseUrl = Boolean(process.env.DATABASE_URL);
 
-const sql = neon(process.env.DATABASE_URL);
+const sql = neon(
+  process.env.DATABASE_URL ??
+    "postgres://missing:missing@localhost:5432/missing",
+);
 
 export const db = drizzle(sql, { schema });
 export { schema };
