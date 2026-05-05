@@ -56,8 +56,6 @@ export function getTokenDecimals(mint: string): number {
   return found?.decimals ?? 9;
 }
 
-export { resolveTokenMint, getTokenDecimals };
-
 /**
  * SwapService — fetches Jupiter quotes and executes swaps via ClawdWallet
  *
@@ -84,8 +82,8 @@ export class SwapService {
 
   constructor(config?: { chain?: SolanaChain; apiUrl?: string }) {
     this.#chain = config?.chain ?? "mainnet";
-    const baseUrl = config?.apiUrl ?? JUPITER_ENDPOINTS[this.#chain];
-    this.#jupiter = createJupiterApiClient({ baseUrl });
+    const basePath = config?.apiUrl ?? JUPITER_ENDPOINTS[this.#chain];
+    this.#jupiter = createJupiterApiClient({ basePath } as ConstructorParameters<typeof createJupiterApiClient>[0]);
   }
 
   /**
@@ -94,7 +92,7 @@ export class SwapService {
   async quote(params: SwapQuoteParams): Promise<SwapQuote> {
     const inputMint = resolveTokenMint(params.inputToken);
     const outputMint = resolveTokenMint(params.outputToken);
-    const amount = BigInt(params.amount);
+    const amount = Number(params.amount);
     const slippageBps = params.slippageBps ?? 50;
 
     const response = await this.#jupiter.quoteGet({
