@@ -616,14 +616,14 @@
       },
       {
         "slug": "gateway-node-ops",
-        "name": "SolanaOS Gateway + Node Workflow",
-        "description": "How to spawn a SolanaOS Gateway and connect headless nodes",
+        "name": "OpenClawd Gateway + Node Workflow",
+        "description": "How to spawn an OpenClawd Gateway and connect headless nodes",
         "category": "DevOps / Infrastructure"
       },
       {
         "slug": "canvas",
         "name": "Canvas Skill",
-        "description": "Display HTML content on connected SolanaOS nodes (Mac app, iOS, Android).",
+        "description": "Display HTML content on connected OpenClawd nodes (Mac app, iOS, Android).",
         "category": "Media"
       },
       {
