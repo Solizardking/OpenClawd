@@ -142,7 +142,9 @@ export function InstallCommand({ slug, displayName }: InstallCommandProps) {
         <li>
           {t.rich("steps.findPet", {
             displayName,
-            strong: (chunks) => <strong className="text-foreground">{chunks}</strong>,
+            strong: (chunks) => (
+              <strong className="text-foreground">{chunks}</strong>
+            ),
           })}{" "}
           <span className="font-mono text-foreground">Custom pets</span>{" "}
           {t("steps.andClick")}{" "}
@@ -215,7 +217,9 @@ function PlatformBtn({
       onClick={onClick}
       title={label}
       className={`inline-flex size-7 items-center justify-center rounded-full transition ${
-        active ? "bg-inverse text-on-inverse" : "text-muted-2 hover:text-foreground"
+        active
+          ? "bg-inverse text-on-inverse"
+          : "text-muted-2 hover:text-foreground"
       }`}
     >
       {icon}
