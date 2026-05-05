@@ -31,6 +31,20 @@ openclawd/
 - **Build:** `pnpm build`
 - **Test:** `pnpm test`
 
+## Public Hackathon Bundle
+
+- `hackathon/` is a public, open-source Solana Robotics Hackathon submission
+  package. It should remain safe for judges, users, and external contributors
+  to view.
+- Keep `hackathon/` free of private keys, populated env files, hidden wallet
+  material, proprietary sensor logs, and production API secrets.
+- Public artifacts live in:
+  - `hackathon/one-page-site/` — static site, no build required
+  - `hackathon/presentation/` — printable pitch deck and speaker notes
+  - `hackathon/docs/` — architecture, technical spec, demo guide, judging map
+  - `hackathon/demos/` — offline demos that must run without credentials
+  - `hackathon/assets/` — public metadata and shareable assets
+
 ## Naming Convention
 
 - Product name: **OpenClawd**
