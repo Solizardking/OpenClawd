@@ -1,4 +1,4 @@
-@import "../../node_modules/tailwindcss/index.css";
+@import "tailwindcss";
 
 /* Enable Tailwind v4's `dark:` variant via the .dark class on <html>,
    which is what next-themes (attribute="class") writes. */
