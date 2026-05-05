@@ -1,7 +1,7 @@
 import { defaultLocale, type Locale } from "@/i18n/config";
 
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hub.solanaclawd.com";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://buddies.openclawd.biz";
 
 const HREFLANG_BY_LOCALE: Record<Locale, string> = {
   en: "en",

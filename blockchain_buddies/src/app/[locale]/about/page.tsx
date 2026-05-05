@@ -10,7 +10,7 @@ import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
-const SITE_URL = "https://hub.solanaclawd.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://buddies.openclawd.biz";
 
 export const revalidate = 3600;
 

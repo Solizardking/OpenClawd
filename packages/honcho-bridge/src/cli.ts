@@ -60,7 +60,9 @@ function loadDotenvCandidates() {
     resolve(cwd, ".env"),
     resolve(cwd, ".env.local"),
     resolve(repoRoot, ".env"),
+    resolve(repoRoot, ".env.local"),
     resolve(repoRoot, "packages/honcho-bridge/.env"),
+    resolve(repoRoot, "packages/honcho-bridge/.env.local"),
   ].filter((p): p is string => !!p);
 
   const loaded: string[] = [];

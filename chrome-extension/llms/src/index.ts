@@ -3,9 +3,16 @@
  *
  * Uses OpenAI-compatible API format. Works with xAI Grok via
  * baseURL: "https://api.x.ai/v1".
+ *
+ * Re-exports `solanaWalletTools` and `solanaGatewayTools` from
+ * `./solana-tools` so the Re-Act loop can mint Solana tools alongside the
+ * standard pAGENT tool set.
  */
 
 import OpenAI from 'openai'
+
+export type { SolanaToolsOptions } from './solana-tools.js'
+export { solanaGatewayTools, solanaWalletTools } from './solana-tools.js'
 // zod types resolved via peer dependency
 
 // ─── Types ──────────────────────────────────────────────────────────

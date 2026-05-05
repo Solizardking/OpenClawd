@@ -1,9 +1,15 @@
 /**
- * Minimal UI stub for Solana Clawd pAGENT.
- * The full Panel UI is in the Chrome extension; this provides the type interface.
+ * @openclawdsolana/pagent-ui — UI primitives for pAGENT.
+ *
+ * Exposes:
+ *   - Panel       (legacy host stub; full panel ships with the extension)
+ *   - WalletPanel (vanilla DOM wallet card; reads CSS vars from pagent-theme)
  */
 
 import type { PageAgentCore } from '@openclawdsolana/pagent-core'
+
+export type { WalletPanelOptions } from './WalletPanel.js'
+export { WalletPanel } from './WalletPanel.js'
 
 export interface PanelConfig {
   language?: string

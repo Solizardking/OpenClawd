@@ -57,7 +57,7 @@ export function posixInstallScript(pet: ResolvedPet): string {
   return [
     "#!/bin/sh",
     "# Petdex installer",
-    `# https://hub.solanaclawd.com/pets/${safeSlug}`,
+    `# https://buddies.openclawd.biz/pets/${safeSlug}`,
     "",
     "set -e",
     "",
@@ -90,7 +90,7 @@ export function powershellInstallScript(pet: ResolvedPet): string {
   const safeName = String(displayName).replace(/[\r\n"]+/g, " ");
   return [
     "# Petdex installer",
-    `# https://hub.solanaclawd.com/pets/${safeSlug}`,
+    `# https://buddies.openclawd.biz/pets/${safeSlug}`,
     "",
     "$ErrorActionPreference = 'Stop'",
     `$slug = ${q(safeSlug)}`,
@@ -118,7 +118,7 @@ export function posixNotFoundScript(slug: string): string {
   return [
     "#!/bin/sh",
     `echo "Pet '${safe}' not found in Petdex." >&2`,
-    'echo "Browse pets at https://hub.solanaclawd.com" >&2',
+    'echo "Browse buddies at https://buddies.openclawd.biz" >&2',
     "exit 1",
     "",
   ].join("\n");
@@ -128,7 +128,7 @@ export function powershellNotFoundScript(slug: string): string {
   const safe = String(slug).replace(/[^a-z0-9-]/g, "");
   return [
     `Write-Error "Pet '${safe}' not found in Petdex."`,
-    'Write-Error "Browse pets at https://hub.solanaclawd.com"',
+    'Write-Error "Browse buddies at https://buddies.openclawd.biz"',
     "exit 1",
     "",
   ].join("\n");

@@ -28,7 +28,7 @@ export const metadata = {
   alternates: buildLocaleAlternates("/"),
 };
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hub.solanaclawd.com";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://buddies.openclawd.biz";
 
 export default async function Home() {
   const { userId } = await auth();

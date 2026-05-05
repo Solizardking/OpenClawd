@@ -33,7 +33,7 @@ type Props = {
 };
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hub.solanaclawd.com";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://buddies.openclawd.biz";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

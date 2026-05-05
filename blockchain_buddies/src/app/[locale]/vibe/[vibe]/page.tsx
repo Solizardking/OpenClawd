@@ -17,7 +17,7 @@ function curatedSort(pets: PetWithMetrics[]): PetWithMetrics[] {
   });
 }
 
-const SITE_URL = "https://hub.solanaclawd.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://buddies.openclawd.biz";
 
 type Props = { params: Promise<{ locale: string; vibe: string }> };
 
