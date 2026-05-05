@@ -23,7 +23,7 @@
 ║ ║   ██║     ║   "Claws that code, brains that deploy"     ║    ║
 ║ ║   ██║     ║                                              ║    ║
 ║ ║   ╚═╝     ║   Multi-Provider AI Terminal Operator        ║    ║
-║ ║  ▄█████╗  ║   Grok · Ollama · OpenRouter · OpenAI       ║    ║
+║ ║  ▄█████╗  ║   Grok · DeepSeek · Ollama · OpenRouter    ║    ║
 ║ ║ ██╔══██╗║   Solana · MCP · File Tools                  ║    ║
 ║ ║ ╚══█╔═╝  ║                                              ║    ║
 ║ ║   ██║     ║   CLAWD Token: 8cHzQHUS2s2h8TzCmfqPKYiM4   ║    ║
@@ -37,7 +37,7 @@
 
 ## 🦞 About
 
-**Clawd Code CLI** is a lobster-themed AI terminal agent built for Solana operators, developers, and degen builders. It speaks to you through a retro ASCII terminal, runs entirely in your terminal, and lets you switch between Grok, Ollama (local), OpenRouter, and OpenAI backends on the fly — no restart needed.
+**Clawd Code CLI** is a lobster-themed AI terminal agent built for Solana operators, developers, and degen builders. It speaks to you through a retro ASCII terminal, runs entirely in your terminal, and lets you switch between Grok, DeepSeek, Ollama (local), OpenRouter, and OpenAI backends on the fly — no restart needed.
 
 **CLAWD Token**: `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump`
 
@@ -46,7 +46,7 @@
 ## Features
 
 - 🦞 **Lobster-branded UI** — ASCII art logo, per-provider spinner animations, themed loading messages
-- ⚡ **Multi-Provider Routing** — Grok · Ollama · OpenRouter · OpenAI · custom, switched live via `/models`
+- ⚡ **Multi-Provider Routing** — Grok · DeepSeek · Ollama · OpenRouter · OpenAI · custom, switched live via `/models`
 - 🔧 **AI File Operations** — view_file, create_file, str_replace_editor (no overwrite accidents)
 - 💻 **Bash + Shell Tools** — execute commands, grep, find, navigate
 - 📋 **Todo Lists** — plan and track tasks with visual priority flags
@@ -108,6 +108,18 @@ clawd
 # or
 /config add model openrouter/anthropic/claude-opus-4.7
 /config set defaultModel openrouter/anthropic/claude-opus-4.7
+```
+
+### DeepSeek
+
+```bash
+/config deepseek key sk-your-key-here
+# Optional if you use a compatible proxy:
+/config deepseek baseURL https://api.deepseek.com
+
+/config set defaultModel deepseek/deepseek-v4-pro
+# or
+/config set defaultModel deepseek/deepseek-v4-flash
 ```
 
 ### Ollama (Local Models)
@@ -197,8 +209,8 @@ clawd [options]
 Options:
   -V, --version           output the version number
   -d, --directory <dir>   working directory
-  -k, --api-key <key>    Grok API key
-  -u, --base-url <url>    Grok API base URL
+  -k, --api-key <key>    Grok API key (provider keys are set with /config)
+  -u, --base-url <url>    Grok API base URL (provider URLs are set with /config)
   -m, --model <model>     default model
   -p, --prompt <prompt>   headless mode — one prompt, then exit
   --max-tool-rounds <n>   max tool loops (default: 400)
@@ -242,6 +254,12 @@ openai/gpt-4o-mini
 openai/o3
 openai/o3-mini
 openai/o4-mini
+```
+
+### DeepSeek
+```
+deepseek/deepseek-v4-pro
+deepseek/deepseek-v4-flash
 ```
 
 ### Ollama (localhost:11434)
