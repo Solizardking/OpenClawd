@@ -16,6 +16,8 @@
  * broadcasts. This keeps the agent surface small and CSP-friendly inside MV3.
  */
 
+import { z } from 'zod'
+
 import type { Tool } from './index.js'
 
 // We import only the *types* from pagent-wallet so this module compiles even
@@ -49,51 +51,34 @@ export interface SolanaToolsOptions {
   defaultSlippageBps?: number
 }
 
-/** JSON Schema describing common args. Inlined to stay zero-dep. */
-const schemas = {
-  noArgs: { type: 'object', properties: {}, additionalProperties: false } as const,
-  ownerArg: {
-    type: 'object',
-    properties: {
-      owner: { type: 'string', description: 'Solana public key (base58). Defaults to the active wallet.' },
-    },
-    additionalProperties: false,
-  } as const,
-  mintArg: {
-    type: 'object',
-    properties: {
-      mint: { type: 'string', description: 'Solana SPL mint address (base58).' },
-    },
-    required: ['mint'],
-    additionalProperties: false,
-  } as const,
-  swapArgs: {
-    type: 'object',
-    properties: {
-      fromMint: { type: 'string', description: 'SPL mint to swap from (or the SOL pseudo-mint).' },
-      toMint:   { type: 'string', description: 'SPL mint to swap into.' },
-      amount:   { type: 'number', description: 'Amount in human units (e.g. 1.5 SOL).' },
-      slippageBps: { type: 'number', description: 'Slippage tolerance in basis points (50 = 0.5%).' },
-    },
-    required: ['fromMint', 'toMint', 'amount'],
-    additionalProperties: false,
-  } as const,
-  signArgs: {
-    type: 'object',
-    properties: {
-      messageBase58: { type: 'string', description: 'Serialized Solana transaction message in base58.' },
-    },
-    required: ['messageBase58'],
-    additionalProperties: false,
-  } as const,
-  unlockArgs: {
-    type: 'object',
-    properties: {
-      passphrase: { type: 'string', description: 'Wallet passphrase (in-extension backend).' },
-    },
-    additionalProperties: false,
-  } as const,
-} satisfies Record<string, unknown>
+const noArgs = z.object({})
+
+const ownerOptional = z.object({
+  owner: z.string().describe('Solana public key (base58). Defaults to the active wallet.').optional(),
+})
+
+const ownerRequired = z.object({
+  owner: z.string().describe('Solana public key (base58) to query.'),
+})
+
+const mintArg = z.object({
+  mint: z.string().describe('Solana SPL mint address (base58).'),
+})
+
+const swapArgs = z.object({
+  fromMint: z.string().describe('SPL mint to swap from (or the SOL pseudo-mint).'),
+  toMint: z.string().describe('SPL mint to swap into.'),
+  amount: z.number().describe('Amount in human units (e.g. 1.5 SOL).'),
+  slippageBps: z.number().describe('Slippage tolerance in basis points (50 = 0.5%).').optional(),
+})
+
+const signArgs = z.object({
+  messageBase58: z.string().describe('Serialized Solana transaction message in base58.'),
+})
+
+const unlockArgs = z.object({
+  passphrase: z.string().describe('Wallet passphrase (in-extension backend).').optional(),
+})
 
 export function solanaWalletTools(opts: SolanaToolsOptions): Record<string, Tool> {
   const { wallet, gateway } = opts
@@ -107,19 +92,19 @@ export function solanaWalletTools(opts: SolanaToolsOptions): Record<string, Tool
   const tools: Record<string, Tool> = {
     solana_health: {
       description: 'Check the OpenClawd Gateway is reachable and report its version.',
-      inputSchema: schemas.noArgs,
+      inputSchema: noArgs,
       execute: async () => gateway.health(),
     },
 
     solana_wallet_status: {
       description: 'Return the active wallet status (exists, pubkey, unlocked).',
-      inputSchema: schemas.noArgs,
+      inputSchema: noArgs,
       execute: async () => requireWallet().status(),
     },
 
     solana_unlock: {
       description: 'Unlock the wallet. Required before signing for in-extension backend.',
-      inputSchema: schemas.unlockArgs,
+      inputSchema: unlockArgs,
       execute: async (args: { passphrase?: string }) => {
         await requireWallet().unlock(args.passphrase)
         return { ok: true }
@@ -128,13 +113,13 @@ export function solanaWalletTools(opts: SolanaToolsOptions): Record<string, Tool
 
     solana_token_overview: {
       description: 'Get live price, market cap, liquidity, and 24h delta for a Solana SPL token.',
-      inputSchema: schemas.mintArg,
+      inputSchema: mintArg,
       execute: async (args: { mint: string }) => gateway.tokenOverview(args.mint),
     },
 
     solana_portfolio: {
       description: 'Fetch the SOL balance and SPL holdings for a wallet (defaults to the active wallet).',
-      inputSchema: schemas.ownerArg,
+      inputSchema: ownerOptional,
       execute: async (args: { owner?: string }) => {
         const owner = args.owner ?? (await requireWallet().status()).pubkey
         if (!owner) throw new Error('No owner — wallet has no pubkey and `owner` was not provided.')
@@ -144,7 +129,7 @@ export function solanaWalletTools(opts: SolanaToolsOptions): Record<string, Tool
 
     solana_swap: {
       description: 'Build, sign, and submit a swap. Slippage defaults to 0.5% if not supplied.',
-      inputSchema: schemas.swapArgs,
+      inputSchema: swapArgs,
       execute: async (args: { fromMint: string; toMint: string; amount: number; slippageBps?: number }) => {
         const w = requireWallet()
         const status = await w.status()
@@ -167,7 +152,7 @@ export function solanaWalletTools(opts: SolanaToolsOptions): Record<string, Tool
 
     solana_sign_message: {
       description: 'Sign a serialized base58 Solana message with the active wallet.',
-      inputSchema: schemas.signArgs,
+      inputSchema: signArgs,
       execute: async (args: { messageBase58: string }) =>
         requireWallet().signMessage(args.messageBase58),
     },
@@ -181,17 +166,17 @@ export function solanaGatewayTools(gateway: GatewayLike): Record<string, Tool> {
   return {
     solana_health: {
       description: 'Check the OpenClawd Gateway is reachable.',
-      inputSchema: schemas.noArgs,
+      inputSchema: noArgs,
       execute: async () => gateway.health(),
     },
     solana_token_overview: {
       description: 'Get live price, market cap, liquidity, and 24h delta for a Solana SPL token.',
-      inputSchema: schemas.mintArg,
+      inputSchema: mintArg,
       execute: async (args: { mint: string }) => gateway.tokenOverview(args.mint),
     },
     solana_portfolio: {
       description: 'Fetch the SOL balance and SPL holdings for any wallet by base58 address.',
-      inputSchema: { ...schemas.ownerArg, required: ['owner'] },
+      inputSchema: ownerRequired,
       execute: async (args: { owner: string }) => gateway.portfolio(args.owner),
     },
   }

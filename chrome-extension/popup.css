@@ -3,28 +3,29 @@
    ══════════════════════════════════════════════════ */
 
 :root {
-  --bg: #010108;
-  --bg2: rgba(8, 8, 22, 0.7);
-  --bg3: rgba(14, 14, 32, 0.6);
-  --surface: rgba(20, 20, 45, 0.55);
-  --border: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(20, 241, 149, 0.25);
-  --text: #e2e8f0;
-  --text-dim: #94a3b8;
-  --text-muted: #64748b;
-  --sol-purple: #9945FF;
-  --sol-green: #14F195;
+  /* Legacy aliases — fall back to the shared OpenClawd tokens loaded from theme.css. */
+  --bg:           var(--oc-color-bg, #010108);
+  --bg2:          rgba(8, 8, 22, 0.7);
+  --bg3:          rgba(14, 14, 32, 0.6);
+  --surface:      var(--oc-color-bg-glass, rgba(20, 20, 45, 0.55));
+  --border:       var(--oc-color-border, rgba(255, 255, 255, 0.06));
+  --border-hover: var(--oc-color-border-strong, rgba(20, 241, 149, 0.25));
+  --text:         var(--oc-color-text, #e2e8f0);
+  --text-dim:     var(--oc-color-text-muted, #94a3b8);
+  --text-muted:   var(--oc-color-text-dim, #64748b);
+  --sol-purple:   var(--oc-color-solana-purple, #9945FF);
+  --sol-green:    var(--oc-color-solana-green, #14F195);
   --sol-blue: #00D1FF;
-  --sol-amber: #FFAA00;
-  --sol-red: #FF4060;
+  --sol-amber:    var(--oc-color-warning, #FFAA00);
+  --sol-red:      var(--oc-color-danger, #FF4060);
   --sol-cyan: #00FFE0;
-  --gradient: linear-gradient(135deg, #9945FF, #14F195);
-  --gradient-glow: linear-gradient(135deg, rgba(153, 69, 255, 0.15), rgba(20, 241, 149, 0.1));
-  --glass: rgba(12, 12, 30, 0.45);
-  --glass-blur: blur(16px) saturate(180%);
-  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  --mono: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
-  --radius: 12px;
+  --gradient:      var(--oc-gradient-brand, linear-gradient(135deg, #9945FF, #14F195));
+  --gradient-glow: var(--oc-gradient-brand-subtle, linear-gradient(135deg, rgba(153, 69, 255, 0.15), rgba(20, 241, 149, 0.1)));
+  --glass:        rgba(12, 12, 30, 0.45);
+  --glass-blur:   blur(16px) saturate(180%);
+  --font:         var(--oc-font-family, 'Segoe UI', system-ui, -apple-system, sans-serif);
+  --mono:         var(--oc-font-mono, 'SF Mono', 'Cascadia Code', 'Fira Code', monospace);
+  --radius:       var(--oc-radius-md, 12px);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }

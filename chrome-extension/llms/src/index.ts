@@ -10,10 +10,26 @@
  */
 
 import OpenAI from 'openai'
+import { z } from 'zod'
 
 export type { SolanaToolsOptions } from './solana-tools.js'
 export { solanaGatewayTools, solanaWalletTools } from './solana-tools.js'
-// zod types resolved via peer dependency
+
+function toJsonSchema(schema: unknown): Record<string, unknown> {
+  if (!schema || typeof schema !== 'object') return {}
+  const anyZ = z as unknown as { toJSONSchema?: (s: unknown) => Record<string, unknown> }
+  if (typeof anyZ.toJSONSchema === 'function') {
+    try {
+      return anyZ.toJSONSchema(schema)
+    } catch {
+      // fall through
+    }
+  }
+  // If it already looks like a JSON Schema object, pass it through.
+  const s = schema as Record<string, unknown>
+  if (typeof s.type === 'string' || s.properties || s.$ref) return s
+  return {}
+}
 
 // ─── Types ──────────────────────────────────────────────────────────
 
@@ -154,7 +170,7 @@ export class LLM extends EventTarget implements LLMClient {
   async invoke(
     messages: Message[],
     tools: Record<string, Tool>,
-    abortSignal: AbortSignal,
+    abortSignal?: AbortSignal,
     options?: InvokeOptions,
   ): Promise<InvokeResult> {
     const openaiTools = Object.entries(tools).map(([name, tool]) => ({
@@ -162,9 +178,7 @@ export class LLM extends EventTarget implements LLMClient {
       function: {
         name,
         description: tool.description ?? '',
-        parameters: (tool.inputSchema as any)._def?.typeName
-          ? JSON.parse(JSON.stringify((tool.inputSchema as any).shape ?? {}))
-          : {},
+        parameters: toJsonSchema(tool.inputSchema),
       },
     }))
 
@@ -224,20 +238,25 @@ export class LLM extends EventTarget implements LLMClient {
         )
       }
 
-      const parsed = toolDef.inputSchema.safeParse(args)
-      if (!parsed.success) {
-        throw new InvokeError(
-          InvokeErrorType.INVALID_TOOL_ARGS,
-          `Invalid arguments for ${tc.function.name}: ${String(parsed.error)}`,
-          parsed.error,
-          response,
-        )
+      const schema = toolDef.inputSchema as { safeParse?: (v: unknown) => { success: boolean; data?: unknown; error?: unknown } }
+      let parsedData: unknown = args
+      if (typeof schema?.safeParse === 'function') {
+        const parsed = schema.safeParse(args)
+        if (!parsed.success) {
+          throw new InvokeError(
+            InvokeErrorType.INVALID_TOOL_ARGS,
+            `Invalid arguments for ${tc.function.name}: ${String(parsed.error)}`,
+            parsed.error,
+            response,
+          )
+        }
+        parsedData = parsed.data
       }
 
-      const toolResult = await toolDef.execute(parsed.data)
+      const toolResult = await toolDef.execute(parsedData)
 
       return {
-        toolCall: { name: tc.function.name, args: parsed.data },
+        toolCall: { name: tc.function.name, args: parsedData },
         toolResult,
         usage: {
           promptTokens: processed.usage?.prompt_tokens ?? 0,
