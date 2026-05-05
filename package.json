@@ -119,7 +119,9 @@
     "release:check": "node scripts/release-check.mjs && node scripts/release-dist-check.mjs",
     "release:pack": "node scripts/release-pack.mjs",
     "release:wire": "node scripts/release-wire.mjs",
-    "release:manifest": "node scripts/release-manifest.mjs"
+    "release:manifest": "node scripts/release-manifest.mjs",
+    "upload:browseruse": "node scripts/upload-to-browseruse.mjs",
+    "upload:browseruse:dry": "node scripts/upload-to-browseruse.mjs --dry-run"
   },
   "repository": {
     "type": "git",
