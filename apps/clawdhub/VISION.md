@@ -85,7 +85,7 @@ The goal is to stay powerful for real work while making risky paths explicit and
 - Hardening with best practices
 
 Canonical security policy and reporting:
-- [`SECURITY.md`](https://github.com/clawdsolana/OpenClawd/blob/main/SECURITY.md)
+- [`SECURITY.md`](https://github.com/clawdsolana/OpenClawd/blob/main/docs/SECURITY.md)
 - [`clawd-vault-master/`](https://github.com/clawdsolana/OpenClawd/tree/main/clawd-vault-master)
 
 We prioritize secure defaults, but we also expose clear knobs for trusted high-power workflows.

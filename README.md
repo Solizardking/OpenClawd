@@ -151,15 +151,15 @@ HONCHO_WEBHOOK_SECRET=<rotate-and-store-in-secret-manager>
 ```
 
 Do not paste live webhook secrets into docs, issues, or commits. If a real key
-was shared anywhere public, rotate it first; see [ROTATE.md](./ROTATE.md).
+was shared anywhere public, rotate it first; see [Security rotation](./docs/SECURITY.md#key-rotation-checklist).
 
 ### New User Reading Order
 
-1. [ONBOARDING.md](./ONBOARDING.md) — install, env, and first local run.
-2. [STACK.md](./STACK.md) — how directories and services connect.
-3. [SKILLS.md](./SKILLS.md) — skill catalog and publishing rules.
-4. [SECURITY.md](./SECURITY.md) and [ROTATE.md](./ROTATE.md) — safe handling of keys and wallets.
-5. [RELEASE.md](./RELEASE.md) — publish and deployment plumbing.
+1. [Project guide](./docs/PROJECT_GUIDE.md) — install, env, and first local run.
+2. [Agent reference](./docs/AGENT_REFERENCE.md#openclawd-stack-map) — how directories and services connect.
+3. [Agent reference](./docs/AGENT_REFERENCE.md#skills-catalog) — skill catalog and publishing rules.
+4. [Security guide](./docs/SECURITY.md) and [Security rotation](./docs/SECURITY.md#key-rotation-checklist) — safe handling of keys and wallets.
+5. [Release guide](./docs/RELEASE.md) — publish and deployment plumbing.
 
 ---
 
@@ -504,7 +504,7 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 | 🌐 **pAGENT** *(npm × 8)* | Browser-side GUI vision agent family — `@openclawdsolana/pagent` (top-level, auto-merges Solana tools), [`pagent-core@1.6.4`](https://www.npmjs.com/package/@openclawdsolana/pagent-core) (vision agent · **live · 765 KB**), [`pagent-llms@1.6.3`](https://www.npmjs.com/package/@openclawdsolana/pagent-llms) (OpenAI/OpenRouter adapters + `solanaWalletTools` · **live**), [`pagent-page-controller@1.6.3`](https://www.npmjs.com/package/@openclawdsolana/pagent-page-controller) (DOM ops · **live · 268 KB**), `pagent-ui` (vanilla-DOM panels incl. `WalletPanel`), [`pagent-theme`](chrome-extension/theme/) (brand tokens + `theme.css`), [`pagent-wallet`](chrome-extension/wallet/) (unified Vault/InExt/Seeker adapter + `HttpGatewayClient`), and `browser-mcp` (MCP server bridging Claude/Cursor → live browser). Drives the Chrome extension bundle in [`chrome-extension/clawd-agent`](chrome-extension/clawd-agent/) | [`chrome-extension/`](chrome-extension/) |
 | 🧬 **Honcho bridge** *(npm)* | `@openclawdsolana/honcho-bridge` — conversational reasoning + peer/session memory across the build (gateway HTTP routes, automaton, AutoResearch wiki, pump-scanner-cron). HMAC-verified webhook receiver, multi-channel fan-out, `honcho-clawd` CLI, opt-in Membrain feeder | [`packages/honcho-bridge/`](packages/honcho-bridge/) |
 | 🤖 **Solana Robotics Hackathon** | Presentation-ready robotics submission: OCASV1 / `OPENCLAWDASV1`, Asimov v1 hardware, GR00T `NEW_EMBODIMENT`, openclawd-go hardware binary, gateway robot routes, Pay.sh/x402/MPP task payment, and DePIN physical-AI data receipts | [`hackathon/`](hackathon/) · [`Robotics/`](Robotics/) · [`cmd/openclawd-go/`](cmd/openclawd-go/) |
-| 📰 **Articles** | Long-form pieces tying everything together — three laws · lifecycle · Metaplex · Tide · examples · sovereign research | [`ARTICLE.md`](ARTICLE.md) · [`docs/articles/SOVEREIGN_RESEARCH.md`](docs/articles/SOVEREIGN_RESEARCH.md) |
+| 📰 **Articles** | Long-form pieces tying everything together — three laws · lifecycle · Metaplex · Tide · examples · sovereign research | [`docs/articles/SOVEREIGN_LOBSTER_AGENTS.md`](docs/articles/SOVEREIGN_LOBSTER_AGENTS.md) · [`docs/articles/SOVEREIGN_RESEARCH.md`](docs/articles/SOVEREIGN_RESEARCH.md) |
 
 ---
 
@@ -1279,7 +1279,7 @@ model is `anthropic/claude-sonnet-4`; the default image model is
 </tr>
 </table>
 
-Full list: [`skills/`](skills/) and [`SKILLS.md`](SKILLS.md).
+Full list: [`skills/`](skills/) and [`docs/AGENT_REFERENCE.md`](docs/AGENT_REFERENCE.md#skills-catalog).
 
 ---
 
@@ -1359,7 +1359,7 @@ Highlights from the latest integration pass:
 - **One discovery hop** — `api-registrar` exposes `GET /manifest`; `clawd-cli.sh manifest` fetches it (falls back to bundled local copy when offline).
 - **No bin collisions (v0.2)** — `clawd` is owned by `@openclawdsolana/clawd-tui` (Birdeye/Helius TUI). The full Ink agent operator publishes as `clawd-code` (`@openclawdsolana/clawd-code-cli` v0.2.3) with a legacy `clawd-code-cli` alias. The Go runtime owns `openclawd` / `openclawdsolana`. Framework owns `leviathan` / `clawd-standalone`. Other entries (`clawdrouter`, `openclawd-mcp`) keep their own names. See [docs/architecture-pieces.md](./docs/architecture-pieces.md) for the full bin + package map.
 
-See [`RELEASE.md`](RELEASE.md) for the full diagram + runbook.
+See [`docs/RELEASE.md`](docs/RELEASE.md) for the full diagram + runbook.
 
 ### Service registry — the env-var contract
 
@@ -1514,7 +1514,7 @@ openclawd/
 ├── workers/                    # Other workers (agent-wallet, email, openai-trading-bot, pumpfun-mcp)
 │
 ├── scripts/                    # Release hygiene: doctor, release-check, guard-secrets, brand-check, install-git-hooks
-├── ARTICLE.md                  # 📰 Long-form: Sovereign Lobster Agents on Solana
+├── docs/articles/SOVEREIGN_LOBSTER_AGENTS.md # 📰 Long-form: Sovereign Lobster Agents on Solana
 └── docs/ (per package)
 ```
 

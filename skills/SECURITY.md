@@ -170,7 +170,7 @@ Found a vulnerability in a skill?
 |------|---------|
 | Security Team | security@solanaclawd.com |
 | Vault Guardian | @clawdvault (Telegram) |
-| Bug Bounty | See [SECURITY.md](../SECURITY.md) |
+| Bug Bounty | See [Security guide](../docs/SECURITY.md) |
 
 ---
 

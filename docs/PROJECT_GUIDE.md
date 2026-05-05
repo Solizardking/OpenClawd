@@ -75,7 +75,7 @@ HONCHO_WEBHOOK_SECRET=<rotate-and-store-in-secret-manager>
 ```
 
 If a real Honcho webhook secret was pasted into chat, a ticket, or git history,
-rotate it before deploying. Use [ROTATE.md](./ROTATE.md).
+rotate it before deploying. Use [Security rotation](./SECURITY.md#key-rotation-checklist).
 
 ### 3. Install Dependencies
 
@@ -118,9 +118,9 @@ npm run dev:cli
 
 ### 5. Try the CLI Tools
 
-OpenClawd ships one canonical coding CLI — [`clawd-code-cli/`](./clawd-code-cli/). Legacy
+OpenClawd ships one canonical coding CLI — [`clawd-code-cli/`](../clawd-code-cli/). Legacy
 variants (`clawd-code-main`, `clawd-code-localy`, `clawd-code-proxy-main`) have
-been archived under [`legacy/`](./legacy/).
+been archived under [`legacy/`](../legacy/).
 
 ```bash
 # Clawd Code CLI - AI-powered coding assistant
@@ -484,9 +484,9 @@ refactor(clawdrouter): simplify model scoring
 
 Once you're comfortable with the basics:
 
-1. **Explore existing agents** in [`AGENTS/`](./AGENTS/)
-2. **Browse skills** in [`skills/`](./skills/)
-3. **Read the architecture** in [`docs/articles/architecture.md`](./docs/articles/architecture.md)
+1. **Explore existing agents** in [`AGENTS/`](../AGENTS/)
+2. **Browse skills** in [`skills/`](../skills/)
+3. **Read the architecture** in [`docs/articles/architecture.md`](./articles/architecture.md)
 4. **Join the community** on Twitter/Telegram
 5. **Pick a "good first issue"** from GitHub
 
@@ -496,14 +496,127 @@ Once you're comfortable with the basics:
 
 | Resource | Description |
 |----------|-------------|
-| [README.md](./README.md) | Project overview |
-| [STACK.md](./STACK.md) | Technical architecture |
-| [docs/articles/](./docs/articles/) | Deep-dive documentation |
-| [AGENTS/README.md](./AGENTS/README.md) | Agent development |
-| [skills/README.md](./skills/README.md) | Skill development |
-| [CONTRIBUTING.md](./CONTRIBUTING.md) | Contribution guidelines |
-| [legacy/README.md](./legacy/README.md) | Archived `clawd-code-*` variants |
+| [README.md](../README.md) | Project overview |
+| [Agent reference](./AGENT_REFERENCE.md#openclawd-stack-map) | Technical architecture |
+| [docs/articles/](./articles/) | Deep-dive documentation |
+| [AGENTS/README.md](../AGENTS/README.md) | Agent development |
+| [skills/README.md](../skills/README.md) | Skill development |
+| [Contributing](./PROJECT_GUIDE.md#contributing-to-openclawd) | Contribution guidelines |
+| [legacy/README.md](../legacy/README.md) | Archived `clawd-code-*` variants |
 
 ---
 
 **Welcome to OpenClawd!** 🐾
+
+---
+
+# Contributing to OpenClawd
+
+Thanks for your interest in OpenClawd. This is an experimental, fast-moving
+codebase — please read the notes below before opening a PR.
+
+## Getting set up
+
+1. Fork & clone the repo.
+2. Install [pnpm](https://pnpm.io/) (>= 9) and Node.js (>= 22).
+3. From the repo root: `pnpm install`. Several subprojects (`tui`,
+   `openclawd-framework`, `X`, `agents`, `clawd-code-cli-newnew`,
+   `extensions/*`, `ui`, `automaton-main`) have their own
+   `package.json` — install per-subproject as needed.
+4. Copy `X/.env.example` to `X/.env` and populate with your own credentials.
+   **Never** commit `.env`. See [Security guide](./SECURITY.md).
+
+## Workflow
+
+- Open issues for non-trivial changes before sending a PR.
+- One topic per PR. Keep diffs focused.
+- Run `pnpm typecheck` (and `pnpm test`, where it exists) before pushing.
+- Don't add files under `node_modules/` or `dist/` — both are gitignored.
+- Don't include `.DS_Store`, editor metadata, or Finder duplicate
+  files (`* 2.md`, `* 2.json`, etc.).
+
+## Code style
+
+- TypeScript strict mode where it's already enabled. Don't loosen it.
+- Avoid adding new wallet-signing or fund-moving code paths without a
+  clearly-scoped review.
+- Prefer environment variables over hardcoded paths, URLs, or addresses.
+
+## Reporting security issues
+
+See [Security guide](./SECURITY.md). Do not open a public issue for security
+problems.
+
+---
+
+# Support
+
+## Where to Ask for Help
+
+- Use GitHub issues for reproducible bugs and concrete documentation gaps.
+- Use pull requests for proposed fixes.
+- Use the public project channels linked from [README.md](../README.md) for community discussion.
+
+For new setup questions, start with [Project guide](./PROJECT_GUIDE.md). For
+architecture questions, include the layer or directory from [Agent reference](./AGENT_REFERENCE.md#openclawd-stack-map)
+so maintainers know which part of the monorepo you are using.
+
+## Before Opening an Issue
+
+Run:
+
+```bash
+npm run doctor
+npm run release:check
+```
+
+Include:
+
+- your OS
+- Node, npm, and pnpm versions
+- the exact command you ran
+- the exact error output
+- the subproject path if the issue is not at the repo root
+- whether you are using local services or hosted endpoints
+
+## Security Issues
+
+Do not file public issues for vulnerabilities or secret leaks. Follow [Security guide](./SECURITY.md).
+
+---
+
+# OpenClawd UI
+
+The web UI for Clawd is at `ui/` and can be run alongside the agent runtime.
+
+## Structure
+
+```
+ui/
+├── src/
+│   ├── main.ts       # Entry point
+│   ├── styles/       # CSS files
+│   └── ui/          # UI components
+├── public/           # Static assets
+├── index.html        # HTML template
+├── package.json      # Dependencies
+├── tsconfig.json     # TypeScript config
+└── vite.config.ts    # Vite config
+```
+
+## Running the UI
+
+```bash
+cd ui
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+The built output goes to `dist/` and can be served statically.
+

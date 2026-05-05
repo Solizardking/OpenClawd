@@ -467,7 +467,7 @@
     "Helius", "Privy", "Metaplex", "E2B", "Cloudflare Workers"
   ],
   "stack": {
-    "doc": "STACK.md",
+    "doc": "docs/AGENT_REFERENCE.md",
     "entry_point": "clawdrouter",
     "layers": ["surfaces", "gateway", "runtime", "skills", "chain"],
     "default_models": {

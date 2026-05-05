@@ -20,8 +20,8 @@ openclawd/
 │   └── wallet/        # Agent wallet operations
 ├── skills/            # 90+ bundled skills
 ├── AGENTS.md          # This file
-├── CLAW.md           # Agent capabilities
-└── CLAWD.md          # Trading strategy
+├── docs/AGENT_REFERENCE.md # Agent capabilities, strategy, stack, skills
+└── docs/SECURITY.md        # Security, rotation, vault integration
 ```
 
 ## Build Commands

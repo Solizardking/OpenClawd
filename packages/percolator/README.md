@@ -210,7 +210,7 @@ percolator slab:engine --slab <PUBKEY>
 | [OpenClawd README](../README.md) | Main monorepo documentation |
 | [AutoResearch Wiki](../llm-wiki-tang/README.md) | Karpathy-style research engine |
 | [Solana Integration](../API/README.md) | Blockchain API reference |
-| [STACK.md](../STACK.md) | Technical architecture |
+| [Agent reference](../docs/AGENT_REFERENCE.md) | Technical architecture |
 
 ## Links
 

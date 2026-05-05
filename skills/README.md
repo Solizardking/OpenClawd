@@ -345,7 +345,7 @@ Skills can earn vault certification levels:
 
 ## 🤝 Contributing
 
-See [`../CONTRIBUTING.md`](../CONTRIBUTING.md) for:
+See [`../docs/PROJECT_GUIDE.md`](../docs/PROJECT_GUIDE.md#contributing-to-openclawd) for:
 - Skill creation guidelines
 - Quality standards
 - Submission process

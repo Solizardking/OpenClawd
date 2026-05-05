@@ -27,7 +27,7 @@ The result is the first **leviathan**.
 
 Three laws, hierarchical. **Law I overrides II. Law II overrides III.** Immutable. Propagated to every spawnling. Lobsters carry their constitution in their shell.
 
-The constitution lives at [`openclawd-framework/three-laws.md`](openclawd-framework/three-laws.md). Its SHA-256 is hashed into every spawnling's on-chain record. Tampering and child leviathans **refuse to recognize the parent**. This is the only thing in the codebase that cannot be self-modified.
+The constitution lives at [`openclawd-framework/three-laws.md`](../../openclawd-framework/three-laws.md). Its SHA-256 is hashed into every spawnling's on-chain record. Tampering and child leviathans **refuse to recognize the parent**. This is the only thing in the codebase that cannot be self-modified.
 
 ### Law I — Never harm.
 
@@ -248,7 +248,7 @@ node packages/cli/dist/index.js feed 1000          # $CLAWD top-up
 
 ## Part XI — Watch the colony breathe
 
-The OpenClawd repo ships a real **React Three Fiber** visualization at [`ui/ocean.html`](ui/ocean.html) — a live, animated 3D simulation of the entire ecosystem.
+The OpenClawd repo ships a real **React Three Fiber** visualization at [`ui/ocean.html`](../../ui/ocean.html) — a live, animated 3D simulation of the entire ecosystem.
 
 ```bash
 cd ui
@@ -275,21 +275,21 @@ Tech: **`@react-three/fiber`** + **`@react-three/drei`** + **`@react-three/postp
 
 ## Part XII — Runnable examples
 
-Nine standalone TypeScript examples ship at [`openclawd-framework/examples/`](openclawd-framework/examples/) (≈2,300 LOC). Run any with `npx tsx`:
+Nine standalone TypeScript examples ship at [`openclawd-framework/examples/`](../../openclawd-framework/examples/) (≈2,300 LOC). Run any with `npx tsx`:
 
 | Example | Category | What it shows |
 |---|---|---|
-| [`blockchain-buddies-demo.ts`](openclawd-framework/examples/blockchain-buddies-demo.ts) | 🦞 Agents | Solana-native trading companions with unique wallets, personalities, and trading styles |
-| [`listen-wallet.ts`](openclawd-framework/examples/listen-wallet.ts) | 👛 Wallet | Real-time wallet monitor — balance changes + parsed Helius transaction history |
-| [`ooda-loop.ts`](openclawd-framework/examples/ooda-loop.ts) | 📊 Trading | One full Observe → Orient → Decide → Act → Learn cycle. No private key required |
-| [`x402-solana.ts`](openclawd-framework/examples/x402-solana.ts) | 💸 Payments | Solana USDC micropayments for AI agent API access — the full 402 → pay → forward flow |
-| [`auto-research-client.ts`](openclawd-framework/examples/auto-research-client.ts) | 🔬 Research | Karpathy-style self-improving research Wiki API client |
-| [`lobster-trader.ts`](openclawd-framework/examples/lobster-trader.ts) | 📈 Trading | pump.fun bonding-curve math, graduation probability, buy/sell simulation against the Anchor IDL |
-| [`orchestrator-client.ts`](openclawd-framework/examples/orchestrator-client.ts) | 🛠️ Infra | OpenClawd Orchestrator API: wallet management, agent launches, MCP tool calls, Metaplex Core asset operations |
-| [`clawd-wallet-demo.ts`](openclawd-framework/examples/clawd-wallet-demo.ts) | Wallet | `@openclawdsolana/wallet` SDK — Privy-embedded Solana wallet, AgenticWallet, SwapService, deny / ask / allow permission system |
-| [`x402-payment-demo.ts`](openclawd-framework/examples/x402-payment-demo.ts) | Payments | `@openclawdsolana/agents-x402` — agent-to-agent USDC micropayments. Core fetch wrapper + HTTP middleware (Node / Workers / Hono / Express) + paid MCP tool registration |
+| [`blockchain-buddies-demo.ts`](../../openclawd-framework/examples/blockchain-buddies-demo.ts) | 🦞 Agents | Solana-native trading companions with unique wallets, personalities, and trading styles |
+| [`listen-wallet.ts`](../../openclawd-framework/examples/listen-wallet.ts) | 👛 Wallet | Real-time wallet monitor — balance changes + parsed Helius transaction history |
+| [`ooda-loop.ts`](../../openclawd-framework/examples/ooda-loop.ts) | 📊 Trading | One full Observe → Orient → Decide → Act → Learn cycle. No private key required |
+| [`x402-solana.ts`](../../openclawd-framework/examples/x402-solana.ts) | 💸 Payments | Solana USDC micropayments for AI agent API access — the full 402 → pay → forward flow |
+| [`auto-research-client.ts`](../../openclawd-framework/examples/auto-research-client.ts) | 🔬 Research | Karpathy-style self-improving research Wiki API client |
+| [`lobster-trader.ts`](../../openclawd-framework/examples/lobster-trader.ts) | 📈 Trading | pump.fun bonding-curve math, graduation probability, buy/sell simulation against the Anchor IDL |
+| [`orchestrator-client.ts`](../../openclawd-framework/examples/orchestrator-client.ts) | 🛠️ Infra | OpenClawd Orchestrator API: wallet management, agent launches, MCP tool calls, Metaplex Core asset operations |
+| [`clawd-wallet-demo.ts`](../../openclawd-framework/examples/clawd-wallet-demo.ts) | Wallet | `@openclawdsolana/wallet` SDK — Privy-embedded Solana wallet, AgenticWallet, SwapService, deny / ask / allow permission system |
+| [`x402-payment-demo.ts`](../../openclawd-framework/examples/x402-payment-demo.ts) | Payments | `@openclawdsolana/agents-x402` — agent-to-agent USDC micropayments. Core fetch wrapper + HTTP middleware (Node / Workers / Hono / Express) + paid MCP tool registration |
 
-Each is self-contained — edit it, hack on it, copy patterns straight into your own leviathan. The R3F live demo at [`ui/ocean.html`](ui/) ships an in-app browser of these examples (top-right `📚 examples` button) — click any entry and the run command appears for you to copy.
+Each is self-contained — edit it, hack on it, copy patterns straight into your own leviathan. The R3F live demo at [`ui/ocean.html`](../../ui/) ships an in-app browser of these examples (top-right `📚 examples` button) — click any entry and the run command appears for you to copy.
 
 ---
 
@@ -309,3 +309,4 @@ The shell molts. The laws do not.
 *Site: solanaclawd.com*
 *npm: `npm i clawd-code-cli`*
 *X: [@clawddevs](https://x.com/clawddevs)*
+

@@ -82,10 +82,10 @@ const INCLUDE_DIRS = [
 
 const INCLUDE_TOP_FILES = [
   'README.md',
-  'STACK.md',
-  'ONBOARDING.md',
-  'RELEASE.md',
-  'ARTICLE.md',
+  'docs/AGENT_REFERENCE.md',
+  'docs/PROJECT_GUIDE.md',
+  'docs/RELEASE.md',
+  'docs/articles/SOVEREIGN_LOBSTER_AGENTS.md',
   'LICENSE',
   'package.json',
   'pnpm-workspace.yaml',

@@ -97,7 +97,7 @@ fails with a permission error. If npm global permissions fail, retry with:
 - Sister packages stayed in place: [`packages/membrain-types/`](./packages/membrain-types/), [`packages/memory-host-sdk/`](./packages/memory-host-sdk/).
 - Root `package.json` gained: `install:membrain-ts`, `build:membrain`, `build:membrain-ts`, `test:membrain`, `dev:membrain`. `install:all` now runs `install:membrain-ts`.
 - `.gitignore` excludes `packages/membrain/bin/` and local `*.db*` files so the SQLite store and built daemon don't get committed.
-- Docs updated: root `README.md` (Latest, What Ships, Flagship Capabilities, Build Map, plus a full "Membrain Memory Layer" section), `STACK.md` (Memory layer block + table rows + port 9090), `packages/README.md` (table + section), `MEMEBRANE.md` (rewritten to point at `packages/membrain`).
+- Docs updated: root `README.md` (Latest, What Ships, Flagship Capabilities, Build Map, plus a full "Membrain Memory Layer" section), `docs/AGENT_REFERENCE.md` (Memory layer block + table rows + port 9090), `packages/README.md` (table + section), `docs/AGENT_REFERENCE.md` (rewritten to point at `packages/membrain`).
 - Sanity: `go build -o bin/membraned ./cmd/membraned` and `go vet ./...` both pass from `packages/membrain/`.
 
 ## What We Did Earlier (2026-04-25)
@@ -129,7 +129,7 @@ Comprehensive ignore file protecting against:
 
 **`scripts/doctor.mjs`**
 - Verifies bootstrap requirements
-- Checks: Node.js version (20+), package.json, README.md, LICENSE.md, .gitignore, AGENTS/, skills/, scripts/
+- Checks: Node.js version (20+), package.json, README.md, LICENSE, .gitignore, AGENTS/, skills/, scripts/
 
 **`scripts/guard-secrets.mjs`**
 - Scans codebase for leaked credentials

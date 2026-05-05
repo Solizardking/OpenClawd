@@ -38,7 +38,7 @@ const checks = [
   {
     name: 'LICENSE exists',
     check: () => {
-      const exists = existsSync(join(rootDir, 'LICENSE.md'));
+      const exists = existsSync(join(rootDir, 'LICENSE'));
       return { ok: exists, message: exists ? 'MIT' : 'missing' };
     },
   },

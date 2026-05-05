@@ -538,7 +538,7 @@ clawd
 - 🛡️ **Three-Laws gate** — trading commands show constitution
 - 🌊 **ASCII ocean view** — \`/ocean\` toggles live colony
 - 🌊 **R3F demo bridge** — \`/ocean3d\` opens 3D demo in browser
-- 📰 **\`/article\`** — opens ARTICLE.md
+- 📰 **\`/article\`** — opens docs/articles/SOVEREIGN_LOBSTER_AGENTS.md
 - 🧠 **\`/skills\`** — lists 61 skills
 - ✅ **\`/env\`** — boot-time validation report
 

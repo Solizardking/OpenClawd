@@ -311,7 +311,7 @@ The chain wakes up. The lobsters don't sleep. The shell molts; the laws do not.
 
 ## Further reading
 
-- [Sovereign Lobster Agents on Solana](../../ARTICLE.md) — the original long-form piece, three laws, lifecycle, Tide.
+- [Sovereign Lobster Agents on Solana](./SOVEREIGN_LOBSTER_AGENTS.md) — the original long-form piece, three laws, lifecycle, Tide.
 - [clawd-tui v0.2 — A Solana-Aware Terminal](../../clawd-tui/docs/v0.2-solana-aware-terminal.md) — how the on-paste analysis pipeline works.
 - [llm-wiki-tang README](../../llm-wiki-tang/README.md) — the wiki's own docs.
 - [openclawd-framework / three-laws.md](../../openclawd-framework/three-laws.md) — the constitution every spawn inherits.

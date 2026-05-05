@@ -33,7 +33,7 @@ Robot / Operator / Simulator
 | Sensor packet | `KNOWN` memory item | `src/memory/`, `llm-wiki-tang/` |
 | Diagnosis | `INFERRED` memory item with confidence | `src/`, `skills/`, `llm-wiki-tang/` |
 | Strategy experiment | `EXPERIMENTAL` memory item with score | `llm-wiki-tang/`, Honcho persistence, `skills/` |
-| Fleet policy | Permission gate | `src/`, `CLAWD.md`, `CLAW.md` |
+| Fleet policy | Permission gate | `src/`, `docs/AGENT_REFERENCE.md` |
 | Command | MCP tool call | `mcp/`, `src/tools/` |
 | Specialist cloud service | paid plugin | `plugin.delivery/`, `payments/`, `clawdrouter/` |
 | Task payment | x402 + MPP proxy + Pay.sh-compatible proof | `packages/agents-x402-solana/`, `payments/`, `gateway/` |

@@ -3,7 +3,7 @@
 How the publishable surfaces find each other after a user runs
 `npx @openclawdsolana/installer install`, plus the current rollout state.
 
-> **Last update:** 2026-05-05 — root env placeholders added, release secret guard now ignores gitignored local env files, Chrome extension package metadata was refreshed for OpenClawd, and Blockchain Buddies production deployment notes now belong in [`blockchain_buddies/`](blockchain_buddies/).
+> **Last update:** 2026-05-05 — root env placeholders added, release secret guard now ignores gitignored local env files, Chrome extension package metadata was refreshed for OpenClawd, and Blockchain Buddies production deployment notes now belong in [`blockchain_buddies/`](../blockchain_buddies/).
 
 ## Before a Public Release
 
@@ -11,7 +11,7 @@ How the publishable surfaces find each other after a user runs
 2. Confirm `.env`, `.env.local`, wallet keypairs, Honcho webhook secrets, and
    deploy keys are not staged.
 3. Run `npm run doctor` and the relevant subproject build.
-4. Update [ONBOARDING.md](./ONBOARDING.md), [STACK.md](./STACK.md), and this
+4. Update [Project guide](./PROJECT_GUIDE.md), [Agent reference](./AGENT_REFERENCE.md#openclawd-stack-map), and this
    file when endpoint, package, or service wiring changes.
 5. Keep `OPENCLAWD_*`, `HONCHO_*`, and Solana signing env documented with
    placeholder values only.
@@ -20,15 +20,15 @@ How the publishable surfaces find each other after a user runs
 
 ## What landed since 2026-04-29
 
-- **`@openclawdsolana/pagent-ui@1.6.4`** published — fixed the `rootDir` violation in [chrome-extension/ui/tsconfig.json](chrome-extension/ui/tsconfig.json) by removing the `paths` mapping that pulled `pagent-core`'s source into the ui's compilation unit. Now resolves the dep via `node_modules` from the registry like every other consumer.
-- **`@openclawdsolana/clawd-tui@0.2.1`** + **`@openclawdsolana/clawd-code-cli@0.2.3`** + **`@openclawdsolana/percolator@1.0.1`** + **`@openclawdsolana/plugin-sdk@1.1.1`** + **`@openclawdsolana/chat-plugins-gateway@1.9.1`** — full v0.2 cohort live. See top-level [README.md](README.md#v02--solana-aware-terminal--clean-bin-layout) for the consolidated v0.2 banner.
+- **`@openclawdsolana/pagent-ui@1.6.4`** published — fixed the `rootDir` violation in [chrome-extension/ui/tsconfig.json](../chrome-extension/ui/tsconfig.json) by removing the `paths` mapping that pulled `pagent-core`'s source into the ui's compilation unit. Now resolves the dep via `node_modules` from the registry like every other consumer.
+- **`@openclawdsolana/clawd-tui@0.2.1`** + **`@openclawdsolana/clawd-code-cli@0.2.3`** + **`@openclawdsolana/percolator@1.0.1`** + **`@openclawdsolana/plugin-sdk@1.1.1`** + **`@openclawdsolana/chat-plugins-gateway@1.9.1`** — full v0.2 cohort live. See top-level [README.md](../README.md#v02--solana-aware-terminal--clean-bin-layout) for the consolidated v0.2 banner.
 - **`gateway/src/http.ts`** — new HTTP server (Node built-in `http`, no deps) exposing `/health`, `/api/token/overview`, `/api/wallet/portfolio`, `/api/wallet/submit`, `/api/agent/{runtime,skills,clone,text}`, `/api/helius/asset`. Lazy-loads from `/src` for the agent routes with per-module fault isolation. Run with `npm --prefix gateway run http`. Used by the Browser Bridge extension and the new ClawdHub `/console` route.
 - **`/src` services** — built `openrouter`, `jupiter`, `memory`, `pumpfun`, `helius`, `birdeye` services so `src/agents/runtime.ts` + `clone.ts` work. Plus a local `tool()` shim at `src/agents/tool.ts` to avoid pulling the whole `@openrouter/agent` SDK at the root.
-- **ClawdHub `/console` route** ([clawdhub/src/routes/console.tsx](clawdhub/src/routes/console.tsx)) + **`/marketplace` route** ([clawdhub/src/routes/marketplace.tsx](clawdhub/src/routes/marketplace.tsx)) + **`public/install.sh`** — fixes three 404s on `hub.solanaclawd.com`. The console is the React equivalent of the Lit panel in `frontend/ui`; the marketplace categorizes the catalog with live filter/search.
-- **ClawdHub Convex moved** from `frugal-caribou-165` → `third-bobcat-386`. Updated [.env.deploy](clawdhub/.env.deploy) and [vercel.json](clawdhub/vercel.json). All env vars set on the new deployment via `convex env set`.
-- **OpenClawd theme overlay** ([clawdhub/src/styles/openclawd-theme.css](clawdhub/src/styles/openclawd-theme.css)) — single CSS file mapping ClawdHub's existing variables to the v0.2 OpenClawd palette. Loaded once in `__root.tsx` so every route picks it up.
+- **ClawdHub `/console` route** ([clawdhub/src/routes/console.tsx](../clawdhub/src/routes/console.tsx)) + **`/marketplace` route** ([clawdhub/src/routes/marketplace.tsx](../clawdhub/src/routes/marketplace.tsx)) + **`public/install.sh`** — fixes three 404s on `hub.solanaclawd.com`. The console is the React equivalent of the Lit panel in `frontend/ui`; the marketplace categorizes the catalog with live filter/search.
+- **ClawdHub Convex moved** from `frugal-caribou-165` → `third-bobcat-386`. Updated [.env.deploy](../clawdhub/.env.deploy) and [vercel.json](../clawdhub/vercel.json). All env vars set on the new deployment via `convex env set`.
+- **OpenClawd theme overlay** ([clawdhub/src/styles/openclawd-theme.css](../clawdhub/src/styles/openclawd-theme.css)) — single CSS file mapping ClawdHub's existing variables to the v0.2 OpenClawd palette. Loaded once in `__root.tsx` so every route picks it up.
 - **Legacy brand sweep → OpenClawd** — 50+ files in `clawdhub/src/`, plus `convex/`, `server/`, `netlify/`, `live_chess-main/`, `e2e/`. Domains updated to `openclawd.net` / `seeker.openclawd.net`. Solana (the chain) preserved.
-- **Browser Bridge extension v0.2.0** ([chrome-extension/openclawd-chrome-extension/](chrome-extension/openclawd-chrome-extension/)) — CDP relay + Gateway HTTP client + Solana agent wallet (Ed25519, AES-GCM at-rest, PBKDF2 310k, 15-min auto-lock). Published as load-unpacked; CWS submission still TODO.
+- **Browser Bridge extension v0.2.0** ([chrome-extension/openclawd-chrome-extension/](../chrome-extension/openclawd-chrome-extension/)) — CDP relay + Gateway HTTP client + Solana agent wallet (Ed25519, AES-GCM at-rest, PBKDF2 310k, 15-min auto-lock). Published as load-unpacked; CWS submission still TODO.
 - **Chrome extension release cleanup** — top-level popup package now emits `openclawd-popup-vX.Y.Z.zip`, Browser Bridge manifest summary is Chrome Web Store length-safe, generated installer config points at `~/.openclawdsolana/config.json`, and Browser MCP lock metadata matches `@openclawdsolana/browser-mcp@2.0.0`.
 
 ---
@@ -77,21 +77,21 @@ A developer can flip the entire stack onto a local API with a single
 
 | Surface | What it is | How it discovers the rest |
 | --- | --- | --- |
-| [`/npm`](npm/) | Three publish-ready bootstrappers (`@openclawdsolana/{cli,computer,installer}`) | Each runs `install.sh`, which writes `config.json` |
-| [`/install.sh`](install.sh) | Top-level installer. Clones, builds the Go binary, writes `config.json` | Curled by the npm bootstrappers; also runnable standalone |
-| [`/cli`](cli/) | Bash entrypoints (`clawd-cli.sh`, `clawd-connect.sh`) | Source [`clawd-config.sh`](cli/clawd-config.sh) to load endpoints |
-| [`/packages`](packages/) | TypeScript libs (wallets, percolator, x402, membrain, honcho-bridge, plugin SDK) — all `@openclawdsolana/*` | Consumed by `npm install` against the published packages or via the workspace at the root |
-| [`/packages/honcho-bridge`](packages/honcho-bridge/) | `@openclawdsolana/honcho-bridge` — conversational-reasoning seam to Honcho; unified `HONCHO_*` config loader, HMAC-verified webhook receiver with multi-channel fan-out, `honcho-clawd` CLI, optional Membrain feeder | Read at startup by gateway, automaton, llm-wiki-tang, services/pump-scanner-cron, clawdhub. See [`packages/honcho-bridge/README.md`](packages/honcho-bridge/README.md) |
-| [`/openclawd-framework`](openclawd-framework/) | Leviathan TS framework + `clawd-code` + `clawd-standalone` | Linked via root `npm workspaces`. Bin names (`leviathan`, `clawd-code`, `clawd-standalone`) deliberately don't collide with the Go runtime's `openclawd` / `clawd` |
-| [`/gateway`](gateway/) | `@openclawdsolana/gateway` — Telegram + Helius + Birdeye Solana control plane | Reads endpoint env vars (matching the `OPENCLAWD_*` set) so it can be deployed against any registrar |
-| [`/api-registrar`](api-registrar/) | `@openclawdsolana/api-registrar` — issues per-user API keys with X-verification | Should serve `/manifest` (see below) so other surfaces can discover it |
-| [`/services`](services/) | `agent-wallet` (Go), `pump-scanner-cron` (Python), `hermes-vault`, `attestation-agent` (TS — Solana Attestation Service notary + MPL Core birth ceremony) | Each declared in `release.manifest.json`; deploy artifacts (`Dockerfile`, `Procfile`, `railway.toml`) detected by the manifest generator |
-| [`/llm-wiki-tang`](llm-wiki-tang/) | OpenClawd AutoResearch Wiki — FastAPI `/api/v1/research/*` (chain · defi · market) over Birdeye + Helius DAS + Helius Wallet API, autonomous research loop persisted to `research_runs` | Native Python service; reads `BIRDEYE_API_KEY` + `HELIUS_API_KEY` + `HELIUS_RPC_URL`; Next.js + MCP server siblings inside the same directory |
-| [`/automaton-main`](automaton-main/) | `@openclawdsolana/automaton` + `@openclawdsolana/automaton-cli` — sovereign self-replicating AI agent runtime (heartbeat daemon, sense→think→strike→drift loop, on-chain identity via SAS, self-versioned `shell.md`, skill replication) | Workspace at the monorepo root; install via `npm run install:automaton`; build via `npm run build:automaton` (chained into `build:release`). Endpoints resolved as `OPENCLAWD_AUTOMATON_API_URL` → legacy `CONWAY_API_URL` → built-in default |
-| [`/chrome-extension`](chrome-extension/) | **pAGENT** package family — six npm packages plus the Chrome Web Store extension bundle. See [pAGENT family](#pagent-family) below | Workspaces in the root; install via per-package `npm install --no-workspaces` (see Node 25 caveat). Cross-package deps use `*` and resolve from the registry |
-| [`/skills`](skills/) | 98+ skill folders + [`catalog.json`](skills/catalog.json) | Served by the registrar at `/api/skills`; CLIs hit `$OPENCLAWD_API_BASE/skills` |
-| [`/extensions`](extensions/) | 31 integration extensions (Telegram, Discord, Signal, Slack, …) | Listed in the manifest; loaded by host apps that opt in |
-| [`/src`](src/) | Top-level TS CLI sources (legacy / WIP) | Will be folded into the framework or left as scaffold |
+| [`/npm`](../npm/) | Three publish-ready bootstrappers (`@openclawdsolana/{cli,computer,installer}`) | Each runs `install.sh`, which writes `config.json` |
+| [`/install.sh`](../install.sh) | Top-level installer. Clones, builds the Go binary, writes `config.json` | Curled by the npm bootstrappers; also runnable standalone |
+| [`/cli`](../cli/) | Bash entrypoints (`clawd-cli.sh`, `clawd-connect.sh`) | Source [`clawd-config.sh`](../cli/clawd-config.sh) to load endpoints |
+| [`/packages`](../packages/) | TypeScript libs (wallets, percolator, x402, membrain, honcho-bridge, plugin SDK) — all `@openclawdsolana/*` | Consumed by `npm install` against the published packages or via the workspace at the root |
+| [`/packages/honcho-bridge`](../packages/honcho-bridge/) | `@openclawdsolana/honcho-bridge` — conversational-reasoning seam to Honcho; unified `HONCHO_*` config loader, HMAC-verified webhook receiver with multi-channel fan-out, `honcho-clawd` CLI, optional Membrain feeder | Read at startup by gateway, automaton, llm-wiki-tang, services/pump-scanner-cron, clawdhub. See [`packages/honcho-bridge/README.md`](../packages/honcho-bridge/README.md) |
+| [`/openclawd-framework`](../openclawd-framework/) | Leviathan TS framework + `clawd-code` + `clawd-standalone` | Linked via root `npm workspaces`. Bin names (`leviathan`, `clawd-code`, `clawd-standalone`) deliberately don't collide with the Go runtime's `openclawd` / `clawd` |
+| [`/gateway`](../gateway/) | `@openclawdsolana/gateway` — Telegram + Helius + Birdeye Solana control plane | Reads endpoint env vars (matching the `OPENCLAWD_*` set) so it can be deployed against any registrar |
+| [`/api-registrar`](../api-registrar/) | `@openclawdsolana/api-registrar` — issues per-user API keys with X-verification | Should serve `/manifest` (see below) so other surfaces can discover it |
+| [`/services`](../services/) | `agent-wallet` (Go), `pump-scanner-cron` (Python), `hermes-vault`, `attestation-agent` (TS — Solana Attestation Service notary + MPL Core birth ceremony) | Each declared in `release.manifest.json`; deploy artifacts (`Dockerfile`, `Procfile`, `railway.toml`) detected by the manifest generator |
+| [`/llm-wiki-tang`](../llm-wiki-tang/) | OpenClawd AutoResearch Wiki — FastAPI `/api/v1/research/*` (chain · defi · market) over Birdeye + Helius DAS + Helius Wallet API, autonomous research loop persisted to `research_runs` | Native Python service; reads `BIRDEYE_API_KEY` + `HELIUS_API_KEY` + `HELIUS_RPC_URL`; Next.js + MCP server siblings inside the same directory |
+| [`/automaton-main`](../automaton-main/) | `@openclawdsolana/automaton` + `@openclawdsolana/automaton-cli` — sovereign self-replicating AI agent runtime (heartbeat daemon, sense→think→strike→drift loop, on-chain identity via SAS, self-versioned `shell.md`, skill replication) | Workspace at the monorepo root; install via `npm run install:automaton`; build via `npm run build:automaton` (chained into `build:release`). Endpoints resolved as `OPENCLAWD_AUTOMATON_API_URL` → legacy `CONWAY_API_URL` → built-in default |
+| [`/chrome-extension`](../chrome-extension/) | **pAGENT** package family — six npm packages plus the Chrome Web Store extension bundle. See [pAGENT family](#pagent-family) below | Workspaces in the root; install via per-package `npm install --no-workspaces` (see Node 25 caveat). Cross-package deps use `*` and resolve from the registry |
+| [`/skills`](../skills/) | 98+ skill folders + [`catalog.json`](../skills/catalog.json) | Served by the registrar at `/api/skills`; CLIs hit `$OPENCLAWD_API_BASE/skills` |
+| [`/extensions`](../extensions/) | 31 integration extensions (Telegram, Discord, Signal, Slack, …) | Listed in the manifest; loaded by host apps that opt in |
+| [`/src`](../src/) | Top-level TS CLI sources (legacy / WIP) | Will be folded into the framework or left as scaffold |
 
 ---
 
@@ -116,7 +116,7 @@ mcp (independent — bridges Claude/Cursor to live browser)
 | `@openclawdsolana/pagent` | 1.6.3 | ⏳ queued | — | Top-level kitchen sink (depends on all four above) |
 | `@openclawdsolana/browser-mcp` | 2.0.0 | ⏳ queued | — | MCP server bridging Claude/Cursor → live browser |
 
-Plus the Chrome Web Store bundle in [`chrome-extension/clawd-agent/`](chrome-extension/clawd-agent/) — manifest v3, sidepanel.html, background.js. **Not** an npm package; built with [`chrome-extension/build-cws.sh`](chrome-extension/build-cws.sh) and submitted at the [Chrome Web Store dev console](https://chrome.google.com/webstore/devconsole).
+Plus the Chrome Web Store bundle in [`chrome-extension/clawd-agent/`](../chrome-extension/clawd-agent/) — manifest v3, sidepanel.html, background.js. **Not** an npm package; built with [`chrome-extension/build-cws.sh`](../chrome-extension/build-cws.sh) and submitted at the [Chrome Web Store dev console](https://chrome.google.com/webstore/devconsole).
 
 ### pAGENT publish runbook
 
@@ -190,7 +190,7 @@ cd $ROOT/npm/openclawd-installer && npm publish --access public
 
 ## The release manifest (`release.manifest.json`)
 
-`npm run release:manifest` (or [`scripts/release-manifest.mjs`](scripts/release-manifest.mjs))
+`npm run release:manifest` (or [`scripts/release-manifest.mjs`](../scripts/release-manifest.mjs))
 walks the entire repo and emits a single JSON file describing every release
 surface — packages, services, skills, extensions, CLI entrypoints, and the
 canonical endpoint set.
@@ -257,7 +257,7 @@ Optional flags:
 - `--concurrency=<n>` parallel PUTs (default 8)
 - `--max-file-bytes=<n>` skip individual files larger than this (default 25 MB)
 
-The script ([`scripts/upload-to-browseruse.mjs`](scripts/upload-to-browseruse.mjs))
+The script ([`scripts/upload-to-browseruse.mjs`](../scripts/upload-to-browseruse.mjs))
 uses Browser Use v3's two-step flow:
 `POST /workspaces/{id}/files/upload` to declare files (≤10 per batch) and
 receive presigned PUT URLs, then `PUT` the bytes. It excludes
@@ -284,3 +284,4 @@ secret-shaped filenames (`.env*`, `*keypair*.json`, `id.json`,
    advertised release.
 7. If the surface needs an endpoint (API base, gateway, etc.), read it from
    `OPENCLAWD_*` env vars, not a hardcoded URL.
+
