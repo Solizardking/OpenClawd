@@ -77,7 +77,7 @@ export function InstallCommand({ slug, displayName }: InstallCommandProps) {
   }, []);
 
   const isWin = platform === "windows";
-  const cliCmd = `npx petdex install ${slug}`;
+  const cliCmd = `npx @openclawdsolana/blockchain-buddies install ${slug}`;
   const shellCmd = isWin
     ? `irm https://buddies.openclawd.biz/install/${slug}?platform=ps1 | iex`
     : `curl -sSf https://buddies.openclawd.biz/install/${slug} | sh`;
@@ -98,8 +98,8 @@ export function InstallCommand({ slug, displayName }: InstallCommandProps) {
         {t("dropsInto")}{" "}
         <code className="break-all">
           {isWin
-            ? `%USERPROFILE%\\.codex\\pets\\${slug}\\`
-            : `~/.codex/pets/${slug}/`}
+            ? `%USERPROFILE%\\.openclawd\\buddies\\${slug}\\`
+            : `~/.openclawd/buddies/${slug}/`}
         </code>
       </p>
 
