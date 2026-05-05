@@ -92,13 +92,11 @@ const INCLUDE_TOP_FILES = [
   'tsconfig.json',
 ];
 
-const EXCLUDE_DIRS = [
-  // Bulk
+// Match anywhere in the path (any segment).
+const EXCLUDE_SEGMENTS = new Set([
   'node_modules',
   '.git',
   'dist',
-  'lib/composite',
-  'lib/prod',
   'build',
   '.next',
   '.nitro',
@@ -107,7 +105,6 @@ const EXCLUDE_DIRS = [
   'target',
   'coverage',
   '.nyc_output',
-  // Sessions / runtime artifacts
   '.sessions',
   '.clawd',
   '.openclawd',
@@ -116,10 +113,22 @@ const EXCLUDE_DIRS = [
   '.mcp-cache',
   '.e2b',
   'session-logs',
+  '.vercel',
+  '.netlify',
+  '.output',
+  '.pnpm-store',
+]);
+
+// Match as a path prefix (specific subdirectories, not arbitrary segments).
+const EXCLUDE_PATHS = [
   // Vendored upstreams (huge, not authored here)
   'Robotics/Isaac-GR00T-main',
   'blockchain/lightweight-charts-master',
   'solana-attestation-service-master',
+  // Composite TS build outputs
+  'packages/membrain/bin',
+  'lib/composite',
+  'lib/prod',
 ];
 
 const EXCLUDE_FILE_PATTERNS = [
@@ -159,7 +168,11 @@ function toPosix(p) {
 
 function isExcluded(relPath) {
   const posix = toPosix(relPath);
-  for (const dir of EXCLUDE_DIRS) {
+  // Any path segment matching the deny set blocks the whole tree below it.
+  for (const seg of posix.split('/')) {
+    if (EXCLUDE_SEGMENTS.has(seg)) return true;
+  }
+  for (const dir of EXCLUDE_PATHS) {
     if (posix === dir || posix.startsWith(dir + '/')) return true;
   }
   for (const re of EXCLUDE_FILE_PATTERNS) {
