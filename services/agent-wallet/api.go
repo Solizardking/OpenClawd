@@ -152,6 +152,8 @@ func (s *Server) Start() error {
 
 	// Health
 	mux.HandleFunc("GET /v1/health", s.handleHealth)
+	// Lightweight probe used by @openclawdsolana/service-registry → scripts/doctor.mjs.
+	mux.HandleFunc("GET /healthz", s.handleHealthz)
 	mux.HandleFunc("GET /", s.handleRoot)
 
 	s.httpSrv = &http.Server{
@@ -162,6 +164,10 @@ func (s *Server) Start() error {
 	}
 
 	log.Printf("[WALLET-API] 🚀 Agent wallet API listening on :%s", s.port)
+	// Mirror what @openclawdsolana/service-registry's discover('walletApi') will
+	// resolve to so operators can immediately see whether peers will reach us.
+	// Override via OPENCLAWD_WALLET_API_URL (full URL) or WALLET_API_PORT (port).
+	log.Printf("[WALLET-API] 🔗 Registry URL: http://127.0.0.1:%s  (overrides: OPENCLAWD_WALLET_API_URL, WALLET_API_PORT)", s.port)
 	return s.httpSrv.ListenAndServe()
 }
 
@@ -176,7 +182,7 @@ func (s *Server) authMiddleware(next http.Handler) http.Handler {
 	apiKey := os.Getenv("WALLET_API_KEY")
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Skip auth for health/root
-		if r.URL.Path == "/" || r.URL.Path == "/v1/health" {
+		if r.URL.Path == "/" || r.URL.Path == "/v1/health" || r.URL.Path == "/healthz" {
 			next.ServeHTTP(w, r)
 			return
 		}
@@ -208,6 +214,16 @@ func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {
 		"wallets":     len(s.vault.ListWallets()),
 		"evm_chains":  len(s.evmClients),
 		"solana_rpc":  s.solanaRPC != nil,
+	})
+}
+
+// handleHealthz is the lightweight liveness probe consumed by
+// @openclawdsolana/service-registry's discover('walletApi'). Kept separate from
+// /v1/health so peers don't pay the cost of vault enumeration on every poll.
+func (s *Server) handleHealthz(w http.ResponseWriter, r *http.Request) {
+	jsonResp(w, map[string]any{
+		"ok":      true,
+		"service": "clawd-agent-wallet",
 	})
 }
 
