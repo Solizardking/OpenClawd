@@ -4,7 +4,10 @@
 // client sent in the request body.
 
 const ISSUER =
-  process.env.CLERK_CLI_ISSUER ?? "https://clerk.petdex.crafter.run";
+  process.env.BLOCKCHAIN_BUDDIES_CLERK_ISSUER ??
+  process.env.CLERK_CLI_ISSUER ??
+  process.env.CLERK_ISSUER ??
+  "";
 
 export type CliPrincipal = {
   userId: string;
@@ -24,6 +27,7 @@ export async function verifyCliBearer(
   const token = match[1].trim();
   if (!token) return null;
 
+  if (!ISSUER) return null;
   const url = `${ISSUER.replace(/\/+$/, "")}/oauth/userinfo`;
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${token}` },

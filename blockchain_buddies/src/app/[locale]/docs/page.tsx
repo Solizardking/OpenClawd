@@ -10,20 +10,20 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
 export const metadata = {
-  title: "Docs · Petdex",
+  title: "Docs · Blockchain Buddies",
   description:
-    "How to install, distribute, and automate Codex pets with the Petdex CLI.",
+    "How to install, distribute, and automate Codex pets with the Blockchain Buddies CLI.",
   alternates: buildLocaleAlternates("/docs"),
   openGraph: {
-    title: "Petdex CLI · Docs",
+    title: "Blockchain Buddies CLI · Docs",
     description:
-      "How to install, distribute, and automate Codex pets with the Petdex CLI.",
+      "How to install, distribute, and automate Codex pets with the Blockchain Buddies CLI.",
     images: ["/og.png"],
   },
 };
 
-const NPM_URL = "https://www.npmjs.com/package/petdex";
-const REPO_URL = "https://github.com/crafter-station/petdex";
+const NPM_URL = "https://www.npmjs.com/package/@openclawdsolana/blockchain-buddies";
+const REPO_URL = "https://github.com/clawdsolana/OpenClawd";
 const SKILL_URL = `${REPO_URL}/blob/main/.claude/skills/petdex/SKILL.md`;
 
 export default function DocsPage() {
@@ -56,13 +56,13 @@ export default function DocsPage() {
         <article className="min-w-0 space-y-14">
           <header className="space-y-3">
             <p className="font-mono text-xs tracking-[0.22em] text-brand uppercase">
-              Petdex CLI · v0.1
+              Blockchain Buddies CLI · v0.1
             </p>
             <h1 className="text-5xl font-medium tracking-tight md:text-6xl">
               Docs
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-muted-2">
-              The Petdex CLI lets you install, browse, and submit Codex pets
+              The Blockchain Buddies CLI lets you install, browse, and submit Codex pets
               from your terminal. Authentication is OAuth 2.0 + PKCE through
               Clerk. Tokens persist in your OS keychain. Same auth works across{" "}
               <code className="text-sm">npx</code> and global installs.
@@ -74,7 +74,7 @@ export default function DocsPage() {
                 rel="noreferrer"
                 className="inline-flex h-10 items-center gap-2 rounded-full border border-border-base bg-surface px-4 text-sm font-medium transition hover:border-border-strong"
               >
-                npmjs.com/petdex
+                npmjs.com//blockchain-buddies
                 <ArrowRight className="size-4" />
               </a>
               <a
@@ -95,13 +95,13 @@ export default function DocsPage() {
               account required to install. Sign in only when you submit.
             </p>
             <CommandLine
-              command="npx petdex install boba"
+              command="npx @openclawdsolana/blockchain-buddies install boba"
               source="docs-quickstart"
               className="w-full max-w-xl"
             />
             <p>
               The CLI fetches the pet pack and drops it into{" "}
-              <code>~/.codex/pets/boba/</code>. To activate it inside Codex go
+              <code>~/.openclawd/buddies/boba/</code>. To activate it inside Codex go
               to <strong>Settings → Appearance → Pets</strong> and click{" "}
               <strong>Select</strong>. Use <code>/pet</code> inside Codex to
               wake or tuck it away.
@@ -115,7 +115,7 @@ export default function DocsPage() {
                 Hatch your own
               </Link>{" "}
               with the Codex Hatch Pet skill, then come back to{" "}
-              <code>petdex submit</code>.
+              <code>blockchain-buddies submit</code>.
             </Callout>
           </Section>
 
@@ -130,7 +130,7 @@ export default function DocsPage() {
               Use <code>npx</code>. No setup, package is cached after first run.
             </p>
             <CommandLine
-              command="npx petdex install boba"
+              command="npx @openclawdsolana/blockchain-buddies install boba"
               source="docs-install-npx"
               className="w-full max-w-xl"
             />
@@ -140,7 +140,7 @@ export default function DocsPage() {
               Install globally for instant invocation and easier muscle memory.
             </p>
             <CommandLine
-              command="npm install -g petdex"
+              command="npm install -g @openclawdsolana/blockchain-buddies"
               source="docs-install-global"
               className="w-full max-w-xl"
             />
@@ -149,7 +149,7 @@ export default function DocsPage() {
               <strong>Auth persistence is identical in both.</strong> Tokens
               live in your OS keychain (macOS Keychain, Windows Credential
               Manager, Linux Secret Service) under the service name{" "}
-              <code>petdex-cli</code>. Even if npx clears its package cache,
+              <code>blockchain-buddies-cli</code>. Even if npx clears its package cache,
               your session survives.
             </p>
           </Section>
@@ -160,25 +160,25 @@ export default function DocsPage() {
               seamlessly.
             </p>
             <CommandLine
-              command="npx petdex login"
+              command="npx @openclawdsolana/blockchain-buddies login"
               source="docs-auth-login"
               className="w-full max-w-xl"
             />
             <p className="text-sm text-muted-2">
               The flow is OAuth 2.0 + PKCE: the CLI opens your browser, you sign
-              in with Clerk on <code>accounts.petdex.crafter.run</code>, and the
+              in with Clerk on <code>accounts.buddies.openclawd.biz</code>, and the
               browser redirects to a one-shot localhost listener with the
               authorization code. The CLI exchanges it for a token set and
               stores it in the keychain. No secrets touch disk.
             </p>
             <p>Other auth commands:</p>
             <CommandLine
-              command="npx petdex whoami"
+              command="npx @openclawdsolana/blockchain-buddies whoami"
               source="docs-auth-whoami"
               className="w-full max-w-xl"
             />
             <CommandLine
-              command="npx petdex logout"
+              command="npx @openclawdsolana/blockchain-buddies logout"
               source="docs-auth-logout"
               className="w-full max-w-xl"
             />
@@ -191,37 +191,37 @@ export default function DocsPage() {
             </p>
 
             <h3 className="mt-6 font-semibold">
-              <code>petdex list</code>
+              <code>blockchain-buddies list</code>
             </h3>
             <p>
               Print every approved pet with credit. Useful for discovery before
               installing.
             </p>
             <CommandLine
-              command="npx petdex list"
+              command="npx @openclawdsolana/blockchain-buddies list"
               source="docs-cmd-list"
               className="w-full max-w-xl"
             />
 
             <h3 className="mt-6 font-semibold">
-              <code>petdex install &lt;slug&gt;</code>
+              <code>blockchain-buddies install &lt;slug&gt;</code>
             </h3>
             <p>
-              Drop a pet into <code>~/.codex/pets/&lt;slug&gt;/</code>.
+              Drop a pet into <code>~/.openclawd/buddies/&lt;slug&gt;/</code>.
               Equivalent to{" "}
               <code>
-                curl -sSf https://petdex.crafter.run/install/&lt;slug&gt; | sh
+                curl -sSf https://buddies.openclawd.biz/install/&lt;slug&gt; | sh
               </code>
               .
             </p>
             <CommandLine
-              command="npx petdex install kebo"
+              command="npx @openclawdsolana/blockchain-buddies install kebo"
               source="docs-cmd-install"
               className="w-full max-w-xl"
             />
 
             <h3 className="mt-6 font-semibold">
-              <code>petdex submit &lt;path&gt;</code>
+              <code>blockchain-buddies submit &lt;path&gt;</code>
             </h3>
             <p>
               Publish your pet(s) to the gallery. The CLI accepts three shapes:
@@ -229,14 +229,14 @@ export default function DocsPage() {
             <ul className="ml-6 list-disc space-y-1 text-muted-2">
               <li>
                 <strong>Single folder</strong>:{" "}
-                <code>petdex submit ~/.codex/pets/boba</code>
+                <code>blockchain-buddies submit ~/.openclawd/buddies/boba</code>
               </li>
               <li>
                 <strong>Single zip</strong>:{" "}
-                <code>petdex submit ~/Downloads/boba.zip</code>
+                <code>blockchain-buddies submit ~/Downloads/boba.zip</code>
               </li>
               <li>
-                <strong>Bulk</strong>: <code>petdex submit ~/.codex/pets</code>:
+                <strong>Bulk</strong>: <code>blockchain-buddies submit ~/.openclawd/buddies</code>:
                 every direct subfolder is treated as its own pet
               </li>
             </ul>
@@ -247,7 +247,7 @@ export default function DocsPage() {
             </p>
 
             <h3 className="mt-6 font-semibold">
-              <code>petdex login / logout / whoami</code>
+              <code>blockchain-buddies login / logout / whoami</code>
             </h3>
             <p>See the Authenticate section above.</p>
           </Section>
@@ -263,7 +263,7 @@ export default function DocsPage() {
                 <strong>Create.</strong> In Codex Desktop, install the{" "}
                 <strong>Hatch Pet</strong> skill and run <code>/pet</code>.
                 Codex generates the spritesheet and pet.json into{" "}
-                <code>~/.codex/pets/&lt;slug&gt;/</code>. Full tutorial at{" "}
+                <code>~/.openclawd/buddies/&lt;slug&gt;/</code>. Full tutorial at{" "}
                 <Link
                   href="/create"
                   className="font-medium underline underline-offset-4"
@@ -273,12 +273,12 @@ export default function DocsPage() {
                 .
               </li>
               <li>
-                <strong>Sign in.</strong> <code>npx petdex login</code> if you
+                <strong>Sign in.</strong> <code>npx @openclawdsolana/blockchain-buddies login</code> if you
                 haven't.
               </li>
               <li>
                 <strong>Submit.</strong>{" "}
-                <code>npx petdex submit ~/.codex/pets/&lt;slug&gt;</code>. Or
+                <code>npx @openclawdsolana/blockchain-buddies submit ~/.openclawd/buddies/&lt;slug&gt;</code>. Or
                 bulk all at once with the parent dir.
               </li>
               <li>
@@ -288,14 +288,14 @@ export default function DocsPage() {
               </li>
               <li>
                 <strong>Anyone can install your pet.</strong> Once approved,
-                share <code>npx petdex install &lt;your-slug&gt;</code> with
-                anyone . They get your pet in their <code>~/.codex/pets/</code>{" "}
+                share <code>npx @openclawdsolana/blockchain-buddies install &lt;your-slug&gt;</code> with
+                anyone . They get your pet in their <code>~/.openclawd/buddies/</code>{" "}
                 instantly.
               </li>
             </ol>
 
             <Callout>
-              Pets are user-submitted fan art. Petdex doesn't claim rights to
+              Pets are user-submitted fan art. Blockchain Buddies doesn't claim rights to
               underlying IP. If you're a rights holder requesting a takedown,
               see{" "}
               <Link
@@ -349,15 +349,15 @@ export default function DocsPage() {
                   <Tr
                     sym="Not signed in"
                     cause="No tokens or session expired"
-                    fix={<code>petdex login</code>}
+                    fix={<code>blockchain-buddies login</code>}
                   />
                   <Tr
                     sym="presign 401"
                     cause="Bearer rejected by Clerk userinfo"
                     fix={
                       <>
-                        <code>petdex logout</code> then{" "}
-                        <code>petdex login</code>
+                        <code>blockchain-buddies logout</code> then{" "}
+                        <code>blockchain-buddies login</code>
                       </>
                     }
                   />
@@ -400,7 +400,7 @@ export default function DocsPage() {
 
           <Section id="agents" title="Agent-first usage (Skill)">
             <p>
-              Petdex ships a Claude Code / Codex / Cursor compatible{" "}
+              Blockchain Buddies ships a Claude Code / Codex / Cursor compatible{" "}
               <strong>skill</strong> at{" "}
               <code>.claude/skills/petdex/SKILL.md</code>. Compatible agents
               load it automatically and learn <em>when</em> and <em>how</em> to
@@ -411,20 +411,20 @@ export default function DocsPage() {
             <ul className="ml-6 list-disc space-y-1 text-muted-2">
               <li>
                 Say <em>"install something cozy for my Codex"</em> in any agent
-                tool. It runs <code>petdex list</code>, suggests Boba/Boxcat,
+                tool. It runs <code>blockchain-buddies list</code>, suggests Boba/Boxcat,
                 installs your pick, and reminds you to activate via{" "}
                 <strong>Settings → Appearance → Pets</strong>.
               </li>
               <li>
                 Say <em>"share all my pets"</em>. Agent runs{" "}
-                <code>petdex login</code> if needed, then{" "}
-                <code>petdex submit ~/.codex/pets</code>, surfaces the bulk
+                <code>blockchain-buddies login</code> if needed, then{" "}
+                <code>blockchain-buddies submit ~/.openclawd/buddies</code>, surfaces the bulk
                 summary.
               </li>
               <li>
                 Say <em>"how do I make my own?"</em>. Agent walks you through
                 Codex Desktop → Hatch Pet skill → <code>/pet</code> →{" "}
-                <code>petdex submit</code>.
+                <code>blockchain-buddies submit</code>.
               </li>
             </ul>
 
@@ -448,7 +448,7 @@ export default function DocsPage() {
             <p>
               The CLI is the executable surface; the skill is the cognitive one.
               If you build a derivative skill (e.g. one that auto-tags new pets
-              or curates a daily digest), you can use the Petdex skill as a
+              or curates a daily digest), you can use the Blockchain Buddies skill as a
               reference. Read it directly:
             </p>
             <p>
@@ -472,16 +472,15 @@ export default function DocsPage() {
             </p>
             <ul className="ml-6 list-disc space-y-1 text-muted-2">
               <li>
-                <code>PETDEX_URL</code>: base URL, default{" "}
-                <code>https://petdex.crafter.run</code>
+                <code>BLOCKCHAIN_BUDDIES_URL</code>: base URL, default{" "}
+                <code>https://buddies.openclawd.biz</code>
               </li>
               <li>
-                <code>CLERK_ISSUER</code>: OAuth issuer, default{" "}
-                <code>https://clerk.petdex.crafter.run</code>
+                <code>BLOCKCHAIN_BUDDIES_CLERK_ISSUER</code>: OAuth issuer, default{" "}
+                <code>set this to your Clerk OAuth issuer</code>
               </li>
               <li>
-                <code>CLERK_OAUTH_CLIENT_ID</code>: public client id (baked into
-                the CLI binary)
+                <code>BLOCKCHAIN_BUDDIES_CLERK_CLIENT_ID</code>: public Clerk OAuth client id
               </li>
             </ul>
           </Section>
@@ -498,7 +497,7 @@ export default function DocsPage() {
                     rel="noreferrer"
                     className="font-medium underline underline-offset-4"
                   >
-                    crafter-station/petdex
+                    clawdsolana/OpenClawd
                   </a>
                 </span>
               </li>
@@ -528,7 +527,7 @@ export default function DocsPage() {
                   >
                     GitHub Sponsors
                   </a>{" "}
-                  if Petdex saves you time.
+                  if Blockchain Buddies saves you time.
                 </span>
               </li>
             </ul>
