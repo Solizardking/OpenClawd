@@ -21,7 +21,7 @@ const EMPTY_METRICS: Metrics = {
   likeCount: 0,
 };
 
-function isMissingPetTable(error: unknown): boolean {
+export function isMissingPetTable(error: unknown): boolean {
   const cause = (error as { cause?: unknown } | null)?.cause;
   if ((cause as { code?: unknown } | null)?.code === "42P01") return true;
   const text =
@@ -133,7 +133,11 @@ export async function getApprovedPetCount(): Promise<number> {
   const row = await db
     .select({ n: sql<number>`count(*)::int` })
     .from(schema.submittedPets)
-    .where(eq(schema.submittedPets.status, "approved"));
+    .where(eq(schema.submittedPets.status, "approved"))
+    .catch((error) => {
+      if (isMissingPetTable(error)) return [{ n: 0 }];
+      throw error;
+    });
   return row[0]?.n ?? 0;
 }
 
