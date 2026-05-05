@@ -65,14 +65,61 @@
 ## Installation
 
 ```bash
-# Recommended
-npm install -g clawd-code-cli
+# Recommended: installs the TUI (`clawd`) and code agent (`clawd-code`)
+npm install -g @openclawdsolana/clawd-tui @openclawdsolana/clawd-code-cli
 
-# Or with bun
-bun add -g clawd-code-cli
+# One-shot TUI, no global install
+npx -y @openclawdsolana/clawd-tui
+
+# One-shot installer for both packages
+curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/clawd-code-cli/install-clawd.sh | bash
 ```
 
-The `clawd` and `claw` aliases are registered automatically.
+The TUI owns the short `clawd` command. The code-focused package exposes
+`clawd-code` and `clawd-code-cli`.
+
+### One-Shot Agent Bootstrap
+
+Use this when you are already inside Claude Code, Codex, Gemini CLI, Ghermes,
+OpenClawd, or any other agent terminal and want that session to install and
+hand off to Clawd immediately.
+
+```text
+Install OpenClawd's terminal stack, then launch it. Run exactly one install
+path for this machine:
+
+1. If Node/npm are available, run:
+   npm install -g @openclawdsolana/clawd-tui @openclawdsolana/clawd-code-cli
+
+2. If I only want a no-install run, use:
+   npx -y @openclawdsolana/clawd-tui
+
+3. If I want the curl installer, use:
+   curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/clawd-code-cli/install-clawd.sh | bash
+
+After install, start the TUI with:
+   clawd
+
+Use clawd-code for the code-agent CLI:
+   clawd-code
+
+Do not ask follow-up questions unless Node.js/npm are missing or the install
+fails with a permission error. If npm global permissions fail, retry with:
+   curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/clawd-code-cli/install-clawd.sh | bash -s -- --prefix "$HOME/.local"
+```
+
+Direct one-liners:
+
+```bash
+# TUI immediately, no global install
+npx -y @openclawdsolana/clawd-tui
+
+# Install both, then enter Clawd
+npm install -g @openclawdsolana/clawd-tui @openclawdsolana/clawd-code-cli && clawd
+
+# Curl installer, user-prefix fallback when global npm is locked down
+curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/clawd-code-cli/install-clawd.sh | bash -s -- --prefix "$HOME/.local"
+```
 
 ---
 
