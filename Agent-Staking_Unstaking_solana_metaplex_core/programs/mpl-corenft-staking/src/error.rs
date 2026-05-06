@@ -2,21 +2,21 @@ use crate::*;
 
 #[error_code]
 pub enum StakingError {
-    #[msg("Admin address dismatch")]
+    #[msg("Caller is not the configured program admin")]
     InvalidAdmin,
-    #[msg("Metadata address is invalid")]
+    #[msg("Agent asset metadata is invalid")]
     InvalidMetadata,
-    #[msg("Collection is invalid")]
+    #[msg("Collection does not match the asset's update authority")]
     InvalidCollection,
-    #[msg("Can not parse creators in metadata")]
+    #[msg("Could not parse creators in metadata")]
     MetadataCreatorParseError,
-    #[msg("Insufficient Reward Vault Balance")]
+    #[msg("Reward vault has insufficient balance")]
     LackVaultBalance,
-    #[msg("NFT Owner key mismatch")]
+    #[msg("Caller is not the agent asset owner")]
     InvalidOwner,
-    #[msg("No Matching NFT to withdraw")]
-    InvalidNFTAddress,
-    #[msg("Reward is disabled")]
+    #[msg("Asset address does not match a staked record")]
+    InvalidAgentAsset,
+    #[msg("Reward distribution is currently disabled")]
     DisabledReward,
     #[msg("Stake counter overflow")]
     CounterOverflow,

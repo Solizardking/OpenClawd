@@ -1,6 +1,6 @@
 pub mod initialize;
 pub use initialize::*;
-pub mod lock_corenft;
-pub use lock_corenft::*;
-pub mod unlock_corenft;
-pub use unlock_corenft::*;
+pub mod stake_agent;
+pub use stake_agent::*;
+pub mod unstake_agent;
+pub use unstake_agent::*;
