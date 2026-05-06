@@ -23,7 +23,7 @@ glob = "0.3"
 # Serialization
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-serde_yml = "0.0.12"
+serde_yml = { package = "serde_norway", version = "0.9.42" }
 base64 = "0.22"
 crc32fast = "1.5"
 flate2 = "1.1"
