@@ -305,10 +305,68 @@ export const solanaTheme: Theme = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
+// DARK LOBSTER CYPHERPUNK THEME (Default - Crimson hacker aesthetic)
+// ─────────────────────────────────────────────────────────────────────────────
+//
+// Palette philosophy:
+//   - Blood crimson primary, acid green secondary, ember orange accent
+//   - Dim oxblood borders that bloom to neon crimson on focus
+//   - Mostly black void backgrounds — no warmth, no comfort
+//
+//   "The lobster remembers. The chain forgets nothing. The void watches back."
+//
+export const lobsterCypherpunkTheme: Theme = {
+  name: 'Dark Lobster Cypherpunk',
+  colors: {
+    primary: '#FF003C',       // neon arterial crimson
+    secondary: '#39FF14',     // acid green (hacker terminal)
+    accent: '#FF6B1A',        // boiled-shell ember
+    success: '#39FF14',
+    warning: '#FFB000',       // amber CRT
+    error: '#FF003C',
+    info: '#00FFD1',          // cypher teal
+    text: '#E8E0DD',          // bone white, slightly warm
+    textDim: '#8B0019',       // dried blood
+    textMuted: '#3D0710',     // shadow crimson
+    border: '#8B0000',        // oxblood
+    borderFocus: '#FF003C',
+    background: '#080000',    // void with crimson undertone
+    backgroundAlt: '#1A0507',
+  },
+  borderStyle: 'bold',
+  icons: {
+    success: '◢',
+    error: '◣',
+    warning: '◤',
+    info: '◥',
+    loading: '◈',
+    arrow: {
+      up: '▲',
+      down: '▼',
+      left: '◄',
+      right: '►',
+    },
+    bullet: '▰',
+    check: '◆',
+    cross: '✕',
+    star: '✺',
+  },
+  charts: {
+    upColor: '#39FF14',
+    downColor: '#FF003C',
+    neutralColor: '#FFB000',
+    gridColor: '#3D0710',
+    candleUp: '█',
+    candleDown: '▓',
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
 // THEME REGISTRY
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const themes: Record<string, Theme> = {
+  'dark-lobster': lobsterCypherpunkTheme,
   'dark-ralph': darkRalphTheme,
   bloomberg: bloombergTheme,
   cyberpunk: cyberpunkTheme,
@@ -316,7 +374,7 @@ export const themes: Record<string, Theme> = {
   solana: solanaTheme,
 };
 
-export const defaultTheme = darkRalphTheme;
+export const defaultTheme = lobsterCypherpunkTheme;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // THEME HELPERS
@@ -403,6 +461,23 @@ export const ASCII_SPINNERS = {
   square: ['◰', '◳', '◲', '◱'],
   bounce: ['⠁', '⠂', '⠄', '⠂'],
   pulse: ['◯', '◔', '◑', '◕', '●', '◕', '◑', '◔'],
+  // Lobster-cypherpunk specific frames
+  claw: ['╱', '╳', '╲', '╳'],
+  scan: ['▱▱▱▱', '▰▱▱▱', '▰▰▱▱', '▰▰▰▱', '▰▰▰▰', '▱▰▰▰', '▱▱▰▰', '▱▱▱▰'],
+  glitch: ['▓░░', '░▓░', '░░▓', '░▓░'],
+  bloodMoon: ['◜', '◝', '◞', '◟'],
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CYPHERPUNK GRADIENT PRESETS (custom, not from ink-gradient defaults)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const GRADIENT_PRESETS = {
+  blood:    ['#2A0000', '#8B0000', '#FF003C', '#8B0000', '#2A0000'],
+  ember:    ['#3D0710', '#8B0000', '#FF6B1A', '#FFB000', '#FF6B1A'],
+  cypher:   ['#FF003C', '#FF6B1A', '#FFB000', '#39FF14', '#00FFD1'],
+  oxblood:  ['#0A0000', '#3D0710', '#8B0000', '#FF003C'],
+  decay:    ['#39FF14', '#00FFD1', '#FF003C', '#8B0000'],
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
