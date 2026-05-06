@@ -195,7 +195,10 @@ function BuddyControlDeck({ totalPets }: { totalPets: number }) {
   ];
 
   return (
-    <section className="mt-10 grid gap-3 md:grid-cols-4" aria-label="Buddy control deck">
+    <section
+      className="mt-10 grid gap-3 md:grid-cols-4"
+      aria-label="Buddy control deck"
+    >
       {lanes.map((lane) => {
         const Icon = lane.icon;
         return (

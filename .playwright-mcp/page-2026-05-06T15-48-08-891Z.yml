@@ -1,0 +1,161 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - navigation [ref=e4]:
+        - link "Blockchain Buddies home" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - img [ref=e6]
+          - generic [ref=e14]: Blockchain Buddies
+        - generic [ref=e15]:
+          - link "Create" [ref=e16] [cursor=pointer]:
+            - /url: /create
+          - link "Birth onchain" [ref=e17] [cursor=pointer]:
+            - /url: /birth
+          - link "Docs" [ref=e18] [cursor=pointer]:
+            - /url: /docs
+          - link "Guides" [ref=e19] [cursor=pointer]:
+            - /url: /guides
+          - link "Top creators" [ref=e20] [cursor=pointer]:
+            - /url: /leaderboard
+          - link "Requests" [ref=e21] [cursor=pointer]:
+            - /url: /requests
+          - link "About" [ref=e22] [cursor=pointer]:
+            - /url: /about
+          - link "Blockchain Buddies on GitHub" [ref=e23] [cursor=pointer]:
+            - /url: https://github.com/crafter-station/petdex
+            - img [ref=e24]
+        - generic [ref=e26]:
+          - button "Submit a buddy" [ref=e27]
+          - 'button "Theme: Toggle theme. Click to cycle." [ref=e28]':
+            - img [ref=e29]
+          - 'button "Language: English" [ref=e36]':
+            - img [ref=e37]
+            - generic [ref=e40]: EN
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - paragraph [ref=e43]: Onchain birth certificate
+          - heading "Mint a Blockchain Buddy on Solana." [level=1] [ref=e44]
+          - paragraph [ref=e45]: Each buddy is created as an MPL Core asset and registered through the Metaplex Agent Registry in one atomic transaction. Helius RPC powers submission, OpenClawd supplies the agent framework, and the returned Core asset address becomes the buddy's permanent onchain identity.
+        - generic [ref=e46]:
+          - paragraph [ref=e47]: Before minting
+          - list [ref=e48]:
+            - listitem [ref=e49]:
+              - img [ref=e50]
+              - text: Fund the server mint authority with SOL for Core asset rent and transaction fees.
+            - listitem [ref=e54]:
+              - img [ref=e55]
+              - text: "Set `HELIUS_RPC_URL` and `BUDDIES_MINT_AUTHORITY_SECRET_KEY` in the deployment environment."
+            - listitem [ref=e58]:
+              - img [ref=e59]
+              - text: Host metadata JSON publicly before birth; Metaplex stores the URI on the Core asset.
+      - generic [ref=e62]:
+        - article [ref=e63]:
+          - paragraph [ref=e64]: Agent onboarding
+          - heading "Canonical Metaplex flow" [level=2] [ref=e65]
+          - paragraph [ref=e66]: "Blockchain Buddies follows the Metaplex Agent Onboarding path: funded wallet, RPC setup, Core asset registration, identity PDA, agent wallet activation, optional delegation, and optional token launch."
+        - article [ref=e67]:
+          - paragraph [ref=e68]: Mint an agent
+          - heading "Born as a Core asset" [level=2] [ref=e69]
+          - paragraph [ref=e70]:
+            - text: The server calls
+            - code [ref=e71]: mintAndSubmitAgent
+            - text: from the Metaplex Agent Registry SDK. The Metaplex API stores agent metadata, returns an unsigned transaction, and the OpenClawd mint authority signs it through Umi.
+        - article [ref=e72]:
+          - paragraph [ref=e73]: Run on Solana
+          - heading "Wallet, delegation, token" [level=2] [ref=e74]
+          - paragraph [ref=e75]: The returned Core asset address derives the buddy's Asset Signer PDA wallet. That identity can later be delegated to an executive profile or bound to a Genesis agent token.
+      - generic [ref=e77]:
+        - generic [ref=e78]:
+          - paragraph [ref=e79]: What this page automates
+          - heading "A verifiable onchain birth record." [level=2] [ref=e80]
+          - paragraph [ref=e81]: Use this page when an OpenClawd operator or agent has a funded Solana authority and a public metadata URI ready. The flow records the mint in the app database so the hub can track the buddy, owner, asset address, transaction signature, RPC provider, and Metaplex network.
+        - list [ref=e82]:
+          - listitem [ref=e83]:
+            - strong [ref=e84]: "Prerequisite:"
+            - text: a funded Solana wallet with enough SOL for Core asset rent and transaction fees.
+          - listitem [ref=e85]:
+            - strong [ref=e86]: "Mainnet:"
+            - text: configure a dedicated Helius RPC URL; the public devnet endpoint is only suitable for testing.
+          - listitem [ref=e87]:
+            - strong [ref=e88]: "Permanent identity:"
+            - text: each successful birth creates a new agent asset. Calling the mint flow twice creates two different buddies.
+          - listitem [ref=e89]:
+            - strong [ref=e90]: "Next step:"
+            - text: derive the Asset Signer PDA, register an executive profile, then delegate execution or launch a Genesis bonding-curve token.
+      - generic [ref=e91]:
+        - generic [ref=e92]:
+          - generic [ref=e93]:
+            - text: Buddy name
+            - textbox "Buddy name" [ref=e94]:
+              - /placeholder: Clawd Scout
+          - generic [ref=e95]:
+            - text: Species
+            - textbox "Species" [ref=e96]:
+              - /placeholder: Solana lobster, analyst, guardian...
+          - generic [ref=e97]:
+            - text: Crew role
+            - combobox "Crew role" [ref=e98]:
+              - option "Companion" [selected]
+              - option "Trader buddy"
+              - option "Scanner buddy"
+              - option "Analyst buddy"
+              - option "Guardian buddy"
+          - generic [ref=e99]:
+            - text: Automation level
+            - combobox "Automation level" [ref=e100]:
+              - option "Watcher" [selected]
+              - option "Operator"
+              - option "Executor gated"
+          - generic [ref=e101]:
+            - text: Personality / mission
+            - textbox "Personality / mission" [ref=e102]:
+              - /placeholder: Watches wallets, explains swaps, and nudges safer trades.
+          - generic [ref=e103]:
+            - text: Description
+            - textbox "Description" [ref=e104]:
+              - /placeholder: Describe what this buddy does as an autonomous OpenClawd agent.
+          - generic [ref=e105]:
+            - text: Core asset metadata URI
+            - textbox "Core asset metadata URI Public JSON metadata for the MPL Core asset. Use Arweave, Irys, IPFS, or another durable public host before minting." [ref=e106]:
+              - /placeholder: https://arweave.net/.../buddy.json
+            - generic [ref=e107]: Public JSON metadata for the MPL Core asset. Use Arweave, Irys, IPFS, or another durable public host before minting.
+          - generic [ref=e108]:
+            - text: Image URL
+            - textbox "Image URL" [ref=e109]:
+              - /placeholder: https://arweave.net/.../buddy.png
+          - generic [ref=e110]:
+            - text: Owner wallet
+            - textbox "Owner wallet" [ref=e111]:
+              - /placeholder: Optional Solana wallet to associate offchain
+          - generic [ref=e112]:
+            - text: Staking status
+            - combobox "Staking status" [ref=e113]:
+              - option "No staking"
+              - option "Stake planned" [selected]
+              - option "Already staked"
+          - generic [ref=e114]:
+            - text: $CLAWD stake intent
+            - textbox "$CLAWD stake intent" [ref=e115]:
+              - /placeholder: Optional lamports/base units
+          - generic [ref=e116]:
+            - text: Buddy wallet / execution wallet
+            - textbox "Buddy wallet / execution wallet This records staking and execution intent only. Real transfers stay behind your wallet and permission gates." [ref=e117]:
+              - /placeholder: Optional Solana wallet for delegated missions
+            - generic [ref=e118]: This records staking and execution intent only. Real transfers stay behind your wallet and permission gates.
+        - button "Birth onchain with Metaplex" [ref=e119]
+    - generic [ref=e121]:
+      - paragraph [ref=e122]: Buddies are user-submitted fan art. Blockchain Buddies does not claim rights to any underlying IP.
+      - generic [ref=e123]:
+        - link "Top creators" [ref=e124] [cursor=pointer]:
+          - /url: /leaderboard
+        - link "Takedown" [ref=e125] [cursor=pointer]:
+          - /url: /legal/takedown
+        - link "GitHub" [ref=e126] [cursor=pointer]:
+          - /url: https://github.com/crafter-station/petdex
+        - link "Sponsor on GitHub" [ref=e127] [cursor=pointer]:
+          - /url: https://github.com/sponsors/Railly
+          - img [ref=e128]
+          - text: Sponsor
+  - button "Send feedback" [ref=e131]:
+    - img [ref=e132]
+    - generic [ref=e134]: Feedback
