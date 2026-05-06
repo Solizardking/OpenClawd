@@ -60,6 +60,17 @@ type ExecaResultWithError = {
   signal?: string
 }
 
+const EXECUTABLE_RE = /^(?:[A-Za-z0-9._+-]+|[/\\A-Za-z0-9._+-][ A-Za-z0-9._+:/\\-]*)$/
+
+function validateExecutable(file: string, shell: boolean | string | undefined): void {
+  if (shell) {
+    throw new Error('execFileNoThrowWithCwd does not allow shell execution')
+  }
+  if (!EXECUTABLE_RE.test(file) || file.includes('\0')) {
+    throw new Error('Invalid executable path')
+  }
+}
+
 /**
  * Extracts a human-readable error message from an execa result.
  *
@@ -106,6 +117,12 @@ export function execFileNoThrowWithCwd(
   },
 ): Promise<{ stdout: string; stderr: string; code: number; error?: string }> {
   return new Promise(resolve => {
+    try {
+      validateExecutable(file, shell)
+    } catch (error) {
+      void resolve({ stdout: '', stderr: String(error), code: 1 })
+      return
+    }
     // Use execa for cross-platform .bat/.cmd compatibility on Windows
     execa(file, args, {
       maxBuffer,
@@ -148,4 +165,3 @@ export function execFileNoThrowWithCwd(
       })
   })
 }
-

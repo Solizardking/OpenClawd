@@ -298,10 +298,17 @@ const WORD_LIST = [
 function seedToMnemonic(seed: Uint8Array): string {
   const words: string[] = [];
   for (let i = 0; i < 12; i++) {
-    const byte1 = seed[i * 2] ?? 0;
-    const byte2 = seed[i * 2 + 1] ?? 0;
-    const index = ((byte1 << 8) | byte2) % WORD_LIST.length;
-    words.push(WORD_LIST[index]!);
+    let counter = 0;
+    while (true) {
+      const digest = createHash('sha256').update(seed).update(`${i}:${counter}`).digest();
+      const value = digest.readUInt16BE(0);
+      const limit = Math.floor(0x10000 / WORD_LIST.length) * WORD_LIST.length;
+      if (value < limit) {
+        words.push(WORD_LIST[value % WORD_LIST.length]!);
+        break;
+      }
+      counter += 1;
+    }
   }
   return words.join(' ');
 }

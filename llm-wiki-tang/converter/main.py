@@ -1,6 +1,8 @@
 import os
 import asyncio
 import logging
+import ipaddress
+import socket
 import subprocess
 import tempfile
 from pathlib import Path
@@ -27,10 +29,19 @@ class ConvertRequest(BaseModel):
     source_ext: str
 
 
-def _validate_s3_url(url: str) -> None:
+def _validate_s3_url(url: str) -> str:
     parsed = urlparse(url)
-    if not parsed.hostname or not parsed.hostname.endswith(S3_HOST_SUFFIX):
+    if parsed.scheme != "https" or not parsed.hostname or not parsed.hostname.endswith(S3_HOST_SUFFIX):
         raise HTTPException(400, "URLs must point to S3")
+    try:
+        addresses = {info[4][0] for info in socket.getaddrinfo(parsed.hostname, 443, type=socket.SOCK_STREAM)}
+    except socket.gaierror:
+        raise HTTPException(400, "Unable to resolve URL host")
+    for address in addresses:
+        ip = ipaddress.ip_address(address)
+        if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast:
+            raise HTTPException(400, "URL host resolves to a blocked network")
+    return parsed.geturl()
 
 
 @app.get("/health")
@@ -51,14 +62,14 @@ async def convert(
     if req.source_ext not in ALLOWED_EXTENSIONS:
         raise HTTPException(400, f"Unsupported extension: {req.source_ext}")
 
-    _validate_s3_url(req.source_url)
-    _validate_s3_url(req.result_url)
+    source_url = _validate_s3_url(req.source_url)
+    result_url = _validate_s3_url(req.result_url)
 
     with tempfile.TemporaryDirectory(dir="/tmp/conversions") as tmpdir:
         source_path = Path(tmpdir) / f"source.{req.source_ext}"
 
         async with httpx.AsyncClient(timeout=httpx.Timeout(60.0, connect=10.0)) as client:
-            resp = await client.get(req.source_url)
+            resp = await client.get(source_url, follow_redirects=False)
             resp.raise_for_status()
             await asyncio.to_thread(source_path.write_bytes, resp.content)
 
@@ -84,7 +95,7 @@ async def convert(
 
         async with httpx.AsyncClient(timeout=httpx.Timeout(60.0, connect=10.0)) as client:
             resp = await client.put(
-                req.result_url,
+                result_url,
                 content=pdf_bytes,
                 headers={"Content-Type": "application/pdf"},
             )

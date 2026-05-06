@@ -6,6 +6,17 @@
  * the agent loop never crashes on a single Helius hiccup).
  */
 import { createHeliusClient } from '../helius/index.js';
+const HELIUS_RPC_HOSTS = new Set([
+    'mainnet.helius-rpc.com',
+    'devnet.helius-rpc.com',
+]);
+function safeHeliusRpcUrl(value) {
+    const url = new URL(value);
+    if (url.protocol !== 'https:' || !HELIUS_RPC_HOSTS.has(url.hostname)) {
+        throw new Error('HELIUS_RPC_URL must point to an approved Helius RPC host');
+    }
+    return url.toString();
+}
 export class HeliusService {
     client;
     constructor(opts = {}) {
@@ -13,7 +24,7 @@ export class HeliusService {
         const rpcUrl = opts.rpcUrl ??
             process.env.HELIUS_RPC_URL ??
             (apiKey ? `https://mainnet.helius-rpc.com/?api-key=${apiKey}` : 'https://mainnet.helius-rpc.com');
-        this.client = createHeliusClient({ apiKey, rpcUrl });
+        this.client = createHeliusClient({ apiKey, rpcUrl: safeHeliusRpcUrl(rpcUrl) });
     }
     async getBalance(address) {
         try {

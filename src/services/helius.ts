@@ -13,6 +13,19 @@ export interface HeliusServiceOptions {
   rpcUrl?: string
 }
 
+const HELIUS_RPC_HOSTS = new Set([
+  'mainnet.helius-rpc.com',
+  'devnet.helius-rpc.com',
+])
+
+function safeHeliusRpcUrl(value: string): string {
+  const url = new URL(value)
+  if (url.protocol !== 'https:' || !HELIUS_RPC_HOSTS.has(url.hostname)) {
+    throw new Error('HELIUS_RPC_URL must point to an approved Helius RPC host')
+  }
+  return url.toString()
+}
+
 export class HeliusService {
   private client: ReturnType<typeof createHeliusClient>
 
@@ -22,7 +35,7 @@ export class HeliusService {
       opts.rpcUrl ??
       process.env.HELIUS_RPC_URL ??
       (apiKey ? `https://mainnet.helius-rpc.com/?api-key=${apiKey}` : 'https://mainnet.helius-rpc.com')
-    this.client = createHeliusClient({ apiKey, rpcUrl })
+    this.client = createHeliusClient({ apiKey, rpcUrl: safeHeliusRpcUrl(rpcUrl) })
   }
 
   async getBalance(address: string): Promise<number> {
