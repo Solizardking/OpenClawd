@@ -4,7 +4,7 @@ export const GLOBAL_AUTHORITY_SEED = 'global-authority';
 
 export const PROGRAM_ID = new PublicKey(
   process.env.OPENCLAWD_AGENT_STAKING_PROGRAM_ID ??
-    'Fg6PaFpoGXkYsidMpWxTWqz4iyToFhRmD31x9WfP3YpR'
+    'D5MLxrKAnppBVLuukKQzQGTMSfEwBqWCDPGAhGhthdLP'
 );
 
 export const CORE_COLLECTION_ADDRESS = new PublicKey(

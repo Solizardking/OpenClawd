@@ -15,11 +15,7 @@ import {
   createLockCorenftTx,
   createUnlockCorenftTx,
 } from "../lib/scripts";
-
-import idl from '../target/idl/openclawd_agent_staking.json';
-import { OpenclawdAgentStaking } from '../target/types/openclawd_agent_staking';
-
-const IDL: OpenclawdAgentStaking = idl as OpenclawdAgentStaking;
+import { OPENCLAWD_AGENT_STAKING_IDL } from "../lib/idl";
 
 let solConnection: Connection = null;
 let program: anchor.Program = null;
@@ -68,7 +64,7 @@ export const setClusterConfig = async (
 
   // Generate the program client from IDL.
   console.log("Program ID: ", programId);
-  program = new anchor.Program(IDL as anchor.Idl, programId, provider);
+  program = new anchor.Program(OPENCLAWD_AGENT_STAKING_IDL, provider);
 
 };
 

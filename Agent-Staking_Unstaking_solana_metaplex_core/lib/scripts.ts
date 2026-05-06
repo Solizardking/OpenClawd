@@ -93,7 +93,7 @@ export const createLockCorenftTx = async (
     const tx = new web3Transaction();
 
     const txId = await program.methods
-      .lockCorenft()
+      .stakeAgent()
       .accounts({
         owner: userAddress,
         user: userAddress,
@@ -148,7 +148,7 @@ export const createUnlockCorenftTx = async (
     const tx = new web3Transaction();
 
     const txId = await program.methods
-      .unlockCorenft()
+      .unstakeAgent()
       .accounts({
         owner: userAddress,
         user: userAddress,
