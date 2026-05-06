@@ -952,7 +952,7 @@ export class CrossmintAgentWallet {
       throw new Error(message);
     }
 
-    return res.json();
+    return res.json() as Promise<T>;
   }
 
   private buildLocator(identifier: string, chain: Chain): string {
@@ -1359,7 +1359,7 @@ export class CrossmintAgentWallet {
         throw new Error('Failed to get Jupiter quote');
       }
 
-      const quoteData = await quoteResponse.json();
+      const quoteData = await quoteResponse.json() as { inAmount: string; outAmount: string };
 
       // Build swap transaction
       const swapResponse = await fetch(`${JUPITER_API}/swap`, {
