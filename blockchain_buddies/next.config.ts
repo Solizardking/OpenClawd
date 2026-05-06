@@ -71,6 +71,9 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   // Hide the framework banner on every response.
   poweredByHeader: false,
+  turbopack: {
+    root: process.cwd(),
+  },
   async headers() {
     return [
       {

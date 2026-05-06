@@ -4,15 +4,9 @@ import { auth } from "@clerk/nextjs/server";
 import { Bot, Coins, Radar, ShieldCheck } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
-import { getCaughtSlugSet } from "@/lib/catch-status";
-import { getDexNumberMap } from "@/lib/dex";
+import { COLOR_FAMILIES, type ColorFamily } from "@/lib/color-families";
 import { buildLocaleAlternates } from "@/lib/locale-routing";
-import { searchPets } from "@/lib/pet-search";
-import {
-  getApprovedPetCount,
-  getFeaturedPetsWithMetrics,
-  type PetWithMetrics,
-} from "@/lib/pets";
+import type { SearchOutput } from "@/lib/pet-search";
 import { readShuffleSeed } from "@/lib/shuffle-seed";
 
 import { CommandLine } from "@/components/command-line";
@@ -31,6 +25,12 @@ export const metadata = {
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://buddies.openclawd.biz";
 
+type HomePet = {
+  slug: string;
+  displayName: string;
+  spritesheetPath: string;
+};
+
 export default async function Home() {
   const { userId } = await auth();
   const t = await getTranslations("home");
@@ -43,14 +43,32 @@ export default async function Home() {
   // See lib/shuffle-seed.ts + proxy.ts for context.
   const shuffleSeed = (await readShuffleSeed()) ?? undefined;
 
-  const [heroPets, totalPets, initialSearch, dexEntries, caughtSlugs] =
-    await Promise.all([
-      getFeaturedPetsWithMetrics(6),
-      getApprovedPetCount(),
-      searchPets({ sort: "curated", shuffleSeed }),
-      getDexNumberMap(),
-      getCaughtSlugSet(userId),
+  let heroPets: HomePet[] = [];
+  let totalPets = 0;
+  let initialSearch: SearchOutput = emptySearchPayload();
+  let dexEntries = new Map<string, number>();
+  let caughtSlugs = new Set<string>();
+
+  try {
+    const [pets, petSearch, dex, catchStatus] = await Promise.all([
+      import("@/lib/pets"),
+      import("@/lib/pet-search"),
+      import("@/lib/dex"),
+      import("@/lib/catch-status"),
     ]);
+
+    [heroPets, totalPets, initialSearch, dexEntries, caughtSlugs] =
+      await Promise.all([
+        pets.getFeaturedPetsWithMetrics(6),
+        pets.getApprovedPetCount(),
+        petSearch.searchPets({ sort: "curated", shuffleSeed }),
+        dex.getDexNumberMap(),
+        catchStatus.getCaughtSlugSet(userId),
+      ]);
+  } catch {
+    // Allow the birth station and static shell to render before a real
+    // Postgres DATABASE_URL is configured. The live gallery still needs DB.
+  }
 
   // Plain-object so the server -> client serializer doesn't choke on a
   // Map. Same source of truth either way.
@@ -224,7 +242,7 @@ function BuddyControlDeck({ totalPets }: { totalPets: number }) {
 }
 
 type HeroPetParadeProps = {
-  pets: PetWithMetrics[];
+  pets: HomePet[];
 };
 
 async function HeroPetParade({ pets }: HeroPetParadeProps) {
@@ -263,4 +281,21 @@ async function HeroPetParade({ pets }: HeroPetParadeProps) {
       })}
     </section>
   );
+}
+
+function emptySearchPayload(): SearchOutput {
+  return {
+    pets: [],
+    total: 0,
+    nextCursor: null,
+    searchMode: "all" as const,
+    facets: {
+      kinds: {},
+      vibes: {},
+      colors: Object.fromEntries(
+        COLOR_FAMILIES.map((color) => [color, 0]),
+      ) as Record<ColorFamily, number>,
+      batches: [],
+    },
+  };
 }
