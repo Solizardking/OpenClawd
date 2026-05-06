@@ -1,10 +1,12 @@
 # Crossmint Agentic Wallet
 
-[![npm version](https://badge.fury.io/js/crossmint-agentic-wallet.svg)](https://www.npmjs.com/package/crossmint-agentic-wallet)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
+[![Solana](https://img.shields.io/badge/chain-Solana-9945FF)](https://solana.com)
 
 Create and manage **non-custodial Solana wallets** for AI agents using Crossmint's MPC infrastructure. Enable your autonomous agents to hold funds, swap tokens, make purchases, and transact with other agents.
+
+> Part of the [OpenClawd](https://github.com/clawdsolana/OpenClawd) Solana-native AI agent stack. Originally authored by [MAWDos](https://github.com/mawdos/crossmint-agentic-wallet); adapted to the OpenClawd workspace.
 
 ## Features
 
@@ -17,6 +19,19 @@ Create and manage **non-custodial Solana wallets** for AI agents using Crossmint
 - **Social Sharing** - Share achievements on moltbook.com
 
 ## Installation
+
+Inside the OpenClawd monorepo (preferred):
+
+```bash
+# Build the workspace package
+npm run build -w @openclawdsolana/crossmint-agentic-wallet
+
+# Or run the bundled MCP server (exposes all tools to any MCP client)
+npm run build -w @openclawdsolana/crossmint-mcp
+CROSSMINT_SERVERSIDE_API_KEY=sk_staging_… npx crossmint-mcp
+```
+
+Standalone (using the upstream npm package by MAWDos):
 
 ```bash
 npm install crossmint-agentic-wallet
@@ -39,7 +54,7 @@ export CROSSMINT_SERVERSIDE_API_KEY=sk_staging_your-key-here
 ### 3. Create Your First Wallet
 
 ```typescript
-import { CrossmintAgentWallet } from 'crossmint-agentic-wallet';
+import { CrossmintAgentWallet } from '@openclawdsolana/crossmint-agentic-wallet';
 
 const wallet = new CrossmintAgentWallet(process.env.CROSSMINT_SERVERSIDE_API_KEY);
 
@@ -243,7 +258,7 @@ await wallet.postToMoltbook({
 ## Complete Workflow Example
 
 ```typescript
-import { CrossmintAgentWallet } from 'crossmint-agentic-wallet';
+import { CrossmintAgentWallet } from '@openclawdsolana/crossmint-agentic-wallet';
 
 const wallet = new CrossmintAgentWallet(process.env.CROSSMINT_SERVERSIDE_API_KEY);
 
@@ -314,7 +329,7 @@ setupTradingAgent();
 ### Tool-Based Execution
 
 ```typescript
-import { createSkill } from 'crossmint-agentic-wallet';
+import { createSkill } from '@openclawdsolana/crossmint-agentic-wallet';
 
 const skill = createSkill(process.env.CROSSMINT_SERVERSIDE_API_KEY);
 
