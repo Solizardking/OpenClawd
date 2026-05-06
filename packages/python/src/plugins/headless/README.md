@@ -20,7 +20,7 @@ from openclawd_plugins.crossmint_headless_checkout import crossmint_headless_che
 
 # Initialize the plugin
 options = CrossmintHeadlessCheckoutPluginOptions(
-    api_key="your-crossmint-api-key"
+    api_key="your-crossmint-api-key"  # guard-secrets:allow (doc placeholder)
 )
 plugin = crossmint_headless_checkout(options)
 

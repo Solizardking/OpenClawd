@@ -30,12 +30,16 @@ const SECRET_PATTERNS = [
   { pattern: /sk-proj-[a-zA-Z0-9_-]{20,}/, name: 'OpenAI project key', exclude: ['scripts/', 'node_modules/'] },
   { pattern: /sk-or-v1-[a-zA-Z0-9_-]{20,}/, name: 'OpenRouter key', exclude: ['scripts/', 'node_modules/'] },
   { pattern: /xai-[a-zA-Z0-9_-]{20,}/, name: 'xAI API key', exclude: ['scripts/', 'node_modules/'] },
-  { pattern: /["'`][a-zA-Z0-9_-]{32,}\.(api|secret|key)[a-zA-Z0-9_-]*["'`,]/i, name: 'Generic API key', exclude: ['scripts/', 'node_modules/'] },
+  // Assignment-context regex. Previous version matched Rust/Go field access like `account.key,`
+  // because it allowed any 32+ char identifier + `.key`. Now requires `<key-name> = <quoted-value>`.
+  { pattern: /\b(api[_-]?key|secret[_-]?key|access[_-]?key|client[_-]?secret|auth[_-]?token|private[_-]?key)\s*[:=]\s*["'`][a-zA-Z0-9_\-+/=]{16,}["'`]/i, name: 'Generic API key', exclude: ['scripts/', 'node_modules/'] },
   { pattern: /-----BEGIN (RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----/, name: 'Private key block', exclude: ['scripts/', 'node_modules/'] },
   { pattern: /xox[baprs]-[a-zA-Z0-9]{10,}/, name: 'Slack token', exclude: ['scripts/', 'node_modules/'] },
   { pattern: /ghp_[a-zA-Z0-9]{36}/, name: 'GitHub token', exclude: ['scripts/', 'node_modules/'] },
   { pattern: /AKIA[0-9A-Z]{16}/, name: 'AWS access key', exclude: ['scripts/', 'node_modules/'], safeIf: ['EXAMPLE'] },
-  { pattern: /["'`][0-9a-f]{32}["'`]/, name: 'Generic hex secret', exclude: ['scripts/', 'node_modules/'] },
+  // Assignment-context only. Previous version flagged any quoted 32-hex string — incl. MD5 fixtures,
+  // content hashes, Cargo.lock checksums, and Solana program-id constants.
+  { pattern: /\b(secret|hash|token|key|password|passwd)\s*[:=]\s*["'`][0-9a-f]{32}["'`]/i, name: 'Generic hex secret', exclude: ['scripts/', 'node_modules/'] },
 ];
 
 // File extensions to scan

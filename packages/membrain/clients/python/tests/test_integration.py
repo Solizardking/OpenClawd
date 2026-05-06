@@ -78,7 +78,7 @@ def daemon_binary(tmp_path_factory: pytest.TempPathFactory) -> str:
 @pytest.fixture
 def daemon_env(daemon_binary: str):
     repo_root = Path(__file__).resolve().parents[3]
-    api_key = "python-integration-secret"
+    api_key = "python-integration-secret"  # guard-secrets:allow (local-only test fixture)
     addr = f"127.0.0.1:{_free_port()}"
 
     with tempfile.TemporaryDirectory() as tmpdir:
