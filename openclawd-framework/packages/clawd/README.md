@@ -83,8 +83,17 @@ OpenClawd can be launched through Pay so paid API calls route through the local
 wallet approval flow:
 
 ```bash
+brew install pay
+pay --version
+pay setup --update
+pay --sandbox clawd "buy some water with pay"
 npx -y @solana/pay clawd "buy some water with pay"
 ```
+
+Use `pay setup --update` to refresh MCP config without creating a new account.
+For local tests, keep `--sandbox` on the top-level `pay` command. Do not create
+or replace a mainnet account unless you are intentionally setting up a funded
+wallet.
 
 ---
 

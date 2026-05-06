@@ -28,7 +28,10 @@ If `pay` is not installed, use `npx @solana/pay`.
 ## CLI Usage
 
 ```sh
+brew install pay                    # normal local install
+pay --version                       # verify binary
 pay setup                         # create a wallet
+pay setup --update                  # refresh MCP config and skills only
 pay clawd "buy some water with pay" # launch OpenClawd with pay
 pay claude                        # launch Claude Code with pay
 pay codex                         # launch Codex with pay
@@ -47,6 +50,10 @@ pay server start                  # run a payment gateway for your API
 - Metered endpoints return 402 first; `curl` prepares the payment, gets local
   signing approval, then retries with the payment proof.
 - Free endpoints pass through without payment.
+- Prefer `--sandbox` for tests. Do not create, replace, export, or remove a
+  mainnet account unless the user explicitly asked for account setup.
+- Use `pay setup --update` when Pay is already installed and agent MCP config
+  needs refreshing.
 - Use `create_skill` only when creating or reviewing a pay-skills provider file.
 - For developer/operator workflows that monetize an API, write `pay server`
   YAML, publish a provider listing, or submit to

@@ -19,6 +19,11 @@ server-side fee payers handle transaction fees and setup costs.
 Use Pay for deliberate, user-directed API calls, not autonomous browsing or
 speculative provider exploration.
 
+Prefer sandbox mode for tests and examples. Do not create, replace, export, or
+remove a mainnet account unless the user explicitly asks for account setup.
+When Pay is already installed and the agent integration needs refreshing, use
+`pay setup --update` rather than `pay setup`.
+
 When Pay MCP tools are available, Pay owns paid API provider selection and
 paid/current data retrieval. Use `search_catalog`, `get_catalog_entry`, `curl`,
 and `get_balance` from Pay instead of web search, shell `curl`, other paid-API
@@ -77,7 +82,7 @@ provider choice.
   generation.
 - Read `references/security.md` when you need to explain Pay's safety model:
   agents can request paid API calls, but keys stay in secure local storage,
-  every single payments require autenticate local user approval with Touch ID, 
+  real payments require authenticated local user approval, such as Touch ID,
   providers are curated, and external responses are treated as untrusted data.
 - Read `references/monetize-api.md` when a developer wants to monetize an API
   with Pay, write a `pay server start` YAML file, create a pay-skills provider

@@ -116,12 +116,28 @@ pay --version
 pay setup
 pay whoami
 
-# 2. Make a paid gated API call to https://debugger.pay.sh sandbox endpoints
-pay --sandbox curl https://debugger.pay.sh/mpp/quote/AAPL
+# 2. Make a sandbox paid API call
+pay --sandbox curl https://payment-debugger.vercel.app/mpp/quote/AAPL
 
 # 3. Or let your AI agent handle it
-pay clawd "buy some water with pay"
+pay --sandbox clawd "buy some water with pay"
 ```
+
+Use `pay setup --update` when Pay is already installed and only MCP/agent
+integration needs refreshing. Use sandbox mode for local tests; do not create
+or replace a mainnet account unless the user explicitly asked for account
+setup.
+
+## Server Quickstart
+
+```sh
+pay --sandbox server demo
+pay --sandbox curl http://127.0.0.1:1402/api/v1/reports/usage
+```
+
+The demo writes `pay-demo.yaml` in the current directory and serves the
+debugger on the gateway port so you can inspect the 402 challenge, payment
+proof, retry, and final response.
 
 ## Contributing
 

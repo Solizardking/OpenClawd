@@ -2,7 +2,7 @@
   "name": "@openclawdsolana/agents-x402",
   "version": "0.1.1",
   "description": "One-line x402 Solana monetization for MCP servers, HTTP handlers, and agent tool calls. Settles through the Clawd multi-tenant facilitator.",
-  "keywords": ["mcp", "x402", "solana", "usdc", "clawd", "agents", "agentic-payments"],
+  "keywords": ["mcp", "x402", "mpp", "pay-sh", "solana-pay", "solana", "usdc", "clawd", "agents", "agentic-payments"],
   "license": "MIT",
   "type": "module",
   "repository": {

@@ -17,6 +17,28 @@ npm run build:payments
 npm run typecheck:payments
 ```
 
+## Pay CLI First Workflows
+
+Install and verify Pay before client, agent, or server flows:
+
+```bash
+brew install pay
+pay --version
+```
+
+Use sandbox mode for test-only flows because it creates and funds an ephemeral
+local sandbox wallet automatically:
+
+```bash
+pay --sandbox curl https://payment-debugger.vercel.app/mpp/quote/AAPL
+pay --sandbox clawd "find one paid weather endpoint and make a test call"
+pay --sandbox server demo
+```
+
+Use `pay setup --update` when Pay is already installed and only the agent MCP
+configuration needs refreshing. Do not run mainnet `pay setup` or replace an
+account unless the user explicitly asks for account setup.
+
 ## Generate A Merchant Kit
 
 ```bash
