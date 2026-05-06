@@ -79,7 +79,7 @@ class TestSecurityValidatorSensitiveData:
 
     def test_mask_openai_api_key(self):
         """Should mask OpenAI API keys."""
-        text = "My key is sk-abc123def456ghi789jkl"
+        text = "My key is sk-abc123def456ghi789jkl"  # guard-secrets:allow (redaction-test fixture)
         result = SecurityValidator.mask_sensitive_data(text)
         assert "sk-abc123" not in result
         assert "sk-***" in result
@@ -105,7 +105,7 @@ class TestSecurityValidatorSensitiveData:
 
     def test_mask_api_key(self):
         """Should mask API keys."""
-        text = 'api_key="abcd1234efgh5678ijkl9012"'
+        text = 'api_key="abcd1234efgh5678ijkl9012"'  # guard-secrets:allow (redaction-test fixture)
         result = SecurityValidator.mask_sensitive_data(text)
         assert "abcd1234efgh5678" not in result
 

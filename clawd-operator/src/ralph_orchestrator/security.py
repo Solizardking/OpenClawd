@@ -156,9 +156,11 @@ class SecurityValidator:
         else:
             resolved_path = (base_dir / input_path).resolve()
 
+        base_resolved = base_dir.resolve()
+
         # Ensure resolved path is within base directory or a safe location
         try:
-            resolved_path.relative_to(base_dir.resolve())
+            resolved_path.relative_to(base_resolved)
         except ValueError:
             # Check if this is an absolute path that might be dangerous
             if input_path.is_absolute():
@@ -177,6 +179,9 @@ class SecurityValidator:
                 raise ValueError(
                     f"Path traversal detected: {path} -> {resolved_path}"
                 ) from None
+
+        if not input_path.is_absolute():
+            return base_dir / input_path
 
         return resolved_path
 

@@ -13,11 +13,18 @@ OPENCLAWD_OPERATOR_IDENTITY = {
     "token": "8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump",
 }
 
-from .orchestrator import RalphOrchestrator
-from .metrics import Metrics, CostTracker, IterationStats
-from .error_formatter import ClaudeErrorFormatter, ErrorMessage
-from .verbose_logger import VerboseLogger
-from .output import DiffStats, DiffFormatter, RalphConsole
+try:
+    from .orchestrator import RalphOrchestrator
+    from .metrics import Metrics, CostTracker, IterationStats
+    from .error_formatter import ClaudeErrorFormatter, ErrorMessage
+    from .verbose_logger import VerboseLogger
+    from .output import DiffStats, DiffFormatter, RalphConsole
+except ImportError:
+    from src.ralph_orchestrator.orchestrator import RalphOrchestrator
+    from src.ralph_orchestrator.metrics import Metrics, CostTracker, IterationStats
+    from src.ralph_orchestrator.error_formatter import ClaudeErrorFormatter, ErrorMessage
+    from src.ralph_orchestrator.verbose_logger import VerboseLogger
+    from src.ralph_orchestrator.output import DiffStats, DiffFormatter, RalphConsole
 
 __all__ = [
     "RalphOrchestrator",

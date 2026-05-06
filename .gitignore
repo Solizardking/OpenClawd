@@ -52,6 +52,27 @@ Thumbs.db
 # Test coverage
 coverage/
 .nyc_output/
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+*.egg
+.tox/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+venv/
+.venv/
+env/
+.env.venv/
 
 # Temporary files
 tmp/

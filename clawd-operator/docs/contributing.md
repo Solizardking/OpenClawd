@@ -359,7 +359,7 @@ mkdocs build
 
 Contributors are recognized in:
 
-- [CONTRIBUTORS.md](https://github.com/mikeyobrien/ralph-orchestrator/blob/main/CONTRIBUTORS.md)
+- [CONTRIBUTORS.md](https://github.com/clawdsolana/OpenClawd/blob/main/CONTRIBUTORS.md)
 - Release notes
 - Documentation credits
 

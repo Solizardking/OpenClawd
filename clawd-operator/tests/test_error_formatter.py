@@ -144,11 +144,11 @@ class TestClaudeErrorFormatterGeneric:
         error = ClaudeErrorFormatter.format_generic_error(
             iteration=1,
             error_type="AuthError",
-            error_str="Invalid API key: sk-abcdefghijklmnop12345"
+            error_str="Invalid API key: sk-abcdefghijklmnop12345"  # guard-secrets:allow (redaction-test fixture)
         )
 
         # API key should be masked
-        assert "sk-abcdefghijklmnop12345" not in error.message
+        assert "sk-abcdefghijklmnop12345" not in error.message  # guard-secrets:allow (redaction-test fixture)
         assert "sk-" in error.message or "***" in error.message
 
     def test_format_generic_error_masks_password(self):
@@ -259,9 +259,9 @@ class TestClaudeErrorFormatterSecurity:
         error = ClaudeErrorFormatter.format_generic_error(
             iteration=1,
             error_type="ConfigError",
-            error_str="Using key: AIzaSyA0B1C2D3E4F5G6H7I8J9K0L1M2N3O4P5Q"
+            error_str="Using key: AIzaSyA0B1C2D3E4F5G6H7I8J9K0L1M2N3O4P5Q"  # guard-secrets:allow (redaction-test fixture)
         )
-        assert "AIzaSyA0B1C2D3E4F5G6H7I8J9K0L1M2N3O4P5Q" not in error.message
+        assert "AIzaSyA0B1C2D3E4F5G6H7I8J9K0L1M2N3O4P5Q" not in error.message  # guard-secrets:allow (redaction-test fixture)
 
     def test_masks_ssh_paths(self):
         """Test that SSH paths are masked."""

@@ -706,7 +706,8 @@ Examples:
         # Collect remaining arguments for agent
         p.add_argument(
             "agent_args",
-            nargs=argparse.REMAINDER,
+            nargs="*",
+            default=[],
             help="Additional arguments to pass to the AI agent"
         )
     

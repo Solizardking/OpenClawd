@@ -38,7 +38,7 @@ const SECRET_PATTERNS = [
 ];
 
 // File extensions to scan
-const SCAN_EXTENSIONS = ['.js', '.ts', '.json', '.md', '.sh', '.yaml', '.yml', '.env', '.txt'];
+const SCAN_EXTENSIONS = ['.js', '.ts', '.tsx', '.jsx', '.mjs', '.cjs', '.py', '.json', '.md', '.sh', '.yaml', '.yml', '.env', '.txt', '.go', '.rs'];
 
 // Files to skip
 const SKIP_FILES = [
@@ -56,35 +56,45 @@ function isSafeMatch(match) {
 function scanFile(filePath, content) {
   const issues = [];
   const relativePath = relative(rootDir, filePath);
-  
+  const lines = content.split('\n');
+
   for (const { pattern, name, exclude } of SECRET_PATTERNS) {
-    // Check exclusions
     if (exclude.some(prefix => relativePath.startsWith(prefix))) {
       continue;
     }
-    
-    const matches = content.match(new RegExp(pattern, 'g'));
-    if (matches) {
-      for (const match of matches) {
-        // Skip safe patterns
-        if (isSafeMatch(match)) continue;
-        
-        issues.push({
-          type: name,
-          snippet: match.substring(0, 50) + (match.length > 50 ? '...' : ''),
-          path: relativePath,
-        });
-      }
+
+    const globalRe = new RegExp(pattern, 'g');
+    let m;
+    while ((m = globalRe.exec(content)) !== null) {
+      const match = m[0];
+      if (isSafeMatch(match)) continue;
+
+      // Inline allowlist: if the line contains `guard-secrets:allow`, skip.
+      // Used by tests that intentionally embed fake credentials to verify redaction.
+      const lineIdx = content.slice(0, m.index).split('\n').length - 1;
+      const line = lines[lineIdx] || '';
+      if (line.includes('guard-secrets:allow')) continue;
+
+      issues.push({
+        type: name,
+        snippet: match.substring(0, 50) + (match.length > 50 ? '...' : ''),
+        path: relativePath,
+      });
     }
   }
-  
+
   return issues;
 }
 
 function getStagedFiles() {
   try {
-    const output = execSync('git diff --cached --name-only', { cwd: rootDir, encoding: 'utf8' });
-    return output.trim().split('\n').filter(Boolean);
+    const output = execSync('git diff --cached --name-only --diff-filter=ACMR', { cwd: rootDir, encoding: 'utf8' });
+    return output
+      .trim()
+      .split('\n')
+      .filter(Boolean)
+      .filter(file => SCAN_EXTENSIONS.includes(extname(file).toLowerCase()))
+      .filter(file => !SKIP_FILES.some(skip => file === skip || file.includes(`/${skip}/`)));
   } catch {
     return [];
   }
