@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "db:local": "wrangler d1 execute d1-comments-api --local --file schemas/schema.sql",
-    "db:remote": "wrangler d1 execute d1-comments-api --remote --file schemas/schema.sql",
+    "dev": "npx wrangler dev",
+    "deploy": "npx wrangler deploy",
+    "db:local": "npx wrangler d1 execute d1-comments-api --local --file schemas/schema.sql",
+    "db:remote": "npx wrangler d1 execute d1-comments-api --remote --file schemas/schema.sql",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -15,7 +15,6 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.0.0",
-    "typescript": "^5.9.3",
-    "wrangler": "^4.52.0"
+    "typescript": "^5.9.3"
   }
 }
