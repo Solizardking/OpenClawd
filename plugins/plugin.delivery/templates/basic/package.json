@@ -56,15 +56,15 @@
     "antd": "^5",
     "antd-style": "^3",
     "dayjs": "^1",
-    "next": "13.4.7",
-    "react": "^18",
-    "react-dom": "^18",
+    "next": "^15.5.15",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "react-layout-kit": "^1"
   },
   "devDependencies": {
     "@commitlint/cli": "^18",
     "@lobehub/lint": "latest",
-    "@types/react": "18",
+    "@types/react": "^19",
     "@vercel/node": "^2",
     "@vitest/coverage-v8": "latest",
     "commitlint": "^18",
@@ -79,11 +79,10 @@
     "semantic-release": "^21",
     "stylelint": "^15",
     "typescript": "^5",
-    "vitest": "latest"
+    "vitest": "^4.1.2"
   },
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18"
   }
 }
-

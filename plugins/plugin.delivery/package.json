@@ -42,7 +42,7 @@
     "dotenv": "^16.4.7",
     "eslint": "^8.57.1",
     "fs-extra": "^11.3.0",
-    "langchain": "0.1.37",
+    "langchain": "^0.3.37",
     "lodash-es": "^4.17.21",
     "p-map": "^7.0.3",
     "prettier": "^3.4.2",
@@ -53,4 +53,3 @@
     "zod-to-json-schema": "^3.24.1"
   }
 }
-
