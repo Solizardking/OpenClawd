@@ -16,16 +16,13 @@ no-idl = []
 no-log-ix-name = []
 idl-build = [
     "anchor-lang/idl-build",
-    "anchor-spl/idl-build",
 ]
 
 [dependencies]
-# Pinned to match the locally installed anchor-cli 0.32.1.
-anchor-lang = { version = "0.32.1", features = ["init-if-needed"] }
-anchor-spl = "0.32.1"
-# bytemuck is transitively pulled by anchor-lang; pinning here for explicit visibility.
-bytemuck = "1.16.1"
-# Pin mpl-core minor version. 0.8.1 introduced a `solana_pubkey` switch that broke
-# the `anchor` feature build under anchor-lang 0.30.x; 0.9.x is the first release
-# fully aligned with the new pubkey crate.
+# anchor-lang 0.30.1 is what mpl-core 0.9.x peers against. Do not bump without
+# verifying mpl-core's anchor-lang dep range first (`cargo tree -p mpl-core`).
+anchor-lang = { version = "0.30.1", features = ["init-if-needed"] }
+# anchor-spl is intentionally NOT a dependency — this program does not touch SPL
+# tokens; it only CPIs into mpl-core. Keeping anchor-spl out avoids a transitive
+# spl-token-2022 / solana-zk-sdk conflict with anchor-spl 0.32.x.
 mpl-core = { version = "0.9", features = ["anchor"] }
