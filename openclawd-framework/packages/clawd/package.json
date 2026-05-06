@@ -1,8 +1,8 @@
 {
-  "name": "@openclawdsolana/clawd-leviathan",
+  "name": "@openclawdsolana/clawd",
   "version": "1.3.0",
   "description": "🦞 Clawd Leviathan operator — TUI bound to the @openclawdsolana/leviathan runtime. Lobster-themed terminal agent: streaming chat, realtime voice (Grok), Solana, MCP, Bags/pump.fun launches, DFlow/Kalshi/Polymarket, on-chain Leviathan integration. CLAWD: 8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump",
-  "private": true,
+  "private": false,
   "type": "module",
   "main": "dist/index.js",
   "exports": {
@@ -11,6 +11,8 @@
     }
   },
   "bin": {
+    "clawd": "dist/index.js",
+    "clawd-code": "dist/index.js",
     "clawd-leviathan": "dist/index.js"
   },
   "scripts": {
@@ -55,7 +57,7 @@
   "homepage": "https://solanaclawd.com",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.0",
-    "@openclawdsolana/leviathan": "file:../..",
+    "@openclawdsolana/leviathan": "^0.1.0",
     "@solana/web3.js": "^1.98.0",
     "axios": "^1.7.0",
     "better-sqlite3": "^11.5.0",

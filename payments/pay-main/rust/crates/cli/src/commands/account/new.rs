@@ -396,6 +396,7 @@ pub fn print_next_steps(
             "Ready to go. Time to make HTTP pay for itself.".dimmed()
         );
         eprintln!();
+        eprintln!("  {}", "$ pay clawd".bold());
         eprintln!("  {}", "$ pay claude".bold());
         eprintln!("  {}", "$ pay codex".bold());
     } else {

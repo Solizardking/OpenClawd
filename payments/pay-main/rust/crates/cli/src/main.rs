@@ -197,7 +197,7 @@ fn main() {
     //
     // `pay topup` and server commands still use the original
     // keystore-source-string flow.
-    // Launcher commands (`pay claude`/`pay codex`) pass only an explicit
+    // Launcher commands (`pay claude`/`pay clawd`/`pay codex`) pass only an explicit
     // `--account` through to the MCP server and must not resolve an account
     // before the first-run setup hook below.
     // Payment commands (`pay curl`/`wget`/`fetch`) don't read this — they
@@ -217,6 +217,7 @@ fn main() {
                 | Command::Install(_)
                 | Command::Send(_)
                 | Command::Claude(_)
+                | Command::Clawd(_)
                 | Command::Codex(_)
                 | Command::Curl(_)
                 | Command::Wget(_)
@@ -248,7 +249,7 @@ fn main() {
     let verbose = opts.verbose;
 
     // First-run UX: when a payment-bearing command is invoked on a fresh
-    // install (e.g. `npx @solana/pay claude "buy me some flowers"`), run
+    // install (e.g. `npx @solana/pay clawd "buy some water with pay"`), run
     // `pay setup` first so the user lands in the wizard instead of a
     // cryptic "no account configured" error mid-flight. Sandbox flows
     // generate ephemeral wallets on first use, so they're exempt.

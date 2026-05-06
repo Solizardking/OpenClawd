@@ -1,6 +1,7 @@
 pub mod account;
 pub mod catalog;
 pub mod claude;
+pub mod clawd;
 pub mod codex;
 pub mod curl;
 pub mod fetch;
@@ -39,6 +40,8 @@ pub enum Command {
     Fetch(fetch::FetchCommand),
     /// Run Claude Code with 402 payment support.
     Claude(claude::ClaudeCommand),
+    /// Run OpenClawd with 402 payment support.
+    Clawd(clawd::ClawdCommand),
     /// Run Codex with 402 payment support.
     Codex(codex::CodexCommand),
     /// Manage accounts (new, import, list, default, remove, export).
@@ -88,6 +91,7 @@ pub enum ToolKind {
     Http,
     Fetch,
     Claude,
+    Clawd,
     Codex,
     Mcp,
 }
@@ -116,6 +120,7 @@ impl Command {
             | Command::Http(_)
             | Command::Fetch(_)
             | Command::Claude(_)
+            | Command::Clawd(_)
             | Command::Codex(_)
             | Command::Send(_)
             | Command::Topup(_) => true,
@@ -139,6 +144,7 @@ impl Command {
             Command::Http(_) => ToolKind::Http,
             Command::Fetch(_) => ToolKind::Fetch,
             Command::Claude(_) => ToolKind::Claude,
+            Command::Clawd(_) => ToolKind::Clawd,
             Command::Codex(_) => ToolKind::Codex,
             Command::Account { .. }
             | Command::Whoami(_)
@@ -206,6 +212,7 @@ impl Command {
                     .map_err(pay_core::Error::Config);
             }
             Command::Claude(cmd) => std::process::exit(cmd.run(&pay_bin, account_override)?),
+            Command::Clawd(cmd) => std::process::exit(cmd.run(&pay_bin, account_override)?),
             Command::Codex(cmd) => std::process::exit(cmd.run(&pay_bin, account_override)?),
             _ => {}
         }

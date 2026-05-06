@@ -5,7 +5,7 @@
 **A lobster-themed AI terminal operator for coding, system ops & Solana**
 
 [![Solana](https://img.shields.io/badge/Solana-Blockchain-14F195)](https://solana.com)
-[![npm](https://img.shields.io/badge/npm-clawd--code--cli-CB3837)](https://www.npmjs.com/package/clawd-code-cli)
+[![npm](https://img.shields.io/badge/npm-@openclawdsolana%2Fclawd-CB3837)](https://www.npmjs.com/package/@openclawdsolana/clawd)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 🦞 *"Claws that code, brains that deploy"* 🦞
@@ -66,13 +66,25 @@
 
 ```bash
 # Recommended
-npm install -g clawd-code-cli
+npm install -g @openclawdsolana/clawd
 
 # Or with bun
-bun add -g clawd-code-cli
+bun add -g @openclawdsolana/clawd
+
+# One-shot
+npx -y @openclawdsolana/clawd "scan this repo"
 ```
 
-The `clawd` and `claw` aliases are registered automatically.
+The `clawd`, `clawd-code`, and `clawd-leviathan` aliases are registered automatically.
+
+### Pay.sh / Solana Pay
+
+OpenClawd can be launched through Pay so paid API calls route through the local
+wallet approval flow:
+
+```bash
+npx -y @solana/pay clawd "buy some water with pay"
+```
 
 ---
 

@@ -2,7 +2,7 @@
 
 **The missing payment layer for HTTP. `pay` handles x402 and MPP payment challenges with user-authorized stablecoin signing.**
 
-Wrap a selected set of command line tools (`curl`, `claude`, `codex`, `whoami`, etc.) -- when a stablecoin-gated API returns 402, `pay` detects the payment protocol, prepares the stablecoin transaction, asks the local wallet to authorize and sign it, then retries with the payment proof.
+Wrap a selected set of command line tools (`curl`, `clawd`, `claude`, `codex`, `whoami`, etc.) -- when a stablecoin-gated API returns 402, `pay` detects the payment protocol, prepares the stablecoin transaction, asks the local wallet to authorize and sign it, then retries with the payment proof.
 
 [Install](#installation) · [Quick Start](#quick-start) · [Docs](https://docs.solanapay.com)
 
@@ -22,7 +22,7 @@ pay --sandbox curl https://debugger.pay.sh/mpp/quote/AAPL
 
 ### 💵 Transparent 402 Handling
 
-Wrap your CLI (`curl`, `claude`, `codex`, etc.) -- when an API returns 402, `pay` detects the payment protocol, prepares the stablecoin transaction, asks the local wallet to authorize and sign it, then retries with the payment proof.
+Wrap your CLI (`curl`, `clawd`, `claude`, `codex`, etc.) -- when an API returns 402, `pay` detects the payment protocol, prepares the stablecoin transaction, asks the local wallet to authorize and sign it, then retries with the payment proof.
 
 Supports both live payment standards on Solana:
 - **[MPP](https://paymentauth.org/draft-solana-charge-00.html/)** — Machine Payments Protocol
@@ -35,9 +35,13 @@ Stablecoins deployed to Solana are supported out of the box.
 `pay` ships with a built-in [MCP](https://modelcontextprotocol.io/) server, letting AI assistants request paid API calls through the same local wallet-approval flow.
 
 ```sh
-# Run Claude Code or Codex with pay injected into the agent session
+# Run OpenClawd, Claude Code, or Codex with pay injected into the agent session
+pay clawd "buy some water with pay"
 pay claude
 pay codex
+
+# One-shot OpenClawd through npm
+npx -y @solana/pay clawd "buy some water with pay"
 ```
 
 ### 🛠️ Payment debugging and simulations
@@ -116,7 +120,7 @@ pay whoami
 pay --sandbox curl https://debugger.pay.sh/mpp/quote/AAPL
 
 # 3. Or let your AI agent handle it
-pay claude
+pay clawd "buy some water with pay"
 ```
 
 ## Contributing

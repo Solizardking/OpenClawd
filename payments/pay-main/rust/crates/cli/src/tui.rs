@@ -2291,6 +2291,15 @@ fn render_card_panel(
             )));
             lines
         }
+        ToolKind::Clawd => {
+            let mut lines = vec![Line::default()];
+            lines.extend(solana_logo("  "));
+            lines.push(Line::from(Span::styled(
+                "  clawd",
+                Style::default().fg(Color::DarkGray),
+            )));
+            lines
+        }
         _ => {
             let tool_label = match tool {
                 ToolKind::Curl => "curl",
@@ -2298,7 +2307,7 @@ fn render_card_panel(
                 ToolKind::Http => "http",
                 ToolKind::Fetch => "fetch",
                 ToolKind::Mcp => "mcp",
-                ToolKind::Claude | ToolKind::Codex => unreachable!(),
+                ToolKind::Claude | ToolKind::Clawd | ToolKind::Codex => unreachable!(),
             };
             vec![
                 Line::default(),

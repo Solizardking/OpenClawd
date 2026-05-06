@@ -15,9 +15,10 @@ Add Pay to your MCP config to give AI agents direct access to paid APIs:
 }
 ```
 
-Or launch Claude Code / Codex with Pay injected into the agent session:
+Or launch OpenClawd / Claude Code / Codex with Pay injected into the agent session:
 
 ```sh
+pay clawd "buy some water with pay"
 pay claude
 pay codex
 ```
@@ -28,6 +29,7 @@ If `pay` is not installed, use `npx @solana/pay`.
 
 ```sh
 pay setup                         # create a wallet
+pay clawd "buy some water with pay" # launch OpenClawd with pay
 pay claude                        # launch Claude Code with pay
 pay codex                         # launch Codex with pay
 pay curl <url>                    # HTTP request with user-authorized 402 handling

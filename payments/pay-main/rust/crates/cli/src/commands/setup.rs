@@ -125,6 +125,7 @@ fn setup_success_body(
     }
     lines.push(String::new());
     lines.push("Ready to go. Time to make HTTP pay for itself.".to_string());
+    lines.push("$ pay clawd".to_string());
     lines.push("$ pay claude".to_string());
     lines.push("$ pay codex".to_string());
     lines.join("\n")
