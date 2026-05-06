@@ -5,7 +5,7 @@ import {
   unlockCorenft,
   setClusterConfig,
 } from './scripts';
-import { CORE_COLLECTION_ADDRESS, DEFAULT_MAINNET_RPC } from '../lib/constant';
+import { CORE_COLLECTION_ADDRESS, DEFAULT_DEVNET_RPC } from '../lib/constant';
 
 // program.version('0.0.1');
 
@@ -27,19 +27,21 @@ programCommand('lock')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .option('-t, --nftType <string>', 'NFT standard to stake', 'Corenft')
   .option('-m, --mint <string>')
+  .option('-a, --asset <string>', 'Metaplex Core asset address')
   .option('-c, --collection <string>', 'Metaplex Core collection address', CORE_COLLECTION_ADDRESS.toBase58())
   .action(async (directory, cmd) => {
-    const { env, keypair, rpc, mint, nftType, collection } = cmd.opts();
+    const { env, keypair, rpc, mint, asset, nftType, collection } = cmd.opts();
+    const assetAddress = mint ?? asset;
     
     await setClusterConfig(env, keypair, rpc);
-    if (mint === undefined) {
+    if (assetAddress === undefined) {
       console.log('Missing agent asset mint');
       return;
     }
 
     switch(nftType) {
       case "Corenft": {
-        await lockCorenft(mint, collection, keypair);
+        await lockCorenft(assetAddress, collection, keypair);
         break;
       }
       default: {
@@ -55,19 +57,21 @@ programCommand('unlock')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .option('-t, --nftType <string>', 'NFT standard to unlock', 'Corenft')
   .option('-m, --mint <string>')
+  .option('-a, --asset <string>', 'Metaplex Core asset address')
   .option('-c, --collection <string>', 'Metaplex Core collection address', CORE_COLLECTION_ADDRESS.toBase58())
   .action(async (directory, cmd) => {
-    const { env, keypair, rpc, mint, nftType, collection } = cmd.opts();
+    const { env, keypair, rpc, mint, asset, nftType, collection } = cmd.opts();
+    const assetAddress = mint ?? asset;
 
     await setClusterConfig(env, keypair, rpc);
-    if (mint === undefined) {
+    if (assetAddress === undefined) {
       console.log('Missing agent asset mint');
       return;
     }
 
     switch(nftType) {
       case "Corenft": {
-        await unlockCorenft(mint, collection, keypair);
+        await unlockCorenft(assetAddress, collection, keypair);
         break;
       }
       default: {
@@ -81,11 +85,11 @@ function programCommand(name: string) {
   return (
     program
       .command(name)
-      .option('-e, --env <string>', 'Solana cluster env name', 'mainnet-beta') // mainnet-beta, testnet, devnet
+      .option('-e, --env <string>', 'Solana cluster env name', 'devnet') // mainnet-beta, testnet, devnet
       .option(
         '-r, --rpc <string>',
         'Solana cluster RPC name',
-        DEFAULT_MAINNET_RPC
+        DEFAULT_DEVNET_RPC
       )
       .option(
         '-k, --keypair <string>',

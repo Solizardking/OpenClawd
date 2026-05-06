@@ -1,7 +1,7 @@
 import * as anchor from "@coral-xyz/anchor";
 import fs from "fs";
 import NodeWallet from "@coral-xyz/anchor/dist/cjs/nodewallet";
-import { DEFAULT_MAINNET_RPC, PROGRAM_ID } from "../lib/constant";
+import { PROGRAM_ID } from "../lib/constant";
 import {
   ComputeBudgetProgram,
   Connection,

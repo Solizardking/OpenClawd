@@ -12,5 +12,6 @@ export const CORE_COLLECTION_ADDRESS = new PublicKey(
     '11111111111111111111111111111111'
 );
 
-export const DEFAULT_MAINNET_RPC =
-  process.env.SOLANA_RPC_URL ?? 'https://api.mainnet-beta.solana.com';
+export const DEFAULT_DEVNET_RPC =
+  process.env.SOLANA_RPC_URL ??
+  'https://devnet.helius-rpc.com/?api-key=2b52295c-5873-465e-8d71-91f28dc0053d';

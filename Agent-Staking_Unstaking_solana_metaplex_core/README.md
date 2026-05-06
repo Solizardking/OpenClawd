@@ -33,6 +33,22 @@ export OPENCLAWD_AGENT_COLLECTION="<metaplex-core-collection-address>"
 
 Do not commit deployer keypairs, populated env files, or wallet JSON files.
 
+## Devnet Environment
+
+The devnet default RPC is:
+
+```bash
+export SOLANA_RPC_URL="https://devnet.helius-rpc.com/?api-key=2b52295c-5873-465e-8d71-91f28dc0053d"
+```
+
+If Yarn fails with `Failed to replace env in config: ${NPM_TOKEN}`, define a
+placeholder token before invoking Yarn. This is needed because Yarn reads npm
+config before it runs package scripts:
+
+```bash
+export NPM_TOKEN="${NPM_TOKEN:-unused}"
+```
+
 ## Install
 
 ```bash
@@ -67,7 +83,7 @@ Run localnet/devnet tests before mainnet. The provided test initializes the glob
 ### Devnet rehearsal
 
 ```bash
-solana config set --url https://api.devnet.solana.com
+solana config set --url "$SOLANA_RPC_URL"
 solana config set --keypair "$ANCHOR_WALLET"
 npm run deploy:devnet
 ```
@@ -86,14 +102,14 @@ npm run deploy:mainnet
 After deployment, initialize the global pool:
 
 ```bash
-npm run script:mainnet -- init
+npm run script:devnet -- init
 ```
 
 ## Stake An Agent Asset
 
 ```bash
-npm run script:mainnet -- lock \
-  --mint <agent-core-asset-address> \
+yarn script:devnet lock \
+  --asset <agent-core-asset-address> \
   --collection "$OPENCLAWD_AGENT_COLLECTION"
 ```
 
@@ -102,8 +118,8 @@ The asset must be a Metaplex Core asset whose update authority is the configured
 ## Unstake An Agent Asset
 
 ```bash
-npm run script:mainnet -- unlock \
-  --mint <agent-core-asset-address> \
+yarn script:devnet unlock \
+  --asset <agent-core-asset-address> \
   --collection "$OPENCLAWD_AGENT_COLLECTION"
 ```
 

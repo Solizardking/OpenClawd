@@ -23,7 +23,7 @@ url = "https://api.apr.dev"
 
 [provider]
 # Default: devnet. Do NOT change to mainnet without completing the Gate 4 review.
-cluster = "devnet"
+cluster = "https://devnet.helius-rpc.com/?api-key=2b52295c-5873-465e-8d71-91f28dc0053d"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
