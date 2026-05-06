@@ -212,6 +212,14 @@ create_rewritten_chain() {
   local total
   total=$(wc -l < "$commits_file" | tr -d ' ')
 
+  target_git() {
+    if [ -n "${TARGET_GIT_DIR:-}" ]; then
+      GIT_DIR="$TARGET_GIT_DIR" git "$@"
+    else
+      git "$@"
+    fi
+  }
+
   while IFS=$'\037' read -r _timestamp orig_commit _author_iso _author_name _author_email; do
     [ -n "$orig_commit" ] || continue
 
@@ -245,7 +253,7 @@ create_rewritten_chain() {
         GIT_COMMITTER_NAME="$committer_name" \
         GIT_COMMITTER_EMAIL="$committer_email" \
         GIT_COMMITTER_DATE="$committer_date" \
-        git commit-tree "$tree" -p "$parent" -m "$message"
+        target_git commit-tree "$tree" -p "$parent" -m "$message"
       )
     else
       new_commit=$(
@@ -255,11 +263,11 @@ create_rewritten_chain() {
         GIT_COMMITTER_NAME="$committer_name" \
         GIT_COMMITTER_EMAIL="$committer_email" \
         GIT_COMMITTER_DATE="$committer_date" \
-        git commit-tree "$tree" -m "$message"
+        target_git commit-tree "$tree" -m "$message"
       )
     fi
 
-    if [ -z "$new_commit" ] || ! git cat-file -e "${new_commit}^{commit}" 2>/dev/null; then
+    if [ -z "$new_commit" ] || ! target_git cat-file -e "${new_commit}^{commit}" 2>/dev/null; then
       printf 'Failed to create commit from: %s\n' "$orig_commit" >> "$work_dir/logs/errors.log"
       errors=$((errors + 1))
       continue
@@ -270,7 +278,7 @@ create_rewritten_chain() {
     count=$((count + 1))
 
     if [ $((count % 25)) -eq 0 ]; then
-      git update-ref "refs/heads/$target_branch" "$parent"
+      target_git update-ref "refs/heads/$target_branch" "$parent"
       echo "Progress: $count/$total commits"
     fi
   done < "$commits_file"
@@ -280,7 +288,7 @@ create_rewritten_chain() {
     return 1
   fi
 
-  git update-ref "refs/heads/$target_branch" "$parent"
+  target_git update-ref "refs/heads/$target_branch" "$parent"
   print_success "Created $target_branch with $count commits"
 
   if [ "$errors" -gt 0 ]; then
@@ -381,7 +389,7 @@ slim_repository() {
   local squashed_rows="$work_dir/squashed_commits.tsv"
   write_commit_rows "$SQUASHED_BRANCH" "$squashed_rows"
 
-  GIT_DIR="$slim_git_dir" create_rewritten_chain "$squashed_rows" "main" "fixed" "$minimal_tree"
+  TARGET_GIT_DIR="$slim_git_dir" create_rewritten_chain "$squashed_rows" "main" "fixed" "$minimal_tree"
 
   local slim_head
   slim_head=$(GIT_DIR="$slim_git_dir" git rev-parse refs/heads/main)
