@@ -371,7 +371,7 @@ The autoloop runs three default mandates every 30 minutes — pump.fun launches 
 
 ## 🚀 v0.2 — Solana-aware terminal + clean bin layout
 
-> **What shipped:** [`@openclawdsolana/clawd-tui@0.2.1`](https://www.npmjs.com/package/@openclawdsolana/clawd-tui) · [`@openclawdsolana/clawd-code-cli@0.2.3`](https://www.npmjs.com/package/@openclawdsolana/clawd-code-cli) · [`@openclawdsolana/percolator@1.0.1`](https://www.npmjs.com/package/@openclawdsolana/percolator) (perps CLI) · [`@openclawdsolana/plugin-sdk@1.1.1`](https://www.npmjs.com/package/@openclawdsolana/plugin-sdk) · [`@openclawdsolana/chat-plugins-gateway@1.9.1`](https://www.npmjs.com/package/@openclawdsolana/chat-plugins-gateway) · 🦞 [Browser Bridge v0.2.0](./chrome-extension/openclawd-chrome-extension) (Chrome MV3)
+> **What shipped:** [`@openclawdsolana/clawd-tui@0.2.2`](https://www.npmjs.com/package/@openclawdsolana/clawd-tui) · [`@openclawdsolana/clawd-code-cli@0.2.3`](https://www.npmjs.com/package/@openclawdsolana/clawd-code-cli) · [`@openclawdsolana/percolator@1.0.1`](https://www.npmjs.com/package/@openclawdsolana/percolator) (perps CLI) · [`@openclawdsolana/plugin-sdk@1.1.1`](https://www.npmjs.com/package/@openclawdsolana/plugin-sdk) · [`@openclawdsolana/chat-plugins-gateway@1.9.1`](https://www.npmjs.com/package/@openclawdsolana/chat-plugins-gateway) · 🦞 [Browser Bridge v0.2.0](./chrome-extension/openclawd-chrome-extension) (Chrome MV3)
 >
 > **Read the writeup:** [clawd-tui v0.2 — A Solana-Aware Terminal](./apps/clawd-tui/docs/v0.2-solana-aware-terminal.md) · **Debut site:** [`site/index.html`](./site)
 
@@ -406,6 +406,17 @@ Two packages were both registering `clawd` as their CLI name. Resolved cleanly i
 | `@openclawdsolana/clawd-code-cli` | `clawd-code`, `clawd-code-cli` | Full Ink/React agent operator    |
 
 If you scripted against `clawd` from the old code-cli, swap to `clawd-code` (or `alias clawd=clawd-code`).
+
+### NPM release diagnostics
+
+The monorepo root is private. Do not publish from the root with `npm publish`; publish the TUI package through the root scripts, which `cd` into `apps/clawd-tui` first:
+
+```bash
+npm run publish:tui:dry-run
+NPM_OTP=123456 npm run publish:tui:otp
+```
+
+If npm returns `E403 Two-factor authentication or granular access token with bypass 2fa enabled is required`, the package is packed correctly but the `@openclawdsolana` org requires a current OTP or a granular automation token that can bypass 2FA.
 
 ### Workspace plumbing — four pieces now wire together
 
@@ -446,7 +457,7 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 
 | Package | One-liner | Install |
 |---|---|---|
-| 🦞 [**clawd-tui**](./apps/clawd-tui) | OpenRouter-native lobster TUI (Ink + `@openrouter/agent`) — block input, streaming tools, PKCE OAuth, file/glob/grep/shell, web_search + datetime. **v0.2.1**: Birdeye + Helius DAS + on-paste contract analysis ([writeup](./apps/clawd-tui/docs/v0.2-solana-aware-terminal.md)) | `npm i -g @openclawdsolana/clawd-tui` |
+| 🦞 [**clawd-tui**](./apps/clawd-tui) | OpenRouter-native lobster TUI (Ink + `@openrouter/agent`) — block input, streaming tools, PKCE OAuth, file/glob/grep/shell, web_search + datetime. **v0.2.2**: Birdeye + Helius DAS + on-paste contract analysis + DeepSeek commands ([writeup](./apps/clawd-tui/docs/v0.2-solana-aware-terminal.md)) | `npm i -g @openclawdsolana/clawd-tui` |
 | 🌊 [**clawdrouter**](./clawdrouter) | LLM router built for autonomous Solana agents — wallet-signed, USDC micropayments, multi-upstream | `npm i -g @openclawdsolana/clawdrouter` |
 | 🔒 [**vault-mcp**](./mcp/vault-mcp) | ClawdVault MCP server — security pattern scanning, secret detection, vault ops over MCP | `npm i @openclawdsolana/vault-mcp` |
 | 💼 [**wurk-mcp**](./mcp/wurk-mcp) | WURK API MCP server — agent job creation with x402 payment flow on Solana + Base | `npm i @openclawdsolana/wurk-mcp` |

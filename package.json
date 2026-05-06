@@ -137,6 +137,9 @@
     "publish:tui:dry-run": "cd apps/clawd-tui && npm publish --dry-run --access public",
     "publish:tui": "cd apps/clawd-tui && npm publish --access public",
     "publish:tui:otp": "cd apps/clawd-tui && npm publish --access public --otp=${NPM_OTP:?Set NPM_OTP=123456}",
+    "publish:dark-clawd:dry-run": "cd dark-clawd && npm publish --dry-run --access public",
+    "publish:dark-clawd": "cd dark-clawd && npm publish --access public",
+    "publish:dark-clawd:otp": "cd dark-clawd && npm publish --access public --otp=${NPM_OTP:?Set NPM_OTP=123456}",
     "upload:browseruse": "node scripts/upload-to-browseruse.mjs",
     "upload:browseruse:dry": "node scripts/upload-to-browseruse.mjs --dry-run"
   },
