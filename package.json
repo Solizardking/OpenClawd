@@ -137,12 +137,5 @@
     "upload:browseruse": "node scripts/upload-to-browseruse.mjs",
     "upload:browseruse:dry": "node scripts/upload-to-browseruse.mjs --dry-run"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/clawdsolana/OpenClawd.git"
-  },
-  "homepage": "https://github.com/clawdsolana/OpenClawd#readme",
-  "bugs": {
-    "url": "https://github.com/clawdsolana/OpenClawd/issues"
-  }
+  "homepage": "https://solanaclawd.com"
 }

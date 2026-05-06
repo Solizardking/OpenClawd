@@ -25,6 +25,8 @@ interface AppConfig {
   newsApiKey?: string;
   serpApiKey?: string;
   financialDatasetKey?: string;
+  jupiterKey?: string;
+  privateKey?: string;
   walletAddress?: string;
   autoMode?: boolean;
 }
@@ -64,6 +66,8 @@ export const App: React.FC<{ config: AppConfig }> = ({ config }) => {
       newsApiKey: config.newsApiKey,
       serpApiKey: config.serpApiKey,
       financialDatasetKey: config.financialDatasetKey,
+      jupiterKey: config.jupiterKey,
+      privateKey: config.privateKey,
     });
 
     return ralph;

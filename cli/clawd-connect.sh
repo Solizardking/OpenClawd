@@ -1,6 +1,6 @@
 #!/bin/bash
 # openclawd - Terminal Connection & Skills
-# solanaclawd.com  ·  github.com/clawdsolana/OpenClawd
+# solanaclawd.com
 # Usage: ./clawd-connect.sh <command>
 
 # Load shared OpenClawd endpoint config (env > ~/.openclawdsolana/config.json > defaults)

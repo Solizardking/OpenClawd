@@ -319,8 +319,14 @@ cmd_register() {
     echo -e "${CYAN}📝 Agent Registration (Metaplex)${NC}"
     echo "  Registry: MPL Agent Identity"
     echo ""
-    echo "To register, use:"
-    echo "  npx ts-node CLI/clawd-register.ts"
+    if command -v bun >/dev/null 2>&1; then
+        bun "$__here/clawd-register.ts" "$@"
+    else
+        echo -e "${RED}Error: bun is required to run clawd-register.ts${NC}"
+        echo "Install Bun from https://bun.sh, then run:"
+        echo "  bun $__here/clawd-register.ts --dry-run"
+        return 1
+    fi
 }
 
 # ============================================================================
@@ -399,7 +405,7 @@ case "$COMMAND" in
     agents)             cmd_agents ;;
     status)             cmd_status ;;
     connect)            echo "Connect to OpenClawd" ;;
-    register)           cmd_register ;;
+    register)           cmd_register "$@" ;;
     
     # Marketplace
     marketplace)        cmd_marketplace ;;

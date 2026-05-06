@@ -1,432 +1,187 @@
+#!/usr/bin/env bun
+
+import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import {
+  isAgentApiError,
+  isAgentApiNetworkError,
+  isAgentValidationError,
   mintAndSubmitAgent,
   mplAgentIdentity,
+  type AgentMetadata,
+  type SvmNetwork,
 } from '@metaplex-foundation/mpl-agent-registry';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import { keypairIdentity } from '@metaplex-foundation/umi';
+import bs58 from 'bs58';
 
-// Connect to solanaclawd.com via Helius RPC
-const umi = createUmi('https://mainnet.helius-rpc.com/?api-key=YOUR_HELIUS_API_KEY')
-  .use(mplAgentIdentity());
-
-// Load your wallet keypair
-const keypair = umi.eddsa.createKeypairFromSecretKey(mySecretKeyBytes);
-umi.use(keypairIdentity(keypair));
-
-// Register Solana Clawd agent on Metaplex Agent Registry
-const result = await mintAndSubmitAgent(umi, {}, {
-  wallet: umi.identity.publicKey,
-  name: 'Solana Clawd',
-  uri: 'https://solanaclawd.com/agent-metadata.json',
-  agentMetadata: {
-    type: 'agent',
-    name: 'Solana Clawd',
-    description: 'The Solana-native AI agent framework for autonomous operators. Built for high-frequency memecoin trading environments with real-time market data, wallet tracking, OODA-loop execution, and multi-agent orchestration.',
-    services: [
-      { name: 'web', endpoint: 'https://solanaclawd.com' },
-      { name: 'MCP', endpoint: 'https://solanaclawd.com/mcp' },
-      { name: 'A2A', endpoint: 'https://solanaclawd.com/a2a' },
-    ],
-    registrations: [],
-    supportedTrust: ['wallet-verified', 'token-holder'],
-  },
-});
-
-console.log('Asset address:', result.assetAddress);
-console.log('Transaction signature:', result.signature);
-console.log('View at: https://metaplex.com/agent/' + result.assetAddress);
-
-/**
- * ============================================================================
- * OpenClawd Attestation Integration
- * ============================================================================
- * 
- * This script provides functions for:
- * 1. Attesting skills with formal verification (QEDGen)
- * 2. Creating agent identities with vault integration
- * 3. Verifying attestations on-chain
- * 
- * Program Addresses:
- * - SAS Program: 22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG
- * - Token Program (Token-2022): TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb
- * - Event Authority PDA: DzSpKpST2TSyrxokMXchFz3G2yn5WEGoxzpGEUDjCX4g
- */
-
-import {
-  Connection,
-  PublicKey,
-  Transaction,
-  SystemProgram,
-  SYSVAR_RENT_PUBKEY,
-} from '@solana/web3.js';
-import {
-  createCreateCredentialInstruction,
-  createCreateSchemaInstruction,
-  createCreateAttestationInstruction,
-  SCHEMA_ATTESTATION_PROGRAM_ID,
-} from '@openclawd/attestation-sdk';
-
-// Attestation Service Configuration
-const SAS_PROGRAM_ID = new PublicKey('22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG');
-const TOKEN_PROGRAM_ID = new PublicKey('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');
-
-/**
- * Attestation schema definitions for OpenClawd
- */
-export const ATTESTATION_SCHEMAS = {
-  SKILL: {
-    name: 'OpenClawdSkillAttestation',
-    layout: [12, 32, 12, 8, 1], // String, Pubkey, String, U64, Bool
-    fieldNames: [
-      'skill_id',
-      'verifier_pubkey',
-      'proof_hash',
-      'verification_timestamp',
-      'is_formally_verified',
-    ],
-  },
-  AGENT_IDENTITY: {
-    name: 'OpenClawdAgentIdentity',
-    layout: [12, 32, 12, 32, 1], // String, Pubkey, String, Pubkey, Bool
-    fieldNames: [
-      'agent_id',
-      'wallet_pubkey',
-      'skill_attestation',
-      'vault_address',
-      'is_vault_initialized',
-    ],
-  },
-  PLUGIN: {
-    name: 'OpenClawdPluginAttestation',
-    layout: [12, 32, 12, 34, 8, 1], // String, Pubkey, String, ProofHash, U64, Bool
-    fieldNames: [
-      'plugin_id',
-      'author_pubkey',
-      'attestation_ref',
-      'audit_proof_hash',
-      'timestamp',
-      'is_audited',
-    ],
-  },
+type RegistrationFile = {
+  name: string;
+  description: string;
+  services: AgentMetadata['services'];
+  registrations?: AgentMetadata['registrations'];
+  supportedTrust?: string[];
 };
 
-/**
- * Attest a skill with formal verification
- */
-export async function attestSkill(params: {
-  payer: PublicKey;
-  authority: PublicKey;
-  skillId: string;
-  verifierPubkey: PublicKey;
-  proofHash: string;
-  verificationTimestamp: number;
-  connection: Connection;
-}) {
-  const { payer, authority, skillId, verifierPubkey, proofHash, verificationTimestamp, connection } = params;
+type Options = {
+  configPath: string;
+  dryRun: boolean;
+  keypairPath?: string;
+  metadataUri: string;
+  name?: string;
+  network: SvmNetwork;
+  rpcUrl: string;
+  submit: boolean;
+};
 
-  // Find credential PDA
-  const [credentialPubkey] = PublicKey.findProgramAddressSync(
-    [Buffer.from('credential'), authority.toBuffer()],
-    SAS_PROGRAM_ID
-  );
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-  // Find schema PDA
-  const [schemaPubkey] = PublicKey.findProgramAddressSync(
-    [Buffer.from('schema'), credentialPubkey.toBuffer(), Buffer.from('OpenClawdSkillAttestation')],
-    SAS_PROGRAM_ID
-  );
+function usage(exitCode = 0): never {
+  console.log(`OpenClawd Metaplex agent registration
 
-  // Find attestation PDA
-  const nonce = PublicKey.findProgramAddressSync(
-    [Buffer.from('attestation'), schemaPubkey.toBuffer(), payer.toBuffer()]
-  )[1];
-  const [attestationPubkey] = PublicKey.findProgramAddressSync(
-    [Buffer.from('attestation'), schemaPubkey.toBuffer(), payer.toBuffer(), Buffer.from([nonce])],
-    SAS_PROGRAM_ID
-  );
+Usage:
+  bun cli/clawd-register.ts --dry-run
+  bun cli/clawd-register.ts --submit --keypair ~/.config/solana/id.json
 
-  // Encode attestation data
-  const skillIdBuffer = Buffer.from(skillId);
-  const proofHashBuffer = Buffer.from(proofHash);
-  const isVerified = Buffer.from([1]);
-
-  const data = Buffer.concat([
-    Buffer.from([nonce]),
-    Buffer.from([skillIdBuffer.length]),
-    skillIdBuffer,
-    verifierPubkey.toBuffer(),
-    Buffer.from([proofHashBuffer.length]),
-    proofHashBuffer,
-    Buffer.from(BigInt64Array.of(BigInt(verificationTimestamp))),
-    isVerified,
-  ]);
-
-  // Create instruction
-  const instruction = createCreateAttestationInstruction({
-    payer,
-    authority,
-    credential: credentialPubkey,
-    schema: schemaPubkey,
-    attestation: attestationPubkey,
-    systemProgram: SystemProgram.programId,
-  }, {
-    nonce: attestationPubkey,
-    data: data,
-    expiry: 0,
-  });
-
-  // Create and send transaction
-  const transaction = new Transaction().add(instruction);
-  transaction.feePayer = payer;
-
-  const { blockhash } = await connection.getLatestBlockhash();
-  transaction.recentBlockhash = blockhash;
-
-  return transaction;
+Options:
+  --config <path>       Registration JSON file (default: cli/clawd-registration.json)
+  --dry-run             Validate and print the registration payload without minting
+  --keypair <path>      Solana keypair JSON file. Env fallback: SOLANA_KEYPAIR_PATH
+  --metadata-uri <uri>  MPL Core metadata URI (default: https://solanaclawd.com/agent-metadata.json)
+  --name <name>         Override registration name
+  --network <network>   solana-mainnet or solana-devnet (default: solana-mainnet)
+  --rpc <url>           Solana RPC URL. Env fallback: SOLANA_RPC_URL or HELIUS_RPC_URL
+  --submit              Mint and submit the agent registration on-chain
+`);
+  process.exit(exitCode);
 }
 
-/**
- * Create agent identity with vault integration
- */
-export async function createAgentIdentity(params: {
-  payer: PublicKey;
-  authority: PublicKey;
-  agentId: string;
-  walletPubkey: PublicKey;
-  vaultAddress: PublicKey;
-  connection: Connection;
-}) {
-  const { payer, authority, agentId, walletPubkey, vaultAddress, connection } = params;
-
-  // Find credential PDA
-  const [credentialPubkey] = PublicKey.findProgramAddressSync(
-    [Buffer.from('credential'), authority.toBuffer()],
-    SAS_PROGRAM_ID
-  );
-
-  // Find schema PDA for agent identity
-  const [schemaPubkey] = PublicKey.findProgramAddressSync(
-    [Buffer.from('schema'), credentialPubkey.toBuffer(), Buffer.from('OpenClawdAgentIdentity')],
-    SAS_PROGRAM_ID
-  );
-
-  // Find attestation PDA
-  const nonce = PublicKey.findProgramAddressSync(
-    [Buffer.from('attestation'), schemaPubkey.toBuffer(), payer.toBuffer()]
-  )[1];
-  const [attestationPubkey] = PublicKey.findProgramAddressSync(
-    [Buffer.from('attestation'), schemaPubkey.toBuffer(), payer.toBuffer(), Buffer.from([nonce])],
-    SAS_PROGRAM_ID
-  );
-
-  // Encode attestation data
-  const agentIdBuffer = Buffer.from(agentId);
-  const isVaultInitialized = Buffer.from([1]);
-
-  const data = Buffer.concat([
-    Buffer.from([nonce]),
-    Buffer.from([agentIdBuffer.length]),
-    agentIdBuffer,
-    walletPubkey.toBuffer(),
-    Buffer.from([0]), // skill_attestation empty for now
-    vaultAddress.toBuffer(),
-    isVaultInitialized,
-  ]);
-
-  // Create instruction
-  const instruction = createCreateAttestationInstruction({
-    payer,
-    authority,
-    credential: credentialPubkey,
-    schema: schemaPubkey,
-    attestation: attestationPubkey,
-    systemProgram: SystemProgram.programId,
-  }, {
-    nonce: attestationPubkey,
-    data: data,
-    expiry: 0,
-  });
-
-  const transaction = new Transaction().add(instruction);
-  transaction.feePayer = payer;
-
-  const { blockhash } = await connection.getLatestBlockhash();
-  transaction.recentBlockhash = blockhash;
-
-  return transaction;
-}
-
-/**
- * Verify an attestation on-chain
- */
-export async function verifyAttestation(params: {
-  attestationAddress: PublicKey;
-  connection: Connection;
-}): Promise<{
-  exists: boolean;
-  skillId?: string;
-  verifierPubkey?: string;
-  proofHash?: string;
-  isVerified?: boolean;
-}> {
-  const { attestationAddress, connection } = params;
-
-  try {
-    const accountInfo = await connection.getAccountInfo(attestationAddress);
-    
-    if (!accountInfo) {
-      return { exists: false };
-    }
-
-    // Decode attestation data (skip discriminator byte)
-    const data = accountInfo.data.slice(1);
-    
-    // Parse fields based on schema layout [12, 32, 12, 8, 1]
-    let offset = 0;
-    
-    // skill_id (String)
-    const skillIdLen = data.readUInt32LE(offset);
-    offset += 4;
-    const skillId = data.slice(offset, offset + skillIdLen).toString();
-    offset += skillIdLen;
-
-    // verifier_pubkey (Pubkey)
-    const verifierPubkey = new PublicKey(data.slice(offset, offset + 32)).toString();
-    offset += 32;
-
-    // proof_hash (String)
-    const proofHashLen = data.readUInt32LE(offset);
-    offset += 4;
-    const proofHash = data.slice(offset, offset + proofHashLen).toString();
-    offset += proofHashLen;
-
-    // verification_timestamp (U64)
-    const verificationTimestamp = Number(data.readBigUInt64LE(offset));
-    offset += 8;
-
-    // is_formally_verified (Bool)
-    const isVerified = data[offset] === 1;
-
-    return {
-      exists: true,
-      skillId,
-      verifierPubkey,
-      proofHash,
-      isVerified,
-    };
-  } catch (error) {
-    console.error('Error verifying attestation:', error);
-    return { exists: false };
+function readArg(flag: string, args: string[]): string | undefined {
+  const index = args.indexOf(flag);
+  if (index === -1) return undefined;
+  const value = args[index + 1];
+  if (!value || value.startsWith('--')) {
+    throw new Error(`${flag} requires a value`);
   }
+  return value;
 }
 
-/**
- * Get attestation status from SAS program
- */
-export async function getAttestationStatus(params: {
-  attestationAddress: string;
-  rpcUrl?: string;
-}): Promise<AttestationStatus> {
-  const { attestationAddress, rpcUrl = 'https://mainnet.helius-rpc.com/?api-key=YOUR_HELIUS_API_KEY' } = params;
-  
-  const connection = new Connection(rpcUrl);
-  const pubkey = new PublicKey(attestationAddress);
-  
-  const result = await verifyAttestation({
-    attestationAddress: pubkey,
-    connection,
-  });
-  
+function parseOptions(): Options {
+  const args = process.argv.slice(2);
+  if (args.includes('-h') || args.includes('--help')) usage(0);
+
+  const submit = args.includes('--submit');
+  const dryRun = args.includes('--dry-run') || !submit;
+  const network = (readArg('--network', args) || process.env.OPENCLAWD_AGENT_NETWORK || 'solana-mainnet') as SvmNetwork;
+
+  if (!['solana-mainnet', 'solana-devnet'].includes(network)) {
+    throw new Error(`Unsupported network "${network}". Use solana-mainnet or solana-devnet.`);
+  }
+
   return {
-    address: attestationAddress,
-    ...result,
-    programId: SAS_PROGRAM_ID.toString(),
+    configPath: resolve(__dirname, readArg('--config', args) || 'clawd-registration.json'),
+    dryRun,
+    keypairPath: readArg('--keypair', args) || process.env.SOLANA_KEYPAIR_PATH,
+    metadataUri: readArg('--metadata-uri', args) || process.env.OPENCLAWD_AGENT_METADATA_URI || 'https://solanaclawd.com/agent-metadata.json',
+    name: readArg('--name', args),
+    network,
+    rpcUrl: readArg('--rpc', args) || process.env.SOLANA_RPC_URL || process.env.HELIUS_RPC_URL || 'https://api.mainnet-beta.solana.com',
+    submit,
   };
 }
 
-export interface AttestationStatus {
-  address: string;
-  exists: boolean;
-  skillId?: string;
-  verifierPubkey?: string;
-  proofHash?: string;
-  isVerified?: boolean;
-  programId: string;
+function loadRegistration(path: string): RegistrationFile {
+  const parsed = JSON.parse(readFileSync(path, 'utf8')) as RegistrationFile;
+  if (!parsed.name) throw new Error(`Missing "name" in ${path}`);
+  if (!parsed.description) throw new Error(`Missing "description" in ${path}`);
+  if (!Array.isArray(parsed.services) || parsed.services.length === 0) {
+    throw new Error(`Missing non-empty "services" array in ${path}`);
+  }
+  return parsed;
 }
 
-/**
- * CLI functions for attestation operations
- */
-export const cliCommands = {
-  /**
-   * attest-skill - Create formal attestation for a skill
-   */
-  attestSkill: async (skillId: string, verifierId: string, proofHash: string) => {
-    console.log('⛓️ Creating skill attestation...');
-    console.log(`  Skill ID: ${skillId}`);
-    console.log(`  Verifier: ${verifierId}`);
-    console.log(`  Proof Hash: ${proofHash}`);
+function loadSecretKey(path?: string): Uint8Array {
+  const raw = path
+    ? readFileSync(resolve(path.replace(/^~(?=$|\/)/, process.env.HOME || '~')), 'utf8')
+    : process.env.SOLANA_PRIVATE_KEY || process.env.SOLANA_SECRET_KEY;
 
-    // Implementation would use the attestation SDK
-    console.log('✓ Attestation created on-chain');
-    return { skillId, verifierId, proofHash, status: 'attested' };
-  },
+  if (!raw) {
+    throw new Error('Missing wallet keypair. Pass --keypair <path> or set SOLANA_KEYPAIR_PATH, SOLANA_PRIVATE_KEY, or SOLANA_SECRET_KEY.');
+  }
 
-  /**
-   * verify-attestation - Verify an existing attestation
-   */
-  verifyAttestation: async (address: string) => {
-    console.log('🔍 Verifying attestation...');
-    
-    const status = await getAttestationStatus({ attestationAddress: address });
-    
-    if (!status.exists) {
-      console.log('✗ Attestation not found');
-      return { verified: false };
+  const trimmed = raw.trim();
+  if (trimmed.startsWith('[')) return Uint8Array.from(JSON.parse(trimmed));
+  return bs58.decode(trimmed);
+}
+
+function toAgentMetadata(registration: RegistrationFile, nameOverride?: string): AgentMetadata {
+  return {
+    type: 'agent',
+    name: nameOverride || registration.name,
+    description: registration.description,
+    services: registration.services.map((service) => ({
+      name: service.name,
+      endpoint: service.endpoint,
+    })),
+    registrations: registration.registrations || [],
+    supportedTrust: registration.supportedTrust || ['wallet-verified', 'token-holder'],
+  };
+}
+
+async function main() {
+  const options = parseOptions();
+  const registration = loadRegistration(options.configPath);
+  const agentMetadata = toAgentMetadata(registration, options.name);
+  const name = options.name || registration.name;
+
+  console.log('OpenClawd agent registration');
+  console.log(`  Config:       ${options.configPath}`);
+  console.log(`  Name:         ${name}`);
+  console.log(`  Network:      ${options.network}`);
+  console.log(`  RPC:          ${options.rpcUrl}`);
+  console.log(`  Metadata URI: ${options.metadataUri}`);
+  console.log(`  Mode:         ${options.submit ? 'submit' : 'dry-run'}`);
+  console.log('');
+
+  if (options.dryRun) {
+    console.log(JSON.stringify({ name, uri: options.metadataUri, agentMetadata }, null, 2));
+    console.log('');
+    console.log('Dry run complete. Re-run with --submit and a funded keypair to mint on-chain.');
+    return;
+  }
+
+  const umi = createUmi(options.rpcUrl).use(mplAgentIdentity());
+  const keypair = umi.eddsa.createKeypairFromSecretKey(loadSecretKey(options.keypairPath));
+  umi.use(keypairIdentity(keypair));
+
+  try {
+    const result = await mintAndSubmitAgent(umi, {}, {
+      wallet: umi.identity.publicKey,
+      network: options.network,
+      name,
+      uri: options.metadataUri,
+      agentMetadata,
+    });
+
+    console.log(`Asset address: ${result.assetAddress}`);
+    console.log(`Transaction signature: ${bs58.encode(result.signature)}`);
+  } catch (err) {
+    if (isAgentValidationError(err)) {
+      throw new Error(`Agent validation error on field "${err.field}": ${err.message}`);
     }
+    if (isAgentApiNetworkError(err)) {
+      throw new Error(`Cannot reach Metaplex API: ${err.message}`);
+    }
+    if (isAgentApiError(err)) {
+      throw new Error(`Metaplex API error (${err.statusCode}): ${err.message}`);
+    }
+    throw err;
+  }
+}
 
-    console.log(`✓ Attestation verified:`);
-    console.log(`  - Skill ID: ${status.skillId}`);
-    console.log(`  - Verifier: ${status.verifierPubkey}`);
-    console.log(`  - Formally Verified: ${status.isVerified ? '✓' : '✗'}`);
-
-    return { verified: true, status };
-  },
-
-  /**
-   * create-agent-identity - Create Metaplex agent identity with vault
-   */
-  createAgentIdentity: async (agentId: string, walletPubkey: string, vaultAddress: string) => {
-    console.log('🏷️ Creating agent identity...');
-    console.log(`  Agent ID: ${agentId}`);
-    console.log(`  Wallet: ${walletPubkey}`);
-    console.log(`  Vault: ${vaultAddress}`);
-
-    // Implementation would use the attestation SDK
-    console.log('✓ Agent identity created with vault integration');
-    return { agentId, walletPubkey, vaultAddress, status: 'created' };
-  },
-
-  /**
-   * vault-init - Initialize agent wallet in Hermès vault
-   */
-  vaultInit: async (agentId: string, walletPubkey: string, vaultAddress?: string) => {
-    console.log('🔐 Initializing vault...');
-    console.log(`  Agent: ${agentId}`);
-    console.log(`  Wallet: ${walletPubkey}`);
-    console.log(`  Vault: ${vaultAddress || 'default'}`);
-
-    console.log('✓ Agent wallet initialized in Hermès vault');
-    return { agentId, walletPubkey, vaultAddress, status: 'initialized' };
-  },
-};
-
-// Export for CLI usage
-export default {
-  attestSkill: cliCommands.attestSkill,
-  verifyAttestation: cliCommands.verifyAttestation,
-  createAgentIdentity: cliCommands.createAgentIdentity,
-  vaultInit: cliCommands.vaultInit,
-  getAttestationStatus,
-  ATTESTATION_SCHEMAS,
-};
+main().catch((err) => {
+  console.error(`Registration failed: ${err instanceof Error ? err.message : String(err)}`);
+  process.exit(1);
+});

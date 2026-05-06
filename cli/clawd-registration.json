@@ -44,7 +44,7 @@
     "trading": {
       "enabled": true,
       "requireApproval": true,
-      " protocols": ["pump.fun", "jupiter", "raydium"]
+      "protocols": ["pump.fun", "jupiter", "raydium"]
     },
     "tools": [
       "helius-das",
