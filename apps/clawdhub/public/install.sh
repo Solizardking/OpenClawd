@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 🦞 ClawdHub one-shot installer
-# Bootstraps the OpenClawd stack: install.sh from solanaclawd.com + clawdhub CLI.
+# Bootstraps the OpenClawd stack: install.sh from solanaclawd.com + clawdhub CLI + Dark Ralph TUI.
 #
 # Invoked by: curl -fsSL https://hub.solanaclawd.com/install.sh | bash
 #
@@ -55,6 +55,20 @@ else
   warn "npm not found — install Node.js 20+ to use 'npx clawdhub'"
 fi
 
+# ── Step 3: verify Dark Ralph TUI from upstream installer or npm ────────
+if command -v dark-ralph >/dev/null 2>&1; then
+  ok "dark-ralph TUI ready"
+elif command -v npm >/dev/null 2>&1 && npm view @darkralph/tui version >/dev/null 2>&1; then
+  info "Installing Dark Ralph TUI from npm..."
+  if npm i -g @darkralph/tui --no-audit --no-fund >/dev/null 2>&1; then
+    ok "dark-ralph TUI installed"
+  else
+    warn "Could not install @darkralph/tui — upstream installer may have installed the local build"
+  fi
+else
+  warn "dark-ralph TUI npm package is not published yet; upstream installer builds the bundled workspace when Bun is available"
+fi
+
 # ── Done ────────────────────────────────────────────────────────────────
 cat <<EOF
 
@@ -65,6 +79,7 @@ ${GREEN}🦞  Installed.${RESET}
     ${ORANGE}npx clawdhub list${RESET}                     # list installed skills
     ${ORANGE}npx clawdhub search solana${RESET}            # search the marketplace
     ${ORANGE}npx clawdhub install pumpfun-trading${RESET}  # install a skill
+    ${ORANGE}dark-ralph run${RESET}                        # launch the Dark Ralph TUI
     ${ORANGE}openclawd --spawn${RESET}                     # hatch a sovereign leviathan
 
   Open the live console:    ${PURPLE}https://hub.solanaclawd.com/console${RESET}

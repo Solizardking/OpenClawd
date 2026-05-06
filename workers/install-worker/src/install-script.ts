@@ -1,562 +1,466 @@
 // AUTO-GENERATED from /install.sh — do not edit by hand.
 // Regenerate with: npm run sync (in workers/install-worker).
 export const INSTALL_SCRIPT = `#!/usr/bin/env bash
-# ╔══════════════════════════════════════════════════════════════════════════╗
-# ║                                                                          ║
-# ║   🦞🪼🦞🪼🦞🪼🦞🪼🦞🪼🦞🪼🦞🪼🦞🪼🦞🪼🦞🪼🦞🪼🦞🪼🦞🪼🦞🪼🦞🪼🦞🪼🦞🪼🦞🪼🦞   ║
-# ║                                                                          ║
-# ║          🦞  O P E N C L A W D  ·  L O B S T E R  E D I T I O N  🦞     ║
-# ║                                                                          ║
-# ║               ╔═══════════════════════════════════════╗                  ║
-# ║               ║  8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7  ║                  ║
-# ║               ║          𝑺𝒐𝒍𝒂𝒏𝒂 𝑴𝒂𝒊𝒏𝒏𝒆𝒕                 ║                  ║
-# ║               ╚═══════════════════════════════════════╝                  ║
-# ║                                                                          ║
-# ║          🦞  solanaclawd.com  ·  OpenClawd Labs  🦞                      ║
-# ║                                                                          ║
-# ╚══════════════════════════════════════════════════════════════════════════╝
+# OpenClawd installer — bootstraps the Solana-native AI agent runtime.
 #
-#  🦞 One-shot openclawd bootstrap:
-#     1. Preflight (curl, git, node>=18, npm, optional brew).
-#     2. Install Tailscale (macOS: Homebrew cask · Linux: official script).
-#     3. \`tailscale up\` (interactive login) — skippable via SKIP_TAILSCALE=1.
-#     4. Install the public \`solana-clawd\` CLI globally from npm.
-#     5. Clone openclawd monorepo (shallow) and bootstrap \`tailclawd/\`:
-#          npm install  +  iii-sdk  +  Tailscale Serve on :3110.
-#     6. Scaffold ~/.openclawd/.env with every env var the stack uses.
-#     7. Print pair / mint / status / tailnet next-steps.
+# Surfaces it brings up:
+#   • openclawd / clawd Go binary             — daemon, gateway, solana ops
+#   • openclawd-framework (Node)              — @openclawdsolana/leviathan runtime
+#   • gateway (Node)                          — Telegram + Birdeye/Helius control plane
+#   • plugin.delivery (Node)                  — public plugin SDK + edge gateway
+#   • dark-ralph TUI                          — Bloomberg-style Solana intelligence terminal
+#   • pAGENT chrome-extension surfaces        — autonomous browser/trading agent
+#   • Grok voice runtime via XAI_API_KEY      — wss://api.x.ai/v1/realtime
 #
-#  🦞 Env overrides:
-#    OPENCLAWD_DIR        (default: ~/.openclawd)
-#    TAILCLAWD_DIR        (default: $OPENCLAWD_DIR/tailclawd)
-#    OPENCLAWD_REPO       (default: https://solanaclawd.com)
-#    SKIP_TAILSCALE=1     skip the Tailscale install / login step
-#    SKIP_TAILCLAWD=1     skip the tailclawd clone + serve step
-#    AUTO_SERVE=1         auto \`tailscale serve --bg 3110\` after launching
-#    TAILCLAWD_TOKEN      optional bearer token for tailclawd endpoints
+# Invoked by:
+#   • npm/openclawd-cli/bin/install.mjs        (npx @openclawdsolana/cli)
+#   • npm/openclawd-computer/bin/install.mjs   (npx @openclawdsolana/computer)
+#   • npm/openclawd-installer/bin/install.mjs  (npx @openclawdsolana/installer)
+#   • Direct curl:
+#       curl -fsSL https://install.solanaclawd.com | bash
 #
+# Flags:
+#   --with-web           Also build the local web console launcher.
+#   --branch=NAME        Clone a non-default branch when bootstrapping remotely.
+#   --bin-dir=PATH       Override the binary install dir (default: $OPENCLAWD_HOME/bin).
+#   --xai-key=KEY        Seed XAI_API_KEY in the workspace .env (interactive otherwise).
+#   --no-build           Skip Go binary build (use prebuilt or skip native).
+#   --no-node            Skip Node workspace install/build.
+#   --reset-config       Overwrite an existing config.json.
+#   --quiet              Suppress informational chatter; keep ✓/! lines only.
+#   --no-banner          Skip the ASCII banner (CI-friendly).
+#   -h | --help          Show usage and exit.
 
 set -euo pipefail
+umask 022
 
-TARGET_DIR="\${OPENCLAWD_DIR:-$HOME/.openclawd}"
-TAILCLAWD_DIR="\${TAILCLAWD_DIR:-$TARGET_DIR/tailclawd}"
-OPENCLAWD_REPO="\${OPENCLAWD_REPO:-https://solanaclawd.com}"
-SOLANA_CLAWD_BASE_URL="\${SOLANA_CLAWD_BASE_URL:-https://solanaclawd.com}"
-SKIP_TAILSCALE="\${SKIP_TAILSCALE:-0}"
-SKIP_TAILCLAWD="\${SKIP_TAILCLAWD:-0}"
-AUTO_SERVE="\${AUTO_SERVE:-0}"
-TAILCLAWD_TOKEN="\${TAILCLAWD_TOKEN:-}"
+# ──────────────────────────────────────────────────────────────────────────────
+# Defaults
+# ──────────────────────────────────────────────────────────────────────────────
+REPO_URL="https://solanaclawd.com"
+WORKSPACE="\${OPENCLAWD_HOME:-$HOME/.openclawdsolana}"
+BIN_DIR_DEFAULT="$WORKSPACE/bin"
+BIN_DIR=""
+BUILD_DIR_NAME="build"
+BRANCH="main"
+WITH_WEB=0
+NO_BUILD=0
+NO_NODE=0
+RESET_CONFIG=0
+QUIET=0
+NO_BANNER=0
+XAI_KEY_FLAG=""
+GO_MIN_MAJOR=1
+GO_MIN_MINOR=21
+NODE_MIN_MAJOR=20
 
-# ─── 🦞 cyberpunk lobster palette ─────────────────────────────────────────
-CR=$'\\033[0m'; BOLD=$'\\033[1m'; DIM=$'\\033[2m'
-MAGENTA=$'\\033[38;5;201m'
-CYAN=$'\\033[38;5;51m'
-LOBSTER=$'\\033[38;5;203m'
-NEON=$'\\033[38;5;118m'
-VIOLET=$'\\033[38;5;141m'
-AMBER=$'\\033[38;5;214m'
-DANGER=$'\\033[38;5;196m'
-GREY=$'\\033[38;5;244m'
-LOBSTER1=$'\\033[38;5;196m'
-LOBSTER2=$'\\033[38;5;203m'
-LOBSTER3=$'\\033[38;5;204m'
-CORAL=$'\\033[38;5;210m'
-SALMON=$'\\033[38;5;209m'
+# ──────────────────────────────────────────────────────────────────────────────
+# Pretty output (Solana brand colors — green #14F195, purple #9945FF)
+# ──────────────────────────────────────────────────────────────────────────────
+if [ -t 1 ] && [ "\${NO_COLOR:-}" = "" ]; then
+  GREEN='\\033[38;2;20;241;149m'
+  PURPLE='\\033[38;2;153;69;255m'
+  CYAN='\\033[38;2;77;208;225m'
+  DIM='\\033[38;2;120;134;160m'
+  RED='\\033[38;2;255;87;87m'
+  BOLD='\\033[1m'
+  RESET='\\033[0m'
+else
+  GREEN='' PURPLE='' CYAN='' DIM='' RED='' BOLD='' RESET=''
+fi
 
-hr() { printf "\${VIOLET}🦞▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰🦞\${CR}\\n"; }
-log()  { printf "\${CYAN}🦞▸\${CR} \${BOLD}%s\${CR}\\n" "$*"; }
-ok()   { printf "\${NEON}🦞◉\${CR} %s\\n" "$*"; }
-warn() { printf "\${AMBER}🦞▲\${CR} %s\\n" "$*"; }
-die()  { printf "\${DANGER}🦞✖ fatal:\${CR} %s\\n" "$*" >&2; exit 1; }
+info()  { [ "$QUIET" = "1" ] || printf "\${DIM}  %s\${RESET}\\n" "$*"; }
+step()  { [ "$QUIET" = "1" ] || printf "\${PURPLE}  ▸ %s\${RESET}\\n" "$*"; }
+ok()    { printf "\${GREEN}  ✓ %s\${RESET}\\n" "$*"; }
+warn()  { printf "\${PURPLE}  ! %s\${RESET}\\n" "$*"; }
+fail()  { printf "\${RED}  ✖ %s\${RESET}\\n" "$*" >&2; exit 1; }
+
+usage() {
+  sed -n '2,29p' "$0" | sed 's/^# \\{0,1\\}//'
+  exit 0
+}
 
 banner() {
-  printf "\${MAGENTA}"
-  cat <<'LOBSTER_ASCII'
-
-        ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-       ████████████████████████████████████████████████████████████
-      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██
-      ██  ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄  ██
-      ██  ████████████████████████████████████████████████████  ██
-      ██  ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██  ██
-      ██  ██░░████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░████░░░░██  ██
-      ██  ██░░████░░🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞░░████░░░░██  ██
-      ██  ██░░████░░🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞░░████░░░░██  ██
-      ██  ██░░████░░🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞░░████░░░░██  ██
-      ██  ██░░████░░🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞░░████░░░░██  ██
-      ██  ██░░████░░🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞░░████░░░░██  ██
-      ██  ██░░████░░🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞░░████░░░░██  ██
-      ██  ██░░████░░🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞░░████░░░░██  ██
-      ██  ██░░████░░🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞🦞░░████░░░░██  ██
-      ██  ██░░████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░████░░░░██  ██
-      ██  ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██  ██
-      ██  ████████████████████████████████████████████████████  ██
-      ██  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  ██
-      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██
-      ████████████████████████████████████████████████████████████
-       ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
-LOBSTER_ASCII
-  printf "\${CR}\\n"
-  
-  # 🦞 OPENCLAWD in big text
-  printf "    \${LOBSTER1}  ██╗   \${LOBSTER2}  ██╗ \${LOBSTER3}  ██╗    \${MAGENTA}  ███████╗\${LOBSTER1}    ██╗\${LOBSTER2}   ██╗\${LOBSTER3}    ███████╗\${CR}\\n"
-  printf "    \${LOBSTER1}  ██║   \${LOBSTER2}  ██║ \${LOBSTER3}  ██║    \${MAGENTA}  ██╔════╝\${LOBSTER1}    ██║   \${LOBSTER2} ██║\${LOBSTER3}    ╚════██║\${CR}\\n"
-  printf "    \${LOBSTER1}  ██║   \${LOBSTER2}  ██║ \${LOBSTER3}  ██║    \${MAGENTA}  █████╗  \${LOBSTER1}    ██║   \${LOBSTER2} ██║\${LOBSTER3}     █████╔╝\${CR}\\n"
-  printf "    \${LOBSTER1}  ╚██╗ \${LOBSTER2}  ██╔╝ \${LOBSTER3}  ██║    \${MAGENTA}  ██╔══╝  \${LOBSTER1}    ██║   \${LOBSTER2} ██║\${LOBSTER3}     ██╔══╝ \${CR}\\n"
-  printf "    \${LOBSTER1}   ╚████╔╝ \${LOBSTER2}   ██║  \${LOBSTER3}  ██╗    \${MAGENTA}  ███████╗\${LOBSTER1}    ██║   \${LOBSTER2} ██║\${LOBSTER3}     ███████╗\${CR}\\n"
-  printf "    \${LOBSTER1}    ╚═══╝  \${LOBSTER2}    ╚═╝  \${LOBSTER3}  ╚═╝    \${MAGENTA}  ╚══════╝\${LOBSTER1}    ╚═╝   \${LOBSTER2} ╚═╝\${LOBSTER3}     ╚══════╝\${CR}\\n"
-  
+  [ "$NO_BANNER" = "1" ] && return 0
+  [ "$QUIET" = "1" ] && return 0
   printf "\\n"
-  
-  # 🦞 OPENCLAWD subtitle
-  printf "    \${CYAN}╔═══════════════════════════════════════════════════════════╗\${CR}\\n"
-  printf "    \${CYAN}║\${CR}  \${BOLD}\${MAGENTA}🪼  OPENCLAWD  ·  LOBSTER EDITION  ·  solanaclawd.com  🪼\${CR}  \${CYAN}║\${CR}\\n"
-  printf "    \${CYAN}║\${CR}  \${BOLD}\${NEON}8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump\${CR}  \${CYAN}║\${CR}\\n"
-  printf "    \${CYAN}╚═══════════════════════════════════════════════════════════╝\${CR}\\n"
-  
+  printf "\${PURPLE}     ___                   \${GREEN} ___ _                _\${RESET}\\n"
+  printf "\${PURPLE}    /   \\\\ _ __  ___ _ _    \${GREEN}/ __| |__ ___ __ ____| |\${RESET}\\n"
+  printf "\${PURPLE}   | () | '_ \\\\/ -_) ' \\\\   \${GREEN}| (__| / _\\\\ V  V / _\\\\ |\${RESET}\\n"
+  printf "\${PURPLE}    \\\\___/| .__/\\\\___|_||_|  \${GREEN}\\\\___|_\\\\__|\\\\_/\\\\_/\\\\__,_|\${RESET}\\n"
+  printf "\${PURPLE}         |_|                                \${RESET}\${DIM}🦞 Solana-native AI agents\${RESET}\\n"
   printf "\\n"
-  
-  # 🦞 Platform info box
-  printf "    \${GREY}╭──────────────────────────────────────────────────────────╮\${CR}\\n"
-  printf "    \${GREY}│\${CR}  \${LOBSTER}▒▒▒\${CR} \${CYAN}solana\${CR}  \${LOBSTER}▒▒\${CR} \${MAGENTA}agents\${CR}  \${LOBSTER}▒\${CR} \${NEON}x402\${CR}  \${LOBSTER}▒▒▒\${CR}  \${VIOLET}clawdrouter\${CR}  \${LOBSTER}▒\${CR} \${NEON}tailclawd\${CR}  \${GREY}│\${CR}\\n"
-  printf "    \${GREY}╰──────────────────────────────────────────────────────────╯\${CR}\\n\\n"
 }
 
-# ─── 🦞 Lobster spinners ─────────────────────────────────────────────────────
-declare -a CLAW_FRAMES=(
-  "🦞(￣^￣)━╋━╋━🦞" "🦞(￣ω￣)━╋━╋╌🦞" "🦞(￣▽￣)━╋━╋🦞" "🦞(￣ー￣)━╋━╋╌🦞"
-  "🦞(￣︶￣)━╋━╋🦞" "🦞(￣◇￣)━╋━╋╌🦞" "🦞(￣ᴗ￣)━╋━╋🦞" "🦞(￣∀￣)━╋━╋╌🦞"
-)
-declare -a SCUTTLE_FRAMES=(
-  "🦞▁▁▁▁▁▁▁▁▁▁🦞" "▁🦞▁▁▁▁▁▁▁▁▁🦞" "▁▁🦞▁▁▁▁▁▁▁▁🦞"
-  "▁▁▁🦞▁▁▁▁▁▁▁🦞" "▁▁▁▁🦞▁▁▁▁▁▁🦞" "▁▁▁▁▁🦞▁▁▁▁▁🦞"
-  "▁▁▁▁▁▁🦞▁▁▁▁🦞" "▁▁▁▁▁▁▁🦞▁▁▁🦞" "▁▁▁▁▁▁▁▁🦞▁▁🦞"
-  "▁▁▁▁▁▁▁▁▁🦞▁🦞" "▁▁▁▁▁▁▁▁▁▁🦞▁🦞" "▁▁▁▁▁▁▁▁▁▁🦞🦞"
-)
-declare -a MATRIX_FRAMES=(
-  "🦞░▒▓█▓▒░🦞" "🦞▒▓█▓▒░▒🦞" "🦞▓█▓▒░▒▓🦞" 
-  "🦞█▓▒░▒▓█🦞" "🦞▓▒░▒▓█▓🦞" "🦞▒░▒▓█▓▒🦞" 
-  "🦞░▒▓█▓▒░🦞"
-)
-declare -a HEART_FRAMES=(
-  "🦞◦·◦·◦🦞" "🦞●·◦·◦🦞" "🦞●●·◦·🦞" 
-  "🦞●●●·◦🦞" "🦞●●●●·🦞" "🦞●●●●●🦞" 
-  "🦞·●●●●🦞" "🦞··●●●🦞" "🦞···●●🦞" 
-  "🦞····●🦞" "🦞·····🦞"
-)
-declare -a LOBSTER_DANCE=(
-  "  🦞  " " 🦞🦞 " "🦞🦞🦞" " 🦞🦞 " "  🦞  "
-)
-declare -a SEAWAVE=(
-  "~🦞~" "~~🦞" "~🦞~" "🦞~~" 
-  "~🦞~" "~~🦞" "~🦞~" "🦞~~"
-)
-
-_sp_spinner_bg_pid=""
-_sp_spinner_cleanup() { 
-  [ -n "$_sp_spinner_bg_pid" ] && kill "$_sp_spinner_bg_pid" 2>/dev/null || true; 
-  printf "\\r\\033[2K"; 
-}
-trap _sp_spinner_cleanup EXIT INT TERM
-
-run_with_spinner() {
-  local sp_name="$1"; shift
-  local sp_label="$1"; shift
-
-  if [ ! -t 1 ]; then
-    log "🦞 $sp_label"
-    "$@"
-    return $?
-  fi
-
-  local sp_color="$CYAN"
-  local -a sp_frames
-  
-  case "$sp_name" in
-    claw)       sp_color="$LOBSTER1"; sp_frames=("\${CLAW_FRAMES[@]}") ;;
-    scuttle)    sp_color="$LOBSTER2"; sp_frames=("\${SCUTTLE_FRAMES[@]}") ;;
-    matrix)     sp_color="$NEON";    sp_frames=("\${MATRIX_FRAMES[@]}") ;;
-    heartbeat)  sp_color="$MAGENTA"; sp_frames=("\${HEART_FRAMES[@]}") ;;
-    lobster)    sp_color="$LOBSTER3"; sp_frames=("\${LOBSTER_DANCE[@]}") ;;
-    wave)       sp_color="$CORAL";   sp_frames=("\${SEAWAVE[@]}") ;;
-    *)          sp_color="$CYAN";    sp_frames=("\${CLAW_FRAMES[@]}") ;;
+# ──────────────────────────────────────────────────────────────────────────────
+# Flag parsing
+# ──────────────────────────────────────────────────────────────────────────────
+for arg in "$@"; do
+  case "$arg" in
+    --with-web)        WITH_WEB=1 ;;
+    --no-build)        NO_BUILD=1 ;;
+    --no-node)         NO_NODE=1 ;;
+    --reset-config)    RESET_CONFIG=1 ;;
+    --quiet|-q)        QUIET=1 ;;
+    --no-banner)       NO_BANNER=1 ;;
+    --branch=*)        BRANCH="\${arg#--branch=}" ;;
+    --bin-dir=*)       BIN_DIR="\${arg#--bin-dir=}" ;;
+    --xai-key=*)       XAI_KEY_FLAG="\${arg#--xai-key=}" ;;
+    -h|--help)         usage ;;
+    *) warn "Ignoring unknown flag: $arg" ;;
   esac
+done
 
-  (
-    local sp_i=0
-    local sp_total=\${#sp_frames[@]}
-    while :; do
-      local sp_f="\${sp_frames[$((sp_i % sp_total))]}"
-      printf "\\r\\033[2K  \${sp_color}%s\${CR} \${BOLD}%s\${CR}" "$sp_f" "$sp_label"
-      sp_i=$((sp_i+1))
-      sleep 0.09
-    done
-  ) &
-  _sp_spinner_bg_pid=$!
+BIN_DIR="\${BIN_DIR:-$BIN_DIR_DEFAULT}"
 
-  set +e
-  "$@" >/tmp/openclawd-step.log 2>&1
-  local sp_rc=$?
-  set -e
+banner
 
-  kill "$_sp_spinner_bg_pid" 2>/dev/null || true
-  wait "$_sp_spinner_bg_pid" 2>/dev/null || true
-  _sp_spinner_bg_pid=""
-  printf "\\r\\033[2K"
+# ──────────────────────────────────────────────────────────────────────────────
+# Platform + dependency probe
+# ──────────────────────────────────────────────────────────────────────────────
+OS_NAME="$(uname -s 2>/dev/null || echo unknown)"
+ARCH_NAME="$(uname -m 2>/dev/null || echo unknown)"
+case "$OS_NAME" in
+  Darwin|Linux) ;;
+  *) warn "Untested host OS: $OS_NAME (continuing anyway)" ;;
+esac
+info "host: $OS_NAME/$ARCH_NAME • workspace: $WORKSPACE • branch: $BRANCH"
 
-  if [ $sp_rc -eq 0 ]; then
-    printf "  \${NEON}🦞◉\${CR} %s\\n" "$sp_label"
-  else
-    printf "  \${DANGER}🦞✖\${CR} %s \${DIM}(see /tmp/openclawd-step.log)\${CR}\\n" "$sp_label"
+require() { command -v "$1" >/dev/null 2>&1 || fail "$1 is required ($2)"; }
+require git  "https://git-scm.com/"
+require curl "your package manager"
+
+check_go_version() {
+  command -v go >/dev/null 2>&1 || { warn "Go not found — native build will be skipped. Install: https://go.dev/dl/"; NO_BUILD=1; return; }
+  local v major minor
+  v="$(go version 2>/dev/null | awk '{print $3}' | sed 's/^go//')"
+  major="\${v%%.*}"; minor="\${v#*.}"; minor="\${minor%%.*}"
+  if [ -z "$major" ] || [ -z "$minor" ]; then
+    warn "Could not parse Go version — proceeding anyway"
+    return
   fi
-  return $sp_rc
+  if [ "$major" -lt "$GO_MIN_MAJOR" ] || { [ "$major" -eq "$GO_MIN_MAJOR" ] && [ "$minor" -lt "$GO_MIN_MINOR" ]; }; then
+    fail "Go \${GO_MIN_MAJOR}.\${GO_MIN_MINOR}+ required (found $v). Upgrade: https://go.dev/dl/"
+  fi
+  info "go: $v"
 }
 
-# ─── 🦞 OS detection ──────────────────────────────────────────────────────
-OS="$(uname -s)"
-case "$OS" in
-  Darwin) PLATFORM="mac"   ;;
-  Linux)  PLATFORM="linux" ;;
-  *)      PLATFORM="other" ;;
+check_node_version() {
+  command -v node >/dev/null 2>&1 || { warn "Node not found — JS surfaces will be skipped. Install: https://nodejs.org/"; NO_NODE=1; return; }
+  command -v npm  >/dev/null 2>&1 || { warn "npm not found — JS surfaces will be skipped"; NO_NODE=1; return; }
+  local v major
+  v="$(node -v 2>/dev/null | sed 's/^v//')"
+  major="\${v%%.*}"
+  if [ -n "$major" ] && [ "$major" -lt "$NODE_MIN_MAJOR" ]; then
+    warn "Node \${NODE_MIN_MAJOR}+ recommended (found v$v). Upgrading is strongly suggested."
+  fi
+  info "node: v$v • npm: $(npm -v 2>/dev/null || echo '?')"
+}
+
+[ "$NO_BUILD" = "0" ] && check_go_version
+[ "$NO_NODE"  = "0" ] && check_node_version
+
+# Concurrency lock — refuse to run two installers at once against the same workspace.
+mkdir -p "$WORKSPACE" "$BIN_DIR"
+LOCK_FILE="$WORKSPACE/.install.lock"
+if [ -e "$LOCK_FILE" ]; then
+  PID="$(cat "$LOCK_FILE" 2>/dev/null || echo '?')"
+  if [ -n "$PID" ] && kill -0 "$PID" 2>/dev/null; then
+    fail "Another installer is running (pid $PID). Remove $LOCK_FILE if stale."
+  fi
+fi
+echo "$$" > "$LOCK_FILE"
+trap 'rm -f "$LOCK_FILE"' EXIT INT TERM
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Source tree resolution
+#   1. If we're sitting inside a checkout (has go.mod or package.json + .git), use it.
+#   2. Otherwise clone into $WORKSPACE/src.
+# ──────────────────────────────────────────────────────────────────────────────
+SCRIPT_DIR="$(cd "$(dirname "\${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+SRC_DIR=""
+if [ -d "$SCRIPT_DIR/.git" ] && { [ -f "$SCRIPT_DIR/go.mod" ] || [ -f "$SCRIPT_DIR/package.json" ]; }; then
+  SRC_DIR="$SCRIPT_DIR"
+  info "using local checkout at $SRC_DIR"
+else
+  SRC_DIR="$WORKSPACE/src"
+  if [ -d "$SRC_DIR/.git" ]; then
+    step "updating $SRC_DIR ($BRANCH)"
+    git -C "$SRC_DIR" fetch --quiet origin "$BRANCH" || warn "git fetch failed — using local copy"
+    git -C "$SRC_DIR" checkout --quiet "$BRANCH" || warn "git checkout failed"
+    git -C "$SRC_DIR" reset --hard "origin/$BRANCH" || warn "git reset failed"
+  else
+    step "cloning $REPO_URL → $SRC_DIR"
+    git clone --quiet --branch "$BRANCH" --depth 1 "$REPO_URL" "$SRC_DIR" \\
+      || fail "git clone failed (branch=$BRANCH)"
+  fi
+fi
+cd "$SRC_DIR"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Build the Go binary
+# ──────────────────────────────────────────────────────────────────────────────
+GO_PKG=""
+if [ "$NO_BUILD" = "0" ]; then
+  for candidate in "./cli" "./cmd/openclawd" "./cmd/clawd" "./openclawd-framework/cli" "."; do
+    if [ -d "$candidate" ] && ls "$candidate"/*.go >/dev/null 2>&1; then
+      if grep -ql "^package main" "$candidate"/*.go; then
+        GO_PKG="$candidate"
+        break
+      fi
+    fi
+  done
+fi
+
+if [ "$NO_BUILD" = "1" ]; then
+  info "skipping Go build (--no-build)"
+elif [ -z "$GO_PKG" ]; then
+  warn "no Go main package located — skipping binary build"
+else
+  mkdir -p "$BUILD_DIR_NAME"
+  step "building openclawd from $GO_PKG"
+  GOFLAGS="-trimpath" go build -ldflags "-s -w" -o "$BUILD_DIR_NAME/openclawd" "$GO_PKG" \\
+    || fail "go build failed in $GO_PKG"
+
+  install -m 0755 "$BUILD_DIR_NAME/openclawd" "$BIN_DIR/openclawd"
+  ln -sf "$BIN_DIR/openclawd" "$BIN_DIR/openclawdsolana"
+  ln -sf "$BIN_DIR/openclawd" "$BIN_DIR/clawd"
+  ok "installed $BIN_DIR/openclawd (aliases: openclawdsolana, clawd)"
+fi
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Node workspaces — framework, gateway, plugin.delivery, pAGENT
+# ──────────────────────────────────────────────────────────────────────────────
+if [ "$NO_NODE" = "1" ]; then
+  info "skipping Node workspaces (--no-node)"
+elif [ -f "$SRC_DIR/package.json" ] && command -v npm >/dev/null 2>&1; then
+  step "installing Node workspaces"
+  ( cd "$SRC_DIR" && npm install --no-audit --no-fund ) || warn "root npm install had warnings"
+  ( cd "$SRC_DIR" && npm run install:framework      --if-present ) || warn "framework install skipped"
+  ( cd "$SRC_DIR" && npm run install:gateway        --if-present ) || warn "gateway install skipped"
+  ( cd "$SRC_DIR" && npm run install:plugin-delivery --if-present ) || warn "plugin.delivery install skipped"
+  ( cd "$SRC_DIR" && npm run install:pagent         --if-present ) || warn "pAGENT install skipped"
+
+  step "building TypeScript surfaces"
+  ( cd "$SRC_DIR" && npm run build:framework        --if-present ) || warn "framework build failed"
+  ( cd "$SRC_DIR" && npm run build:gateway          --if-present ) || warn "gateway build failed"
+  ( cd "$SRC_DIR" && npm run build:plugin-delivery  --if-present ) || warn "plugin.delivery build failed"
+  ( cd "$SRC_DIR" && npm run build:pagent           --if-present ) || warn "pAGENT build skipped"
+  ok "Node surfaces ready"
+else
+  warn "Node/npm not found or no package.json — skipping JS workspace install"
+fi
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Dark Ralph TUI — install from npm when published, otherwise build the bundled
+# workspace and expose dark-ralph / ralph / ralph-tui from $BIN_DIR.
+# ──────────────────────────────────────────────────────────────────────────────
+if [ "$NO_NODE" = "1" ]; then
+  info "skipping dark-ralph TUI (--no-node)"
+elif command -v npm >/dev/null 2>&1 && npm view @darkralph/tui version >/dev/null 2>&1; then
+  step "installing dark-ralph TUI from npm"
+  npm i -g @darkralph/tui --no-audit --no-fund || warn "dark-ralph npm install failed"
+elif [ -d "$SRC_DIR/dark-ralph" ] && command -v bun >/dev/null 2>&1; then
+  step "building bundled dark-ralph TUI"
+  (
+    cd "$SRC_DIR/dark-ralph"
+    bun install --frozen-lockfile
+    bun run build
+    bun run build:lib
+  ) || warn "dark-ralph TUI build failed"
+  if [ -f "$SRC_DIR/dark-ralph/dist/cli.js" ]; then
+    install -m 0755 "$SRC_DIR/dark-ralph/dist/cli.js" "$BIN_DIR/dark-ralph"
+    ln -sf "$BIN_DIR/dark-ralph" "$BIN_DIR/ralph"
+    ln -sf "$BIN_DIR/dark-ralph" "$BIN_DIR/ralph-tui"
+    ok "installed dark-ralph TUI (aliases: ralph, ralph-tui)"
+  fi
+else
+  warn "dark-ralph TUI skipped — install Bun or publish @darkralph/tui"
+fi
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Optional web console
+# ──────────────────────────────────────────────────────────────────────────────
+if [ "$WITH_WEB" = "1" ]; then
+  WEB_PKG=""
+  for candidate in "./cmd/openclawd-web" "./cmd/clawd-web" "./web/cmd"; do
+    [ -d "$candidate" ] && { WEB_PKG="$candidate"; break; }
+  done
+  if [ -z "$WEB_PKG" ]; then
+    warn "web console source not found — skipping"
+  else
+    step "building openclawd-web from $WEB_PKG"
+    go build -ldflags "-s -w" -o "$BUILD_DIR_NAME/openclawd-web" "$WEB_PKG" \\
+      || fail "go build failed for web console"
+    install -m 0755 "$BUILD_DIR_NAME/openclawd-web" "$BIN_DIR/openclawd-web"
+    ok "installed $BIN_DIR/openclawd-web"
+  fi
+fi
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Canonical config — every CLI surface (cli/clawd-cli.sh, cli/clawd-connect.sh,
+# the Go runtime, services/*) reads this file. One OPENCLAWD_API_BASE override
+# (or pointing at a local registrar) flips the entire stack.
+# ──────────────────────────────────────────────────────────────────────────────
+CFG_PATH="$WORKSPACE/config.json"
+write_config() {
+  cat > "$CFG_PATH" <<'CFGEOF'
+{
+  "version": "0.2.0",
+  "apiBase":         "https://solanaclawd.com/api",
+  "gatewayBase":     "https://solanaclawd.com/x402",
+  "marketplaceBase": "https://solanaclawd.com/marketplace",
+  "mcpBase":         "https://solanaclawd.com/mcp",
+  "registrarBase":   "https://solanaclawd.com/registrar",
+  "solanaRpc":       "https://api.mainnet-beta.solana.com",
+  "sasProgramId":    "22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG",
+  "scope":           "@openclawdsolana",
+  "skillsCatalog":   "https://solanaclawd.com/api/skills",
+  "extensionsDir":   "extensions",
+  "skillsDir":       "skills",
+  "voice": {
+    "provider":      "xai",
+    "realtimeUrl":   "wss://api.x.ai/v1/realtime",
+    "ephemeralUrl":  "https://api.x.ai/v1/realtime/client_secrets",
+    "ttsUrl":        "https://api.x.ai/v1/tts",
+    "model":         "grok-voice-think-fast-1.0",
+    "defaultVoice":  "eve",
+    "voices":        ["eve", "ara", "rex", "sal", "leo"],
+    "audioRate":     24000,
+    "ephemeralTtlSeconds": 300,
+    "envKey":        "XAI_API_KEY"
+  },
+  "pagent": {
+    "tradingEnabled":   true,
+    "launchEnabled":    true,
+    "trackingEnabled":  true,
+    "guiPort":          7423,
+    "voiceEnabled":     true
+  }
+}
+CFGEOF
+}
+
+if [ ! -f "$CFG_PATH" ]; then
+  write_config
+  ok "wrote $CFG_PATH"
+elif [ "$RESET_CONFIG" = "1" ]; then
+  cp "$CFG_PATH" "$CFG_PATH.bak.$(date +%s)"
+  write_config
+  ok "reset $CFG_PATH (backup saved alongside)"
+else
+  info "keeping existing $CFG_PATH (re-run with --reset-config to overwrite)"
+fi
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Workspace .env — secret scaffolding (XAI_API_KEY for Grok voice + others).
+# Created once; never overwritten. Permissions 0600.
+# ──────────────────────────────────────────────────────────────────────────────
+ENV_PATH="$WORKSPACE/.env"
+if [ ! -f "$ENV_PATH" ]; then
+  cat > "$ENV_PATH" <<ENVEOF
+# OpenClawd workspace secrets — sourced by the daemon, gateway, and pAGENT.
+# Never commit this file. Permissions are 0600.
+
+# ── Grok / xAI voice + reasoning ──────────────────────────────────────────────
+XAI_API_KEY=
+OPENCLAWD_VOICE_MODEL=grok-voice-think-fast-1.0
+OPENCLAWD_VOICE_DEFAULT=eve
+OPENCLAWD_VOICE_REALTIME_URL=wss://api.x.ai/v1/realtime
+OPENCLAWD_VOICE_EPHEMERAL_URL=https://api.x.ai/v1/realtime/client_secrets
+OPENCLAWD_VOICE_EPHEMERAL_TTL=300
+
+# ── Solana market data + indexing ─────────────────────────────────────────────
+HELIUS_API_KEY=
+BIRDEYE_API_KEY=
+SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
+
+# ── Telegram gateway (optional) ───────────────────────────────────────────────
+TELEGRAM_BOT_TOKEN=
+ENVEOF
+  chmod 0600 "$ENV_PATH"
+  ok "wrote $ENV_PATH (chmod 0600)"
+else
+  info "keeping existing $ENV_PATH"
+fi
+
+# Seed XAI_API_KEY from --xai-key flag or interactive prompt (TTY only).
+seed_xai_key() {
+  local key="$1"
+  [ -z "$key" ] && return 0
+  if grep -q '^XAI_API_KEY=$' "$ENV_PATH" 2>/dev/null; then
+    # Use a tmpfile to avoid sed -i portability issues between BSD and GNU.
+    local tmp
+    tmp="$(mktemp "\${TMPDIR:-/tmp}/openclawd.env.XXXXXX")"
+    awk -v k="$key" 'BEGIN{FS=OFS="="} /^XAI_API_KEY=$/ {print "XAI_API_KEY=" k; next} {print}' \\
+      "$ENV_PATH" > "$tmp" && mv "$tmp" "$ENV_PATH"
+    chmod 0600 "$ENV_PATH"
+    ok "seeded XAI_API_KEY"
+  else
+    info "XAI_API_KEY already set — leaving alone"
+  fi
+}
+
+if [ -n "$XAI_KEY_FLAG" ]; then
+  seed_xai_key "$XAI_KEY_FLAG"
+elif [ -t 0 ] && [ -t 1 ] && [ "$QUIET" = "0" ] && grep -q '^XAI_API_KEY=$' "$ENV_PATH" 2>/dev/null; then
+  printf "\${CYAN}  ? Paste your XAI_API_KEY for Grok voice (Enter to skip): \${RESET}"
+  IFS= read -r XAI_INPUT || XAI_INPUT=""
+  [ -n "\${XAI_INPUT:-}" ] && seed_xai_key "$XAI_INPUT"
+fi
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Post-install verification
+# ──────────────────────────────────────────────────────────────────────────────
+if [ -x "$BIN_DIR/openclawd" ]; then
+  VERSION_OUT="$("$BIN_DIR/openclawd" version 2>/dev/null | head -1 || true)"
+  [ -n "$VERSION_OUT" ] && info "binary self-check: $VERSION_OUT"
+fi
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Final banner — copyable PATH export, quickstart, share line.
+# ──────────────────────────────────────────────────────────────────────────────
+SHELL_NAME="$(basename "\${SHELL:-bash}")"
+case "$SHELL_NAME" in
+  zsh)  RC_FILE="~/.zshrc" ;;
+  bash) RC_FILE="~/.bashrc" ;;
+  fish) RC_FILE="~/.config/fish/config.fish" ;;
+  *)    RC_FILE="your shell rc" ;;
 esac
 
-# ─── 🦞 Preflight ───────────────────────────────────────────────────────────
-banner
-hr
-log "🦞 target dir     \${CYAN}\${TARGET_DIR}\${CR}"
-log "🦞 tailclawd dir  \${CYAN}\${TAILCLAWD_DIR}\${CR}"
-log "🦞 base url       \${CYAN}\${SOLANA_CLAWD_BASE_URL}\${CR}"
-log "🦞 platform       \${CYAN}\${PLATFORM} · $(uname -m)\${CR}"
-hr
-
-run_with_spinner heartbeat "🦞 preflight: curl / node / npm / git" bash -c '
-  command -v curl >/dev/null && command -v node >/dev/null && command -v npm >/dev/null && command -v git >/dev/null
-' || die "🦞 one of curl/node/npm/git is missing — install it and retry"
-
-NODE_MAJOR="$(node -p 'process.versions.node.split(".")[0]')"
-[ "$NODE_MAJOR" -ge 18 ] || die "🦞 node >= 18 required (have $(node -v))"
-ok "🦞 node $(node -v) \${DIM}(>= 18)\${CR}"
-
-# ─── 🦞 Tailscale ───────────────────────────────────────────────────────────
-hr
-if [ "$SKIP_TAILSCALE" = "1" ]; then
-  warn "🦞 SKIP_TAILSCALE=1 — skipping Tailscale install/login"
-else
-  if command -v tailscale >/dev/null 2>&1; then
-    ok "🦞 tailscale already installed \${DIM}($(tailscale version 2>/dev/null | head -1))\${CR}"
-  else
-    case "$PLATFORM" in
-      mac)
-        if command -v brew >/dev/null 2>&1; then
-          run_with_spinner claw "🦞 installing Tailscale via Homebrew cask" \\
-            brew install --cask tailscale \\
-            || warn "🦞 brew install failed — grab the app from https://tailscale.com/download/mac"
-        else
-          warn "🦞 Homebrew not found — install Tailscale from https://tailscale.com/download/mac"
-        fi
-        if ! command -v tailscale >/dev/null 2>&1 && [ -x "/Applications/Tailscale.app/Contents/MacOS/Tailscale" ]; then
-          warn "🦞 launch the Tailscale app once so the CLI is linked, then re-run this installer"
-        fi
-        ;;
-      linux)
-        run_with_spinner matrix "🦞 installing Tailscale (official script)" \\
-          bash -c 'curl -fsSL https://tailscale.com/install.sh | sh' \\
-          || warn "🦞 Tailscale install failed — see https://tailscale.com/download/linux"
-        ;;
-      *)
-        warn "🦞 unknown platform — install Tailscale manually: https://tailscale.com/download"
-        ;;
-    esac
-  fi
-
-  if command -v tailscale >/dev/null 2>&1; then
-    if tailscale status >/dev/null 2>&1; then
-      ok "🦞 tailscale already logged in: \${CYAN}$(tailscale status --json 2>/dev/null | grep -o '"DNSName":"[^"]*"' | head -1 | cut -d'"' -f4)\${CR}"
-    else
-      warn "🦞 not logged in — run: \${VIOLET}sudo tailscale up\${CR} \${DIM}(or just 'tailscale up' on macOS)\${CR}"
-    fi
-  fi
-fi
-
-# ─── 🦞 solana-clawd cli ────────────────────────────────────────────────────
-hr
-if ! run_with_spinner claw "🦞 installing solana-clawd cli from npm" npm i -g solana-clawd; then
-  warn "🦞 global npm install failed — retrying with sudo"
-  run_with_spinner claw "🦞 installing solana-clawd cli \${DIM}(sudo)\${CR}" sudo npm i -g solana-clawd \\
-    || die "🦞 npm install failed — check /tmp/openclawd-step.log"
-fi
-ok "🦞 solana-clawd \${CYAN}$(solana-clawd --version 2>/dev/null || echo installed)\${CR}"
-
-# ─── 🦞 Scaffold target dir ─────────────────────────────────────────────────
-hr
-run_with_spinner scuttle "🦞 scaffolding \${CYAN}\${TARGET_DIR}\${CR}" mkdir -p "$TARGET_DIR"
-
-# ─── 🦞 Monorepo checkout ───────────────────────────────────────────────────
-REPO_ROOT="$TARGET_DIR/repo"
-if [ -d "$REPO_ROOT/.git" ]; then
-  CURRENT_REMOTE="$(git -C "$REPO_ROOT" remote get-url origin 2>/dev/null || true)"
-  if [ "$CURRENT_REMOTE" != "$OPENCLAWD_REPO" ]; then
-    warn "🦞 updating repo remote: \${DIM}\${CURRENT_REMOTE:-none}\${CR} → \${CYAN}$OPENCLAWD_REPO\${CR}"
-    git -C "$REPO_ROOT" remote set-url origin "$OPENCLAWD_REPO" 2>/dev/null || true
-  fi
-  run_with_spinner matrix "🦞 updating openclawd monorepo \${DIM}(shallow)\${CR}" \\
-    bash -c "cd '$REPO_ROOT' && git fetch --depth 1 origin main && git checkout -B main FETCH_HEAD" \\
-    || warn "🦞 repo update failed — using existing checkout at $REPO_ROOT"
-else
-  run_with_spinner matrix "🦞 cloning openclawd monorepo \${DIM}(shallow)\${CR}" \\
-    git clone --depth 1 "$OPENCLAWD_REPO" "$REPO_ROOT" \\
-    || die "🦞 git clone failed — set OPENCLAWD_REPO or check network"
-fi
-
-# ─── 🦞 tailclawd ──────────────────────────────────────────────────────────
-if [ "$SKIP_TAILCLAWD" = "1" ]; then
-  warn "🦞 SKIP_TAILCLAWD=1 — skipping tailclawd bootstrap"
-else
-  hr
-  if [ -d "$TAILCLAWD_DIR/.git" ] || [ -f "$TAILCLAWD_DIR/package.json" ]; then
-    ok "🦞 tailclawd already present at \${CYAN}\${TAILCLAWD_DIR}\${CR}"
-  else
-    run_with_spinner scuttle "🦞 linking tailclawd → \${CYAN}\${TAILCLAWD_DIR}\${CR}" \\
-      bash -c "mkdir -p \\"\\$(dirname '$TAILCLAWD_DIR')\\" && ln -sfn '$REPO_ROOT/tailclawd' '$TAILCLAWD_DIR'"
-  fi
-
-  if [ -f "$TAILCLAWD_DIR/package.json" ]; then
-    run_with_spinner claw "🦞 npm install tailclawd deps" \\
-      bash -c "cd '$TAILCLAWD_DIR' && npm install --no-audit --no-fund" \\
-      || warn "🦞 tailclawd npm install failed — see /tmp/openclawd-step.log"
-    ok "🦞 tailclawd ready — start it with: \${VIOLET}cd $TAILCLAWD_DIR && npm run dev\${CR}"
-  else
-    warn "🦞 tailclawd package.json not found at $TAILCLAWD_DIR — skipping npm install"
-  fi
-
-  if [ "$AUTO_SERVE" = "1" ] && command -v tailscale >/dev/null 2>&1; then
-    run_with_spinner heartbeat "🦞 tailscale serve :3110 → https (bg)" \\
-      bash -c 'tailscale serve --bg --https=443 http://127.0.0.1:3110 || tailscale serve --bg 3110' \\
-      || warn "🦞 tailscale serve failed — run it manually once logged in"
-  fi
-fi
-
-# ─── 🦞 clawd-wallet + agents-x402-solana packages ─────────────────────────
-hr
-REPO_DIR="$TARGET_DIR/repo"
-if [ -d "$REPO_DIR/packages/clawd-wallet" ]; then
-  if [ ! -d "$REPO_DIR/packages/clawd-wallet/dist" ]; then
-    run_with_spinner claw "🦞 building @openclawdsolana/clawd-wallet package" \\
-      bash -c "cd '$REPO_DIR/packages/clawd-wallet' && npm install --no-audit --no-fund && npm run build" \\
-      || warn "🦞 clawd-wallet build failed — install manually: cd packages/clawd-wallet && npm run build"
-    ok "🦞 @openclawdsolana/clawd-wallet — Solana wallet + Jupiter swap SDK"
-  else
-    ok "🦞 @openclawdsolana/clawd-wallet already built"
-  fi
-else
-  warn "🦞 packages/clawd-wallet not found in repo — skipping"
-fi
-
-if [ -d "$REPO_DIR/packages/agents-x402-solana" ]; then
-  ok "🦞 @openclawdsolana/agents-x402 — x402 agent payments (TypeScript source, no build needed)"
-else
-  warn "🦞 packages/agents-x402-solana not found in repo — skipping"
-fi
-
-# ─── 🦞 ~/.openclawd/.env ───────────────────────────────────────────────────
-hr
-ENV_FILE="$TARGET_DIR/.env"
-if [ -f "$ENV_FILE" ]; then
-  warn "🦞 $ENV_FILE already exists — leaving untouched"
-else
-  OLD_UMASK="$(umask)"
-  umask 077
-  run_with_spinner matrix "🦞 writing \${CYAN}\${ENV_FILE}\${CR}" bash -c "cat > '$ENV_FILE' <<'ENVEOF'
-# 🦞 openclawd — generated by ./install.sh
-# Fill in your provider keys before running agents.
-
-# ── Solana / base URLs ──────────────────────────────
-SOLANA_CLAWD_BASE_URL=$SOLANA_CLAWD_BASE_URL
-CLAWD_MINT=8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump
-SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
-HELIUS_API_KEY=
-HELIUS_RPC_URL=
-
-# ── Model router (clawdrouter) ──────────────────────
-OPENROUTER_API_KEY=
-CLAWDROUTER_DEFAULT_REASONING=xai/grok-4.20-beta
-CLAWDROUTER_DEFAULT_LONGCTX=moonshot/kimi-k2.6
-
-# ── Direct providers (optional) ─────────────────────
-XAI_API_KEY=
-ANTHROPIC_API_KEY=
-OPENAI_API_KEY=
-MOONSHOT_API_KEY=
-
-# ── Runtime / infra (optional) ──────────────────────
-E2B_API_KEY=
-PRIVY_APP_ID=
-PRIVY_APP_SECRET=
-TELEGRAM_BOT_TOKEN=
-
-# ── Tailnet / tailclawd ─────────────────────────────
-TAILSCALE_AUTH_KEY=
-TAILCLAWD_DIR=$TAILCLAWD_DIR
-TAILCLAWD_PORT=3110
-TAILCLAWD_TOKEN=$TAILCLAWD_TOKEN
-
-# ── Cloudflare (optional) ───────────────────────────
-CLOUDFLARE_API_KEY=
-CLOUDFLARE_ZONE_ID=
-CLOUDFLARE_ACCOUNT_ID=
-ENVEOF"
-  umask "$OLD_UMASK"
-  chmod 600 "$ENV_FILE" 2>/dev/null || true
-  ok "🦞 created $ENV_FILE — fill in your provider keys"
-fi
-
-# ─── 🦞 Profiles ──────────────────────────────────────────────────────────
-hr
-PROFILE_CLI="$REPO_DIR/profiles/clawd-profile"
-if [ -f "$PROFILE_CLI" ] && [ -x "$PROFILE_CLI" ]; then
-  run_with_spinner claw "🦞 installing clawd-profile CLI" bash -c "
-    install -d \\"\\$HOME/.openclawd/bin\\" 2>/dev/null || true
-    install -m 0755 \\"$PROFILE_CLI\\" \\"\\$HOME/.openclawd/bin/clawd-profile\\"
-    if [[ :\\$PATH: != *:\\"\\$HOME/.local/bin\\":* ]]; then
-      mkdir -p \\"\\$HOME/.local/bin\\"
-      if [ -f \\"\\$HOME/.zshrc\\" ] && ! grep -q 'export PATH=.*\\.local/bin' \\"\\$HOME/.zshrc\\" 2>/dev/null; then
-        echo 'export PATH=\\"\\$HOME/.local/bin:\\$PATH\\"  # openclawd' >> \\"\\$HOME/.zshrc\\"
-      fi
-      if [ -f \\"\\$HOME/.bashrc\\" ] && ! grep -q 'export PATH=.*\\.local/bin' \\"\\$HOME/.bashrc\\" 2>/dev/null; then
-        echo 'export PATH=\\"\\$HOME/.local/bin:\\$PATH\\"  # openclawd' >> \\"\\$HOME/.bashrc\\"
-      fi
-    fi
-    mkdir -p \\"\\$HOME/.openclawd/profiles\\"
-    mkdir -p \\"\\$HOME/.local/bin\\"
-  "
-  ok "🦞 clawd-profile installed to ~/.openclawd/bin/"
-  log "🦞 try: clawd profile create default  (or: ~/.openclawd/bin/clawd-profile create default)"
-else
-  warn "🦞 clawd-profile not found at $PROFILE_CLI — profiles skipped"
-fi
-
-# ─── 🦞 All done ───────────────────────────────────────────────────────────
-hr
-
-# ── 🦞 Lobster wave success animation ──────────────────────────────────────
-if [ -t 1 ]; then
-  printf "\\n"
-  for i in 1 2 3 4; do
-    printf "  \${NEON}░▒▓█\${CR}  \${MAGENTA}▓▒░\${CR}  \${CYAN}█▓▒░\${CR}  \${VIOLET}▒░▓█\${CR}  \${LOBSTER1}🦞\${CR}\\n"
-    sleep 0.08
-  done
-fi
-
-printf "\\n"
-printf "  \${MAGENTA}▒▓█\${CR} \${BOLD}\${LOBSTER1}openclawd online\${CR} \${MAGENTA}█▓▒\${CR}\\n\\n"
-
-TS_HOST=""
-if command -v tailscale >/dev/null 2>&1; then
-  TS_HOST="$(tailscale status --json 2>/dev/null | grep -o '"DNSName":"[^"]*"' | head -1 | cut -d'"' -f4 | sed 's/\\.$//')"
-fi
-
 cat <<EOF
-  \${BOLD}\${CYAN}🦞 openclawd stack\${CR}
-    \${GREY}├─\${CR} \${MAGENTA}solana-clawd\${CR}       cli             \${DIM}(npm global)\${CR}
-    \${GREY}├─\${CR} \${MAGENTA}clawdrouter\${CR}        model router    \${DIM}(\\$OPENROUTER_API_KEY)\${CR}
-    \${GREY}├─\${CR} \${MAGENTA}tailclawd\${CR}          tailnet app     \${DIM}($TAILCLAWD_DIR)\${CR}
-    \${GREY}├─\${CR} \${MAGENTA}@openclawdsolana/clawd-wallet\${CR} wallet SDK      \${DIM}(Solana + Jupiter)\${CR}
-    \${GREY}├─\${CR} \${MAGENTA}@openclawdsolana/agents-x402\${CR}  agent payments  \${DIM}(USDC x402 protocol)\${CR}
-    \${GREY}└─\${CR} \${MAGENTA}\\$CLAWD\${CR}             8cHz…pump      \${DIM}(solana mainnet)\${CR}
 
-  \${BOLD}🦞 Next steps\${CR}
-    \${CYAN}1.\${CR} Edit env:       \${VIOLET}\\$EDITOR $ENV_FILE\${CR}
-    \${CYAN}2.\${CR} Tailnet login:  \${VIOLET}sudo tailscale up\${CR}  \${DIM}(skip if already up)\${CR}
-    \${CYAN}3.\${CR} Launch node:    \${VIOLET}cd $TAILCLAWD_DIR && npm run dev\${CR}
-    \${CYAN}4.\${CR} Expose it:      \${VIOLET}tailscale serve --bg --https=443 http://127.0.0.1:3110\${CR}
-    \${CYAN}5.\${CR} Pair device:    \${VIOLET}solana-clawd pair <CODE>\${CR}
-    \${CYAN}6.\${CR} Sign in (OAuth):\${VIOLET}open pairing URL → "Sign in with OpenRouter"\${CR} \${DIM}(populates \\$OPENROUTER_API_KEY)\${CR}
-    \${CYAN}7.\${CR} Mint agent:     \${VIOLET}solana-clawd mint\${CR}
-    \${CYAN}8.\${CR} Status:         \${VIOLET}solana-clawd status\${CR}
-    \${CYAN}9.\${CR} Try examples:   \${VIOLET}cd \\$REPO_DIR && npx tsx examples/lobster-trader.ts\${CR}
-    \${CYAN}10.\${CR} Wallet demo:   \${VIOLET}cd \\$REPO_DIR && npx tsx examples/clawd-wallet-demo.ts\${CR}
+\${GREEN}\${BOLD}🦞 OpenClawd installed\${RESET}
+
+  \${BOLD}Workspace\${RESET} : $WORKSPACE
+  \${BOLD}Binaries\${RESET}  : $BIN_DIR
+  \${BOLD}Config\${RESET}    : $CFG_PATH
+  \${BOLD}Secrets\${RESET}   : $ENV_PATH  \${DIM}(0600)\${RESET}
+
+  \${PURPLE}1.\${RESET} Add to PATH (append to $RC_FILE):
+       export PATH="$BIN_DIR:\\$PATH"
+
+  \${PURPLE}2.\${RESET} Set your Grok key for voice + reasoning:
+       echo "XAI_API_KEY=sk-..." >> $ENV_PATH
+
+  \${PURPLE}3.\${RESET} Smoke tests:
+       openclawd version
+       openclawd solana health
+       openclawd voice test           \${DIM}# wss://api.x.ai/v1/realtime\${RESET}
+
+  \${PURPLE}4.\${RESET} Launch the autonomous pAGENT (trade • launch • track):
+       openclawd daemon
+       openclawd pagent gui           \${DIM}# http://localhost:7423\${RESET}
+
+  \${PURPLE}5.\${RESET} Pair a Seeker / Telegram channel:
+       openclawd gateway start
+       openclawd gateway setup-code
+
+  \${PURPLE}6.\${RESET} Launch the Dark Ralph TUI:
+       dark-ralph run
+
+\${DIM}  Star us: https://solanaclawd.com\${RESET}
+\${DIM}  Share:   curl -fsSL https://install.solanaclawd.com | bash\${RESET}
 
 EOF
-
-if [ -n "$TS_HOST" ]; then
-  printf "  \${DIM}🦞 Your tailnet host:\${CR} \${NEON}https://\${TS_HOST}\${CR}\\n\\n"
-fi
-
-cat <<EOF
-  \${DIM}🦞 Docs:\${CR}     \${CYAN}$SOLANA_CLAWD_BASE_URL\${CR}
-  \${DIM}🦞 Monorepo:\${CR} \${CYAN}$OPENCLAWD_REPO\${CR}
-  \${DIM}🦞 Tailscale:\${CR} \${CYAN}https://tailscale.com/kb/1242/tailscale-serve\${CR}
-
-EOF
-printf "  \${LOBSTER1}🦞\${CR} \${BOLD}welcome to the claw\${CR} \${LOBSTER1}🦞\${CR}\\n\\n"
-
-# 🦞 Final lobster dance
-if [ -t 1 ]; then
-  printf "  "
-  for frame in "\${LOBSTER_DANCE[@]}"; do
-    printf "\\r\\033[2K  \${MAGENTA}%s\${CR}" "$frame"
-    sleep 0.15
-  done
-  printf "\\r\\033[2K"
-fi
-
-printf "\\n  \${LOBSTER1}🦞🪼🦞 🦞🦞🦞 🪼🦞🪼  \${BOLD}\${NEON}BOOTSTRAP COMPLETE\${CR}  \${LOBSTER1}🦞🪼🦞 🦞🦞🦞 🪼🦞🪼\${CR}\\n\\n"
-
-# 🦞 clawd-code-cli
-
-cat <<'LOBSTER_README'
-
-═══════════════════════════════════════════════════════════════════════════════
-  🦞 clawd-code-cli
-  
-  OpenClawd's terminal cockpit — a sovereign-lobster Solana TUI with realtime 
-  voice, streaming chat, on-chain leviathan integration, and Blockchain Buddies.
-═══════════════════════════════════════════════════════════════════════════════
-
-\`\`\`bash
-npm i -g clawd-code-cli
-clawd
-\`\`\`
-
-\`\`\`
-╔═══════════════════════════════════════════════════════════════════╗
-║   ╔═╗╦  ╔═╗╦ ╦╔╦╗     $CLAWD on Solana 🦞                       ║
-║   ║  ║  ╠═╣║║║ ║║      hotline 909-413-5567                     ║
-║   ╚═╝╩═╝╩ ╩╚╩╝═╩╝     npm i clawd-code-cli                     ║
-╚═══════════════════════════════════════════════════════════════════╝
-\`\`\`
-
-## 🦞 What's new in 1.1
-
-- 🎤 **Realtime voice** with Grok via \`wss://api.x.ai/v1/realtime\`
-- 📜 **Streaming \`/clawd\` chat** — tokens render as they arrive
-- 🎙️ **\`/listen [seconds]\`** — record mic via \`sox\` → xAI STT → TTS speak it back
-- 🔊 **\`/speak <text>\`** — direct xAI TTS
-- 🦞 **Leviathan integration** — on-chain identity, age, SHELL.md size
-- 📚 **Examples runner** — 9 runnable framework demos
-- 🐦 **ClawdBot bridge** — \`/bot status\`, \`/bot test\`, \`/bot tweet\`
-- 🛡️ **Three-Laws gate** — trading commands show constitution
-- 🌊 **ASCII ocean view** — \`/ocean\` toggles live colony
-- 🌊 **R3F demo bridge** — \`/ocean3d\` opens 3D demo in browser
-- 📰 **\`/article\`** — opens docs/articles/SOVEREIGN_LOBSTER_AGENTS.md
-- 🧠 **\`/skills\`** — lists 61 skills
-- ✅ **\`/env\`** — boot-time validation report
-
-## 🦞 Required env
-
-\`\`\`bash
-XAI_API_KEY=...                  # required
-HELIUS_RPC_URL=...               # /balance, /wallet
-BIRDEYE_API_KEY=...              # /trending /search
-OPENROUTER_API_KEY=...           # cross-model routing
-GROK_MODEL=grok-4-1-fast         # default chat model
-PUBLIC_KEY=...                   # /balance shortcut
-\`\`\`
-
-## 🦞 Hotline
-
-📞 909-413-5567 · solanaclawd.com · \`8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump\`
-
-🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞 🦞
-LOBSTER_README
 `;
