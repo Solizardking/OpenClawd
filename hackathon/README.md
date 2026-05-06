@@ -30,6 +30,7 @@ Submission package for **OpenClawd Robotics Command Layer**: a Solana-native AI 
 | One-page static site | [`one-page-site/index.html`](./one-page-site/index.html) | Standalone project page that can be opened directly in a browser |
 | Pitch deck | [`presentation/pitch-deck.html`](./presentation/pitch-deck.html) | Printable HTML slide deck |
 | Speaker notes | [`presentation/speaker-notes.md`](./presentation/speaker-notes.md) | 5-minute talk track |
+| Reveal script | [`presentation/reveal-script.md`](./presentation/reveal-script.md) | Beat-by-beat walkthrough script (~12–15 min) — hackathon → package-by-package → onboarding, with screen cues and rehearsed commands |
 | Architecture docs | [`docs/architecture.md`](./docs/architecture.md) | How the monorepo pieces combine into the robotics submission |
 | DePIN physical-AI data network | [`docs/depin-physical-ai.md`](./docs/depin-physical-ai.md) | Adapted Robot AI thesis, contribution classes, validation checks, and reward receipt model |
 | Autonomous research loop | [`docs/autonomous-research-loop.md`](./docs/autonomous-research-loop.md) | Self-evolving paper-trading loop, Honcho persistence model, and Toly/Karpathy inspiration |
