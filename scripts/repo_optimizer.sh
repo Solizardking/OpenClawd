@@ -30,9 +30,8 @@ KEEP_WORKDIR=false
 DEBUG=false
 
 usage() {
-  cat <<EOF
-${BLUE}OpenClawd Repository Optimizer${NC}
-
+  printf '%b\n\n' "${BLUE}OpenClawd Repository Optimizer${NC}"
+  cat <<'EOF'
 Creates one commit per author per day, then optionally creates a truly slim
 history that keeps commit metadata while removing original file contents.
 
@@ -390,6 +389,7 @@ slim_repository() {
   write_commit_rows "$SQUASHED_BRANCH" "$squashed_rows"
 
   TARGET_GIT_DIR="$slim_git_dir" create_rewritten_chain "$squashed_rows" "main" "fixed" "$minimal_tree"
+  GIT_DIR="$slim_git_dir" git symbolic-ref HEAD refs/heads/main
 
   local slim_head
   slim_head=$(GIT_DIR="$slim_git_dir" git rev-parse refs/heads/main)
@@ -422,6 +422,7 @@ slim_repository() {
   if [ -n "$resolved_output" ]; then
     rm -rf "$resolved_output"
     cp -R "$slim_repo" "$resolved_output"
+    OUTPUT_DIR="$resolved_output"
     print_success "Standalone slim repository written to $resolved_output"
   fi
 
