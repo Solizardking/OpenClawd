@@ -27,7 +27,7 @@ const publicDownloadsDir = path.join(hubRoot, 'public', 'downloads', 'skills')
 const outputFile = path.join(generatedDir, 'openclawdCatalog.ts')
 const repoHttpBase = 'https://github.com/x402agent/openclawd'
 const repoBranch = 'main'
-const publicSiteUrl = (process.env.SITE_URL ?? 'https://hub.openclawd.biz').replace(/\/$/, '')
+const publicSiteUrl = (process.env.SITE_URL ?? 'https://hub.solanaclawd.com').replace(/\/$/, '')
 const publicSolanaOsHubUrl = `${publicSiteUrl}/hub`
 const publicTroubleshootingUrl = `${publicSiteUrl}/setup/troubleshooting`
 
