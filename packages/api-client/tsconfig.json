@@ -14,9 +14,7 @@
     "moduleResolution": "bundler",
     "ignoreDeprecations": "6.0",
     "paths": {
-      "@/*": ["./src/*"],
-      "@openclawdsolana/core": ["../src"],
-      "@openclawdsolana/core/*": ["../src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src/index.ts"],

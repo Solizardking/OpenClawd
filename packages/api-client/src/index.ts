@@ -1,4 +1,21 @@
-import type { Agent, Content, UUID } from '@openclawdsolana/core';
+export type UUID = string;
+
+export interface Content {
+  text?: string;
+  content?: string;
+  [key: string]: unknown;
+}
+
+export interface Agent {
+  id?: UUID;
+  name?: string;
+  username?: string;
+  enabled?: boolean;
+  status?: string;
+  createdAt?: string | number | Date;
+  updatedAt?: string | number | Date;
+  [key: string]: unknown;
+}
 
 export interface ApiClientConfig {
   baseUrl: string;
@@ -97,6 +114,7 @@ export interface RunDetail extends RunSummary {
 }
 
 type RequestBody = BodyInit | Record<string, unknown> | unknown[] | null | undefined;
+type ApiRequestInit = Omit<RequestInit, 'body'> & { body?: RequestBody };
 
 export class ApiClientBase {
   protected readonly config: ApiClientConfig;
@@ -108,7 +126,7 @@ export class ApiClientBase {
     };
   }
 
-  protected async request<T>(path: string, init: RequestInit & { body?: RequestBody } = {}): Promise<T> {
+  protected async request<T>(path: string, init: ApiRequestInit = {}): Promise<T> {
     const controller = new AbortController();
     const timeout = this.config.timeout ?? 30000;
     const timeoutId = setTimeout(() => controller.abort(), timeout);
@@ -169,8 +187,8 @@ export class AgentsService extends ApiClientBase {
     return this.request(`/api/agents/${agentId}`);
   }
 
-  createAgent(payload: AgentStartPayload | Record<string, unknown>): Promise<Agent> {
-    return this.request('/api/agents', { method: 'POST', body: payload });
+  createAgent<T extends object>(payload: T): Promise<Agent> {
+    return this.request('/api/agents', { method: 'POST', body: payload as Record<string, unknown> });
   }
 
   updateAgent(agentId: UUID, payload: Record<string, unknown>): Promise<Agent> {
@@ -247,5 +265,3 @@ export class OpenClawdClient extends ApiClientBase {
     this.messages = new MessagesService(config);
   }
 }
-
-export type { Agent, Content, UUID };

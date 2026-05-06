@@ -8,6 +8,20 @@ import { $ } from 'bun';
 import { existsSync } from 'node:fs';
 import fs from 'node:fs/promises';
 
+const packageJson = JSON.parse(await fs.readFile('./package.json', 'utf8')) as {
+  dependencies?: Record<string, string>;
+  devDependencies?: Record<string, string>;
+  peerDependencies?: Record<string, string>;
+  optionalDependencies?: Record<string, string>;
+};
+
+const packageExternals = [
+  ...Object.keys(packageJson.dependencies ?? {}),
+  ...Object.keys(packageJson.devDependencies ?? {}),
+  ...Object.keys(packageJson.peerDependencies ?? {}),
+  ...Object.keys(packageJson.optionalDependencies ?? {}),
+];
+
 // Custom pre-build step to copy templates and generate version
 async function preBuild() {
   console.log('\nPre-build tasks...');
@@ -49,11 +63,11 @@ const run = createBuildRunner({
     outdir: 'dist',
     target: 'bun',
     format: 'esm',
-    external: ['fs-extra', '@openclawdsolana/server', 'chokidar', 'simple-git', 'tiktoken'],
+    external: [...packageExternals, 'fs-extra', '@openclawdsolana/server', 'chokidar', 'simple-git', 'tiktoken'],
     sourcemap: true,
     minify: false,
     isCli: true,
-    generateDts: true,
+    generateDts: false,
     // Assets will be copied after build via onBuildComplete
   },
   onBuildComplete: async (success) => {
