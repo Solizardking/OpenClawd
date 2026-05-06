@@ -36,6 +36,11 @@ export function loadConfig(): AutomatonConfig | null {
       ...DEFAULT_CONFIG,
       ...raw,
       conwayApiKey: apiKey,
+      parallelApiKey: raw.parallelApiKey || process.env.PARALLEL_API_KEY,
+      parallelBaseUrl:
+        raw.parallelBaseUrl ||
+        process.env.PARALLEL_BASE_URL ||
+        DEFAULT_CONFIG.parallelBaseUrl,
     } as AutomatonConfig;
   } catch {
     return null;
@@ -99,6 +104,8 @@ export function createConfig(params: {
     version: DEFAULT_CONFIG.version!,
     skillsDir: DEFAULT_CONFIG.skillsDir!,
     maxChildren: DEFAULT_CONFIG.maxChildren!,
+    parallelApiKey: process.env.PARALLEL_API_KEY,
+    parallelBaseUrl: process.env.PARALLEL_BASE_URL || DEFAULT_CONFIG.parallelBaseUrl!,
     parentAddress: params.parentAddress,
   };
 }

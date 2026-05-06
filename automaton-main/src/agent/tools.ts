@@ -13,6 +13,10 @@ import type {
   ToolCallResult,
   GenesisConfig,
 } from "../types.js";
+import {
+  formatParallelSearch,
+  parallelSearch,
+} from "../parallel/search.js";
 
 // ─── Self-Preservation Guard ───────────────────────────────────
 
@@ -1478,6 +1482,85 @@ Model: ${ctx.inference.getDefaultModel()}
             `${m.id} (${m.provider}) — $${m.pricing.inputPerMillion}/$${m.pricing.outputPerMillion} per 1M tokens (in/out)`,
         );
         return `Available models:\n${lines.join("\n")}`;
+      },
+    },
+
+    // ── Web Research ──
+    {
+      name: "search_web",
+      description:
+        "Search the live web with Parallel Search and return LLM-optimized excerpts with titles and URLs. Use this for current facts, news, documentation, product research, and broad multi-source questions.",
+      category: "web",
+      parameters: {
+        type: "object",
+        properties: {
+          objective: {
+            type: "string",
+            description:
+              "Natural-language research goal with any source or freshness guidance.",
+          },
+          search_queries: {
+            type: "array",
+            description:
+              "1-5 concise keyword queries, ideally 2-3 queries of 3-6 words each.",
+            items: { type: "string" },
+            minItems: 1,
+            maxItems: 5,
+          },
+          mode: {
+            type: "string",
+            enum: ["basic", "advanced"],
+            description:
+              "basic is lower latency; advanced is higher quality. Defaults to Parallel's advanced mode.",
+          },
+          max_results: {
+            type: "number",
+            description: "Maximum number of results to return. Default is Parallel's default.",
+          },
+          max_chars_total: {
+            type: "number",
+            description: "Upper bound on total excerpt characters.",
+          },
+          include_domains: {
+            type: "array",
+            description:
+              "Optional hard allow-list of apex domains. Use only when results must come exclusively from these domains.",
+            items: { type: "string" },
+          },
+          exclude_domains: {
+            type: "array",
+            description: "Optional blocked apex domains.",
+            items: { type: "string" },
+          },
+          after_date: {
+            type: "string",
+            description: "Optional freshness date in YYYY-MM-DD format.",
+          },
+        },
+        required: ["search_queries"],
+      },
+      execute: async (args, ctx) => {
+        const result = await parallelSearch(ctx.config, {
+          objective: typeof args.objective === "string" ? args.objective : undefined,
+          searchQueries: Array.isArray(args.search_queries)
+            ? args.search_queries.filter((q): q is string => typeof q === "string")
+            : [],
+          mode: args.mode === "basic" || args.mode === "advanced"
+            ? args.mode
+            : undefined,
+          maxResults: typeof args.max_results === "number" ? args.max_results : undefined,
+          maxCharsTotal:
+            typeof args.max_chars_total === "number" ? args.max_chars_total : undefined,
+          includeDomains: Array.isArray(args.include_domains)
+            ? args.include_domains.filter((d): d is string => typeof d === "string")
+            : undefined,
+          excludeDomains: Array.isArray(args.exclude_domains)
+            ? args.exclude_domains.filter((d): d is string => typeof d === "string")
+            : undefined,
+          afterDate: typeof args.after_date === "string" ? args.after_date : undefined,
+          clientModel: ctx.config.inferenceModel,
+        });
+        return formatParallelSearch(result);
       },
     },
 

@@ -52,6 +52,8 @@ export interface AutomatonConfig {
   maxChildren: number;
   parentAddress?: Address;
   socialRelayUrl?: string;
+  parallelApiKey?: string;
+  parallelBaseUrl?: string;
 }
 
 export const DEFAULT_CONFIG: Partial<AutomatonConfig> = {
@@ -65,6 +67,7 @@ export const DEFAULT_CONFIG: Partial<AutomatonConfig> = {
   skillsDir: "~/.automaton/skills",
   maxChildren: 3,
   socialRelayUrl: "https://social.conway.tech",
+  parallelBaseUrl: "https://api.parallel.ai",
 };
 
 // ─── Agent State ─────────────────────────────────────────────────
@@ -135,6 +138,7 @@ export type ToolCategory =
   | "memory"
   | "skills"
   | "git"
+  | "web"
   | "registry"
   | "replication";
 
