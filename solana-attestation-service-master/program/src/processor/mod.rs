@@ -3,13 +3,16 @@ pub mod change_schema_description;
 pub mod change_schema_status;
 pub mod change_schema_version;
 pub mod close_attestation;
+#[cfg(feature = "tokenized")]
 pub mod close_tokenized_attestation;
 pub mod create_attestation;
 pub mod create_credential;
 pub mod create_schema;
+#[cfg(feature = "tokenized")]
 pub mod create_tokenized_attestation;
 pub mod emit_event;
 pub mod shared;
+#[cfg(feature = "tokenized")]
 pub mod tokenize_schema;
 
 pub use change_authorized_signers::*;
@@ -17,11 +20,14 @@ pub use change_schema_description::*;
 pub use change_schema_status::*;
 pub use change_schema_version::*;
 pub use close_attestation::*;
+#[cfg(feature = "tokenized")]
 pub use close_tokenized_attestation::*;
 pub use create_attestation::*;
 pub use create_credential::*;
 pub use create_schema::*;
+#[cfg(feature = "tokenized")]
 pub use create_tokenized_attestation::*;
 pub use emit_event::*;
 pub use shared::*;
+#[cfg(feature = "tokenized")]
 pub use tokenize_schema::*;

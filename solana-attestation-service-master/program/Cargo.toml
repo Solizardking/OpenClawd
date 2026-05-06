@@ -7,8 +7,13 @@ edition = { workspace = true }
 crate-type = ["cdylib", "lib"]
 
 [features]
+default = []
 no-entrypoint = []
 idl = []
+# Tokenized attestations require a Token-2022 extension CPI rewrite against the
+# current Pinocchio split crates. Keep the base attestation program deployable
+# while that path is upgraded.
+tokenized = []
 
 [dependencies]
 const-crypto = { workspace = true }

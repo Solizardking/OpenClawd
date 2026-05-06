@@ -1,10 +1,16 @@
 use bs58;
 use pinocchio::{account_info::AccountInfo, program_error::ProgramError, pubkey::Pubkey};
+#[cfg(feature = "tokenized")]
 use pinocchio_associated_token_account::ID as ATA_PROGRAM_ID;
 use pinocchio_log::log;
-use pinocchio_token::TOKEN_2022_PROGRAM_ID;
 
 use crate::{acc_info_as_str, key_as_str, ID};
+
+#[cfg(feature = "tokenized")]
+const TOKEN_2022_PROGRAM_ID: Pubkey = [
+    0x06, 0xdd, 0xf6, 0xe1, 0xd7, 0x65, 0xa1, 0x93, 0xd9, 0xcb, 0xe1, 0x46, 0xce, 0xeb, 0x79, 0xac,
+    0x1c, 0xb4, 0x85, 0xed, 0x5f, 0x5b, 0x37, 0x91, 0x3a, 0x8c, 0xf5, 0x85, 0x7e, 0xff, 0x00, 0xa9,
+];
 
 /// Verify account as a signer, returning an error if it is not or if it is not writable while
 /// expected to be.
@@ -85,6 +91,7 @@ pub fn verify_system_program(info: &AccountInfo) -> Result<(), ProgramError> {
 ///
 /// # Returns
 /// * `Result<(), ProgramError>` - The result of the operation
+#[cfg(feature = "tokenized")]
 pub fn verify_token22_program(info: &AccountInfo) -> Result<(), ProgramError> {
     if info.key().ne(&TOKEN_2022_PROGRAM_ID) {
         log!(
@@ -104,6 +111,7 @@ pub fn verify_token22_program(info: &AccountInfo) -> Result<(), ProgramError> {
 ///
 /// # Returns
 /// * `Result<(), ProgramError>` - The result of the operation
+#[cfg(feature = "tokenized")]
 pub fn verify_ata_program(info: &AccountInfo) -> Result<(), ProgramError> {
     if info.key().ne(&ATA_PROGRAM_ID) {
         log!(
