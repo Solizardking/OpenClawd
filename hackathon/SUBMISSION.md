@@ -121,6 +121,7 @@ The autonomous trading loop is deliberately constrained:
 - One-page project website.
 - Architecture and technical documentation.
 - Offline deterministic demo with telemetry, policy, payment, and receipt samples.
+- Beat-by-beat reveal script for video walkthroughs at [`presentation/reveal-script.md`](./presentation/reveal-script.md).
 
 ## Next Steps
 

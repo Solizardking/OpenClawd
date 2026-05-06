@@ -69,6 +69,7 @@ The demo is read-only and deterministic. It does not require `SOLANA_PRIVATE_KEY
 - One-page site: ready at [`one-page-site/index.html`](./one-page-site/index.html).
 - Pitch deck: ready at [`presentation/pitch-deck.html`](./presentation/pitch-deck.html).
 - Speaker notes: ready at [`presentation/speaker-notes.md`](./presentation/speaker-notes.md).
+- Reveal script: ready at [`presentation/reveal-script.md`](./presentation/reveal-script.md).
 - Offline demo: ready at [`demos/robot-command-demo.mjs`](./demos/robot-command-demo.mjs).
 - DePIN physical-AI story: ready at [`docs/depin-physical-ai.md`](./docs/depin-physical-ai.md).
 - Real hardware path: ready at [`robotics/README.md`](./robotics/README.md) and [`../Robotics/OCASV1/`](../Robotics/OCASV1/).
