@@ -41,8 +41,8 @@ const NEWS = [
     title: 'Dark Clawd npm package is publish-ready',
     body:
       '@openclawdsolana/dark-clawd packages the Bloomberg-style autonomous Solana intelligence TUI with dark-clawd and clawd-dark bin aliases. Dry-run packaging verified a 1.3 MB tarball with five release files.',
-    link: 'https://www.npmjs.com/package/@openclawdsolana/dark-clawd',
-    cta: 'Open npm',
+    link: 'https://github.com/x402agent/OpenClawd/tree/main/dark-clawd',
+    cta: 'Open source',
     external: true,
   },
   {
