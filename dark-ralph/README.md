@@ -40,7 +40,7 @@ Dark Ralph is a Bun + Ink terminal app for Solana market surveillance, wallet co
 ## Quick Start
 
 ```bash
-cd /Users/8bit/Downloads/clawd-terminal/dark-ralph
+cd dark-ralph
 bun install
 cp .env.example .env
 bun run run

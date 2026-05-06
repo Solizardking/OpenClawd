@@ -80,7 +80,7 @@
     "bloomberg",
     "dark-ralph"
   ],
-  "author": "Dark Ralph Team",
+  "author": "OpenClawd",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0",
@@ -88,7 +88,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/darkralph/ralph-tui"
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
+    "directory": "dark-ralph"
   },
   "files": [
     "dist",
