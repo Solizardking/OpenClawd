@@ -1,9 +1,0 @@
-dist
-.turbo
-cache
-models
-templates/
-.openclawd
-.openclawddb
-coverage/
-node_modules/
