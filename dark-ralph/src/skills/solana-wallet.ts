@@ -133,6 +133,10 @@ export class SolanaWalletManager {
     return this.keypair?.publicKey.toString() || null;
   }
 
+  getKeypair(): Keypair | undefined {
+    return this.keypair;
+  }
+
   // ─────────────────────────────────────────────────────────────────────────────
   // Balance & Token Queries
   // ─────────────────────────────────────────────────────────────────────────────

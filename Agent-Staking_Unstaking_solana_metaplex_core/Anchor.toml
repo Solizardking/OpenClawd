@@ -5,10 +5,10 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-openclawd_agent_staking = "Fg6PaFpoGXkYsidMpWxTWqz4iyToFhRmD31x9WfP3YpR"
+openclawd_agent_staking = "D5MLxrKAnppBVLuukKQzQGTMSfEwBqWCDPGAhGhthdLP"
 
 [programs.devnet]
-openclawd_agent_staking = "Fg6PaFpoGXkYsidMpWxTWqz4iyToFhRmD31x9WfP3YpR"
+openclawd_agent_staking = "D5MLxrKAnppBVLuukKQzQGTMSfEwBqWCDPGAhGhthdLP"
 
 # Mainnet program ID is intentionally absent until devnet review is complete.
 # To enable mainnet:

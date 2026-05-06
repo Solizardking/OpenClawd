@@ -14,6 +14,7 @@ import ora from 'ora';
 import { App } from './App.js';
 import { loadConfigFromEnv } from './config/schema.js';
 import { SolanaWalletManager } from './skills/solana-wallet.js';
+import { JupiterService } from './services/jupiter.js';
 
 // Load environment variables
 dotenvConfig();
@@ -74,6 +75,7 @@ ${chalk.green(`
 
     const missingKeys: string[] = [];
     if (!config.apiKeys?.HELIUS_API_KEY) missingKeys.push('HELIUS_API_KEY');
+    if (!config.apiKeys?.JUPITER_API_KEY) missingKeys.push('JUPITER_API_KEY (live trading rate-limited)');
 
     if (missingKeys.length > 0 && !options.headless) {
       spinner.warn('Some API keys are missing');

@@ -811,7 +811,7 @@ Market Cap: ${this.birdeye.formatVolume(info.mc || 0)}`,
       this.emitMessage('system', '[USAGE] /swap <amount> <inputMintOrSym> <outputMintOrSym> [slippageBps]', 'normal');
       return;
     }
-    const keypair = (this.wallet as any).keypair;
+    const keypair = this.wallet.getKeypair();
     if (!keypair) {
       this.emitMessage('ralph', '[ERROR] Wallet keypair not available.', 'error');
       return;

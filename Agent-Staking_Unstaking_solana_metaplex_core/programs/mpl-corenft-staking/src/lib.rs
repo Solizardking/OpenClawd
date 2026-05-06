@@ -9,9 +9,11 @@ use error::*;
 use instructions::*;
 use state::*;
 
-// Placeholder program ID. Replaced post-`anchor build` via `anchor keys sync`
-// (which writes the real keypair-derived ID into both this declare_id! and Anchor.toml).
-declare_id!("Fg6PaFpoGXkYsidMpWxTWqz4iyToFhRmD31x9WfP3YpR");
+// Program ID is derived from `target/deploy/openclawd_agent_staking-keypair.json`.
+// Keep this keypair file safe — losing it means losing the upgrade authority for
+// any cluster you deploy to. For mainnet, regenerate a fresh keypair before deploy
+// and consider transferring the upgrade authority to a Squads multisig immediately.
+declare_id!("D5MLxrKAnppBVLuukKQzQGTMSfEwBqWCDPGAhGhthdLP");
 
 #[program]
 pub mod openclawd_agent_staking {
