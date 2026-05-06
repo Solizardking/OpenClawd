@@ -11,7 +11,7 @@ tsup.config.ts
 run-all-tests.sh
 bunfig.toml
 .turbo
-.eliza
+.openclawd
 
 # Explicitly include template dot files
 !dist/templates/**/.gitignore

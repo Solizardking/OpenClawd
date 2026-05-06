@@ -99,7 +99,9 @@ ${chalk.green(`
             newsApiKey: config.apiKeys?.NEWS_API_KEY,
             serpApiKey: config.apiKeys?.SERP_API_KEY,
             financialDatasetKey: config.apiKeys?.FINANCIAL_DATASET_API_KEY,
-            walletAddress: options.wallet || config.solana?.privateKey,
+            jupiterKey: config.apiKeys?.JUPITER_API_KEY,
+            privateKey: config.solana?.privateKey,
+            walletAddress: options.wallet,
             autoMode: !options.interactive,
           }}
         />
@@ -141,6 +143,7 @@ program
     const keys = [
       { name: 'HELIUS_API_KEY', url: 'https://helius.xyz/', desc: 'Solana RPC & DAS' },
       { name: 'BIRDEYE_API_KEY', url: 'https://birdeye.so/', desc: 'Token data & analytics' },
+      { name: 'JUPITER_API_KEY', url: 'https://developers.jup.ag/portal', desc: 'Jupiter swap execution' },
       { name: 'XAI_API_KEY', url: 'https://x.ai/api', desc: 'Grok AI for search' },
       { name: 'PERPLEXITY_API_KEY', url: 'https://perplexity.ai/', desc: 'AI research' },
       { name: 'NEWS_API_KEY', url: 'https://newsapi.org/', desc: 'Crypto news' },
@@ -253,6 +256,7 @@ program
     const checks = [
       { name: 'Helius', key: config.apiKeys?.HELIUS_API_KEY },
       { name: 'Birdeye', key: config.apiKeys?.BIRDEYE_API_KEY },
+      { name: 'Jupiter', key: config.apiKeys?.JUPITER_API_KEY },
       { name: 'xAI Grok', key: config.apiKeys?.XAI_API_KEY },
       { name: 'Perplexity', key: config.apiKeys?.PERPLEXITY_API_KEY },
       { name: 'News API', key: config.apiKeys?.NEWS_API_KEY },
