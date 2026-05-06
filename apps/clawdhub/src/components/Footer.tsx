@@ -28,6 +28,9 @@ export function Footer() {
             .
           </div>
           <div className="site-footer-legal">
+            <Link to="/about">About</Link>
+            <Link to="/news">News</Link>
+            <Link to="/staking">Staking</Link>
             <Link to="/privacy">Privacy</Link>
             <Link to="/terms">Terms</Link>
             <Link to="/copyright">Copyright</Link>

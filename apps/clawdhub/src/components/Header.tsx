@@ -72,6 +72,9 @@ export default function Header() {
         </Link>
         <nav className="nav-links">
           <Link to="/dashboard">Dashboard</Link>
+          <Link to="/about">About</Link>
+          <Link to="/news">News</Link>
+          <Link to="/staking">Staking</Link>
           <Link to="/agents/engine">Agents</Link>
           <Link to="/dex">DEX</Link>
           <a href={openClawdMobileUrl}>Mobile</a>
@@ -230,6 +233,15 @@ export default function Header() {
               <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
                   <Link to="/dashboard">Dashboard</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/about">About</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/news">News</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/staking">Staking</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/agents/engine">Agents</Link>

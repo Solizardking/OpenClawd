@@ -81,6 +81,12 @@ function SkillsHome() {
               <Link to="/agents/engine" className="btn">
                 Agent Engine
               </Link>
+              <Link to="/staking" className="btn">
+                Staking
+              </Link>
+              <Link to="/news" className="btn">
+                News
+              </Link>
               <Link to="/strategy" className="btn">
                 Build a strategy
               </Link>
@@ -131,6 +137,29 @@ function SkillsHome() {
             <a href={`${solanaOsUrl}#openclawd-skills`} className="btn">
               Download skills
             </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="card openclawd-home-cta" style={{ borderLeft: '3px solid #14f195' }}>
+          <div>
+            <h2 className="section-title" style={{ marginBottom: 8 }}>
+              Agent Staking Protocol live on devnet
+            </h2>
+            <p className="section-subtitle" style={{ marginBottom: 0 }}>
+              OpenClawd now has a frontend-ready staking primitive for Metaplex Core agent assets.
+              Owners lock transferability with a frozen FreezeDelegate plugin while the asset
+              remains in their wallet.
+            </p>
+          </div>
+          <div className="openclawd-home-cta-actions">
+            <Link to="/staking" className="btn btn-primary">
+              Open staking
+            </Link>
+            <Link to="/news" className="btn">
+              Read latest news
+            </Link>
           </div>
         </div>
       </section>
