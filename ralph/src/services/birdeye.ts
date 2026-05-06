@@ -87,8 +87,8 @@ export class BirdeyeService {
         throw new Error(`Birdeye API error: ${response.status}`);
       }
 
-      const data = await response.json();
-      return data.data || data;
+      const data = (await response.json()) as { data?: T } & T;
+      return (data.data ?? data) as T;
     } catch (error) {
       console.error('[BIRDEYE] API error:', error);
       return null;

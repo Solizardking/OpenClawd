@@ -7,6 +7,19 @@
 // NEWS API SERVICE
 // ─────────────────────────────────────────────────────────────────────────────
 
+interface NewsApiResponse {
+  status: string;
+  message?: string;
+  articles?: any[];
+}
+
+interface SerpApiResponse {
+  organic_results?: any[];
+  news_results?: any[];
+  search_information?: { total_results?: number; time_taken_displayed?: number };
+  related_searches?: Array<{ query: string }>;
+}
+
 export interface NewsArticle {
   title: string;
   description: string;
@@ -36,7 +49,7 @@ export class NewsApiService {
       });
 
       const response = await fetch(`${this.baseUrl}/top-headlines?${params}`);
-      const data = await response.json();
+      const data = (await response.json()) as NewsApiResponse;
 
       if (data.status !== 'ok') {
         throw new Error(data.message || 'News API error');
@@ -70,7 +83,7 @@ export class NewsApiService {
       if (options.to) params.append('to', options.to);
 
       const response = await fetch(`${this.baseUrl}/everything?${params}`);
-      const data = await response.json();
+      const data = (await response.json()) as NewsApiResponse;
 
       if (data.status !== 'ok') {
         throw new Error(data.message || 'News API error');
@@ -144,7 +157,7 @@ export class SerpApiService {
       }
 
       const response = await fetch(`${this.baseUrl}?${params}`);
-      const data = await response.json();
+      const data = (await response.json()) as SerpApiResponse;
 
       const results: SearchResult[] = (data.organic_results || []).map((result: any, index: number) => ({
         title: result.title,
@@ -177,7 +190,7 @@ export class SerpApiService {
       });
 
       const response = await fetch(`${this.baseUrl}?${params}`);
-      const data = await response.json();
+      const data = (await response.json()) as SerpApiResponse;
 
       const results: SearchResult[] = (data.news_results || []).map((result: any, index: number) => ({
         title: result.title,
@@ -265,7 +278,7 @@ export class FinancialDatasetService {
         throw new Error(`Financial Dataset API error: ${response.status}`);
       }
 
-      return await response.json();
+      return (await response.json()) as T;
     } catch (error) {
       console.error('[FINANCIAL_DATASET] Error:', error);
       return null;

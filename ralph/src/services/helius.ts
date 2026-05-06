@@ -133,7 +133,7 @@ export class HeliusService {
         }),
       });
 
-      const data = await response.json();
+      const data = (await response.json()) as { result?: { items?: HeliusAsset[] } };
       return data.result?.items || [];
     } catch (error) {
       console.error('[HELIUS] DAS getAssetsByOwner error:', error);
@@ -154,7 +154,7 @@ export class HeliusService {
         }),
       });
 
-      const data = await response.json();
+      const data = (await response.json()) as { result?: HeliusAsset };
       return data.result || null;
     } catch (error) {
       console.error('[HELIUS] DAS getAsset error:', error);
@@ -179,7 +179,7 @@ export class HeliusService {
         }),
       });
 
-      const data = await response.json();
+      const data = (await response.json()) as { result?: { items?: HeliusAsset[] } };
       return data.result?.items || [];
     } catch (error) {
       console.error('[HELIUS] DAS searchAssets error:', error);
@@ -195,7 +195,7 @@ export class HeliusService {
     try {
       const url = `${this.baseUrl}/addresses/${address}/transactions?api-key=${this.apiKey}&limit=${limit}`;
       const response = await fetch(url);
-      const data = await response.json();
+      const data = (await response.json()) as HeliusTransaction[];
       return data || [];
     } catch (error) {
       console.error('[HELIUS] Enhanced transactions error:', error);
@@ -212,7 +212,7 @@ export class HeliusService {
         body: JSON.stringify({ transactions: [signature] }),
       });
 
-      const data = await response.json();
+      const data = (await response.json()) as HeliusTransaction[];
       return data[0] || null;
     } catch (error) {
       console.error('[HELIUS] Parse transaction error:', error);
@@ -233,7 +233,7 @@ export class HeliusService {
         body: JSON.stringify({ mintAccounts: mintAddresses }),
       });
 
-      return await response.json();
+      return (await response.json()) as any[];
     } catch (error) {
       console.error('[HELIUS] Token metadata error:', error);
       return [];
@@ -269,7 +269,7 @@ export class HeliusService {
     try {
       const url = `${this.baseUrl}/webhooks?api-key=${this.apiKey}`;
       const response = await fetch(url);
-      return await response.json();
+      return (await response.json()) as any[];
     } catch (error) {
       console.error('[HELIUS] List webhooks error:', error);
       return [];
@@ -293,7 +293,7 @@ export class HeliusService {
         }),
       });
 
-      const data = await response.json();
+      const data = (await response.json()) as { result?: { priorityFeeEstimate?: number } };
       return data.result?.priorityFeeEstimate || 0;
     } catch (error) {
       console.error('[HELIUS] Priority fee error:', error);

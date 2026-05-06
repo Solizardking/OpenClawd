@@ -18,6 +18,20 @@ export interface AIResponse {
   };
 }
 
+interface ChatCompletionResponse {
+  choices: Array<{
+    message: {
+      content: string;
+      reasoning_details?: any;
+    };
+  }>;
+  usage?: {
+    prompt_tokens: number;
+    completion_tokens: number;
+    total_tokens: number;
+  };
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // XAI GROK SERVICE - Real-time Search & Conversational AI
 // ─────────────────────────────────────────────────────────────────────────────
@@ -50,7 +64,7 @@ export class GrokService {
         throw new Error(`Grok API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data = (await response.json()) as ChatCompletionResponse;
       return {
         content: data.choices[0].message.content,
         usage: data.usage
@@ -127,7 +141,7 @@ export class PerplexityService {
         throw new Error(`Perplexity API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data = (await response.json()) as ChatCompletionResponse;
       return {
         content: data.choices[0].message.content,
         usage: data.usage
@@ -211,7 +225,7 @@ export class OpenRouterService {
         throw new Error(`OpenRouter API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data = (await response.json()) as ChatCompletionResponse;
       const message = data.choices[0].message;
 
       return {

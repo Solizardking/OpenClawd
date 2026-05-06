@@ -306,7 +306,8 @@ program
 // ─────────────────────────────────────────────────────────────────────────────
 
 program.action(() => {
-  program.commands.find((c) => c.name() === 'run')?.action({ auto: true });
+  const runCmd = program.commands.find((c) => c.name() === 'run');
+  if (runCmd) runCmd.parseAsync(['run', '--auto'], { from: 'user' });
 });
 
 // Parse arguments

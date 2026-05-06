@@ -6,7 +6,8 @@ import React from 'react';
 import { Box, Text } from 'ink';
 import { Panel, MarketPanel, WalletPanel, NewsPanel, AgentPanel, StatsPanel, ChartPanel } from './Panel.js';
 import { StatusBar, ApiStatusPanel } from './StatusBar.js';
-import { Terminal, TerminalMessage, QuickCommands } from './Terminal.js';
+import { Terminal, QuickCommands } from './Terminal.js';
+import type { TerminalMessage } from './Terminal.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types

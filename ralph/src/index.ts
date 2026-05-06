@@ -33,10 +33,23 @@ export * from './components/Watchlist.js';
 export * from './components/BloombergDashboard.js';
 
 // Engine
-export * from './engine/ralph-agent.js';
+export {
+  RalphAgent,
+  type RalphState,
+  type RalphMessage,
+  type RalphConfig as RalphAgentConfig,
+} from './engine/ralph-agent.js';
 
 // Skills
-export * from './skills/solana-wallet.js';
+export {
+  SolanaWalletManager,
+  formatSol,
+  shortenAddress,
+  isValidSolanaAddress,
+  type WalletInfo,
+  type TransactionResult,
+  type TokenBalance as WalletTokenBalance,
+} from './skills/solana-wallet.js';
 
 // App
 export { App } from './App.js';
