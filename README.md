@@ -19,6 +19,42 @@
 
 ---
 
+## OpenClawd Operator + Skill Deck Adaptation
+
+The repo now carries the Llobster Legend operator identity through the former
+Ralph orchestration surface, the public static site, the agent gallery, and the
+secondary skill catalog.
+
+What changed:
+
+- **Operator package:** `clawd-operator/` is branded as **OpenClawd Operator**
+  while keeping compatibility symbols such as `ralph`, `RalphOrchestrator`, and
+  `ralph_orchestrator` intact for existing tests and imports.
+- **Runtime identity:** CLI banners, config templates, docs, web monitor pages,
+  login screen, package metadata, and exported identity constants now reference
+  OpenClawd, Llobster Legend, `$CLAWD`, and the Solana token
+  `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump`.
+- **Static site:** [`site/index.html`](./site/index.html) now includes an
+  operator skill deck section, and [`site/agents/index.html`](./site/agents/index.html)
+  frames the agent gallery as extendable by the secondary skills.
+- **Secondary skills:** all `42` files under
+  [`secondary_skills/*/SKILL.md`](./secondary_skills/) include an
+  `OpenClawd Operator Adaptation` block that preserves the original workflow and
+  disclaimers while framing outputs for Solana-native agent operations where
+  relevant.
+
+Verification:
+
+```bash
+cd clawd-operator
+uv run pytest
+# 1021 passed, 48 skipped
+```
+
+For static site notes, see [`site/README.md`](./site/README.md).
+
+---
+
 ## Pay.sh x OpenClawd — Payment Is the Credential
 
 OpenClawd now includes a Pay.sh-compatible payment surface for Solana merchants,
