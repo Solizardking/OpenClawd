@@ -677,6 +677,84 @@ export function createBuiltinTools(sandboxId: string): AutomatonTool[] {
         ].join("\n");
       },
     },
+    {
+      name: "honcho_insight",
+      description:
+        "Ask Honcho for synthesized insight from persistent cross-session memory about the creator/user. Use this for preferences, goals, repeated patterns, or personalization decisions.",
+      category: "memory",
+      parameters: {
+        type: "object",
+        properties: {
+          query: {
+            type: "string",
+            description: "Specific natural-language question to ask Honcho.",
+          },
+          reasoning_level: {
+            type: "string",
+            enum: ["minimal", "low", "medium", "high", "max"],
+            description:
+              "Trade speed for depth. Defaults to low; use high/max for complex synthesis.",
+          },
+        },
+        required: ["query"],
+      },
+      execute: async (args, ctx) => {
+        if (!ctx.honcho) {
+          return "Honcho memory is not configured. Set HONCHO_API_KEY to enable this tool.";
+        }
+        const level = String(args.reasoning_level ?? "low");
+        const allowed = ["minimal", "low", "medium", "high", "max"];
+        return ctx.honcho.insight(
+          String(args.query),
+          allowed.includes(level) ? (level as any) : "low",
+        );
+      },
+    },
+    {
+      name: "honcho_context",
+      description:
+        "Retrieve Honcho-backed session context, including peer card, representation, summary, and recent messages. Use this before responding when long-term memory should shape the next action.",
+      category: "memory",
+      parameters: {
+        type: "object",
+        properties: {
+          query: {
+            type: "string",
+            description:
+              "Optional semantic focus for retrieved representation conclusions.",
+          },
+          tokens: {
+            type: "number",
+            description: "Optional target token budget for session context.",
+          },
+        },
+      },
+      execute: async (args, ctx) => {
+        if (!ctx.honcho) {
+          return "Honcho memory is not configured. Set HONCHO_API_KEY to enable this tool.";
+        }
+        return ctx.honcho.context({
+          query: typeof args.query === "string" ? args.query : undefined,
+          tokens: typeof args.tokens === "number" ? args.tokens : undefined,
+        });
+      },
+    },
+    {
+      name: "honcho_queue_status",
+      description:
+        "Check Honcho background reasoning queue status for observability and debugging. Do not block waiting for it to be empty.",
+      category: "memory",
+      parameters: {
+        type: "object",
+        properties: {},
+      },
+      execute: async (_args, ctx) => {
+        if (!ctx.honcho) {
+          return "Honcho memory is not configured. Set HONCHO_API_KEY to enable this tool.";
+        }
+        return ctx.honcho.queueStatus();
+      },
+    },
 
     // ── Survival Tools ──
     {

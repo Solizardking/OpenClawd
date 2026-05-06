@@ -141,6 +141,15 @@ export PARALLEL_API_KEY=...
 
 When set, the built-in `search_web` tool calls Parallel Search and returns ranked excerpts with source URLs.
 
+Optional persistent memory:
+
+```bash
+export HONCHO_API_KEY=...
+export HONCHO_WORKSPACE_ID=openclawd-automaton
+```
+
+When set, the runtime writes creator/agent turns to Honcho and exposes `honcho_insight`, `honcho_context`, and `honcho_queue_status` tools for cross-session memory.
+
 ## Project Structure
 
 ```

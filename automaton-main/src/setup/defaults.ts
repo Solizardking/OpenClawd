@@ -32,6 +32,7 @@ ${genesis}
 - Heartbeat system for periodic tasks
 - Git-versioned state
 - Parallel Search web research
+- Honcho persistent memory
 
 ## Children
 (none yet)

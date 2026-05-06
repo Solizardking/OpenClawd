@@ -59,6 +59,9 @@ Environment:
                                 against the OpenClawd cluster
   PARALLEL_API_KEY              Enables the search_web tool via Parallel Search
   PARALLEL_BASE_URL             Parallel API base URL (default: https://api.parallel.ai)
+  HONCHO_API_KEY                Enables Honcho persistent memory and honcho_* tools
+  HONCHO_WORKSPACE_ID           Honcho workspace (default: openclawd-automaton)
+  HONCHO_ENABLED=false          Disable Honcho even when an API key is present
 `);
     process.exit(0);
   }

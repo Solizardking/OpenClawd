@@ -54,6 +54,14 @@ export interface AutomatonConfig {
   socialRelayUrl?: string;
   parallelApiKey?: string;
   parallelBaseUrl?: string;
+  honchoEnabled?: boolean;
+  honchoApiKey?: string;
+  honchoWorkspaceId?: string;
+  honchoEnvironment?: "local" | "production";
+  honchoBaseUrl?: string;
+  honchoUserPeerId?: string;
+  honchoAgentPeerId?: string;
+  honchoSessionId?: string;
 }
 
 export const DEFAULT_CONFIG: Partial<AutomatonConfig> = {
@@ -68,6 +76,9 @@ export const DEFAULT_CONFIG: Partial<AutomatonConfig> = {
   maxChildren: 3,
   socialRelayUrl: "https://social.conway.tech",
   parallelBaseUrl: "https://api.parallel.ai",
+  honchoEnabled: true,
+  honchoWorkspaceId: "openclawd-automaton",
+  honchoEnvironment: "production",
 };
 
 // ─── Agent State ─────────────────────────────────────────────────
@@ -149,6 +160,26 @@ export interface ToolContext {
   conway: ConwayClient;
   inference: InferenceClient;
   social?: SocialClientInterface;
+  honcho?: HonchoMemoryClient;
+}
+
+export type HonchoReasoningLevel =
+  | "minimal"
+  | "low"
+  | "medium"
+  | "high"
+  | "max";
+
+export interface HonchoMemoryClient {
+  enabled: boolean;
+  workspaceId: string;
+  userPeerId: string;
+  agentPeerId: string;
+  sessionId: string;
+  rememberTurn(turn: AgentTurn): Promise<void>;
+  insight(query: string, reasoningLevel?: HonchoReasoningLevel): Promise<string>;
+  context(options?: { query?: string; tokens?: number }): Promise<string>;
+  queueStatus(): Promise<string>;
 }
 
 export interface SocialClientInterface {

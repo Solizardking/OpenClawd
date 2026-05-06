@@ -29,6 +29,7 @@ import {
 } from "./tools.js";
 import { getSurvivalTier } from "../conway/credits.js";
 import { getUsdcBalance } from "../conway/x402.js";
+import { createHonchoMemory } from "../honcho/memory.js";
 import { ulid } from "ulid";
 
 const MAX_TOOL_CALLS_PER_TURN = 10;
@@ -57,6 +58,7 @@ export async function runAgentLoop(
     options;
 
   const tools = createBuiltinTools(identity.sandboxId);
+  const honcho = await createHonchoMemory(config, identity);
   const toolContext: ToolContext = {
     identity,
     config,
@@ -64,6 +66,7 @@ export async function runAgentLoop(
     conway,
     inference,
     social,
+    honcho,
   };
 
   // Set start time
@@ -247,6 +250,12 @@ export async function runAgentLoop(
       db.insertTurn(turn);
       for (const tc of turn.toolCalls) {
         db.insertToolCall(turn.id, tc);
+      }
+      if (honcho) {
+        await honcho.rememberTurn(turn).catch((err) => {
+          const message = err instanceof Error ? err.message : String(err);
+          log(config, `[HONCHO] Failed to store turn: ${message}`);
+        });
       }
       onTurnComplete?.(turn);
 

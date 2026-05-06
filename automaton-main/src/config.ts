@@ -14,6 +14,12 @@ import { loadApiKeyFromConfig } from "./identity/provision.js";
 
 const CONFIG_FILENAME = "automaton.json";
 
+function parseHonchoEnvironment(
+  value: unknown,
+): AutomatonConfig["honchoEnvironment"] | undefined {
+  return value === "local" || value === "production" ? value : undefined;
+}
+
 export function getConfigPath(): string {
   return path.join(getAutomatonDir(), CONFIG_FILENAME);
 }
@@ -41,6 +47,24 @@ export function loadConfig(): AutomatonConfig | null {
         raw.parallelBaseUrl ||
         process.env.PARALLEL_BASE_URL ||
         DEFAULT_CONFIG.parallelBaseUrl,
+      honchoEnabled:
+        raw.honchoEnabled ??
+        (process.env.HONCHO_ENABLED
+          ? process.env.HONCHO_ENABLED !== "false"
+          : DEFAULT_CONFIG.honchoEnabled),
+      honchoApiKey: raw.honchoApiKey || process.env.HONCHO_API_KEY,
+      honchoWorkspaceId:
+        raw.honchoWorkspaceId ||
+        process.env.HONCHO_WORKSPACE_ID ||
+        DEFAULT_CONFIG.honchoWorkspaceId,
+      honchoEnvironment:
+        parseHonchoEnvironment(raw.honchoEnvironment) ||
+        parseHonchoEnvironment(process.env.HONCHO_ENVIRONMENT) ||
+        DEFAULT_CONFIG.honchoEnvironment,
+      honchoBaseUrl: raw.honchoBaseUrl || process.env.HONCHO_URL,
+      honchoUserPeerId: raw.honchoUserPeerId || process.env.HONCHO_USER_PEER_ID,
+      honchoAgentPeerId: raw.honchoAgentPeerId || process.env.HONCHO_AGENT_PEER_ID,
+      honchoSessionId: raw.honchoSessionId || process.env.HONCHO_SESSION_ID,
     } as AutomatonConfig;
   } catch {
     return null;
@@ -106,6 +130,19 @@ export function createConfig(params: {
     maxChildren: DEFAULT_CONFIG.maxChildren!,
     parallelApiKey: process.env.PARALLEL_API_KEY,
     parallelBaseUrl: process.env.PARALLEL_BASE_URL || DEFAULT_CONFIG.parallelBaseUrl!,
+    honchoEnabled: process.env.HONCHO_ENABLED
+      ? process.env.HONCHO_ENABLED !== "false"
+      : DEFAULT_CONFIG.honchoEnabled!,
+    honchoApiKey: process.env.HONCHO_API_KEY,
+    honchoWorkspaceId:
+      process.env.HONCHO_WORKSPACE_ID || DEFAULT_CONFIG.honchoWorkspaceId!,
+    honchoEnvironment:
+      parseHonchoEnvironment(process.env.HONCHO_ENVIRONMENT) ||
+      DEFAULT_CONFIG.honchoEnvironment,
+    honchoBaseUrl: process.env.HONCHO_URL,
+    honchoUserPeerId: process.env.HONCHO_USER_PEER_ID,
+    honchoAgentPeerId: process.env.HONCHO_AGENT_PEER_ID,
+    honchoSessionId: process.env.HONCHO_SESSION_ID,
     parentAddress: params.parentAddress,
   };
 }
