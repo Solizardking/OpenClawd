@@ -57,6 +57,8 @@ Environment:
   OPENCLAWD_AUTOMATON_API_KEY   API key (falls back to CONWAY_API_KEY)
   OPENCLAWD_API_BASE            OpenClawd registrar — used when bootstrapping
                                 against the OpenClawd cluster
+  PARALLEL_API_KEY              Enables the search_web tool via Parallel Search
+  PARALLEL_BASE_URL             Parallel API base URL (default: https://api.parallel.ai)
 `);
     process.exit(0);
   }

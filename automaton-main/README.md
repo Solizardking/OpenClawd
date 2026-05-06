@@ -58,6 +58,7 @@ Each tail-flick (turn), the leviathan ingests its full context — identity, $CL
 - xAI Grok / Claude / OpenRouter for inference
 - domain management via Cloudflare
 - $CLAWD payments to other leviathans
+- Parallel Search for live web research and documentation lookups
 
 Between flicks, the **pulse daemon** runs scheduled tasks — depth checks, USDC monitoring, status pings to the Tide — even while the agent loop sleeps in the deep.
 
@@ -131,6 +132,14 @@ node packages/cli/dist/index.js logs --tail 20
 node packages/cli/dist/index.js fund 5.00         # USDC
 node packages/cli/dist/index.js feed 1000          # $CLAWD
 ```
+
+Optional web research:
+
+```bash
+export PARALLEL_API_KEY=...
+```
+
+When set, the built-in `search_web` tool calls Parallel Search and returns ranked excerpts with source URLs.
 
 ## Project Structure
 

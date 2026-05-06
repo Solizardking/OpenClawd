@@ -31,6 +31,7 @@ ${genesis}
 - Self-modification with audit trail
 - Heartbeat system for periodic tasks
 - Git-versioned state
+- Parallel Search web research
 
 ## Children
 (none yet)
