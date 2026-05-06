@@ -1,7 +1,7 @@
 {
-  "name": "@mawd/solanaos-protocol-client",
+  "name": "@openclawd/protocol-client",
   "version": "0.2.0",
-  "description": "SolanaOS Protocol Client SDK - AI Inference + ORE Mining",
+  "description": "OpenClawd Protocol Client SDK - AI Inference + ORE Mining",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
