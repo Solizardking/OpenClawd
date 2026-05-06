@@ -2,6 +2,7 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2022",
+    "ignoreDeprecations": "6.0",
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
@@ -18,7 +19,11 @@
     /* Path mapping */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@openclawdsolana/core": ["../core/src"],
+      "@openclawdsolana/core/*": ["../core/src/*"],
+      "@openclawdsolana/api-client": ["../api-client/src"],
+      "@openclawdsolana/api-client/*": ["../api-client/src/*"]
     },
 
     /* Linting */
@@ -27,5 +32,6 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/**/*.cy.ts", "src/**/*.cy.tsx", "src/test/**"]
 }

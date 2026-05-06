@@ -41,7 +41,8 @@ export const App: React.FC<{ config: AppConfig }> = ({ config }) => {
   // View state - Default to Bloomberg view for full experience
   const [viewMode, setViewMode] = useState<ViewMode>('bloomberg');
   const [showBoot, setShowBoot] = useState(true);
-  const [bootLines, setBootLines] = useState<string[]>([]);
+  // Boot lines carry their own color → tag/text are rendered in the boot screen.
+  const [bootLines, setBootLines] = useState<Array<{ tag: string; text: string; color: string }>>([]);
 
   // Agent state
   const [agent] = useState(() => {
@@ -122,21 +123,24 @@ export const App: React.FC<{ config: AppConfig }> = ({ config }) => {
   // ─────────────────────────────────────────────────────────────────────────────
 
   useEffect(() => {
-    const bootMessages = [
-      '[INIT] 🦞 MAWD kernel v1.0.0 loading...',
-      '[CORE] Neural mesh networks initializing...',
-      `[API] Helius: ${config.heliusKey ? 'CONNECTED' : 'OFFLINE'}`,
-      `[API] Birdeye: ${config.birdeyeKey ? 'CONNECTED' : 'OFFLINE'}`,
-      `[API] Grok: ${config.grokKey ? 'CONNECTED' : 'OFFLINE'}`,
-      `[API] Perplexity: ${config.perplexityKey ? 'CONNECTED' : 'OFFLINE'}`,
-      '[MESH] Establishing multi-agent network...',
-      '[SYNC] Synchronizing with Solana mainnet...',
-      '[RECURSIVE] Enabling infinite thought loops...',
-      '[PERSONA] Loading MAWD consciousness... 🦞',
-      '[READY] All systems operational.',
-      '',
-      'Type /help for commands. Press Tab to switch views.',
-      '',
+    const link = (key: unknown) => (key ? '[LINKED]  ' : '[SEVERED] ');
+    const bootMessages: Array<{ tag: string; text: string; color: string }> = [
+      { tag: '▓▒░', text: 'cold-booting MAWD kernel v1.0.0 ▰▰▰ checksum: 0xDEADC1A0', color: '#FF003C' },
+      { tag: '[BIOS]', text: 'crimson firmware ok · void registers cleared', color: '#8B0000' },
+      { tag: '[CORE]', text: 'neural mesh waking · 4 chambers / 1 mind', color: '#FF6B1A' },
+      { tag: '[KEY] ', text: 'rotating ed25519 sigils · entropy harvested from chain noise', color: '#FFB000' },
+      { tag: '[NET] ', text: `helius      ${link(config.heliusKey)}   solana mainnet rpc`, color: config.heliusKey ? '#39FF14' : '#8B0000' },
+      { tag: '[NET] ', text: `birdeye     ${link(config.birdeyeKey)}   token data feed`, color: config.birdeyeKey ? '#39FF14' : '#8B0000' },
+      { tag: '[NET] ', text: `grok        ${link(config.grokKey)}   xai search oracle`, color: config.grokKey ? '#39FF14' : '#8B0000' },
+      { tag: '[NET] ', text: `perplexity  ${link(config.perplexityKey)}   research engine`, color: config.perplexityKey ? '#39FF14' : '#8B0000' },
+      { tag: '[MESH]', text: 'agent shards spawning · RALPH · SHADOW · CIPHER · NEXUS', color: '#FF6B1A' },
+      { tag: '[SYNC]', text: 'tailing solana mainnet · slot drift acceptable', color: '#00FFD1' },
+      { tag: '[LOOP]', text: 'recursive thought engine engaged · depth = ∞', color: '#FF003C' },
+      { tag: '[SOUL]', text: 'MAWD consciousness materializing 🦞 · the lobster remembers', color: '#FF6B1A' },
+      { tag: '▓▒░', text: 'all carapaces hardened · all sensors live · ready', color: '#39FF14' },
+      { tag: '', text: '', color: '#3D0710' },
+      { tag: '>>', text: 'type /help to commune · TAB cycles views · ESC severs', color: '#E8E0DD' },
+      { tag: '', text: '', color: '#3D0710' },
     ];
 
     let index = 0;
@@ -149,9 +153,9 @@ export const App: React.FC<{ config: AppConfig }> = ({ config }) => {
         setTimeout(() => {
           setShowBoot(false);
           agent.start();
-        }, 1000);
+        }, 800);
       }
-    }, 80);
+    }, 90);
 
     return () => clearInterval(interval);
   }, []);
@@ -304,18 +308,23 @@ export const App: React.FC<{ config: AppConfig }> = ({ config }) => {
   // Render
   // ─────────────────────────────────────────────────────────────────────────────
 
-  // Boot sequence
+  // Boot sequence — crimson terminal log with tag-prefixed lines.
   if (showBoot) {
     return (
       <Box flexDirection="column" padding={1}>
         <Header showSubtitle={false} />
         <Box flexDirection="column" marginTop={1}>
           {bootLines.map((line, i) => (
-            <Text key={i} color="green">
-              {line}
-            </Text>
+            <Box key={i}>
+              {line.tag && (
+                <Text color={line.color} bold>
+                  {line.tag.padEnd(7)}{' '}
+                </Text>
+              )}
+              <Text color={line.tag ? '#E8E0DD' : '#3D0710'}>{line.text}</Text>
+            </Box>
           ))}
-          <Text color="green">█</Text>
+          <Text color="#FF003C">█</Text>
         </Box>
       </Box>
     );
