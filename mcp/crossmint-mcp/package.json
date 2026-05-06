@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
-    "@openclawdsolana/crossmint-agentic-wallet": "*",
+    "@openclawdsolana/crossmint-agentic-wallet": "file:../../packages/crossmint-agentic-wallet",
     "zod": "^3.22.0"
   },
   "devDependencies": {
