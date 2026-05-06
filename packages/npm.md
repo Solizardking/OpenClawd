@@ -141,7 +141,7 @@ cd npm/openclawd-computer  && npm run pack:dry && npm run publish:public
 cd npm/openclawd-installer && npm run pack:dry && npm run publish:public
 ```
 
-The shared underlying installer lives at [`../install.sh`](../install.sh) and is what each package's `install.mjs` shells out to (locally when available, otherwise via `curl https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/install.sh`).
+The shared underlying installer lives at [`../install.sh`](../install.sh) and is what each package's `install.mjs` shells out to (locally when available, otherwise via `curl https://install.solanaclawd.com`).
 
 ## License
 

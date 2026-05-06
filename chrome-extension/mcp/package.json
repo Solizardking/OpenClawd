@@ -23,7 +23,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/clawdsolana/OpenClawd.git",
+        "url": "https://solanaclawd.com",
         "directory": "chrome-extension/mcp"
     },
     "homepage": "https://solanaclawd.com",

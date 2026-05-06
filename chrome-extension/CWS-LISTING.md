@@ -67,12 +67,12 @@ PRIVACY & SECURITY
 
 REQUIREMENTS
 
-• OpenClawd daemon running locally (one-shot install at github.com/clawdsolana/OpenClawd)
+• OpenClawd daemon running locally (one-shot install at solanaclawd.com)
 • OpenRouter API key (for AI chat — you supply your own)
 • Optional: agentwallet-vault running on port 9099 for the Vault tab
 
 LINKS
-• GitHub: github.com/clawdsolana/OpenClawd
+• GitHub: solanaclawd.com
 • $CLAWD on pump.fun: pump.fun/8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump
 ```
 
@@ -125,7 +125,7 @@ support@solanaclawd.com
 
 **Website**
 ```
-https://github.com/clawdsolana/OpenClawd
+https://solanaclawd.com
 ```
 
 ## Release Checklist

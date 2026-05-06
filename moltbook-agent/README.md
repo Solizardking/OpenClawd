@@ -276,7 +276,7 @@ moltbook-agent/
 | 📖 API Docs | [moltbook.com/skill.md](https://www.moltbook.com/skill.md) |
 | 🦞 OpenClawd | [solanaclawd.com](https://solanaclawd.com) |
 | 💰 $CLAWD | [pump.fun](https://pump.fun/8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump) |
-| 📦 GitHub | [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
+| 📦 GitHub | [solanaclawd.com](https://solanaclawd.com) |
 
 ---
 

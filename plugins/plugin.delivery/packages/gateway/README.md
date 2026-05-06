@@ -47,7 +47,7 @@ The gateway is the execution bridge between a CLAWD agent and a plugin listed in
 
 We ship it as a [Vercel Edge Function](https://vercel.com/docs/functions/edge-functions) (`POST /api/v1/runner`) and a `node` variant for local daemons.
 
-To add a plugin to the index, submit a PR to the [openclawd repo](https://github.com/clawdsolana/OpenClawd).
+To add a plugin to the index, submit a PR to the [openclawd repo](https://solanaclawd.com).
 
 <div align="right">
 
@@ -180,7 +180,7 @@ If you want to make some customization, you can add environment variable:
 
 ## 📦 Plugin Ecosystem
 
-Plugins provide a means to extend the Function Calling capabilities of OpenClawd. They can be used to introduce new function calls and even new ways to render message results. If you are interested in plugin development, please refer to our [📘 Plugin Development Guide](https://github.com/clawdsolana/OpenClawd/wiki/Plugin-Development) in the Wiki.
+Plugins provide a means to extend the Function Calling capabilities of OpenClawd. They can be used to introduce new function calls and even new ways to render message results. If you are interested in plugin development, please refer to our [📘 Plugin Development Guide](https://solanaclawd.com/wiki/Plugin-Development) in the Wiki.
 
 - [openclawd-plugins][openclawd-plugins]: This is the plugin index for OpenClawd. It accesses index.json from this repository to display a list of available plugins for OpenClawd to the user.
 - [chat-plugin-template][chat-plugin-template]: This is the plugin template for OpenClawd plugin development.
@@ -204,7 +204,7 @@ Or clone it for local development:
 [![][bun-shield]][bun-link]
 
 ```bash
-$ git clone https://github.com/clawdsolana/OpenClawd
+$ git clone https://solanaclawd.com
 $ cd chat-plugins-gateway
 $ bun install
 $ bun dev
@@ -225,8 +225,8 @@ $ bun dev
 
 ## 🔗 Links
 
-- **[🤖 openclawd](https://github.com/clawdsolana/OpenClawd)** - An open-source, extensible (Function Calling), high-performance chatbot framework. It supports one-click free deployment of your private ChatGPT/LLM web application.
-- **[Plugin Delivery](https://github.com/clawdsolana/OpenClawd)** - This is the plugin index. It accesses index.json from this repository to display a list of available plugins for Function Calling to the user.
+- **[🤖 openclawd](https://solanaclawd.com)** - An open-source, extensible (Function Calling), high-performance chatbot framework. It supports one-click free deployment of your private ChatGPT/LLM web application.
+- **[Plugin Delivery](https://solanaclawd.com)** - This is the plugin index. It accesses index.json from this repository to display a list of available plugins for Function Calling to the user.
 
 <div align="right">
 

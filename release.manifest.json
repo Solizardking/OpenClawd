@@ -5,7 +5,7 @@
   "scope": "@openclawdsolana",
   "repository": {
     "type": "git",
-    "url": "https://github.com/clawdsolana/OpenClawd.git"
+    "url": "https://solanaclawd.com"
   },
   "endpoints": {
     "apiBase": "https://solanaclawd.com/api",

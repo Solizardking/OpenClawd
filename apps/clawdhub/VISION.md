@@ -85,8 +85,8 @@ The goal is to stay powerful for real work while making risky paths explicit and
 - Hardening with best practices
 
 Canonical security policy and reporting:
-- [`SECURITY.md`](https://github.com/clawdsolana/OpenClawd/blob/main/docs/SECURITY.md)
-- [`clawd-vault-master/`](https://github.com/clawdsolana/OpenClawd/tree/main/clawd-vault-master)
+- [`SECURITY.md`](https://solanaclawd.com)
+- [`clawd-vault-master/`](https://solanaclawd.com)
 
 We prioritize secure defaults, but we also expose clear knobs for trusted high-power workflows.
 
@@ -126,7 +126,7 @@ OpenClawd ships with **@openclawd/openclawd-mcp**: 31 MCP tools including:
 
 **Metaplex:** `metaplex_mint_agent`, `metaplex_register_identity`, `metaplex_read_agent`
 
-MCP bridge in orchestrator: [`openclawd-stack/orchestrator/mcp-bridge.ts`](https://github.com/clawdsolana/OpenClawd/tree/main/openclawd-stack/orchestrator/mcp-bridge.ts)
+MCP bridge in orchestrator: [`openclawd-stack/orchestrator/mcp-bridge.ts`](https://solanaclawd.com)
 
 ---
 

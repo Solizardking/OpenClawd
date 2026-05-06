@@ -10,7 +10,7 @@
     "128": "assets/icon128.png"
   },
   "default_locale": "en",
-  "homepage_url": "https://github.com/clawdsolana/OpenClawd",
+  "homepage_url": "https://solanaclawd.com",
   "permissions": [
     "tabs",
     "tabGroups",

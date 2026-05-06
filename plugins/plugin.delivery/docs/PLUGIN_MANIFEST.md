@@ -307,7 +307,7 @@ URL to plugin homepage or documentation.
 
 ```json
 {
-  "homepage": "https://github.com/clawdsolana/OpenClawd"
+  "homepage": "https://solanaclawd.com"
 }
 ```
 

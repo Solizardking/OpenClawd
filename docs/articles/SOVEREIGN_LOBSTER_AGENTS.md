@@ -213,7 +213,7 @@ openclawd/
 ## Part X — Quick start
 
 ```bash
-git clone https://github.com/clawdsolana/OpenClawd.git
+git clone https://solanaclawd.com
 cd openclawd
 pnpm install && pnpm build
 node openclawd-framework/dist/index.js --spawn --name "Snippy" --creator <YOUR_PUBKEY>

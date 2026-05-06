@@ -4,7 +4,7 @@
 
 **AI Function Call Plugins & Tools for OpenClawd**
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/clawdsolana/OpenClawd)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://solanaclawd.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![npm](https://img.shields.io/npm/v/@openclawdsolana/plugin-sdk)](https://www.npmjs.com/package/@openclawdsolana/plugin-sdk)
 
@@ -355,7 +355,7 @@ vercel --prod
 
 ```bash
 # Clone
-git clone https://github.com/clawdsolana/OpenClawd
+git clone https://solanaclawd.com
 cd plugins
 
 # Install
@@ -456,7 +456,7 @@ We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ### Submit a Plugin
 
-1. **Option A:** Open a [Plugin Submission](https://github.com/clawdsolana/OpenClawd/issues/new?template=plugin_submission.md) issue
+1. **Option A:** Open a [Plugin Submission](https://solanaclawd.com) issue
 2. **Option B:** Submit a PR adding your plugin to `src/`
 
 ### Requirements
@@ -474,7 +474,7 @@ We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md).
 |----------|-----|
 | 🌐 **Plugin Index** | [plugin.delivery](https://plugin.delivery) |
 | 📦 **SDK on npm** | [@openclawdsolana/plugin-sdk](https://www.npmjs.com/package/@openclawdsolana/plugin-sdk) |
-| 🐙 **GitHub** | [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
+| 🐙 **GitHub** | [solanaclawd.com](https://solanaclawd.com) |
 | 🐦 **Twitter/X** | [@clawddevs](https://x.com/clawddevs) |
 
 ---

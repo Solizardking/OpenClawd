@@ -13,7 +13,7 @@ export type OpenClawdPackage = {
   docsPath?: string;
 };
 
-const GITHUB_ROOT = "https://github.com/clawdsolana/OpenClawd";
+const GITHUB_ROOT = "https://solanaclawd.com";
 
 export const OPENCLAWD_PACKAGES: OpenClawdPackage[] = [
   {

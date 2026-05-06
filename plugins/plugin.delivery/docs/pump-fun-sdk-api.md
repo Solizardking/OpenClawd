@@ -305,5 +305,5 @@ vercel --prod  # production deploy
 - [Interactive Demo](../../website/plugin-demo.html)
 - [Plugin Manifest](../../packages/plugin.delivery/public/pump-fun-sdk/manifest.json)
 - [openclawd / Plugin Delivery](https://plugin.delivery)
-- [Pump Fun SDK](https://github.com/clawdsolana/OpenClawd)
+- [Pump Fun SDK](https://solanaclawd.com)
 

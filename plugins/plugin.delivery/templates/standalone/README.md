@@ -20,7 +20,7 @@ OpenClawd Plugin System is a modular architecture that extends AI agent capabili
 
 ```bash
 # Clone the repository
-git clone https://github.com/clawdsolana/OpenClawd
+git clone https://solanaclawd.com
 cd OpenClawd
 
 # Install dependencies
@@ -514,7 +514,7 @@ console.log('Resolved filename:', fileName);
 - [Plugin Development Guide](docs/PLUGIN_DEVELOPMENT_GUIDE.md)
 - [Testing Guide](testing-guide/testing-guide.mdc)
 - [Contributing Guide](CONTRIBUTING.md)
-- [openclawd GitHub](https://github.com/clawdsolana/OpenClawd)
+- [openclawd GitHub](https://solanaclawd.com)
 
 ## License
 

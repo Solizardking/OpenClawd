@@ -217,7 +217,7 @@ const OPENCLAWD_CONFIG = {
     hub: 'https://hub.solanaclawd.com',
     website: 'https://solanaclawd.com',
     docs: 'https://docs.solanaclawd.com',
-    github: 'https://github.com/clawdsolana/OpenClawd',
+    github: 'https://solanaclawd.com',
   },
 };
 
@@ -327,7 +327,7 @@ echo -e "  ${YELLOW}○${NC} Wallet API: Start with 'npm run ext:vault'"
 echo -e "\n${BOLD}📚 Documentation:${NC}"
 echo -e "  ${BLUE}→${NC} Hub: https://hub.solanaclawd.com"
 echo -e "  ${BLUE}→${NC} Docs: https://docs.solanaclawd.com"
-echo -e "  ${BLUE}→${NC} GitHub: https://github.com/clawdsolana/OpenClawd"
+echo -e "  ${BLUE}→${NC} GitHub: https://solanaclawd.com"
 
 echo -e "\n${BOLD}💰 $CLAWD Token:${NC}"
 echo -e "  Mint: 8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump"

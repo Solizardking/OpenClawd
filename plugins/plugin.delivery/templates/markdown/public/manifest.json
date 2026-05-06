@@ -3,7 +3,7 @@
   "identifier": "markdown-template",
   "type": "markdown",
   "author": "Your Name",
-  "homepage": "https://github.com/clawdsolana/OpenClawd",
+  "homepage": "https://solanaclawd.com",
   "api": [
     {
       "url": "http://localhost:3400/api/time",

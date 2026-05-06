@@ -145,7 +145,7 @@ Env overrides:
 ## Develop
 
 ```bash
-git clone https://github.com/clawdsolana/OpenClawd.git
+git clone https://solanaclawd.com
 cd OpenClawd/clawd-tui
 npm install
 cp .env.example .env   # optional — sets OPENROUTER_API_KEY for dev

@@ -3,7 +3,7 @@
   "identifier": "standalone-template",
   "type": "standalone",
   "author": "Your Name",
-  "homepage": "https://github.com/clawdsolana/OpenClawd",
+  "homepage": "https://solanaclawd.com",
   "ui": {
     "url": "http://localhost:3400",
     "height": 400

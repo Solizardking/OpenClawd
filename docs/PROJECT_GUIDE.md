@@ -42,7 +42,7 @@ enable signed transactions.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/clawdsolana/OpenClawd.git
+git clone https://solanaclawd.com
 cd openclawd
 ```
 
@@ -473,8 +473,8 @@ refactor(clawdrouter): simplify model scoring
 
 | Resource | Link |
 |----------|------|
-| Issues | [GitHub Issues](https://github.com/clawdsolana/OpenClawd/issues) |
-| Discussions | [GitHub Discussions](https://github.com/clawdsolana/OpenClawd/discussions) |
+| Issues | [GitHub Issues](https://solanaclawd.com) |
+| Discussions | [GitHub Discussions](https://solanaclawd.com/discussions) |
 | Twitter | [@clawddevs](https://x.com/clawddevs) |
 | Telegram | [@clawdtoken](https://t.me/clawdtoken) |
 

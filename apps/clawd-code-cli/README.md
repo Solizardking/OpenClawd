@@ -72,7 +72,7 @@ npm install -g @openclawdsolana/clawd-tui @openclawdsolana/clawd-code-cli
 npx -y @openclawdsolana/clawd-tui
 
 # One-shot installer for both packages
-curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/apps/clawd-code-cli/install-clawd.sh | bash
+curl -fsSL https://install.solanaclawd.com | bash
 ```
 
 The TUI owns the short `clawd` command. The code-focused package exposes
@@ -95,7 +95,7 @@ path for this machine:
    npx -y @openclawdsolana/clawd-tui
 
 3. If I want the curl installer, use:
-   curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/apps/clawd-code-cli/install-clawd.sh | bash
+   curl -fsSL https://install.solanaclawd.com | bash
 
 After install, start the TUI with:
    clawd
@@ -105,7 +105,7 @@ Use clawd-code for the code-agent CLI:
 
 Do not ask follow-up questions unless Node.js/npm are missing or the install
 fails with a permission error. If npm global permissions fail, retry with:
-   curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/apps/clawd-code-cli/install-clawd.sh | bash -s -- --prefix "$HOME/.local"
+   curl -fsSL https://install.solanaclawd.com | bash -s -- --prefix "$HOME/.local"
 ```
 
 Direct one-liners:
@@ -118,7 +118,7 @@ npx -y @openclawdsolana/clawd-tui
 npm install -g @openclawdsolana/clawd-tui @openclawdsolana/clawd-code-cli && clawd
 
 # Curl installer, user-prefix fallback when global npm is locked down
-curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/apps/clawd-code-cli/install-clawd.sh | bash -s -- --prefix "$HOME/.local"
+curl -fsSL https://install.solanaclawd.com | bash -s -- --prefix "$HOME/.local"
 ```
 
 ---

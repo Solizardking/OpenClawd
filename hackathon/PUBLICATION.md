@@ -4,7 +4,7 @@ The `hackathon/` directory is designed to be published as-is.
 
 ## Recommended Public URLs
 
-- GitHub directory: `https://github.com/clawdsolana/OpenClawd/tree/main/hackathon`
+- GitHub directory: `https://solanaclawd.com
 - Static site: GitHub Pages, Vercel, Netlify, or any static file host pointed at `hackathon/one-page-site`
 - Slide deck: publish `hackathon/presentation/pitch-deck.html`
 

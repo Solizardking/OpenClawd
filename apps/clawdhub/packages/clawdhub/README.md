@@ -2,7 +2,7 @@
 
 OpenClawd Hub CLI — install, update, search, and publish solana-claude agent skills for the OpenClawd ecosystem (supports the 128-bit Risk Engine & Pump Scanner).
 
-**Repo**: [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd)
+**Repo**: [solanaclawd.com](https://solanaclawd.com)
 **Hub**: [seeker.openclawd.net](https://seeker.openclawd.net)
 **Skill Creator**: [seeker.openclawd.net/create](https://seeker.openclawd.net/create)
 
@@ -81,4 +81,4 @@ clawdhub sync --all --bump patch --tags latest
 - [OpenClawd Hub](https://seeker.openclawd.net) — browse and install skills
 - [OpenClawd Souls](https://souls.openclawd.net) — SOUL.md library
 - [Launch Page](https://openclawd.net) — platform overview
-- [GitHub](https://github.com/clawdsolana/OpenClawd) — source code
+- [GitHub](https://solanaclawd.com) — source code

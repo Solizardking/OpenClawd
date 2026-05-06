@@ -105,7 +105,7 @@ curl https://solanaclawd.com/api/agents/templates/trading-agent.json
 ### For developers
 
 ```bash
-git clone https://github.com/clawdsolana/OpenClawd.git
+git clone https://solanaclawd.com
 cd openclawd/agents
 bun install
 bun run format
@@ -508,7 +508,7 @@ Regenerate any time with `node build-catalog.cjs`. Current snapshot (April 2026)
 
 ## 🔗 Projects Building with Solana Clawd Agents
 
-- **ClawdOS** — [Application Branch](https://github.com/clawdsolana/OpenClawd/tree/clawdos)
+- **ClawdOS** — [Application Branch](https://solanaclawd.com)
 - **CLAWD Terminal** — the parent repo hosting this hub + server + client
 - **CLAWD Router** — [ClawdRouter-main/](../ClawdRouter-main/) powers agent dispatch with tier/holder-aware routing
 - **CLAWD × Pump.fun** — payment-gated agent rails via `@pump-fun/agent-payments-sdk`

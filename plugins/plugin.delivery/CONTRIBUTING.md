@@ -52,7 +52,7 @@ Be respectful, inclusive, and constructive. We're building tools for the crypto/
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/clawdsolana/OpenClawd
+git clone https://solanaclawd.com
 cd plugins
 bun install
 ```
@@ -101,7 +101,7 @@ This starts a local Vercel dev server at `http://localhost:3000`.
 
 ### Option 1: Via GitHub Issue
 
-1. Create a [Plugin Submission](https://github.com/clawdsolana/OpenClawd/issues/new?template=plugin_submission.md) issue
+1. Create a [Plugin Submission](https://solanaclawd.com) issue
 2. Provide your manifest URL and details
 3. We'll review and add it to the index
 
@@ -193,7 +193,7 @@ plugin: add dexscreener integration
 
 ## Questions?
 
-- GitHub Issues: [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
+- GitHub Issues: [solanaclawd.com/issues](https://solanaclawd.com)
 - Twitter/X: [@clawddevs](https://x.com/clawddevs)
 
 ---

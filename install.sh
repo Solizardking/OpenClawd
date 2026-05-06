@@ -14,7 +14,7 @@
 #   • npm/openclawd-computer/bin/install.mjs   (npx @openclawdsolana/computer)
 #   • npm/openclawd-installer/bin/install.mjs  (npx @openclawdsolana/installer)
 #   • Direct curl:
-#       curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/install.sh | bash
+#       curl -fsSL https://install.solanaclawd.com | bash
 #
 # Flags:
 #   --with-web           Also build the local web console launcher.
@@ -34,7 +34,7 @@ umask 022
 # ──────────────────────────────────────────────────────────────────────────────
 # Defaults
 # ──────────────────────────────────────────────────────────────────────────────
-REPO_URL="https://github.com/clawdsolana/OpenClawd.git"
+REPO_URL="https://solanaclawd.com"
 WORKSPACE="${OPENCLAWD_HOME:-$HOME/.openclawdsolana}"
 BIN_DIR_DEFAULT="$WORKSPACE/bin"
 BIN_DIR=""
@@ -426,7 +426,7 @@ ${GREEN}${BOLD}🦞 OpenClawd installed${RESET}
        openclawd gateway start
        openclawd gateway setup-code
 
-${DIM}  Star us: https://github.com/clawdsolana/OpenClawd${RESET}
-${DIM}  Share:   curl -fsSL https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/install.sh | bash${RESET}
+${DIM}  Star us: https://solanaclawd.com${RESET}
+${DIM}  Share:   curl -fsSL https://install.solanaclawd.com | bash${RESET}
 
 EOF

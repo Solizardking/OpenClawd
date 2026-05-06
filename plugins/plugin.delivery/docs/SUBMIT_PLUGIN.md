@@ -33,7 +33,7 @@ This guide explains how to list your plugin in the OpenClawd Plugin Marketplace 
 
 The OpenClawd Plugin Marketplace is a curated registry of plugins available to all OpenClawd users. Submitting your plugin makes it discoverable in the plugin store and allows users to install it with one click.
 
-**Repository:** [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd)
+**Repository:** [solanaclawd.com](https://solanaclawd.com)
 
 ---
 
@@ -69,7 +69,7 @@ Your plugin entry should be a JSON file in the `src/` directory:
 {
   "author": "YourName",
   "createdAt": "2025-01-01",
-  "homepage": "https://github.com/clawdsolana/OpenClawd",
+  "homepage": "https://solanaclawd.com",
   "identifier": "your-plugin-identifier",
   "manifest": "https://your-plugin.vercel.app/manifest.json",
   "meta": {
@@ -171,7 +171,7 @@ locales/
 
 ```bash
 # Fork via GitHub UI, then clone your fork
-git clone https://github.com/clawdsolana/OpenClawd.git
+git clone https://solanaclawd.com
 cd plugin.delivery
 ```
 
@@ -238,7 +238,7 @@ git push origin main
 
 ### Step 7: Open Pull Request
 
-1. Go to [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd)
+1. Go to [solanaclawd.com](https://solanaclawd.com)
 2. Click "Compare & pull request"
 3. Fill in the PR template with:
    - Plugin name and description
@@ -341,7 +341,7 @@ Learn from these official reference implementations:
 ## Getting Help
 
 - **Documentation:** This guide and related docs
-- **GitHub Issues:** [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
+- **GitHub Issues:** [solanaclawd.com/issues](https://solanaclawd.com)
 - **Twitter/X:** [@clawddevs](https://x.com/clawddevs)
 
 ---

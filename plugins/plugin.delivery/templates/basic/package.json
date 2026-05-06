@@ -3,8 +3,8 @@
   "version": "1.5.1",
   "private": true,
   "description": "This is the plugin template for OpenClawd plugin development",
-  "homepage": "https://github.com/clawdsolana/OpenClawd",
-  "repository": "https://github.com/clawdsolana/OpenClawd",
+  "homepage": "https://solanaclawd.com",
+  "repository": "https://solanaclawd.com",
   "workspaces": [
     "docs/*",
     "./*"

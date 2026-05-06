@@ -20,14 +20,14 @@
         "@ai16z/openclawd": "0.1.5-alpha.5",
         "@openclawdsolana/toolkit-core": "workspace:*"
     },
-    "homepage": "https://github.com/clawdsolana/OpenClawd",
+    "homepage": "https://solanaclawd.com",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/clawdsolana/OpenClawd.git"
+        "url": "https://solanaclawd.com"
     },
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/clawdsolana/OpenClawd/issues"
+        "url": "https://solanaclawd.com"
     },
     "keywords": ["ai", "agents", "web3"]
 }

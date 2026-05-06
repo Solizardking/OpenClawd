@@ -104,38 +104,38 @@ User Message: "Show my portfolio"
 
 | Repository | Purpose | NPM Package | Importance |
 |------------|---------|-------------|------------|
-| **[plugin-sdk](https://github.com/clawdsolana/OpenClawd)** | SDK for building plugins | `@clawdsolana/OpenClawd` | 🔴 Critical |
-| **[chat-plugins-gateway](https://github.com/clawdsolana/OpenClawd)** | Proxy between OpenClawd and plugins | `@clawdsolana/OpenClawd` | 🔴 Critical |
-| **[openclawd-plugins](https://github.com/clawdsolana/OpenClawd)** | Plugin marketplace index | - | 🟡 Medium |
-| **[openai-plugins](https://github.com/clawdsolana/OpenClawd)** | ChatGPT plugin compatibility | - | 🟢 Low |
+| **[plugin-sdk](https://solanaclawd.com)** | SDK for building plugins | `@OpenClawd` | 🔴 Critical |
+| **[chat-plugins-gateway](https://solanaclawd.com)** | Proxy between OpenClawd and plugins | `@OpenClawd` | 🔴 Critical |
+| **[openclawd-plugins](https://solanaclawd.com)** | Plugin marketplace index | - | 🟡 Medium |
+| **[openai-plugins](https://solanaclawd.com)** | ChatGPT plugin compatibility | - | 🟢 Low |
 
 ### Example Plugin Repositories
 
 | Repository | Type | Has Backend | Has Frontend | Deployment |
 |------------|------|-------------|--------------|------------|
-| **[chat-plugin-template](https://github.com/clawdsolana/OpenClawd)** | Template | ✅ | ✅ | Vercel |
-| **[chat-plugin-web-crawler](https://github.com/clawdsolana/OpenClawd)** | Default | ✅ | ❌ | Vercel |
-| **[chat-plugin-search-engine](https://github.com/clawdsolana/OpenClawd)** | Default | ✅ | ❌ | Vercel |
-| **[chat-plugin-clock-time](https://github.com/clawdsolana/OpenClawd)** | Standalone | ❌ | ✅ | Vercel Static |
-| **[chat-plugin-realtime-weather](https://github.com/clawdsolana/OpenClawd)** | Default | ✅ | ✅ | Vercel |
-| **[chat-plugin-bilibili](https://github.com/clawdsolana/OpenClawd)** | Default | ✅ | ❌ | Vercel |
-| **[chat-plugin-steam](https://github.com/clawdsolana/OpenClawd)** | Default | ✅ | ❌ | Vercel |
-| **[chat-plugin-open-interpreter](https://github.com/clawdsolana/OpenClawd)** | Standalone | ✅ | ✅ | 🔴 Local Only |
+| **[chat-plugin-template](https://solanaclawd.com)** | Template | ✅ | ✅ | Vercel |
+| **[chat-plugin-web-crawler](https://solanaclawd.com)** | Default | ✅ | ❌ | Vercel |
+| **[chat-plugin-search-engine](https://solanaclawd.com)** | Default | ✅ | ❌ | Vercel |
+| **[chat-plugin-clock-time](https://solanaclawd.com)** | Standalone | ❌ | ✅ | Vercel Static |
+| **[chat-plugin-realtime-weather](https://solanaclawd.com)** | Default | ✅ | ✅ | Vercel |
+| **[chat-plugin-bilibili](https://solanaclawd.com)** | Default | ✅ | ❌ | Vercel |
+| **[chat-plugin-steam](https://solanaclawd.com)** | Default | ✅ | ❌ | Vercel |
+| **[chat-plugin-open-interpreter](https://solanaclawd.com)** | Standalone | ✅ | ✅ | 🔴 Local Only |
 
 ### SDK Installation
 
 ```bash
 # For plugin development
-pnpm add @clawdsolana/OpenClawd
+pnpm add @OpenClawd
 
 # For gateway setup
-pnpm add @clawdsolana/OpenClawd
+pnpm add @OpenClawd
 ```
 
 ### SDK Client API
 
 ```typescript
-import { SolanaClawdOS } from '@clawdsolana/OpenClawd/client';
+import { SolanaClawdOS } from '@OpenClawd/client';
 
 // Get initialization data
 const payload = await SolanaClawdOS.getPluginPayload();
@@ -628,7 +628,7 @@ External plugins run on separate servers and communicate via Gateway.
 
 ```bash
 # Clone template
-git clone https://github.com/clawdsolana/OpenClawd my-plugin
+git clone https://solanaclawd.com my-plugin
 cd my-plugin
 
 # Install dependencies
@@ -691,7 +691,7 @@ export default async function handler(req, res) {
 ```typescript
 // pages/api/gateway.ts
 
-import { createSolanaClawdPluginGateway } from '@clawdsolana/OpenClawd';
+import { createSolanaClawdPluginGateway } from '@OpenClawd';
 
 export default createSolanaClawdPluginGateway();
 ```
@@ -718,7 +718,7 @@ export default createSolanaClawdPluginGateway();
 Access settings in API:
 
 ```typescript
-import { getPluginSettingsFromRequest } from '@clawdsolana/OpenClawd';
+import { getPluginSettingsFromRequest } from '@OpenClawd';
 
 export default async function handler(req, res) {
   const settings = getPluginSettingsFromRequest(req);

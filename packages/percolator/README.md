@@ -2,7 +2,7 @@
 
 **Perpetuals trading CLI for Solana** — Trade, manage, and monitor perpetuals markets.
 
-> Part of the [OpenClawd](https://github.com/clawdsolana/OpenClawd) monorepo — the Hermes of Web3.
+> Part of the [OpenClawd](https://solanaclawd.com) monorepo — the Hermes of Web3.
 
 ---
 
@@ -45,7 +45,7 @@ Features:
 
 ```bash
 # Clone the repo
-git clone https://github.com/clawdsolana/OpenClawd.git
+git clone https://solanaclawd.com
 cd openclawd
 
 # Build the package
@@ -217,7 +217,7 @@ percolator slab:engine --slab <PUBKEY>
 | Service | URL |
 |---------|-----|
 | 🌐 Website | [solanaclawd.com](https://solanaclawd.com) |
-| 📦 GitHub | [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
+| 📦 GitHub | [solanaclawd.com](https://solanaclawd.com) |
 | 🐦 Twitter | [x.com/clawddevs](https://x.com/clawddevs) |
 | 💬 Telegram | [t.me/clawdtoken](https://t.me/clawdtoken) |
 

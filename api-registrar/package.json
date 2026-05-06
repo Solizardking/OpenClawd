@@ -7,12 +7,12 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/clawdsolana/OpenClawd.git",
+    "url": "https://solanaclawd.com",
     "directory": "api-registrar"
   },
-  "homepage": "https://github.com/clawdsolana/OpenClawd/tree/main/api-registrar#readme",
+  "homepage": "https://solanaclawd.com",
   "bugs": {
-    "url": "https://github.com/clawdsolana/OpenClawd/issues"
+    "url": "https://solanaclawd.com"
   },
   "scripts": {
     "dev": "vite",

@@ -1,6 +1,6 @@
 /* TEAM */
 Creator: OpenClawd
-GitHub: https://github.com/clawdsolana/OpenClawd
+GitHub: https://solanaclawd.com
 From: Earth
 
 /* SITE */

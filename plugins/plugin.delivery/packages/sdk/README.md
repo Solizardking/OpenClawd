@@ -83,7 +83,7 @@ Or clone it for local development:
 [![][bun-shield]][bun-link]
 
 ```bash
-$ git clone https://github.com/clawdsolana/OpenClawd
+$ git clone https://solanaclawd.com
 $ cd plugin-sdk
 $ bun install
 $ bun dev
@@ -111,8 +111,8 @@ Contributions of all types are more than welcome, if you are interested in contr
 
 ## 🔗 Links
 
-- **[🤖 openclawd](https://github.com/clawdsolana/OpenClawd)** - An open-source, extensible (Function Calling), high-performance chatbot framework. It supports one-click free deployment of your private ChatGPT/LLM web application.
-- **[🧩 / 🏪 Plugin Index](https://github.com/clawdsolana/OpenClawd)** - This is the plugin index for OpenClawd. It accesses index.json from this repository to display a list of available plugins for Function Calling to the user.
+- **[🤖 openclawd](https://solanaclawd.com)** - An open-source, extensible (Function Calling), high-performance chatbot framework. It supports one-click free deployment of your private ChatGPT/LLM web application.
+- **[🧩 / 🏪 Plugin Index](https://solanaclawd.com)** - This is the plugin index for OpenClawd. It accesses index.json from this repository to display a list of available plugins for Function Calling to the user.
 
 <div align="right">
 
@@ -129,39 +129,39 @@ This project is [MIT](./LICENSE) licensed.
 
 <!-- LINK GROUP -->
 
-[🤯-🧩-openclawd-link]: https://github.com/clawdsolana/OpenClawd
+[🤯-🧩-openclawd-link]: https://solanaclawd.com
 [🤯-🧩-openclawd-shield]: https://img.shields.io/badge/%F0%9F%A4%AF%20%26%20%F0%9F%A7%A9%20openclawd-Plugin-95f3d9?labelColor=black&style=flat-square
 [back-to-top]: https://img.shields.io/badge/-BACK_TO_TOP-black?style=flat-square
 [bun-link]: https://bun.sh
 [bun-shield]: https://img.shields.io/badge/-speedup%20with%20bun-black?logo=bun&style=for-the-badge
 [plugin-development-docs]: https://openclawd.com/docs/usage/plugins/development
-[plugin-sdk]: https://github.com/clawdsolana/OpenClawd
-[chat-plugin-template]: https://github.com/clawdsolana/OpenClawd
-[chat-plugins-gateway]: https://github.com/clawdsolana/OpenClawd
-[github-action-release-link]: https://github.com/clawdsolana/OpenClawd
+[plugin-sdk]: https://solanaclawd.com
+[chat-plugin-template]: https://solanaclawd.com
+[chat-plugins-gateway]: https://solanaclawd.com
+[github-action-release-link]: https://solanaclawd.com
 [github-action-release-shield]: https://img.shields.io/github/actions/workflow/status/openclawd/plugin-sdk/release.yml?label=release&labelColor=black&logo=githubactions&logoColor=white&style=flat-square
-[github-action-test-link]: https://github.com/clawdsolana/OpenClawd
+[github-action-test-link]: https://solanaclawd.com
 [github-action-test-shield]: https://img.shields.io/github/actions/workflow/status/openclawd/plugin-sdk/test.yml?label=test&labelColor=black&logo=githubactions&logoColor=white&style=flat-square
 [github-codespace-link]: https://codespaces.new/openclawd/plugin-sdk
 [github-codespace-shield]: https://github.com/codespaces/badge.svg
-[github-contrib-link]: https://github.com/clawdsolana/OpenClawd
+[github-contrib-link]: https://solanaclawd.com
 [github-contrib-shield]: https://contrib.rocks/image?repo=openclawd%2Fplugin-sdk
-[github-contributors-link]: https://github.com/clawdsolana/OpenClawd
+[github-contributors-link]: https://solanaclawd.com
 [github-contributors-shield]: https://img.shields.io/github/contributors/openclawd/plugin-sdk?color=c4f042&labelColor=black&style=flat-square
-[github-forks-link]: https://github.com/clawdsolana/OpenClawd
+[github-forks-link]: https://solanaclawd.com
 [github-forks-shield]: https://img.shields.io/github/forks/openclawd/plugin-sdk?color=8ae8ff&labelColor=black&style=flat-square
-[github-issues-link]: https://github.com/clawdsolana/OpenClawd
+[github-issues-link]: https://solanaclawd.com
 [github-issues-shield]: https://img.shields.io/github/issues/openclawd/plugin-sdk?color=ff80eb&labelColor=black&style=flat-square
-[github-license-link]: https://github.com/clawdsolana/OpenClawd
+[github-license-link]: https://solanaclawd.com
 [github-license-shield]: https://img.shields.io/github/license/openclawd/plugin-sdk?color=white&labelColor=black&style=flat-square
-[github-releasedate-link]: https://github.com/clawdsolana/OpenClawd
+[github-releasedate-link]: https://solanaclawd.com
 [github-releasedate-shield]: https://img.shields.io/github/release-date/openclawd/plugin-sdk?labelColor=black&style=flat-square
-[github-stars-link]: https://github.com/clawdsolana/OpenClawd
+[github-stars-link]: https://solanaclawd.com
 [github-stars-shield]: https://img.shields.io/github/stars/openclawd/plugin-sdk?color=ffcb47&labelColor=black&style=flat-square
-[openclawd-os-plugins]: https://github.com/clawdsolana/OpenClawd
+[openclawd-os-plugins]: https://solanaclawd.com
 [npm-release-link]: https://www.npmjs.com/package/@openclawdsolana/plugin-sdk
 [npm-release-shield]: https://img.shields.io/npm/v/@openclawdsolana/plugin-sdk?color=369eff&labelColor=black&logo=npm&logoColor=white&style=flat-square
-[pr-welcome-link]: https://github.com/clawdsolana/OpenClawd
+[pr-welcome-link]: https://solanaclawd.com
 [pr-welcome-shield]: https://img.shields.io/badge/%F0%9F%A4%AF%20PR%20WELCOME-%E2%86%92-ffcb47?labelColor=black&style=for-the-badge
-[profile-link]: https://github.com/clawdsolana/OpenClawd
+[profile-link]: https://solanaclawd.com
 

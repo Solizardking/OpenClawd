@@ -3,7 +3,7 @@
 > **Version:** 2.0.0  
 > **Last Updated:** December 27, 2025  
 > **Domain:** `plugin.delivery`  
-> **Repository:** `clawdsolana/OpenClawd`
+> **Repository:** `OpenClawd`
 
 This comprehensive guide covers everything you need to know about developing, deploying, and maintaining plugins for OpenClawd.
 
@@ -212,7 +212,7 @@ Continue reading for detailed documentation on [Architecture Overview](#2-archit
 
 | Component | Repository | Purpose |
 |-----------|------------|---------|
-| **Plugin Index** | `clawdsolana/OpenClawd` | Plugin marketplace registry |
+| **Plugin Index** | `OpenClawd` | Plugin marketplace registry |
 | **Plugin SDK** | `@openclawdsolana/plugin-sdk` | Development toolkit |
 | **Plugin Gateway** | `@openclawdsolana/chat-plugins-gateway` | Request proxy service |
 | **Plugin Templates** | `templates/` | Starter project templates |
@@ -455,7 +455,7 @@ The plugin index (`public/index.json`) is the registry that OpenClawd uses to di
   "description": "The official plugin marketplace for OpenClawd",
   "author": "OpenClawd",
   "homepage": "https://openclawd.net",
-  "repository": "https://github.com/clawdsolana/OpenClawd",
+  "repository": "https://solanaclawd.com",
   "plugins": [
     {
       "author": "CoinGecko",
@@ -576,7 +576,7 @@ cd my-plugin
 Or clone the repository and start from there:
 
 ```bash
-git clone https://github.com/clawdsolana/OpenClawd
+git clone https://solanaclawd.com
 cd plugin.delivery
 cp -r templates/openapi ../my-plugin
 cd ../my-plugin
@@ -1114,7 +1114,7 @@ SolanaClawdChat.setPluginMessage(newContent);
    {
      "author": "Your Name",
      "createdAt": "2025-12-27",
-     "homepage": "https://github.com/clawdsolana/OpenClawd",
+     "homepage": "https://solanaclawd.com",
      "identifier": "my-plugin",
      "manifest": "https://plugin.delivery/openai/my-plugin/manifest.json",
      "meta": {
@@ -1213,7 +1213,7 @@ console.log('[Plugin] Response:', result);
 
 - **Documentation:** This guide
 - **SDK Docs:** https://plugin.delivery/docs
-- **GitHub Issues:** https://github.com/clawdsolana/OpenClawd/issues
+- **GitHub Issues:** https://solanaclawd.com
 - **Discord:** [openclawd Discord Server]
 
 ---

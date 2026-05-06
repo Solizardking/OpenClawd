@@ -27,7 +27,7 @@ Build and deploy your first OpenClawd plugin in under 10 minutes.
 
 ```bash
 # Clone the plugins repo
-git clone https://github.com/clawdsolana/OpenClawd
+git clone https://solanaclawd.com
 cd plugins
 
 # Copy a template
@@ -207,13 +207,13 @@ After deployment, update `manifest.json` with production URLs:
 
 ### Option A: Submit via GitHub Issue
 
-1. Go to [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
+1. Go to [solanaclawd.com/issues](https://solanaclawd.com)
 2. Click "New Issue" → "Plugin Submission"
 3. Fill in your plugin details
 
 ### Option B: Submit via Pull Request
 
-1. Fork [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd)
+1. Fork [solanaclawd.com](https://solanaclawd.com)
 
 2. Add your plugin to `src/my-plugin.json`:
 
@@ -349,7 +349,7 @@ export default async function handler(req: Request) {
 
 ## Need Help?
 
-- GitHub Issues: [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
+- GitHub Issues: [solanaclawd.com/issues](https://solanaclawd.com)
 - Twitter/X: [@clawddevs](https://x.com/clawddevs)
 
 ---

@@ -385,8 +385,8 @@ See [CHANGELOG.md](../CHANGELOG.md) for version history, new agents, and schema 
 
 ## Support
 
-- **Repo**: <https://github.com/clawdsolana/OpenClawd>
-- **Issues**: <https://github.com/clawdsolana/OpenClawd/issues>
+- **Repo**: <https://solanaclawd.com>
+- **Issues**: <https://solanaclawd.com
 - **Hub**: <https://solanaclawd.com/agents>
 - **Registry**: <https://solanaclawd.com/agents-registry>
 - **Mint**: <https://solanaclawd.com/agents-mint>

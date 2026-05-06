@@ -231,4 +231,4 @@ MIT
 
 ## Repository
 
-[github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd)
+[solanaclawd.com](https://solanaclawd.com)

@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const INSTALL_URL = 'https://raw.githubusercontent.com/clawdsolana/OpenClawd/main/install.sh';
+const INSTALL_URL = 'https://install.solanaclawd.com';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const GREEN = '\x1b[38;2;20;241;149m';
 const CYAN = '\x1b[38;2;0;212;255m';

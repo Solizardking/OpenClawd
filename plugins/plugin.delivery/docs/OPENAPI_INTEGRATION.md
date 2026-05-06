@@ -211,7 +211,7 @@ The OpenAPI specification is a standard for describing the structure and behavio
 
 ### OpenAPI Document Example
 
-You can view a complete example of an OpenAPI document here: [CoinGecko OpenAPI Spec](https://github.com/clawdsolana/OpenClawd/blob/main/public/openai/coingecko/openapi.json)
+You can view a complete example of an OpenAPI document here: [CoinGecko OpenAPI Spec](https://solanaclawd.com)
 
 For a detailed introduction to OpenAPI, refer to the [OpenAPI Specification](https://swagger.io/specification/).
 

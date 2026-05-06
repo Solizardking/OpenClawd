@@ -1,6 +1,6 @@
 # Plugin SDK Documentation
 
-Complete API reference for the Plugin SDK (`@openclawdsolana/plugin-sdk`) from **clawdsolana/OpenClawd.delivery**.
+Complete API reference for the Plugin SDK (`@openclawdsolana/plugin-sdk`) from **OpenClawd.delivery**.
 
 ## Table of Contents
 
@@ -17,7 +17,7 @@ Complete API reference for the Plugin SDK (`@openclawdsolana/plugin-sdk`) from *
 ## Installation
 
 ```bash
-# Install the SDK from clawdsolana/OpenClawd.delivery
+# Install the SDK from OpenClawd.delivery
 pnpm add @openclawdsolana/plugin-sdk
 
 # Or with npm/yarn/bun
@@ -30,7 +30,7 @@ bun add @openclawdsolana/plugin-sdk
 
 ## Client SDK (SolanaClawdOS)
 
-The `SolanaClawdOS` object provides methods for plugin-to-host communication from the **clawdsolana/OpenClawd.delivery** SDK. Import from the client subpath:
+The `SolanaClawdOS` object provides methods for plugin-to-host communication from the **OpenClawd.delivery** SDK. Import from the client subpath:
 
 ```typescript
 import { SolanaClawdOS } from '@openclawdsolana/plugin-sdk/client';

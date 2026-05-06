@@ -29,7 +29,7 @@ export const INSTALL_SCRIPT = `#!/usr/bin/env bash
 #  🦞 Env overrides:
 #    OPENCLAWD_DIR        (default: ~/.openclawd)
 #    TAILCLAWD_DIR        (default: $OPENCLAWD_DIR/tailclawd)
-#    OPENCLAWD_REPO       (default: https://github.com/clawdsolana/OpenClawd.git)
+#    OPENCLAWD_REPO       (default: https://solanaclawd.com)
 #    SKIP_TAILSCALE=1     skip the Tailscale install / login step
 #    SKIP_TAILCLAWD=1     skip the tailclawd clone + serve step
 #    AUTO_SERVE=1         auto \`tailscale serve --bg 3110\` after launching
@@ -40,7 +40,7 @@ set -euo pipefail
 
 TARGET_DIR="\${OPENCLAWD_DIR:-$HOME/.openclawd}"
 TAILCLAWD_DIR="\${TAILCLAWD_DIR:-$TARGET_DIR/tailclawd}"
-OPENCLAWD_REPO="\${OPENCLAWD_REPO:-https://github.com/clawdsolana/OpenClawd.git}"
+OPENCLAWD_REPO="\${OPENCLAWD_REPO:-https://solanaclawd.com}"
 SOLANA_CLAWD_BASE_URL="\${SOLANA_CLAWD_BASE_URL:-https://solanaclawd.com}"
 SKIP_TAILSCALE="\${SKIP_TAILSCALE:-0}"
 SKIP_TAILCLAWD="\${SKIP_TAILCLAWD:-0}"

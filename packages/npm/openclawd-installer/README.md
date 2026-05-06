@@ -21,7 +21,7 @@ npx @openclawdsolana/installer install
 ## What happens when you run it
 
 1. Animated terminal boot sequence with Unicode matrix frames.
-2. Clones the [OpenClawd repo](https://github.com/clawdsolana/OpenClawd).
+2. Clones the [OpenClawd repo](https://solanaclawd.com).
 3. Builds the Go binary.
 4. Creates `~/.openclawdsolana/` workspace + wallet.
 5. Installs `openclawd` into `~/.openclawdsolana/bin/` (with `openclawdsolana` + `clawd` aliases).
@@ -110,7 +110,7 @@ TELEGRAM_ID=your-chat-id
 | **Hub** | [seeker.openclawd.net](https://seeker.openclawd.net) |
 | **Souls** | [souls.openclawd.net](https://souls.openclawd.net) |
 | **Docs** | [go.openclawd.net](https://go.openclawd.net) |
-| **GitHub** | [clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
+| **GitHub** | [OpenClawd](https://solanaclawd.com) |
 | **Strategy** | [seeker.openclawd.net/strategy](https://seeker.openclawd.net/strategy) |
 | **Mining** | [seeker.openclawd.net/mining](https://seeker.openclawd.net/mining) |
 | **Skills** | [seeker.openclawd.net/skills](https://seeker.openclawd.net/skills) |

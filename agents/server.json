@@ -11,13 +11,13 @@
     }
   ],
   "repository": {
-    "url": "https://github.com/clawdsolana/OpenClawd/tree/main/agents",
+    "url": "https://solanaclawd.com",
     "source": "github"
   },
   "version": "1.42.0",
   "links": {
     "homepage": "https://agents.openclawd.biz",
-    "bugs": "https://github.com/clawdsolana/OpenClawd/issues",
+    "bugs": "https://solanaclawd.com",
     "npm": "https://www.npmjs.com/package/@openclawdsolana/agents-registry"
   },
   "icons": [

@@ -7,7 +7,7 @@
 | Resource | URL |
 |----------|-----|
 | **Website** | [solanaclawd.com](https://solanaclawd.com) |
-| **GitHub** | [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
+| **GitHub** | [solanaclawd.com](https://solanaclawd.com) |
 | **Twitter/X** | [x.com/clawddevs](https://x.com/clawddevs) |
 | **Telegram** | [t.me/clawdtoken](https://t.me/clawdtoken) |
 
@@ -100,7 +100,7 @@ MIT — See [`../LICENSE.md`](../LICENSE.md)
 ## 🔗 Quick Start
 
 ```bash
-git clone https://github.com/clawdsolana/OpenClawd.git
+git clone https://solanaclawd.com
 cd openclawd
 cd agents && npm install
 cd ../openclawd && make install && clawd daemon

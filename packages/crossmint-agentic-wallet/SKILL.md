@@ -1,7 +1,7 @@
 ---
 name: crossmint-agentic-wallet
 description: Create non-custodial Solana wallets for AI agents with e-commerce, Jupiter swaps, faucet funding, and agent-to-agent payments
-homepage: https://github.com/clawdsolana/OpenClawd/tree/main/packages/crossmint-agentic-wallet
+homepage: https://solanaclawd.com
 user-invocable: true
 metadata: {"openclaw":{"emoji":"💰","skillKey":"crossmint-agentic-wallet","primaryEnv":"CROSSMINT_SERVERSIDE_API_KEY","requires":{"env":["CROSSMINT_SERVERSIDE_API_KEY"]},"install":[{"id":"workspace","kind":"node","package":"@openclawdsolana/crossmint-agentic-wallet","bins":[],"label":"Workspace package — built locally"},{"id":"mcp","kind":"node","package":"@openclawdsolana/crossmint-mcp","bins":["crossmint-mcp"],"label":"Run as MCP server"}]}}
 ---

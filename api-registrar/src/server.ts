@@ -28,7 +28,7 @@ const ENDPOINTS = {
   skills: process.env.OPENCLAWD_SKILLS_URL || 'https://hub.solanaclawd.com/skills',
   clawdRouter: process.env.OPENCLAWD_ROUTER_URL || 'https://solanaclawd.com/router',
   docs: process.env.OPENCLAWD_DOCS_URL || 'https://solanaclawd.com/docs',
-  repository: 'https://github.com/clawdsolana/OpenClawd',
+  repository: 'https://solanaclawd.com',
 } as const;
 
 const app = new Hono();

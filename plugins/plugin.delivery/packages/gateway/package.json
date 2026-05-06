@@ -2,10 +2,10 @@
   "name": "@openclawdsolana/chat-plugins-gateway",
   "version": "1.9.1",
   "description": "Edge-runtime plugin gateway for the OpenClawd ecosystem — validates agent requests, applies deny-first permissions, and forwards to plugin.delivery manifests.",
-  "repository": "https://github.com/clawdsolana/OpenClawd",
+  "repository": "https://solanaclawd.com",
   "author": "OpenClawd <contact@openclawd.net>",
   "homepage": "https://solanaclawd.com",
-  "bugs": "https://github.com/clawdsolana/OpenClawd/issues",
+  "bugs": "https://solanaclawd.com",
   "keywords": [
     "openclawd",
     "clawd",

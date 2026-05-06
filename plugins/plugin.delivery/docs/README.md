@@ -98,7 +98,7 @@ User: "What's the price of ETH?"
 
 ```bash
 # 1. Clone template
-git clone https://github.com/clawdsolana/OpenClawd
+git clone https://solanaclawd.com
 cd plugins
 cp -r templates/default my-plugin
 cd my-plugin
@@ -142,7 +142,7 @@ bun dev
 | Resource | URL |
 |----------|-----|
 | Plugin Index | [plugin.delivery](https://plugin.delivery) |
-| GitHub | [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
+| GitHub | [solanaclawd.com](https://solanaclawd.com) |
 | Twitter/X | [@clawddevs](https://x.com/clawddevs) |
 
 ---
@@ -163,7 +163,7 @@ bun dev
 
 ## ❓ Need Help?
 
-- **GitHub Issues:** [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
+- **GitHub Issues:** [solanaclawd.com/issues](https://solanaclawd.com)
 - **Twitter/X:** [@clawddevs](https://x.com/clawddevs)
 - **Example Plugin:** [CoinGecko](../src/coingecko.json)
 

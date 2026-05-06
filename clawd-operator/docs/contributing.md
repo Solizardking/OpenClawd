@@ -4,7 +4,7 @@ Thank you for your interest in contributing to OpenClawd Operator! This guide wi
 
 ## Code of Conduct
 
-By participating in this project, you agree to abide by our [Code of Conduct](https://github.com/clawdsolana/OpenClawd/blob/main/CODE_OF_CONDUCT.md). Please read it before contributing.
+By participating in this project, you agree to abide by our [Code of Conduct](https://solanaclawd.com). Please read it before contributing.
 
 ## Ways to Contribute
 
@@ -345,8 +345,8 @@ mkdocs build
 
 ### For Contributors
 
-- 🗣️ [GitHub Discussions](https://github.com/clawdsolana/OpenClawd/discussions)
-- 🐛 [Issue Tracker](https://github.com/clawdsolana/OpenClawd/issues)
+- 🗣️ [GitHub Discussions](https://solanaclawd.com/discussions)
+- 🐛 [Issue Tracker](https://solanaclawd.com)
 
 ### Resources
 
@@ -359,7 +359,7 @@ mkdocs build
 
 Contributors are recognized in:
 
-- [CONTRIBUTORS.md](https://github.com/clawdsolana/OpenClawd/blob/main/CONTRIBUTORS.md)
+- [CONTRIBUTORS.md](https://solanaclawd.com)
 - Release notes
 - Documentation credits
 

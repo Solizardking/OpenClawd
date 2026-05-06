@@ -23,7 +23,7 @@ openclawd version
 
 ## What it does
 
-1. Clones the [OpenClawd repo](https://github.com/clawdsolana/OpenClawd) (or uses a local checkout).
+1. Clones the [OpenClawd repo](https://solanaclawd.com) (or uses a local checkout).
 2. Builds the `openclawd` Go binary.
 3. Creates `~/.openclawdsolana/` workspace + wallet.
 4. Installs a stable CLI at `~/.openclawdsolana/bin/openclawd`.
@@ -72,7 +72,7 @@ Browse published skills at [seeker.openclawd.net](https://seeker.openclawd.net).
 ## Links
 
 - Docs: [go.openclawd.net](https://go.openclawd.net)
-- GitHub: [clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd)
+- GitHub: [OpenClawd](https://solanaclawd.com)
 - Helius: [helius.dev](https://helius.dev)
 
 MIT License · OpenClawd Labs · Built on Solana

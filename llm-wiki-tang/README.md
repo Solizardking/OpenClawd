@@ -343,7 +343,7 @@ Research access is gated by $CLAWD holdings:
 | 📖 Docs | [docs.solanaclawd.com](https://docs.solanaclawd.com) |
 | 🐦 Twitter | [x.com/clawddevs](https://x.com/clawddevs) |
 | 💬 Telegram | [t.me/clawdtoken](https://t.me/clawdtoken) |
-| 📦 GitHub | [github.com/clawdsolana/OpenClawd](https://github.com/clawdsolana/OpenClawd) |
+| 📦 GitHub | [solanaclawd.com](https://solanaclawd.com) |
 
 ---
 

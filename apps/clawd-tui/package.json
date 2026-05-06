@@ -39,10 +39,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/clawdsolana/OpenClawd.git",
+    "url": "https://solanaclawd.com",
     "directory": "clawd-tui"
   },
-  "homepage": "https://github.com/clawdsolana/OpenClawd/tree/main/clawd-tui#readme",
+  "homepage": "https://solanaclawd.com",
   "dependencies": {
     "@openrouter/agent": "latest",
     "@openrouter/sdk": "^0.12.21",

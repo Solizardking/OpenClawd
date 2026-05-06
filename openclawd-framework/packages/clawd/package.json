@@ -48,11 +48,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/clawdsolana/OpenClawd.git",
+    "url": "https://solanaclawd.com",
     "directory": "openclawd-framework/packages/clawd"
   },
   "bugs": {
-    "url": "https://github.com/clawdsolana/OpenClawd/issues"
+    "url": "https://solanaclawd.com"
   },
   "homepage": "https://solanaclawd.com",
   "dependencies": {

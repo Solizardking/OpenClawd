@@ -25,12 +25,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/clawdsolana/OpenClawd.git",
+    "url": "https://solanaclawd.com",
     "directory": "packages/percolator"
   },
-  "homepage": "https://github.com/clawdsolana/OpenClawd/tree/main/packages/percolator#readme",
+  "homepage": "https://solanaclawd.com",
   "bugs": {
-    "url": "https://github.com/clawdsolana/OpenClawd/issues"
+    "url": "https://solanaclawd.com"
   },
   "dependencies": {
     "@solana/spl-token": "^0.4.9",

@@ -2,7 +2,7 @@
 
 Primary npm entrypoint for installing and launching the OpenClawd runtime.
 
-This package wraps the repo's public [`install.sh`](https://github.com/clawdsolana/OpenClawd/blob/main/install.sh), installs the Go runtime into `~/.openclawdsolana/bin/`, and exposes `openclawd`, `openclawdsolana`, and `clawd` aliases.
+This package wraps the repo's public [`install.sh`](https://solanaclawd.com), installs the Go runtime into `~/.openclawdsolana/bin/`, and exposes `openclawd`, `openclawdsolana`, and `clawd` aliases.
 
 ## Install
 
@@ -29,7 +29,7 @@ All four command names point at the same runtime bootstrapper. The public brand 
 
 ## What the installer does
 
-1. Uses a local checkout when run inside the repo, otherwise clones `clawdsolana/OpenClawd`.
+1. Uses a local checkout when run inside the repo, otherwise clones `OpenClawd`.
 2. Builds the main Go binary at `build/openclawd`.
 3. Creates the workspace at `~/.openclawdsolana/`.
 4. Installs stable launchers into `~/.openclawdsolana/bin/`.
@@ -88,7 +88,7 @@ If installed with `--with-web`:
 - Hub: https://seeker.openclawd.net
 - Souls: https://souls.openclawd.net
 - Strategy Builder: https://seeker.openclawd.net/strategy
-- GitHub: https://github.com/clawdsolana/OpenClawd
+- GitHub: https://solanaclawd.com
 
 ## Verify before publish
 

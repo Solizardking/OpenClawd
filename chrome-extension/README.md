@@ -343,7 +343,7 @@ Then follow [CWS-LISTING.md](./CWS-LISTING.md) for paste-ready listing copy, scr
 
 ## Support
 
-- **GitHub** — [github.com/clawdsolana/OpenClawd/issues](https://github.com/clawdsolana/OpenClawd/issues)
+- **GitHub** — [solanaclawd.com/issues](https://solanaclawd.com)
 - **Hub** — [hub.solanaclawd.com](https://hub.solanaclawd.com)
 - **Site** — [solanaclawd.com](https://solanaclawd.com)
 - **Token** — `8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump`

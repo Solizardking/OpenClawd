@@ -9,25 +9,25 @@ OpenClawd is not a single npm package. It is a stack of packages with different 
 - **Trading packages** talk to Solana programs, Jupiter, wallets, and payment rails.
 - **Internal packages** keep plugins, host runtime code, and service wiring consistent across the monorepo.
 
-GitHub root: [github.com/clawdsolana/OpenClawd/tree/main/packages](https://github.com/clawdsolana/OpenClawd/tree/main/packages)
+GitHub root: [solanaclawd.com/tree/main/packages](https://solanaclawd.com)
 
 ## Package Map
 
 | Package | Scale | Public surface | What it is | GitHub |
 | --- | ---: | --- | --- | --- |
-| [`agents-x402-solana/`](./agents-x402-solana/) | Small | `@openclawdsolana/agents-x402` | Solana USDC x402 gates for MCP tools, HTTP handlers, and paid agent calls. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/agents-x402-solana) |
-| [`agentwallet/`](./agentwallet/) | Medium | `@openclawdsolana/agentwallet` | Encrypted Solana/EVM keypair vault with CLI, HTTP API, E2B deployment, and Cloudflare deployment helpers. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/agentwallet) |
-| [`Clawd-code/`](./Clawd-code/) | Large app bundle | `clawd-code-cli` docs/prebuilt CLI | AI terminal operator docs and distribution artifacts for Clawd Code. Includes provider routing, file tools, shell tools, MCP, and Solana integrations. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/Clawd-code) |
-| [`clawd-wallet/`](./clawd-wallet/) | Medium source, large install tree | `@openclawdsolana/clawd-wallet` | Solana wallet and Jupiter swap core for agent workflows. React/CLI/agent surfaces are documented as future or deferred surfaces in this repo snapshot. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/clawd-wallet) |
-| [`honcho-bridge/`](./honcho-bridge/) | Medium | `@openclawdsolana/honcho-bridge` | Honcho reasoning-memory adapter. Persists peer/session context and can feed durable conclusions into Membrain. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/honcho-bridge) |
-| [`membrain/`](./membrain/) | Large service | `@gustycube/membrane` docs/client naming | Go memory daemon with gRPC APIs, typed financial memory, decay, consolidation, trust gating, and vector-aware retrieval. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/membrain) |
-| [`membrain-types/`](./membrain-types/) | Tiny | `@openclawdsolana/membrain-types` | TypeScript types and lightweight client contracts for Membrain consumers. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/membrain-types) |
-| [`memory-host-sdk/`](./memory-host-sdk/) | Medium internal | Private workspace package | Host-side memory engines for local runtime storage, embeddings, QMD, Honcho, batch jobs, multimodal files, and query expansion. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/memory-host-sdk) |
-| [`percolator/`](./percolator/) | Medium-large CLI | `@openclawdsolana/percolator` | Agentic perpetuals CLI for Solana markets, accounts, deposits, withdrawals, liquidation, oracle updates, and slab inspection. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/percolator) |
-| [`plugin-package-contract/`](./plugin-package-contract/) | Tiny internal | Private workspace package | Shared plugin package manifest/types contract used to keep plugin metadata consistent. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/plugin-package-contract) |
-| [`plugin-sdk/`](./plugin-sdk/) | Small internal | Private workspace package | Internal plugin SDK exports for runtime, provider, auth, browser, streaming, secret, testing, and security surfaces. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/plugin-sdk) |
-| [`service-registry/`](./service-registry/) | Small | `@openclawdsolana/service-registry` | Single source of truth for local service URLs and health checks across gateway, wallet API, MCP bridges, hub, scanner, and related services. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/service-registry) |
-| [`npm/`](./npm/) | 3 small bootstrappers | `@openclawdsolana/cli`, `@openclawdsolana/computer`, `@openclawdsolana/installer` | npm bootstrappers for the OpenClawd Go runtime — different entry-point shapes, same Go binary installed under `~/.openclawdsolana/bin/`. See [`npm.md`](./npm.md) for the full breakdown. | [GitHub](https://github.com/clawdsolana/OpenClawd/tree/main/packages/npm) |
+| [`agents-x402-solana/`](./agents-x402-solana/) | Small | `@openclawdsolana/agents-x402` | Solana USDC x402 gates for MCP tools, HTTP handlers, and paid agent calls. | [GitHub](https://solanaclawd.com) |
+| [`agentwallet/`](./agentwallet/) | Medium | `@openclawdsolana/agentwallet` | Encrypted Solana/EVM keypair vault with CLI, HTTP API, E2B deployment, and Cloudflare deployment helpers. | [GitHub](https://solanaclawd.com) |
+| [`Clawd-code/`](./Clawd-code/) | Large app bundle | `clawd-code-cli` docs/prebuilt CLI | AI terminal operator docs and distribution artifacts for Clawd Code. Includes provider routing, file tools, shell tools, MCP, and Solana integrations. | [GitHub](https://solanaclawd.com) |
+| [`clawd-wallet/`](./clawd-wallet/) | Medium source, large install tree | `@openclawdsolana/clawd-wallet` | Solana wallet and Jupiter swap core for agent workflows. React/CLI/agent surfaces are documented as future or deferred surfaces in this repo snapshot. | [GitHub](https://solanaclawd.com) |
+| [`honcho-bridge/`](./honcho-bridge/) | Medium | `@openclawdsolana/honcho-bridge` | Honcho reasoning-memory adapter. Persists peer/session context and can feed durable conclusions into Membrain. | [GitHub](https://solanaclawd.com) |
+| [`membrain/`](./membrain/) | Large service | `@gustycube/membrane` docs/client naming | Go memory daemon with gRPC APIs, typed financial memory, decay, consolidation, trust gating, and vector-aware retrieval. | [GitHub](https://solanaclawd.com) |
+| [`membrain-types/`](./membrain-types/) | Tiny | `@openclawdsolana/membrain-types` | TypeScript types and lightweight client contracts for Membrain consumers. | [GitHub](https://solanaclawd.com) |
+| [`memory-host-sdk/`](./memory-host-sdk/) | Medium internal | Private workspace package | Host-side memory engines for local runtime storage, embeddings, QMD, Honcho, batch jobs, multimodal files, and query expansion. | [GitHub](https://solanaclawd.com) |
+| [`percolator/`](./percolator/) | Medium-large CLI | `@openclawdsolana/percolator` | Agentic perpetuals CLI for Solana markets, accounts, deposits, withdrawals, liquidation, oracle updates, and slab inspection. | [GitHub](https://solanaclawd.com) |
+| [`plugin-package-contract/`](./plugin-package-contract/) | Tiny internal | Private workspace package | Shared plugin package manifest/types contract used to keep plugin metadata consistent. | [GitHub](https://solanaclawd.com) |
+| [`plugin-sdk/`](./plugin-sdk/) | Small internal | Private workspace package | Internal plugin SDK exports for runtime, provider, auth, browser, streaming, secret, testing, and security surfaces. | [GitHub](https://solanaclawd.com) |
+| [`service-registry/`](./service-registry/) | Small | `@openclawdsolana/service-registry` | Single source of truth for local service URLs and health checks across gateway, wallet API, MCP bridges, hub, scanner, and related services. | [GitHub](https://solanaclawd.com) |
+| [`npm/`](./npm/) | 3 small bootstrappers | `@openclawdsolana/cli`, `@openclawdsolana/computer`, `@openclawdsolana/installer` | npm bootstrappers for the OpenClawd Go runtime — different entry-point shapes, same Go binary installed under `~/.openclawdsolana/bin/`. See [`npm.md`](./npm.md) for the full breakdown. | [GitHub](https://solanaclawd.com) |
 
 Scale is based on source and documentation footprint, not installed `node_modules`. Some package folders currently contain local install output or build artifacts, so disk size can be much larger than the authored package.
 
@@ -207,23 +207,23 @@ These are the canonical GitHub locations for the package paths in this workspace
 
 | Local path | GitHub |
 | --- | --- |
-| `/Users/8bit/fraud/OpenClawd/packages` | [packages](https://github.com/clawdsolana/OpenClawd/tree/main/packages) |
-| `/Users/8bit/fraud/OpenClawd/packages/agents-x402-solana` | [agents-x402-solana](https://github.com/clawdsolana/OpenClawd/tree/main/packages/agents-x402-solana) |
-| `/Users/8bit/fraud/OpenClawd/packages/agentwallet` | [agentwallet](https://github.com/clawdsolana/OpenClawd/tree/main/packages/agentwallet) |
-| `/Users/8bit/fraud/OpenClawd/packages/Clawd-code` | [Clawd-code](https://github.com/clawdsolana/OpenClawd/tree/main/packages/Clawd-code) |
-| `/Users/8bit/fraud/OpenClawd/packages/clawd-wallet` | [clawd-wallet](https://github.com/clawdsolana/OpenClawd/tree/main/packages/clawd-wallet) |
-| `/Users/8bit/fraud/OpenClawd/packages/honcho-bridge` | [honcho-bridge](https://github.com/clawdsolana/OpenClawd/tree/main/packages/honcho-bridge) |
-| `/Users/8bit/fraud/OpenClawd/packages/membrain` | [membrain](https://github.com/clawdsolana/OpenClawd/tree/main/packages/membrain) |
-| `/Users/8bit/fraud/OpenClawd/packages/membrain-types` | [membrain-types](https://github.com/clawdsolana/OpenClawd/tree/main/packages/membrain-types) |
-| `/Users/8bit/fraud/OpenClawd/packages/memory-host-sdk` | [memory-host-sdk](https://github.com/clawdsolana/OpenClawd/tree/main/packages/memory-host-sdk) |
-| `/Users/8bit/fraud/OpenClawd/packages/npm` | [npm](https://github.com/clawdsolana/OpenClawd/tree/main/packages/npm) |
-| `/Users/8bit/fraud/OpenClawd/packages/npm/openclawd-cli` | [openclawd-cli](https://github.com/clawdsolana/OpenClawd/tree/main/packages/npm/openclawd-cli) |
-| `/Users/8bit/fraud/OpenClawd/packages/npm/openclawd-computer` | [openclawd-computer](https://github.com/clawdsolana/OpenClawd/tree/main/packages/npm/openclawd-computer) |
-| `/Users/8bit/fraud/OpenClawd/packages/npm/openclawd-installer` | [openclawd-installer](https://github.com/clawdsolana/OpenClawd/tree/main/packages/npm/openclawd-installer) |
-| `/Users/8bit/fraud/OpenClawd/packages/percolator` | [percolator](https://github.com/clawdsolana/OpenClawd/tree/main/packages/percolator) |
-| `/Users/8bit/fraud/OpenClawd/packages/plugin-package-contract` | [plugin-package-contract](https://github.com/clawdsolana/OpenClawd/tree/main/packages/plugin-package-contract) |
-| `/Users/8bit/fraud/OpenClawd/packages/plugin-sdk` | [plugin-sdk](https://github.com/clawdsolana/OpenClawd/tree/main/packages/plugin-sdk) |
-| `/Users/8bit/fraud/OpenClawd/packages/service-registry` | [service-registry](https://github.com/clawdsolana/OpenClawd/tree/main/packages/service-registry) |
-| `/Users/8bit/fraud/OpenClawd/packages/README.md` | [README.md](https://github.com/clawdsolana/OpenClawd/blob/main/packages/README.md) |
-| `/Users/8bit/fraud/OpenClawd/packages/article.md` | [article.md](https://github.com/clawdsolana/OpenClawd/blob/main/packages/article.md) |
-| `/Users/8bit/fraud/OpenClawd/packages/npm.md` | [npm.md](https://github.com/clawdsolana/OpenClawd/blob/main/packages/npm.md) |
+| `/Users/8bit/fraud/OpenClawd/packages` | [packages](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/agents-x402-solana` | [agents-x402-solana](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/agentwallet` | [agentwallet](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/Clawd-code` | [Clawd-code](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/clawd-wallet` | [clawd-wallet](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/honcho-bridge` | [honcho-bridge](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/membrain` | [membrain](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/membrain-types` | [membrain-types](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/memory-host-sdk` | [memory-host-sdk](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/npm` | [npm](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/npm/openclawd-cli` | [openclawd-cli](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/npm/openclawd-computer` | [openclawd-computer](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/npm/openclawd-installer` | [openclawd-installer](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/percolator` | [percolator](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/plugin-package-contract` | [plugin-package-contract](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/plugin-sdk` | [plugin-sdk](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/service-registry` | [service-registry](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/README.md` | [README.md](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/article.md` | [article.md](https://solanaclawd.com) |
+| `/Users/8bit/fraud/OpenClawd/packages/npm.md` | [npm.md](https://solanaclawd.com) |

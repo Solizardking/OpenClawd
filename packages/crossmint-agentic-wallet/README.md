@@ -6,7 +6,7 @@
 
 Create and manage **non-custodial Solana wallets** for AI agents using Crossmint's MPC infrastructure. Enable your autonomous agents to hold funds, swap tokens, make purchases, and transact with other agents.
 
-> Part of the [OpenClawd](https://github.com/clawdsolana/OpenClawd) Solana-native AI agent stack. Originally authored by [MAWDos](https://github.com/mawdos/crossmint-agentic-wallet); adapted to the OpenClawd workspace.
+> Part of the [OpenClawd](https://solanaclawd.com) Solana-native AI agent stack. Originally authored by [MAWDos](https://github.com/mawdos/crossmint-agentic-wallet); adapted to the OpenClawd workspace.
 
 ## Features
 

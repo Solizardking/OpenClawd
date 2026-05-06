@@ -42,11 +42,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/clawdsolana/OpenClawd.git",
+    "url": "https://solanaclawd.com",
     "directory": "npm/openclawd-computer"
   },
   "homepage": "https://solanaclawd.com",
   "bugs": {
-    "url": "https://github.com/clawdsolana/OpenClawd/issues"
+    "url": "https://solanaclawd.com"
   }
 }
