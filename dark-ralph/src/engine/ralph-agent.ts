@@ -738,6 +738,135 @@ Market Cap: ${this.birdeye.formatVolume(info.mc || 0)}`,
   getState(): RalphState {
     return { ...this.state };
   }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Trading Commands (Jupiter)
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  private parseSwapArgs(
+    args: string[]
+  ): { amount: number; input: string; output: string; slippageBps?: number } | null {
+    if (args.length < 3) return null;
+    const amount = parseFloat(args[0]);
+    if (!isFinite(amount) || amount <= 0) return null;
+    const input = args[1];
+    const output = args[2];
+    const slippageBps = args[3] !== undefined ? parseInt(args[3], 10) : undefined;
+    return { amount, input, output, slippageBps };
+  }
+
+  private async cmdQuote(args: string[]): Promise<void> {
+    if (!this.jupiter) {
+      this.emitMessage('ralph', '[ERROR] Jupiter not configured.', 'error');
+      return;
+    }
+    const parsed = this.parseSwapArgs(args);
+    if (!parsed) {
+      this.emitMessage('system', '[USAGE] /quote <amount> <inputMintOrSym> <outputMintOrSym> [slippageBps]', 'normal');
+      return;
+    }
+    const taker = this.wallet?.getPublicKey() || this.config.walletAddress || '11111111111111111111111111111111';
+    try {
+      this.emitMessage('system', '[JUPITER] Fetching quote...', 'normal');
+      const q = await this.jupiter.quote({
+        inputMint: parsed.input,
+        outputMint: parsed.output,
+        uiAmount: parsed.amount,
+        taker,
+        slippageBps: parsed.slippageBps,
+      });
+      this.state.apiCalls++;
+      const rate = q.outUiAmount / q.inUiAmount;
+      this.emitMessage(
+        'ralph',
+        `[QUOTE]
+  In:        ${q.inUiAmount} ${parsed.input}
+  Out:       ${this.jupiter.formatAmount(q.outUiAmount)} ${parsed.output}
+  Rate:      1 ${parsed.input} ≈ ${this.jupiter.formatAmount(rate)} ${parsed.output}
+  Router:    ${q.router} (${q.mode})
+  Fee:       ${q.feeBps} bps
+  RequestId: ${q.requestId}`,
+        'data'
+      );
+    } catch (error: any) {
+      this.emitMessage('ralph', `[ERROR] Quote failed: ${error?.message || error}`, 'error');
+    }
+  }
+
+  private async cmdSwap(args: string[]): Promise<void> {
+    if (!this.jupiter) {
+      this.emitMessage('ralph', '[ERROR] Jupiter not configured.', 'error');
+      return;
+    }
+    if (!this.wallet) {
+      this.emitMessage(
+        'ralph',
+        '[ERROR] No signing wallet loaded. Run `dark-ralph wallet --create` or set SOLANA_PRIVATE_KEY.',
+        'error'
+      );
+      return;
+    }
+    const parsed = this.parseSwapArgs(args);
+    if (!parsed) {
+      this.emitMessage('system', '[USAGE] /swap <amount> <inputMintOrSym> <outputMintOrSym> [slippageBps]', 'normal');
+      return;
+    }
+    const keypair = (this.wallet as any).keypair;
+    if (!keypair) {
+      this.emitMessage('ralph', '[ERROR] Wallet keypair not available.', 'error');
+      return;
+    }
+    this.emitMessage(
+      'system',
+      `[SWAP] Submitting ${parsed.amount} ${parsed.input} → ${parsed.output} (slippage ${parsed.slippageBps ?? 'auto'})...`,
+      'normal'
+    );
+    const result = await this.jupiter.swap({
+      inputMint: parsed.input,
+      outputMint: parsed.output,
+      uiAmount: parsed.amount,
+      keypair,
+      slippageBps: parsed.slippageBps,
+    });
+    this.state.apiCalls += 2;
+
+    if (result.ok && result.signature) {
+      this.emitMessage(
+        'ralph',
+        `[SWAP CONFIRMED]
+  Signature: ${result.signature}
+  Router:    ${result.router}
+  In:        ${result.inputAmount}
+  Out:       ${result.outputAmount}
+  Solscan:   https://solscan.io/tx/${result.signature}`,
+        'data'
+      );
+    } else {
+      this.emitMessage(
+        'ralph',
+        `[SWAP FAILED] ${result.error || 'Unknown error'}${result.signature ? ` (sig: ${result.signature})` : ''}`,
+        'error'
+      );
+    }
+  }
+
+  private async cmdBuy(args: string[]): Promise<void> {
+    // /buy <amount-SOL> <token> [slippageBps]
+    if (args.length < 2) {
+      this.emitMessage('system', '[USAGE] /buy <amount-SOL> <tokenMintOrSym> [slippageBps]', 'normal');
+      return;
+    }
+    await this.cmdSwap([args[0], 'SOL', args[1], ...(args[2] ? [args[2]] : [])]);
+  }
+
+  private async cmdSell(args: string[]): Promise<void> {
+    // /sell <amount> <token> [slippageBps]   (proceeds → SOL)
+    if (args.length < 2) {
+      this.emitMessage('system', '[USAGE] /sell <amount> <tokenMintOrSym> [slippageBps]', 'normal');
+      return;
+    }
+    await this.cmdSwap([args[0], args[1], 'SOL', ...(args[2] ? [args[2]] : [])]);
+  }
 }
 
 export default RalphAgent;

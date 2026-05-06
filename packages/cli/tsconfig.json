@@ -39,8 +39,10 @@
     "src/**/__tests__/**",
     "../api-client/src/**/*.test.ts",
     "../api-client/src/**/__tests__/**",
+    "../api-client/src/__tests__/**",
     "../src/**/*.test.ts",
     "../src/**/__tests__/**",
+    "../src/__tests__/**",
     "../src/test_resources/**"
   ]
 }
