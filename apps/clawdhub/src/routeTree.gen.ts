@@ -44,7 +44,10 @@ import { Route as CopyrightRouteImport } from './routes/copyright.tsx'
 import { Route as ConsoleRouteImport } from './routes/console.tsx'
 import { Route as ChessRouteImport } from './routes/chess.tsx'
 import { Route as ChatRouteImport } from './routes/chat.tsx'
+import { Route as StakingRouteImport } from './routes/staking.tsx'
+import { Route as NewsRouteImport } from './routes/news.tsx'
 import { Route as AdminRouteImport } from './routes/admin.tsx'
+import { Route as AboutRouteImport } from './routes/about.tsx'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SoulsIndexRouteImport } from './routes/souls/index'
 import { Route as SkillsIndexRouteImport } from './routes/skills/index'
@@ -245,6 +248,21 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StakingRoute = StakingRouteImport.update({
+  id: '/staking',
+  path: '/staking',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -343,6 +361,7 @@ const OwnerSlugRoute = OwnerSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/chat': typeof ChatRoute
   '/chess': typeof ChessRoute
@@ -364,6 +383,7 @@ export interface FileRoutesByFullPath {
   '/memescope': typeof MemescopeRoute
   '/mining': typeof MiningRoute
   '/mobile': typeof MobileRoute
+  '/news': typeof NewsRoute
   '/pair': typeof PairRoute
   '/privacy': typeof PrivacyRoute
   '/register-agent': typeof RegisterAgentRoute
@@ -372,6 +392,7 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/stars': typeof StarsRoute
+  '/staking': typeof StakingRoute
   '/strategy': typeof StrategyRoute
   '/terminal': typeof TerminalRoute
   '/terms': typeof TermsRoute
