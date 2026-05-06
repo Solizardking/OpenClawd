@@ -1,135 +1,132 @@
-# Solana Metaplex Core NFT Staking & Unstaking
+# OpenClawd Agent Staking Protocol
 
-#Solana #Metaplex #Core #NFT #Staking: This project consists of an on-chain Anchor-based staking program for Solana Metaplex Core NFTs, utilizing the Metaplex Core standard. The staking mechanism allows users to lock up their Solana MPL Core NFTs and later unstake them using Solana Web3 interactions.
+OpenClawd Agent Staking is an Anchor program for staking and unstaking Metaplex Core agent assets on Solana. It is built for OpenClawd's agent economy: agents can be represented as Core assets, locked into a protocol-owned staking state, and later unlocked by the owner or the configured admin.
 
-## Overview
+The program targets Solana mainnet-beta, but should always be built, tested, and rehearsed on localnet/devnet before a mainnet deployment.
 
-This repository provides:
+## What It Does
 
-- Anchor Rust Program: The staking and unstaking smart contract for NFTs.
-- Web3 Integration: Scripts for interacting with the on-chain program using Solana Web3.js and Metaplex JS SDK.
+- Initializes a global staking pool PDA with an admin authority.
+- Stakes a Metaplex Core asset by adding a frozen `FreezeDelegate` plugin.
+- Unstakes the asset by unfreezing it and removing the `FreezeDelegate` plugin.
+- Tracks total staked Core agent assets in the global pool.
+- Provides a TypeScript CLI for init, lock, and unlock flows.
 
-## Project Structure
+## Project Layout
 
-- /program: Contains the Anchor-based staking program in Rust.
-- /cli: The command lines to stake and unstake NFTs.
-- /lib: Custom Libraries to use project's cli using Solana and Metaplex libraries.
+- `programs/mpl-corenft-staking/` - Anchor Rust program.
+- `cli/` - command-line entrypoint for init, stake, and unstake operations.
+- `lib/` - transaction builders and Solana/Metaplex helper code.
+- `tests/` - Anchor integration tests.
+- `Anchor.toml` - cluster, wallet, and program-id configuration.
 
-## Features
-- NFT Staking: Lock up your NFTs and start earning staking rewards.
-- NFT Unstaking: Unstake your NFTs once the staking period is over.
+## Mainnet Environment
 
-## Prerequisites
-Before setting up this project, ensure the following dependencies are installed:
+Set these before interacting with mainnet:
 
-- Node.js (v16 or later)
-- Anchor CLI (v0.24.2 or later)
-- Solana CLI (v1.9.28 or later)
-- Rust & Cargo (for building the on-chain program)
-- Metaplex JS SDK
-- Solana Web3.js
-
-## Installation & Setup
-
-### 1. Clone the repository
-```
-git clone https://github.com/solguru310/solana-mpl-core-nft-staking.git
-cd solana-mpl-core-nft-staking
+```bash
+export SOLANA_RPC_URL="https://your-mainnet-rpc.example"
+export ANCHOR_WALLET="$HOME/.config/solana/openclawd-mainnet-deployer.json"
+export OPENCLAWD_AGENT_STAKING_PROGRAM_ID="<deployed-program-id>"
+export OPENCLAWD_AGENT_COLLECTION="<metaplex-core-collection-address>"
 ```
 
-### 2. Build the Solana Program
-Navigate to the program folder and build the staking contract using Anchor.
-```
-cd program
-anchor build
-```
+Do not commit deployer keypairs, populated env files, or wallet JSON files.
 
-#### *important problem*
-To build Solana program, you must to use correct dependencies collection.
-Here are the correct dependencies for Solana Metaplex Core NFT Staking program.
+## Install
 
-```
-anchor-lang = { version = "0.30.1", features = ["init-if-needed"] }
-anchor-lang-idl = { version = "0.1.1", features = ["convert"] }
-anchor-spl = "0.30.1"
-bytemuck = "1.16.1"
-mpl-core = { version = "0.8.0", features = ["anchor"] }
-mpl-token-metadata = "4.1.2"
-solana-program = "2.0.11"
-toml_datetime = "0.6.6"
-winnow = "0.6.13"
-```
-
-### 3. Deploy the Solana Program
-After building the program, deploy it to Solana Devnet or your preferred network:
-```
-anchor deploy
-```
-
-After deployment, note the Program ID printed in the console as it will be required for Web3 interactions.
-
-### 4. Configure Solana CLI
-Set your Solana network to devnet or mainnet-beta and ensure you have a wallet configured:
-
-```
-solana config set --url https://api.devnet.solana.com
-solana config set --keypair ~/.config/solana/id.json
-```
-
-### 5. Set Up Web3 Environment
-Install the required dependencies for the Web3 interaction scripts:
-
-```
+```bash
 npm install
-or
-yarn install
 ```
 
-## Usage
+## Build
 
-### Init PDAs
-```
-yarn script init
-```
-
-### Staking NFTs via Web3
-You can use the provided Web3 script to stake your NFTs on the Solana blockchain.
-
-- Set Up Your Wallet: Make sure your wallet is funded with enough SOL for transaction fees.
-- Run the Staking Script:
-```
-yarn script lock -t nft_type -m nft_mint
-```
-This command stakes the specified NFT in the program.
-
-### Unstaking NFTs via Web3
-Once the staking period is over, users can unstake their NFTs by running the unstaking script.
-
-- Run the Unstaking Script:
-```
-yarn script unlock -t nft_type -m nft_mint -o nft_owner
+```bash
+npm run build
 ```
 
-## Anchor Program Structure
-The Anchor Rust program is built around two key accounts:
+Anchor writes the program binary and IDL into `target/`. The active program id must match:
 
-- Staking Account: Holds user-specific data such as staked NFT details, stake start time, and reward accumulation.
+- `declare_id!()` in `programs/mpl-corenft-staking/src/lib.rs`
+- `Anchor.toml`
+- `OPENCLAWD_AGENT_STAKING_PROGRAM_ID`
+- `lib/constant.ts`
 
-### Core Program Functions
-- Stake NFT: Initiates the staking of an NFT and creates a new staking account for the user.
-- Unstake NFT: Unlocks the NFT from the staking account, allowing the user to reclaim their NFT and any associated rewards.
+For a real mainnet deployment, generate or reuse a dedicated program keypair first, then update all four places to the resulting public key.
 
-### Program IDL
-The Interface Definition Language (IDL) for the program is automatically generated by Anchor during the build process. It is located in the target/idl folder and can be used to interact with the program using Web3.
+## Test
 
+```bash
+npm test
+```
 
-## Contact me
-If you need more technical support and development inquires, you can contact below.
+Run localnet/devnet tests before mainnet. The provided test initializes the global pool; expand it with collection-specific stake/unstake fixtures before production launch.
 
-Telegram: [@dwlee918](https://t.me/@dwlee918)
+## Deploy
 
-X: [@dwlee918](https://x.com/dwlee918)
+### Devnet rehearsal
 
-Linkedin: [@derrick-lee-wayne](https://linkedin.com/in/derrick-lee-wayne)
+```bash
+solana config set --url https://api.devnet.solana.com
+solana config set --keypair "$ANCHOR_WALLET"
+npm run deploy:devnet
+```
 
+### Mainnet deployment
 
+Mainnet deployment should only happen after a clean build, a devnet rehearsal, and an explicit program id check.
+
+```bash
+solana config set --url "$SOLANA_RPC_URL"
+solana config set --keypair "$ANCHOR_WALLET"
+solana balance
+npm run deploy:mainnet
+```
+
+After deployment, initialize the global pool:
+
+```bash
+npm run script:mainnet -- init
+```
+
+## Stake An Agent Asset
+
+```bash
+npm run script:mainnet -- lock \
+  --mint <agent-core-asset-address> \
+  --collection "$OPENCLAWD_AGENT_COLLECTION"
+```
+
+The asset must be a Metaplex Core asset whose update authority is the configured collection.
+
+## Unstake An Agent Asset
+
+```bash
+npm run script:mainnet -- unlock \
+  --mint <agent-core-asset-address> \
+  --collection "$OPENCLAWD_AGENT_COLLECTION"
+```
+
+The unlock flow unfreezes the asset and removes the `FreezeDelegate` plugin.
+
+## Safety Notes
+
+- The current program does not issue token rewards. It is a staking lock/unlock primitive.
+- The global admin can unlock assets when authorized by program constraints.
+- Use a dedicated deployer and program authority. Do not deploy from a hot trading wallet.
+- Use a paid, rate-limited mainnet RPC for production. Public RPC is not reliable enough for launch operations.
+- Run `anchor keys sync` after changing the program keypair.
+
+## OpenClawd Integration
+
+This protocol is intended to sit under OpenClawd's Solana-native financial agent stack. A typical production deployment pairs it with:
+
+- agent minting via Metaplex Core
+- policy checks in the OpenClawd backend
+- staking status indexing
+- wallet-gated agent actions
+- admin runbooks for emergency unlocks
+
+## License
+
+MIT
