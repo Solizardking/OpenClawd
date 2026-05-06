@@ -1,0 +1,80 @@
+{
+  "name": "crossmint-agentic-wallet",
+  "version": "1.3.0",
+  "description": "Non-custodial Solana wallet creation for AI agents using Crossmint MPC infrastructure",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "skill.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "solana",
+    "wallet",
+    "crossmint",
+    "ai-agent",
+    "mcp",
+    "skill",
+    "non-custodial",
+    "mpc",
+    "blockchain",
+    "web3",
+    "agent",
+    "autonomous",
+    "agentic"
+  ],
+  "author": "MAWDos",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mawdos/crossmint-agentic-wallet"
+  },
+  "homepage": "https://github.com/mawdos/crossmint-agentic-wallet#readme",
+  "bugs": {
+    "url": "https://github.com/mawdos/crossmint-agentic-wallet/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "openclaw": {
+    "skillKey": "crossmint-agentic-wallet",
+    "displayName": "Crossmint Agentic Wallet",
+    "description": "Create and manage non-custodial Solana wallets for AI agents",
+    "category": "blockchain",
+    "envVars": {
+      "primary": "CROSSMINT_SERVERSIDE_API_KEY",
+      "optional": ["CROSSMINT_CLIENTSIDE_API_KEY"]
+    },
+    "tools": [
+      "create_wallet",
+      "get_or_create_wallet",
+      "get_wallet",
+      "get_balances",
+      "transfer_tokens",
+      "transfer_sol",
+      "fund_wallet_staging"
+    ]
+  }
+}
