@@ -3,14 +3,19 @@ import Link from "next/link";
 import { ArrowRight, Search, Sparkles } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
-import { getApprovedPetCount, getFeaturedPetsWithMetrics } from "@/lib/pets";
-
 import { CommandLine } from "@/components/command-line";
 import { PetSprite } from "@/components/pet-sprite";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
 export const dynamic = "force-dynamic";
+
+type NotFoundPet = {
+  slug: string;
+  displayName: string;
+  spritesheetPath: string;
+  kind: string;
+};
 
 export async function generateMetadata({
   params,
@@ -29,10 +34,18 @@ export async function generateMetadata({
 
 export default async function NotFound() {
   const t = await getTranslations("notFound");
-  const [featured, total] = await Promise.all([
-    getFeaturedPetsWithMetrics(4),
-    getApprovedPetCount(),
-  ]);
+  let featured: NotFoundPet[] = [];
+  let total = 0;
+  try {
+    const pets = await import("@/lib/pets");
+    [featured, total] = await Promise.all([
+      pets.getFeaturedPetsWithMetrics(4),
+      pets.getApprovedPetCount(),
+    ]);
+  } catch {
+    // Keep non-gallery pages renderable in local setup before DATABASE_URL
+    // is configured. The real gallery still requires Postgres.
+  }
 
   // Pick a random featured pet for the "lost" sprite. Falls back gracefully
   // if the curated set is empty (early days / fresh DB).
