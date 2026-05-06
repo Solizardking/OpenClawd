@@ -130,6 +130,20 @@ function toAgentMetadata(registration: RegistrationFile, nameOverride?: string):
   };
 }
 
+function maskUrl(rawUrl: string): string {
+  try {
+    const url = new URL(rawUrl);
+    for (const key of url.searchParams.keys()) {
+      if (/key|token|secret|signature/i.test(key)) {
+        url.searchParams.set(key, '***');
+      }
+    }
+    return url.toString();
+  } catch {
+    return rawUrl.replace(/(api-key=)[^&\s]+/gi, '$1***');
+  }
+}
+
 async function main() {
   const options = parseOptions();
   const registration = loadRegistration(options.configPath);
@@ -140,7 +154,7 @@ async function main() {
   console.log(`  Config:       ${options.configPath}`);
   console.log(`  Name:         ${name}`);
   console.log(`  Network:      ${options.network}`);
-  console.log(`  RPC:          ${options.rpcUrl}`);
+  console.log(`  RPC:          ${maskUrl(options.rpcUrl)}`);
   console.log(`  Metadata URI: ${options.metadataUri}`);
   console.log(`  Mode:         ${options.submit ? 'submit' : 'dry-run'}`);
   console.log('');
