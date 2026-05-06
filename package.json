@@ -5,6 +5,13 @@
   "type": "module",
   "description": "OpenClawd monorepo for Solana-native AI agents, payments, MCP tools, and developer surfaces.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/clawdsolana/OpenClawd/issues"
+  },
   "engines": {
     "node": ">=20",
     "npm": ">=10"
