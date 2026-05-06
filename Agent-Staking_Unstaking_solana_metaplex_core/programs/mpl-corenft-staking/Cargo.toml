@@ -1,12 +1,12 @@
 [package]
-name = "mpl-corenft-staking"
+name = "openclawd-agent-staking"
 version = "0.1.0"
-description = "Created with Anchor"
+description = "OpenClawd agent staking protocol for Metaplex Core assets"
 edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "mpl_corenft_staking"
+name = "openclawd_agent_staking"
 
 [features]
 default = []

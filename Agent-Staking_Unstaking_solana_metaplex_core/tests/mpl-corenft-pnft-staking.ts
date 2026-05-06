@@ -1,12 +1,12 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
-import { MplCorenftPnftStaking } from "../target/types/mpl_corenft_pnft_staking";
+import { OpenclawdAgentStaking } from "../target/types/openclawd_agent_staking";
 
-describe("mpl-corenft-pnft-staking", () => {
+describe("openclawd-agent-staking", () => {
   // Configure the client to use the local cluster.
   anchor.setProvider(anchor.AnchorProvider.env());
 
-  const program = anchor.workspace.MplCorenftPnftStaking as Program<MplCorenftPnftStaking>;
+  const program = anchor.workspace.OpenclawdAgentStaking as Program<OpenclawdAgentStaking>;
 
   it("Is initialized!", async () => {
     // Add your test here.
