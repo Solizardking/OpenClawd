@@ -7,6 +7,8 @@ import { HeliusService } from '../services/helius.js';
 import { BirdeyeService } from '../services/birdeye.js';
 import { UnifiedAIService } from '../services/ai-providers.js';
 import { UnifiedNewsSearchService } from '../services/news-search.js';
+import { JupiterService } from '../services/jupiter.js';
+import { SolanaWalletManager } from '../skills/solana-wallet.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
@@ -76,6 +78,8 @@ export class RalphAgent extends EventEmitter {
   private birdeye?: BirdeyeService;
   private ai?: UnifiedAIService;
   private news?: UnifiedNewsSearchService;
+  private jupiter?: JupiterService;
+  private wallet?: SolanaWalletManager;
   private thoughtLoop?: NodeJS.Timeout;
   private uptimeCounter?: NodeJS.Timeout;
 
@@ -107,6 +111,8 @@ export class RalphAgent extends EventEmitter {
     newsApiKey?: string;
     serpApiKey?: string;
     financialDatasetKey?: string;
+    jupiterKey?: string;
+    privateKey?: string;
   }): void {
     if (keys.heliusKey) {
       this.helius = new HeliusService(keys.heliusKey, keys.heliusRpc);
@@ -128,6 +134,27 @@ export class RalphAgent extends EventEmitter {
         financialDatasetKey: keys.financialDatasetKey,
       });
     }
+
+    // Wallet: prefer SOLANA_PRIVATE_KEY, fall back to ~/.darkralph/wallet.json
+    const rpcUrl = keys.heliusRpc || (keys.heliusKey ? `https://mainnet.helius-rpc.com/?api-key=${keys.heliusKey}` : 'https://api.mainnet-beta.solana.com');
+    const wallet = new SolanaWalletManager(rpcUrl);
+    let loaded = false;
+    if (keys.privateKey) {
+      loaded = wallet.loadFromPrivateKey(keys.privateKey);
+    }
+    if (!loaded) {
+      loaded = wallet.loadWallet();
+    }
+    if (loaded) {
+      this.wallet = wallet;
+      const pk = wallet.getPublicKey();
+      if (pk && !this.config.walletAddress) {
+        this.config.walletAddress = pk;
+      }
+    }
+
+    // Jupiter is always usable (key optional for low-volume / dev access)
+    this.jupiter = new JupiterService(keys.jupiterKey, wallet.getConnection());
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -321,7 +348,10 @@ Sentiment: ${intelligence.sentiment.toUpperCase()}`,
 
   async processCommand(command: string): Promise<void> {
     this.state.lastActivity = new Date();
-    const [cmd, ...args] = command.toLowerCase().split(' ');
+    // Preserve original (case-sensitive) args for things like mint addresses
+    const tokens = command.split(/\s+/).filter(Boolean);
+    const cmd = (tokens[0] || '').toLowerCase();
+    const args = tokens.slice(1);
 
     switch (cmd) {
       case '/help':
@@ -333,6 +363,10 @@ Sentiment: ${intelligence.sentiment.toUpperCase()}`,
         break;
 
       case '/wallet':
+        await this.cmdWallet();
+        break;
+
+      case '/balance':
         await this.cmdWallet();
         break;
 
@@ -372,6 +406,22 @@ Sentiment: ${intelligence.sentiment.toUpperCase()}`,
         this.emit('clearMessages');
         break;
 
+      case '/quote':
+        await this.cmdQuote(args);
+        break;
+
+      case '/swap':
+        await this.cmdSwap(args);
+        break;
+
+      case '/buy':
+        await this.cmdBuy(args);
+        break;
+
+      case '/sell':
+        await this.cmdSell(args);
+        break;
+
       default:
         // Treat as chat message
         await this.cmdChat(command);
@@ -388,18 +438,24 @@ Sentiment: ${intelligence.sentiment.toUpperCase()}`,
       `╔══════════════════════════════════════════════════════════╗
 ║              DARK RALPH COMMAND MATRIX                   ║
 ╠══════════════════════════════════════════════════════════╣
-║ /trending     - Fetch live trending tokens (Birdeye)     ║
-║ /wallet       - Display wallet balance & holdings        ║
-║ /price <addr> - Get token price                          ║
-║ /news [topic] - Get latest crypto news                   ║
-║ /search <q>   - Real-time search with Grok               ║
-║ /research <q> - Deep research with Perplexity            ║
-║ /mode <type>  - Switch mode (auto | interactive)         ║
-║ /think        - Trigger recursive thought spiral         ║
-║ /prophecy     - Generate cryptic market prophecy         ║
-║ /stats        - Display system statistics                ║
-║ /clear        - Clear terminal history                   ║
+║ /trending             - Live trending tokens (Birdeye)   ║
+║ /wallet | /balance    - Wallet balance & holdings        ║
+║ /price <addr|sym>     - Get token price                  ║
+║ /news [topic]         - Latest crypto news               ║
+║ /search <q>           - Real-time search with Grok       ║
+║ /research <q>         - Deep research with Perplexity    ║
+║ /quote <amt> <in> <out> [bps]  - Jupiter swap quote      ║
+║ /swap  <amt> <in> <out> [bps]  - Execute swap (signs!)   ║
+║ /buy   <amt-SOL> <token> [bps] - Buy token with SOL      ║
+║ /sell  <amt> <token>    [bps]  - Sell token for SOL      ║
+║ /mode <type>          - Switch mode (auto | interactive) ║
+║ /think                - Trigger recursive thought spiral ║
+║ /prophecy             - Generate cryptic market prophecy ║
+║ /stats                - Display system statistics        ║
+║ /clear                - Clear terminal history           ║
 ╠══════════════════════════════════════════════════════════╣
+║ Symbols: SOL USDC USDT BONK WIF JUP JTO PYTH RAY ORCA    ║
+║ Or use a raw mint address. Mints are case-sensitive.     ║
 ║ Or type naturally to chat with RALPH                     ║
 ╚══════════════════════════════════════════════════════════╝`,
       'normal'
@@ -664,6 +720,9 @@ Market Cap: ${this.birdeye.formatVolume(info.mc || 0)}`,
     }
     if (this.birdeye) {
       checks.push({ name: 'Birdeye', check: () => this.birdeye!.healthCheck() });
+    }
+    if (this.jupiter) {
+      checks.push({ name: 'Jupiter', check: () => this.jupiter!.healthCheck() });
     }
 
     for (const { name, check } of checks) {

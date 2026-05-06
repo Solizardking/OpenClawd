@@ -16,6 +16,7 @@ export const ApiKeysSchema = z.object({
   FINANCIAL_DATASET_API_KEY: z.string().optional(),
   OPENROUTER_API_KEY: z.string().optional(),
   OPENROUTER_MODEL: z.string().default('minimax/minimax-m2.1'),
+  JUPITER_API_KEY: z.string().optional(),
 });
 
 // Solana Config Schema
@@ -92,6 +93,7 @@ export function loadConfigFromEnv(): Partial<Config> {
       FINANCIAL_DATASET_API_KEY: process.env.FINANCIAL_DATASET_API_KEY,
       OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY,
       OPENROUTER_MODEL: process.env.OPENROUTER_MODEL || 'minimax/minimax-m2.1',
+      JUPITER_API_KEY: process.env.JUPITER_API_KEY,
     },
     solana: {
       network: (process.env.SOLANA_NETWORK as 'mainnet-beta' | 'devnet' | 'testnet') || 'mainnet-beta',
