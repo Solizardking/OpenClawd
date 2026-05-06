@@ -85,7 +85,7 @@ async function refreshHealth() {
     bounceLobster();
   } catch (err) {
     [dotGw, dotBird, dotHel, dotRt].forEach((d) => (d.className = 'dot err'));
-    $('health-pre').innerHTML = `<span class="err">✖ ${err.message}</span>`;
+    $('health-pre').innerHTML = `<span class="err">✖ ${esc(err.message)}</span>`;
   }
 }
 refreshHealth();
@@ -311,7 +311,7 @@ async function lookup(address) {
     }
     out.innerHTML = renderAsset(data);
   } catch (err) {
-    out.innerHTML = `<span class="err">✖ ${err.message}</span>`;
+    out.innerHTML = `<span class="err">✖ ${esc(err.message)}</span>`;
   }
 }
 
@@ -371,7 +371,7 @@ async function fetchWallet(address) {
       ${items.slice(0, 10).map((i) => `<div><span class="lbl">$${esc(i.symbol || '?')}</span> <span class="val">${fmtNum(i.uiAmount)}</span> @ <span class="val">${fmtUsd(i.priceUsd)}</span> = <span class="price">${fmtUsd(i.valueUsd)}</span></div>`).join('')}
     `;
   } catch (err) {
-    out.innerHTML = `<span class="err">✖ ${err.message}</span>`;
+    out.innerHTML = `<span class="err">✖ ${esc(err.message)}</span>`;
   }
 }
 $('wallet-btn').addEventListener('click', () => fetchWallet($('wallet-input').value.trim()));
@@ -398,7 +398,7 @@ async function refreshSkills() {
       )
       .join('');
   } catch (err) {
-    out.innerHTML = `<span class="err">✖ ${err.message}</span>`;
+    out.innerHTML = `<span class="err">✖ ${esc(err.message)}</span>`;
   }
 }
 $('rt-refresh').addEventListener('click', refreshSkills);
@@ -432,7 +432,7 @@ $('text-btn').addEventListener('click', async () => {
     });
     out.textContent = d.text || '(empty)';
   } catch (err) {
-    out.innerHTML = `<span class="err">✖ ${err.message}</span>`;
+    out.innerHTML = `<span class="err">✖ ${esc(err.message)}</span>`;
   }
 });
 

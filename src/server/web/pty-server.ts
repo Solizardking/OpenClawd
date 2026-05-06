@@ -5,6 +5,7 @@ import path from "path";
 import { spawn } from "node-pty";
 import { WebSocketServer } from "ws";
 import type { IncomingMessage } from "http";
+import type { NextFunction, Request, Response } from "express";
 import { ConnectionRateLimiter } from "./auth.js";
 import { SessionManager } from "./session-manager.js";
 import { UserStore } from "./user-store.js";
@@ -29,6 +30,45 @@ const CLAUDE_BIN = process.env.CLAUDE_BIN ?? "claude";
 const AUTH_PROVIDER = process.env.AUTH_PROVIDER ?? "token";
 const SESSION_SECRET = process.env.SESSION_SECRET ?? crypto.randomUUID();
 const USER_HOME_BASE = process.env.USER_HOME_BASE ?? "/home/claude/users";
+const HTTP_RATE_LIMIT_WINDOW_MS = parseInt(process.env.HTTP_RATE_LIMIT_WINDOW_MS ?? String(60_000), 10);
+const HTTP_RATE_LIMIT_MAX = parseInt(process.env.HTTP_RATE_LIMIT_MAX ?? "120", 10);
+
+type HttpRateBucket = {
+  count: number;
+  resetAt: number;
+};
+
+const httpRateBuckets = new Map<string, HttpRateBucket>();
+
+function clientIp(req: Request): string {
+  return (
+    (req.headers["x-forwarded-for"] as string | undefined)?.split(",")[0]?.trim() ||
+    req.socket.remoteAddress ||
+    "unknown"
+  );
+}
+
+function httpRateLimit(req: Request, res: Response, next: NextFunction): void {
+  const now = Date.now();
+  const ip = clientIp(req);
+  const bucket = httpRateBuckets.get(ip);
+
+  if (!bucket || bucket.resetAt <= now) {
+    httpRateBuckets.set(ip, { count: 1, resetAt: now + HTTP_RATE_LIMIT_WINDOW_MS });
+    next();
+    return;
+  }
+
+  bucket.count += 1;
+  if (bucket.count > HTTP_RATE_LIMIT_MAX) {
+    const retryAfter = Math.ceil((bucket.resetAt - now) / 1000);
+    res.setHeader("Retry-After", String(retryAfter));
+    res.status(429).json({ error: "Too many requests" });
+    return;
+  }
+
+  next();
+}
 
 // ── Auth adapter ──────────────────────────────────────────────────────────────
 
@@ -49,10 +89,17 @@ switch (AUTH_PROVIDER) {
 // ── Express app ───────────────────────────────────────────────────────────────
 
 const app = express();
+app.use(httpRateLimit);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const server = createServer(app);
+const httpRateLimitCleanup = setInterval(() => {
+  const now = Date.now();
+  for (const [ip, bucket] of httpRateBuckets) {
+    if (bucket.resetAt <= now) httpRateBuckets.delete(ip);
+  }
+}, HTTP_RATE_LIMIT_WINDOW_MS);
 
 // Register auth routes (login, callback, logout) before static files so they
 // take priority over any index.html fallback.
@@ -288,6 +335,7 @@ wss.on("connection", (ws, req) => {
 
 function shutdown() {
   console.log("Shutting down...");
+  clearInterval(httpRateLimitCleanup);
   clearInterval(rateLimiterCleanup);
   sessionManager.destroyAll();
   wss.close(() => {
