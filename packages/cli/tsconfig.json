@@ -10,8 +10,8 @@
     "target": "ESNext",
     "paths": {
       "@/src/*": ["./src/*"],
-      "@openclawdsolana/core": ["../core/src"],
-      "@openclawdsolana/core/*": ["../core/src/*"],
+      "@openclawdsolana/core": ["../src"],
+      "@openclawdsolana/core/*": ["../src/*"],
       "@openclawdsolana/api-client": ["../api-client/src"],
       "@openclawdsolana/api-client/*": ["../api-client/src/*"]
     },

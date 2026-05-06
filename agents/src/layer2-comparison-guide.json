@@ -1,10 +1,10 @@
 {
   "$schema": "https://solanaclawd.com/schemas/clawdAgentSchema.v1.json",
   "author": "openclawd",
-  "identifier": "layer-2-comparison-guide",
+  "identifier": "layer2-comparison-guide",
   "schemaVersion": 1,
   "createdAt": "2026-04-16",
-  "homepage": "https://solanaclawd.com/agents/layer-2-comparison-guide",
+  "homepage": "https://solanaclawd.com/agents/layer2-comparison-guide",
   "oneShot": true,
   "featured": false,
   "meta": {

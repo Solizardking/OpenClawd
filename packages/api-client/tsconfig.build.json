@@ -4,6 +4,6 @@
     "composite": false,
     "declaration": true
   },
-  "include": ["src/**/*", "../core/src/**/*"],
+  "include": ["src/**/*", "../src/**/*"],
   "exclude": ["node_modules", "dist", "src/**/*.test.ts", "**/*.spec.ts"]
 }

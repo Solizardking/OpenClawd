@@ -1,0 +1,26 @@
+# Local-only secrets for `wrangler dev`. Copy to `.dev.vars` (gitignored)
+# and fill in. For production, push the same keys with `wrangler secret put`.
+
+# ─── Solana ───────────────────────────────────────────────────────────────
+# Mainnet RPC. Helius / Quicknode strongly preferred over the public
+# mainnet-beta endpoint, which rate-limits aggressively.
+SOLANA_RPC_URL="https://api.mainnet-beta.solana.com"
+
+# base58 pubkey that receives payments. Generate with `solana-keygen new`
+# and store the keypair offline — the worker only needs the public address.
+SOLANA_TREASURY=""
+
+# ─── Base / EVM ───────────────────────────────────────────────────────────
+# Leave any of these empty to disable that chain.
+BASE_RPC_URL="https://mainnet.base.org"
+ETHEREUM_RPC_URL=""
+
+# 0x... address that receives EVM payments.
+EVM_TREASURY=""
+
+# ─── Bitcoin (stub) ───────────────────────────────────────────────────────
+BITCOIN_RPC_URL=""
+BITCOIN_TREASURY=""
+
+# ─── Environment ──────────────────────────────────────────────────────────
+ENVIRONMENT="development"

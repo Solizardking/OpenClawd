@@ -13,8 +13,8 @@
     "moduleResolution": "bundler",
     "ignoreDeprecations": "6.0",
     "paths": {
-      "@openclawdsolana/core": ["../core/src"],
-      "@openclawdsolana/core/*": ["../core/src/*"]
+      "@openclawdsolana/core": ["../src"],
+      "@openclawdsolana/core/*": ["../src/*"]
     }
   },
   "include": ["src/**/*"],

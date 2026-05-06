@@ -1,15 +1,23 @@
 # X402 Multi-Chain Facilitator - Cloudflare Worker Configuration
+#
+# First-time setup: see ./README.md ("Setup" section).
+# Replace every YOUR_* below with values from `wrangler whoami` and
+# `wrangler kv:namespace create`.
 
 name = "x402-facilitator"
 main = "src/index.ts"
 compatibility_date = "2024-01-01"
 node_compat = true
 
-# Workers Paid Plan required for KV
-account_id = "YOUR_CLOUDFLARE_ACCOUNT_ID"
+# Required for `wrangler deploy`; omit / leave commented for `wrangler dev`.
+# Find yours with: npx wrangler whoami
+# account_id = "YOUR_CLOUDFLARE_ACCOUNT_ID"
 workers_dev = true
 
-# KV Namespace for payment receipts
+# KV Namespace for payment receipts.
+# Create with:
+#   pnpm kv:create          # prints the production id
+#   pnpm kv:create:preview  # prints the preview id
 [[kv_namespaces]]
 binding = "RECEIPTS"
 id = "YOUR_KV_NAMESPACE_ID"
