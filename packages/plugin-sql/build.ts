@@ -25,6 +25,12 @@ async function buildAll() {
         'uuid',
         '@openclawdsolana/core',
         '@electric-sql/pglite',
+        '@neondatabase/serverless',
+        'drizzle-orm',
+        'drizzle-orm/neon-serverless',
+        'drizzle-orm/node-postgres',
+        'drizzle-orm/pglite',
+        'drizzle-orm/pg-core',
         'zod',
         'fs',
         'path',
@@ -36,7 +42,7 @@ async function buildAll() {
       sourcemap: true,
       minify: false,
       // d.ts for node build handled by package-wide tsc; keep true for parity
-      generateDts: true,
+      generateDts: false,
     },
   });
 
@@ -58,11 +64,12 @@ async function buildAll() {
         '@electric-sql/pglite/vector',
         '@electric-sql/pglite/contrib/fuzzystrmatch',
         'drizzle-orm',
+        'drizzle-orm/pg-core',
         'drizzle-orm/pglite',
       ],
       sourcemap: true,
       minify: false,
-      generateDts: true,
+      generateDts: false,
     },
   });
 

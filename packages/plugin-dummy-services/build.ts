@@ -26,7 +26,7 @@ const run = createBuildRunner({
     ],
     sourcemap: true,
     minify: false,
-    generateDts: true,
+    generateDts: false,
   },
 });
 

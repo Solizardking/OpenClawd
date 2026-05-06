@@ -5,7 +5,22 @@
 
 import { createBuildRunner, copyAssets } from '../../build-utils';
 import { existsSync } from 'node:fs';
+import fs from 'node:fs/promises';
 import { join } from 'node:path';
+
+const packageJson = JSON.parse(await fs.readFile('./package.json', 'utf8')) as {
+  dependencies?: Record<string, string>;
+  devDependencies?: Record<string, string>;
+  peerDependencies?: Record<string, string>;
+  optionalDependencies?: Record<string, string>;
+};
+
+const packageExternals = [
+  ...Object.keys(packageJson.dependencies ?? {}),
+  ...Object.keys(packageJson.devDependencies ?? {}),
+  ...Object.keys(packageJson.peerDependencies ?? {}),
+  ...Object.keys(packageJson.optionalDependencies ?? {}),
+];
 
 // Create and run the standardized build runner
 const run = createBuildRunner({
@@ -16,6 +31,7 @@ const run = createBuildRunner({
     target: 'node',
     format: 'esm',
     external: [
+      ...packageExternals,
       '@openclawdsolana/core',
       '@openclawdsolana/client',
       'express',
@@ -30,7 +46,7 @@ const run = createBuildRunner({
     ],
     sourcemap: false,
     minify: false,
-    generateDts: true,
+    generateDts: false,
   },
   onBuildComplete: async (success) => {
     if (success) {
