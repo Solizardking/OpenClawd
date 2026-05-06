@@ -31,5 +31,14 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
+    "directory": "packages/api-client"
+  },
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
+  "bugs": {
+    "url": "https://github.com/clawdsolana/OpenClawd/issues"
+  },
   "gitHead": "255e37c0e4a76da0b776219db5ebb9dadf20e89f"
 }
