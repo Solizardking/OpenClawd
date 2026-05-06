@@ -17,7 +17,7 @@ openclawd_agent_staking = "Fg6PaFpoGXkYsidMpWxTWqz4iyToFhRmD31x9WfP3YpR"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "mainnet-beta"
+cluster = "mainnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

@@ -10,7 +10,7 @@
     "build": "anchor build",
     "test": "anchor test",
     "deploy:devnet": "anchor deploy --provider.cluster devnet",
-    "deploy:mainnet": "anchor deploy --provider.cluster mainnet-beta",
+    "deploy:mainnet": "anchor deploy --provider.cluster mainnet",
     "script": "ts-node ./cli/command.ts",
     "script:mainnet": "ANCHOR_PROVIDER_URL=${SOLANA_RPC_URL:-https://api.mainnet-beta.solana.com} ts-node ./cli/command.ts"
   },
