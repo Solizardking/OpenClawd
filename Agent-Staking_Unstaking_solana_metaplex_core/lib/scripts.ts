@@ -55,7 +55,6 @@ export const createInitializeTx = async (
       admin,
       globalPool,
       systemProgram: SystemProgram.programId,
-      rent: SYSVAR_RENT_PUBKEY,
     })
     .transaction();
 
@@ -66,23 +65,24 @@ export const createInitializeTx = async (
 export const createLockCorenftTx = async (
   wallet: Wallet,
   assetStr: string,
+  collectionStr: string,
   program: anchor.Program,
   connection: Connection,
   keypair: string
 ) => {
   const json = Uint8Array.from(JSON.parse(fs.readFileSync(keypair, "utf-8")));
-  const umi = createUmi("https://api.devnet.solana.com", "finalized");
+  const umi = createUmi(connection.rpcEndpoint, "finalized");
 
   let keyPair = umi.eddsa.createKeypairFromSecretKey(new Uint8Array(json));
   const myKeypairSigner = createSignerFromKeypair(umi, keyPair);
   umi.use(signerIdentity(myKeypairSigner));
 
   const asset = publicKey(assetStr);
-  const collection = publicKey("CORE_COLLECTION_ADDRESS");
+  const collection = publicKey(collectionStr);
 
   const assetData = await fetchAsset(umi, asset);
 
-  if (assetData.updateAuthority.address != "CORE_COLLECTION_ADDRESS") {
+  if (assetData.updateAuthority.address != collectionStr) {
     throw "collection is incorrect";
   }
 
@@ -120,13 +120,13 @@ export const createLockCorenftTx = async (
 export const createUnlockCorenftTx = async (
   wallet: Wallet, // Owner or admin
   assetStr: string,
+  collectionStr: string,
   program: anchor.Program,
   connection: Connection,
   keypair: string,
-  stakedSeed?: number // Seed finding may take long time
 ) => {
   const json = Uint8Array.from(JSON.parse(fs.readFileSync(keypair, "utf-8")));
-  const umi = createUmi("https://api.devnet.solana.com", "finalized");
+  const umi = createUmi(connection.rpcEndpoint, "finalized");
 
   let keyPair = umi.eddsa.createKeypairFromSecretKey(new Uint8Array(json));
   const myKeypairSigner = createSignerFromKeypair(umi, keyPair);
@@ -134,9 +134,9 @@ export const createUnlockCorenftTx = async (
 
   const asset = publicKey(assetStr);
   const assetData = await fetchAsset(umi, asset);
-  const collection = publicKey("CORE_COLLECTION_ADDRESS");
+  const collection = publicKey(collectionStr);
 
-  if (assetData.updateAuthority.address != "CORE_COLLECTION_ADDRESS") {
+  if (assetData.updateAuthority.address != collectionStr) {
     throw "collection is incorrect";
   }
 
@@ -148,7 +148,7 @@ export const createUnlockCorenftTx = async (
     const tx = new web3Transaction();
 
     const txId = await program.methods
-      .unlockMission1()
+      .unlockCorenft()
       .accounts({
         owner: userAddress,
         user: userAddress,

@@ -4,15 +4,21 @@
 resolution = true
 skip-lint = false
 
+[programs.localnet]
+openclawd_agent_staking = "Fg6PaFpoGXkYsidMpWxTWqz4iyToFhRmD31x9WfP3YpR"
+
 [programs.devnet]
-mpl_corenft_pnft_staking = "your program ID"
+openclawd_agent_staking = "Fg6PaFpoGXkYsidMpWxTWqz4iyToFhRmD31x9WfP3YpR"
+
+[programs.mainnet]
+openclawd_agent_staking = "Fg6PaFpoGXkYsidMpWxTWqz4iyToFhRmD31x9WfP3YpR"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Devnet"
-wallet = "~/topstar/deployer.json"
+cluster = "mainnet-beta"
+wallet = "~/.config/solana/id.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"

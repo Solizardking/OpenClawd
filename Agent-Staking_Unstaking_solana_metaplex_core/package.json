@@ -1,10 +1,18 @@
 {
-  "license": "ISC",
+  "name": "@openclawdsolana/agent-staking",
+  "version": "0.1.0",
+  "description": "OpenClawd agent staking and unstaking protocol for Metaplex Core assets on Solana.",
+  "license": "MIT",
   "scripts": {
     "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
     "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check",
     "hook": "ts-node ./cli/hook.ts",
-    "script": "export ANCHOR_WALLET=./deploy.json && ts-node ./cli/command.ts"
+    "build": "anchor build",
+    "test": "anchor test",
+    "deploy:devnet": "anchor deploy --provider.cluster devnet",
+    "deploy:mainnet": "anchor deploy --provider.cluster mainnet-beta",
+    "script": "ts-node ./cli/command.ts",
+    "script:mainnet": "ANCHOR_PROVIDER_URL=${SOLANA_RPC_URL:-https://api.mainnet-beta.solana.com} ts-node ./cli/command.ts"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.30.1",

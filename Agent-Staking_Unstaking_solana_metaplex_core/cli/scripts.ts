@@ -1,7 +1,7 @@
 import * as anchor from "@coral-xyz/anchor";
 import fs from "fs";
 import NodeWallet from "@coral-xyz/anchor/dist/cjs/nodewallet";
-import { PROGRAM_ID } from "../lib/constant";
+import { DEFAULT_MAINNET_RPC, PROGRAM_ID } from "../lib/constant";
 import {
   ComputeBudgetProgram,
   Connection,
@@ -16,10 +16,10 @@ import {
   createUnlockCorenftTx,
 } from "../lib/scripts";
 
-import idl from '../target/idl/mpl_corenft_pnft_staking.json';
-import { MplCorenftPnftStaking } from '../target/types/mpl_corenft_pnft_staking';
+import idl from '../target/idl/openclawd_agent_staking.json';
+import { OpenclawdAgentStaking } from '../target/types/openclawd_agent_staking';
 
-const IDL: MplCorenftPnftStaking = idl as MplCorenftPnftStaking;
+const IDL: OpenclawdAgentStaking = idl as OpenclawdAgentStaking;
 
 let solConnection: Connection = null;
 let program: anchor.Program = null;
@@ -68,7 +68,7 @@ export const setClusterConfig = async (
 
   // Generate the program client from IDL.
   console.log("Program ID: ", programId);
-  program = new anchor.Program(IDL as anchor.Idl, provider);
+  program = new anchor.Program(IDL as anchor.Idl, programId, provider);
 
 };
 
@@ -110,11 +110,12 @@ export const initProject = async () => {
   }
 };
 
-export const lockCorenft = async (asset: string, keypair: string) => {
+export const lockCorenft = async (asset: string, collection: string, keypair: string) => {
   try {
     const tx = await createLockCorenftTx(
       payer as anchor.Wallet,
       asset,
+      collection,
       program,
       solConnection,
       keypair
@@ -127,15 +128,15 @@ export const lockCorenft = async (asset: string, keypair: string) => {
   }
 };
 
-export const unlockCorenft = async (asset: string, owner: PublicKey, keypair: string) => {
+export const unlockCorenft = async (asset: string, collection: string, keypair: string) => {
   try {
     const tx = await createUnlockCorenftTx(
       payer as anchor.Wallet,
       asset,
+      collection,
       program,
       solConnection,
-      keypair,
-      owner
+      keypair
     );
 
     await addAdminSignAndConfirm(tx);

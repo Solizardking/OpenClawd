@@ -1,5 +1,4 @@
 use crate::*;
-use anchor_lang::prelude::Clock;
 use mpl_core::{
     ID as CORE_PROGRAM_ID,
     accounts::{BaseAssetV1, BaseCollectionV1}, 
@@ -66,7 +65,10 @@ pub fn unlock_corenft_handler(ctx: Context<UnlockCoreNFT>) -> Result<()> {
     .plugin_type(PluginType::FreezeDelegate)
     .invoke()?;
 
-    global_pool.total_corenft_staked_count -= 1;
+    global_pool.total_corenft_staked_count = global_pool
+        .total_corenft_staked_count
+        .checked_sub(1)
+        .ok_or(StakingError::CounterUnderflow)?;
     
     Ok(())
 }

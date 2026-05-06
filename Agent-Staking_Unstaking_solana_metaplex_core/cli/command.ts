@@ -1,10 +1,11 @@
 import { program } from 'commander';
-import { PublicKey } from '@solana/web3.js';
 import {
+  initProject,
   lockCorenft,
   unlockCorenft,
   setClusterConfig,
 } from './scripts';
+import { CORE_COLLECTION_ADDRESS, DEFAULT_MAINNET_RPC } from '../lib/constant';
 
 // program.version('0.0.1');
 
@@ -24,20 +25,21 @@ programCommand('init')
 
 programCommand('lock')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  .option('-t, --nftType <string>')
+  .option('-t, --nftType <string>', 'NFT standard to stake', 'Corenft')
   .option('-m, --mint <string>')
+  .option('-c, --collection <string>', 'Metaplex Core collection address', CORE_COLLECTION_ADDRESS.toBase58())
   .action(async (directory, cmd) => {
-    const { env, keypair, rpc, mint } = cmd.opts();
+    const { env, keypair, rpc, mint, nftType, collection } = cmd.opts();
     
     await setClusterConfig(env, keypair, rpc);
     if (mint === undefined) {
-      console.log('Error token amount Input');
+      console.log('Missing agent asset mint');
       return;
     }
 
     switch(nftType) {
       case "Corenft": {
-        await await lockCorenft(mint, keypair);
+        await lockCorenft(mint, collection, keypair);
         break;
       }
       default: {
@@ -51,21 +53,21 @@ programCommand('lock')
 
 programCommand('unlock')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  .option('-t, --nftType <string>')
+  .option('-t, --nftType <string>', 'NFT standard to unlock', 'Corenft')
   .option('-m, --mint <string>')
-  .option('-o, --owner <string>') // nft owner address if force unstaking from admin
+  .option('-c, --collection <string>', 'Metaplex Core collection address', CORE_COLLECTION_ADDRESS.toBase58())
   .action(async (directory, cmd) => {
-    const { env, keypair, rpc, mint, owner } = cmd.opts();
+    const { env, keypair, rpc, mint, nftType, collection } = cmd.opts();
 
     await setClusterConfig(env, keypair, rpc);
     if (mint === undefined) {
-      console.log('Error token amount Input');
+      console.log('Missing agent asset mint');
       return;
     }
 
     switch(nftType) {
       case "Corenft": {
-        await unlockCorenft( mint, !owner ? undefined : new PublicKey(owner), keypair);
+        await unlockCorenft(mint, collection, keypair);
         break;
       }
       default: {
@@ -79,16 +81,16 @@ function programCommand(name: string) {
   return (
     program
       .command(name)
-      .option('-e, --env <string>', 'Solana cluster env name', 'devnet') //mainnet-beta, testnet, devnet
+      .option('-e, --env <string>', 'Solana cluster env name', 'mainnet-beta') // mainnet-beta, testnet, devnet
       .option(
         '-r, --rpc <string>',
         'Solana cluster RPC name',
-        'your rpc url'
+        DEFAULT_MAINNET_RPC
       )
       .option(
         '-k, --keypair <string>',
         'Solana wallet Keypair Path',
-        'your keypair url'
+        process.env.ANCHOR_WALLET ?? `${process.env.HOME}/.config/solana/id.json`
       )
   );
 }

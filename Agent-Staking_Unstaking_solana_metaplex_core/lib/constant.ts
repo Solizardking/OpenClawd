@@ -3,5 +3,14 @@ import { PublicKey } from '@solana/web3.js';
 export const GLOBAL_AUTHORITY_SEED = 'global-authority';
 
 export const PROGRAM_ID = new PublicKey(
-  'your program ID'
+  process.env.OPENCLAWD_AGENT_STAKING_PROGRAM_ID ??
+    'Fg6PaFpoGXkYsidMpWxTWqz4iyToFhRmD31x9WfP3YpR'
 );
+
+export const CORE_COLLECTION_ADDRESS = new PublicKey(
+  process.env.OPENCLAWD_AGENT_COLLECTION ??
+    '11111111111111111111111111111111'
+);
+
+export const DEFAULT_MAINNET_RPC =
+  process.env.SOLANA_RPC_URL ?? 'https://api.mainnet-beta.solana.com';

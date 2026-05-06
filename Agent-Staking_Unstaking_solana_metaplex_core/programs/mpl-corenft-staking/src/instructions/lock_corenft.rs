@@ -1,5 +1,4 @@
 use crate::*;
-use anchor_lang::prelude::Clock;
 use mpl_core::{
     ID as CORE_PROGRAM_ID,
     accounts::{BaseAssetV1, BaseCollectionV1}, 
@@ -28,10 +27,8 @@ pub struct LockCoreNFT<'info> {
     )]
     pub asset: Account<'info, BaseAssetV1>,
 
-    // #[account(
-    //     mut,
-    // )]
-    // pub collection: Account<'info, BaseCollectionV1>,
+    #[account(mut)]
+    pub collection: Account<'info, BaseCollectionV1>,
     
     #[account(address = CORE_PROGRAM_ID)]
     /// CHECK: this will be checked by core
@@ -51,7 +48,10 @@ pub fn lock_corenft_handler(ctx: Context<LockCoreNFT>) -> Result<()> {
     .plugin(Plugin::FreezeDelegate( FreezeDelegate{ frozen: true } ))
     .invoke()?;
 
-    global_pool.total_corenft_staked_count += 1;
+    global_pool.total_corenft_staked_count = global_pool
+        .total_corenft_staked_count
+        .checked_add(1)
+        .ok_or(StakingError::CounterOverflow)?;
 
     Ok(())
 }

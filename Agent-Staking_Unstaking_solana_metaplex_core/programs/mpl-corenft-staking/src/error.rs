@@ -18,4 +18,8 @@ pub enum StakingError {
     InvalidNFTAddress,
     #[msg("Reward is disabled")]
     DisabledReward,
+    #[msg("Stake counter overflow")]
+    CounterOverflow,
+    #[msg("Stake counter underflow")]
+    CounterUnderflow,
 }
