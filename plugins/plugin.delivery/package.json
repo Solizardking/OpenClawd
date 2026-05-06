@@ -32,6 +32,7 @@
     "@openclawdsolana/plugin-sdk": "workspace:*"
   },
   "devDependencies": {
+    "@langchain/core": "^0.3.80",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.17.16",
