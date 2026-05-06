@@ -3,7 +3,7 @@ use mpl_core::{
     ID as CORE_PROGRAM_ID,
     accounts::{ BaseAssetV1, BaseCollectionV1 },
     instructions::AddPluginV1CpiBuilder,
-    types::{ FreezeDelegate, Plugin, UpdateAuthority },
+    types::{ FreezeDelegate, Key as CoreKey, Plugin, UpdateAuthority },
 };
 
 #[derive(Accounts)]
@@ -22,18 +22,21 @@ pub struct StakeAgent<'info> {
     )]
     pub global_pool: Account<'info, GlobalPool>,
 
-    /// The Metaplex Core agent asset to stake. `has_one = owner` enforces that
-    /// `asset.owner == owner.key()`. The collection-update-authority constraint
-    /// pins the asset to the configured agent collection.
+    /// The Metaplex Core agent asset to stake. Deserialized in the handler to
+    /// avoid exporting Metaplex Core account types into this program's IDL.
     #[account(
         mut,
-        has_one = owner @ StakingError::InvalidOwner,
-        constraint = asset.update_authority == UpdateAuthority::Collection(collection.key()) @ StakingError::InvalidCollection,
+        owner = CORE_PROGRAM_ID @ StakingError::InvalidMetadata,
     )]
-    pub asset: Account<'info, BaseAssetV1>,
+    /// CHECK: owner and decoded contents are validated in the handler.
+    pub asset: UncheckedAccount<'info>,
 
-    #[account(mut)]
-    pub collection: Account<'info, BaseCollectionV1>,
+    #[account(
+        mut,
+        owner = CORE_PROGRAM_ID @ StakingError::InvalidCollection,
+    )]
+    /// CHECK: owner and decoded contents are validated in the handler.
+    pub collection: UncheckedAccount<'info>,
 
     #[account(address = CORE_PROGRAM_ID)]
     /// CHECK: pinned by address constraint; CPI'd into directly.
@@ -43,6 +46,21 @@ pub struct StakeAgent<'info> {
 
 pub fn stake_agent_handler(ctx: Context<StakeAgent>) -> Result<()> {
     let global_pool = &mut ctx.accounts.global_pool;
+    let asset = BaseAssetV1::try_from(&ctx.accounts.asset.to_account_info())
+        .map_err(|_| error!(StakingError::InvalidMetadata))?;
+    let collection = BaseCollectionV1::try_from(&ctx.accounts.collection.to_account_info())
+        .map_err(|_| error!(StakingError::InvalidCollection))?;
+
+    require!(asset.key == CoreKey::AssetV1, StakingError::InvalidMetadata);
+    require!(collection.key == CoreKey::CollectionV1, StakingError::InvalidCollection);
+    require!(
+        asset.owner.eq(&ctx.accounts.owner.key()),
+        StakingError::InvalidOwner
+    );
+    require!(
+        asset.update_authority == UpdateAuthority::Collection(ctx.accounts.collection.key()),
+        StakingError::InvalidCollection
+    );
 
     // Add the FreezeDelegate plugin (frozen=true) so the asset is non-transferable
     // while staked. The asset itself never leaves the owner's wallet.
