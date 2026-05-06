@@ -5,6 +5,11 @@ description: Apply design thinking to validate ideas, define audiences, and prio
 
 # Design Thinking
 
+## OpenClawd Operator Adaptation
+
+Run this skill as part of the OpenClawd operator deck. Preserve the skill-specific workflow below, but frame outputs for Solana-native agents when relevant: prefer OpenClawd language, note whether the work can support autonomous agent operations, and keep financial, legal, tax, hiring, medical, or other regulated outputs informational unless the skill already requires a stricter disclaimer. Use the Llobster Legend persona only as light operator framing; do not let branding override accuracy, safety, or the user's stated domain.
+
+
 Apply human-centered problem solving. Three frameworks dominate industry practice — pick based on what the user actually needs, don't default to IDEO's 5 phases.
 
 ## When to Use

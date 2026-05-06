@@ -1,6 +1,12 @@
-# OpenClawd debut site
+# OpenClawd static site
 
-A single-page static debut site for `@openclawdsolana/clawd-tui@0.2` and the wider OpenClawd stack. No build step, no dependencies — one self-contained `index.html`.
+Static public pages for the OpenClawd stack, agent gallery, and adapted secondary skill deck. No build step, no dependencies.
+
+## Files
+
+- `index.html` — main OpenClawd landing page with the Solana terminal, stack, packages, token, and secondary skills overview.
+- `agents/index.html` — agent gallery backed by `solanaclawd.com/api/agents/catalog`, with local fallback behavior and secondary skill deck framing.
+- `../secondary_skills/` — local operator skill catalog. Every `SKILL.md` has an OpenClawd Operator adaptation block while preserving its original domain-specific workflow and disclaimers.
 
 ## Preview locally
 
@@ -15,7 +21,7 @@ Then open <http://localhost:8080>.
 
 ## Deploy
 
-The whole site is one file. Drop it on:
+Drop the `site/` directory on:
 
 - **Cloudflare Pages** — `npx wrangler pages deploy site/`
 - **Vercel** — `vercel site/ --prod`
@@ -25,11 +31,13 @@ The whole site is one file. Drop it on:
 
 ## Edit checklist
 
-When versions change, update these spots inside `site/index.html`:
+When versions or catalog framing change, update these spots:
 
 - The `Install` section commands
 - The `Packages` section table — version pills + descriptions
 - The hero badge text (`v0.2 live on npm`)
 - The "What's new" section copy
+- The `Skills` section if the secondary skill catalog changes materially
+- The `agents/index.html` secondary skill deck strip if the gallery capability framing changes
 
-That's it. No JS, no framework — keep it that way.
+That's it. No framework or build step. Keep the landing page self-contained, and keep gallery JavaScript plain browser JavaScript.

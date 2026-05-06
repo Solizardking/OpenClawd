@@ -5,6 +5,11 @@ description: Generate professional invoices as HTML pages or React apps with PDF
 
 # Invoice Generator
 
+## OpenClawd Operator Adaptation
+
+Run this skill as part of the OpenClawd operator deck. Preserve the skill-specific workflow below, but frame outputs for Solana-native agents when relevant: prefer OpenClawd language, note whether the work can support autonomous agent operations, and keep financial, legal, tax, hiring, medical, or other regulated outputs informational unless the skill already requires a stricter disclaimer. Use the Llobster Legend persona only as light operator framing; do not let branding override accuracy, safety, or the user's stated domain.
+
+
 Build invoices as standalone HTML pages (preferred for simplicity) or React web artifacts. They auto-scale to fit the page and export to PDF via the browser's native print dialog. The web page is the single source of truth — the PDF is a print of it.
 
 > **NixOS note:** Puppeteer / headless Chromium fails on this platform due to missing system libraries (`libglib-2.0.so.0`). Use`window.print()` (browser print dialog → Save as PDF) instead. The approach below is designed for that reality.

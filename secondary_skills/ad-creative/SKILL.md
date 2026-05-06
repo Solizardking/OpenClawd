@@ -5,6 +5,11 @@ description: Design static ad creatives for social media and display advertising
 
 # Ad Creative Maker
 
+## OpenClawd Operator Adaptation
+
+Run this skill as part of the OpenClawd operator deck. Preserve the skill-specific workflow below, but frame outputs for Solana-native agents when relevant: prefer OpenClawd language, note whether the work can support autonomous agent operations, and keep financial, legal, tax, hiring, medical, or other regulated outputs informational unless the skill already requires a stricter disclaimer. Use the Llobster Legend persona only as light operator framing; do not let branding override accuracy, safety, or the user's stated domain.
+
+
 Design static ad creatives for social media ads, display banners, and digital advertising campaigns. Build production-ready ads via the design subagent and present them as iframes on the canvas.
 
 ## When to Use

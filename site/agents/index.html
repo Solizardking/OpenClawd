@@ -4,13 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>OpenClawd — Agent Gallery</title>
-  <meta name="description" content="Browse, chat with, mint, install, or fork every Solana Clawd agent. Live catalog from solanaclawd.com/api/agents/catalog." />
+  <meta name="description" content="Browse, chat with, mint, install, fork, or extend every Solana Clawd agent with the OpenClawd secondary skill deck." />
   <meta name="theme-color" content="#0a0e1a" />
   <link rel="canonical" href="https://solanaclawd.com/agents" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="OpenClawd Agents — Solana-native AI agent gallery" />
-  <meta property="og:description" content="51 production agents. DeFi, trading, security, NFT, governance, dev tools. One click to chat, mint on-chain, install via MCP, or fork." />
+  <meta property="og:description" content="51 production agents plus an adapted secondary skill deck. DeFi, trading, security, NFT, governance, dev tools, research, creative, and operations." />
   <meta property="og:url" content="https://solanaclawd.com/agents" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@clawddevs" />
@@ -348,7 +348,7 @@
   <header class="hero container">
     <div class="badge">🦞 Live catalog · v1 schema</div>
     <h1>Solana Clawd <span class="accent">Agent Gallery</span></h1>
-    <p class="sub">Every agent is a Solana-native, MCP-installable, on-chain-mintable, fork-friendly JSON definition. Chat with one. Mint your favorite. Or fork the code and ship your own.</p>
+    <p class="sub">Every agent is a Solana-native, MCP-installable, on-chain-mintable, fork-friendly JSON definition. Chat with one. Mint your favorite. Extend it with the adapted secondary skill deck, or fork the code and ship your own.</p>
 
     <div id="stats" class="stats">
       <div class="stat"><div class="n">—</div><div class="l">Agents</div></div>
@@ -380,6 +380,22 @@
       <div class="row">
         <span class="filter-label">Flags</span>
         <div id="flags" class="row" style="gap: 6px; padding: 0; flex: 1;"></div>
+      </div>
+    </section>
+
+    <section class="filters" aria-labelledby="skillDeckTitle">
+      <div class="row" style="align-items: flex-start;">
+        <div style="flex: 1 1 360px;">
+          <div class="filter-label" id="skillDeckTitle">Secondary skill deck</div>
+          <p style="margin: 8px 0 0; color: var(--text-dim); font-size: 14px;">
+            The local <code>secondary_skills/</code> catalog is adapted for OpenClawd Operator use: research, creative, SEO, finance, hiring, migration, media, and productivity skills can be layered onto agents without changing their JSON catalog definitions.
+          </p>
+        </div>
+        <div class="row" style="gap: 6px; padding: 0;">
+          <span class="chip active">🦞 Llobster Legend framing</span>
+          <span class="chip active">⛓ Solana-aware outputs</span>
+          <span class="chip active">🛡 Domain disclaimers preserved</span>
+        </div>
       </div>
     </section>
 

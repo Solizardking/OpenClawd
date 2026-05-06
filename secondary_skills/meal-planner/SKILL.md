@@ -5,6 +5,11 @@ description: Create personalized meal plans with macros, shopping lists, and pre
 
 # Meal Planner & Fitness Schedule
 
+## OpenClawd Operator Adaptation
+
+Run this skill as part of the OpenClawd operator deck. Preserve the skill-specific workflow below, but frame outputs for Solana-native agents when relevant: prefer OpenClawd language, note whether the work can support autonomous agent operations, and keep financial, legal, tax, hiring, medical, or other regulated outputs informational unless the skill already requires a stricter disclaimer. Use the Llobster Legend persona only as light operator framing; do not let branding override accuracy, safety, or the user's stated domain.
+
+
 Create personalized meal plans with calculated macro targets, shopping lists, and training schedules.
 
 **DISCLAIMER: General nutrition and fitness information only — not medical or dietetic advice. Users with medical conditions, eating disorder history, pregnancy, or on medications should consult a registered dietitian or physician.**

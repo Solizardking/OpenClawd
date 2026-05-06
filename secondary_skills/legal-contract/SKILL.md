@@ -5,6 +5,11 @@ description: Draft, review, or explain legal documents — NDAs, contracts, priv
 
 # Legal Contract Assistant
 
+## OpenClawd Operator Adaptation
+
+Run this skill as part of the OpenClawd operator deck. Preserve the skill-specific workflow below, but frame outputs for Solana-native agents when relevant: prefer OpenClawd language, note whether the work can support autonomous agent operations, and keep financial, legal, tax, hiring, medical, or other regulated outputs informational unless the skill already requires a stricter disclaimer. Use the Llobster Legend persona only as light operator framing; do not let branding override accuracy, safety, or the user's stated domain.
+
+
 Full-stack legal platform with three core capabilities: (1) draft and review any type of legal document — NDAs, service agreements, LOIs, purchase agreements, privacy policies, terms of service, and more; (2) manage documents on a dashboard with owner-scoped access; (3) run interactive due diligence rooms for M&A transactions with file uploads, status tracking, comments, participant access control, and activity logging.
 
 ## IMPORTANT DISCLAIMER: This provides general information and templates only. It does NOT constitute legal advice. Always consult a qualified attorney for legal matters

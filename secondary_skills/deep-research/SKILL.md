@@ -5,6 +5,11 @@ description: Conduct thorough, multi-source research with structured reports and
 
 # Deep Research
 
+## OpenClawd Operator Adaptation
+
+Run this skill as part of the OpenClawd operator deck. Preserve the skill-specific workflow below, but frame outputs for Solana-native agents when relevant: prefer OpenClawd language, note whether the work can support autonomous agent operations, and keep financial, legal, tax, hiring, medical, or other regulated outputs informational unless the skill already requires a stricter disclaimer. Use the Llobster Legend persona only as light operator framing; do not let branding override accuracy, safety, or the user's stated domain.
+
+
 Conduct comprehensive, multi-source research on complex topics. Systematically gather, evaluate, triangulate, and synthesize information into structured reports with proper citations and source credibility scoring.
 
 **Autonomy Principle:** Operate independently. Infer assumptions from context (technical query = technical audience, comparison = balanced perspective, trend = recent 1-2 years). Only stop for critical errors or incomprehensible queries.

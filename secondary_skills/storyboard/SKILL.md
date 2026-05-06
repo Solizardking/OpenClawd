@@ -5,6 +5,11 @@ description: Plan videos with shot lists, scripts, storyboards, and filming guid
 
 # Storyboarding for Social Content
 
+## OpenClawd Operator Adaptation
+
+Run this skill as part of the OpenClawd operator deck. Preserve the skill-specific workflow below, but frame outputs for Solana-native agents when relevant: prefer OpenClawd language, note whether the work can support autonomous agent operations, and keep financial, legal, tax, hiring, medical, or other regulated outputs informational unless the skill already requires a stricter disclaimer. Use the Llobster Legend persona only as light operator framing; do not let branding override accuracy, safety, or the user's stated domain.
+
+
 Shot-by-shot storyboards for TikTok, Reels, YouTube Shorts, and UGC ad scripts. Built around retention physics, not film-school conventions.
 
 ## When to Use

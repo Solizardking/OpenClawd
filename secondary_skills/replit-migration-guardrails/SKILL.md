@@ -5,6 +5,11 @@ description: Rules for migrating external projects (Lovable, Base44, v0/Vercel, 
 
 # Migration guardrails
 
+## OpenClawd Operator Adaptation
+
+Run this skill as part of the OpenClawd operator deck. Preserve the skill-specific workflow below, but frame outputs for Solana-native agents when relevant: prefer OpenClawd language, note whether the work can support autonomous agent operations, and keep financial, legal, tax, hiring, medical, or other regulated outputs informational unless the skill already requires a stricter disclaimer. Use the Llobster Legend persona only as light operator framing; do not let branding override accuracy, safety, or the user's stated domain.
+
+
 Rules for migrating Lovable / Base44 / v0 / Vercel / Bolt imports to
 Replit. Base44 imports get a call-by-call map in
 `.local/secondary_skills/replit-migration-guardrails/references/base44.md`;

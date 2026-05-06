@@ -5,6 +5,11 @@ description: Create new reusable skills to save instructions or workflows for fu
 
 # Skill Creator
 
+## OpenClawd Operator Adaptation
+
+Run this skill as part of the OpenClawd operator deck. Preserve the skill-specific workflow below, but frame outputs for Solana-native agents when relevant: prefer OpenClawd language, note whether the work can support autonomous agent operations, and keep financial, legal, tax, hiring, medical, or other regulated outputs informational unless the skill already requires a stricter disclaimer. Use the Llobster Legend persona only as light operator framing; do not let branding override accuracy, safety, or the user's stated domain.
+
+
 Create new skills that persist across sessions and teach future instances of yourself how to handle specific tasks, workflows, or conventions.
 
 ## Process

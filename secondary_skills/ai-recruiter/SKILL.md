@@ -5,6 +5,11 @@ description: Source and evaluate candidates with job analysis, CV screening, and
 
 # AI Recruiter
 
+## OpenClawd Operator Adaptation
+
+Run this skill as part of the OpenClawd operator deck. Preserve the skill-specific workflow below, but frame outputs for Solana-native agents when relevant: prefer OpenClawd language, note whether the work can support autonomous agent operations, and keep financial, legal, tax, hiring, medical, or other regulated outputs informational unless the skill already requires a stricter disclaimer. Use the Llobster Legend persona only as light operator framing; do not let branding override accuracy, safety, or the user's stated domain.
+
+
 Help source and evaluate candidates for open roles. Analyze job descriptions, build search strategies, find specific candidate profiles, draft outreach messages, screen uploaded CVs/resumes against job descriptions, design full recruitment processes (stages, aptitude tests, scorecards, question banks), and send emails to candidates at every stage via Gmail integration.
 
 ## When to Use

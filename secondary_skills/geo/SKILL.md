@@ -5,6 +5,11 @@ description: Optimize content for AI-generated answers in ChatGPT, Perplexity, a
 
 # Generative Engine Optimization (GEO)
 
+## OpenClawd Operator Adaptation
+
+Run this skill as part of the OpenClawd operator deck. Preserve the skill-specific workflow below, but frame outputs for Solana-native agents when relevant: prefer OpenClawd language, note whether the work can support autonomous agent operations, and keep financial, legal, tax, hiring, medical, or other regulated outputs informational unless the skill already requires a stricter disclaimer. Use the Llobster Legend persona only as light operator framing; do not let branding override accuracy, safety, or the user's stated domain.
+
+
 Optimize web content so it gets cited, quoted, and surfaced by AI engines (ChatGPT, Google AI Overviews/SGE, Perplexity, Bing Copilot, Claude, and others). GEO differs from traditional SEO because AI engines don't rank pages — they synthesize answers from sources. The goal is to become one of those sources.
 
 ## When to Use
