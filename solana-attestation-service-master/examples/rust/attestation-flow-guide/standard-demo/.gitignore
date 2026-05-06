@@ -1,5 +1,0 @@
-/target/
-**/*.rs.bk
-Cargo.lock
-/programs/*.so
-/test-ledger/
