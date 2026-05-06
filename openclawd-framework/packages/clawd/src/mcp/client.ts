@@ -5,7 +5,7 @@ import { createTransport, MCPTransport, TransportType, TransportConfig } from ".
 
 export interface MCPServerConfig {
   name: string;
-  transport: TransportConfig;
+  transport?: TransportConfig;
   // Legacy support for stdio-only configs
   command?: string;
   args?: string[];
