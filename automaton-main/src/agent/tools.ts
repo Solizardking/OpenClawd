@@ -490,6 +490,190 @@ export function createBuiltinTools(sandboxId: string): AutomatonTool[] {
       },
     },
 
+    // ── Automation Memory Tools ──
+    {
+      name: "create_goal",
+      description:
+        "Create a durable automation goal with priority, progress, and a next action. Use this for multi-turn work that should survive restarts.",
+      category: "memory",
+      parameters: {
+        type: "object",
+        properties: {
+          title: { type: "string", description: "Short goal title" },
+          priority: {
+            type: "number",
+            description: "1 is highest priority; 5 is lowest",
+          },
+          progress: {
+            type: "string",
+            description: "Current progress or acceptance criteria",
+          },
+          next_action: {
+            type: "string",
+            description: "The next concrete action to take",
+          },
+        },
+        required: ["title", "next_action"],
+      },
+      execute: async (args, ctx) => {
+        const { ulid } = await import("ulid");
+        const now = new Date().toISOString();
+        const priority = Math.min(
+          Math.max(Number(args.priority ?? 3) || 3, 1),
+          5,
+        );
+        const goal = {
+          id: ulid(),
+          title: String(args.title).slice(0, 180),
+          status: "active" as const,
+          priority,
+          progress: String(args.progress ?? "").slice(0, 800),
+          nextAction: String(args.next_action ?? "").slice(0, 800),
+          createdAt: now,
+          updatedAt: now,
+        };
+        ctx.db.createGoal(goal);
+        return `Goal created: ${goal.id} p${goal.priority} ${goal.title}`;
+      },
+    },
+    {
+      name: "update_goal",
+      description:
+        "Update a durable automation goal status, priority, progress, or next action.",
+      category: "memory",
+      parameters: {
+        type: "object",
+        properties: {
+          id: { type: "string", description: "Goal ID" },
+          status: {
+            type: "string",
+            description: "active, blocked, done, or dropped",
+          },
+          priority: { type: "number", description: "1 highest to 5 lowest" },
+          progress: { type: "string", description: "Progress update" },
+          next_action: { type: "string", description: "Next concrete action" },
+        },
+        required: ["id"],
+      },
+      execute: async (args, ctx) => {
+        const status = String(args.status ?? "");
+        const allowed = ["active", "blocked", "done", "dropped"];
+        const priority =
+          args.priority == null
+            ? undefined
+            : Math.min(Math.max(Number(args.priority) || 3, 1), 5);
+        ctx.db.updateGoal(String(args.id), {
+          status: allowed.includes(status) ? (status as any) : undefined,
+          priority,
+          progress:
+            args.progress == null
+              ? undefined
+              : String(args.progress).slice(0, 800),
+          nextAction:
+            args.next_action == null
+              ? undefined
+              : String(args.next_action).slice(0, 800),
+          updatedAt: new Date().toISOString(),
+        });
+        return `Goal updated: ${args.id}`;
+      },
+    },
+    {
+      name: "list_goals",
+      description: "List durable automation goals by status.",
+      category: "memory",
+      parameters: {
+        type: "object",
+        properties: {
+          status: {
+            type: "string",
+            description: "Optional: active, blocked, done, or dropped",
+          },
+          limit: { type: "number", description: "Max goals to return" },
+        },
+      },
+      execute: async (args, ctx) => {
+        const status = String(args.status ?? "");
+        const allowed = ["active", "blocked", "done", "dropped"];
+        const goals = ctx.db.getGoals(
+          allowed.includes(status) ? (status as any) : undefined,
+          Number(args.limit ?? 10) || 10,
+        );
+        if (goals.length === 0) return "No goals found.";
+        return goals
+          .map(
+            (g) =>
+              `${g.id} [${g.status}] p${g.priority} ${g.title}\n  progress: ${g.progress || "none"}\n  next: ${g.nextAction || "unset"}`,
+          )
+          .join("\n");
+      },
+    },
+    {
+      name: "record_reflection",
+      description:
+        "Save a compact lesson, risk, opportunity, or decision for future turns.",
+      category: "memory",
+      parameters: {
+        type: "object",
+        properties: {
+          kind: {
+            type: "string",
+            description: "lesson, risk, opportunity, or decision",
+          },
+          summary: { type: "string", description: "Compact reflection" },
+          turn_id: { type: "string", description: "Optional source turn ID" },
+        },
+        required: ["kind", "summary"],
+      },
+      execute: async (args, ctx) => {
+        const { ulid } = await import("ulid");
+        const kind = String(args.kind ?? "lesson");
+        const allowed = ["lesson", "risk", "opportunity", "decision"];
+        const reflection = {
+          id: ulid(),
+          turnId: args.turn_id ? String(args.turn_id) : undefined,
+          kind: allowed.includes(kind) ? (kind as any) : ("lesson" as const),
+          summary: String(args.summary).slice(0, 1200),
+          createdAt: new Date().toISOString(),
+        };
+        ctx.db.insertReflection(reflection);
+        return `Reflection recorded: ${reflection.id} [${reflection.kind}]`;
+      },
+    },
+    {
+      name: "automation_snapshot",
+      description:
+        "Show the current durable automation memory: active goals, blocked goals, and recent reflections.",
+      category: "memory",
+      parameters: { type: "object", properties: {} },
+      execute: async (_args, ctx) => {
+        const active = ctx.db.getGoals("active", 5);
+        const blocked = ctx.db.getGoals("blocked", 5);
+        const reflections = ctx.db.getRecentReflections(5);
+        const formatGoal = (label: string, goals: typeof active) =>
+          goals.length === 0
+            ? `${label}: none`
+            : `${label}:\n${goals
+                .map(
+                  (g) =>
+                    `- ${g.id} p${g.priority} ${g.title} | next: ${g.nextAction || "unset"}`,
+                )
+                .join("\n")}`;
+        const reflectionText =
+          reflections.length === 0
+            ? "Reflections: none"
+            : `Reflections:\n${reflections
+                .map((r) => `- [${r.kind}] ${r.summary}`)
+                .join("\n")}`;
+        return [
+          "=== AUTOMATION SNAPSHOT ===",
+          formatGoal("Active goals", active),
+          formatGoal("Blocked goals", blocked),
+          reflectionText,
+        ].join("\n");
+      },
+    },
+
     // ── Survival Tools ──
     {
       name: "sleep",

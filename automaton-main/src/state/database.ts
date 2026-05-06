@@ -23,8 +23,17 @@ import type {
   RegistryEntry,
   ReputationEntry,
   InboxMessage,
+  AutomationGoal,
+  GoalStatus,
+  ReflectionEntry,
 } from "../types.js";
-import { SCHEMA_VERSION, CREATE_TABLES, MIGRATION_V2, MIGRATION_V3 } from "./schema.js";
+import {
+  SCHEMA_VERSION,
+  CREATE_TABLES,
+  MIGRATION_V2,
+  MIGRATION_V3,
+  MIGRATION_V4,
+} from "./schema.js";
 
 export function createDatabase(dbPath: string): AutomatonDatabase {
   // Ensure directory exists
@@ -54,6 +63,10 @@ export function createDatabase(dbPath: string): AutomatonDatabase {
 
   if (currentVersion < 3) {
     db.exec(MIGRATION_V3);
+  }
+
+  if (currentVersion < 4) {
+    db.exec(MIGRATION_V4);
   }
 
   if (currentVersion < SCHEMA_VERSION) {
@@ -404,6 +417,87 @@ export function createDatabase(dbPath: string): AutomatonDatabase {
     return rows.map(deserializeReputation);
   };
 
+  // ─── Automation Memory ───────────────────────────────────────
+
+  const createGoal = (goal: AutomationGoal): void => {
+    db.prepare(
+      `INSERT INTO goals (id, title, status, priority, progress, next_action, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    ).run(
+      goal.id,
+      goal.title,
+      goal.status,
+      goal.priority,
+      goal.progress,
+      goal.nextAction ?? null,
+      goal.createdAt,
+      goal.updatedAt,
+    );
+  };
+
+  const updateGoal = (
+    id: string,
+    updates: Partial<
+      Pick<
+        AutomationGoal,
+        "status" | "priority" | "progress" | "nextAction" | "updatedAt"
+      >
+    >,
+  ): void => {
+    const existing = db
+      .prepare("SELECT * FROM goals WHERE id = ?")
+      .get(id) as any | undefined;
+    if (!existing) return;
+
+    db.prepare(
+      `UPDATE goals
+       SET status = ?, priority = ?, progress = ?, next_action = ?, updated_at = ?
+       WHERE id = ?`,
+    ).run(
+      updates.status ?? existing.status,
+      updates.priority ?? existing.priority,
+      updates.progress ?? existing.progress,
+      updates.nextAction ?? existing.next_action,
+      updates.updatedAt ?? new Date().toISOString(),
+      id,
+    );
+  };
+
+  const getGoals = (status?: GoalStatus, limit = 10): AutomationGoal[] => {
+    const rows = status
+      ? (db
+          .prepare(
+            "SELECT * FROM goals WHERE status = ? ORDER BY priority ASC, updated_at DESC LIMIT ?",
+          )
+          .all(status, limit) as any[])
+      : (db
+          .prepare(
+            "SELECT * FROM goals ORDER BY status ASC, priority ASC, updated_at DESC LIMIT ?",
+          )
+          .all(limit) as any[]);
+    return rows.map(deserializeGoal);
+  };
+
+  const insertReflection = (entry: ReflectionEntry): void => {
+    db.prepare(
+      `INSERT INTO reflections (id, turn_id, kind, summary, created_at)
+       VALUES (?, ?, ?, ?, ?)`,
+    ).run(
+      entry.id,
+      entry.turnId ?? null,
+      entry.kind,
+      entry.summary,
+      entry.createdAt,
+    );
+  };
+
+  const getRecentReflections = (limit: number): ReflectionEntry[] => {
+    const rows = db
+      .prepare("SELECT * FROM reflections ORDER BY created_at DESC LIMIT ?")
+      .all(limit) as any[];
+    return rows.map(deserializeReflection).reverse();
+  };
+
   // ─── Inbox Messages ──────────────────────────────────────────
 
   const insertInboxMessage = (msg: InboxMessage): void => {
@@ -484,6 +578,11 @@ export function createDatabase(dbPath: string): AutomatonDatabase {
     setRegistryEntry,
     insertReputation,
     getReputation,
+    createGoal,
+    updateGoal,
+    getGoals,
+    insertReflection,
+    getRecentReflections,
     insertInboxMessage,
     getUnprocessedInboxMessages,
     markInboxMessageProcessed,
@@ -615,6 +714,29 @@ function deserializeInboxMessage(row: any): InboxMessage {
     signedAt: row.received_at,
     createdAt: row.received_at,
     replyTo: row.reply_to ?? undefined,
+  };
+}
+
+function deserializeGoal(row: any): AutomationGoal {
+  return {
+    id: row.id,
+    title: row.title,
+    status: row.status,
+    priority: row.priority,
+    progress: row.progress,
+    nextAction: row.next_action ?? undefined,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+function deserializeReflection(row: any): ReflectionEntry {
+  return {
+    id: row.id,
+    turnId: row.turn_id ?? undefined,
+    kind: row.kind,
+    summary: row.summary,
+    createdAt: row.created_at,
   };
 }
 

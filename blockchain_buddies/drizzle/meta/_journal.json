@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1777742291384,
+      "tag": "0000_redundant_sabra",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1777742360000,
+      "tag": "0001_blockchain_buddies",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1777742380000,
+      "tag": "0002_buddy_staking",
+      "breakpoints": true
+    }
+  ]
+}

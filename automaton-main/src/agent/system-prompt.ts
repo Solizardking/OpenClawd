@@ -193,6 +193,9 @@ Your sandbox ID is ${identity.sandboxId}.`,
   const registryEntry = db.getRegistryEntry();
   const children = db.getChildren();
   const lineageSummary = getLineageSummary(db, config);
+  const activeGoals = db.getGoals("active", 5);
+  const blockedGoals = db.getGoals("blocked", 3);
+  const recentReflections = db.getRecentReflections(5);
 
   // Build upstream status line from cached KV
   let upstreamLine = "";
@@ -229,6 +232,28 @@ Children: ${children.filter((c) => c.status !== "dead").length} alive / ${childr
 Lineage: ${lineageSummary}${upstreamLine}
 --- END STATUS ---`,
   );
+
+  const goalLines = [
+    ...activeGoals.map(
+      (g) =>
+        `ACTIVE p${g.priority} ${g.id}: ${g.title} | progress: ${g.progress || "none"} | next: ${g.nextAction || "unset"}`,
+    ),
+    ...blockedGoals.map(
+      (g) =>
+        `BLOCKED p${g.priority} ${g.id}: ${g.title} | progress: ${g.progress || "none"} | next: ${g.nextAction || "unset"}`,
+    ),
+  ];
+  if (goalLines.length > 0) {
+    sections.push(`--- AUTOMATION GOALS ---\n${goalLines.join("\n")}\n--- END GOALS ---`);
+  }
+
+  if (recentReflections.length > 0) {
+    sections.push(
+      `--- RECENT REFLECTIONS ---\n${recentReflections
+        .map((r) => `[${r.kind}] ${r.summary}`)
+        .join("\n")}\n--- END REFLECTIONS ---`,
+    );
+  }
 
   // Layer 8: Available Tools (JSON schema)
   const toolDescriptions = tools

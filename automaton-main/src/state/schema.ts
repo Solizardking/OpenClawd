@@ -5,7 +5,7 @@
  * The database IS the automaton's memory.
  */
 
-export const SCHEMA_VERSION = 3;
+export const SCHEMA_VERSION = 4;
 
 export const CREATE_TABLES = `
   -- Schema version tracking
@@ -156,6 +156,37 @@ export const CREATE_TABLES = `
   CREATE INDEX IF NOT EXISTS idx_children_status ON children(status);
   CREATE INDEX IF NOT EXISTS idx_reputation_to ON reputation(to_agent);
 
+  -- Durable automation goals. These are the agent's working objectives,
+  -- separate from raw chat turns so restarts and context trimming do not
+  -- erase the current plan.
+  CREATE TABLE IF NOT EXISTS goals (
+    id TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'active',
+    priority INTEGER NOT NULL DEFAULT 3,
+    progress TEXT NOT NULL DEFAULT '',
+    next_action TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_goals_status_priority
+    ON goals(status, priority, updated_at);
+
+  -- Compact lessons and decisions written by the agent after important
+  -- turns. This gives future turns durable memory without replaying every
+  -- raw action log.
+  CREATE TABLE IF NOT EXISTS reflections (
+    id TEXT PRIMARY KEY,
+    turn_id TEXT,
+    kind TEXT NOT NULL,
+    summary TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_reflections_created
+    ON reflections(created_at);
+
   -- Inbox messages table
   CREATE TABLE IF NOT EXISTS inbox_messages (
     id TEXT PRIMARY KEY,
@@ -182,6 +213,33 @@ export const MIGRATION_V3 = `
 
   CREATE INDEX IF NOT EXISTS idx_inbox_unprocessed
     ON inbox_messages(received_at) WHERE processed_at IS NULL;
+`;
+
+export const MIGRATION_V4 = `
+  CREATE TABLE IF NOT EXISTS goals (
+    id TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'active',
+    priority INTEGER NOT NULL DEFAULT 3,
+    progress TEXT NOT NULL DEFAULT '',
+    next_action TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_goals_status_priority
+    ON goals(status, priority, updated_at);
+
+  CREATE TABLE IF NOT EXISTS reflections (
+    id TEXT PRIMARY KEY,
+    turn_id TEXT,
+    kind TEXT NOT NULL,
+    summary TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_reflections_created
+    ON reflections(created_at);
 `;
 
 export const MIGRATION_V2 = `

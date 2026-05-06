@@ -124,6 +124,9 @@ async function showStatus(): Promise<void> {
   const skills = db.getSkills(true);
   const children = db.getChildren();
   const registry = db.getRegistryEntry();
+  const activeGoals = db.getGoals("active", 20);
+  const blockedGoals = db.getGoals("blocked", 20);
+  const reflections = db.getRecentReflections(3);
 
   console.log(`
 === AUTOMATON STATUS ===
@@ -137,11 +140,31 @@ Tools:      ${tools.length} installed
 Skills:     ${skills.length} active
 Heartbeats: ${heartbeats.filter((h) => h.enabled).length} active
 Children:   ${children.filter((c) => c.status !== "dead").length} alive / ${children.length} total
+Goals:      ${activeGoals.length} active / ${blockedGoals.length} blocked
 Agent ID:   ${registry?.agentId || "not registered"}
 Model:      ${config.inferenceModel}
 Version:    ${config.version}
 ========================
 `);
+
+  if (activeGoals.length > 0) {
+    console.log(
+      activeGoals
+        .slice(0, 5)
+        .map(
+          (g) =>
+            `- p${g.priority} ${g.title} (${g.id}) next: ${g.nextAction || "unset"}`,
+        )
+        .join("\n"),
+    );
+  }
+  if (reflections.length > 0) {
+    console.log(
+      `\nRecent reflections:\n${reflections
+        .map((r) => `- [${r.kind}] ${r.summary}`)
+        .join("\n")}`,
+    );
+  }
 
   db.close();
 }

@@ -136,6 +136,46 @@ describe("Agent Loop", () => {
     expect(db.getKV("sleep_until")).toBeDefined();
   });
 
+  it("automation memory tools persist goals and reflections", async () => {
+    const inference = new MockInferenceClient([
+      toolCallResponse([
+        {
+          name: "create_goal",
+          arguments: {
+            title: "Build a staking buddy flow",
+            priority: 1,
+            next_action: "Inspect the birth route",
+          },
+        },
+        {
+          name: "record_reflection",
+          arguments: {
+            kind: "decision",
+            summary: "Keep staking records separate from token custody.",
+          },
+        },
+      ]),
+      noToolResponse("Memory saved."),
+    ]);
+
+    await runAgentLoop({
+      identity,
+      config,
+      db,
+      conway,
+      inference,
+    });
+
+    const goals = db.getGoals("active", 5);
+    expect(goals).toHaveLength(1);
+    expect(goals[0].title).toBe("Build a staking buddy flow");
+    expect(goals[0].priority).toBe(1);
+
+    const reflections = db.getRecentReflections(5);
+    expect(reflections).toHaveLength(1);
+    expect(reflections[0].kind).toBe("decision");
+  });
+
   it("idle auto-sleep on no tool calls", async () => {
     const inference = new MockInferenceClient([
       noToolResponse("Nothing to do."),

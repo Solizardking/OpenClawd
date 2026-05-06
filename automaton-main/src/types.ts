@@ -132,6 +132,7 @@ export type ToolCategory =
   | "self_mod"
   | "financial"
   | "survival"
+  | "memory"
   | "skills"
   | "git"
   | "registry"
@@ -492,6 +493,21 @@ export interface AutomatonDatabase {
   insertReputation(entry: ReputationEntry): void;
   getReputation(agentAddress?: string): ReputationEntry[];
 
+  // Automation memory
+  createGoal(goal: AutomationGoal): void;
+  updateGoal(
+    id: string,
+    updates: Partial<
+      Pick<
+        AutomationGoal,
+        "status" | "priority" | "progress" | "nextAction" | "updatedAt"
+      >
+    >,
+  ): void;
+  getGoals(status?: GoalStatus, limit?: number): AutomationGoal[];
+  insertReflection(entry: ReflectionEntry): void;
+  getRecentReflections(limit: number): ReflectionEntry[];
+
   // Inbox
   insertInboxMessage(msg: InboxMessage): void;
   getUnprocessedInboxMessages(limit: number): InboxMessage[];
@@ -603,6 +619,29 @@ export interface ReputationEntry {
   comment: string;
   txHash?: string;
   timestamp: string;
+}
+
+// ─── Automation Memory ─────────────────────────────────────────
+
+export type GoalStatus = "active" | "blocked" | "done" | "dropped";
+
+export interface AutomationGoal {
+  id: string;
+  title: string;
+  status: GoalStatus;
+  priority: number;
+  progress: string;
+  nextAction?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ReflectionEntry {
+  id: string;
+  turnId?: string;
+  kind: "lesson" | "risk" | "opportunity" | "decision";
+  summary: string;
+  createdAt: string;
 }
 
 export interface DiscoveredAgent {
