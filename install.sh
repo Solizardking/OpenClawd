@@ -6,6 +6,7 @@
 #   • openclawd-framework (Node)              — @openclawdsolana/leviathan runtime
 #   • gateway (Node)                          — Telegram + Birdeye/Helius control plane
 #   • plugin.delivery (Node)                  — public plugin SDK + edge gateway
+#   • dark-ralph TUI                          — Bloomberg-style Solana intelligence terminal
 #   • pAGENT chrome-extension surfaces        — autonomous browser/trading agent
 #   • Grok voice runtime via XAI_API_KEY      — wss://api.x.ai/v1/realtime
 #
@@ -249,6 +250,33 @@ else
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
+# Dark Ralph TUI — install from npm when published, otherwise build the bundled
+# workspace and expose dark-ralph / ralph / ralph-tui from $BIN_DIR.
+# ──────────────────────────────────────────────────────────────────────────────
+if [ "$NO_NODE" = "1" ]; then
+  info "skipping dark-ralph TUI (--no-node)"
+elif command -v npm >/dev/null 2>&1 && npm view @darkralph/tui version >/dev/null 2>&1; then
+  step "installing dark-ralph TUI from npm"
+  npm i -g @darkralph/tui --no-audit --no-fund || warn "dark-ralph npm install failed"
+elif [ -d "$SRC_DIR/dark-ralph" ] && command -v bun >/dev/null 2>&1; then
+  step "building bundled dark-ralph TUI"
+  (
+    cd "$SRC_DIR/dark-ralph"
+    bun install --frozen-lockfile
+    bun run build
+    bun run build:lib
+  ) || warn "dark-ralph TUI build failed"
+  if [ -f "$SRC_DIR/dark-ralph/dist/cli.js" ]; then
+    install -m 0755 "$SRC_DIR/dark-ralph/dist/cli.js" "$BIN_DIR/dark-ralph"
+    ln -sf "$BIN_DIR/dark-ralph" "$BIN_DIR/ralph"
+    ln -sf "$BIN_DIR/dark-ralph" "$BIN_DIR/ralph-tui"
+    ok "installed dark-ralph TUI (aliases: ralph, ralph-tui)"
+  fi
+else
+  warn "dark-ralph TUI skipped — install Bun or publish @darkralph/tui"
+fi
+
+# ──────────────────────────────────────────────────────────────────────────────
 # Optional web console
 # ──────────────────────────────────────────────────────────────────────────────
 if [ "$WITH_WEB" = "1" ]; then
@@ -425,6 +453,9 @@ ${GREEN}${BOLD}🦞 OpenClawd installed${RESET}
   ${PURPLE}5.${RESET} Pair a Seeker / Telegram channel:
        openclawd gateway start
        openclawd gateway setup-code
+
+  ${PURPLE}6.${RESET} Launch the Dark Ralph TUI:
+       dark-ralph run
 
 ${DIM}  Star us: https://solanaclawd.com${RESET}
 ${DIM}  Share:   curl -fsSL https://install.solanaclawd.com | bash${RESET}
