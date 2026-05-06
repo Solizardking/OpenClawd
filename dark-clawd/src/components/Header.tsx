@@ -13,7 +13,7 @@ import Gradient from 'ink-gradient';
 import { GRADIENT_PRESETS } from '../config/themes.js';
 
 // Heavy block-letter banner — tighter, darker, with shell-fracture glyphs.
-const RALPH_ASCII = `
+const DARK_CLAWD_ASCII = `
 ██████╗  █████╗ ██████╗ ██╗  ██╗   ██████╗  █████╗ ██╗     ██████╗ ██╗  ██╗
 ██╔══██╗██╔══██╗██╔══██╗██║ ██╔╝   ██╔══██╗██╔══██╗██║     ██╔══██╗██║  ██║
 ██║  ██║███████║██████╔╝█████╔╝    ██████╔╝███████║██║     ██████╔╝███████║
@@ -87,7 +87,7 @@ export const Header: React.FC<HeaderProps> = ({ version = '1.0.0', showSubtitle 
         </Box>
         <Box>
           <Gradient colors={GRADIENT_PRESETS.blood}>
-            <Text>{RALPH_ASCII}</Text>
+            <Text>{DARK_CLAWD_ASCII}</Text>
           </Gradient>
         </Box>
         <Box marginLeft={1}>

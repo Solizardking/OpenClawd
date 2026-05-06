@@ -403,17 +403,20 @@ Two packages were both registering `clawd` as their CLI name. Resolved cleanly i
 | Package                           | Bins (post-v0.2)               | Identity                         |
 | --------------------------------- | ------------------------------ | -------------------------------- |
 | `@openclawdsolana/clawd-tui`      | `clawd`, `clawd-tui`           | Birdeye/Helius-aware lobster TUI |
+| `@openclawdsolana/dark-clawd`     | `dark-clawd`, `clawd-dark`     | Bloomberg-style autonomous Solana TUI |
 | `@openclawdsolana/clawd-code-cli` | `clawd-code`, `clawd-code-cli` | Full Ink/React agent operator    |
 
 If you scripted against `clawd` from the old code-cli, swap to `clawd-code` (or `alias clawd=clawd-code`).
 
 ### NPM release diagnostics
 
-The monorepo root is private. Do not publish from the root with `npm publish`; publish the TUI package through the root scripts, which `cd` into `apps/clawd-tui` first:
+The monorepo root is private. Do not publish from the root with `npm publish`; publish packages through root scripts that `cd` into the package directory first:
 
 ```bash
 npm run publish:tui:dry-run
 NPM_OTP=123456 npm run publish:tui:otp
+npm run publish:dark-clawd:dry-run
+NPM_OTP=123456 npm run publish:dark-clawd:otp
 ```
 
 If npm returns `E403 Two-factor authentication or granular access token with bypass 2fa enabled is required`, the package is packed correctly but the `@openclawdsolana` org requires a current OTP or a granular automation token that can bypass 2FA.
@@ -458,6 +461,7 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 | Package | One-liner | Install |
 |---|---|---|
 | 🦞 [**clawd-tui**](./apps/clawd-tui) | OpenRouter-native lobster TUI (Ink + `@openrouter/agent`) — block input, streaming tools, PKCE OAuth, file/glob/grep/shell, web_search + datetime. **v0.2.2**: Birdeye + Helius DAS + on-paste contract analysis + DeepSeek commands ([writeup](./apps/clawd-tui/docs/v0.2-solana-aware-terminal.md)) | `npm i -g @openclawdsolana/clawd-tui` |
+| 🕶️ [**dark-clawd**](./dark-clawd) | Bloomberg-style autonomous Solana intelligence TUI — multi-panel market dashboard, agent mode, Helius/Birdeye/Jupiter services, wallet commands | `npm i -g @openclawdsolana/dark-clawd` |
 | 🌊 [**clawdrouter**](./clawdrouter) | LLM router built for autonomous Solana agents — wallet-signed, USDC micropayments, multi-upstream | `npm i -g @openclawdsolana/clawdrouter` |
 | 🔒 [**vault-mcp**](./mcp/vault-mcp) | ClawdVault MCP server — security pattern scanning, secret detection, vault ops over MCP | `npm i @openclawdsolana/vault-mcp` |
 | 💼 [**wurk-mcp**](./mcp/wurk-mcp) | WURK API MCP server — agent job creation with x402 payment flow on Solana + Base | `npm i @openclawdsolana/wurk-mcp` |
@@ -534,6 +538,7 @@ All eleven packages are public on npm under **`@openclawdsolana`**:
 | 💸 **@openclawdsolana/agents-x402** *(npm)* | One-line x402 Solana USDC monetization for MCP / HTTP / agent tool calls | [`packages/agents-x402-solana/`](packages/agents-x402-solana/) |
 | 🔐 **@openclawdsolana/agentwallet** *(npm)* | Encrypted Solana + EVM keypair vault, E2B sandbox + CF Workers deploy | [`packages/agentwallet/`](packages/agentwallet/) |
 | 🦞 **@openclawdsolana/clawd-tui** *(npm)* | OpenRouter-native lobster TUI (Ink + `@openrouter/agent`) — file_read/write/edit, glob, grep, list_dir, shell, web_search, datetime, PKCE OAuth, approval gates on destructive tools, **direct DeepSeek client** (`/deepseek` thinking-mode chat · `/deepseek-fim` · `/deepseek-balance` · `/deepseek-models`, `DEEPSEEK_API_KEY` to enable) | [`apps/clawd-tui/`](apps/clawd-tui/) |
+| 🕶️ **@openclawdsolana/dark-clawd** *(npm)* | Bloomberg-style autonomous Solana intelligence TUI with live market panels, wallet commands, and Helius/Birdeye/Jupiter integrations | [`dark-clawd/`](dark-clawd/) |
 | 📚 **9 runnable examples** | Blockchain Buddies · OODA loop · x402 Solana · pump.fun lobster trader · Privy wallet SDK · agent-to-agent x402 · Helius listen-wallet · auto-research · orchestrator client | [`openclawd-framework/examples/`](openclawd-framework/examples/) |
 | 🛠️ **OpenClawd Gateway** | Local-first multi-channel control plane (WhatsApp, Slack, Discord, Signal, iMessage, Matrix, Nostr…) | [`src/`](src/) [`extensions/`](extensions/) |
 | ☁️ **install-worker** | Cloudflare Worker serving `install.solanaclawd.com`, `gateway.solanaclawd.com`, and apex aliases | [`workers/install-worker/`](workers/install-worker/) |
