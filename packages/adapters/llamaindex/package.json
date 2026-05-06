@@ -12,17 +12,17 @@
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
     "dependencies": {
-        "@openclawdsolana/core": "workspace:*",
+        "@openclawdsolana/toolkit-core": "workspace:*",
         "ajv": "8.17.1",
         "zod-to-json-schema": "3.24.1"
     },
     "peerDependencies": {
-        "@openclawdsolana/core": "workspace:*",
+        "@openclawdsolana/toolkit-core": "workspace:*",
         "llamaindex": "0.8.30",
         "zod": "^3.0.0"
     },
     "devDependencies": {
-        "zod": "catalog:",
+        "zod": "^3.23.8",
         "@types/json-schema": "7.0.15"
     },
     "homepage": "https://github.com/clawdsolana/OpenClawd",

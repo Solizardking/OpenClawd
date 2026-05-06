@@ -31,6 +31,7 @@
     "packages/adapters/openclawd",
     "packages/adapters/vercel-ai",
     "packages/adapters/virtuals-game",
+    "packages",
     "packages/agents-x402-solana",
     "packages/agentwallet",
     "packages/api-client",

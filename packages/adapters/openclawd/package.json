@@ -13,12 +13,12 @@
     "types": "./dist/index.d.ts",
     "dependencies": {
         "@ai16z/openclawd": "0.1.5-alpha.5",
-        "@openclawdsolana/core": "workspace:*",
-        "zod": "catalog:"
+        "@openclawdsolana/toolkit-core": "workspace:*",
+        "zod": "^3.23.8"
     },
     "peerDependencies": {
         "@ai16z/openclawd": "0.1.5-alpha.5",
-        "@openclawdsolana/core": "workspace:*"
+        "@openclawdsolana/toolkit-core": "workspace:*"
     },
     "homepage": "https://github.com/clawdsolana/OpenClawd",
     "repository": {

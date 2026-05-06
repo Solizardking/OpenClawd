@@ -1,4 +1,4 @@
-import { type GetToolsParams, ToolBase, type WalletClientBase, getTools } from "@openclawdsolana/core";
+import { type GetToolsParams, ToolBase, type WalletClientBase, getTools } from "@openclawdsolana/toolkit-core";
 
 import type { JSONSchemaType } from "ajv";
 import { FunctionTool } from "llamaindex";

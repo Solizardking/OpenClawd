@@ -1,4 +1,4 @@
-import { type GetToolsParams, type ToolBase, type WalletClientBase, getTools } from "@openclawdsolana/core";
+import { type GetToolsParams, type ToolBase, type WalletClientBase, getTools } from "@openclawdsolana/toolkit-core";
 
 import { tool } from "@langchain/core/tools";
 import type { z } from "zod";

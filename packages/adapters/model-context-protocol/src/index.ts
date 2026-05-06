@@ -1,4 +1,4 @@
-import { type GetToolsParams, type ToolBase, type WalletClientBase, getTools } from "@openclawdsolana/core";
+import { type GetToolsParams, type ToolBase, type WalletClientBase, getTools } from "@openclawdsolana/toolkit-core";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
 export type GetOnChainToolsParams<TWalletClient extends WalletClientBase> = GetToolsParams<TWalletClient>;

@@ -4,7 +4,7 @@ import {
     type WalletClientBase,
     addParametersToDescription,
     getTools,
-} from "@openclawdsolana/core";
+} from "@openclawdsolana/toolkit-core";
 
 import type { z } from "zod";
 

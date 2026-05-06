@@ -15,7 +15,7 @@ import {
     type WalletClientBase,
     addParametersToDescription,
     getTools,
-} from "@openclawdsolana/core";
+} from "@openclawdsolana/toolkit-core";
 
 type GetOnChainActionsParams<TWalletClient extends WalletClientBase> = {
     wallet: TWalletClient;
