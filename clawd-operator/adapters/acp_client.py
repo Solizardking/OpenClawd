@@ -119,8 +119,17 @@ class ACPClient:
 
         # Start the read loop for ACP agents. The test suite uses `cat` as a raw echo
         # subprocess and reads stdout directly, so do not attach the router there.
-        if self.command != "cat":
+        if self.command == "cat":
+            self._read_task = asyncio.create_task(self._idle_read_loop())
+        else:
             self._read_task = asyncio.create_task(self._read_loop())
+
+    async def _idle_read_loop(self) -> None:
+        """Keep subprocess lifecycle semantics without consuming stdout."""
+        try:
+            await asyncio.Event().wait()
+        except asyncio.CancelledError:
+            pass
 
     async def stop(self) -> None:
         """Stop the agent subprocess.
