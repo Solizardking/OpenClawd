@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "d1-comments-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-05-06",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "d1-comments-api",
+      "database_id": "<YOUR_DATABASE_ID>"
+    }
+  ]
+}
