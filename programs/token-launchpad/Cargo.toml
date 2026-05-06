@@ -1,0 +1,24 @@
+[package]
+name = "token-launchpad"
+version = "0.1.0"
+description = "Token launchpad program using bonding curves and AMM for Solana"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "token_launchpad"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+
+[dependencies]
+anchor-lang = "0.28.0"
+anchor-spl = "0.28.0"
+solana-program = "1.16.0"
+spl-token = { version = "4.0.0", features = ["no-entrypoint"] }
+spl-associated-token-account = { version = "2.0.0", features = ["no-entrypoint"] }
+mpl-token-metadata = { version = "1.13.1", features = ["no-entrypoint"] }

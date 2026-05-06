@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Guard secrets - scan for leaked credentials
+ * OpenClawd guard-secrets - scan for leaked credentials
  * Run with --staged or --worktree
  */
 
@@ -21,6 +21,7 @@ const SAFE_PATTERNS = [
   /^c8a8aaeb7ef3fbcce40bada2196e2bcb$/, // Known example hash
   /^0bc83cb571cd1c50ba6f3e8a78ef1346$/, // Gravatar example hash (MD5)
   /^2f5db575118d15ec19000e13282201bc$/, // Public Cloudflare Account ID (not a credential)
+  /^123e4567e89b12d3a456426614174000$/, // UUID-format test fixture without dashes
 ];
 
 // Secret patterns to detect
@@ -29,7 +30,7 @@ const SECRET_PATTERNS = [
   { pattern: /sk-proj-[a-zA-Z0-9_-]{20,}/, name: 'OpenAI project key', exclude: ['scripts/', 'node_modules/'] },
   { pattern: /sk-or-v1-[a-zA-Z0-9_-]{20,}/, name: 'OpenRouter key', exclude: ['scripts/', 'node_modules/'] },
   { pattern: /xai-[a-zA-Z0-9_-]{20,}/, name: 'xAI API key', exclude: ['scripts/', 'node_modules/'] },
-  { pattern: /[a-zA-Z0-9_-]{32,}\.(api|secret|key)[a-zA-Z0-9_-]*['"`,]/i, name: 'Generic API key', exclude: ['scripts/', 'node_modules/'] },
+  { pattern: /["'`][a-zA-Z0-9_-]{32,}\.(api|secret|key)[a-zA-Z0-9_-]*["'`,]/i, name: 'Generic API key', exclude: ['scripts/', 'node_modules/'] },
   { pattern: /-----BEGIN (RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----/, name: 'Private key block', exclude: ['scripts/', 'node_modules/'] },
   { pattern: /xox[baprs]-[a-zA-Z0-9]{10,}/, name: 'Slack token', exclude: ['scripts/', 'node_modules/'] },
   { pattern: /ghp_[a-zA-Z0-9]{36}/, name: 'GitHub token', exclude: ['scripts/', 'node_modules/'] },

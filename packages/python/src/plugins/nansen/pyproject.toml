@@ -1,0 +1,54 @@
+[tool.poetry]
+name = "openclawd-plugin-nansen"
+version = "0.1.1"
+description = "Nansen plugin for OpenClawd"
+authors = [
+    "OpenClawd Team",
+]
+readme = "README.md"
+keywords = [
+    "openclawd",
+    "sdk",
+    "web3",
+    "agents",
+    "ai",
+    "nansen",
+]
+homepage = "https://openclawd.dev/"
+repository = "https://github.com/openclawd/openclawd"
+packages = [
+    { include = "openclawd_plugins/nansen" },
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/openclawd/openclawd/issues"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aiohttp = "^3.8.6"
+openclawd = "^0.1.1"
+pydantic = "^2.0.0"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.4"
+pytest-asyncio = "^0.25.0"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.8.6"
+
+[tool.poetry.group.dev.dependencies.openclawd]
+path = "../../openclawd"
+develop = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[build-system]
+requires = [
+    "poetry-core",
+]
+build-backend = "poetry.core.masonry.api"

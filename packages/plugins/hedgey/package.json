@@ -1,0 +1,33 @@
+{
+    "name": "@openclawdsolana/plugin-hedgey",
+    "version": "0.1.3",
+    "files": ["dist/**/*", "README.md", "package.json"],
+    "scripts": {
+        "build": "tsup",
+        "clean": "rm -rf dist",
+        "test": "vitest run --passWithNoTests"
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "homepage": "https://openclawd.dev",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/openclawd/openclawd.git"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/openclawd/openclawd/issues"
+    },
+    "keywords": ["ai", "agents", "web3"],
+    "dependencies": {
+        "@openclawdsolana/core": "workspace:*",
+        "@openclawdsolana/wallet-evm": "workspace:*",
+        "ethers": "5.7.2",
+        "zod": "catalog:"
+    },
+    "peerDependencies": {
+        "@openclawdsolana/core": "workspace:*"
+    }
+}

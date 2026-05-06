@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// OpenClawd plugin.delivery dependency installer.
 // Install dependencies for the plugin.delivery sub-monorepo.
 // plugin.delivery uses pnpm workspaces (its own pnpm-workspace.yaml), not npm
 // workspaces, so we shell out to pnpm here. If pnpm isn't available we fall

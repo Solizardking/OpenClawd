@@ -1,0 +1,38 @@
+{
+    "name": "@openclawdsolana/wallet-zetrix",
+    "version": "0.1.2",
+    "sideEffects": false,
+    "files": ["dist/**/*", "README.md", "package.json"],
+    "scripts": {
+        "build": "tsup",
+        "clean": "rm -rf dist",
+        "test": "vitest run --passWithNoTests"
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "dependencies": {
+        "@openclawdsolana/core": "workspace:*",
+        "bignumber.js": "9.1.2",
+        "viem": "catalog:",
+        "zetrix-sdk-nodejs": "^1.0.1",
+        "zod": "catalog:"
+    },
+    "peerDependencies": {
+        "@openclawdsolana/core": "workspace:*",
+        "zetrix-sdk-nodejs": "^1.0.1"
+    },
+    "homepage": "https://openclawd.dev",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/openclawd/openclawd.git"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/openclawd/openclawd/issues"
+    },
+    "keywords": ["ai", "agents", "web3"],
+    "devDependencies": {
+        "@types/zetrix-sdk-nodejs": "^1.0.1"
+    }
+}

@@ -1,0 +1,49 @@
+[tool.poetry]
+name = "openclawd-example-by-framework-smolagents"
+version = "0.1.0"
+description = "OpenClawd example for Smolagents with Solana SPL token plugin"
+authors = ["Andrea Villa <andreakarimodm@gmail.com>"]
+readme = "README.md"
+keywords = ["openclawd", "sdk", "web3", "agents", "ai"]
+homepage = "https://openclawd.dev/"
+repository = "https://github.com/openclawd/openclawd"
+packages = [
+    { include = "example.py" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+smolagents = { version = ">=1.10.0", extras = ["openai"] }
+python-dotenv = "^1.0.1" 
+openclawd = "^0.1.0"
+openclawd-wallet-solana = "^0.1.0"
+openclawd-adapter-smolagents = ">=0.1.0"
+openclawd-wallet-crossmint = "*"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.4"
+pytest-asyncio = "^0.25.0"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/openclawd/openclawd/issues"
+
+[tool.pytest.ini_options]
+addopts = [
+  "--import-mode=importlib",
+]
+pythonpath = "src"
+asyncio_default_fixture_loop_scope = "function"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.8.6"
+openclawd = { path = "../../../src/openclawd", develop = true }
+openclawd-wallet-solana = { path = "../../../src/wallets/solana", develop = true }
+openclawd-adapter-smolagents = { path = "../../../src/adapters/smolagents", develop = true }
+openclawd-wallet-crossmint = { path = "../../../src/wallets/crossmint", develop = true }
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+

@@ -1,0 +1,7 @@
+node_modules
+dist
+openclawdConfig.yaml
+custom_actions/
+cache/
+coverage/
+*.tsbuildinfo

@@ -1,0 +1,35 @@
+{
+  "name": "openclawd",
+  "version": "1.7.3-alpha.1",
+  "description": "Alias package for @openclawdsolana/cli",
+  "publishConfig": {
+    "access": "public",
+    "workspaces": {
+      "preserveIfPresent": true
+    }
+  },
+  "license": "MIT",
+  "author": "OpenClawd",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenClawd/openclawd.git",
+    "directory": "packages/openclawd"
+  },
+  "files": [
+    "bin",
+    "bin/**/*"
+  ],
+  "keywords": [
+    "openclawd",
+    "openclawd",
+    "cli",
+    "agents"
+  ],
+  "type": "module",
+  "bin": {
+    "openclawd": "bin/openclawd.js"
+  },
+  "dependencies": {
+    "@openclawdsolana/cli": "workspace:*"
+  }
+}

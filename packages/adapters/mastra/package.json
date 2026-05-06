@@ -1,0 +1,36 @@
+{
+    "name": "@openclawdsolana/adapter-mastra",
+    "version": "0.1.1",
+    "sideEffects": false,
+    "files": ["dist/**/*", "README.md", "package.json"],
+    "scripts": {
+        "build": "tsup",
+        "clean": "rm -rf dist",
+        "test": "vitest run --passWithNoTests"
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "dependencies": {
+        "@openclawdsolana/core": "workspace:*",
+        "ai": "catalog:"
+    },
+    "peerDependencies": {
+        "@openclawdsolana/core": "workspace:*",
+        "ai": "catalog:",
+        "zod": "^3.0.0"
+    },
+    "devDependencies": {
+        "zod": "catalog:"
+    },
+    "homepage": "https://github.com/clawdsolana/OpenClawd",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/clawdsolana/OpenClawd.git"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/clawdsolana/OpenClawd/issues"
+    },
+    "keywords": ["ai", "agents", "web3"]
+}

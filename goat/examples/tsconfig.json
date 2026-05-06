@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@openclawdsolana/core": ["../packages/core/src/index.node.ts"],
+      "@openclawdsolana/core/*": ["../packages/core/src/*"],
+      "@openclawdsolana/plugin-sql": ["../packages/plugin-sql/src/index.ts"],
+      "@openclawdsolana/plugin-sql/*": ["../packages/plugin-sql/src/*"],
+      "@openclawdsolana/plugin-bootstrap": ["../packages/plugin-bootstrap/src/index.ts"],
+      "@openclawdsolana/plugin-bootstrap/*": ["../packages/plugin-bootstrap/src/*"]
+    }
+  },
+  "include": ["./**/*.ts"]
+}

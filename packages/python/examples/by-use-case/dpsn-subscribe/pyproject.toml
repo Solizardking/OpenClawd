@@ -1,0 +1,50 @@
+[tool.poetry]
+name = "openclawd-example-by-use-case-dpsn"
+version = "0.1.0"
+description = "OpenClawd example for dpsn plugin"
+authors = ["OpenClawd <info@openclawd.com>"]
+readme = "README.md"
+keywords = ["openclawd", "sdk", "web3", "agents", "ai", "nft", "crossmint"]
+homepage = "https://openclawd.dev/"
+repository = "https://github.com/openclawd/openclawd"
+packages = [{ include = "example.py" }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+langchain = "*"
+langchain-openai = "*"
+python-dotenv = "*"
+web3 = ">=6.20.3"
+openclawd = "*"
+openclawd-wallet-evm = "^0.1.1"
+openclawd-wallet-web3 = "^0.1.0"
+openclawd-wallet-crossmint = "*"
+openclawd-adapter-langchain = "*"
+openclawd-plugin-dpsn = { path = "../../../src/plugins/dpsn", develop = true }
+
+[tool.poetry.group.test.dependencies]
+pytest = "*"
+pytest-asyncio = "*"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/openclawd/openclawd/issues"
+
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib"]
+pythonpath = "src"
+asyncio_default_fixture_loop_scope = "function"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.8.6"
+openclawd = { path = "../../../src/openclawd", develop = true }
+openclawd-wallet-web3 = { path = "../../../src/wallets/web3", develop = true }
+openclawd-wallet-crossmint = { path = "../../../src/wallets/crossmint", develop = true }
+openclawd-adapter-langchain = { path = "../../../src/adapters/langchain", develop = true }
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"

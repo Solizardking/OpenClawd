@@ -1,0 +1,71 @@
+[tool.poetry]
+name = "openclawd-wallet-crossmint"
+version = "0.2.0"
+description = "Crossmint wallet implementation for OpenClawd"
+authors = [
+    "OpenClawd Team",
+]
+readme = "README.md"
+keywords = [
+    "openclawd",
+    "sdk",
+    "web3",
+    "agents",
+    "ai",
+    "crossmint",
+    "wallet",
+]
+homepage = "https://openclawd.dev/"
+repository = "https://github.com/openclawd/openclawd"
+packages = [
+    { include = "openclawd_wallets/crossmint" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+openclawd = "^0.2.0"
+openclawd-wallet-evm = "^0.2.0"
+openclawd-wallet-solana = "^0.2.0"
+web3 = ">=6.0.0"
+eth-account = ">=0.8"
+base58 = ">=2.1"
+setuptools = ">=70"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3"
+pytest-asyncio = "^0.25"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.8"
+
+[tool.poetry.group.dev.dependencies.openclawd]
+path = "../../openclawd"
+develop = true
+
+[tool.poetry.group.dev.dependencies.openclawd-wallet-evm]
+path = "../evm"
+develop = true
+
+[tool.poetry.group.dev.dependencies.openclawd-wallet-solana]
+path = "../solana"
+develop = true
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/openclawd/openclawd/issues"
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+pythonpath = "src"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[build-system]
+requires = [
+    "poetry-core",
+]
+build-backend = "poetry.core.masonry.api"

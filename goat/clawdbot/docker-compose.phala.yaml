@@ -1,0 +1,21 @@
+version: '3'
+services:
+  openclawd:
+    image: ${DOCKER_IMAGE_FULL_NAME:-clawdbot:latest}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - /var/run/tappd.sock:/var/run/tappd.sock
+    environment:
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - OPENROUTER_SMALL_MODEL=${OPENROUTER_SMALL_MODEL:-minimax/minimax-m2-her}
+      - OPENROUTER_LARGE_MODEL=${OPENROUTER_LARGE_MODEL:-minimax/minimax-m2-her}
+      - POSTGRES_URL=${POSTGRES_URL}
+      - TEE_MODE=${TEE_MODE:-PRODUCTION}
+      - TEE_VENDOR=${TEE_VENDOR:-phala}
+      - WALLET_SECRET_SALT=${WALLET_SECRET_SALT}
+      - SERVER_PORT=${SERVER_PORT:-3000}
+    ports:
+      - '3000:3000'
+    restart: always
