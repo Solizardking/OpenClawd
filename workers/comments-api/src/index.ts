@@ -17,6 +17,18 @@ const app = new Hono<{ Bindings: Bindings }>()
 
 app.use('/api/*', cors())
 
+app.get('/', (c) => {
+  return c.json({
+    name: 'd1-comments-api',
+    routes: {
+      listComments: '/api/posts/:slug/comments',
+      createComment: '/api/posts/:slug/comments',
+    },
+  })
+})
+
+app.get('/favicon.ico', (c) => c.body(null, 204))
+
 app.get('/api/posts/:slug/comments', async (c) => {
   const { slug } = c.req.param()
 
