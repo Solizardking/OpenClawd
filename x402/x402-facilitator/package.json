@@ -27,7 +27,7 @@
     "bitcoin",
     "bot-verification"
   ],
-  "author": "SolanaOS",
+  "author": "OpenClawd",
   "license": "MIT",
   "dependencies": {
     "@autonomy/x402-core": "workspace:*"
