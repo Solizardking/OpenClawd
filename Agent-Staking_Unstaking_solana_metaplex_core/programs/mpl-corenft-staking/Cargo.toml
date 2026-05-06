@@ -24,4 +24,4 @@ idl-build = [
 anchor-lang = { version = "0.31", features = ["init-if-needed"] }
 # anchor-spl is intentionally NOT a dependency — this program only CPIs into
 # mpl-core. Keeping it out avoids the spl-token-2022 / solana-zk-sdk conflict.
-mpl-core = { version = "0.9", features = ["anchor"] }
+mpl-core = { version = "0.12", features = ["anchor"] }

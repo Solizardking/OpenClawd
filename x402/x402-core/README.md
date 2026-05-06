@@ -2,9 +2,7 @@
 
 Core types, CAIP-2 chain identifiers, payment schemes, and crypto utilities for the X402 multi-chain payment protocol with bot-aware pricing.
 
-> **Where it fits.** This package is the shared protocol layer used by:
-> - [`@autonomy/x402-facilitator`](../x402-facilitator) — the verify/settle Cloudflare Worker
-> - any service that issues HTTP 402 challenges or signs payment payloads on the client side
+> **Where it fits.** This package is the shared protocol layer used by `@autonomy/x402-facilitator` (the verify/settle Cloudflare Worker in [`../x402-facilitator`](../x402-facilitator)) and any service that issues HTTP 402 challenges or signs payment payloads on the client side.
 >
 > If you're standing up a new Solana or Base facilitator for OpenClawd, start at [`../README.md`](../README.md) and [`../SETUP.md`](../SETUP.md). This file is the API reference.
 

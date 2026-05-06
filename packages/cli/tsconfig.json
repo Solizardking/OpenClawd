@@ -15,7 +15,7 @@
       "@openclawdsolana/api-client": ["../api-client/src"],
       "@openclawdsolana/api-client/*": ["../api-client/src/*"]
     },
-    "rootDir": ".",
+    "rootDir": "../",
     "moduleResolution": "bundler",
     "outDir": "./dist",
     "jsx": "react",
@@ -29,6 +29,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "../src/**/*", "../api-client/src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

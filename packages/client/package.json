@@ -4,7 +4,7 @@
   "description": "Web client interface for OpenClawd agents",
   "repository": {
     "type": "git",
-    "url": "https://github.com/openclawd/openclawd.git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
     "directory": "packages/client"
   },
   "license": "MIT",
@@ -18,9 +18,9 @@
     "chat",
     "interface"
   ],
-  "homepage": "https://openclawd.ai",
+  "homepage": "https://github.com/clawdsolana/OpenClawd",
   "bugs": {
-    "url": "https://github.com/openclawd/openclawd/issues"
+    "url": "https://github.com/clawdsolana/OpenClawd/issues"
   },
   "sideEffects": false,
   "type": "module",
