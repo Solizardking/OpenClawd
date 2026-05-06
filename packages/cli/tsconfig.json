@@ -8,6 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "target": "ESNext",
+    "types": ["node", "bun"],
     "paths": {
       "@/src/*": ["./src/*"],
       "@openclawdsolana/core": ["../src"],
@@ -30,5 +31,16 @@
     "noUnusedParameters": true
   },
   "include": ["src/**/*", "../src/**/*", "../api-client/src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tests",
+    "src/**/*.test.ts",
+    "src/**/__tests__/**",
+    "../api-client/src/**/*.test.ts",
+    "../api-client/src/**/__tests__/**",
+    "../src/**/*.test.ts",
+    "../src/**/__tests__/**",
+    "../src/test_resources/**"
+  ]
 }

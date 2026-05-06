@@ -20,9 +20,6 @@
     "ulid": "^2.4.0"
   },
   "workspaces": [
-    "npm/openclawd-cli",
-    "npm/openclawd-computer",
-    "npm/openclawd-installer",
     "packages/adapters/eleven-labs",
     "packages/adapters/langchain",
     "packages/adapters/llamaindex",
@@ -30,7 +27,6 @@
     "packages/adapters/model-context-protocol",
     "packages/adapters/openclawd",
     "packages/adapters/vercel-ai",
-    "packages/adapters/virtuals-game",
     "packages",
     "packages/agents-x402-solana",
     "packages/agentwallet",
@@ -51,7 +47,6 @@
     "packages/plugin-sdk",
     "packages/server",
     "packages/service-registry",
-    "apps/blockchain_buddies/packages/petdex-cli",
     "openclawd-framework",
     "openclawd-framework/packages/clawd",
     "openclawd-framework/packages/cli-standalone",

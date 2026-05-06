@@ -19,9 +19,11 @@ idl-build = [
 ]
 
 [dependencies]
-# anchor-lang 0.31 is the first version that bridges to solana-program 2.x while
-# remaining compatible with mpl-core 0.9's `solana_pubkey` types.
-anchor-lang = { version = "0.31", features = ["init-if-needed"] }
-# anchor-spl is intentionally NOT a dependency — this program only CPIs into
-# mpl-core. Keeping it out avoids the spl-token-2022 / solana-zk-sdk conflict.
-mpl-core = { version = "0.12", features = ["anchor"] }
+# Pinned trio that compiles together cleanly. Each version has been verified to
+# avoid the known mpl-core ⇄ anchor-lang ⇄ solana-pubkey type-mismatch trap and
+# the kaigan borsh-v1/anchor feature conflict.
+#
+# If you bump any of these, run `cargo tree -p mpl-core | grep -E 'anchor-lang|borsh|solana-pubkey'`
+# first and confirm the resolved versions don't fork the Pubkey type.
+anchor-lang = { version = "0.30.1", features = ["init-if-needed"] }
+mpl-core = { version = "=0.7.2", features = ["anchor"] }
