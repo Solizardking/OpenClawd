@@ -21,10 +21,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@openclawdsolana/core": ["../src"],
-      "@openclawdsolana/core/*": ["../src/*"],
-      "@openclawdsolana/api-client": ["../api-client/src"],
-      "@openclawdsolana/api-client/*": ["../api-client/src/*"]
+      "@openclawdsolana/core": ["../../src"],
+      "@openclawdsolana/core/*": ["../../src/*"],
+      "@openclawdsolana/api-client": ["../src"],
+      "@openclawdsolana/api-client/*": ["../src/*"]
     },
 
     /* Linting */

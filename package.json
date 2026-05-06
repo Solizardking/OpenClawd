@@ -33,7 +33,7 @@
     "packages/api-client",
     "packages/clawd-wallet",
     "packages/cli",
-    "packages/client",
+    "packages/api-client/client",
     "packages/config",
     "packages/core",
     "packages/crossmint-agentic-wallet",
