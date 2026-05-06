@@ -37,6 +37,17 @@ Dark Ralph is a Bun + Ink terminal app for Solana market surveillance, wallet co
 - **Solana wallet tools** for local wallet creation, address display, balance lookup, and portfolio context.
 - **Terminal-native controls** with number-key navigation, refresh/help shortcuts, and an agent command surface.
 
+## OpenClawd agent staking docs
+
+Dark Ralph is the market-surveillance/operator companion to the OpenClawd agent stack. Related local references:
+
+- Main app README: `/Users/8bit/Downloads/clawd-terminal/README.md`
+- Agents catalog README: `/Users/8bit/Downloads/clawd-terminal/agents/README.md`
+- Pay Agents guide: `/Users/8bit/Downloads/clawd-terminal/docs/pay-agents.md`
+- Clawd Stake program: `/Users/8bit/Downloads/clawd-terminal/programs/clawd-stake/README.md`
+- Clawd TUI README: `/Users/8bit/Downloads/clawd-terminal/clawd-tui/clawd-tui/README.md`
+- Dark Ralph TUI README: `/Users/8bit/fraud/OpenClawd/dark-ralph/README.md`
+
 ## Quick Start
 
 ```bash

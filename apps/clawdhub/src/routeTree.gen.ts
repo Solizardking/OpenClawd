@@ -421,6 +421,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/chat': typeof ChatRoute
   '/chess': typeof ChessRoute
@@ -442,6 +443,7 @@ export interface FileRoutesByTo {
   '/memescope': typeof MemescopeRoute
   '/mining': typeof MiningRoute
   '/mobile': typeof MobileRoute
+  '/news': typeof NewsRoute
   '/pair': typeof PairRoute
   '/privacy': typeof PrivacyRoute
   '/register-agent': typeof RegisterAgentRoute
@@ -450,6 +452,7 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/stars': typeof StarsRoute
+  '/staking': typeof StakingRoute
   '/strategy': typeof StrategyRoute
   '/terminal': typeof TerminalRoute
   '/terms': typeof TermsRoute
@@ -479,6 +482,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/chat': typeof ChatRoute
   '/chess': typeof ChessRoute
@@ -500,6 +504,7 @@ export interface FileRoutesById {
   '/memescope': typeof MemescopeRoute
   '/mining': typeof MiningRoute
   '/mobile': typeof MobileRoute
+  '/news': typeof NewsRoute
   '/pair': typeof PairRoute
   '/privacy': typeof PrivacyRoute
   '/register-agent': typeof RegisterAgentRoute
@@ -508,6 +513,7 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/stars': typeof StarsRoute
+  '/staking': typeof StakingRoute
   '/strategy': typeof StrategyRoute
   '/terminal': typeof TerminalRoute
   '/terms': typeof TermsRoute
@@ -538,6 +544,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/admin'
     | '/chat'
     | '/chess'
@@ -559,6 +566,7 @@ export interface FileRouteTypes {
     | '/memescope'
     | '/mining'
     | '/mobile'
+    | '/news'
     | '/pair'
     | '/privacy'
     | '/register-agent'
@@ -567,6 +575,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/settings'
     | '/stars'
+    | '/staking'
     | '/strategy'
     | '/terminal'
     | '/terms'
@@ -595,6 +604,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/admin'
     | '/chat'
     | '/chess'
@@ -616,6 +626,7 @@ export interface FileRouteTypes {
     | '/memescope'
     | '/mining'
     | '/mobile'
+    | '/news'
     | '/pair'
     | '/privacy'
     | '/register-agent'
@@ -624,6 +635,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/settings'
     | '/stars'
+    | '/staking'
     | '/strategy'
     | '/terminal'
     | '/terms'
@@ -652,6 +664,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/admin'
     | '/chat'
     | '/chess'
@@ -673,6 +686,7 @@ export interface FileRouteTypes {
     | '/memescope'
     | '/mining'
     | '/mobile'
+    | '/news'
     | '/pair'
     | '/privacy'
     | '/register-agent'
@@ -681,6 +695,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/settings'
     | '/stars'
+    | '/staking'
     | '/strategy'
     | '/terminal'
     | '/terms'
@@ -710,6 +725,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
   ChatRoute: typeof ChatRoute
   ChessRoute: typeof ChessRoute
@@ -731,6 +747,7 @@ export interface RootRouteChildren {
   MemescopeRoute: typeof MemescopeRoute
   MiningRoute: typeof MiningRoute
   MobileRoute: typeof MobileRoute
+  NewsRoute: typeof NewsRoute
   PairRoute: typeof PairRoute
   PrivacyRoute: typeof PrivacyRoute
   RegisterAgentRoute: typeof RegisterAgentRoute
@@ -739,6 +756,7 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRoute
   SettingsRoute: typeof SettingsRoute
   StarsRoute: typeof StarsRoute
+  StakingRoute: typeof StakingRoute
   StrategyRoute: typeof StrategyRoute
   TerminalRoute: typeof TerminalRoute
   TermsRoute: typeof TermsRoute
@@ -768,6 +786,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/wurk': {
       id: '/wurk'
       path: '/wurk'
@@ -824,6 +849,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StarsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/staking': {
+      id: '/staking'
+      path: '/staking'
+      fullPath: '/staking'
+      preLoaderRoute: typeof StakingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/settings': {
       id: '/settings'
       path: '/settings'
@@ -878,6 +910,13 @@ declare module '@tanstack/react-router' {
       path: '/mobile'
       fullPath: '/mobile'
       preLoaderRoute: typeof MobileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mining': {
@@ -1158,6 +1197,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
   ChatRoute: ChatRoute,
   ChessRoute: ChessRoute,
@@ -1179,6 +1219,7 @@ const rootRouteChildren: RootRouteChildren = {
   MemescopeRoute: MemescopeRoute,
   MiningRoute: MiningRoute,
   MobileRoute: MobileRoute,
+  NewsRoute: NewsRoute,
   PairRoute: PairRoute,
   PrivacyRoute: PrivacyRoute,
   RegisterAgentRoute: RegisterAgentRoute,
@@ -1187,6 +1228,7 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRoute,
   SettingsRoute: SettingsRoute,
   StarsRoute: StarsRoute,
+  StakingRoute: StakingRoute,
   StrategyRoute: StrategyRoute,
   TerminalRoute: TerminalRoute,
   TermsRoute: TermsRoute,
