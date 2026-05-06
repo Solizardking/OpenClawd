@@ -48,6 +48,12 @@ Dark Ralph is the market-surveillance/operator companion to the OpenClawd agent 
 - Clawd TUI README: `/Users/8bit/Downloads/clawd-terminal/clawd-tui/clawd-tui/README.md`
 - Dark Ralph TUI README: `/Users/8bit/fraud/OpenClawd/dark-ralph/README.md`
 
+Dark Ralph's role in this system is operator awareness: watch market conditions,
+agent-wallet context, and token health while the OpenClawd app handles
+wallet-signed staking at `/staking`. The larger `clawd-stake` reward layer can
+use the same market and payment data when routing future CLAWD emissions and
+gacha fee share.
+
 ## Quick Start
 
 ```bash
