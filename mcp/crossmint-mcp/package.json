@@ -1,0 +1,51 @@
+{
+  "name": "@openclawdsolana/crossmint-mcp",
+  "version": "1.0.0",
+  "description": "MCP server exposing the Crossmint Agentic Wallet toolkit (non-custodial Solana wallets, Jupiter swaps, agent-to-agent USDC, e-commerce checkout) to any MCP-aware client.",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "crossmint-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@openclawdsolana/crossmint-agentic-wallet": "*",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "mcp",
+    "crossmint",
+    "solana",
+    "wallet",
+    "ai-agent",
+    "non-custodial",
+    "jupiter",
+    "openclawd"
+  ],
+  "author": "OpenClawd Solana",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clawdsolana/OpenClawd.git",
+    "directory": "mcp/crossmint-mcp"
+  }
+}
