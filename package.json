@@ -134,6 +134,9 @@
     "release:pack": "node scripts/release-pack.mjs",
     "release:wire": "node scripts/release-wire.mjs",
     "release:manifest": "node scripts/release-manifest.mjs",
+    "publish:tui:dry-run": "cd apps/clawd-tui && npm publish --dry-run --access public",
+    "publish:tui": "cd apps/clawd-tui && npm publish --access public",
+    "publish:tui:otp": "cd apps/clawd-tui && npm publish --access public --otp=${NPM_OTP:?Set NPM_OTP=123456}",
     "upload:browseruse": "node scripts/upload-to-browseruse.mjs",
     "upload:browseruse:dry": "node scripts/upload-to-browseruse.mjs --dry-run"
   },

@@ -48,6 +48,17 @@ clawd
 
 Get a key at [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys).
 
+## Publish troubleshooting
+
+This package lives in `apps/clawd-tui/`. The repository root is private and should not be published directly.
+
+```bash
+npm run publish:tui:dry-run
+NPM_OTP=123456 npm run publish:tui:otp
+```
+
+`E403 Two-factor authentication or granular access token with bypass 2fa enabled is required` means the tarball is valid, but npm requires a fresh OTP or a granular automation token for the `@openclawdsolana` org. A successful dry run should show `@openclawdsolana/clawd-tui`, a small tarball, and only `dist`, `README.md`, `LICENSE`, and `package.json`.
+
 ## Tools
 
 **Client-side:** `file_read`, `file_write`, `file_edit`, `glob`, `grep`, `list_dir`, `shell`

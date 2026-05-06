@@ -1,6 +1,6 @@
 {
   "name": "@openclawdsolana/clawd-tui",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "OpenClawd TUI — a lobster-themed agent terminal built on @openrouter/agent with OAuth login.",
   "type": "module",
   "bin": {
