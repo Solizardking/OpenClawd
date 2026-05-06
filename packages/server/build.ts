@@ -34,6 +34,7 @@ const run = createBuildRunner({
       ...packageExternals,
       '@openclawdsolana/core',
       '@openclawdsolana/client',
+      'drizzle-orm',
       'express',
       'cors',
       'multer',
