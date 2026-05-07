@@ -35,7 +35,7 @@ umask 022
 # ──────────────────────────────────────────────────────────────────────────────
 # Defaults
 # ──────────────────────────────────────────────────────────────────────────────
-REPO_URL="https://solanaclawd.com"
+REPO_URL="https://github.com/clawdsolana/OpenClawd.git"
 WORKSPACE="${OPENCLAWD_HOME:-$HOME/.openclawdsolana}"
 BIN_DIR_DEFAULT="$WORKSPACE/bin"
 BIN_DIR=""
@@ -172,10 +172,18 @@ trap 'rm -f "$LOCK_FILE"' EXIT INT TERM
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Source tree resolution
-#   1. If we're sitting inside a checkout (has go.mod or package.json + .git), use it.
-#   2. Otherwise clone into $WORKSPACE/src.
+#   1. If the script is a real file inside a checkout, use that checkout.
+#   2. If streamed through stdin from a checkout, use the current git root.
+#   3. Otherwise clone into $WORKSPACE/src.
 # ──────────────────────────────────────────────────────────────────────────────
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+SCRIPT_DIR=""
+if [ -n "${BASH_SOURCE[0]:-}" ] && [ -f "${BASH_SOURCE[0]}" ]; then
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+elif git rev-parse --show-toplevel >/dev/null 2>&1; then
+  SCRIPT_DIR="$(git rev-parse --show-toplevel)"
+else
+  SCRIPT_DIR="$(pwd)"
+fi
 SRC_DIR=""
 if [ -d "$SCRIPT_DIR/.git" ] && { [ -f "$SCRIPT_DIR/go.mod" ] || [ -f "$SCRIPT_DIR/package.json" ]; }; then
   SRC_DIR="$SCRIPT_DIR"
@@ -229,21 +237,46 @@ fi
 # ──────────────────────────────────────────────────────────────────────────────
 # Node workspaces — framework, gateway, plugin.delivery, pAGENT
 # ──────────────────────────────────────────────────────────────────────────────
+has_cmd() { command -v "$1" >/dev/null 2>&1; }
+
+pkg_install() {
+  local dir="$1"
+  if has_cmd pnpm; then
+    ( cd "$dir" && pnpm install --frozen-lockfile=false )
+  else
+    ( cd "$dir" && npm install --no-audit --no-fund --legacy-peer-deps )
+  fi
+}
+
+pkg_run() {
+  local dir="$1"
+  local script="$2"
+  if has_cmd pnpm; then
+    ( cd "$dir" && pnpm run "$script" --if-present )
+  else
+    ( cd "$dir" && npm run "$script" --if-present )
+  fi
+}
+
 if [ "$NO_NODE" = "1" ]; then
   info "skipping Node workspaces (--no-node)"
 elif [ -f "$SRC_DIR/package.json" ] && command -v npm >/dev/null 2>&1; then
   step "installing Node workspaces"
-  ( cd "$SRC_DIR" && npm install --no-audit --no-fund ) || warn "root npm install had warnings"
-  ( cd "$SRC_DIR" && npm run install:framework      --if-present ) || warn "framework install skipped"
-  ( cd "$SRC_DIR" && npm run install:gateway        --if-present ) || warn "gateway install skipped"
-  ( cd "$SRC_DIR" && npm run install:plugin-delivery --if-present ) || warn "plugin.delivery install skipped"
-  ( cd "$SRC_DIR" && npm run install:pagent         --if-present ) || warn "pAGENT install skipped"
+  pkg_install "$SRC_DIR" || warn "root workspace install had warnings"
+  [ -d "$SRC_DIR/openclawd-framework" ] && pkg_install "$SRC_DIR/openclawd-framework" || warn "framework install skipped"
+  [ -d "$SRC_DIR/gateway" ] && pkg_install "$SRC_DIR/gateway" || warn "gateway install skipped"
+  ( cd "$SRC_DIR" && node scripts/install-plugin-delivery.mjs ) || warn "plugin.delivery install skipped"
+  if has_cmd pnpm; then
+    pkg_install "$SRC_DIR" || warn "pAGENT workspace link skipped"
+  else
+    ( cd "$SRC_DIR" && npm run install:pagent --if-present ) || warn "pAGENT install skipped"
+  fi
 
   step "building TypeScript surfaces"
-  ( cd "$SRC_DIR" && npm run build:framework        --if-present ) || warn "framework build failed"
-  ( cd "$SRC_DIR" && npm run build:gateway          --if-present ) || warn "gateway build failed"
-  ( cd "$SRC_DIR" && npm run build:plugin-delivery  --if-present ) || warn "plugin.delivery build failed"
-  ( cd "$SRC_DIR" && npm run build:pagent           --if-present ) || warn "pAGENT build skipped"
+  [ -d "$SRC_DIR/openclawd-framework" ] && pkg_run "$SRC_DIR/openclawd-framework" build || warn "framework build failed"
+  [ -d "$SRC_DIR/gateway" ] && pkg_run "$SRC_DIR/gateway" build || warn "gateway build failed"
+  ( cd "$SRC_DIR" && node scripts/build-plugin-delivery.mjs ) || warn "plugin.delivery build failed"
+  ( cd "$SRC_DIR" && npm run build:pagent --if-present ) || warn "pAGENT build skipped"
   ok "Node surfaces ready"
 else
   warn "Node/npm not found or no package.json — skipping JS workspace install"

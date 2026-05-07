@@ -11,10 +11,14 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const REPO = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const PD = resolve(REPO, 'plugin.delivery');
+const candidates = [
+  resolve(REPO, 'plugins/plugin.delivery'),
+  resolve(REPO, 'plugin.delivery'),
+];
+const PD = candidates.find((candidate) => existsSync(candidate));
 
-if (!existsSync(PD)) {
-  console.error(`✖ plugin.delivery not found at ${PD}`);
+if (!PD) {
+  console.error(`✖ plugin.delivery not found at ${candidates.join(' or ')}`);
   process.exit(1);
 }
 
