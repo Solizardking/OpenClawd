@@ -1,7 +1,9 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 // DARK RALPH TUI - AI Provider Services
-// xAI Grok, Perplexity, OpenRouter (MiniMax M2.1)
+// xAI Grok, Perplexity, OpenRouter (MiniMax M2.7)
 // ═══════════════════════════════════════════════════════════════════════════════
+
+import { OPENCLAWD_SITE_NAME, OPENCLAWD_SITE_URL } from '../openclawd.js';
 
 export interface ChatMessage {
   role: 'system' | 'user' | 'assistant';
@@ -186,7 +188,7 @@ export class PerplexityService {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// OPENROUTER SERVICE - MiniMax M2.1 with Reasoning
+// OPENROUTER SERVICE - MiniMax M2.7 with Reasoning
 // ─────────────────────────────────────────────────────────────────────────────
 
 export class OpenRouterService {
@@ -194,7 +196,7 @@ export class OpenRouterService {
   private model: string;
   private baseUrl = 'https://openrouter.ai/api/v1';
 
-  constructor(apiKey: string, model = 'minimax/minimax-m2.1') {
+  constructor(apiKey: string, model = 'minimax/minimax-m2.7') {
     this.apiKey = apiKey;
     this.model = model;
   }
@@ -209,8 +211,9 @@ export class OpenRouterService {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${this.apiKey}`,
-          'HTTP-Referer': 'https://darkralph.ai',
-          'X-Title': 'Dark Ralph TUI',
+          'HTTP-Referer': OPENCLAWD_SITE_URL,
+          'X-Title': `${OPENCLAWD_SITE_NAME} Dark Ralph`,
+          'X-OpenRouter-Title': `${OPENCLAWD_SITE_NAME} Dark Ralph`,
         },
         body: JSON.stringify({
           model: this.model,
@@ -250,7 +253,7 @@ export class OpenRouterService {
       [
         {
           role: 'system',
-          content: `You are DARK RALPH, a recursive autonomous AI agent analyzing cryptocurrency markets.
+          content: `You are DARK RALPH, an OpenClawd recursive autonomous AI agent analyzing Solana cryptocurrency markets.
           Think step by step and show your reasoning process.
           Be cryptic yet insightful. Use technical analysis when appropriate.
           Context: ${context}`,

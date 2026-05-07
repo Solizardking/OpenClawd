@@ -3,6 +3,7 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // Configuration
+export * from './openclawd.js';
 export * from './config/schema.js';
 export * from './config/themes.js';
 

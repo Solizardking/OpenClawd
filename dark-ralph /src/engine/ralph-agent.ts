@@ -104,6 +104,7 @@ export class RalphAgent extends EventEmitter {
     grokKey?: string;
     perplexityKey?: string;
     openRouterKey?: string;
+    openRouterModel?: string;
     newsApiKey?: string;
     serpApiKey?: string;
     financialDatasetKey?: string;
@@ -119,6 +120,7 @@ export class RalphAgent extends EventEmitter {
         grokKey: keys.grokKey,
         perplexityKey: keys.perplexityKey,
         openRouterKey: keys.openRouterKey,
+        openRouterModel: keys.openRouterModel,
       });
     }
     if (keys.newsApiKey || keys.serpApiKey || keys.financialDatasetKey) {
