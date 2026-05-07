@@ -1,0 +1,34 @@
+# Local secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Dependency installs
+node_modules/
+**/node_modules/
+.bun/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+coverage/
+target/
+**/target/
+.wrangler/
+**/.wrangler/
+
+# Runtime state
+.dark-ralph/
+.grok/
+.sessions/
+**/.sessions/
+*.log
+*.pid
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+*.swp

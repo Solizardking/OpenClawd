@@ -62,7 +62,10 @@ export class SolanaAiInferenceClient {
             commitment: 'confirmed',
         });
 
-        this.program = new Program(IDL as any, this.programId, provider);
+        this.program = new Program(
+            { ...(IDL as any), address: this.programId.toBase58() },
+            provider
+        );
     }
 
     // ========================================================================
