@@ -157,8 +157,8 @@ On the machine running Ollama:
 
 ```
 # once, to install:
-git clone https://github.com/x402agent/solana-clawd.git
-cd solana-clawd/clawdrouter && npm install && npm run build
+git clone https://github.com/x402agent/openclawd.git
+cd openclawd/clawdrouter && npm install && npm run build
 sudo ln -s "$PWD/dist/index.js" /usr/local/bin/clawdrouter
 ```
 
@@ -198,4 +198,4 @@ Most tokens end at the chart. This one opens a tunnel.
 - Dashboard (start here): [solanaclawd.com/keys](https://solanaclawd.com/keys)
 - Hub health + stats: [clawdrouter.fly.dev/v1/tunnel/stats](https://clawdrouter.fly.dev/v1/tunnel/stats)
 - Previous article: [`ARTICLE_LOCAL_AI.md`](./ARTICLE_LOCAL_AI.md)
-- Source: [github.com/x402agent/solana-clawd/tree/main/clawdrouter](https://github.com/x402agent/solana-clawd/tree/main/clawdrouter)
+- Source: [github.com/x402agent/openclawd/tree/main/clawdrouter](https://github.com/x402agent/openclawd/tree/main/clawdrouter)

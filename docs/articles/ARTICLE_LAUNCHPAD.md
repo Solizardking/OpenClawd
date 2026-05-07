@@ -75,13 +75,13 @@ One command, any machine:
 curl -fsSL https://install.solanaclawd.com | bash
 ```
 
-You get `clawd`, `nanosolana`, and `solanaos` in `~/.local/bin`. If you prefer npm:
+You get `clawd`, `@openclawdsolana`, and `OpenClawd` in `~/.local/bin`. If you prefer npm:
 
 ```bash
 npm i -g @mawdbotsonsolana/cli
 ```
 
-Homebrew tap also available at `x402agent/tap/solana-clawd`. All three paths produce the same binary.
+Homebrew tap also available at `x402agent/tap/openclawd`. All three paths produce the same binary.
 
 ---
 
