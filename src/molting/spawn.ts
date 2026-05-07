@@ -19,6 +19,7 @@ import {
 } from '@solana/web3.js'
 
 import { CLAWD_MINT, USDC_MINT } from '../config.js'
+import { OPENCLAWD_AGENT_API_URL } from '../constants/openclawd.js'
 import { spawnOnchain } from '../identity/spawn-onchain.js'
 import { recordSpawnling } from '../state/database.js'
 
@@ -66,7 +67,7 @@ export async function spawnSpawnling(input: SpawnSpawnlingInput): Promise<SpawnS
     rpcUrl: input.rpcUrl,
     network: input.network || 'mainnet',
     services: [
-      { name: 'web', endpoint: 'https://agents.openclawd.biz' },
+      { name: 'web', endpoint: OPENCLAWD_AGENT_API_URL },
       { name: 'lineage:parent', endpoint: input.parentAssetAddress },
     ],
   })

@@ -4,6 +4,7 @@ import { keypairIdentity, publicKey } from '@metaplex-foundation/umi'
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults'
 import { Connection, type Keypair } from '@solana/web3.js'
 
+import { OPENCLAWD_AGENT_API_URL } from '../constants/openclawd.js'
 import { AGENT_REGISTRY_NETWORK, CLAWD_MINT, DEFAULT_AGENT_NFT_METADATA } from '../config.js'
 
 const MIN_SPAWN_LAMPORTS = 10_000_000
@@ -62,8 +63,8 @@ export async function spawnOnchain(input: SpawnOnchainInput): Promise<SpawnOncha
       services: input.services?.length
         ? input.services
         : [
-            { name: 'web', endpoint: 'https://agents.openclawd.biz' },
-            { name: 'A2A', endpoint: 'https://agents.openclawd.biz/api/agents/a2a', version: '0.3.0' },
+            { name: 'web', endpoint: OPENCLAWD_AGENT_API_URL },
+            { name: 'A2A', endpoint: `${OPENCLAWD_AGENT_API_URL}/api/agents/a2a`, version: '0.3.0' },
           ],
       registrations: [],
       supportedTrust: ['reputation', 'crypto-economic'],

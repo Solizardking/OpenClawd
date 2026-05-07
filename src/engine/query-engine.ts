@@ -21,6 +21,7 @@
 
 import { ToolRegistry, ToolResult } from "./tool-base.js";
 import { ToolExecutor, LLMToolCall, ToolCallResult } from "./tool-executor.js";
+import { OPENCLAWD_SITE_NAME, OPENCLAWD_SITE_URL } from "../constants/openclawd.js";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Message types
@@ -321,10 +322,10 @@ export class QueryEngine {
     // Add OpenRouter attribution headers for app rankings & analytics
     // See: https://openrouter.ai/docs/features/app-attribution
     if (provider.provider === "openrouter") {
-      headers["X-OpenRouter-Title"] = process.env["OPENROUTER_SITE_TITLE"] ?? "Solana Clawd";
-      headers["X-Title"] = process.env["OPENROUTER_SITE_TITLE"] ?? "Solana Clawd";
+      headers["X-OpenRouter-Title"] = process.env["OPENROUTER_SITE_TITLE"] ?? OPENCLAWD_SITE_NAME;
+      headers["X-Title"] = process.env["OPENROUTER_SITE_TITLE"] ?? OPENCLAWD_SITE_NAME;
       headers["X-OpenRouter-Categories"] = process.env["OPENROUTER_CATEGORIES"] ?? "cli-agent,cloud-agent";
-      headers["HTTP-Referer"] = process.env["OPENROUTER_SITE_URL"] ?? "https://github.com/x402agent/solana-clawd";
+      headers["HTTP-Referer"] = process.env["OPENROUTER_SITE_URL"] ?? OPENCLAWD_SITE_URL;
     }
 
     // Streaming response

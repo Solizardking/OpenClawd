@@ -2,7 +2,7 @@
  * src/vault/vault-manager.ts — Solana-native encrypted vault manager
  *
  * Securely stores encrypted keypairs, session tokens, API secrets, and
- * other sensitive material at ~/.clawd/vault/vault.json.
+ * other sensitive material at ~/.openclawd/vault/vault.json.
  *
  * Encryption: AES-256-GCM with master key derived from a user-provided
  * passphrase via scrypt (N=2^15, r=8, p=1, keylen=32).
@@ -63,8 +63,10 @@ interface VaultFile {
 // Constants
 // ─────────────────────────────────────────────────────────────────────────────
 
-const VAULT_DIR = join(homedir(), ".clawd", "vault");
-const VAULT_FILE = join(VAULT_DIR, "vault.json");
+const LEGACY_VAULT_DIR = join(homedir(), ".clawd", "vault");
+const LEGACY_VAULT_FILE = join(LEGACY_VAULT_DIR, "vault.json");
+const OPENCLAWD_VAULT_DIR = join(homedir(), ".openclawd", "vault");
+const OPENCLAWD_VAULT_FILE = join(OPENCLAWD_VAULT_DIR, "vault.json");
 
 const SCRYPT_N = 2 ** 15;
 const SCRYPT_R = 8;
@@ -120,14 +122,24 @@ function generateId(): string {
 // ─────────────────────────────────────────────────────────────────────────────
 
 async function ensureVaultDir(): Promise<void> {
-  if (!existsSync(VAULT_DIR)) {
-    await mkdir(VAULT_DIR, { recursive: true, mode: 0o700 });
+  if (!existsSync(OPENCLAWD_VAULT_DIR)) {
+    await mkdir(OPENCLAWD_VAULT_DIR, { recursive: true, mode: 0o700 });
   }
+}
+
+function getReadableVaultFilePath(): string {
+  if (existsSync(OPENCLAWD_VAULT_FILE)) return OPENCLAWD_VAULT_FILE;
+  if (existsSync(LEGACY_VAULT_FILE)) return LEGACY_VAULT_FILE;
+  return OPENCLAWD_VAULT_FILE;
+}
+
+export function getVaultFilePath(): string {
+  return getReadableVaultFilePath();
 }
 
 async function readVaultFile(): Promise<VaultFile | null> {
   try {
-    const raw = await readFile(VAULT_FILE, "utf8");
+    const raw = await readFile(getReadableVaultFilePath(), "utf8");
     return JSON.parse(raw) as VaultFile;
   } catch {
     return null;
@@ -137,7 +149,7 @@ async function readVaultFile(): Promise<VaultFile | null> {
 async function writeVaultFile(data: VaultFile): Promise<void> {
   await ensureVaultDir();
   data.updatedAt = Date.now();
-  await writeFile(VAULT_FILE, JSON.stringify(data, null, 2), { mode: 0o600 });
+  await writeFile(OPENCLAWD_VAULT_FILE, JSON.stringify(data, null, 2), { mode: 0o600 });
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -169,7 +181,7 @@ export class SolanaVault {
     const existing = await readVaultFile();
     if (existing) {
       throw new Error(
-        `Vault already exists at ${VAULT_FILE}. Use SolanaVault.open() to unlock it.`
+        `Vault already exists at ${getReadableVaultFilePath()}. Use SolanaVault.open() to unlock it.`
       );
     }
 
@@ -215,7 +227,7 @@ export class SolanaVault {
     const data = await readVaultFile();
     if (!data) {
       throw new Error(
-        `No vault found at ${VAULT_FILE}. Use SolanaVault.create() to initialize one.`
+        `No vault found at ${OPENCLAWD_VAULT_FILE}. Use SolanaVault.create() to initialize one.`
       );
     }
 

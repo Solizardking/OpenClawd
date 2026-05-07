@@ -22,8 +22,27 @@ src/
 ├── skills/         # Skill loading and execution
 ├── plugins/        # Plugin system
 ├── daemon/        # Daemon mode operations
+├── vault/          # Local encrypted vault adapters
+├── voice/          # Voice session commands and transport
+├── vim/            # Keyboard-first editor controls
 └── ...
 ```
+
+## OpenClawd Surface Map
+
+Shared site and backend routing lives in `src/constants/openclawd.ts`. Runtime
+surfaces should import that map instead of hardcoding `solanaclawd.com`,
+agent API endpoints, or holder routes.
+
+| Surface | Site route | Backend path |
+| --- | --- | --- |
+| Vault | `https://solanaclawd.com/vault` | `/api/vault` |
+| Voice | `https://solanaclawd.com/chat` | `/api/voice` |
+| Vim | `https://solanaclawd.com/chat` | `/api/editor/vim` |
+| Tools | `https://solanaclawd.com/agents` | `/api/tools` |
+| Trading | `https://solanaclawd.com/trading` | `/api/trading` |
+| Staking | `https://solanaclawd.com/staking` | `/api/staking` |
+| Mining | `https://solanaclawd.com/mining` | `/api/mining` |
 
 ## Core Components
 

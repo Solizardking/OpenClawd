@@ -8,6 +8,8 @@ import { getCwd } from './utils/cwd.js'
 import { isDirEmpty } from './utils/file.js'
 import { getFsImplementation } from './utils/fsOperations.js'
 
+const PROJECT_INSTRUCTION_FILES = ['AGENTS.md', 'OPENCLAWD.md', 'CLAUDE.md'] as const
+
 export type Step = {
   key: string
   text: string
@@ -16,9 +18,15 @@ export type Step = {
   isEnabled: boolean
 }
 
+export function getOpenClawdInstructionFiles(): readonly string[] {
+  return PROJECT_INSTRUCTION_FILES
+}
+
 export function getSteps(): Step[] {
-  const hasClaudeMd = getFsImplementation().existsSync(
-    join(getCwd(), 'CLAUDE.md'),
+  const fs = getFsImplementation()
+  const cwd = getCwd()
+  const hasProjectInstructions = PROJECT_INSTRUCTION_FILES.some(file =>
+    fs.existsSync(join(cwd, file)),
   )
   const isWorkspaceDirEmpty = isDirEmpty(getCwd())
 
@@ -32,8 +40,8 @@ export function getSteps(): Step[] {
     },
     {
       key: 'claudemd',
-      text: 'Run /init to create a CLAUDE.md file with instructions for Clawd',
-      isComplete: hasClaudeMd,
+      text: 'Run /init to create AGENTS.md or OPENCLAWD.md instructions for Clawd',
+      isComplete: hasProjectInstructions,
       isCompletable: true,
       isEnabled: !isWorkspaceDirEmpty,
     },
@@ -81,4 +89,3 @@ export function incrementProjectOnboardingSeenCount(): void {
     projectOnboardingSeenCount: current.projectOnboardingSeenCount + 1,
   }))
 }
-
