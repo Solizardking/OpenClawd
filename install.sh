@@ -37,6 +37,9 @@ umask 022
 # ──────────────────────────────────────────────────────────────────────────────
 REPO_URL="https://github.com/clawdsolana/OpenClawd.git"
 WORKSPACE="${OPENCLAWD_HOME:-$HOME/.openclawdsolana}"
+OPENCLAWD_BASE_URL="${OPENCLAWD_BASE_URL:-https://solanaclawd.com/openclawd}"
+OPENCLAWD_GATEWAY_URL="${OPENCLAWD_GATEWAY_URL:-https://solanaclawd.com/gateway}"
+OPENCLAWD_SITE_URL="${OPENCLAWD_SITE_URL:-https://solanaclawd.com}"
 BIN_DIR_DEFAULT="$WORKSPACE/bin"
 BIN_DIR=""
 BUILD_DIR_NAME="build"
@@ -352,18 +355,19 @@ fi
 # ──────────────────────────────────────────────────────────────────────────────
 CFG_PATH="$WORKSPACE/config.json"
 write_config() {
-  cat > "$CFG_PATH" <<'CFGEOF'
+  cat > "$CFG_PATH" <<CFGEOF
 {
-  "version": "0.2.0",
-  "apiBase":         "https://solanaclawd.com/api",
-  "gatewayBase":     "https://solanaclawd.com/x402",
-  "marketplaceBase": "https://solanaclawd.com/marketplace",
-  "mcpBase":         "https://solanaclawd.com/mcp",
-  "registrarBase":   "https://solanaclawd.com/registrar",
+  "version": "0.3.0",
+  "openclawdBase":   "$OPENCLAWD_BASE_URL",
+  "apiBase":         "$OPENCLAWD_BASE_URL",
+  "gatewayBase":     "$OPENCLAWD_GATEWAY_URL",
+  "marketplaceBase": "$OPENCLAWD_SITE_URL/marketplace",
+  "mcpBase":         "$OPENCLAWD_GATEWAY_URL/mcp",
+  "registrarBase":   "$OPENCLAWD_BASE_URL/registrar",
   "solanaRpc":       "https://api.mainnet-beta.solana.com",
   "sasProgramId":    "22zoJMtdu4tQc2PzL74ZUT7FrwgB1Udec8DdW4yw4BdG",
   "scope":           "@openclawdsolana",
-  "skillsCatalog":   "https://solanaclawd.com/api/skills",
+  "skillsCatalog":   "$OPENCLAWD_BASE_URL/skills",
   "extensionsDir":   "extensions",
   "skillsDir":       "skills",
   "voice": {
@@ -417,6 +421,9 @@ OPENCLAWD_VOICE_DEFAULT=eve
 OPENCLAWD_VOICE_REALTIME_URL=wss://api.x.ai/v1/realtime
 OPENCLAWD_VOICE_EPHEMERAL_URL=https://api.x.ai/v1/realtime/client_secrets
 OPENCLAWD_VOICE_EPHEMERAL_TTL=300
+OPENCLAWD_API_BASE=$OPENCLAWD_BASE_URL
+OPENCLAWD_GATEWAY_BASE=$OPENCLAWD_GATEWAY_URL
+OPENCLAWD_MARKETPLACE=$OPENCLAWD_SITE_URL/marketplace
 
 # ── Solana market data + indexing ─────────────────────────────────────────────
 HELIUS_API_KEY=

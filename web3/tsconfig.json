@@ -15,12 +15,17 @@
     "declaration": true,
     "declarationMap": true,
     "strict": true,
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
-      "@openclawdsolana/core": ["../packages/core/src"],
-      "@openclawdsolana/core/*": ["../packages/core/src/*"],
+      "@openclawdsolana/core": ["packages/src/index.ts"],
+      "@openclawdsolana/core/*": ["packages/src/*"],
       "@openclawdsolana/plugin-sql": ["../packages/plugin-sql/src/index.ts"],
-      "@openclawdsolana/plugin-sql/*": ["../packages/plugin-sql/src/*"]
+      "@openclawdsolana/plugin-sql/*": ["../packages/plugin-sql/src/*"],
+      "@openclawdsolana/plugin-bootstrap": ["../packages/plugin-bootstrap/src/index.ts"],
+      "@openclawdsolana/plugin-bootstrap/*": ["../packages/plugin-bootstrap/src/*"],
+      "@openclawdsolana/api-client": ["../packages/api-client/src/index.ts"],
+      "@openclawdsolana/api-client/*": ["../packages/api-client/src/*"]
     }
   }
 }
