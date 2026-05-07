@@ -309,8 +309,17 @@ elif [ -d "$SRC_DIR/dark-ralph" ] && command -v bun >/dev/null 2>&1; then
   ) || warn "dark-ralph TUI build failed"
   if [ -f "$SRC_DIR/dark-ralph/dist/cli.js" ]; then
     install -m 0755 "$SRC_DIR/dark-ralph/dist/cli.js" "$BIN_DIR/dark-ralph"
+    if [ -f "$SRC_DIR/dark-ralph/node_modules/yoga-wasm-web/dist/yoga.wasm" ]; then
+      install -m 0644 "$SRC_DIR/dark-ralph/node_modules/yoga-wasm-web/dist/yoga.wasm" "$BIN_DIR/yoga.wasm"
+    fi
     ln -sf "$BIN_DIR/dark-ralph" "$BIN_DIR/ralph-tui"
     rm -f "$BIN_DIR/ralph"
+    if printf ':%s:' "$PATH" | grep -q ":$HOME/.local/bin:"; then
+      mkdir -p "$HOME/.local/bin"
+      ln -sf "$BIN_DIR/dark-ralph" "$HOME/.local/bin/dark-ralph"
+      ln -sf "$BIN_DIR/dark-ralph" "$HOME/.local/bin/ralph-tui"
+      rm -f "$HOME/.local/bin/ralph"
+    fi
     ok "installed dark-ralph TUI (alias: ralph-tui)"
   fi
 else
