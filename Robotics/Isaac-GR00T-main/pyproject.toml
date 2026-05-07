@@ -1,7 +1,7 @@
 # Default platform pyproject.toml (x86, GB200, and any non-Jetson GPU)
 
 [build-system]
-requires = ["setuptools>=67", "wheel", "pip"]
+requires = ["setuptools>=82.0.1", "wheel", "pip"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -13,7 +13,7 @@ dependencies = [
     "huggingface-hub[cli]",
     "opencv-python-headless>=4.5,<4.13",
     "av==16.1.0",
-    "diffusers==0.35.1",
+    "diffusers==0.38.0",
     "dm-tree",
     "lmdb==1.7.5",
     "msgpack==1.1.0",

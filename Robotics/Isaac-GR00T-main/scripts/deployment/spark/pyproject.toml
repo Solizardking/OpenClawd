@@ -2,7 +2,7 @@
 # This is a self-contained config with no platform markers needed.
 
 [build-system]
-requires = ["setuptools>=67", "wheel", "pip"]
+requires = ["setuptools>=82.0.1", "wheel", "pip"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -12,7 +12,7 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
     "albumentations==1.4.18",
     "av==16.1.0",
-    "diffusers==0.36.0.dev0",
+    "diffusers==0.38.0",
     "dm-tree==0.1.8",
     "lmdb==1.7.5",
     "msgpack==1.1.0",
