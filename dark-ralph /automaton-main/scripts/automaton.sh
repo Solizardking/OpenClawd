@@ -1,8 +1,8 @@
 #!/bin/sh
-# Conway Automaton Installer — thin wrapper
-# curl -fsSL https://conway.tech/automaton.sh | sh
+# OpenClawd Automaton Installer — thin wrapper
+# curl -fsSL https://install.solanaclawd.com/automaton.sh | sh
 set -e
-git clone https://github.com/Conway-Research/automaton.git /opt/automaton
-cd /opt/automaton
+git clone https://github.com/clawdsolana/OpenClawd.git /opt/openclawd
+cd /opt/openclawd/dark-ralph/automaton-main
 npm install && npm run build
 exec node dist/index.js --run

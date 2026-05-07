@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "@darkralph/tui",
+      "name": "@openclawdsolana/dark-ralph",
       "dependencies": {
         "@solana/spl-token": "^0.3.9",
         "@solana/web3.js": "^1.87.6",
