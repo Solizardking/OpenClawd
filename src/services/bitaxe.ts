@@ -40,7 +40,7 @@ export class BitaxeClient {
   private readonly fetchImpl: typeof fetch;
 
   constructor(options: BitaxeClientOptions = {}) {
-    this.baseUrl = normalizeBaseUrl(options.baseUrl ?? process.env.BITAXE_URL ?? process.env.OPENCLAWD_BITAXE_URL);
+    this.baseUrl = normalizeBaseUrl(options.baseUrl ?? process.env.BITAXE_URL ?? process.env.OPENCLAWD_BITAXE_URL ?? 'http://bitaxe');
     this.timeoutMs = options.timeoutMs ?? Number(process.env.BITAXE_TIMEOUT_MS ?? 5_000);
     this.fetchImpl = options.fetchImpl ?? fetch;
   }
@@ -143,10 +143,7 @@ export class BitaxeClient {
 }
 
 function normalizeBaseUrl(value: string | undefined): string {
-  if (!value?.trim()) {
-    throw new BitaxeError('Missing BITAXE_URL or OPENCLAWD_BITAXE_URL, for example http://bitaxe.local or http://192.168.1.42');
-  }
+  if (!value?.trim()) return 'http://bitaxe';
   const withProtocol = /^https?:\/\//i.test(value) ? value : `http://${value}`;
   return withProtocol.replace(/\/+$/, '');
 }
-

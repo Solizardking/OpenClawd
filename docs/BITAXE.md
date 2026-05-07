@@ -3,7 +3,8 @@
 OpenClawd can read and control a Bitaxe running ESP-Miner / AxeOS over the
 local AxeOS HTTP API.
 
-Set the device URL:
+By default the connector tries `http://bitaxe`, which works on networks where
+mDNS is enabled. To use an explicit LAN IP, set the device URL:
 
 ```bash
 export BITAXE_URL=http://bitaxe
@@ -56,4 +57,3 @@ Safety:
 - Overclock settings can overheat or damage hardware without additional
   cooling. Keep ASIC frequency and core-voltage changes as manual operator
   actions.
-

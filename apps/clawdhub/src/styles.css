@@ -7750,6 +7750,15 @@ html.theme-transition::view-transition-new(theme) {
   border-radius: 4px;
 }
 
+.mining-hardware-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
 .mining-pet-card {
   background: linear-gradient(135deg, rgba(26, 10, 46, 0.6), var(--surface));
   border: 1px solid #ff660044;

@@ -57,7 +57,7 @@ if (MUTATING_COMMANDS.has(command) && !options.yes) {
   process.exit(2);
 }
 
-const baseUrl = normalizeBaseUrl(options.url || process.env.BITAXE_URL || process.env.OPENCLAWD_BITAXE_URL);
+const baseUrl = normalizeBaseUrl(options.url || process.env.BITAXE_URL || process.env.OPENCLAWD_BITAXE_URL || 'http://bitaxe');
 
 try {
   const result = await run(command, baseUrl, options);
@@ -218,10 +218,7 @@ function parseJsonBody(value) {
 }
 
 function normalizeBaseUrl(value) {
-  if (!value?.trim()) {
-    throw new Error('Missing Bitaxe URL. Set BITAXE_URL=http://<ip> or pass --url http://<ip>.');
-  }
+  if (!value?.trim()) return 'http://bitaxe';
   const withProtocol = /^https?:\/\//i.test(value) ? value : `http://${value}`;
   return withProtocol.replace(/\/+$/, '');
 }
-

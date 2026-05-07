@@ -70,6 +70,37 @@ function MiningSetup() {
       ),
     },
     {
+      title: 'Flash Or Recover Firmware',
+      icon: <Download className="gallery-panel-icon" aria-hidden="true" />,
+      content: (
+        <div className="setup-body">
+          <p className="gallery-copy-text">
+            ESP-Miner factory images must match the Bitaxe hardware version. Use bitaxetool v0.6.1 so it stays on esptool v4.9.0; esptool v5 is not supported by bitaxetool.
+          </p>
+          <CopyBlock
+            code={`python3 -m pip install --upgrade pip
+python3 -m pip install bitaxetool==0.6.1`}
+            label="Copy bitaxetool install"
+          />
+          <h3 className="setup-subtitle">Factory reset firmware</h3>
+          <CopyBlock
+            code={`bitaxetool --firmware ./esp-miner-factory-401-v2.13.1.bin`}
+            label="Copy factory flash"
+          />
+          <h3 className="setup-subtitle">Flash firmware plus config</h3>
+          <CopyBlock
+            code={`bitaxetool \\
+  --config ./config-401.cvs \\
+  --firmware ./esp-miner-factory-401-v2.13.1.bin`}
+            label="Copy firmware and config flash"
+          />
+          <div className="setup-callout">
+            If AxeOS breaks after a web UI update, open <code>http://BITAXE-IP/recovery</code> on the same LAN.
+          </div>
+        </div>
+      ),
+    },
+    {
       title: 'Start OpenClawd',
       icon: <Cpu className="gallery-panel-icon" aria-hidden="true" />,
       content: (
@@ -130,8 +161,15 @@ cat ~/.nanosolana/connect/openclawd-connect.json`}
           </p>
           <h3 className="setup-subtitle">Verify locally</h3>
           <CopyBlock
+            code={`curl http://BITAXE-IP/api/system/info
+curl http://BITAXE-IP/api/system/asic
+curl http://BITAXE-IP/api/system/statistics/dashboard`}
+            label="Copy AxeOS verification"
+          />
+          <h3 className="setup-subtitle">OpenClawd gateway verification</h3>
+          <CopyBlock
             code={`curl http://127.0.0.1:7777/api/miner`}
-            label="Copy miner verification"
+            label="Copy gateway miner verification"
           />
           <div className="setup-callout">
             If you later connect the Mining dashboard, use only a LAN URL or a Tailscale URL. Do not port-forward <code>:8420</code> publicly.

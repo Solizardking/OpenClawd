@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ArrowLeft, Cpu, RefreshCw, Settings, Wifi, WifiOff, Zap } from 'lucide-react'
+import { ArrowLeft, Cpu, RefreshCw, Wifi, WifiOff, Zap } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 export const Route = createFileRoute('/mining')({
