@@ -24,7 +24,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@openclawdsolana/core': path.resolve(__dirname, '../../core/src'),
+      '@openclawdsolana/core': path.resolve(__dirname, '../web3/packages/src'),
     },
   },
   server: {

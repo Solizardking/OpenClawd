@@ -25,8 +25,8 @@
     "allowArbitraryExtensions": true,
     "baseUrl": ".",
     "paths": {
-      "@openclawdsolana/core": ["../../core/src"],
-      "@openclawdsolana/core/*": ["../../core/src/*"]
+      "@openclawdsolana/core": ["../web3/packages/src"],
+      "@openclawdsolana/core/*": ["../web3/packages/src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.json", "*.json"],
