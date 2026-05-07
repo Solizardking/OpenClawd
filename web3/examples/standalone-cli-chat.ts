@@ -312,7 +312,7 @@ class ChatInterface {
   private isExitCommand(input: string | symbol): boolean {
     if (clack.isCancel(input)) return true;
     if (typeof input === 'string') {
-      return CONSTANTS.EXIT_COMMANDS.includes(input.toLowerCase());
+      return (CONSTANTS.EXIT_COMMANDS as readonly string[]).includes(input.toLowerCase());
     }
     return false;
   }
