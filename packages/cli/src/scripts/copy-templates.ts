@@ -66,6 +66,11 @@ async function main() {
     // Define templates to copy
     const templates = [
       {
+        name: 'clawdbot-starter',
+        src: path.resolve(ROOT_DIR, 'packages/clawdbot-template'),
+        dest: path.resolve(TEMPLATES_DIR, 'clawdbot-starter'),
+      },
+      {
         name: 'project-starter',
         src: path.resolve(ROOT_DIR, 'packages/project-starter'),
         dest: path.resolve(TEMPLATES_DIR, 'project-starter'),

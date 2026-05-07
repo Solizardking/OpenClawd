@@ -1,7 +1,10 @@
 packages:
+  - "packages/clawdbot-template"
   - "packages/service-registry"
   - "openclawd-framework"
   - "gateway"
+  - "ui"
+  - "web3/clawdbot"
   - "chrome-extension/core"
   - "chrome-extension/llms"
   - "chrome-extension/page-agent"

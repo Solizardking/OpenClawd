@@ -92,6 +92,9 @@ export async function copyDir(src: string, dest: string, exclude: string[] = [])
  */
 function getPackageName(templateType: string): string {
   switch (templateType) {
+    case 'clawdbot':
+    case 'clawdbot-starter':
+      return 'clawdbot-starter';
     case 'project-tee-starter':
       return 'project-tee-starter';
     case 'plugin':
@@ -109,7 +112,14 @@ function getPackageName(templateType: string): string {
  * Copy a project or plugin template to target directory
  */
 export async function copyTemplate(
-  templateType: 'project' | 'project-starter' | 'project-tee-starter' | 'plugin' | 'plugin-quick',
+  templateType:
+    | 'project'
+    | 'project-starter'
+    | 'clawdbot'
+    | 'clawdbot-starter'
+    | 'project-tee-starter'
+    | 'plugin'
+    | 'plugin-quick',
   targetDir: string
 ) {
   const packageName = getPackageName(templateType);
@@ -130,6 +140,10 @@ export async function copyTemplate(
     path.resolve(__dirname, '../../../..', packageName),
     // 7. Alternative monorepo package path (from utils to packages directory)
     path.resolve(__dirname, '../../../../packages', packageName),
+    // 8. ClawdBot is stored under packages/clawdbot-template but published as clawdbot-starter.
+    ...(packageName === 'clawdbot-starter'
+      ? [path.resolve(__dirname, '../../../../packages/clawdbot-template')]
+      : []),
   ];
 
   let templateDir: string | null = null;

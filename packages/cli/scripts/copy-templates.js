@@ -56,6 +56,12 @@ async function copyTemplates() {
   // Ensure templates directory exists
   await fs.mkdir(templatesDir, { recursive: true });
 
+  // Copy clawdbot-starter template
+  const clawdbotStarterSrc = path.join(rootDir, 'packages/clawdbot-template');
+  const clawdbotStarterDest = path.join(templatesDir, 'clawdbot-starter');
+  await copyDir(clawdbotStarterSrc, clawdbotStarterDest);
+  console.log('✅ Copied clawdbot-starter template');
+
   // Copy project-starter template
   const projectStarterSrc = path.join(rootDir, 'packages/project-starter');
   const projectStarterDest = path.join(templatesDir, 'project-starter');

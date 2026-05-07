@@ -1,6 +1,6 @@
 {
-  "name": "@openclawdsolana/clawdbot",
-  "description": "OpenClawd ClawdBot Web3 project with Solana, Telegram, TEE, and UI surfaces",
+  "name": "@openclawdsolana/clawdbot-template",
+  "description": "Default OpenClawd ClawdBot Web3 starter with Solana, Telegram, TEE, and UI surfaces",
   "version": "0.1.0",
   "type": "module",
   "main": "dist/src/index.js",

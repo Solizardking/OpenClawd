@@ -57,9 +57,9 @@ export const create = new Command('create')
             message: 'What would you like to create?',
             options: [
               {
-                label: 'Project - Full OpenClawd application',
+                label: 'Project - ClawdBot Web3 starter',
                 value: 'project',
-                hint: 'Complete project with runtime, agents, and all features',
+                hint: 'Default starter with Solana, Telegram, TEE hooks, and UI',
               },
               {
                 label: 'Plugin - Custom OpenClawd plugin',

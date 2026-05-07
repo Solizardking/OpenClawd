@@ -19,6 +19,54 @@
 
 ---
 
+## Start Here: ClawdBot Web3 Template
+
+OpenClawd now starts users on **ClawdBot**, the default Web3 project template.
+It includes the OpenClawd agent runtime, Solana data hooks, Telegram bot
+support, optional Phala TEE key derivation, and a React UI surface.
+
+```bash
+# 1. Install dependencies
+npm install
+
+# 2. Copy the safe env template and add only local secrets
+cp .env.example .env.local
+$EDITOR .env.local
+
+# 3. Check the repo
+npm run doctor
+
+# 4. Create a new ClawdBot project from the default template
+openclawd create my-clawdbot
+cd my-clawdbot
+openclawd dev
+```
+
+Minimum useful env:
+
+```bash
+OPENROUTER_API_KEY=
+HELIUS_API_KEY=
+BIRDEYE_API_KEY=
+TELEGRAM_BOT_TOKEN=      # optional, only needed for Telegram
+SOLANA_PRIVATE_KEY=      # optional, only after read-only flows are tested
+```
+
+Useful root commands:
+
+```bash
+npm run dev:clawdbot      # run the vendored web3/clawdbot project
+npm run build:clawdbot    # build the ClawdBot starter
+npm run dev:ui            # run the main /ui control surface
+npm run build:ui          # build the main /ui control surface
+```
+
+The public Web3 source lives in [`web3/`](./web3/). The CLI-packaged default
+template lives in [`packages/clawdbot-template/`](./packages/clawdbot-template/).
+Do not commit populated env files, wallet keypairs, or private bot tokens.
+
+---
+
 ## OpenClawd Operator + Skill Deck Adaptation
 
 The repo now carries the Llobster Legend operator identity through the former

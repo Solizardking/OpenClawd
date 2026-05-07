@@ -353,8 +353,8 @@ export async function createProject(
     }
 
     await runTasks([
-      createTask('Copying project template', () =>
-        copyTemplateUtil('project-starter', projectTargetDir)
+      createTask('Copying ClawdBot Web3 template', () =>
+        copyTemplateUtil('clawdbot-starter', projectTargetDir)
       ),
       createTask('Setting up project environment', () =>
         setupProjectEnvironment(projectTargetDir, database, aiModel, embeddingModel, true)
@@ -372,6 +372,7 @@ export async function createProject(
     console.info(`\n  Common commands:`);
     console.info(`  openclawd dev    # Start development mode with hot reloading`);
     console.info(`  openclawd start  # Start in production mode\n`);
+    console.info(`  The default project template is ClawdBot, including Web3, Telegram, Solana, TEE, and a React UI surface.\n`);
   };
 
   if (projectName === '.') {
