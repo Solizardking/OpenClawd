@@ -1,9 +1,8 @@
 # ClawdBot Web3 Starter
 
-ClawdBot is the default OpenClawd project template and now has a top-level repo
-home at [`../../clawdbot`](../../clawdbot). It gives new users a ready-to-run
-agent with Solana data hooks, optional Telegram, optional Phala TEE key
-derivation, and a branded React UI surface.
+ClawdBot is the default OpenClawd project template. It gives new users a
+ready-to-run agent with Solana data hooks, optional Telegram, optional Phala TEE
+key derivation, and a branded React UI surface.
 
 ## Quick Start
 

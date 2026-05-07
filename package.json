@@ -86,7 +86,6 @@
     "chrome-extension/wallet",
     "chrome-extension/mcp",
     "ui",
-    "web3/clawdbot",
     "clawdbot"
   ],
   "scripts": {

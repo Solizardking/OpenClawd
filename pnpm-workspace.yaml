@@ -5,7 +5,6 @@ packages:
   - "gateway"
   - "clawdbot"
   - "ui"
-  - "web3/clawdbot"
   - "chrome-extension/core"
   - "chrome-extension/llms"
   - "chrome-extension/page-agent"
