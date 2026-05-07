@@ -101,6 +101,12 @@ export {
   ASYNC_AGENT_ALLOWED_TOOLS,
   COORDINATOR_MODE_ALLOWED_TOOLS,
 } from './constants/tools.js'
+export {
+  OPENCLAWD_CAPABILITIES,
+  getOpenClawdBackendUrl,
+  getOpenClawdCapabilityMap,
+  getOpenClawdRouteUrl,
+} from './constants/openclawd.js'
 import { feature } from 'bun:bundle'
 // Dead code elimination: conditional import for OVERFLOW_TEST_TOOL
 /* eslint-disable custom-rules/no-process-env-top-level, @typescript-eslint/no-require-imports */
@@ -387,4 +393,3 @@ export function getMergedTools(
   const builtInTools = getTools(permissionContext)
   return [...builtInTools, ...mcpTools]
 }
-

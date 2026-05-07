@@ -98,8 +98,8 @@ TCP/IP gateway for:
 import { createEngine } from './src/engine';
 
 const engine = await createEngine({
-  model: 'claude-sonnet-4',
-  tools: ['file', 'shell', 'http'],
+  model: 'minimax/minimax-m2.7',
+  tools: ['file', 'shell', 'http', 'vault', 'trading'],
 });
 
 await engine.start();
@@ -108,15 +108,20 @@ await engine.start();
 ## Development
 
 ```bash
-# Type check
-npx tsc --noEmit
+# Type check configured workspaces
+npm run typecheck
 
-# Build
-npm run build
+# Build the active app/package surface
+npm run build --if-present
 
-# Run tests
-npm test
+# Run available tests
+npm test --if-present
 ```
+
+Raw `npx tsc --noEmit` over all of `src/` is not the canonical check for this
+tree; it pulls in upstream/Bun-only modules and JSX surfaces that are not wired
+through the root TypeScript config. Use the package scripts above unless you are
+working inside a subpackage with its own `tsconfig.json`.
 
 ## License
 

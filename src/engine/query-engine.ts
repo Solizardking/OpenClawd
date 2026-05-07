@@ -19,7 +19,7 @@
  *  - Local MLX (Apple Silicon, via scripts/mlx-server.py Anthropic-compat API)
  */
 
-import { ToolRegistry, ToolResult } from "./tool-base.js";
+import { ToolRegistry } from "./tool-base.js";
 import { ToolExecutor, LLMToolCall, ToolCallResult } from "./tool-executor.js";
 import { OPENCLAWD_SITE_NAME, OPENCLAWD_SITE_URL } from "../constants/openclawd.js";
 
