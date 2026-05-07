@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from fastapi import FastAPI, Header, HTTPException, Query
 
+from .memory import MemoryNoteCreate, store as memory_store, remember
 from .models import AutoloopMandate, ChainResearchPayload, DefiResearchPayload, MarketResearchPayload
 from .research import chain_research, defi_research, market_research, store
 
@@ -15,6 +16,26 @@ app = FastAPI(
 @app.get("/health")
 def health() -> dict[str, str]:
     return {"status": "ok"}
+
+
+@app.post("/api/v1/memory/notes")
+def memory_upsert(payload: MemoryNoteCreate):
+    return remember(payload)
+
+
+@app.get("/api/v1/memory/notes")
+def memory_list(tag: str | None = None, source: str | None = None, limit: int = Query(default=100, ge=1, le=500)):
+    return memory_store.list_notes(tag=tag, source=source, limit=limit)
+
+
+@app.get("/api/v1/memory/search")
+def memory_search(q: str, limit: int = Query(default=20, ge=1, le=100)):
+    return memory_store.search(q, limit=limit)
+
+
+@app.get("/api/v1/memory/links")
+def memory_links():
+    return {"links": memory_store.links()}
 
 
 @app.post("/api/v1/research/chain")

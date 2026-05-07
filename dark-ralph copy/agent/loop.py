@@ -19,6 +19,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable
 
+from memory import remember_tick
+
 ROOT = Path(__file__).resolve().parent
 JOURNAL_DIR = ROOT / "journal"
 JOURNAL_FILE = JOURNAL_DIR / "ticks.jsonl"
@@ -247,6 +249,7 @@ def run_loop(
     seed: int,
     commit_every: int,
     tui: bool,
+    memory_url: str | None = None,
     decision_fn: Callable[[State, dict], dict] = rule_based_decision,
 ) -> int:
     frontmatter = parse_frontmatter(RALPH_MD)
@@ -292,6 +295,7 @@ def run_loop(
             "consecutive_losses": state.consecutive_losses,
         }
         journal_append(entry)
+        remember_tick(entry, memory_url=memory_url)
         state.last_decisions = (state.last_decisions + [entry])[-3:]
         emit({"event": "tick", **entry}, tui)
 
@@ -324,6 +328,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--commit-every", type=int, default=10, help="git-commit journal every N ticks; 0 disables")
     parser.add_argument("--tui", action="store_true", help="emit TUI-consumable JSONL")
+    parser.add_argument("--memory-url", default=None, help="OpenClawd memory service URL")
     parser.add_argument("--mode", default="paper", choices=["paper"], help="v0 only supports paper")
     args = parser.parse_args(argv)
 
@@ -333,6 +338,7 @@ def main(argv: list[str] | None = None) -> int:
         seed=args.seed,
         commit_every=args.commit_every,
         tui=args.tui,
+        memory_url=args.memory_url,
     )
 
 

@@ -63,6 +63,7 @@ python3 agent/loop.py --ticks 100 --sleep 0.2 --commit-every 10
 --seed N             RNG seed for synthesized candles, default 42
 --commit-every N     git-commit the journal every N ticks; 0 disables
 --tui                emit JSONL on stdout for tui.py
+--memory-url URL     optional OpenClawd memory service URL
 --mode paper         v0 only supports paper
 ```
 
@@ -70,6 +71,7 @@ python3 agent/loop.py --ticks 100 --sleep 0.2 --commit-every 10
 
 ```text
 SOLANA_RPC_URL       optional, devnet endpoint only
+OPENCLAWD_MEMORY_URL optional memory service URL; falls back to journal/memory.jsonl
 MAINNET_OK           do not set this for v0; there is no signing path
 ```
 
@@ -81,6 +83,7 @@ agent/
 ├── RALPH.md
 ├── loop.py
 ├── tui.py
+├── memory.py
 └── journal/
     ├── .gitkeep
     └── ticks.jsonl

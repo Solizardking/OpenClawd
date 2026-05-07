@@ -15,6 +15,7 @@ from .models import (
     ResearchResponse,
     ResearchRun,
 )
+from .memory import remember_research_run
 
 
 DEFAULT_INTERVAL_SECONDS = 300
@@ -223,6 +224,7 @@ def _response(
         metadata={**metadata, "created_at": created_at},
     )
     store.add_run(kind, response, created_at)
+    remember_research_run(kind, response)
     return response
 
 
