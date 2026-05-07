@@ -116,6 +116,12 @@ wallet.json
 .openclawd/
 .clawd/
 
+# Anchor local ledgers and generated state
+.anchor/
+**/.anchor/
+test-ledger/
+**/test-ledger/
+
 # MCP caches
 .mcp/
 .mcp-cache/

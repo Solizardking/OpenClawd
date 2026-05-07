@@ -77,7 +77,7 @@ agent.
 The OpenClawd frontend exposes the staking workflow at:
 
 ```text
-/agents/stake
+/staking
 ```
 
 The page builds wallet-signed Solana transactions directly from the browser for

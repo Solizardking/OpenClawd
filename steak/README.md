@@ -23,7 +23,7 @@ Cluster:         devnet
 The main OpenClawd frontend route is:
 
 ```text
-/agents/stake
+/staking
 ```
 
 The frontend builds wallet-signed transactions directly for `initialize`,
@@ -63,8 +63,7 @@ Anchor.toml                     cluster, wallet, and program-id config
 Related frontend files in the main OpenClawd app:
 
 ```text
-client/src/lib/agentStaking.ts
-client/src/pages/AgentStake.tsx
+apps/clawdhub/src/routes/staking.tsx
 ```
 
 ## Program Accounts
@@ -177,7 +176,7 @@ match all of:
 - `Anchor.toml`
 - `OPENCLAWD_AGENT_STAKING_PROGRAM_ID`
 - `lib/constant.ts`
-- `client/src/lib/agentStaking.ts` if the frontend is targeting the same deploy
+- `apps/clawdhub/src/routes/staking.tsx` if the frontend is targeting the same deploy
 
 The current local toolchain has emitted a warning when `anchor-cli` is `0.32.1`
 and the program dependencies use `anchor-lang` / `@coral-xyz/anchor` `0.30.1`.
@@ -270,7 +269,7 @@ npm run script:devnet -- unlock \
 
 ## Frontend Usage
 
-The OpenClawd app exposes `/agents/stake`.
+The OpenClawd app exposes `/staking`.
 
 Required frontend env when overriding defaults:
 
@@ -312,7 +311,7 @@ This protocol sits under the OpenClawd Solana-native agent economy:
 
 - agent minting via Metaplex Core
 - agent registration via Metaplex Agent Registry
-- staking state visible in `/agents/stake`
+- staking state visible in `/staking`
 - wallet-gated agent actions
 - policy checks in the OpenClawd backend
 - staking status indexing for dashboards and future rewards

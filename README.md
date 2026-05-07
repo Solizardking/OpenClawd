@@ -65,11 +65,16 @@ npm run dev:clawdbot      # run the top-level clawdbot project
 npm run build:clawdbot    # build the ClawdBot starter
 npm run dev:ui            # run the main /ui control surface
 npm run build:ui          # build the main /ui control surface
+npm run build:steak       # build the OpenClawd agent staking Anchor program
 ```
 
 The public Web3 source lives in [`web3/`](./web3/). The CLI-packaged default
 template lives in [`packages/clawdbot-template/`](./packages/clawdbot-template/).
 Do not commit populated env files, wallet keypairs, or private bot tokens.
+
+Agent staking lives in [`steak/`](./steak/) and maps to the public `/staking`
+route in [`apps/clawdhub`](./apps/clawdhub/). See
+[`docs/STEAK.md`](./docs/STEAK.md) for the directory map and root commands.
 
 ---
 
