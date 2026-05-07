@@ -75,6 +75,20 @@ OPENCLAWD_MEMORY_URL optional memory service URL; falls back to journal/memory.j
 MAINNET_OK           do not set this for v0; there is no signing path
 ```
 
+## OpenClawd Memory
+
+Each tick is also rendered as an Obsidian-style Markdown note:
+
+- title: `Dark Ralph Tick N`
+- source: `dark_ralph`
+- tags: `openclawd`, `dark-ralph`, `ooda`, action, tick number
+- links: `[[Dark Ralph]]` and `[[OpenClawd Research]]`
+
+If `OPENCLAWD_MEMORY_URL` or `--memory-url` is set, the loop posts notes
+to `/v1/openclawd/memory/notes` and falls back to `/api/v1/memory/notes`.
+If neither endpoint is available, it appends local notes to
+`agent/journal/memory.jsonl`.
+
 ## Files
 
 ```text
