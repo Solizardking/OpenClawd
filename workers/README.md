@@ -69,14 +69,15 @@ Cloudflare Email Routing sends inbound mail via the `email` handler; outbound re
 
 ## 📦 install-worker
 
-**solanaclawd-install — serves `https://solanaclawd.com/install.sh`.**
+**solanaclawd-install — serves `https://install.solanaclawd.com`.**
 
 - One-shot installer for the entire OpenClawd stack
 - Installer body embedded in the worker (works with private repos)
-- Deployed at custom domain `solanaclawd.com/install.sh`
+- Deployed at custom domain `install.solanaclawd.com`
+- Also supports apex aliases `solanaclawd.com/install.sh` and `/install`
 
 ```bash
-curl -sSf https://solanaclawd.com/install.sh | bash
+curl -fsSL https://install.solanaclawd.com | bash
 ```
 
 Pair with the `sync.mjs` script to keep the embedded `install-script.ts` in sync with the repo's top-level `install.sh`.

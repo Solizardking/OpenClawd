@@ -1,14 +1,14 @@
 # solanaclawd-install (Cloudflare Worker)
 
-Serves the openclawd installer at `https://solanaclawd.com/install.sh` by
-proxying the latest [`install.sh`](../../install.sh) from the GitHub repo.
-Cached at the edge (5-minute TTL) so updates propagate quickly.
+Serves the openclawd installer at `https://install.solanaclawd.com` with the
+installer body embedded in the worker. Cached at the edge (5-minute TTL) so
+updates propagate quickly.
 
 ## Why this exists
 
-`curl -fsSL https://solanaclawd.com/install.sh | bash` is the advertised
-entry-point for the stack. If the apex domain doesn't have a route serving
-that path, users hit `500`. This worker is the canonical route.
+`curl -fsSL https://install.solanaclawd.com | bash` is the advertised
+entry-point for the stack. The apex `solanaclawd.com/install.sh` route remains
+available as a compatibility alias, but the install subdomain is canonical.
 
 ## Deploy
 
@@ -19,23 +19,23 @@ npx wrangler@latest login           # once
 npx wrangler@latest deploy
 ```
 
-The route `solanaclawd.com/install.sh` is declared in
-[`wrangler.toml`](./wrangler.toml); the `solanaclawd.com` zone must be in
-the same Cloudflare account.
+The `install.solanaclawd.com` custom domain and apex aliases are declared in
+[`wrangler.toml`](./wrangler.toml); the `solanaclawd.com` zone must be in the
+same Cloudflare account.
 
 ## Test
 
 ```bash
-curl -fsSL https://solanaclawd.com/install.sh | head
-curl -I  https://solanaclawd.com/install.sh
-curl     https://solanaclawd.com/install/healthz   # -> "ok"
+curl -fsSL https://install.solanaclawd.com | head
+curl -I  https://install.solanaclawd.com
+curl     https://install.solanaclawd.com/healthz   # -> "ok"
 ```
 
 ## Fallback
 
-If the worker is down or the zone isn't configured yet, users can still
-install via the raw GitHub URL:
+If the install subdomain is not configured yet, the apex alias should work
+after the Cloudflare route is deployed:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/x402agent/openclawd/main/install.sh | bash
+curl -fsSL https://solanaclawd.com/install.sh | bash
 ```

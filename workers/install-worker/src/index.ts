@@ -2,9 +2,11 @@
  * solanaclawd-install — Cloudflare Worker
  *
  * Serves:
- *   - https://solanaclawd.com/install.sh  → raw shell script
- *   - https://solanaclawd.com/gateway     → HTML installer gateway
- *   - https://solanaclawd.com/install      → redirect to gateway
+ *   - https://install.solanaclawd.com      → raw shell script
+ *   - https://gateway.solanaclawd.com      → HTML installer gateway
+ *   - https://solanaclawd.com/install.sh   → apex alias for raw shell script
+ *   - https://solanaclawd.com/gateway      → apex alias for gateway
+ *   - https://solanaclawd.com/install      → apex alias for gateway
  *
  * The install.sh body is embedded in this worker (see ./install-script.ts)
  * so it works even when the openclawd repo is private.
@@ -158,7 +160,7 @@ const GATEWAY_HTML = `<!DOCTYPE html>
     <div class="box">
       <h2>Quick Install</h2>
       <div class="command">
-        <code>curl -fsSL https://solanaclawd.com/install.sh | bash</code>
+        <code>curl -fsSL https://install.solanaclawd.com | bash</code>
       </div>
       <button class="copy-btn" onclick="copyCommand()">Copy Command</button>
       <p class="token">$CLAWD · 8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump</p>
@@ -190,7 +192,7 @@ const GATEWAY_HTML = `<!DOCTYPE html>
   
   <script>
     function copyCommand() {
-      const cmd = 'curl -fsSL https://solanaclawd.com/install.sh | bash';
+      const cmd = 'curl -fsSL https://install.solanaclawd.com | bash';
       navigator.clipboard.writeText(cmd).then(() => {
         const btn = document.querySelector('.copy-btn');
         btn.textContent = 'Copied!';
