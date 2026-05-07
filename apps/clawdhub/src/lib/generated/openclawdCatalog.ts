@@ -1,11 +1,11 @@
 export const openClawdCatalog = {
-  "generatedAt": "2026-05-05T07:48:28.942Z",
+  "generatedAt": "2026-05-07T20:21:03.590Z",
   "repositoryUrl": "https://github.com/x402agent/openclawd",
   "siteUrl": "http://localhost:3000",
   "skillsHubUrl": "http://localhost:3000/hub",
   "troubleshootingUrl": "http://localhost:3000/setup/troubleshooting",
   "packageCount": 64,
-  "skillCount": 99,
+  "skillCount": 135,
   "bundledMobileSkills": [
     {
       "slug": "seeker-daemon-ops",
@@ -609,14 +609,15 @@ export const openClawdCatalog = {
       "name": "gateway",
       "path": "src/gateway",
       "importPath": null,
-      "fileCount": 6,
-      "sizeBytes": 34825,
+      "fileCount": 7,
+      "sizeBytes": 37837,
       "category": "Gateway & API",
       "summary": "Gateway transport, discovery, auth, pairing, and remote connection handling.",
       "keyFiles": [
         "device-auth.ts",
         "events.ts",
         "gateway-integration.ts",
+        "openrouter-handlers.ts",
         "sse-transport.ts"
       ],
       "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/src/gateway"
@@ -989,12 +990,15 @@ export const openClawdCatalog = {
       "name": "plugins",
       "path": "src/plugins",
       "importPath": null,
-      "fileCount": 2,
-      "sizeBytes": 5825,
+      "fileCount": 5,
+      "sizeBytes": 17009,
       "category": "Utilities",
       "summary": "plugins package from the OpenClawd computer runtime.",
       "keyFiles": [
-        "builtinPlugins.ts"
+        "builtinPlugins.ts",
+        "index.ts",
+        "registry.ts",
+        "types.ts"
       ],
       "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/src/plugins"
     },
@@ -1133,7 +1137,7 @@ export const openClawdCatalog = {
       "path": "src/server",
       "importPath": null,
       "fileCount": 31,
-      "sizeBytes": 3087045,
+      "sizeBytes": 3088499,
       "category": "Utilities",
       "summary": "server package from the OpenClawd computer runtime.",
       "keyFiles": [
@@ -1155,7 +1159,7 @@ export const openClawdCatalog = {
       "path": "src/services",
       "importPath": null,
       "fileCount": 184,
-      "sizeBytes": 2029197,
+      "sizeBytes": 2029969,
       "category": "Utilities",
       "summary": "services package from the OpenClawd computer runtime.",
       "keyFiles": [
@@ -1234,8 +1238,8 @@ export const openClawdCatalog = {
       "name": "shared",
       "path": "src/shared",
       "importPath": null,
-      "fileCount": 4,
-      "sizeBytes": 20669,
+      "fileCount": 5,
+      "sizeBytes": 21674,
       "category": "Utilities",
       "summary": "shared package from the OpenClawd computer runtime.",
       "keyFiles": [
@@ -1333,7 +1337,7 @@ export const openClawdCatalog = {
       "path": "src/tasks",
       "importPath": null,
       "fileCount": 15,
-      "sizeBytes": 339446,
+      "sizeBytes": 339411,
       "category": "Utilities",
       "summary": "tasks package from the OpenClawd computer runtime.",
       "keyFiles": [
@@ -1429,7 +1433,7 @@ export const openClawdCatalog = {
       "path": "src/utils",
       "importPath": null,
       "fileCount": 579,
-      "sizeBytes": 6651027,
+      "sizeBytes": 6651454,
       "category": "Utilities",
       "summary": "General-purpose utility helpers shared across the runtime.",
       "keyFiles": [
@@ -1808,6 +1812,20 @@ export const openClawdCatalog = {
       }
     },
     {
+      "name": "agent-inbox",
+      "path": "skills/agent-inbox",
+      "fileCount": 2,
+      "sizeBytes": 3767,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/agent-inbox",
+      "downloadUrl": "http://localhost:3000/downloads/skills/agent-inbox.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-agent-inbox",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install agent-inbox",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install agent-inbox",
+        "bun": "bunx @nanosolana/nanohub@latest install agent-inbox"
+      }
+    },
+    {
       "name": "apple-notes",
       "path": "skills/apple-notes",
       "fileCount": 1,
@@ -1833,6 +1851,20 @@ export const openClawdCatalog = {
         "npm": "npx @nanosolana/nanohub@latest install apple-reminders",
         "pnpm": "pnpm dlx @nanosolana/nanohub@latest install apple-reminders",
         "bun": "bunx @nanosolana/nanohub@latest install apple-reminders"
+      }
+    },
+    {
+      "name": "artifacts",
+      "path": "skills/artifacts",
+      "fileCount": 218,
+      "sizeBytes": 986423,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/artifacts",
+      "downloadUrl": "http://localhost:3000/downloads/skills/artifacts.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-artifacts",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install artifacts",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install artifacts",
+        "bun": "bunx @nanosolana/nanohub@latest install artifacts"
       }
     },
     {
@@ -1936,8 +1968,8 @@ export const openClawdCatalog = {
     {
       "name": "canvas",
       "path": "skills/canvas",
-      "fileCount": 1,
-      "sizeBytes": 5505,
+      "fileCount": 3,
+      "sizeBytes": 32032,
       "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/canvas",
       "downloadUrl": "http://localhost:3000/downloads/skills/canvas.zip",
       "catalogUrl": "http://localhost:3000/hub#skill-canvas",
@@ -1990,6 +2022,20 @@ export const openClawdCatalog = {
       }
     },
     {
+      "name": "code_review",
+      "path": "skills/code_review",
+      "fileCount": 2,
+      "sizeBytes": 3140,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/code_review",
+      "downloadUrl": "http://localhost:3000/downloads/skills/code_review.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-code_review",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install code_review",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install code_review",
+        "bun": "bunx @nanosolana/nanohub@latest install code_review"
+      }
+    },
+    {
       "name": "coding-agent",
       "path": "skills/coding-agent",
       "fileCount": 1,
@@ -2015,6 +2061,90 @@ export const openClawdCatalog = {
         "npm": "npx @nanosolana/nanohub@latest install cua",
         "pnpm": "pnpm dlx @nanosolana/nanohub@latest install cua",
         "bun": "bunx @nanosolana/nanohub@latest install cua"
+      }
+    },
+    {
+      "name": "database",
+      "path": "skills/database",
+      "fileCount": 3,
+      "sizeBytes": 19301,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/database",
+      "downloadUrl": "http://localhost:3000/downloads/skills/database.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-database",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install database",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install database",
+        "bun": "bunx @nanosolana/nanohub@latest install database"
+      }
+    },
+    {
+      "name": "delegation",
+      "path": "skills/delegation",
+      "fileCount": 2,
+      "sizeBytes": 7890,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/delegation",
+      "downloadUrl": "http://localhost:3000/downloads/skills/delegation.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-delegation",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install delegation",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install delegation",
+        "bun": "bunx @nanosolana/nanohub@latest install delegation"
+      }
+    },
+    {
+      "name": "deployment",
+      "path": "skills/deployment",
+      "fileCount": 4,
+      "sizeBytes": 31648,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/deployment",
+      "downloadUrl": "http://localhost:3000/downloads/skills/deployment.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-deployment",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install deployment",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install deployment",
+        "bun": "bunx @nanosolana/nanohub@latest install deployment"
+      }
+    },
+    {
+      "name": "design",
+      "path": "skills/design",
+      "fileCount": 2,
+      "sizeBytes": 20047,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/design",
+      "downloadUrl": "http://localhost:3000/downloads/skills/design.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-design",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install design",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install design",
+        "bun": "bunx @nanosolana/nanohub@latest install design"
+      }
+    },
+    {
+      "name": "design-exploration",
+      "path": "skills/design-exploration",
+      "fileCount": 2,
+      "sizeBytes": 8182,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/design-exploration",
+      "downloadUrl": "http://localhost:3000/downloads/skills/design-exploration.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-design-exploration",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install design-exploration",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install design-exploration",
+        "bun": "bunx @nanosolana/nanohub@latest install design-exploration"
+      }
+    },
+    {
+      "name": "diagnostics",
+      "path": "skills/diagnostics",
+      "fileCount": 2,
+      "sizeBytes": 3699,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/diagnostics",
+      "downloadUrl": "http://localhost:3000/downloads/skills/diagnostics.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-diagnostics",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install diagnostics",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install diagnostics",
+        "bun": "bunx @nanosolana/nanohub@latest install diagnostics"
       }
     },
     {
@@ -2057,6 +2187,48 @@ export const openClawdCatalog = {
         "npm": "npx @nanosolana/nanohub@latest install eightctl",
         "pnpm": "pnpm dlx @nanosolana/nanohub@latest install eightctl",
         "bun": "bunx @nanosolana/nanohub@latest install eightctl"
+      }
+    },
+    {
+      "name": "environment-secrets",
+      "path": "skills/environment-secrets",
+      "fileCount": 2,
+      "sizeBytes": 6640,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/environment-secrets",
+      "downloadUrl": "http://localhost:3000/downloads/skills/environment-secrets.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-environment-secrets",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install environment-secrets",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install environment-secrets",
+        "bun": "bunx @nanosolana/nanohub@latest install environment-secrets"
+      }
+    },
+    {
+      "name": "external_apis",
+      "path": "skills/external_apis",
+      "fileCount": 3,
+      "sizeBytes": 3189,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/external_apis",
+      "downloadUrl": "http://localhost:3000/downloads/skills/external_apis.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-external_apis",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install external_apis",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install external_apis",
+        "bun": "bunx @nanosolana/nanohub@latest install external_apis"
+      }
+    },
+    {
+      "name": "follow-up-tasks",
+      "path": "skills/follow-up-tasks",
+      "fileCount": 2,
+      "sizeBytes": 4517,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/follow-up-tasks",
+      "downloadUrl": "http://localhost:3000/downloads/skills/follow-up-tasks.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-follow-up-tasks",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install follow-up-tasks",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install follow-up-tasks",
+        "bun": "bunx @nanosolana/nanohub@latest install follow-up-tasks"
       }
     },
     {
@@ -2186,6 +2358,20 @@ export const openClawdCatalog = {
       }
     },
     {
+      "name": "image-search",
+      "path": "skills/image-search",
+      "fileCount": 2,
+      "sizeBytes": 4403,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/image-search",
+      "downloadUrl": "http://localhost:3000/downloads/skills/image-search.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-image-search",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install image-search",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install image-search",
+        "bun": "bunx @nanosolana/nanohub@latest install image-search"
+      }
+    },
+    {
       "name": "imsg",
       "path": "skills/imsg",
       "fileCount": 1,
@@ -2197,6 +2383,20 @@ export const openClawdCatalog = {
         "npm": "npx @nanosolana/nanohub@latest install imsg",
         "pnpm": "pnpm dlx @nanosolana/nanohub@latest install imsg",
         "bun": "bunx @nanosolana/nanohub@latest install imsg"
+      }
+    },
+    {
+      "name": "integrations",
+      "path": "skills/integrations",
+      "fileCount": 2,
+      "sizeBytes": 12153,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/integrations",
+      "downloadUrl": "http://localhost:3000/downloads/skills/integrations.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-integrations",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install integrations",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install integrations",
+        "bun": "bunx @nanosolana/nanohub@latest install integrations"
       }
     },
     {
@@ -2225,6 +2425,62 @@ export const openClawdCatalog = {
         "npm": "npx @nanosolana/nanohub@latest install mcporter",
         "pnpm": "pnpm dlx @nanosolana/nanohub@latest install mcporter",
         "bun": "bunx @nanosolana/nanohub@latest install mcporter"
+      }
+    },
+    {
+      "name": "media-generation",
+      "path": "skills/media-generation",
+      "fileCount": 2,
+      "sizeBytes": 8249,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/media-generation",
+      "downloadUrl": "http://localhost:3000/downloads/skills/media-generation.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-media-generation",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install media-generation",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install media-generation",
+        "bun": "bunx @nanosolana/nanohub@latest install media-generation"
+      }
+    },
+    {
+      "name": "mockup-extract",
+      "path": "skills/mockup-extract",
+      "fileCount": 2,
+      "sizeBytes": 9115,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/mockup-extract",
+      "downloadUrl": "http://localhost:3000/downloads/skills/mockup-extract.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-mockup-extract",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install mockup-extract",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install mockup-extract",
+        "bun": "bunx @nanosolana/nanohub@latest install mockup-extract"
+      }
+    },
+    {
+      "name": "mockup-graduate",
+      "path": "skills/mockup-graduate",
+      "fileCount": 2,
+      "sizeBytes": 5241,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/mockup-graduate",
+      "downloadUrl": "http://localhost:3000/downloads/skills/mockup-graduate.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-mockup-graduate",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install mockup-graduate",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install mockup-graduate",
+        "bun": "bunx @nanosolana/nanohub@latest install mockup-graduate"
+      }
+    },
+    {
+      "name": "mockup-sandbox",
+      "path": "skills/mockup-sandbox",
+      "fileCount": 2,
+      "sizeBytes": 43588,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/mockup-sandbox",
+      "downloadUrl": "http://localhost:3000/downloads/skills/mockup-sandbox.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-mockup-sandbox",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install mockup-sandbox",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install mockup-sandbox",
+        "bun": "bunx @nanosolana/nanohub@latest install mockup-sandbox"
       }
     },
     {
@@ -2452,6 +2708,20 @@ export const openClawdCatalog = {
       }
     },
     {
+      "name": "package-management",
+      "path": "skills/package-management",
+      "fileCount": 2,
+      "sizeBytes": 8023,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/package-management",
+      "downloadUrl": "http://localhost:3000/downloads/skills/package-management.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-package-management",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install package-management",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install package-management",
+        "bun": "bunx @nanosolana/nanohub@latest install package-management"
+      }
+    },
+    {
       "name": "pdf-to-markdown",
       "path": "skills/pdf-to-markdown",
       "fileCount": 1,
@@ -2491,6 +2761,34 @@ export const openClawdCatalog = {
         "npm": "npx @nanosolana/nanohub@latest install percolator",
         "pnpm": "pnpm dlx @nanosolana/nanohub@latest install percolator",
         "bun": "bunx @nanosolana/nanohub@latest install percolator"
+      }
+    },
+    {
+      "name": "post_merge_setup",
+      "path": "skills/post_merge_setup",
+      "fileCount": 2,
+      "sizeBytes": 4594,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/post_merge_setup",
+      "downloadUrl": "http://localhost:3000/downloads/skills/post_merge_setup.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-post_merge_setup",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install post_merge_setup",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install post_merge_setup",
+        "bun": "bunx @nanosolana/nanohub@latest install post_merge_setup"
+      }
+    },
+    {
+      "name": "project_tasks",
+      "path": "skills/project_tasks",
+      "fileCount": 2,
+      "sizeBytes": 14342,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/project_tasks",
+      "downloadUrl": "http://localhost:3000/downloads/skills/project_tasks.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-project_tasks",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install project_tasks",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install project_tasks",
+        "bun": "bunx @nanosolana/nanohub@latest install project_tasks"
       }
     },
     {
@@ -2844,6 +3142,76 @@ export const openClawdCatalog = {
       }
     },
     {
+      "name": "query-integration-data",
+      "path": "skills/query-integration-data",
+      "fileCount": 2,
+      "sizeBytes": 15066,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/query-integration-data",
+      "downloadUrl": "http://localhost:3000/downloads/skills/query-integration-data.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-query-integration-data",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install query-integration-data",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install query-integration-data",
+        "bun": "bunx @nanosolana/nanohub@latest install query-integration-data"
+      }
+    },
+    {
+      "name": "remove-image-background",
+      "path": "skills/remove-image-background",
+      "fileCount": 2,
+      "sizeBytes": 1888,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/remove-image-background",
+      "downloadUrl": "http://localhost:3000/downloads/skills/remove-image-background.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-remove-image-background",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install remove-image-background",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install remove-image-background",
+        "bun": "bunx @nanosolana/nanohub@latest install remove-image-background"
+      }
+    },
+    {
+      "name": "repl_setup",
+      "path": "skills/repl_setup",
+      "fileCount": 5,
+      "sizeBytes": 10411,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/repl_setup",
+      "downloadUrl": "http://localhost:3000/downloads/skills/repl_setup.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-repl_setup",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install repl_setup",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install repl_setup",
+        "bun": "bunx @nanosolana/nanohub@latest install repl_setup"
+      }
+    },
+    {
+      "name": "replit-docs",
+      "path": "skills/replit-docs",
+      "fileCount": 2,
+      "sizeBytes": 2597,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/replit-docs",
+      "downloadUrl": "http://localhost:3000/downloads/skills/replit-docs.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-replit-docs",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install replit-docs",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install replit-docs",
+        "bun": "bunx @nanosolana/nanohub@latest install replit-docs"
+      }
+    },
+    {
+      "name": "revenuecat",
+      "path": "skills/revenuecat",
+      "fileCount": 5,
+      "sizeBytes": 45162,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/revenuecat",
+      "downloadUrl": "http://localhost:3000/downloads/skills/revenuecat.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-revenuecat",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install revenuecat",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install revenuecat",
+        "bun": "bunx @nanosolana/nanohub@latest install revenuecat"
+      }
+    },
+    {
       "name": "sag",
       "path": "skills/sag",
       "fileCount": 1,
@@ -2855,6 +3223,20 @@ export const openClawdCatalog = {
         "npm": "npx @nanosolana/nanohub@latest install sag",
         "pnpm": "pnpm dlx @nanosolana/nanohub@latest install sag",
         "bun": "bunx @nanosolana/nanohub@latest install sag"
+      }
+    },
+    {
+      "name": "security_scan",
+      "path": "skills/security_scan",
+      "fileCount": 2,
+      "sizeBytes": 1803,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/security_scan",
+      "downloadUrl": "http://localhost:3000/downloads/skills/security_scan.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-security_scan",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install security_scan",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install security_scan",
+        "bun": "bunx @nanosolana/nanohub@latest install security_scan"
       }
     },
     {
@@ -2900,6 +3282,20 @@ export const openClawdCatalog = {
       }
     },
     {
+      "name": "skill-authoring",
+      "path": "skills/skill-authoring",
+      "fileCount": 2,
+      "sizeBytes": 3592,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/skill-authoring",
+      "downloadUrl": "http://localhost:3000/downloads/skills/skill-authoring.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-skill-authoring",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install skill-authoring",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install skill-authoring",
+        "bun": "bunx @nanosolana/nanohub@latest install skill-authoring"
+      }
+    },
+    {
       "name": "skill-creator",
       "path": "skills/skill-creator",
       "fileCount": 7,
@@ -2911,6 +3307,20 @@ export const openClawdCatalog = {
         "npm": "npx @nanosolana/nanohub@latest install skill-creator",
         "pnpm": "pnpm dlx @nanosolana/nanohub@latest install skill-creator",
         "bun": "bunx @nanosolana/nanohub@latest install skill-creator"
+      }
+    },
+    {
+      "name": "skills",
+      "path": "skills/skills",
+      "fileCount": 0,
+      "sizeBytes": 0,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/skills",
+      "downloadUrl": "http://localhost:3000/downloads/skills/skills.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-skills",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install skills",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install skills",
+        "bun": "bunx @nanosolana/nanohub@latest install skills"
       }
     },
     {
@@ -2958,8 +3368,8 @@ export const openClawdCatalog = {
     {
       "name": "solana-formal-verification",
       "path": "skills/solana-formal-verification",
-      "fileCount": 119,
-      "sizeBytes": 8021275,
+      "fileCount": 2048,
+      "sizeBytes": 283584216,
       "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/solana-formal-verification",
       "downloadUrl": "http://localhost:3000/downloads/skills/solana-formal-verification.zip",
       "catalogUrl": "http://localhost:3000/hub#skill-solana-formal-verification",
@@ -2981,6 +3391,20 @@ export const openClawdCatalog = {
         "npm": "npx @nanosolana/nanohub@latest install solana-research-brief",
         "pnpm": "pnpm dlx @nanosolana/nanohub@latest install solana-research-brief",
         "bun": "bunx @nanosolana/nanohub@latest install solana-research-brief"
+      }
+    },
+    {
+      "name": "solanaos",
+      "path": "skills/solanaos",
+      "fileCount": 1,
+      "sizeBytes": 6231,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/solanaos",
+      "downloadUrl": "http://localhost:3000/downloads/skills/solanaos.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-solanaos",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install solanaos",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install solanaos",
+        "bun": "bunx @nanosolana/nanohub@latest install solanaos"
       }
     },
     {
@@ -3026,6 +3450,20 @@ export const openClawdCatalog = {
       }
     },
     {
+      "name": "stripe",
+      "path": "skills/stripe",
+      "fileCount": 3,
+      "sizeBytes": 33599,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/stripe",
+      "downloadUrl": "http://localhost:3000/downloads/skills/stripe.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-stripe",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install stripe",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install stripe",
+        "bun": "bunx @nanosolana/nanohub@latest install stripe"
+      }
+    },
+    {
       "name": "summarize",
       "path": "skills/summarize",
       "fileCount": 1,
@@ -3054,6 +3492,20 @@ export const openClawdCatalog = {
       }
     },
     {
+      "name": "testing",
+      "path": "skills/testing",
+      "fileCount": 4,
+      "sizeBytes": 11917,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/testing",
+      "downloadUrl": "http://localhost:3000/downloads/skills/testing.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-testing",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install testing",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install testing",
+        "bun": "bunx @nanosolana/nanohub@latest install testing"
+      }
+    },
+    {
       "name": "things-mac",
       "path": "skills/things-mac",
       "fileCount": 1,
@@ -3065,6 +3517,20 @@ export const openClawdCatalog = {
         "npm": "npx @nanosolana/nanohub@latest install things-mac",
         "pnpm": "pnpm dlx @nanosolana/nanohub@latest install things-mac",
         "bun": "bunx @nanosolana/nanohub@latest install things-mac"
+      }
+    },
+    {
+      "name": "threat_modeling",
+      "path": "skills/threat_modeling",
+      "fileCount": 2,
+      "sizeBytes": 11886,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/threat_modeling",
+      "downloadUrl": "http://localhost:3000/downloads/skills/threat_modeling.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-threat_modeling",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install threat_modeling",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install threat_modeling",
+        "bun": "bunx @nanosolana/nanohub@latest install threat_modeling"
       }
     },
     {
@@ -3093,6 +3559,20 @@ export const openClawdCatalog = {
         "npm": "npx @nanosolana/nanohub@latest install trello",
         "pnpm": "pnpm dlx @nanosolana/nanohub@latest install trello",
         "bun": "bunx @nanosolana/nanohub@latest install trello"
+      }
+    },
+    {
+      "name": "validation",
+      "path": "skills/validation",
+      "fileCount": 2,
+      "sizeBytes": 7388,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/validation",
+      "downloadUrl": "http://localhost:3000/downloads/skills/validation.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-validation",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install validation",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install validation",
+        "bun": "bunx @nanosolana/nanohub@latest install validation"
       }
     },
     {
@@ -3149,6 +3629,34 @@ export const openClawdCatalog = {
         "npm": "npx @nanosolana/nanohub@latest install weather",
         "pnpm": "pnpm dlx @nanosolana/nanohub@latest install weather",
         "bun": "bunx @nanosolana/nanohub@latest install weather"
+      }
+    },
+    {
+      "name": "web-search",
+      "path": "skills/web-search",
+      "fileCount": 2,
+      "sizeBytes": 3595,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/web-search",
+      "downloadUrl": "http://localhost:3000/downloads/skills/web-search.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-web-search",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install web-search",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install web-search",
+        "bun": "bunx @nanosolana/nanohub@latest install web-search"
+      }
+    },
+    {
+      "name": "workflows",
+      "path": "skills/workflows",
+      "fileCount": 2,
+      "sizeBytes": 7845,
+      "sourceUrl": "https://github.com/x402agent/openclawd/tree/main/skills/workflows",
+      "downloadUrl": "http://localhost:3000/downloads/skills/workflows.zip",
+      "catalogUrl": "http://localhost:3000/hub#skill-workflows",
+      "install": {
+        "npm": "npx @nanosolana/nanohub@latest install workflows",
+        "pnpm": "pnpm dlx @nanosolana/nanohub@latest install workflows",
+        "bun": "bunx @nanosolana/nanohub@latest install workflows"
       }
     },
     {

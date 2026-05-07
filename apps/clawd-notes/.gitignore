@@ -1,0 +1,136 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.output/
+.nitro/
+.next/
+out/
+.turbo/
+.cache/
+
+# Rust
+target/
+Cargo.lock.bak
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.deploy
+.env.production
+
+# Secrets and keys
+*.pem
+*.key
+*.p8
+*.jwk
+secrets/
+keys/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/
+.nyc_output/
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+*.egg
+.tox/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+venv/
+.venv/
+env/
+.env.venv/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Concurrency/lock files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lockb
+
+# Build artifacts
+*.tgz
+
+# Debug
+.node_repl_history
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Vercel
+.vercel
+
+# Netlify
+.netlify
+
+# Terraform
+*.tfstate
+*.tfstate.*
+
+# GCP
+credentials.json
+
+# Solana keypairs (private keys — never commit)
+keypair.json
+*keypair*.json
+id.json
+wallet.json
+*wallet*.json
+.openclawd/
+.clawd/
+
+# MCP caches
+.mcp/
+.mcp-cache/
+
+# E2B sandboxes
+.e2b/
+
+# Honcho memory
+.honcho/
+
+# Session logs
+session-logs/
+
+# Membrain (Go daemon binary + local SQLite stores)
+packages/membrain/bin/
+packages/membrain/*.db
+packages/membrain/*.db-shm
+packages/membrain/*.db-wal

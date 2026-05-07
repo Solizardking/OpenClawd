@@ -8,65 +8,66 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root.tsx'
-import { Route as WurkRouteImport } from './routes/wurk.tsx'
-import { Route as WalletRouteImport } from './routes/wallet.tsx'
-import { Route as UploadRouteImport } from './routes/upload.tsx'
-import { Route as TrackerRouteImport } from './routes/tracker.tsx'
-import { Route as TermsRouteImport } from './routes/terms.tsx'
-import { Route as TerminalRouteImport } from './routes/terminal.tsx'
-import { Route as StrategyRouteImport } from './routes/strategy.tsx'
-import { Route as StarsRouteImport } from './routes/stars.tsx'
-import { Route as SettingsRouteImport } from './routes/settings.tsx'
-import { Route as SearchRouteImport } from './routes/search.tsx'
-import { Route as ScannerRouteImport } from './routes/scanner.tsx'
-import { Route as RugcheckRouteImport } from './routes/rugcheck.tsx'
-import { Route as RegisterAgentRouteImport } from './routes/register-agent.tsx'
-import { Route as PrivacyRouteImport } from './routes/privacy.tsx'
-import { Route as PairRouteImport } from './routes/pair.tsx'
-import { Route as MobileRouteImport } from './routes/mobile.tsx'
-import { Route as MiningRouteImport } from './routes/mining.tsx'
-import { Route as MemescopeRouteImport } from './routes/memescope.tsx'
-import { Route as MarketplaceRouteImport } from './routes/marketplace.tsx'
-import { Route as ManagementRouteImport } from './routes/management.tsx'
-import { Route as LicenseRouteImport } from './routes/license.tsx'
-import { Route as LaunchRouteImport } from './routes/launch.tsx'
-import { Route as IpfsRouteImport } from './routes/ipfs.tsx'
-import { Route as ImportRouteImport } from './routes/import.tsx'
-import { Route as HubRouteImport } from './routes/hub.tsx'
-import { Route as GodmodeRouteImport } from './routes/godmode.tsx'
-import { Route as GatewayRouteImport } from './routes/gateway.tsx'
-import { Route as EarlyAccessRouteImport } from './routes/early-access.tsx'
-import { Route as DexRouteImport } from './routes/dex.tsx'
-import { Route as DashboardRouteImport } from './routes/dashboard.tsx'
-import { Route as CreateRouteImport } from './routes/create.tsx'
-import { Route as CopyrightRouteImport } from './routes/copyright.tsx'
-import { Route as ConsoleRouteImport } from './routes/console.tsx'
-import { Route as ChessRouteImport } from './routes/chess.tsx'
-import { Route as ChatRouteImport } from './routes/chat.tsx'
-import { Route as StakingRouteImport } from './routes/staking.tsx'
-import { Route as NewsRouteImport } from './routes/news.tsx'
-import { Route as AdminRouteImport } from './routes/admin.tsx'
-import { Route as AboutRouteImport } from './routes/about.tsx'
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as WurkRouteImport } from './routes/wurk'
+import { Route as WalletRouteImport } from './routes/wallet'
+import { Route as VaultRouteImport } from './routes/vault'
+import { Route as UploadRouteImport } from './routes/upload'
+import { Route as TrackerRouteImport } from './routes/tracker'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TerminalRouteImport } from './routes/terminal'
+import { Route as StrategyRouteImport } from './routes/strategy'
+import { Route as StarsRouteImport } from './routes/stars'
+import { Route as StakingRouteImport } from './routes/staking'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as ScannerRouteImport } from './routes/scanner'
+import { Route as RugcheckRouteImport } from './routes/rugcheck'
+import { Route as RegisterAgentRouteImport } from './routes/register-agent'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PairRouteImport } from './routes/pair'
+import { Route as NewsRouteImport } from './routes/news'
+import { Route as MobileRouteImport } from './routes/mobile'
+import { Route as MiningRouteImport } from './routes/mining'
+import { Route as MemescopeRouteImport } from './routes/memescope'
+import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as ManagementRouteImport } from './routes/management'
+import { Route as LicenseRouteImport } from './routes/license'
+import { Route as LaunchRouteImport } from './routes/launch'
+import { Route as IpfsRouteImport } from './routes/ipfs'
+import { Route as ImportRouteImport } from './routes/import'
+import { Route as HubRouteImport } from './routes/hub'
+import { Route as GodmodeRouteImport } from './routes/godmode'
+import { Route as GatewayRouteImport } from './routes/gateway'
+import { Route as EarlyAccessRouteImport } from './routes/early-access'
+import { Route as DexRouteImport } from './routes/dex'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CreateRouteImport } from './routes/create'
+import { Route as CopyrightRouteImport } from './routes/copyright'
+import { Route as ConsoleRouteImport } from './routes/console'
+import { Route as ChessRouteImport } from './routes/chess'
+import { Route as ChatRouteImport } from './routes/chat'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SoulsIndexRouteImport } from './routes/souls/index'
 import { Route as SkillsIndexRouteImport } from './routes/skills/index'
 import { Route as AgentsIndexRouteImport } from './routes/agents/index'
-import { Route as UHandleRouteImport } from './routes/u/$handle.tsx'
-import { Route as SoulsSlugRouteImport } from './routes/souls/$slug.tsx'
-import { Route as SetupTroubleshootingRouteImport } from './routes/setup/troubleshooting.tsx'
-import { Route as SetupTelegramRouteImport } from './routes/setup/telegram.tsx'
-import { Route as SetupMintSkillsRouteImport } from './routes/setup/mint-skills.tsx'
-import { Route as SetupMiningRouteImport } from './routes/setup/mining.tsx'
-import { Route as SetupMetaplexRouteImport } from './routes/setup/metaplex.tsx'
-import { Route as SetupGatewayRouteImport } from './routes/setup/gateway.tsx'
-import { Route as SetupExtensionRouteImport } from './routes/setup/extension.tsx'
-import { Route as CliAuthRouteImport } from './routes/cli/auth.tsx'
-import { Route as ChartTokenRouteImport } from './routes/chart.$token.tsx'
-import { Route as AuthCallbackRouteImport } from './routes/auth/callback.tsx'
-import { Route as AgentsEngineRouteImport } from './routes/agents/engine.tsx'
-import { Route as AgentsAgentRefRouteImport } from './routes/agents/$agentRef.tsx'
-import { Route as OwnerSlugRouteImport } from './routes/$owner/$slug.tsx'
+import { Route as UHandleRouteImport } from './routes/u/$handle'
+import { Route as SoulsSlugRouteImport } from './routes/souls/$slug'
+import { Route as SetupTroubleshootingRouteImport } from './routes/setup/troubleshooting'
+import { Route as SetupTelegramRouteImport } from './routes/setup/telegram'
+import { Route as SetupMintSkillsRouteImport } from './routes/setup/mint-skills'
+import { Route as SetupMiningRouteImport } from './routes/setup/mining'
+import { Route as SetupMetaplexRouteImport } from './routes/setup/metaplex'
+import { Route as SetupGatewayRouteImport } from './routes/setup/gateway'
+import { Route as SetupExtensionRouteImport } from './routes/setup/extension'
+import { Route as CliAuthRouteImport } from './routes/cli/auth'
+import { Route as ChartTokenRouteImport } from './routes/chart.$token'
+import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
+import { Route as AgentsEngineRouteImport } from './routes/agents/engine'
+import { Route as AgentsAgentRefRouteImport } from './routes/agents/$agentRef'
+import { Route as OwnerSlugRouteImport } from './routes/$owner/$slug'
 
 const WurkRoute = WurkRouteImport.update({
   id: '/wurk',
@@ -76,6 +77,11 @@ const WurkRoute = WurkRouteImport.update({
 const WalletRoute = WalletRouteImport.update({
   id: '/wallet',
   path: '/wallet',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VaultRoute = VaultRouteImport.update({
+  id: '/vault',
+  path: '/vault',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UploadRoute = UploadRouteImport.update({
@@ -106,6 +112,11 @@ const StrategyRoute = StrategyRouteImport.update({
 const StarsRoute = StarsRouteImport.update({
   id: '/stars',
   path: '/stars',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StakingRoute = StakingRouteImport.update({
+  id: '/staking',
+  path: '/staking',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -141,6 +152,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const PairRoute = PairRouteImport.update({
   id: '/pair',
   path: '/pair',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MobileRoute = MobileRouteImport.update({
@@ -251,16 +267,6 @@ const AdminRoute = AdminRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NewsRoute = NewsRouteImport.update({
-  id: '/news',
-  path: '/news',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StakingRoute = StakingRouteImport.update({
-  id: '/staking',
-  path: '/staking',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -391,13 +397,14 @@ export interface FileRoutesByFullPath {
   '/scanner': typeof ScannerRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
-  '/stars': typeof StarsRoute
   '/staking': typeof StakingRoute
+  '/stars': typeof StarsRoute
   '/strategy': typeof StrategyRoute
   '/terminal': typeof TerminalRoute
   '/terms': typeof TermsRoute
   '/tracker': typeof TrackerRoute
   '/upload': typeof UploadRoute
+  '/vault': typeof VaultRoute
   '/wallet': typeof WalletRoute
   '/wurk': typeof WurkRoute
   '/$owner/$slug': typeof OwnerSlugRoute
@@ -451,13 +458,14 @@ export interface FileRoutesByTo {
   '/scanner': typeof ScannerRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
-  '/stars': typeof StarsRoute
   '/staking': typeof StakingRoute
+  '/stars': typeof StarsRoute
   '/strategy': typeof StrategyRoute
   '/terminal': typeof TerminalRoute
   '/terms': typeof TermsRoute
   '/tracker': typeof TrackerRoute
   '/upload': typeof UploadRoute
+  '/vault': typeof VaultRoute
   '/wallet': typeof WalletRoute
   '/wurk': typeof WurkRoute
   '/$owner/$slug': typeof OwnerSlugRoute
@@ -512,13 +520,14 @@ export interface FileRoutesById {
   '/scanner': typeof ScannerRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
-  '/stars': typeof StarsRoute
   '/staking': typeof StakingRoute
+  '/stars': typeof StarsRoute
   '/strategy': typeof StrategyRoute
   '/terminal': typeof TerminalRoute
   '/terms': typeof TermsRoute
   '/tracker': typeof TrackerRoute
   '/upload': typeof UploadRoute
+  '/vault': typeof VaultRoute
   '/wallet': typeof WalletRoute
   '/wurk': typeof WurkRoute
   '/$owner/$slug': typeof OwnerSlugRoute
@@ -574,13 +583,14 @@ export interface FileRouteTypes {
     | '/scanner'
     | '/search'
     | '/settings'
-    | '/stars'
     | '/staking'
+    | '/stars'
     | '/strategy'
     | '/terminal'
     | '/terms'
     | '/tracker'
     | '/upload'
+    | '/vault'
     | '/wallet'
     | '/wurk'
     | '/$owner/$slug'
@@ -634,13 +644,14 @@ export interface FileRouteTypes {
     | '/scanner'
     | '/search'
     | '/settings'
-    | '/stars'
     | '/staking'
+    | '/stars'
     | '/strategy'
     | '/terminal'
     | '/terms'
     | '/tracker'
     | '/upload'
+    | '/vault'
     | '/wallet'
     | '/wurk'
     | '/$owner/$slug'
@@ -694,13 +705,14 @@ export interface FileRouteTypes {
     | '/scanner'
     | '/search'
     | '/settings'
-    | '/stars'
     | '/staking'
+    | '/stars'
     | '/strategy'
     | '/terminal'
     | '/terms'
     | '/tracker'
     | '/upload'
+    | '/vault'
     | '/wallet'
     | '/wurk'
     | '/$owner/$slug'
@@ -755,13 +767,14 @@ export interface RootRouteChildren {
   ScannerRoute: typeof ScannerRoute
   SearchRoute: typeof SearchRoute
   SettingsRoute: typeof SettingsRoute
-  StarsRoute: typeof StarsRoute
   StakingRoute: typeof StakingRoute
+  StarsRoute: typeof StarsRoute
   StrategyRoute: typeof StrategyRoute
   TerminalRoute: typeof TerminalRoute
   TermsRoute: typeof TermsRoute
   TrackerRoute: typeof TrackerRoute
   UploadRoute: typeof UploadRoute
+  VaultRoute: typeof VaultRoute
   WalletRoute: typeof WalletRoute
   WurkRoute: typeof WurkRoute
   OwnerSlugRoute: typeof OwnerSlugRoute
@@ -786,13 +799,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/wurk': {
       id: '/wurk'
       path: '/wurk'
@@ -805,6 +811,13 @@ declare module '@tanstack/react-router' {
       path: '/wallet'
       fullPath: '/wallet'
       preLoaderRoute: typeof WalletRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vault': {
+      id: '/vault'
+      path: '/vault'
+      fullPath: '/vault'
+      preLoaderRoute: typeof VaultRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/upload': {
@@ -905,18 +918,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PairRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/mobile': {
-      id: '/mobile'
-      path: '/mobile'
-      fullPath: '/mobile'
-      preLoaderRoute: typeof MobileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/news': {
       id: '/news'
       path: '/news'
       fullPath: '/news'
       preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mobile': {
+      id: '/mobile'
+      path: '/mobile'
+      fullPath: '/mobile'
+      preLoaderRoute: typeof MobileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mining': {
@@ -1057,6 +1070,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -1227,13 +1247,14 @@ const rootRouteChildren: RootRouteChildren = {
   ScannerRoute: ScannerRoute,
   SearchRoute: SearchRoute,
   SettingsRoute: SettingsRoute,
-  StarsRoute: StarsRoute,
   StakingRoute: StakingRoute,
+  StarsRoute: StarsRoute,
   StrategyRoute: StrategyRoute,
   TerminalRoute: TerminalRoute,
   TermsRoute: TermsRoute,
   TrackerRoute: TrackerRoute,
   UploadRoute: UploadRoute,
+  VaultRoute: VaultRoute,
   WalletRoute: WalletRoute,
   WurkRoute: WurkRoute,
   OwnerSlugRoute: OwnerSlugRoute,

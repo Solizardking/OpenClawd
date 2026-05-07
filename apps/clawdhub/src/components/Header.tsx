@@ -81,6 +81,7 @@ export default function Header() {
           <Link to="/chess">Chess</Link>
           <Link to="/mining">Mining</Link>
           <Link to="/strategy">Strategy</Link>
+          <Link to="/vault">Vault</Link>
           <Link to="/wallet">Wallet</Link>
           {isSoulMode ? <a href={skillsHubUrl}>OpenClawd Skills</a> : null}
           <a href={openClawdHomeUrl}>OpenClawd</a>
@@ -251,6 +252,9 @@ export default function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/chess">Chess</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/vault">Vault</Link>
                 </DropdownMenuItem>
                 {isSoulMode ? (
                   <DropdownMenuItem asChild>
