@@ -23,8 +23,9 @@ openclawd_agent_staking = "D5MLxrKAnppBVLuukKQzQGTMSfEwBqWCDPGAhGhthdLP"
 url = "https://api.apr.dev"
 
 [provider]
-# Default: devnet. Do NOT change to mainnet without completing the Gate 4 review.
-cluster = "https://devnet.helius-rpc.com/?api-key=2b52295c-5873-465e-8d71-91f28dc0053d"
+# Default: public devnet. Override with SOLANA_RPC_URL in shell scripts when
+# you need a private RPC, but never commit populated API keys.
+cluster = "https://api.devnet.solana.com"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

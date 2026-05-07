@@ -37,6 +37,8 @@ export const setClusterConfig = async (
   keypair: string,
   rpc?: string
 ) => {
+  rejectMainnet(cluster, rpc);
+
   if (!rpc) {
     solConnection = new anchor.web3.Connection(anchor.web3.clusterApiUrl(cluster));
   } else {
@@ -67,6 +69,19 @@ export const setClusterConfig = async (
   program = new anchor.Program(OPENCLAWD_AGENT_STAKING_IDL, provider);
 
 };
+
+function rejectMainnet(cluster: string, rpc?: string) {
+  const target = `${cluster} ${rpc ?? ''}`.toLowerCase();
+  const looksMainnet =
+    target.includes('mainnet') ||
+    target.includes('api.mainnet-beta.solana.com');
+
+  if (looksMainnet && process.env.OPENCLAWD_ENABLE_MAINNET !== '1') {
+    throw new Error(
+      'Refusing mainnet operation. Set OPENCLAWD_ENABLE_MAINNET=1 only after completing the Steak mainnet gate.'
+    );
+  }
+}
 
 /**
  * Initialize global pool, vault

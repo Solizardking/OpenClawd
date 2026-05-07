@@ -6,14 +6,15 @@
   "scripts": {
     "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
     "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check",
+    "typecheck": "tsc --noEmit",
     "hook": "ts-node ./cli/hook.ts",
     "build": "anchor build",
     "test": "anchor test",
-    "deploy:devnet": "anchor deploy --provider.cluster \"${SOLANA_RPC_URL:-https://devnet.helius-rpc.com/?api-key=2b52295c-5873-465e-8d71-91f28dc0053d}\"",
-    "deploy:mainnet": "anchor deploy --provider.cluster mainnet",
+    "deploy:devnet": "anchor deploy --provider.cluster \"${SOLANA_RPC_URL:-https://api.devnet.solana.com}\"",
+    "deploy:mainnet": "node ./cli/require-mainnet.mjs && anchor deploy --provider.cluster mainnet",
     "script": "ts-node ./cli/command.ts",
-    "script:devnet": "ANCHOR_PROVIDER_URL=\"${SOLANA_RPC_URL:-https://devnet.helius-rpc.com/?api-key=2b52295c-5873-465e-8d71-91f28dc0053d}\" ts-node ./cli/command.ts",
-    "script:mainnet": "ANCHOR_PROVIDER_URL=\"${SOLANA_RPC_URL:-https://api.mainnet-beta.solana.com}\" ts-node ./cli/command.ts"
+    "script:devnet": "ANCHOR_PROVIDER_URL=\"${SOLANA_RPC_URL:-https://api.devnet.solana.com}\" ts-node ./cli/command.ts",
+    "script:mainnet": "node ./cli/require-mainnet.mjs && ANCHOR_PROVIDER_URL=\"${SOLANA_RPC_URL:-https://api.mainnet-beta.solana.com}\" ts-node ./cli/command.ts"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.30.1",

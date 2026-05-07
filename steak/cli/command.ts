@@ -23,7 +23,8 @@ programCommand('init')
     await initProject();
   });
 
-programCommand('lock')
+function stakeCommand(name: string) {
+  return programCommand(name)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .option('-t, --nftType <string>', 'NFT standard to stake', 'Corenft')
   .option('-m, --mint <string>')
@@ -52,8 +53,13 @@ programCommand('lock')
 
     
   });
+}
 
-programCommand('unlock')
+stakeCommand('stake');
+stakeCommand('lock');
+
+function unstakeCommand(name: string) {
+  return programCommand(name)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .option('-t, --nftType <string>', 'NFT standard to unlock', 'Corenft')
   .option('-m, --mint <string>')
@@ -80,6 +86,10 @@ programCommand('unlock')
       }
     }
   });
+}
+
+unstakeCommand('unstake');
+unstakeCommand('unlock');
 
 function programCommand(name: string) {
   return (

@@ -128,12 +128,16 @@ Validation:
 Devnet defaults:
 
 ```bash
-export SOLANA_RPC_URL="https://devnet.helius-rpc.com/?api-key=2b52295c-5873-465e-8d71-91f28dc0053d"
+export SOLANA_RPC_URL="${SOLANA_RPC_URL:-https://api.devnet.solana.com}"
 export ANCHOR_WALLET="$HOME/.config/solana/id.json"
 export OPENCLAWD_AGENT_STAKING_PROGRAM_ID="D5MLxrKAnppBVLuukKQzQGTMSfEwBqWCDPGAhGhthdLP"
 export OPENCLAWD_AGENT_COLLECTION="<metaplex-core-collection-address>"
 export NPM_TOKEN="${NPM_TOKEN:-unused}"
 ```
+
+Use a private Helius/Triton/QuickNode endpoint locally if needed, but keep API
+keys in your shell or `.env`, never in tracked config. Start from
+`.env.example`.
 
 Mainnet should use a dedicated deployer or Squads-controlled upgrade authority:
 
@@ -300,6 +304,7 @@ Admin recovery flow:
 - Public RPC is not reliable enough for production.
 - Keep the collection address pinned in frontend/backend config.
 - Run `anchor keys sync` after changing the program keypair.
+- Mainnet scripts are blocked unless `OPENCLAWD_ENABLE_MAINNET=1` is set.
 
 ## OpenClawd Integration
 
