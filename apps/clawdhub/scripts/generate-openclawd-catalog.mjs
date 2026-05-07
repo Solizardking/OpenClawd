@@ -6,7 +6,7 @@ import { zipSync } from 'fflate'
 const scriptFile = fileURLToPath(import.meta.url)
 const scriptDir = path.dirname(scriptFile)
 const hubRoot = path.resolve(scriptDir, '..')
-const repoRoot = path.resolve(hubRoot, '..')
+const repoRoot = path.resolve(hubRoot, '..', '..')
 const solanaClawdRoot = path.join(repoRoot, 'solana-clawd')
 const goImportBase = 'github.com/x402agent/openclawd'
 const runtimeRootInfo = await firstExistingDirectory(

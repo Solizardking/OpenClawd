@@ -30,8 +30,8 @@ import (
 	"syscall"
 	"time"
 
-	agentwallet "github.com/x402agent/Solana-Os-Go/services/agent-wallet"
-	"github.com/x402agent/Solana-Os-Go/pkg/config"
+	agentwallet "github.com/clawdsolana/openclawd/services/agent-wallet"
+	"github.com/clawdsolana/openclawd/services/agent-wallet/pkg/config"
 )
 
 func main() {

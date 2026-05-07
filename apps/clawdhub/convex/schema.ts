@@ -1242,6 +1242,47 @@ const dexPriceSnapshots = defineTable({
 })
   .index('by_timestamp', ['timestamp'])
 
+// ── Clawd Vault Notes ────────────────────────────────────────
+const vaultNotes = defineTable({
+  ownerUserId: v.id('users'),
+  title: v.string(),
+  body: v.string(),
+  folder: v.optional(v.string()),
+  tags: v.array(v.string()),
+  links: v.array(v.string()),
+  searchText: v.string(),
+  tradingContext: v.optional(
+    v.object({
+      tokenMint: v.optional(v.string()),
+      walletAddress: v.optional(v.string()),
+      strategy: v.optional(v.string()),
+      risk: v.optional(v.union(v.literal('low'), v.literal('medium'), v.literal('high'))),
+    }),
+  ),
+  createdAt: v.number(),
+  updatedAt: v.number(),
+})
+  .index('by_owner_updated', ['ownerUserId', 'updatedAt'])
+  .index('by_owner_title', ['ownerUserId', 'title'])
+
+const vaultStorageObjects = defineTable({
+  ownerUserId: v.id('users'),
+  storageId: v.id('_storage'),
+  noteId: v.optional(v.id('vaultNotes')),
+  filename: v.string(),
+  contentType: v.optional(v.string()),
+  size: v.number(),
+  kind: v.union(
+    v.literal('attachment'),
+    v.literal('chart'),
+    v.literal('trade-export'),
+    v.literal('vault-import'),
+  ),
+  createdAt: v.number(),
+})
+  .index('by_owner_created', ['ownerUserId', 'createdAt'])
+  .index('by_note', ['noteId'])
+
 export default defineSchema({
   ...authTables,
   users,
@@ -1299,4 +1340,6 @@ export default defineSchema({
   agentWallets,
   gatewayEvents,
   dexPriceSnapshots,
+  vaultNotes,
+  vaultStorageObjects,
 })
