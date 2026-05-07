@@ -15,9 +15,13 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    radial-gradient(circle at 15% 10%, rgba(20, 241, 149, 0.18), transparent 30%),
-    radial-gradient(circle at 85% 0%, rgba(153, 69, 255, 0.2), transparent 34%),
-    linear-gradient(135deg, #05070b 0%, #0b1020 54%, #130b16 100%);
+    linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+    linear-gradient(135deg, #05070b 0%, #0b1020 56%, #130b16 100%);
+  background-size:
+    44px 44px,
+    44px 44px,
+    auto;
 }
 
 a {
