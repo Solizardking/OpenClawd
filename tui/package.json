@@ -1,0 +1,66 @@
+{
+  "name": "clawd-code-tui-ts",
+  "version": "1.0.0",
+  "description": "🦞 OpenClawd TUI — Solana lobster terminal with Blockchain Buddies",
+  "type": "module",
+  "bin": {
+    "clawd": "./dist/cli.js"
+  },
+  "main": "./dist/cli.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli.tsx",
+    "start": "node dist/cli.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "solana",
+    "tui",
+    "terminal",
+    "ai",
+    "agent",
+    "clawd",
+    "lobster",
+    "pump.fun",
+    "jupiter"
+  ],
+  "license": "MIT",
+  "author": "OpenClawd Team",
+  "homepage": "https://openclawd.biz",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/x402agent/openclawd-ts.git",
+    "directory": "tui"
+  },
+  "bugs": {
+    "url": "https://github.com/x402agent/openclawd-ts/issues"
+  },
+  "dependencies": {
+    "@types/ws": "^8.18.1",
+    "better-sqlite3": "^11.5.0",
+    "chalk": "^5.3.0",
+    "dotenv": "^17.3.1",
+    "figures": "^6.1.0",
+    "ink": "^5.0.1",
+    "ink-big-text": "^2.0.0",
+    "ink-gradient": "^3.0.0",
+    "ink-spinner": "^5.0.0",
+    "ink-text-input": "^6.0.0",
+    "react": "^18.3.1",
+    "ws": "^8.20.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.12",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  },
+  "files": [
+    "dist/",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  }
+}

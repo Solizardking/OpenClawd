@@ -1,0 +1,25 @@
+{
+  "name": "@openclawd/whatsapp",
+  "version": "2026.2.1",
+  "description": "OpenClawd WhatsApp channel plugin",
+  "type": "module",
+  "devDependencies": {
+    "openclawd": "workspace:*"
+  },
+  "openclawd": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "license": "MIT",
+  "author": "OpenClawd Team",
+  "homepage": "https://openclawd.biz",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/x402agent/openclawd-ts.git",
+    "directory": "extensions/whatsapp"
+  },
+  "bugs": {
+    "url": "https://github.com/x402agent/openclawd-ts/issues"
+  }
+}
