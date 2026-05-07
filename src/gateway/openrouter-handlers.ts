@@ -19,7 +19,7 @@ const TextSchema = z.object({
 const ImageSchema = z.object({
     prompt: z.string(),
     model: z.string().optional(),
-    aspectRatio: z.enum(['1:1', '4:3', '16:9', '9:16', '3:4']).optional(),
+    aspectRatio: z.string().optional(),
     size: z.string().optional(),
 });
 
@@ -28,7 +28,7 @@ const KeySchema = z.object({
 });
 
 const ModelsSchema = z.object({
-    modality: z.enum(['text', 'image']).optional(),
+    modality: z.enum(['text', 'image', 'audio']).optional(),
     query: z.string().optional(),
 });
 
@@ -60,7 +60,7 @@ export function createOpenRouterHandlers(
                 model: params.model,
                 instructions: params.instructions,
                 temperature: params.temperature,
-                maxTokens: params.maxOutputTokens,
+                maxOutputTokens: params.maxOutputTokens,
             });
             return { text };
         },
@@ -77,10 +77,11 @@ export function createOpenRouterHandlers(
 
         'openrouter.models': async (raw) => {
             const params = ModelsSchema.parse(raw ?? {});
-            const all = await runtime.openrouter.listModels({
-                modality: params.modality,
-                query: params.query,
-            });
+            if (params.query) {
+                const m = await runtime.openrouter.resolveModel(params.query);
+                return { models: m ? [m] : [] };
+            }
+            const all = await runtime.openrouter.listModels(params.modality);
             return { models: all.slice(0, 100) };
         },
 

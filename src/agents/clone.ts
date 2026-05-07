@@ -24,6 +24,7 @@ export function cloneAgent(type: 'trader', opts?: CloneOptions): TraderAgent;
 export function cloneAgent(type: 'scanner', opts?: CloneOptions): ScannerAgent;
 export function cloneAgent(type: 'analyst', opts?: CloneOptions): AnalystAgent;
 export function cloneAgent(type: 'monitor', opts?: CloneOptions): MonitorAgent;
+export function cloneAgent(type: AgentType, opts?: CloneOptions): AnyAgent;
 export function cloneAgent(type: AgentType, opts: CloneOptions = {}): AnyAgent {
     const runtime = opts.runtime ?? (opts.isolated ? createRuntime() : getRuntime());
     switch (type) {

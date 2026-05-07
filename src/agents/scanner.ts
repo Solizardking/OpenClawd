@@ -2,7 +2,7 @@
  * Scanner Agent — Pump.fun token discovery, graduation tracking
  */
 
-import { PumpFunService } from '../services/pumpfun.js';
+import { PumpFunService, type PumpFunToken } from '../services/pumpfun.js';
 import type { MemoryService } from '../services/memory.js';
 import type { OpenRouterService } from '../services/openrouter.js';
 import type { AgentRuntime } from './runtime.js';
@@ -69,14 +69,14 @@ export class ScannerAgent {
         return signals;
     }
     
-    async scanPumpFun() {
+    async scanPumpFun(): Promise<PumpFunToken[]> {
         const trending = await this.pumpfun.getTrending();
         const recent = await this.pumpfun.getRecent();
         
         return [...trending, ...recent];
     }
     
-    classifyTokens(tokens: Array<{ marketCap: number; bondingPercent?: number; ageMinutes: number }>): TokenSignal[] {
+    classifyTokens(tokens: PumpFunToken[]): TokenSignal[] {
         return tokens.map(token => ({
             ...token,
             tier: this.classify(token),

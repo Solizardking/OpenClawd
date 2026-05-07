@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useMutation, useQuery } from 'convex/react'
+import type { FunctionReference } from 'convex/server'
 import {
   Database,
   FilePlus2,
@@ -50,7 +51,23 @@ type VaultAccess = {
   accessTier: string
 }
 
-const vaultApi = (api as any).vault
+type VaultQuery<Args extends Record<string, unknown>, Result> = FunctionReference<'query', 'public', Args, Result>
+type VaultMutation<Args extends Record<string, unknown>, Result> = FunctionReference<'mutation', 'public', Args, Result>
+
+const vaultApi = (api as unknown as {
+  vault: {
+    access: VaultQuery<Record<string, never>, VaultAccess>
+    list: VaultQuery<{ search?: string; limit?: number }, VaultNote[]>
+    backlinks: VaultQuery<{ title: string }, VaultNote[]>
+    listAttachments: VaultQuery<{ noteId?: string }, VaultAttachment[]>
+    create: VaultMutation<Record<string, unknown>, string>
+    update: VaultMutation<Record<string, unknown>, null>
+    remove: VaultMutation<{ id: string }, null>
+    seed: VaultMutation<Record<string, never>, { created: number }>
+    generateAttachmentUploadUrl: VaultMutation<Record<string, never>, string>
+    registerAttachment: VaultMutation<Record<string, unknown>, string>
+  }
+}).vault
 
 function VaultPage() {
   const [search, setSearch] = useState('')

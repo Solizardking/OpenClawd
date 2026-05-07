@@ -63,9 +63,9 @@ export class MonitorAgent {
     async checkPrices() {
         for (const mint of this.watchlist) {
             const price = await this.birdeye.getPrice(mint);
-            const prev = await this.memory.recall('KNOWN', `price:${mint}`);
+            const prev = await this.latestNumber(`price:${mint}`);
             
-            if (prev && price) {
+            if (prev !== null && price) {
                 const change24h = ((price - prev) / prev) * 100;
                 
                 if (Math.abs(change24h) > 10) {
@@ -96,7 +96,7 @@ export class MonitorAgent {
                 const alert: Alert = {
                     type: 'whale',
                     token: tx.mint || 'SOL',
-                    message: `🐋 Whale: $${(valueUSD / 1000).toFixed(0)}K ${tx.type} by ${tx.from.slice(0, 8)}...`,
+                    message: `🐋 Whale: $${(valueUSD / 1000).toFixed(0)}K ${tx.type || 'transfer'} by ${(tx.from || 'unknown').slice(0, 8)}...`,
                     severity: valueUSD > 100000 ? 'high' : 'medium',
                 };
                 this.alerts.push(alert);
@@ -107,16 +107,16 @@ export class MonitorAgent {
     
     estimateTxValue(tx: any): number {
         // Estimate USD value of transaction
-        return tx.valueSOL * (tx.solPrice || 150);
+        return (tx.valueSOL || 0) * (tx.solPrice || 150);
     }
     
     async checkVolume() {
         // Check for unusual volume spikes
         for (const mint of this.watchlist) {
             const volume = await this.birdeye.getVolume(mint);
-            const prevVolume = await this.memory.recall('KNOWN', `volume:${mint}`);
+            const prevVolume = await this.latestNumber(`volume:${mint}`);
             
-            if (prevVolume && volume > prevVolume * 3) {
+            if (prevVolume !== null && volume > prevVolume * 3) {
                 const alert: Alert = {
                     type: 'volume',
                     token: mint,
@@ -133,5 +133,17 @@ export class MonitorAgent {
     
     getAlerts(): Alert[] {
         return this.alerts;
+    }
+
+    private async latestNumber(key: string): Promise<number | null> {
+        const entries = await this.memory.recall('KNOWN');
+        for (let i = entries.length - 1; i >= 0; i--) {
+            const entry = entries[i];
+            if (entry && typeof entry === 'object' && key in entry) {
+                const value = (entry as Record<string, unknown>)[key];
+                return typeof value === 'number' ? value : null;
+            }
+        }
+        return null;
     }
 }

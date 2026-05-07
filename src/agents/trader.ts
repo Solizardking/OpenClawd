@@ -54,10 +54,13 @@ export class TraderAgent {
         // Score opportunities
         const opportunities = await this.memory.recall('INFERRED');
         
-        return opportunities.map(opp => ({
-            ...opp,
-            confidence: this.scoreOportunity(opp),
-        }));
+        return opportunities.map((opp) => {
+            const opportunity = this.asOpportunity(opp);
+            return {
+                ...opportunity,
+                confidence: this.scoreOportunity(opportunity),
+            };
+        });
     }
     
     scoreOportunity(opp: { trend?: number; momentum?: number; liquidity?: number }): number {
@@ -67,6 +70,10 @@ export class TraderAgent {
         const executionRisk = 20; // default
         
         return Math.max(0, Math.min(100, trend + momentum + liquidity - executionRisk));
+    }
+
+    private asOpportunity(opp: unknown): { trend?: number; momentum?: number; liquidity?: number } {
+        return opp && typeof opp === 'object' ? opp as { trend?: number; momentum?: number; liquidity?: number } : {};
     }
     
     async decide() {
