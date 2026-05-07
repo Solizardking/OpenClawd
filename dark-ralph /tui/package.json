@@ -1,7 +1,7 @@
 {
-  "name": "@darkralph/tui",
+  "name": "@openclawdsolana/dark-ralph",
   "version": "1.0.0",
-  "description": "Dark Ralph TUI - Recursive Autonomous Solana Intelligence Agent with Bloomberg-style terminal interface",
+  "description": "OpenClawd Dark Ralph TUI - recursive Solana intelligence agent with Bloomberg-style terminal interface",
   "type": "module",
   "main": "dist/index.js",
   "bin": {

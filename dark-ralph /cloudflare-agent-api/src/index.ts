@@ -27,6 +27,7 @@ export interface Env {
   DEEPSEEK_API_KEY?: string;
   ENVIRONMENT: string;
   CORS_ORIGIN: string;
+  OPENCLAWD_SITE_URL?: string;
 }
 
 export interface Agent {
@@ -72,7 +73,7 @@ export interface Session {
 
 function corsHeaders(env: Env): HeadersInit {
   return {
-    'Access-Control-Allow-Origin': env.CORS_ORIGIN || '*',
+    'Access-Control-Allow-Origin': env.CORS_ORIGIN || env.OPENCLAWD_SITE_URL || 'https://solanaclawd.com',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, X-Agent-API-Key, X-Agent-Session',
     'Access-Control-Max-Age': '86400',
@@ -118,9 +119,10 @@ export default {
       if (path === '/health' || path === '/') {
         return jsonResponse({
           success: true,
-          service: 'AI Agent API',
+          service: 'OpenClawd Agent API',
           version: '2.1.0',
           environment: env.ENVIRONMENT,
+          site: env.OPENCLAWD_SITE_URL || 'https://solanaclawd.com',
           timestamp: new Date().toISOString(),
           features: {
             wallets: 'Crossmint smart wallets with delegated signing',

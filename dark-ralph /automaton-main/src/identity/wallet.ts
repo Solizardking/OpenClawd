@@ -14,7 +14,8 @@ import type { WalletData } from "../types.js";
 
 const AUTOMATON_DIR = path.join(
   process.env.HOME || "/root",
-  ".automaton",
+  ".openclawd",
+  "automaton",
 );
 const WALLET_FILE = path.join(AUTOMATON_DIR, "wallet.json");
 

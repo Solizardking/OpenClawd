@@ -94,11 +94,13 @@ ${chalk.green(`
             grokKey: config.apiKeys?.XAI_API_KEY,
             perplexityKey: config.apiKeys?.PERPLEXITY_API_KEY,
             openRouterKey: config.apiKeys?.OPENROUTER_API_KEY,
+            openRouterModel: config.apiKeys?.OPENROUTER_MODEL,
             newsApiKey: config.apiKeys?.NEWS_API_KEY,
             serpApiKey: config.apiKeys?.SERP_API_KEY,
             financialDatasetKey: config.apiKeys?.FINANCIAL_DATASET_API_KEY,
             walletAddress: options.wallet || config.solana?.privateKey,
             autoMode: !options.interactive,
+            openclawd: config.openclawd,
           }}
         />
       );

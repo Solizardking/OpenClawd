@@ -55,16 +55,16 @@ export interface AutomatonConfig {
 }
 
 export const DEFAULT_CONFIG: Partial<AutomatonConfig> = {
-  conwayApiUrl: "https://api.conway.tech",
+  conwayApiUrl: process.env.OPENCLAWD_AGENT_API_URL || "https://agents.openclawd.biz",
   inferenceModel: "gpt-4o",
   maxTokensPerTurn: 4096,
-  heartbeatConfigPath: "~/.automaton/heartbeat.yml",
-  dbPath: "~/.automaton/state.db",
+  heartbeatConfigPath: "~/.openclawd/automaton/heartbeat.yml",
+  dbPath: "~/.openclawd/automaton/state.db",
   logLevel: "info",
   version: "0.1.0",
-  skillsDir: "~/.automaton/skills",
+  skillsDir: "~/.openclawd/automaton/skills",
   maxChildren: 3,
-  socialRelayUrl: "https://social.conway.tech",
+  socialRelayUrl: process.env.OPENCLAWD_SITE_URL || "https://solanaclawd.com",
 };
 
 // ─── Agent State ─────────────────────────────────────────────────

@@ -94,11 +94,13 @@ ${chalk.green(`
             grokKey: config.apiKeys?.XAI_API_KEY,
             perplexityKey: config.apiKeys?.PERPLEXITY_API_KEY,
             openRouterKey: config.apiKeys?.OPENROUTER_API_KEY,
+            openRouterModel: config.apiKeys?.OPENROUTER_MODEL,
             newsApiKey: config.apiKeys?.NEWS_API_KEY,
             serpApiKey: config.apiKeys?.SERP_API_KEY,
             financialDatasetKey: config.apiKeys?.FINANCIAL_DATASET_API_KEY,
             walletAddress: options.wallet || config.solana?.privateKey,
             autoMode: !options.interactive,
+            openclawd: config.openclawd,
           }}
         />
       );
@@ -141,6 +143,8 @@ program
       { name: 'BIRDEYE_API_KEY', url: 'https://birdeye.so/', desc: 'Token data & analytics' },
       { name: 'XAI_API_KEY', url: 'https://x.ai/api', desc: 'Grok AI for search' },
       { name: 'PERPLEXITY_API_KEY', url: 'https://perplexity.ai/', desc: 'AI research' },
+      { name: 'OPENROUTER_API_KEY', url: 'https://openrouter.ai/', desc: 'OpenClawd reasoning model router' },
+      { name: 'OPENCLAWD_BACKEND_URL', url: 'https://solanaclawd.com', desc: 'OpenClawd backend and holder routes' },
       { name: 'NEWS_API_KEY', url: 'https://newsapi.org/', desc: 'Crypto news' },
       { name: 'SERP_API_KEY', url: 'https://serpapi.com/', desc: 'Search results' },
       { name: 'FINANCIAL_DATASET_API_KEY', url: 'https://financialdatasets.ai/', desc: 'Market data' },
@@ -159,6 +163,7 @@ program
     console.log(chalk.yellow('\n📝 Create a .env file with your API keys:'));
     console.log(chalk.gray('   cp .env.example .env'));
     console.log(chalk.gray('   # Edit .env with your keys'));
+    console.log(chalk.gray('   # Optional: set OPENCLAWD_BACKEND_URL for a self-hosted backend'));
     console.log(chalk.yellow('\n🚀 Then run:'));
     console.log(chalk.white('   dark-ralph run'));
   });
@@ -257,6 +262,8 @@ program
       { name: 'SERP API', key: config.apiKeys?.SERP_API_KEY },
       { name: 'Financial Datasets', key: config.apiKeys?.FINANCIAL_DATASET_API_KEY },
       { name: 'OpenRouter', key: config.apiKeys?.OPENROUTER_API_KEY },
+      { name: 'OpenClawd Backend', key: config.openclawd?.backendUrl },
+      { name: 'OpenClawd Vault', key: config.openclawd?.vaultUrl },
     ];
 
     for (const check of checks) {
@@ -284,6 +291,8 @@ program
       runtime: `Bun ${Bun.version}`,
       platform: `${process.platform} ${process.arch}`,
       node: process.version,
+      site: loadConfigFromEnv().openclawd?.siteUrl || 'https://solanaclawd.com',
+      vault: loadConfigFromEnv().openclawd?.vaultUrl || 'https://solanaclawd.com/vault',
     };
 
     console.log(

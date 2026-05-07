@@ -1,6 +1,6 @@
-# Dark Ralph TUI
+# OpenClawd Dark Ralph TUI
 
-Dark Ralph is a Bun + Ink terminal app for Solana market surveillance, wallet context, and autonomous AI analysis. The default experience is the **MAWD Market View**: a Bloomberg-style terminal surface with live tickers, a candlestick chart, order book, heatmap, top movers, network stats, activity, and agent controls.
+Dark Ralph is the OpenClawd Bun + Ink terminal app for Solana market surveillance, wallet context, autonomous AI analysis, and holder operations. The default experience is the **MAWD Market View**: a Bloomberg-style terminal surface with live tickers, a candlestick chart, order book, heatmap, top movers, network stats, activity, and agent controls.
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
@@ -36,6 +36,18 @@ Dark Ralph is a Bun + Ink terminal app for Solana market surveillance, wallet co
 - **Provider integrations** for Helius, Birdeye, xAI Grok, Perplexity, OpenRouter, News API, SERP API, and Financial Datasets.
 - **Solana wallet tools** for local wallet creation, address display, balance lookup, and portfolio context.
 - **Terminal-native controls** with number-key navigation, refresh/help shortcuts, and an agent command surface.
+- **OpenClawd backend links** for `solanaclawd.com`, `/vault`, voice, vim-style command flow, trading routes, staking, mining, and agent API surfaces.
+
+## OpenClawd Mapping
+
+| Surface | Route / API |
+| --- | --- |
+| Site | `https://solanaclawd.com` |
+| Holder vault | `https://solanaclawd.com/vault` |
+| Chat, voice, and vim command surfaces | `https://solanaclawd.com/chat` |
+| Trading console | `https://solanaclawd.com/trading` |
+| Agent API | `https://agents.openclawd.biz` |
+| Local config module | `src/openclawd.ts` |
 
 ## Quick Start
 
@@ -44,7 +56,7 @@ curl -fsSL https://install.solanaclawd.com | bash
 ralph
 ```
 
-The installer detects macOS/Linux architecture, installs the Solana Clawd command set into `~/.local/bin`, and exposes Dark Ralph through the `ralph` launcher. Make sure `~/.local/bin` is on your `PATH` if your shell does not pick it up automatically.
+The installer detects macOS/Linux architecture, installs the OpenClawd command set into `~/.local/bin`, and exposes Dark Ralph through the `ralph` launcher. Make sure `~/.local/bin` is on your `PATH` if your shell does not pick it up automatically.
 
 The TUI can boot without every key configured. Missing providers are shown as disconnected and their dependent commands fail closed.
 
@@ -128,6 +140,13 @@ BIRDEYE_API_KEY=
 XAI_API_KEY=
 PERPLEXITY_API_KEY=
 OPENROUTER_API_KEY=
+OPENROUTER_MODEL=minimax/minimax-m2.7
+OPENCLAWD_SITE_URL=https://solanaclawd.com
+OPENCLAWD_BACKEND_URL=https://solanaclawd.com
+OPENCLAWD_AGENT_API_URL=https://agents.openclawd.biz
+OPENCLAWD_VAULT_URL=https://solanaclawd.com/vault
+OPENCLAWD_VOICE_URL=https://solanaclawd.com/chat
+OPENCLAWD_VIM_URL=https://solanaclawd.com/chat
 NEWS_API_KEY=
 SERP_API_KEY=
 FINANCIAL_DATASET_API_KEY=

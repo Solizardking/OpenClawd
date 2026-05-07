@@ -1,7 +1,7 @@
 {
-  "name": "agent-api",
+  "name": "@openclawdsolana/agent-api",
   "version": "1.0.0",
-  "description": "AI Agent Authentication & Wallet API - Cloudflare Workers",
+  "description": "OpenClawd AI agent authentication, wallet, and deployment API for Cloudflare Workers",
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",

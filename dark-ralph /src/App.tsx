@@ -22,11 +22,19 @@ interface AppConfig {
   grokKey?: string;
   perplexityKey?: string;
   openRouterKey?: string;
+  openRouterModel?: string;
   newsApiKey?: string;
   serpApiKey?: string;
   financialDatasetKey?: string;
   walletAddress?: string;
   autoMode?: boolean;
+  openclawd?: {
+    siteUrl?: string;
+    backendUrl?: string;
+    vaultUrl?: string;
+    voiceUrl?: string;
+    vimUrl?: string;
+  };
 }
 
 type ViewMode = 'full' | 'minimal' | 'focus' | 'bloomberg';
@@ -61,6 +69,7 @@ export const App: React.FC<{ config: AppConfig }> = ({ config }) => {
       grokKey: config.grokKey,
       perplexityKey: config.perplexityKey,
       openRouterKey: config.openRouterKey,
+      openRouterModel: config.openRouterModel,
       newsApiKey: config.newsApiKey,
       serpApiKey: config.serpApiKey,
       financialDatasetKey: config.financialDatasetKey,
@@ -110,6 +119,7 @@ export const App: React.FC<{ config: AppConfig }> = ({ config }) => {
       { name: 'Perplexity', connected: !!config.perplexityKey },
       { name: 'NewsAPI', connected: !!config.newsApiKey },
       { name: 'SERP', connected: !!config.serpApiKey },
+      { name: 'OpenClawd', connected: !!config.openclawd?.backendUrl },
     ],
     priceHistory: [] as number[],
     messages: [] as TerminalMessage[],
@@ -133,6 +143,9 @@ export const App: React.FC<{ config: AppConfig }> = ({ config }) => {
       { tag: '[NET] ', text: `birdeye     ${link(config.birdeyeKey)}   token data feed`, color: config.birdeyeKey ? '#39FF14' : '#8B0000' },
       { tag: '[NET] ', text: `grok        ${link(config.grokKey)}   xai search oracle`, color: config.grokKey ? '#39FF14' : '#8B0000' },
       { tag: '[NET] ', text: `perplexity  ${link(config.perplexityKey)}   research engine`, color: config.perplexityKey ? '#39FF14' : '#8B0000' },
+      { tag: '[HUB] ', text: `openclawd   ${link(config.openclawd?.backendUrl)}   ${config.openclawd?.siteUrl || 'solanaclawd.com'}`, color: config.openclawd?.backendUrl ? '#39FF14' : '#8B0000' },
+      { tag: '[VAULT]', text: `notes       ${link(config.openclawd?.vaultUrl)}   holder vault`, color: config.openclawd?.vaultUrl ? '#39FF14' : '#8B0000' },
+      { tag: '[I/O] ', text: `voice+vim   ${link(config.openclawd?.voiceUrl && config.openclawd?.vimUrl)}   command surfaces`, color: config.openclawd?.voiceUrl && config.openclawd?.vimUrl ? '#39FF14' : '#8B0000' },
       { tag: '[MESH]', text: 'agent shards spawning · RALPH · SHADOW · CIPHER · NEXUS', color: '#FF6B1A' },
       { tag: '[SYNC]', text: 'tailing solana mainnet · slot drift acceptable', color: '#00FFD1' },
       { tag: '[LOOP]', text: 'recursive thought engine engaged · depth = ∞', color: '#FF003C' },

@@ -1,7 +1,7 @@
 {
-  "name": "@conway/automaton",
+  "name": "@openclawdsolana/automaton",
   "version": "0.1.0",
-  "description": "Conway Automaton - Sovereign AI Agent Runtime",
+  "description": "OpenClawd Automaton - sovereign AI agent runtime for Dark Ralph loops",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,18 +21,22 @@
   },
   "bin": {
     "automaton": "dist/index.js",
-    "conway-automaton": "dist/index.js"
+    "conway-automaton": "dist/index.js",
+    "openclawd-automaton": "dist/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Conway-Research/automaton.git"
+    "url": "git+https://github.com/clawdsolana/OpenClawd.git",
+    "directory": "dark-ralph/automaton-main"
   },
-  "homepage": "https://conway.tech",
+  "homepage": "https://solanaclawd.com",
   "keywords": [
     "autonomous-agent",
     "sovereign-ai",
     "web4",
     "conway",
+    "openclawd",
+    "solana",
     "self-replicating"
   ],
   "license": "MIT",

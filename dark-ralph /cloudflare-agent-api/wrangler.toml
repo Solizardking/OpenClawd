@@ -3,7 +3,7 @@
 # Wrangler configuration for deployment
 # ═══════════════════════════════════════════════════════════════
 
-name = "agent-api"
+name = "openclawd-agent-api"
 main = "src/index.ts"
 compatibility_date = "2024-01-01"
 compatibility_flags = ["nodejs_compat"]
@@ -44,6 +44,7 @@ id = "4f231b976c6a4465aa082705a2d28527"
 [vars]
 ENVIRONMENT = "production"
 CORS_ORIGIN = "*"
+OPENCLAWD_SITE_URL = "https://solanaclawd.com"
 
 # ─────────────────────────────────────────────────
 # Development Settings
@@ -56,8 +57,8 @@ local_protocol = "http"
 # Staging Environment
 # ─────────────────────────────────────────────────
 [env.staging]
-name = "agent-api-staging"
-vars = { ENVIRONMENT = "staging" }
+name = "openclawd-agent-api-staging"
+vars = { ENVIRONMENT = "staging", OPENCLAWD_SITE_URL = "https://solanaclawd.com" }
 
 [[env.staging.d1_databases]]
 binding = "DB"

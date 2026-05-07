@@ -3,6 +3,12 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 
 import { z } from 'zod';
+import {
+  OPENCLAWD_AGENT_API_URL,
+  OPENCLAWD_BACKEND_URL,
+  OPENCLAWD_SITE_URL,
+  getOpenClawdRouteUrl,
+} from '../openclawd.js';
 
 // API Keys Schema
 export const ApiKeysSchema = z.object({
@@ -15,7 +21,16 @@ export const ApiKeysSchema = z.object({
   SERP_API_KEY: z.string().optional(),
   FINANCIAL_DATASET_API_KEY: z.string().optional(),
   OPENROUTER_API_KEY: z.string().optional(),
-  OPENROUTER_MODEL: z.string().default('minimax/minimax-m2.1'),
+  OPENROUTER_MODEL: z.string().default('minimax/minimax-m2.7'),
+});
+
+export const OpenClawdConfigSchema = z.object({
+  siteUrl: z.string().url().default(OPENCLAWD_SITE_URL),
+  backendUrl: z.string().url().default(OPENCLAWD_BACKEND_URL),
+  agentApiUrl: z.string().url().default(OPENCLAWD_AGENT_API_URL),
+  vaultUrl: z.string().url().default(getOpenClawdRouteUrl('vault')),
+  voiceUrl: z.string().url().default(getOpenClawdRouteUrl('chat')),
+  vimUrl: z.string().url().default(getOpenClawdRouteUrl('chat')),
 });
 
 // Solana Config Schema
@@ -44,6 +59,7 @@ export const ErrorHandlingSchema = z.object({
 // Full Config Schema
 export const ConfigSchema = z.object({
   apiKeys: ApiKeysSchema,
+  openclawd: OpenClawdConfigSchema,
   solana: SolanaConfigSchema,
   ralph: RalphConfigSchema,
   errorHandling: ErrorHandlingSchema,
@@ -51,6 +67,7 @@ export const ConfigSchema = z.object({
 
 // Types
 export type ApiKeys = z.infer<typeof ApiKeysSchema>;
+export type OpenClawdConfig = z.infer<typeof OpenClawdConfigSchema>;
 export type SolanaConfig = z.infer<typeof SolanaConfigSchema>;
 export type RalphConfig = z.infer<typeof RalphConfigSchema>;
 export type ErrorHandling = z.infer<typeof ErrorHandlingSchema>;
@@ -59,7 +76,15 @@ export type Config = z.infer<typeof ConfigSchema>;
 // Default Configuration
 export const defaultConfig: Config = {
   apiKeys: {
-    OPENROUTER_MODEL: 'minimax/minimax-m2.1',
+    OPENROUTER_MODEL: 'minimax/minimax-m2.7',
+  },
+  openclawd: {
+    siteUrl: OPENCLAWD_SITE_URL,
+    backendUrl: OPENCLAWD_BACKEND_URL,
+    agentApiUrl: OPENCLAWD_AGENT_API_URL,
+    vaultUrl: getOpenClawdRouteUrl('vault'),
+    voiceUrl: getOpenClawdRouteUrl('chat'),
+    vimUrl: getOpenClawdRouteUrl('chat'),
   },
   solana: {
     network: 'mainnet-beta',
@@ -91,7 +116,15 @@ export function loadConfigFromEnv(): Partial<Config> {
       SERP_API_KEY: process.env.SERP_API_KEY,
       FINANCIAL_DATASET_API_KEY: process.env.FINANCIAL_DATASET_API_KEY,
       OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY,
-      OPENROUTER_MODEL: process.env.OPENROUTER_MODEL || 'minimax/minimax-m2.1',
+      OPENROUTER_MODEL: process.env.OPENROUTER_MODEL || 'minimax/minimax-m2.7',
+    },
+    openclawd: {
+      siteUrl: process.env.OPENCLAWD_SITE_URL || OPENCLAWD_SITE_URL,
+      backendUrl: process.env.OPENCLAWD_BACKEND_URL || OPENCLAWD_BACKEND_URL,
+      agentApiUrl: process.env.OPENCLAWD_AGENT_API_URL || OPENCLAWD_AGENT_API_URL,
+      vaultUrl: process.env.OPENCLAWD_VAULT_URL || getOpenClawdRouteUrl('vault'),
+      voiceUrl: process.env.OPENCLAWD_VOICE_URL || getOpenClawdRouteUrl('chat'),
+      vimUrl: process.env.OPENCLAWD_VIM_URL || getOpenClawdRouteUrl('chat'),
     },
     solana: {
       network: (process.env.SOLANA_NETWORK as 'mainnet-beta' | 'devnet' | 'testnet') || 'mainnet-beta',
