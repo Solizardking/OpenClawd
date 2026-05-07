@@ -14,6 +14,7 @@ type PetMood = 'ecstatic' | 'happy' | 'neutral' | 'anxious' | 'sad' | 'hot'
 type MiningDevice = {
   id: string
   ip: string
+  source: 'mawdaxe' | 'axeos' | 'demo'
   state: string
   health: DeviceHealth
   hashRate: number
@@ -24,6 +25,9 @@ type MiningDevice = {
   uptime: number
   fanSpeed: number
   freq: number
+  voltage?: number
+  pool?: string
+  version?: string
   pet: { stage: PetStage; mood: PetMood; moodScore: number; name: string; totalShares: number; feedCount: number }
 }
 
@@ -52,6 +56,7 @@ function generateDevice(idx: number): MiningDevice {
   return {
     id: `mawdaxe-${String(idx + 1).padStart(3, '0')}`,
     ip: `192.168.1.${42 + idx}`,
+    source: 'demo',
     state: 'running',
     health: temp > 70 ? 'critical' : temp > 62 ? 'warning' : 'healthy',
     hashRate: hr, temp, power: 15 + Math.random() * 3, shares, rejected,
@@ -59,6 +64,124 @@ function generateDevice(idx: number): MiningDevice {
     fanSpeed: Math.floor(40 + Math.random() * 60),
     freq: 525 + Math.floor(Math.random() * 75),
     pet: { stage, mood: moods[moodIdx], moodScore: 1 - (moodIdx / 5) * 2, name: `MawdPet-${String(idx + 1).padStart(3, '0')}`, totalShares: shares, feedCount: shares * 12 },
+  }
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+function numberFrom(value: unknown, fallback = 0): number {
+  if (typeof value === 'number' && Number.isFinite(value)) return value
+  if (typeof value === 'string') {
+    const parsed = Number.parseFloat(value)
+    if (Number.isFinite(parsed)) return parsed
+  }
+  return fallback
+}
+
+function stringFrom(value: unknown, fallback = ''): string {
+  if (typeof value === 'string') return value
+  if (typeof value === 'number' && Number.isFinite(value)) return String(value)
+  return fallback
+}
+
+function pickDeep(record: Record<string, unknown>, keys: string[]): unknown {
+  const lowerKeys = new Set(keys.map((key) => key.toLowerCase()))
+  const queue: unknown[] = [record]
+  while (queue.length) {
+    const current = queue.shift()
+    if (!isRecord(current)) continue
+    for (const [key, value] of Object.entries(current)) {
+      if (lowerKeys.has(key.toLowerCase())) return value
+      if (isRecord(value)) queue.push(value)
+    }
+  }
+  return undefined
+}
+
+function normalizeHashRate(value: number): number {
+  if (value > 1_000_000_000) return value / 1_000_000_000
+  if (value > 1_000_000) return value / 1_000_000
+  if (value > 10_000) return value / 1_000
+  return value
+}
+
+function devicePersonality(device: {
+  hashRate: number
+  temp: number
+  shares: number
+  rejected: number
+  id: string
+}): MiningDevice['pet'] {
+  const stage: PetStage = device.shares > 200 ? 'alpha' : device.shares > 50 ? 'adult' : device.shares > 10 ? 'juvenile' : device.shares > 0 ? 'larva' : 'egg'
+  const mood: PetMood = device.temp > 68 ? 'hot' : device.temp > 60 ? 'anxious' : device.hashRate > 620 ? 'ecstatic' : device.rejected > 5 ? 'sad' : 'happy'
+  const moodScore = mood === 'ecstatic' ? 1 : mood === 'happy' ? 0.65 : mood === 'anxious' ? -0.25 : mood === 'hot' ? -0.85 : mood === 'sad' ? -0.65 : 0
+  return {
+    stage,
+    mood,
+    moodScore,
+    name: `MawdPet-${device.id.replace(/[^A-Za-z0-9]/g, '').slice(-6) || 'Axe'}`,
+    totalShares: device.shares,
+    feedCount: device.shares * 12,
+  }
+}
+
+function normalizeMawdAxeDevice(input: unknown): MiningDevice | null {
+  if (!isRecord(input)) return null
+  const id = stringFrom(input.id ?? input.name ?? input.hostname, 'mawdaxe')
+  const shares = numberFrom(input.shares)
+  const rejected = numberFrom(input.rejected)
+  const hashRate = numberFrom(input.hashRate)
+  const temp = numberFrom(input.temp)
+  return {
+    id,
+    ip: stringFrom(input.ip ?? input.host, ''),
+    source: 'mawdaxe',
+    state: stringFrom(input.state, 'running'),
+    health: stringFrom(input.health, temp > 70 ? 'critical' : temp > 62 ? 'warning' : 'healthy') as DeviceHealth,
+    hashRate,
+    temp,
+    power: numberFrom(input.power),
+    shares,
+    rejected,
+    uptime: numberFrom(input.uptime),
+    fanSpeed: numberFrom(input.fanSpeed),
+    freq: numberFrom(input.freq),
+    pet: isRecord(input.pet) ? input.pet as MiningDevice['pet'] : devicePersonality({ id, hashRate, temp, shares, rejected }),
+  }
+}
+
+function normalizeAxeOSDevice(host: string, info: Record<string, unknown>, dashboard: Record<string, unknown>, asic: Record<string, unknown>): MiningDevice {
+  const hostname = stringFrom(pickDeep(info, ['hostname', 'hostName', 'deviceName', 'name']), 'bitaxe')
+  const model = stringFrom(pickDeep(info, ['ASICModel', 'asicModel', 'deviceModel', 'model']), 'Bitaxe')
+  const hashRate = normalizeHashRate(numberFrom(pickDeep(dashboard, ['hashRate', 'hashrate', 'currentHashrate', 'hashRateGHs', 'hashRateGH'])))
+  const temp = numberFrom(pickDeep(dashboard, ['temp', 'temperature', 'asicTemp', 'vrTemp']))
+  const shares = numberFrom(pickDeep(dashboard, ['sharesAccepted', 'acceptedShares', 'shares', 'bestDiff']))
+  const rejected = numberFrom(pickDeep(dashboard, ['sharesRejected', 'rejectedShares', 'rejected']))
+  const power = numberFrom(pickDeep(dashboard, ['power', 'powerW', 'watts']), numberFrom(pickDeep(asic, ['power', 'powerW', 'watts'])))
+  const fanSpeed = numberFrom(pickDeep(dashboard, ['fanspeed', 'fanSpeed', 'fanrpm', 'fanRpm']))
+  const freq = numberFrom(pickDeep(asic, ['frequency', 'freq', 'frequencyMHz']), numberFrom(pickDeep(dashboard, ['frequency', 'freq'])))
+  const state = stringFrom(pickDeep(dashboard, ['state', 'miningState', 'status']), hashRate > 0 ? 'mining' : 'idle')
+  const id = `${model}-${hostname}`.replace(/\s+/g, '-').toLowerCase()
+  return {
+    id,
+    ip: host.replace(/^https?:\/\//, ''),
+    source: 'axeos',
+    state,
+    health: temp > 72 ? 'critical' : temp > 65 ? 'warning' : hashRate > 0 ? 'healthy' : 'offline',
+    hashRate,
+    temp,
+    power,
+    shares,
+    rejected,
+    uptime: numberFrom(pickDeep(dashboard, ['uptime', 'uptimeSeconds'])) / 3600,
+    fanSpeed,
+    freq,
+    voltage: numberFrom(pickDeep(asic, ['coreVoltage', 'voltage', 'asicVoltage'])),
+    pool: stringFrom(pickDeep(info, ['stratumURL', 'stratumHost', 'poolUrl', 'pool'])),
+    version: stringFrom(pickDeep(info, ['version', 'firmwareVersion', 'espMinerVersion'])),
+    pet: devicePersonality({ id, hashRate, temp, shares, rejected }),
   }
 }
 
@@ -76,21 +199,28 @@ function computeFleetStats(devices: MiningDevice[]): FleetStats {
 // ─── Main Dashboard ──────────────────────────────────────────
 function MiningDashboard() {
   const [gatewayUrl, setGatewayUrl] = useState('')
+  const [bitaxeHost, setBitaxeHost] = useState('')
   const [apiKey, setApiKey] = useState('')
+  const [connectionKind, setConnectionKind] = useState<'mawdaxe' | 'axeos'>('axeos')
   const [connected, setConnected] = useState(false)
   const [connecting, setConnecting] = useState(false)
   const [devices, setDevices] = useState<MiningDevice[]>([])
   const [selectedDevice, setSelectedDevice] = useState<string | null>(null)
   const [view, setView] = useState<'fleet' | 'device' | 'pet'>('fleet')
   const [useDemo, setUseDemo] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const sseRef = useRef<EventSource | null>(null)
 
   // Load saved gateway URL
   useEffect(() => {
     const saved = localStorage.getItem('mawdaxe.gatewayUrl')
     const savedKey = localStorage.getItem('mawdaxe.apiKey')
+    const savedBitaxe = localStorage.getItem('bitaxe.host')
+    const savedKind = localStorage.getItem('mining.connectionKind')
     if (saved) setGatewayUrl(saved)
     if (savedKey) setApiKey(savedKey)
+    if (savedBitaxe) setBitaxeHost(savedBitaxe)
+    if (savedKind === 'mawdaxe' || savedKind === 'axeos') setConnectionKind(savedKind)
   }, [])
 
   // Demo mode
@@ -116,10 +246,63 @@ function MiningDashboard() {
     return () => clearInterval(interval)
   }, [useDemo, selectedDevice])
 
+  const connectToAxeOS = useCallback(async () => {
+    const host = bitaxeHost.trim()
+    if (!host) return
+    setConnecting(true)
+    setError(null)
+    try {
+      const base = host.startsWith('http://') || host.startsWith('https://') ? host.replace(/\/$/, '') : `http://${host.replace(/\/$/, '')}`
+      const [infoRes, dashboardRes, asicRes] = await Promise.all([
+        fetch(`${base}/api/system/info`),
+        fetch(`${base}/api/system/statistics/dashboard`),
+        fetch(`${base}/api/system/asic`),
+      ])
+      if (!infoRes.ok) throw new Error(`AxeOS info returned HTTP ${infoRes.status}`)
+      if (!dashboardRes.ok) throw new Error(`AxeOS dashboard returned HTTP ${dashboardRes.status}`)
+      const info = await infoRes.json() as unknown
+      const dashboard = await dashboardRes.json() as unknown
+      const asic = asicRes.ok ? await asicRes.json() as unknown : {}
+      if (!isRecord(info) || !isRecord(dashboard) || !isRecord(asic)) throw new Error('AxeOS returned an unexpected payload')
+      const device = normalizeAxeOSDevice(base, info, dashboard, asic)
+      setDevices([device])
+      setSelectedDevice(device.id)
+      setConnected(true)
+      setUseDemo(false)
+      setConnectionKind('axeos')
+      localStorage.setItem('bitaxe.host', bitaxeHost)
+      localStorage.setItem('mining.connectionKind', 'axeos')
+    } catch (caught) {
+      setConnected(false)
+      setError(caught instanceof Error ? caught.message : 'Could not connect to AxeOS')
+    } finally {
+      setConnecting(false)
+    }
+  }, [bitaxeHost])
+
+  const refreshAxeOS = useCallback(async () => {
+    if (connectionKind !== 'axeos') return
+    await connectToAxeOS()
+  }, [connectToAxeOS, connectionKind])
+
+  const runAxeOSAction = useCallback(async (action: 'pause' | 'resume' | 'restart' | 'identify') => {
+    const host = bitaxeHost.trim()
+    if (!host) return
+    const base = host.startsWith('http://') || host.startsWith('https://') ? host.replace(/\/$/, '') : `http://${host.replace(/\/$/, '')}`
+    setError(null)
+    const response = await fetch(`${base}/api/system/${action}`, { method: 'POST' })
+    if (!response.ok) {
+      setError(`${action} returned HTTP ${response.status}`)
+      return
+    }
+    if (action !== 'restart') await refreshAxeOS()
+  }, [bitaxeHost, refreshAxeOS])
+
   // Connect to real MawdAxe API
   const connectToGateway = useCallback(async () => {
     if (!gatewayUrl.trim()) return
     setConnecting(true)
+    setError(null)
     try {
       const base = gatewayUrl.replace(/\/$/, '')
       const headers: Record<string, string> = {}
@@ -130,29 +313,36 @@ function MiningDashboard() {
       // Fetch fleet
       const fleetRes = await fetch(`${base}/api/fleet`, { headers })
       if (fleetRes.ok) {
-        const data = await fleetRes.json()
-        if (data.devices) setDevices(data.devices)
+        const data = await fleetRes.json() as unknown
+        const rawDevices = isRecord(data) && Array.isArray(data.devices) ? data.devices : []
+        const normalized = rawDevices.map(normalizeMawdAxeDevice).filter((device): device is MiningDevice => Boolean(device))
+        if (normalized.length) setDevices(normalized)
       }
 
       localStorage.setItem('mawdaxe.gatewayUrl', gatewayUrl)
       if (apiKey) localStorage.setItem('mawdaxe.apiKey', apiKey)
+      localStorage.setItem('mining.connectionKind', 'mawdaxe')
 
       // SSE stream
       if (sseRef.current) sseRef.current.close()
       const sse = new EventSource(`${base}/ws`)
-      sse.onmessage = (event) => {
+      sse.addEventListener('message', (event) => {
         try {
-          const update = JSON.parse(event.data)
-          if (update.devices) setDevices(update.devices)
+          const update = JSON.parse(event.data) as unknown
+          const rawDevices = isRecord(update) && Array.isArray(update.devices) ? update.devices : []
+          const normalized = rawDevices.map(normalizeMawdAxeDevice).filter((device): device is MiningDevice => Boolean(device))
+          if (normalized.length) setDevices(normalized)
         } catch { /* ignore */ }
-      }
-      sse.onerror = () => setConnected(false)
+      })
+      sse.addEventListener('error', () => setConnected(false))
       sseRef.current = sse
 
       setConnected(true)
       setUseDemo(false)
+      setConnectionKind('mawdaxe')
     } catch {
       setConnected(false)
+      setError('Could not connect to MawdAxe gateway')
     } finally {
       setConnecting(false)
     }
@@ -169,7 +359,7 @@ function MiningDashboard() {
           <span className="mining-logo">🦞</span>
           <div>
             <h1 className="mining-title">MawdAxe</h1>
-            <p className="mining-subtitle">Autonomous Mining Fleet</p>
+            <p className="mining-subtitle">Bitaxe Hardware + Autonomous Mining Fleet</p>
           </div>
         </div>
         <div className="mining-header-right">
@@ -190,24 +380,47 @@ function MiningDashboard() {
         <section className="card" style={{ marginTop: 16 }}>
           <div className="gallery-panel-header">
             <div>
-              <h2>Connect to MawdAxe</h2>
-              <p>Enter your MawdAxe gateway URL or try the demo.</p>
+              <h2>Connect Mining Hardware</h2>
+              <p>Connect directly to a Bitaxe AxeOS API on your LAN, or use a MawdAxe gateway for fleet mode.</p>
             </div>
-            <Settings className="gallery-panel-icon" aria-hidden="true" />
+            <Cpu className="gallery-panel-icon" aria-hidden="true" />
           </div>
           <div className="gallery-form" style={{ marginTop: 12 }}>
-            <div className="gallery-inline-fields">
-              <label className="gallery-field">
-                <span>MawdAxe URL</span>
-                <input value={gatewayUrl} onChange={(e) => setGatewayUrl(e.target.value)} placeholder="http://192.168.1.42:8420" />
-              </label>
-              <label className="gallery-field">
-                <span>API Key (optional)</span>
-                <input value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder="your-api-key" type="password" />
-              </label>
+            <div className="strategy-venue-tabs" style={{ marginBottom: 12 }}>
+              <button type="button" className={`strategy-venue-tab ${connectionKind === 'axeos' ? 'active' : ''}`} onClick={() => setConnectionKind('axeos')}>
+                AxeOS Bitaxe
+              </button>
+              <button type="button" className={`strategy-venue-tab ${connectionKind === 'mawdaxe' ? 'active' : ''}`} onClick={() => setConnectionKind('mawdaxe')}>
+                MawdAxe Gateway
+              </button>
             </div>
+            <div className="gallery-inline-fields">
+              {connectionKind === 'axeos' ? (
+                <label className="gallery-field">
+                  <span>Bitaxe AxeOS URL or LAN IP</span>
+                  <input value={bitaxeHost} onChange={(event) => setBitaxeHost(event.target.value)} placeholder="http://bitaxe or 192.168.1.42" />
+                </label>
+              ) : (
+                <>
+                  <label className="gallery-field">
+                    <span>MawdAxe URL</span>
+                    <input value={gatewayUrl} onChange={(event) => setGatewayUrl(event.target.value)} placeholder="http://192.168.1.42:8420" />
+                  </label>
+                  <label className="gallery-field">
+                    <span>API Key (optional)</span>
+                    <input value={apiKey} onChange={(event) => setApiKey(event.target.value)} placeholder="your-api-key" type="password" />
+                  </label>
+                </>
+              )}
+            </div>
+            {error ? <div className="setup-callout">{error}</div> : null}
             <div style={{ display: 'flex', gap: 10 }}>
-              <button type="button" className="btn btn-primary" disabled={connecting || !gatewayUrl.trim()} onClick={() => void connectToGateway()}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                disabled={connecting || (connectionKind === 'axeos' ? !bitaxeHost.trim() : !gatewayUrl.trim())}
+                onClick={() => void (connectionKind === 'axeos' ? connectToAxeOS() : connectToGateway())}
+              >
                 <Wifi className="h-4 w-4" aria-hidden="true" />
                 {connecting ? 'Connecting...' : 'Connect'}
               </button>
@@ -289,6 +502,7 @@ function MiningDashboard() {
                 <div>
                   <h2 style={{ margin: 0, color: '#ff6600', letterSpacing: 2 }}>{sel.id}</h2>
                   <p style={{ margin: '4px 0 0', fontSize: '0.85rem', color: 'var(--ink-soft)' }}>{sel.ip} · {sel.state}</p>
+                  {sel.version || sel.pool ? <p style={{ margin: '4px 0 0', fontSize: '0.78rem', color: 'var(--ink-soft)' }}>{sel.version || 'AxeOS'} {sel.pool ? `· ${sel.pool}` : ''}</p> : null}
                 </div>
                 <span className="mining-health-badge" style={{ color: HEALTH_COLORS[sel.health], borderColor: `${HEALTH_COLORS[sel.health]}44`, background: `${HEALTH_COLORS[sel.health]}15` }}>
                   {sel.health}
@@ -301,6 +515,7 @@ function MiningDashboard() {
                   { label: 'POWER', value: `${sel.power.toFixed(1)}W`, color: '#cc88ff' },
                   { label: 'FREQ', value: `${sel.freq} MHz`, color: '#ffaa00' },
                   { label: 'FAN', value: `${sel.fanSpeed}%`, color: '#00ddff' },
+                  { label: 'VOLTAGE', value: sel.voltage ? `${sel.voltage} mV` : 'n/a', color: '#ffaa00' },
                   { label: 'EFFICIENCY', value: `${(sel.hashRate / sel.power).toFixed(1)} GH/J`, color: '#00ff80' },
                   { label: 'SHARES', value: String(sel.shares), color: '#00ff40' },
                   { label: 'REJECTED', value: String(sel.rejected), color: '#ff4444' },
@@ -312,6 +527,22 @@ function MiningDashboard() {
                   </div>
                 ))}
               </div>
+              {connectionKind === 'axeos' && !useDemo ? (
+                <div className="mining-hardware-actions">
+                  <button type="button" className="btn" onClick={() => void runAxeOSAction('identify')}>
+                    Identify
+                  </button>
+                  <button type="button" className="btn" onClick={() => void runAxeOSAction('pause')}>
+                    Pause
+                  </button>
+                  <button type="button" className="btn" onClick={() => void runAxeOSAction('resume')}>
+                    Resume
+                  </button>
+                  <button type="button" className="btn btn-danger" onClick={() => void runAxeOSAction('restart')}>
+                    Restart
+                  </button>
+                </div>
+              ) : null}
             </div>
             {/* Pet Card */}
             <div className="mining-pet-card">
@@ -379,7 +610,7 @@ function MiningDashboard() {
             Disconnect
           </button>
           {!useDemo ? (
-            <button type="button" className="btn" onClick={() => void connectToGateway()}>
+            <button type="button" className="btn" onClick={() => void (connectionKind === 'axeos' ? refreshAxeOS() : connectToGateway())}>
               <RefreshCw className="h-4 w-4" aria-hidden="true" />
               Refresh
             </button>

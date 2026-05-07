@@ -84,6 +84,8 @@
     "build:openclawd-go": "cd cmd/openclawd-go && go build -o openclawd-go .",
     "typecheck:payments": "cd payments/pay-main/typescript && pnpm --dir packages/solana-pay/core typecheck",
     "payments:merchant": "node scripts/openclawd-merchant.mjs",
+    "bitaxe": "node scripts/bitaxe.mjs",
+    "bitaxe:snapshot": "node scripts/bitaxe.mjs snapshot --remember",
     "typecheck:blockchain-buddies-cli": "npm --prefix apps/blockchain_buddies/packages/petdex-cli run typecheck",
     "typecheck:clawdbot": "cd clawdbot && bun run type-check",
     "build:automaton": "cd automaton-main && (pnpm -r build || npm run build)",
