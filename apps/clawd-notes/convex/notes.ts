@@ -60,7 +60,7 @@ export const backlinks = query({
   handler: async (ctx, args) => {
     const title = args.title.trim().toLowerCase();
     const notes = await ctx.db.query('notes').collect();
-    return notes.filter((note) => note.links.some((link) => link.toLowerCase() === title));
+    return notes.filter((note) => note.links.some((link: string) => link.toLowerCase() === title));
   },
 });
 

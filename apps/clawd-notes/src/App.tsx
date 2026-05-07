@@ -23,9 +23,33 @@ interface AppProps {
 
 export function App({ backend, selectedId, setSelectedId }: AppProps) {
   const [search, setSearch] = useState('');
-  const convexStore = backend === 'convex' ? useConvexNotes(search, selectedId, setSelectedId) : null;
-  const localStore = backend === 'local' ? useLocalNotes(search) : null;
-  const store = (convexStore ?? localStore) as NotesStore;
+  if (backend === 'convex') {
+    return <ConvexApp search={search} setSearch={setSearch} selectedId={selectedId} setSelectedId={setSelectedId} />;
+  }
+  return <LocalApp search={search} setSearch={setSearch} />;
+}
+
+function ConvexApp({
+  search,
+  setSearch,
+  selectedId,
+  setSelectedId,
+}: {
+  search: string;
+  setSearch: (value: string) => void;
+  selectedId: string | null;
+  setSelectedId: (id: string | null) => void;
+}) {
+  const store = useConvexNotes(search, selectedId, setSelectedId);
+  return <NotesSurface search={search} setSearch={setSearch} store={store} />;
+}
+
+function LocalApp({ search, setSearch }: { search: string; setSearch: (value: string) => void }) {
+  const store = useLocalNotes(search);
+  return <NotesSurface search={search} setSearch={setSearch} store={store} />;
+}
+
+function NotesSurface({ search, setSearch, store }: { search: string; setSearch: (value: string) => void; store: NotesStore }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
@@ -196,12 +220,11 @@ function RenderLine({
   selectNote: (id: string | null) => void;
   createNote: NotesStore['createNote'];
 }) {
-  const content = renderWikiText(line, findByTitle, selectNote, createNote);
-  if (line.startsWith('# ')) return <h1>{content.slice(2)}</h1>;
-  if (line.startsWith('## ')) return <h2>{content.slice(3)}</h2>;
-  if (line.startsWith('- ')) return <p className="bullet">• {content.slice(2)}</p>;
+  if (line.startsWith('# ')) return <h1>{renderWikiText(line.slice(2), findByTitle, selectNote, createNote)}</h1>;
+  if (line.startsWith('## ')) return <h2>{renderWikiText(line.slice(3), findByTitle, selectNote, createNote)}</h2>;
+  if (line.startsWith('- ')) return <p className="bullet">• {renderWikiText(line.slice(2), findByTitle, selectNote, createNote)}</p>;
   if (!line.trim()) return <div className="blank-line" />;
-  return <p>{content}</p>;
+  return <p>{renderWikiText(line, findByTitle, selectNote, createNote)}</p>;
 }
 
 function renderWikiText(
