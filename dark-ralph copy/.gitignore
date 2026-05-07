@@ -24,6 +24,8 @@ target/
 .grok/
 .sessions/
 **/.sessions/
+__pycache__/
+**/__pycache__/
 *.log
 *.pid
 
