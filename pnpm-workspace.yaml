@@ -3,6 +3,7 @@ packages:
   - "packages/service-registry"
   - "openclawd-framework"
   - "gateway"
+  - "clawdbot"
   - "ui"
   - "web3/clawdbot"
   - "chrome-extension/core"

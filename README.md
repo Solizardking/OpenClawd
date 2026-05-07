@@ -52,10 +52,16 @@ TELEGRAM_BOT_TOKEN=      # optional, only needed for Telegram
 SOLANA_PRIVATE_KEY=      # optional, only after read-only flows are tested
 ```
 
+Visible starter source:
+
+- [`clawdbot/`](./clawdbot/) — the user-facing ClawdBot starter.
+- [`web3/clawdbot/`](./web3/clawdbot/) — the vendored Web3 source copy.
+- [`packages/clawdbot-template/`](./packages/clawdbot-template/) — the CLI template copy used by `openclawd create`.
+
 Useful root commands:
 
 ```bash
-npm run dev:clawdbot      # run the vendored web3/clawdbot project
+npm run dev:clawdbot      # run the top-level clawdbot project
 npm run build:clawdbot    # build the ClawdBot starter
 npm run dev:ui            # run the main /ui control surface
 npm run build:ui          # build the main /ui control surface

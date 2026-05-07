@@ -1,13 +1,14 @@
 # ClawdBot Web3 Starter
 
-ClawdBot is the default OpenClawd project template. It gives new users a
-ready-to-run agent with Solana data hooks, optional Telegram, optional Phala TEE
-key derivation, and a small React UI surface.
+ClawdBot is the default OpenClawd project template and now has a top-level repo
+home at [`../../clawdbot`](../../clawdbot). It gives new users a ready-to-run
+agent with Solana data hooks, optional Telegram, optional Phala TEE key
+derivation, and a branded React UI surface.
 
 ## Quick Start
 
 ```bash
-cd web3/clawdbot
+cd clawdbot
 bun install
 cp .env.example .env
 $EDITOR .env
@@ -46,7 +47,7 @@ bun run test         # component and e2e tests
 - `src/character.ts` defines the OpenClawd agent identity and enabled plugins.
 - `src/index.ts` registers the project agent and Phala TEE plugin.
 - `src/plugin.ts` shows the starter action, provider, route, and service.
-- `src/frontend/` contains the embedded React panel.
+- `src/frontend/` contains the ClawdBot dashboard panel.
 - `teePlugin.ts` derives EVM and Solana keys from Phala dstack when enabled.
 
 Keep `.env`, private keys, wallet files, and bot tokens out of git.
