@@ -56,13 +56,13 @@ NODE_MIN_MAJOR=20
 # Pretty output (Solana brand colors — green #14F195, purple #9945FF)
 # ──────────────────────────────────────────────────────────────────────────────
 if [ -t 1 ] && [ "${NO_COLOR:-}" = "" ]; then
-  GREEN='\033[38;2;20;241;149m'
-  PURPLE='\033[38;2;153;69;255m'
-  CYAN='\033[38;2;77;208;225m'
-  DIM='\033[38;2;120;134;160m'
-  RED='\033[38;2;255;87;87m'
-  BOLD='\033[1m'
-  RESET='\033[0m'
+  GREEN=$'\033[38;2;20;241;149m'
+  PURPLE=$'\033[38;2;153;69;255m'
+  CYAN=$'\033[38;2;77;208;225m'
+  DIM=$'\033[38;2;120;134;160m'
+  RED=$'\033[38;2;255;87;87m'
+  BOLD=$'\033[1m'
+  RESET=$'\033[0m'
 else
   GREEN='' PURPLE='' CYAN='' DIM='' RED='' BOLD='' RESET=''
 fi
@@ -242,7 +242,7 @@ has_cmd() { command -v "$1" >/dev/null 2>&1; }
 pkg_install() {
   local dir="$1"
   if has_cmd pnpm; then
-    ( cd "$dir" && pnpm install --frozen-lockfile=false )
+    ( cd "$dir" && pnpm install --frozen-lockfile=false --link-workspace-packages )
   else
     ( cd "$dir" && npm install --no-audit --no-fund --legacy-peer-deps )
   fi
@@ -252,7 +252,7 @@ pkg_run() {
   local dir="$1"
   local script="$2"
   if has_cmd pnpm; then
-    ( cd "$dir" && pnpm run "$script" --if-present )
+    ( cd "$dir" && pnpm run --if-present "$script" )
   else
     ( cd "$dir" && npm run "$script" --if-present )
   fi
@@ -267,7 +267,7 @@ elif [ -f "$SRC_DIR/package.json" ] && command -v npm >/dev/null 2>&1; then
   [ -d "$SRC_DIR/gateway" ] && pkg_install "$SRC_DIR/gateway" || warn "gateway install skipped"
   ( cd "$SRC_DIR" && node scripts/install-plugin-delivery.mjs ) || warn "plugin.delivery install skipped"
   if has_cmd pnpm; then
-    pkg_install "$SRC_DIR" || warn "pAGENT workspace link skipped"
+    info "pAGENT packages linked through root pnpm workspace"
   else
     ( cd "$SRC_DIR" && npm run install:pagent --if-present ) || warn "pAGENT install skipped"
   fi
@@ -276,7 +276,15 @@ elif [ -f "$SRC_DIR/package.json" ] && command -v npm >/dev/null 2>&1; then
   [ -d "$SRC_DIR/openclawd-framework" ] && pkg_run "$SRC_DIR/openclawd-framework" build || warn "framework build failed"
   [ -d "$SRC_DIR/gateway" ] && pkg_run "$SRC_DIR/gateway" build || warn "gateway build failed"
   ( cd "$SRC_DIR" && node scripts/build-plugin-delivery.mjs ) || warn "plugin.delivery build failed"
-  ( cd "$SRC_DIR" && npm run build:pagent --if-present ) || warn "pAGENT build skipped"
+  if has_cmd pnpm; then
+    (
+      for d in chrome-extension/theme chrome-extension/wallet chrome-extension/page-controller chrome-extension/llms chrome-extension/core chrome-extension/ui chrome-extension/page-agent; do
+        [ -d "$SRC_DIR/$d" ] && pkg_run "$SRC_DIR/$d" build || exit 1
+      done
+    )
+  else
+    ( cd "$SRC_DIR" && npm run build:pagent --if-present )
+  fi || warn "pAGENT build skipped"
   ok "Node surfaces ready"
 else
   warn "Node/npm not found or no package.json — skipping JS workspace install"
@@ -301,9 +309,9 @@ elif [ -d "$SRC_DIR/dark-ralph" ] && command -v bun >/dev/null 2>&1; then
   ) || warn "dark-ralph TUI build failed"
   if [ -f "$SRC_DIR/dark-ralph/dist/cli.js" ]; then
     install -m 0755 "$SRC_DIR/dark-ralph/dist/cli.js" "$BIN_DIR/dark-ralph"
-    ln -sf "$BIN_DIR/dark-ralph" "$BIN_DIR/ralph"
     ln -sf "$BIN_DIR/dark-ralph" "$BIN_DIR/ralph-tui"
-    ok "installed dark-ralph TUI (aliases: ralph, ralph-tui)"
+    rm -f "$BIN_DIR/ralph"
+    ok "installed dark-ralph TUI (alias: ralph-tui)"
   fi
 else
   warn "dark-ralph TUI skipped — install Bun or publish @darkralph/tui"
