@@ -28,6 +28,7 @@ from src.routers import (
     webhooks,
     workspaces,
 )
+from src.openclawd_memory.router import router as openclawd_memory_router
 from src.telemetry import (
     initialize_telemetry_async,
     metrics_endpoint,
@@ -191,6 +192,7 @@ app.include_router(messages.router, prefix="/v3")
 app.include_router(conclusions.router, prefix="/v3")
 app.include_router(keys.router, prefix="/v3")
 app.include_router(webhooks.router, prefix="/v3")
+app.include_router(openclawd_memory_router)
 
 # Prometheus metrics endpoint
 app.add_route("/metrics", metrics_endpoint, methods=["GET"])

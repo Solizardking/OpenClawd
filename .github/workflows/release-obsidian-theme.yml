@@ -1,0 +1,45 @@
+name: Release Obsidian theme
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate theme assets
+        run: |
+          test -f obsidian-theme/manifest.json
+          test -f obsidian-theme/theme.css
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          css = Path("obsidian-theme/theme.css").read_text()
+          if re.search(r"@import\b", css, re.I):
+              raise SystemExit("theme.css must not use @import")
+          for match in re.finditer(r"url\(([^)]+)\)", css, re.I):
+              value = match.group(1).strip().strip("\"'")
+              if value.startswith(("http://", "https://", "//")):
+                  raise SystemExit(f"remote asset URL is not allowed: {value}")
+          if "!important" in css:
+              raise SystemExit("theme.css must not use !important")
+          PY
+
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="${GITHUB_REF#refs/tags/}"
+
+          gh release create "$tag" \
+            --title="$tag" \
+            --generate-notes \
+            --draft \
+            obsidian-theme/manifest.json \
+            obsidian-theme/theme.css
