@@ -91,7 +91,7 @@ pub fn handler(ctx: Context<Stake>, params: StakeParams) -> Result<()> {
     position.clawd_pending = 0;
     position.sol_pending = 0;
     position.last_claim_ts = now;
-    position.bump = *ctx.bumps.get("position").unwrap();
+    position.bump = ctx.bumps.position;
 
     pool.total_weight = pool
         .total_weight

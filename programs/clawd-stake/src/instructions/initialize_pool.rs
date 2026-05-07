@@ -67,9 +67,9 @@ pub fn handler(ctx: Context<InitializePool>, params: InitializePoolParams) -> Re
     pool.total_weight = 0;
     pool.total_positions = 0;
     pool.paused = false;
-    pool.bump = *ctx.bumps.get("pool").unwrap();
-    pool.reward_vault_bump = *ctx.bumps.get("reward_vault").unwrap();
-    pool.sol_vault_bump = *ctx.bumps.get("sol_vault").unwrap();
+    pool.bump = ctx.bumps.pool;
+    pool.reward_vault_bump = ctx.bumps.reward_vault;
+    pool.sol_vault_bump = ctx.bumps.sol_vault;
 
     let rent_lamports = Rent::get()?.minimum_balance(0);
     let cur = ctx.accounts.sol_vault.lamports();

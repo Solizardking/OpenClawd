@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("CLawdStaKe11111111111111111111111111111111");
+declare_id!("Stake11111111111111111111111111111111111111");
 
 pub mod state;
 pub mod errors;
