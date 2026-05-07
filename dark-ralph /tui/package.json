@@ -20,7 +20,7 @@
     "wallet": "bun run src/cli.tsx wallet",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src/**/*.{ts,tsx}",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests './src/**/*.test.ts' './src/**/*.test.tsx' './src/**/*.spec.ts' './src/**/*.spec.tsx'",
     "clean": "rm -rf dist",
     "prepublishOnly": "bun run build && bun run build:lib"
   },

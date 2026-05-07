@@ -1,6 +1,6 @@
-# Dark Ralph TUI
+# OpenClawd Dark Ralph TUI
 
-Dark Ralph is a Bun + Ink terminal app for Solana market surveillance, wallet context, and autonomous AI analysis. The default experience is the **MAWD Market View**: a Bloomberg-style terminal surface with live tickers, a candlestick chart, order book, heatmap, top movers, network stats, activity, and agent controls.
+Dark Ralph is the OpenClawd Bun + Ink terminal app for Solana market surveillance, wallet context, autonomous AI analysis, and holder operations. The default experience is the **MAWD Market View**: a Bloomberg-style terminal surface with live tickers, a candlestick chart, order book, heatmap, top movers, network stats, activity, and agent controls.
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
@@ -36,23 +36,18 @@ Dark Ralph is a Bun + Ink terminal app for Solana market surveillance, wallet co
 - **Provider integrations** for Helius, Birdeye, xAI Grok, Perplexity, OpenRouter, News API, SERP API, and Financial Datasets.
 - **Solana wallet tools** for local wallet creation, address display, balance lookup, and portfolio context.
 - **Terminal-native controls** with number-key navigation, refresh/help shortcuts, and an agent command surface.
+- **OpenClawd backend links** for `solanaclawd.com`, `/vault`, voice, vim-style command flow, trading routes, staking, mining, and agent API surfaces.
 
-## OpenClawd agent staking docs
+## OpenClawd Mapping
 
-Dark Ralph is the market-surveillance/operator companion to the OpenClawd agent stack. Related local references:
-
-- Main app README: `/Users/8bit/Downloads/clawd-terminal/README.md`
-- Agents catalog README: `/Users/8bit/Downloads/clawd-terminal/agents/README.md`
-- Pay Agents guide: `/Users/8bit/Downloads/clawd-terminal/docs/pay-agents.md`
-- Clawd Stake program: `/Users/8bit/Downloads/clawd-terminal/programs/clawd-stake/README.md`
-- Clawd TUI README: `/Users/8bit/Downloads/clawd-terminal/clawd-tui/clawd-tui/README.md`
-- Dark Ralph TUI README: `/Users/8bit/fraud/OpenClawd/dark-ralph/README.md`
-
-Dark Ralph's role in this system is operator awareness: watch market conditions,
-agent-wallet context, and token health while the OpenClawd app handles
-wallet-signed staking at `/staking`. The larger `clawd-stake` reward layer can
-use the same market and payment data when routing future CLAWD emissions and
-gacha fee share.
+| Surface | Route / API |
+| --- | --- |
+| Site | `https://solanaclawd.com` |
+| Holder vault | `https://solanaclawd.com/vault` |
+| Chat, voice, and vim command surfaces | `https://solanaclawd.com/chat` |
+| Trading console | `https://solanaclawd.com/trading` |
+| Agent API | `https://agents.openclawd.biz` |
+| Local config module | `src/openclawd.ts` |
 
 ## Quick Start
 
@@ -128,6 +123,13 @@ BIRDEYE_API_KEY=
 XAI_API_KEY=
 PERPLEXITY_API_KEY=
 OPENROUTER_API_KEY=
+OPENROUTER_MODEL=minimax/minimax-m2.7
+OPENCLAWD_SITE_URL=https://solanaclawd.com
+OPENCLAWD_BACKEND_URL=https://solanaclawd.com
+OPENCLAWD_AGENT_API_URL=https://agents.openclawd.biz
+OPENCLAWD_VAULT_URL=https://solanaclawd.com/vault
+OPENCLAWD_VOICE_URL=https://solanaclawd.com/chat
+OPENCLAWD_VIM_URL=https://solanaclawd.com/chat
 NEWS_API_KEY=
 SERP_API_KEY=
 FINANCIAL_DATASET_API_KEY=
@@ -153,6 +155,7 @@ dark-ralph/
 ├── src/
 │   ├── cli.tsx
 │   ├── App.tsx
+│   ├── openclawd.ts
 │   ├── components/
 │   │   ├── BloombergDashboard.tsx
 │   │   ├── PriceChart.tsx
