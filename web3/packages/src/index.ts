@@ -1,8 +1,27 @@
 export { AgentRuntime } from "./runtime.ts";
 export type { AgentRuntimeOptions } from "./runtime.ts";
 export type { EmbeddingGenerationPayload, EmbeddingPriority } from "./types/events.ts";
-export { ChannelType, EventType } from "./types/index.ts";
-export type { Character, Content, IDatabaseAdapter, Memory, UUID } from "./types/index.ts";
+export { ChannelType, EventType, logger, ModelType, Service } from "./types/index.ts";
+export type {
+  Action,
+  ActionResult,
+  Character,
+  Content,
+  GenerateTextParams,
+  HandlerCallback,
+  IDatabaseAdapter,
+  Memory,
+  Plugin,
+  Project,
+  ProjectAgent,
+  Provider,
+  ProviderResult,
+  RouteRequest,
+  RouteResponse,
+  State,
+  UUID,
+} from "./types/index.ts";
+export type { AgentRuntime as IAgentRuntime } from "./runtime.ts";
 export { stringToUuid } from "./utils.ts";
 
 import { AgentRuntime } from "./runtime.ts";

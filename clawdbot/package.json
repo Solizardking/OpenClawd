@@ -54,7 +54,7 @@
   "scripts": {
     "start": "bun run build && bun dist/src/index.js",
     "dev": "vite --host 0.0.0.0",
-    "build": "bun run build.ts && vite build",
+    "build": "cd ../web3/packages && bun run build && cd ../../clawdbot && bun run build.ts && vite build",
     "lint": "prettier --write ./src",
     "type-check": "tsc --noEmit",
     "type-check:watch": "tsc --noEmit --watch",

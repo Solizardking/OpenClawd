@@ -1,6 +1,6 @@
 import { type Plugin, type IAgentRuntime, logger, Service } from '@openclawdsolana/core';
 import { z } from 'zod';
-import { type DeriveKeyResponse, TappdClient } from '@phala/dstack-sdk';
+import { TappdClient } from '@phala/dstack-sdk';
 import { type PrivateKeyAccount, privateKeyToAccount } from 'viem/accounts';
 import { keccak256 } from 'viem';
 import { Keypair } from '@solana/web3.js';
@@ -17,6 +17,8 @@ type TeeServiceConfig = {
     secretSalt: string;
     runtime: IAgentRuntime;
 };
+
+type DeriveKeyResponse = Awaited<ReturnType<TappdClient['deriveKey']>>;
 
 const createTeeServiceConfig = (runtime: IAgentRuntime): TeeServiceConfig => ({
     teeClient: new TappdClient(),
@@ -47,9 +49,7 @@ const isTeeConnectionError = (error: unknown): boolean => {
 
 const handleTeeKeyDerivation = async (config: TeeServiceConfig): Promise<void> => {
     try {
-        const deriveKeyResponse: DeriveKeyResponse = await config.teeClient.deriveKey(
-            config.secretSalt
-        );
+        const deriveKeyResponse: DeriveKeyResponse = await config.teeClient.deriveKey();
 
         const ecdsaKeypair = deriveEcdsaKeypair(deriveKeyResponse);
         const ed25519Keypair = deriveEd25519Keypair(deriveKeyResponse);

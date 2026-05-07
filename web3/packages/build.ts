@@ -43,8 +43,8 @@ async function build() {
   await $`tsc --project tsconfig.declarations.json`;
 
   await writeFile("dist/index.js", `export * from "./node/index.node.js";\n`);
-  await writeFile("dist/node/index.d.ts", `export * from "../index.node";\n`);
-  await writeFile("dist/browser/index.d.ts", `export * from "../index.browser";\n`);
+  await writeFile("dist/node/index.d.ts", `export * from "../index";\n`);
+  await writeFile("dist/browser/index.d.ts", `export * from "../index";\n`);
 
   console.log("Built @openclawdsolana/core Web3 package");
 }

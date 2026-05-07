@@ -90,6 +90,10 @@ export class AgentRuntime {
     return { text: `${this.character.name}: ${prompt}` };
   }
 
+  getService(_serviceType: string): { stop: () => void | Promise<void> } | undefined {
+    return undefined;
+  }
+
   async queueEmbeddingGeneration(
     memory: Memory | null | undefined,
     priority: EmbeddingPriority = "normal",
