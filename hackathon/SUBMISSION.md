@@ -40,6 +40,7 @@ OpenClawd adapts the existing Solana-native financial agent stack into a robotic
 | Robot/agent registry | `agents/`, `acp_registry/`, `api-registrar/`, `profiles/` |
 | Tooling surface | `mcp/`, `skills/`, `clawdhub/`, `extensions/` |
 | Research and telemetry memory | `llm-wiki-tang/`, `packages/`, `services/` |
+| Native vault memory | `apps/obsidian-openclawd/`, `memory/honcho_jack/src/openclawd_memory/`, `membrain/` |
 | Payments and plugin delivery | `clawdrouter/`, `payments/`, `plugin.delivery/`, `workers/` |
 | Real robot hardware and install | `Robotics/`, `cmd/openclawd-go/`, `gateway/` |
 | DePIN physical-AI data model | `hackathon/docs/depin-physical-ai.md`, `Robotics/docs/THESIS.md`, `Robotics/Isaac-GR00T-main/examples/OpenClawdASV1/` |
@@ -120,6 +121,7 @@ The autonomous trading loop is deliberately constrained:
 - Printable HTML pitch deck.
 - One-page project website.
 - Architecture and technical documentation.
+- Official Obsidian plugin submission for file-first wiki-to-memory-to-Membrain workflows.
 - Offline deterministic demo with telemetry, policy, payment, and receipt samples.
 - Beat-by-beat reveal script for video walkthroughs at [`presentation/reveal-script.md`](./presentation/reveal-script.md).
 

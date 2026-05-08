@@ -1,0 +1,11 @@
+{
+  "id": "openclawd",
+  "name": "OpenClawd",
+  "version": "0.1.0",
+  "minAppVersion": "1.5.0",
+  "description": "Official OpenClawd vault integration for Solana trading agents, Membrain records, and Honcho memory sessions.",
+  "author": "OpenClawd",
+  "authorUrl": "https://solanaclawd.com",
+  "fundingUrl": "https://solanaclawd.com",
+  "isDesktopOnly": false
+}
