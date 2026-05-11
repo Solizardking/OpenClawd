@@ -105,11 +105,11 @@ export async function verifyEd25519Signature(
     // Import public key
     const cryptoKey = await crypto.subtle.importKey(
       'raw',
-      publicKey,
+      publicKey as unknown as ArrayBuffer,
       {
         name: 'Ed25519',
         namedCurve: 'Ed25519'
-      } as any,
+      } as EcKeyImportParams,
       false,
       ['verify']
     );
@@ -118,8 +118,8 @@ export async function verifyEd25519Signature(
     return await crypto.subtle.verify(
       'Ed25519',
       cryptoKey,
-      signature,
-      messageHash
+      signature as unknown as ArrayBuffer,
+      messageHash as unknown as ArrayBuffer
     );
   } catch (error) {
     console.error('Ed25519 verification failed:', error);
@@ -142,11 +142,11 @@ export async function verifySecp256k1Signature(
     // Import public key
     const cryptoKey = await crypto.subtle.importKey(
       'raw',
-      publicKey,
+      publicKey as unknown as ArrayBuffer,
       {
         name: 'ECDSA',
         namedCurve: 'secp256k1'
-      } as any,
+      } as EcKeyImportParams,
       false,
       ['verify']
     );
@@ -158,8 +158,8 @@ export async function verifySecp256k1Signature(
         hash: { name: 'SHA-256' }
       },
       cryptoKey,
-      signature,
-      messageHash
+      signature as unknown as ArrayBuffer,
+      messageHash as unknown as ArrayBuffer
     );
   } catch (error) {
     console.error('secp256k1 verification failed:', error);

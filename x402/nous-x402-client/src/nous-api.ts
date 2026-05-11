@@ -9,6 +9,8 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import type { NousPaymentPayload, NousPaymentSignature } from './x402-client.js';
+
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export interface NousModel {
@@ -73,29 +75,6 @@ export interface X402PaymentRequired {
   facilitatorUrl: string;
   nonce?: string;
   expiresAt?: number;
-}
-
-/**
- * Payment signature payload to sign with wallet
- */
-export interface PaymentPayload {
-  amount: number;
-  recipient: string;
-  token: string;
-  chainId: string;
-  nonce: string;
-  timestamp: number;
-  endpoint: string;
-}
-
-/**
- * Complete payment signature
- */
-export interface PaymentSignature {
-  payload: PaymentPayload;
-  signature: string;    // base64 wallet signature
-  publicKey: string;    // wallet public key
-  signatureType: 'ed25519' | 'secp256k1' | 'secp256r1';
 }
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -210,7 +189,7 @@ export class NousApiClient {
    */
   async sendWithX402(
     req: ChatCompletionRequest,
-    signer: (payload: PaymentPayload) => Promise<PaymentSignature>,
+    signer: (payload: NousPaymentPayload) => Promise<NousPaymentSignature>,
   ): Promise<ChatCompletionResponse> {
     // Step 1: Send request without auth to trigger 402
     const initialRes = await fetch(`${this.baseUrl}/chat/completions`, {
@@ -234,14 +213,20 @@ export class NousApiClient {
     const paymentRequired = this.parsePaymentRequired(initialRes.headers);
     console.error('[x402] Payment required:', JSON.stringify(paymentRequired, null, 2));
 
-    // Step 3: Construct and sign the payment payload
-    const amount = typeof paymentRequired.amount === 'number'
-      ? paymentRequired.amount
-      : 'min' in paymentRequired
-        ? paymentRequired.min
-        : paymentRequired.amount;
+    // Step 3: Extract amount — paymentRequired.amount can be a number or an object
+    let amount: number;
+    if (typeof paymentRequired.amount === 'number') {
+      amount = paymentRequired.amount;
+    } else if ('min' in paymentRequired.amount) {
+      amount = paymentRequired.amount.min;
+    } else if ('amount' in paymentRequired.amount) {
+      amount = paymentRequired.amount.amount;
+    } else {
+      amount = 0;
+    }
 
-    const payload: PaymentPayload = {
+    // Construct the payment payload for signing
+    const payload: NousPaymentPayload = {
       amount,
       recipient: paymentRequired.payTo,
       token: paymentRequired.token,

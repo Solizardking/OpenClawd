@@ -75,7 +75,7 @@ export function matchesChainPattern(chainId: ChainId, pattern: string): boolean 
   if (pattern === chainId) return true;
 
   const [patternNamespace, patternReference] = pattern.split(':');
-  const { namespace, reference } = parseChainId(chainId);
+  const { namespace } = parseChainId(chainId);
 
   if (patternReference === '*') {
     return namespace === patternNamespace;

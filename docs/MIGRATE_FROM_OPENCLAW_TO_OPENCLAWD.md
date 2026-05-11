@@ -83,10 +83,10 @@ clawd migrate --source ~/.moldbot --verbose
 |---|---|---|
 | **OpenClaw** | **OpenClawd** | Full product rename; config dir from `~/.clawdbot/` → `~/.openclawdsolana/` |
 | **Hermes Vault** | **ClawdVault** | Security vault renamed to fit the Clawd ecosystem |
-| **solana-clawd** | **OpenClawd** | The Solana-native agent engine was unified under a single product name |
+| Legacy Solana agent engine package | **OpenClawd** | The Solana-native agent engine was unified under a single product name |
 | OpenClaw CLI (`openclaw`) | OpenClawd CLI (`clawd` / `openclawd`) | Both aliases installed by the Go runtime |
 | `~/.clawd/` | `~/.openclawdsolana/` | Canonical config directory |
-| `~/.nanosolana/` | `~/.openclawdsolana/` | Merged into the single workspace |
+| Legacy workspace directory | `~/.openclawdsolana/` | Merged into the single workspace |
 | `hermes-vault` (service) | `clawd-vault` (skill) | Python scanning backend → agent-native SKILL.md |
 | OpenClaw plugins | OpenClawd skills | `plugins/*.yaml` → `skills/*/SKILL.md` |
 
