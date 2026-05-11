@@ -1,0 +1,27 @@
+{
+  "name": "@openclawdsolana/nous-x402",
+  "version": "1.0.0",
+  "description": "Private Hermes agent — pays for Nous Research inference via x402 Solana USDC, earns via autonomous DeFi trading. No accounts, no API keys, just a wallet.",
+  "type": "module",
+  "main": "dist/hermes-agent.js",
+  "bin": {
+    "hermes-x402": "dist/hermes-agent.js",
+    "hermes-earn": "dist/trade-loop.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/hermes-agent.js",
+    "trade": "node dist/trade-loop.js",
+    "test": "node dist/test-connection.js"
+  },
+  "dependencies": {
+    "@autonomy/x402-core": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.10.2",
+    "@solana/web3.js": "^1.98.0",
+    "@solana/spl-token": "^0.4.9"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "typescript": "^5.9.3"
+  }
+}
