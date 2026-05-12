@@ -1,0 +1,26 @@
+{
+  "name": "solana-pay-agent",
+  "version": "1.0.0",
+  "description": "Google ADK agent for confidential Solana transactions via x402 and pay.sh",
+  "type": "module",
+  "main": "agent.ts",
+  "scripts": {
+    "dev": "npx adk web",
+    "run": "npx adk run agent.ts",
+    "serve": "node --experimental-strip-types server.ts"
+  },
+  "dependencies": {
+    "@google/adk": "^1.0.0",
+    "@solana/web3.js": "^1.95.8",
+    "@solana/spl-token": "^0.4.9",
+    "tweetnacl": "^1.0.3",
+    "tweetnacl-util": "^0.15.1",
+    "zod": "^3.23.8",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@google/adk-devtools": "^1.0.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.5.0"
+  }
+}
