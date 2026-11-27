@@ -1,0 +1,20 @@
+{
+  "author": "SperaxOS",
+  "createdAt": "2025-01-01",
+  "homepage": "https:github.comsolizardkingplugin.delivery",
+  "identifier": "token-unlocks",
+  "manifest": "https:plugin.deliverytoken-unlocksmanifest.json",
+  "meta": {
+    "avatar": "🔓",
+    "description": "Track vesting schedules and upcoming token unlock events",
+    "tags": [
+      "vesting",
+      "unlocks",
+      "tokenomics"
+    ],
+    "title": "Token Unlocks",
+    "category": "stocks-finance"
+  },
+  "schemaVersion": 1
+}
+

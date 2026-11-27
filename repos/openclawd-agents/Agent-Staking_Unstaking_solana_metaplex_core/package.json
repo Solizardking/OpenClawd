@@ -1,0 +1,45 @@
+{
+  "name": "@openclawdsolanaagent-staking",
+  "version": "0.1.0",
+  "description": "OpenClawd agent staking and unstaking protocol for Metaplex Core assets on Solana.",
+  "license": "MIT",
+  "scripts": {
+    "lint:fix": "prettier **.js \"****{.js,.ts}\" -w",
+    "lint": "prettier **.js \"****{.js,.ts}\" --check",
+    "hook": "ts-node .clihook.ts",
+    "build": "anchor build",
+    "test": "anchor test",
+    "deploy:devnet": "anchor deploy --provider.cluster \"${SOLANA_RPC_URL:-https:api.devnet.solana.com}\"",
+    "deploy:mainnet": "anchor deploy --provider.cluster mainnet",
+    "script": "ts-node .clicommand.ts",
+    "script:devnet": "ANCHOR_PROVIDER_URL=\"${SOLANA_RPC_URL:-https:api.devnet.solana.com}\" ts-node .clicommand.ts",
+    "script:mainnet": "ANCHOR_PROVIDER_URL=\"${SOLANA_RPC_URL:-https:api.mainnet-beta.solana.com}\" ts-node .clicommand.ts"
+  },
+  "dependencies": {
+    "@coral-xyzanchor": "^0.30.1",
+    "@metaplex-foundationdigital-asset-standard-api": "^1.0.3",
+    "@metaplex-foundationmpl-core": "^1.0.2",
+    "@metaplex-foundationmpl-token-auth-rules": "^2.0.0",
+    "@metaplex-foundationmpl-token-metadata": "^3.2.1",
+    "@metaplex-foundationumi": "^0.9.2",
+    "@metaplex-foundationumi-bundle-defaults": "^0.9.2",
+    "@metaplex-foundationumi-uploader-irys": "^0.9.1",
+    "@project-serumanchor": "^0.26.0",
+    "@solanaspl-token": "^0.4.6",
+    "@solanaweb3.js": "^1.91.7",
+    "@typesnode": "^20.12.7",
+    "bs58": "^5.0.0",
+    "commander": "^9.5.0"
+  },
+  "devDependencies": {
+    "@typesbn.js": "^5.1.0",
+    "@typeschai": "^4.3.0",
+    "@typesmocha": "^9.0.0",
+    "chai": "^4.3.4",
+    "mocha": "^9.0.3",
+    "prettier": "^2.6.2",
+    "ts-mocha": "^10.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}

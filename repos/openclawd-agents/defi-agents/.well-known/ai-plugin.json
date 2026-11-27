@@ -1,0 +1,16 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Solizard Agents",
+  "name_for_model": "solizard_agents",
+  "description_for_human": "Curated DeFi, trading, portfolio, yield, security, and blockchain automation agents.",
+  "description_for_model": "Use Solizard Agents as a static JSON catalog of specialized DeFi, crypto, portfolio, risk, and security agents.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "none"
+  },
+  "logo_url": "https://github.com/solizardking.png",
+  "contact_email": "solizardking@users.noreply.github.com",
+  "legal_info_url": "https://github.com/solizardking/agents/blob/main/LICENSE"
+}

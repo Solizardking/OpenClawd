@@ -1,0 +1,20 @@
+{
+  "author": "SperaxOS",
+  "createdAt": "2025-01-01",
+  "homepage": "https:github.comsolizardkingplugin.delivery",
+  "identifier": "tally",
+  "manifest": "https:plugin.deliverytallymanifest.json",
+  "meta": {
+    "avatar": "🗳️",
+    "description": "On-chain governance tracking and proposal data",
+    "tags": [
+      "tally",
+      "governance",
+      "onchain"
+    ],
+    "title": "Tally",
+    "category": "social"
+  },
+  "schemaVersion": 1
+}
+

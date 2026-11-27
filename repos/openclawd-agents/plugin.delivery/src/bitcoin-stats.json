@@ -1,0 +1,20 @@
+{
+  "author": "SperaxOS",
+  "createdAt": "2025-01-01",
+  "homepage": "https:github.comsolizardkingplugin.delivery",
+  "identifier": "bitcoin-stats",
+  "manifest": "https:plugin.deliverybitcoin-statsmanifest.json",
+  "meta": {
+    "avatar": "₿",
+    "description": "Bitcoin network stats, mempool, and fee estimates",
+    "tags": [
+      "bitcoin",
+      "mempool",
+      "fees"
+    ],
+    "title": "Bitcoin Stats",
+    "category": "tools"
+  },
+  "schemaVersion": 1
+}
+

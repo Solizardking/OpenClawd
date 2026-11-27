@@ -1,0 +1,20 @@
+{
+  "author": "SperaxOS",
+  "createdAt": "2025-01-01",
+  "homepage": "https:github.comsolizardkingplugin.delivery",
+  "identifier": "token-sniffer",
+  "manifest": "https:plugin.deliverytoken-sniffermanifest.json",
+  "meta": {
+    "avatar": "🐕",
+    "description": "Token security scoring and scam detection",
+    "tags": [
+      "security",
+      "score",
+      "scam"
+    ],
+    "title": "Token Sniffer",
+    "category": "tools"
+  },
+  "schemaVersion": 1
+}
+

@@ -1,0 +1,21 @@
+{
+  "author": "SperaxOS",
+  "createdAt": "2025-01-01",
+  "homepage": "https:github.comsolizardkingplugin.delivery",
+  "identifier": "coinmarketcap",
+  "manifest": "https:plugin.deliverycoinmarketcapmanifest.json",
+  "meta": {
+    "avatar": "📊",
+    "description": "Cryptocurrency rankings, market cap data, and trending coins",
+    "tags": [
+      "crypto",
+      "prices",
+      "rankings",
+      "marketcap"
+    ],
+    "title": "CoinMarketCap",
+    "category": "stocks-finance"
+  },
+  "schemaVersion": 1
+}
+

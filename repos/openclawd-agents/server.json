@@ -1,0 +1,62 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.solizardking/agents-registry",
+  "title": "Solizard Agents Registry",
+  "description": "Solana-native financial AI agent registry with catalog JSON, ACP discovery, and Metaplex Agent Registry registration documents.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Solizard King",
+      "url": "https://github.com/solizardking"
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/solizardking/agents",
+    "source": "github"
+  },
+  "version": "1.42.0",
+  "links": {
+    "homepage": "https://github.com/solizardking/agents",
+    "bugs": "https://github.com/solizardking/agents/issues",
+    "npm": "https://www.npmjs.com/package/@solizardking%2Fagents-registry"
+  },
+  "icons": [
+    {
+      "url": "https://github.com/solizardking.png",
+      "type": "image/jpeg"
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@solizardking/agents-registry",
+      "version": "1.42.0",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": []
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "keywords": [
+        "defi",
+        "agents",
+        "ai-agents",
+        "trading",
+        "portfolio",
+        "yield",
+        "automation",
+        "blockchain",
+        "crypto",
+        "mcp",
+        "ai",
+        "metaplex",
+        "agent-registry",
+        "acp"
+      ],
+      "category": "DeFi"
+    }
+  }
+}

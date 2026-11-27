@@ -1,0 +1,52 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.solizardking/agents",
+  "title": "Solizard Agents",
+  "description": "Solizard Agents is a curated JSON agent catalog for DeFi, trading, portfolio management, yield optimization, and blockchain automation.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Solizard King",
+      "url": "https://github.com/solizardking"
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/solizardking/agents",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "links": {
+    "homepage": "https://github.com/solizardking/agents",
+    "bugs": "https://github.com/solizardking/agents/issues",
+    "npm": "https://www.npmjs.com/package/@solizardking%2Fagents",
+    "catalog": "https://solizardking.github.io/agents/index.json"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@solizardking/agents",
+      "version": "1.0.0",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": []
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "keywords": [
+        "defi",
+        "agents",
+        "trading",
+        "portfolio",
+        "yield",
+        "automation",
+        "blockchain",
+        "crypto",
+        "mcp"
+      ],
+      "category": "DeFi"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+/* TEAM */
+Creator: Solizard King
+GitHub: https://github.com/solizardking
+Repository: https://github.com/solizardking/agents
+
+/* SITE */
+Last update: 2026-07-03
+Language: English
+Doctype: Markdown and JSON
+Tools: TypeScript, GitHub Pages, MCP

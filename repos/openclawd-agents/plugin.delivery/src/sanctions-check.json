@@ -1,0 +1,20 @@
+{
+  "author": "SperaxOS",
+  "createdAt": "2025-01-01",
+  "homepage": "https:github.comsolizardkingplugin.delivery",
+  "identifier": "sanctions-check",
+  "manifest": "https:plugin.deliverysanctions-checkmanifest.json",
+  "meta": {
+    "avatar": "🛡️",
+    "description": "Screen wallet addresses against OFAC SDN and EU sanctions lists for compliance",
+    "tags": [
+      "sanctions",
+      "compliance",
+      "ofac",
+      "aml"
+    ],
+    "title": "Sanctions Check",
+    "category": "tools"
+  },
+  "schemaVersion": 1
+}

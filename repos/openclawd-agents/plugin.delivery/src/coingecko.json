@@ -1,0 +1,21 @@
+{
+  "author": "SperaxOS",
+  "createdAt": "2025-01-01",
+  "homepage": "https:github.comsolizardkingplugin.delivery",
+  "identifier": "coingecko",
+  "manifest": "https:plugin.deliverycoingeckomanifest.json",
+  "meta": {
+    "avatar": "🦎",
+    "description": "Real-time crypto prices, market data, trending tokens for 1M+ cryptocurrencies",
+    "tags": [
+      "crypto",
+      "prices",
+      "market-data",
+      "trending"
+    ],
+    "title": "CoinGecko",
+    "category": "stocks-finance"
+  },
+  "schemaVersion": 1
+}
+

@@ -1,0 +1,20 @@
+{
+  "author": "SperaxOS",
+  "createdAt": "2025-01-01",
+  "homepage": "https:github.comsolizardkingplugin.delivery",
+  "identifier": "phishing-detector",
+  "manifest": "https:plugin.deliveryphishing-detectormanifest.json",
+  "meta": {
+    "avatar": "🎣",
+    "description": "Detect phishing URLs, typosquatting domains, and malicious smart contracts targeting DeFi users",
+    "tags": [
+      "phishing",
+      "security",
+      "scam-detection",
+      "typosquatting"
+    ],
+    "title": "Phishing Detector",
+    "category": "tools"
+  },
+  "schemaVersion": 1
+}

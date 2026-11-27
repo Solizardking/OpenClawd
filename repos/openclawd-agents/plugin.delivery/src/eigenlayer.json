@@ -1,0 +1,20 @@
+{
+  "author": "SperaxOS",
+  "createdAt": "2025-01-01",
+  "homepage": "https:github.comsolizardkingplugin.delivery",
+  "identifier": "eigenlayer",
+  "manifest": "https:plugin.deliveryeigenlayermanifest.json",
+  "meta": {
+    "avatar": "🔄",
+    "description": "EigenLayer restaking TVL, operators, and AVS data",
+    "tags": [
+      "eigenlayer",
+      "restaking",
+      "avs"
+    ],
+    "title": "EigenLayer",
+    "category": "stocks-finance"
+  },
+  "schemaVersion": 1
+}
+

@@ -1,0 +1,27 @@
+# Solizard Agents
+
+## Overview
+
+Solizard Agents is an open-source catalog maintained at https://github.com/solizardking/agents. It packages 43 JSON agent definitions for DeFi research, yield strategy, portfolio tracking, market monitoring, smart-contract review, bridge safety, tokenomics, and wallet security workflows.
+
+## Repository
+
+- URL: https://github.com/solizardking/agents
+- Static catalog: https://solizardking.github.io/agents/index.json
+- Manifest: https://solizardking.github.io/agents/agents-manifest.json
+- Language: TypeScript and JSON
+- License: MIT
+- Maintainer: Solizard King
+
+## Usage
+
+Fetch the catalog or a single agent over HTTPS:
+
+```bash
+curl https://solizardking.github.io/agents/index.json
+curl https://solizardking.github.io/agents/defi-yield-farmer.json
+```
+
+## Contributing
+
+Open issues and pull requests at https://github.com/solizardking/agents/issues.

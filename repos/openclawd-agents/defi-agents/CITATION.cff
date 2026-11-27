@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use Solizard Agents, please cite it as below."
+type: software
+title: "Solizard Agents"
+abstract: "A curated JSON agent catalog for DeFi, trading, portfolio management, yield optimization, and blockchain automation."
+authors:
+  - alias: solizardking
+    name: Solizard King
+repository-code: "https://github.com/solizardking/agents"
+url: "https://github.com/solizardking/agents"
+license: MIT
+version: "1.0.0"
+date-released: "2026-07-03"
+keywords:
+  - open-source
+  - solizardking
+  - defi-agents
