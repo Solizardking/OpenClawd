@@ -140,3 +140,8 @@ packages/membrain/bin/
 packages/membrain/*.db
 packages/membrain/*.db-shm
 packages/membrain/*.db-wal
+
+# convergence cleanup (2026-11-27): caches and OS junk stay out
+__pycache__/
+*.pyc
+.DS_Store
