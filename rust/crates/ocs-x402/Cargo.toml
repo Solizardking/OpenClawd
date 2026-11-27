@@ -1,0 +1,10 @@
+[package]
+name = "ocs-x402"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "x402 payment-requirement verification as pure Rust functions (asset, amount, expiry, replay) — ported from the TS gateway/x402 services."
+
+[dependencies]
+ocs-core = { path = "../ocs-core" }

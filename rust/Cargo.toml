@@ -1,0 +1,17 @@
+[workspace]
+resolver = "2"
+members = ["crates/ocs-core", "crates/ocs-x402", "crates/ocs-cli", "crates/ocs-program-clawd", "crates/ocs-program-zk"]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+rust-version = "1.79"
+
+# Lean-ready discipline for the whole workspace:
+# - core crates are dependency-free and no_std-compatible (see ocs-core)
+# - all arithmetic on value paths is checked; overflow is an error, never a wrap
+# - every state transition is a pure function old_state -> Result<new_state>,
+#   mirroring formal/lean/Ocs/*.lean one-to-one
+[workspace.lints.clippy]
+arithmetic_side_effects = "warn"
+unwrap_used = "warn"

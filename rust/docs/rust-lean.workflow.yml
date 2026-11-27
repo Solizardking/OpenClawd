@@ -1,0 +1,35 @@
+name: rust-lean
+
+on:
+  push:
+    paths: ["rust/**", ".github/workflows/rust-lean.yml"]
+  pull_request:
+    paths: ["rust/**", ".github/workflows/rust-lean.yml"]
+
+jobs:
+  cargo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      - working-directory: rust
+        run: cargo fmt --all --check
+      - working-directory: rust
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - working-directory: rust
+        run: cargo test --workspace
+
+  lean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan + pinned toolchain
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - working-directory: rust/formal/lean
+        run: lake build
+      - name: No incomplete proofs
+        run: "! grep -rnE '\\bsorry\\b|\\badmit\\b' rust/formal/lean/Ocs rust/formal/lean/Ocs.lean"

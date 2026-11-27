@@ -1,0 +1,10 @@
+[package]
+name = "ocs-program-clawd"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "Program shell for clawd-protocol: byte-level (Pinocchio-style) instruction processing over ocs-core vault + conviction logic."
+
+[dependencies]
+ocs-core = { path = "../ocs-core" }

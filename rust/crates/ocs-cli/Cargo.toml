@@ -1,0 +1,15 @@
+[package]
+name = "ocs-cli"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "Rust CLI for the OpenClawd Solana rewrite — replaces the TS hot paths of clawd-code for core operations."
+
+[[bin]]
+name = "ocs"
+path = "src/main.rs"
+
+[dependencies]
+ocs-core = { path = "../ocs-core" }
+ocs-x402 = { path = "../ocs-x402" }
