@@ -1,0 +1,73 @@
+# ═══════════════════════════════════════════════════════════════
+# CLOUDFLARE WORKERS - AI Agent API
+# Wrangler configuration for deployment
+# ═══════════════════════════════════════════════════════════════
+
+name = "agent-api"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# ─────────────────────────────────────────────────
+# D1 Database (SQLite at the edge)
+# ─────────────────────────────────────────────────
+[[d1_databases]]
+binding = "DB"
+database_name = "agent-db"
+database_id = "YOUR_PRODUCTION_DB_ID"
+
+# ─────────────────────────────────────────────────
+# KV Namespace for Sessions & Rate Limiting
+# ─────────────────────────────────────────────────
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "YOUR_PRODUCTION_SESSIONS_KV_ID"
+
+[[kv_namespaces]]
+binding = "RATE_LIMITS"
+id = "YOUR_PRODUCTION_RATE_LIMIT_KV_ID"
+
+# ─────────────────────────────────────────────────
+# Environment Variables (Secrets)
+# ─────────────────────────────────────────────────
+# Set these with: wrangler secret put <NAME>
+# Wallet:
+# - CROSSMINT_SERVERSIDE_API_KEY
+# - CROSSMINT_CLIENTSIDE_API_KEY
+# - SOLANA_RPC_URL
+# Model Providers:
+# - OPENAI_API_KEY
+# - ANTHROPIC_API_KEY
+# - PHALA_API_KEY (for Phala Confidential AI - https://api.redpill.ai)
+# - DEEPSEEK_API_KEY
+
+[vars]
+ENVIRONMENT = "production"
+CORS_ORIGIN = "*"
+
+# ─────────────────────────────────────────────────
+# Development Settings
+# ─────────────────────────────────────────────────
+[dev]
+port = 8787
+local_protocol = "http"
+
+# ─────────────────────────────────────────────────
+# Staging Environment
+# ─────────────────────────────────────────────────
+[env.staging]
+name = "agent-api-staging"
+vars = { ENVIRONMENT = "staging" }
+
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "agent-db-staging"
+database_id = "YOUR_STAGING_DB_ID"
+
+[[env.staging.kv_namespaces]]
+binding = "SESSIONS"
+id = "YOUR_STAGING_KV_ID"
+
+[[env.staging.kv_namespaces]]
+binding = "RATE_LIMITS"
+id = "YOUR_STAGING_RATE_LIMIT_KV_ID"

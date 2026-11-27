@@ -1,0 +1,10 @@
+/* TEAM */
+Creator: Solizard King
+GitHub: https://github.com/solizardking
+Repository: https://github.com/solizardking/agents
+
+/* SITE */
+Last update: 2026-07-03
+Language: English
+Doctype: Markdown
+Tools: VS Code, GitHub Codespaces, GitHub Copilot, Claude Code

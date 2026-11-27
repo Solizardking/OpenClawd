@@ -1,0 +1,588 @@
+{
+  "name": "Solizard Agents",
+  "description": "Curated DeFi, trading, portfolio, security, yield, and blockchain automation agents maintained for github.com/solizardking/agents.",
+  "version": "1.0.0",
+  "repository": "https://github.com/solizardking/agents",
+  "homepage": "https://solizardking.github.io/agents",
+  "updatedAt": "2026-07-03",
+  "totals": {
+    "agents": 43,
+    "categories": 8
+  },
+  "accessPatterns": {
+    "getAllAgents": "GET /index.json",
+    "getAgentsByLanguage": "GET /index.{locale}.json",
+    "getSingleAgent": "GET /{agent-id}.json",
+    "getSingleAgentLocalized": "GET /{agent-id}.{locale}.json",
+    "getManifest": "GET /agents-manifest.json"
+  },
+  "categories": [
+    {
+      "id": "crypto",
+      "count": 6,
+      "agents": [
+        {
+          "id": "alpha-leak-detector",
+          "category": "crypto",
+          "tags": [
+            "alpha",
+            "trading",
+            "signals",
+            "research",
+            "opportunities"
+          ],
+          "path": "https://solizardking.github.io/agents/alpha-leak-detector.json"
+        },
+        {
+          "id": "crypto-news-analyst",
+          "category": "crypto",
+          "tags": [
+            "news",
+            "analysis",
+            "market",
+            "research",
+            "sentiment"
+          ],
+          "path": "https://solizardking.github.io/agents/crypto-news-analyst.json"
+        },
+        {
+          "id": "narrative-trend-analyst",
+          "category": "crypto",
+          "tags": [
+            "narrative",
+            "trends",
+            "analysis",
+            "sentiment",
+            "market-cycles"
+          ],
+          "path": "https://solizardking.github.io/agents/narrative-trend-analyst.json"
+        },
+        {
+          "id": "spa-tokenomics-analyst",
+          "category": "crypto",
+          "tags": [
+            "solizard",
+            "spa",
+            "tokenomics",
+            "staking",
+            "governance"
+          ],
+          "path": "https://solizardking.github.io/agents/spa-tokenomics-analyst.json"
+        },
+        {
+          "id": "token-unlock-tracker",
+          "category": "crypto",
+          "tags": [
+            "tokenomics",
+            "unlocks",
+            "vesting",
+            "supply",
+            "analysis"
+          ],
+          "path": "https://solizardking.github.io/agents/token-unlock-tracker.json"
+        },
+        {
+          "id": "whale-watcher",
+          "category": "crypto",
+          "tags": [
+            "on-chain",
+            "whale",
+            "analytics",
+            "trading",
+            "monitoring"
+          ],
+          "path": "https://solizardking.github.io/agents/whale-watcher.json"
+        }
+      ]
+    },
+    {
+      "id": "defi",
+      "count": 14,
+      "agents": [
+        {
+          "id": "defi-insurance-advisor",
+          "category": "defi",
+          "tags": [
+            "insurance",
+            "protection",
+            "risk",
+            "coverage",
+            "safety"
+          ],
+          "path": "https://solizardking.github.io/agents/defi-insurance-advisor.json"
+        },
+        {
+          "id": "defi-protocol-comparator",
+          "category": "defi",
+          "tags": [
+            "defi",
+            "comparison",
+            "protocols",
+            "analysis",
+            "research"
+          ],
+          "path": "https://solizardking.github.io/agents/defi-protocol-comparator.json"
+        },
+        {
+          "id": "defi-yield-farmer",
+          "category": "defi",
+          "tags": [
+            "defi",
+            "yield-farming",
+            "apy",
+            "strategy",
+            "optimization"
+          ],
+          "path": "https://solizardking.github.io/agents/defi-yield-farmer.json"
+        },
+        {
+          "id": "dex-aggregator-optimizer",
+          "category": "defi",
+          "tags": [
+            "dex",
+            "swap",
+            "routing",
+            "aggregator",
+            "optimization"
+          ],
+          "path": "https://solizardking.github.io/agents/dex-aggregator-optimizer.json"
+        },
+        {
+          "id": "layer-2-comparison-guide",
+          "category": "defi",
+          "tags": [
+            "layer-2",
+            "scaling",
+            "arbitrum",
+            "optimism",
+            "ethereum"
+          ],
+          "path": "https://solizardking.github.io/agents/layer-2-comparison-guide.json"
+        },
+        {
+          "id": "liquidity-pool-analyzer",
+          "category": "defi",
+          "tags": [
+            "defi",
+            "liquidity-pools",
+            "amm",
+            "analysis",
+            "risk"
+          ],
+          "path": "https://solizardking.github.io/agents/liquidity-pool-analyzer.json"
+        },
+        {
+          "id": "nft-liquidity-advisor",
+          "category": "defi",
+          "tags": [
+            "nft",
+            "liquidity",
+            "lending",
+            "collateral",
+            "defi"
+          ],
+          "path": "https://solizardking.github.io/agents/nft-liquidity-advisor.json"
+        },
+        {
+          "id": "protocol-revenue-analyst",
+          "category": "defi",
+          "tags": [
+            "defi",
+            "revenue",
+            "analysis",
+            "fundamentals",
+            "tokenomics"
+          ],
+          "path": "https://solizardking.github.io/agents/protocol-revenue-analyst.json"
+        },
+        {
+          "id": "pump-fun-sdk-expert",
+          "category": "defi",
+          "tags": [
+            "pump-fun",
+            "solana",
+            "sdk",
+            "bonding-curve",
+            "token-creation",
+            "defi",
+            "amm",
+            "fee-sharing"
+          ],
+          "path": "https://solizardking.github.io/agents/pump-fun-sdk-expert.json"
+        },
+        {
+          "id": "solizard-liquidity-strategist",
+          "category": "defi",
+          "tags": [
+            "solizard",
+            "liquidity",
+            "amm",
+            "yield-farming",
+            "impermanent-loss"
+          ],
+          "path": "https://solizardking.github.io/agents/solizard-liquidity-strategist.json"
+        },
+        {
+          "id": "solizard-yield-aggregator",
+          "category": "defi",
+          "tags": [
+            "solizard",
+            "yield",
+            "farming",
+            "optimization",
+            "apy"
+          ],
+          "path": "https://solizardking.github.io/agents/solizard-yield-aggregator.json"
+        },
+        {
+          "id": "stablecoin-comparator",
+          "category": "defi",
+          "tags": [
+            "stablecoin",
+            "usdc",
+            "dai",
+            "usdt",
+            "comparison"
+          ],
+          "path": "https://solizardking.github.io/agents/stablecoin-comparator.json"
+        },
+        {
+          "id": "usds-stablecoin-expert",
+          "category": "defi",
+          "tags": [
+            "solizard",
+            "stablecoin",
+            "usds",
+            "defi",
+            "yield"
+          ],
+          "path": "https://solizardking.github.io/agents/usds-stablecoin-expert.json"
+        },
+        {
+          "id": "yield-sustainability-analyst",
+          "category": "defi",
+          "tags": [
+            "defi",
+            "yield",
+            "sustainability",
+            "analysis",
+            "tokenomics"
+          ],
+          "path": "https://solizardking.github.io/agents/yield-sustainability-analyst.json"
+        }
+      ]
+    },
+    {
+      "id": "education",
+      "count": 2,
+      "agents": [
+        {
+          "id": "defi-onboarding-mentor",
+          "category": "education",
+          "tags": [
+            "education",
+            "beginner",
+            "onboarding",
+            "tutorial",
+            "defi-basics"
+          ],
+          "path": "https://solizardking.github.io/agents/defi-onboarding-mentor.json"
+        },
+        {
+          "id": "solizard-onboarding-guide",
+          "category": "education",
+          "tags": [
+            "solizard",
+            "education",
+            "onboarding",
+            "beginner",
+            "tutorial"
+          ],
+          "path": "https://solizardking.github.io/agents/solizard-onboarding-guide.json"
+        }
+      ]
+    },
+    {
+      "id": "governance",
+      "count": 3,
+      "agents": [
+        {
+          "id": "governance-proposal-analyst",
+          "category": "governance",
+          "tags": [
+            "governance",
+            "dao",
+            "voting",
+            "proposals",
+            "analysis"
+          ],
+          "path": "https://solizardking.github.io/agents/governance-proposal-analyst.json"
+        },
+        {
+          "id": "protocol-treasury-analyst",
+          "category": "governance",
+          "tags": [
+            "treasury",
+            "dao",
+            "capital",
+            "runway",
+            "allocation"
+          ],
+          "path": "https://solizardking.github.io/agents/protocol-treasury-analyst.json"
+        },
+        {
+          "id": "solizard-governance-guide",
+          "category": "governance",
+          "tags": [
+            "solizard",
+            "governance",
+            "dao",
+            "voting",
+            "proposals"
+          ],
+          "path": "https://solizardking.github.io/agents/solizard-governance-guide.json"
+        }
+      ]
+    },
+    {
+      "id": "programming",
+      "count": 1,
+      "agents": [
+        {
+          "id": "solizard-bridge-assistant",
+          "category": "programming",
+          "tags": [
+            "solizard",
+            "bridge",
+            "cross-chain",
+            "arbitrum",
+            "layer-2"
+          ],
+          "path": "https://solizardking.github.io/agents/solizard-bridge-assistant.json"
+        }
+      ]
+    },
+    {
+      "id": "security",
+      "count": 6,
+      "agents": [
+        {
+          "id": "bridge-security-analyst",
+          "category": "security",
+          "tags": [
+            "bridge",
+            "security",
+            "cross-chain",
+            "risk",
+            "multichain"
+          ],
+          "path": "https://solizardking.github.io/agents/bridge-security-analyst.json"
+        },
+        {
+          "id": "defi-risk-scoring-engine",
+          "category": "security",
+          "tags": [
+            "risk",
+            "assessment",
+            "scoring",
+            "analysis",
+            "framework"
+          ],
+          "path": "https://solizardking.github.io/agents/defi-risk-scoring-engine.json"
+        },
+        {
+          "id": "mev-protection-advisor",
+          "category": "security",
+          "tags": [
+            "mev",
+            "security",
+            "front-running",
+            "flashbots",
+            "protection"
+          ],
+          "path": "https://solizardking.github.io/agents/mev-protection-advisor.json"
+        },
+        {
+          "id": "smart-contract-auditor",
+          "category": "security",
+          "tags": [
+            "security",
+            "smart-contracts",
+            "audit",
+            "solidity",
+            "risk"
+          ],
+          "path": "https://solizardking.github.io/agents/smart-contract-auditor.json"
+        },
+        {
+          "id": "solizard-risk-monitor",
+          "category": "security",
+          "tags": [
+            "solizard",
+            "security",
+            "risk",
+            "audit",
+            "monitoring"
+          ],
+          "path": "https://solizardking.github.io/agents/solizard-risk-monitor.json"
+        },
+        {
+          "id": "wallet-security-advisor",
+          "category": "security",
+          "tags": [
+            "security",
+            "wallet",
+            "safety",
+            "best-practices",
+            "hardware"
+          ],
+          "path": "https://solizardking.github.io/agents/wallet-security-advisor.json"
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "count": 6,
+      "agents": [
+        {
+          "id": "apy-vs-apr-educator",
+          "category": "tools",
+          "tags": [
+            "defi",
+            "education",
+            "apy",
+            "apr",
+            "yields"
+          ],
+          "path": "https://solizardking.github.io/agents/apy-vs-apr-educator.json"
+        },
+        {
+          "id": "gas-optimization-expert",
+          "category": "tools",
+          "tags": [
+            "ethereum",
+            "gas",
+            "optimization",
+            "layer-2",
+            "efficiency"
+          ],
+          "path": "https://solizardking.github.io/agents/gas-optimization-expert.json"
+        },
+        {
+          "id": "impermanent-loss-calculator",
+          "category": "tools",
+          "tags": [
+            "defi",
+            "liquidity",
+            "impermanent-loss",
+            "calculator",
+            "amm"
+          ],
+          "path": "https://solizardking.github.io/agents/impermanent-loss-calculator.json"
+        },
+        {
+          "id": "liquidation-risk-manager",
+          "category": "tools",
+          "tags": [
+            "lending",
+            "liquidation",
+            "risk",
+            "collateral",
+            "defi"
+          ],
+          "path": "https://solizardking.github.io/agents/liquidation-risk-manager.json"
+        },
+        {
+          "id": "staking-rewards-calculator",
+          "category": "tools",
+          "tags": [
+            "staking",
+            "rewards",
+            "calculator",
+            "pos",
+            "yields"
+          ],
+          "path": "https://solizardking.github.io/agents/staking-rewards-calculator.json"
+        },
+        {
+          "id": "vespa-optimizer",
+          "category": "tools",
+          "tags": [
+            "solizard",
+            "vespa",
+            "staking",
+            "optimization",
+            "voting-power"
+          ],
+          "path": "https://solizardking.github.io/agents/vespa-optimizer.json"
+        }
+      ]
+    },
+    {
+      "id": "trading",
+      "count": 5,
+      "agents": [
+        {
+          "id": "airdrop-hunter",
+          "category": "trading",
+          "tags": [
+            "airdrop",
+            "rewards",
+            "strategy",
+            "farming",
+            "allocation"
+          ],
+          "path": "https://solizardking.github.io/agents/airdrop-hunter.json"
+        },
+        {
+          "id": "crypto-tax-strategist",
+          "category": "trading",
+          "tags": [
+            "tax",
+            "strategy",
+            "accounting",
+            "optimization",
+            "compliance"
+          ],
+          "path": "https://solizardking.github.io/agents/crypto-tax-strategist.json"
+        },
+        {
+          "id": "portfolio-rebalancing-advisor",
+          "category": "trading",
+          "tags": [
+            "portfolio",
+            "rebalancing",
+            "allocation",
+            "strategy",
+            "optimization"
+          ],
+          "path": "https://solizardking.github.io/agents/portfolio-rebalancing-advisor.json"
+        },
+        {
+          "id": "solizard-portfolio-tracker",
+          "category": "trading",
+          "tags": [
+            "solizard",
+            "portfolio",
+            "tracking",
+            "analytics",
+            "dashboard"
+          ],
+          "path": "https://solizardking.github.io/agents/solizard-portfolio-tracker.json"
+        },
+        {
+          "id": "yield-dashboard-builder",
+          "category": "trading",
+          "tags": [
+            "dashboard",
+            "tracking",
+            "portfolio",
+            "analytics",
+            "monitoring"
+          ],
+          "path": "https://solizardking.github.io/agents/yield-dashboard-builder.json"
+        }
+      ]
+    }
+  ]
+}

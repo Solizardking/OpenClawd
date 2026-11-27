@@ -1,0 +1,20 @@
+{
+  "author": "SperaxOS",
+  "createdAt": "2025-01-01",
+  "homepage": "https:github.comsolizardkingplugin.delivery",
+  "identifier": "opensea",
+  "manifest": "https:plugin.deliveryopenseamanifest.json",
+  "meta": {
+    "avatar": "🌊",
+    "description": "NFT collection data, floor prices, and listings",
+    "tags": [
+      "opensea",
+      "nft",
+      "floor"
+    ],
+    "title": "OpenSea",
+    "category": "gaming-entertainment"
+  },
+  "schemaVersion": 1
+}
+

@@ -1,0 +1,10 @@
+# plugin.delivery
+
+> AI plugin marketplace. SDK, gateway & developer tools for building function-calling plugins. OpenAPI compatible, multi-language support, Vercel edge deployment. Build chat plugins, AI tools & extensions. Primary use in cryptocurrency, DeFI, crypto trading, and blockchain analytics.
+
+## Links
+
+- Repository: https:github.comsolizardkingplugin.delivery
+- Author: https:github.comsolizardking
+- Full documentation: https:raw.githubusercontent.comsolizardkingplugin.deliverymainllms-full.txt
+

@@ -1,0 +1,10 @@
+# Solizard Agents
+
+> Curated JSON agent catalog for DeFi, trading, portfolio management, yield optimization, risk, security, and blockchain automation.
+
+## Links
+
+- Repository: https://github.com/solizardking/agents
+- Catalog: https://solizardking.github.io/agents/index.json
+- Manifest: https://solizardking.github.io/agents/agents-manifest.json
+- Full documentation: https://github.com/solizardking/agents/blob/main/llms-full.txt

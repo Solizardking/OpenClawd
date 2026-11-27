@@ -1,0 +1,10 @@
+name = "ocs"
+version = "0.1.0"
+defaultTargets = ["Ocs"]
+
+# No Mathlib, on purpose: the specs use only Lean core + `omega`, so the
+# project builds offline in seconds and Aristotle/Harmonic runs start from
+# a minimal trusted base. Add Mathlib per-property, never by default.
+
+[[lean_lib]]
+name = "Ocs"

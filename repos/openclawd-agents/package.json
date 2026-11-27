@@ -1,0 +1,63 @@
+{
+  "name": "@solizardking/agents-registry",
+  "version": "1.42.0",
+  "description": "Solizard-maintained Solana-native financial AI agent registry, catalog API, ACP discovery document, and Metaplex Agent Registry registration documents.",
+  "homepage": "https://github.com/solizardking/agents",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/solizardking/agents.git"
+  },
+  "license": "MIT",
+  "author": "Solizard King <solizardking@users.noreply.github.com>",
+  "type": "module",
+  "main": "public/index.json",
+  "files": [
+    "agents-catalog.json",
+    "public",
+    "schema",
+    "src",
+    "templates",
+    "server.json",
+    "robots.txt",
+    "humans.txt"
+  ],
+  "scripts": {
+    "build": "node build-catalog.cjs",
+    "lint:md": "remark . --quiet --output",
+    "prepack": "npm run build",
+    "prettier": "prettier -c --write \"**/*.{json,ts,md}\"",
+    "release": "semantic-release",
+    "test": "node build-catalog.cjs",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@lobehub/lint": "^1.25.5",
+    "@octokit/rest": "^20.1.1",
+    "@types/fs-extra": "^11.0.4",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^20.17.16",
+    "@yutengjing/eld": "^0.0.2",
+    "consola": "^3.4.0",
+    "dayjs": "^1.11.13",
+    "dirty-json": "^0.9.2",
+    "dotenv": "^16.4.7",
+    "eslint": "^8.57.1",
+    "fs-extra": "^11.3.0",
+    "gpt-tokenizer": "^3.0.0",
+    "lodash-es": "^4.17.21",
+    "openai": "^5.1.1",
+    "p-map": "^7.0.3",
+    "prettier": "^3.4.2",
+    "remark": "^15.0.1",
+    "remark-cli": "^12.0.1",
+    "remark-pangu": "^2.2.0",
+    "semantic-release": "^21.1.2",
+    "typescript": "^5.9.3",
+    "zod": "^3.24.1",
+    "zod-to-json-schema": "^3.24.1"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
+}

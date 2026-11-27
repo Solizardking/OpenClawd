@@ -1,0 +1,15 @@
+{
+    "name": "defi-agents",
+    "description": "DeFi agent definitions JSON API + MCP - Production-ready agents for Web3, crypto trading, portfolio management, and blockchain automation. MCP compatible.",
+    "version": "1.0.0",
+    "publisher": "solizardking",
+    "repository": "https://github.com/solizardking/agents",
+    "language": "TypeScript",
+    "topics": [
+        "defi",
+        "solizardking",
+        "agents",
+        "open-source"
+    ]
+}
+

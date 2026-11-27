@@ -1,0 +1,20 @@
+{
+  "author": "SperaxOS",
+  "createdAt": "2025-01-01",
+  "homepage": "https:github.comsolizardkingplugin.delivery",
+  "identifier": "morpho",
+  "manifest": "https:plugin.deliverymorphomanifest.json",
+  "meta": {
+    "avatar": "🦋",
+    "description": "Morpho optimized lending rates and vault data",
+    "tags": [
+      "morpho",
+      "lending",
+      "optimization"
+    ],
+    "title": "Morpho",
+    "category": "stocks-finance"
+  },
+  "schemaVersion": 1
+}
+

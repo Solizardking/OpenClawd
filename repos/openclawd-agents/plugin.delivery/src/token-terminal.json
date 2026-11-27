@@ -1,0 +1,20 @@
+{
+  "author": "SperaxOS",
+  "createdAt": "2025-01-01",
+  "homepage": "https:github.comsolizardkingplugin.delivery",
+  "identifier": "token-terminal",
+  "manifest": "https:plugin.deliverytoken-terminalmanifest.json",
+  "meta": {
+    "avatar": "📊",
+    "description": "Protocol fundamentals, revenue, and financial metrics",
+    "tags": [
+      "fundamentals",
+      "revenue",
+      "metrics"
+    ],
+    "title": "Token Terminal",
+    "category": "science-education"
+  },
+  "schemaVersion": 1
+}
+

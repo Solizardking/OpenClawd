@@ -1,0 +1,20 @@
+{
+  "author": "SperaxOS",
+  "createdAt": "2025-01-01",
+  "homepage": "https:github.comsolizardkingplugin.delivery",
+  "identifier": "ordinals",
+  "manifest": "https:plugin.deliveryordinalsmanifest.json",
+  "meta": {
+    "avatar": "🔶",
+    "description": "Bitcoin ordinals inscriptions and collection data",
+    "tags": [
+      "ordinals",
+      "bitcoin",
+      "inscription"
+    ],
+    "title": "Ordinals",
+    "category": "gaming-entertainment"
+  },
+  "schemaVersion": 1
+}
+

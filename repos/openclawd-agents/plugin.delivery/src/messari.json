@@ -1,0 +1,20 @@
+{
+  "author": "SperaxOS",
+  "createdAt": "2025-01-01",
+  "homepage": "https:github.comsolizardkingplugin.delivery",
+  "identifier": "messari",
+  "manifest": "https:plugin.deliverymessarimanifest.json",
+  "meta": {
+    "avatar": "📑",
+    "description": "Crypto research, asset profiles, and metrics",
+    "tags": [
+      "research",
+      "fundamentals",
+      "metrics"
+    ],
+    "title": "Messari",
+    "category": "science-education"
+  },
+  "schemaVersion": 1
+}
+
